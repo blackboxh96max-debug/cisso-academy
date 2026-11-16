@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <g stroke="#26324A" stroke-width="2.2" stroke-linejoin="round">
+    <path d="M14 60 L36 60 L42 68 L74 68 L74 120 L14 120 Z" fill="#DCFCE7" />
+    <path d="M90 60 L112 60 L118 68 L150 68 L150 120 L90 120 Z" fill="#FEF3C7" />
+    <path d="M166 60 L188 60 L194 68 L226 68 L226 120 L166 120 Z" fill="#FECACA" />
+  </g>
+  <g font-family="Caveat, cursive" font-size="14" text-anchor="middle">
+    <text x="44" y="98" fill="#15803D">public</text>
+    <text x="120" y="98" fill="#A16207">interne</text>
+    <text x="196" y="98" fill="#B91C1C">confidentiel</text>
+  </g>
+  <path d="M30 140 C70 168 170 168 210 140" fill="none" stroke="#7C3AED" stroke-width="2.4" stroke-linecap="round" />
+  <path d="M202 136 L211 140 L204 148" fill="none" stroke="#7C3AED" stroke-width="2.4" stroke-linecap="round" />
+  <g font-family="Caveat, cursive" font-size="13" text-anchor="middle" fill="#6D28D9">
+    <text x="30" y="160">créer</text>
+    <text x="214" y="166">détruire</text>
+  </g>
+  <g font-family="Caveat, cursive" font-size="15" text-anchor="middle"><text x="120" y="38" fill="#1D4ED8">le propriétaire étiquette</text></g>
+</svg>
