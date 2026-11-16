@@ -1,0 +1,1837 @@
+{
+ "lessons": [
+  {
+   "id": "m5c4-l1",
+   "title": "Choisir et protéger le site",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m5c4_l1_enceinte.svg",
+   "illustrationAlt": "Dessin d'un bâtiment entouré d'une clôture, avec un lampadaire allumé, des plots devant l'entrée et une caméra fixée au mur.",
+   "objectives": [
+    "Expliquer pourquoi la sécurité physique protège d'abord les personnes.",
+    "Choisir l'emplacement d'un site et d'une salle informatique en tenant compte des risques.",
+    "Organiser la protection en couches successives, du périmètre jusqu'à la baie.",
+    "Appliquer les principes de la prévention par la conception de l'environnement (CPTED)."
+   ],
+   "references": [
+    {
+     "title": "ISO/IEC 27002:2022, thème « mesures physiques » (contrôles 7.1 à 7.14)",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-53 Rev. 5, famille PE (Physical and Environmental Protection)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Les personnes d'abord"
+    },
+    {
+     "type": "text",
+     "text": "La sécurité physique protège les personnes, les bâtiments, les équipements et les informations contre le vol, l'intrusion, le sabotage, le feu, l'eau ou les coupures d'énergie. Un pare-feu parfait ne sert à rien si quelqu'un peut emporter le serveur sous son bras."
+    },
+    {
+     "type": "important",
+     "title": "Priorité absolue : la sécurité des personnes",
+     "text": "Quand la protection des personnes et celle des biens s'opposent, les personnes passent toujours en premier. Une issue de secours doit pouvoir s'ouvrir pendant un incendie, même si cela affaiblit la protection du bâtiment."
+    },
+    {
+     "type": "heading",
+     "text": "Choisir l'emplacement"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Critère",
+       "Questions à se poser"
+      ],
+      [
+       "Risques naturels",
+       "Zone inondable, sismique, exposée aux tempêtes ou aux feux de forêt ?"
+      ],
+      [
+       "Voisinage",
+       "Usine dangereuse, aéroport, axe routier à risque, taux de criminalité ?"
+      ],
+      [
+       "Accès et secours",
+       "Distance des pompiers, de la police, des hôpitaux ; routes d'accès multiples ?"
+      ],
+      [
+       "Services",
+       "Alimentation électrique, réseaux télécoms, eau : combien d'arrivées indépendantes ?"
+      ],
+      [
+       "Visibilité",
+       "Le site attire-t-il l'attention ? Une enseigne « centre de données » n'est pas une bonne idée."
+      ]
+     ]
+    },
+    {
+     "type": "practice",
+     "title": "Placer la salle informatique",
+     "items": [
+      "Au cœur du bâtiment, loin des murs extérieurs et sans fenêtre.",
+      "Ni au sous-sol (inondation) ni sous le toit (fuites, chaleur).",
+      "Loin des canalisations d'eau, des cuisines et des zones de stockage dangereuses.",
+      "Avec un accès limité et contrôlé, sans passage pour se rendre ailleurs.",
+      "Avec des murs qui montent du sol réel jusqu'au plafond réel, pour qu'on ne passe pas par le faux plafond ou le faux plancher."
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Des couches successives"
+    },
+    {
+     "type": "text",
+     "text": "La défense en profondeur s'applique aussi au monde physique : un intrus doit franchir plusieurs barrières indépendantes, et chaque couche le ralentit et augmente les chances de le repérer."
+    },
+    {
+     "type": "diagram",
+     "title": "Du portail à la baie",
+     "alt": "Schéma en cinq étapes, de l'extérieur vers l'intérieur : le périmètre avec clôture et éclairage, l'entrée du bâtiment avec accueil et badges, les zones internes, la salle serveurs avec un sas, et enfin la baie fermée à clé.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🚧",
+        "label": "Périmètre",
+        "detail": "clôture, éclairage, plots",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🏢",
+        "label": "Bâtiment",
+        "detail": "accueil, badges, caméras",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🚪",
+        "label": "Zones internes",
+        "detail": "besoin d'en connaître",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🖥️",
+        "label": "Salle serveurs",
+        "detail": "sas, journal d'accès",
+        "tone": "pink"
+       },
+       {
+        "emoji": "🔒",
+        "label": "Baie",
+        "detail": "serrure, scellés",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Mesure de périmètre",
+       "Rôle"
+      ],
+      [
+       "Clôture",
+       "Délimiter et ralentir. Repères souvent cités dans les manuels : environ 1 m dissuade le simple passant, environ 2 m est difficile à escalader, environ 2,4 m surmontés de barbelés arrêtent un intrus déterminé."
+      ],
+      [
+       "Éclairage",
+       "Dissuader et permettre la surveillance ; éviter les zones d'ombre et l'éblouissement des gardiens et des caméras."
+      ],
+      [
+       "Plots (bollards)",
+       "Empêcher un véhicule de foncer sur l'entrée ou la façade."
+      ],
+      [
+       "Portail et poste de garde",
+       "Contrôler les véhicules et les livraisons."
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "Une barrière physique ne rend pas l'intrusion impossible : elle la retarde. Il faut donc toujours la coupler à un moyen de détection et à une réaction."
+    },
+    {
+     "type": "heading",
+     "text": "La CPTED"
+    },
+    {
+     "type": "definition",
+     "title": "Crime Prevention Through Environmental Design (CPTED)",
+     "text": "Approche qui réduit la délinquance en aménageant l'environnement. Ses stratégies principales : la surveillance naturelle (voir et être vu : vitrages, éclairage, haies basses), le contrôle naturel des accès (chemins, aménagements qui guident vers l'entrée surveillée), le renforcement territorial (marquer clairement l'espace privé) et l'entretien (un lieu soigné montre qu'il est surveillé).",
+     "kind": "general"
+    },
+    {
+     "type": "socCase",
+     "title": "Cas : le nouveau site de la PME",
+     "kind": "example",
+     "text": "Une PME fictive installe ses serveurs dans un bâtiment loué. Le premier plan plaçait la salle au sous-sol, à côté de la chaufferie. Le RSSI la fait déplacer au premier étage, au centre du bâtiment, sans fenêtre. Il demande des plots devant le hall vitré, supprime le panneau « Data center » et fait tailler les haies qui cachaient la porte de livraison."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "Responsable des services généraux : je connais le bâtiment, ses issues et ses faiblesses.",
+      "RSSI : je relie les zones physiques à la sensibilité des informations qu'elles abritent.",
+      "Responsable sécurité des personnes : je vérifie que les mesures n'empêchent jamais l'évacuation.",
+      "Auditeur : je teste les couches en conditions simulées et autorisées."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "La sécurité des personnes passe avant la protection des biens.",
+      "Salle informatique : au centre, ni sous-sol ni dernier étage, sans fenêtre.",
+      "Les murs de la salle sensible vont du vrai sol au vrai plafond.",
+      "Une barrière retarde ; elle doit être associée à la détection et à la réaction.",
+      "CPTED = aménagement de l'environnement, pas une technologie."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Sécurité physique : personnes, bâtiments, équipements, informations.",
+      "Emplacement : risques naturels, voisinage, secours, services redondants, discrétion.",
+      "Défense en profondeur : périmètre, bâtiment, zones, salle, baie.",
+      "CPTED : surveillance naturelle, contrôle naturel des accès, renforcement territorial, entretien."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c4-q01",
+      "m5c4-q05"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m5c4-l2",
+   "title": "Contrôler les accès et surveiller",
+   "minutes": 35,
+   "illustration": "assets/illustrations/m5c4_l2_sas.svg",
+   "illustrationAlt": "Dessin d'un sas entre deux portes vitrées, avec un lecteur de badge sur le côté et une personne qui présente sa carte.",
+   "objectives": [
+    "Comparer badges, serrures, biométrie, gardiens et sas.",
+    "Repérer et empêcher le talonnage (tailgating) et le ferroutage (piggybacking).",
+    "Choisir les moyens de détection et de vidéosurveillance adaptés.",
+    "Distinguer fail-safe et fail-secure pour une porte."
+   ],
+   "references": [
+    {
+     "title": "ISO/IEC 27002:2022, contrôles 7.1 (périmètres), 7.2 (entrées physiques) et 7.4 (surveillance de la sécurité physique)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Ralentir, voir, réagir"
+    },
+    {
+     "type": "text",
+     "text": "Un dispositif de protection physique combine des mesures qui se complètent. Chaque mesure n'a de sens que si la suivante existe : une alarme que personne n'écoute ne protège rien."
+    },
+    {
+     "type": "diagram",
+     "title": "La chaîne de protection physique",
+     "alt": "Schéma en cinq étapes : dissuader avec l'éclairage et les panneaux, retarder avec les clôtures et les serrures, détecter avec les capteurs et les caméras, évaluer la situation grâce aux images et aux gardiens, puis réagir par l'intervention et l'alerte.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "💡",
+        "label": "Dissuader",
+        "detail": "éclairage, panneaux, gardiens visibles",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🧱",
+        "label": "Retarder",
+        "detail": "clôtures, portes, serrures",
+        "tone": "violet"
+       },
+       {
+        "emoji": "📡",
+        "label": "Détecter",
+        "detail": "capteurs, alarmes, caméras",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🧐",
+        "label": "Évaluer",
+        "detail": "images, levée de doute",
+        "tone": "pink"
+       },
+       {
+        "emoji": "🚨",
+        "label": "Réagir",
+        "detail": "intervention, alerte",
+        "tone": "red"
+       }
+      ]
+     }
+    },
+    {
+     "type": "heading",
+     "text": "Les moyens de contrôle d'accès"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Moyen",
+       "Points forts",
+       "Limites"
+      ],
+      [
+       "Serrure à clé",
+       "Simple, sans énergie",
+       "Clés copiées ou perdues, aucun journal"
+      ],
+      [
+       "Serrure à code (cipher lock)",
+       "Pas de clé à gérer",
+       "Code partagé ou observé ; le changer régulièrement"
+      ],
+      [
+       "Badge (carte à puce, sans contact)",
+       "Journal des passages, révocation immédiate",
+       "Badge prêté, perdu ou cloné"
+      ],
+      [
+       "Biométrie",
+       "Lié à la personne",
+       "Coût, erreurs FAR/FRR, vie privée"
+      ],
+      [
+       "Gardien",
+       "Jugement humain, s'adapte à l'imprévu",
+       "Coût, fatigue, ingénierie sociale"
+      ],
+      [
+       "Sas (mantrap)",
+       "Une seule personne à la fois",
+       "Débit limité ; doit respecter l'évacuation"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "Le gardien est la mesure la plus souple : il peut juger, dissuader, détecter et réagir. C'est aussi la plus coûteuse."
+    },
+    {
+     "type": "definition",
+     "title": "Sas (mantrap)",
+     "text": "Espace fermé par deux portes dont une seule peut être ouverte à la fois. La personne s'identifie pour entrer, puis à nouveau pour sortir vers la zone protégée. Le sas empêche de suivre quelqu'un et permet de retenir un intrus en attendant l'intervention, dans le respect des règles d'évacuation.",
+     "kind": "general"
+    },
+    {
+     "type": "important",
+     "title": "Talonnage et ferroutage",
+     "text": "Le talonnage (tailgating) consiste à passer derrière une personne autorisée sans qu'elle le sache. Le ferroutage (piggybacking) consiste à passer avec son accord, par exemple quand elle tient la porte par politesse. Les manuels ne font pas tous cette distinction ; dans les deux cas, la parade est la même : sas ou tourniquet, sensibilisation, règle « un badge, une personne »."
+    },
+    {
+     "type": "heading",
+     "text": "Visiteurs"
+    },
+    {
+     "type": "practice",
+     "title": "Gérer les visiteurs",
+     "items": [
+      "Enregistrer l'identité, l'heure d'arrivée, la personne visitée et le motif.",
+      "Remettre un badge visiteur bien visible, différent de celui du personnel.",
+      "Accompagner le visiteur dans les zones sensibles, du début à la fin.",
+      "Récupérer le badge et noter l'heure de départ.",
+      "Conserver le registre selon la politique de l'organisation."
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Détecter et surveiller"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Capteur",
+       "Principe",
+       "Usage"
+      ],
+      [
+       "Contact magnétique",
+       "Détecte l'ouverture d'une porte ou d'une fenêtre",
+       "Issues, baies"
+      ],
+      [
+       "Infrarouge passif",
+       "Détecte la chaleur d'un corps en mouvement",
+       "Pièces, couloirs"
+      ],
+      [
+       "Barrière photoélectrique",
+       "Détecte la coupure d'un faisceau",
+       "Passages, périmètres"
+      ],
+      [
+       "Vibration, bris de vitre",
+       "Détecte les chocs ou le son du verre brisé",
+       "Vitrages, murs"
+      ],
+      [
+       "Volumétrique (micro-ondes, ultrasons)",
+       "Détecte une perturbation d'un champ dans une pièce",
+       "Zones fermées la nuit"
+      ]
+     ]
+    },
+    {
+     "type": "text",
+     "text": "La vidéosurveillance (CCTV) dissuade, aide à évaluer une alarme et fournit des preuves. Elle n'a de valeur que si les images sont regardées ou analysées, conservées assez longtemps et protégées. Les personnes filmées doivent être informées, dans le respect de la vie privée et des règles locales."
+    },
+    {
+     "type": "heading",
+     "text": "Fail-safe ou fail-secure ?"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Mode",
+       "Si le courant est coupé",
+       "Priorité"
+      ],
+      [
+       "Fail-safe (sans danger)",
+       "La porte se déverrouille",
+       "Les personnes peuvent sortir"
+      ],
+      [
+       "Fail-secure (sûre)",
+       "La porte reste verrouillée",
+       "Les biens restent protégés"
+      ]
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "À l'examen, pour une issue empruntée par des personnes, la bonne réponse est presque toujours fail-safe : la vie humaine passe avant tout. Fail-secure convient à une baie ou à un coffre que personne ne doit traverser pour fuir."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas : la porte tenue par politesse",
+     "kind": "example",
+     "text": "Lors d'un test d'intrusion physique simulé et autorisé, un auditeur portant des cartons attend devant l'entrée d'un site fictif. Un salarié lui tient la porte. L'auditeur entre jusqu'à la salle de réunion, où il branche un ordinateur. Le rapport recommande un tourniquet, une campagne de sensibilisation et des ports réseau désactivés dans les salles ouvertes."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "Gardien : je vérifie chaque badge, même celui d'un visage familier.",
+      "Salarié : je ne tiens pas la porte à un inconnu, je l'oriente vers l'accueil.",
+      "RSSI : je révoque les badges le jour du départ d'une personne.",
+      "Responsable sécurité des personnes : je contrôle que les sas s'ouvrent en cas d'alarme incendie."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Sas = une seule porte ouverte à la fois, contre le talonnage.",
+      "Gardien = mesure la plus souple, grâce au jugement humain.",
+      "Une caméra non regardée ne fait que dissuader et enregistrer.",
+      "Issue de secours = fail-safe ; coffre = fail-secure.",
+      "Une serrure retarde, elle n'empêche pas."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Chaîne : dissuader, retarder, détecter, évaluer, réagir.",
+      "Moyens : serrures, codes, badges, biométrie, gardiens, sas.",
+      "Talonnage et ferroutage : sas, tourniquets, sensibilisation.",
+      "Visiteurs : registre, badge, accompagnement, retour.",
+      "Capteurs et CCTV ; fail-safe pour les personnes."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c4-q11",
+      "m5c4-q15"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m5c4-l3",
+   "title": "Énergie, climat et incendie",
+   "minutes": 40,
+   "illustration": "assets/illustrations/m5c4_l3_onduleur.svg",
+   "illustrationAlt": "Dessin d'un onduleur avec un éclair sur sa façade, à côté d'un thermomètre et d'un extincteur rouge.",
+   "objectives": [
+    "Reconnaître les anomalies électriques et leurs parades.",
+    "Maintenir la température et l'humidité adaptées aux équipements.",
+    "Choisir les moyens de détection et d'extinction d'incendie adaptés à une salle informatique.",
+    "Protéger les équipements contre le vol, l'eau et les interférences."
+   ],
+   "references": [
+    {
+     "title": "ASHRAE TC 9.9, Thermal Guidelines for Data Processing Environments (plage recommandée de 18 à 27 °C)",
+     "kind": "general"
+    },
+    {
+     "title": "NFPA 10 (classes de feu américaines) et norme européenne EN 2 (classes de feu)",
+     "kind": "general"
+    },
+    {
+     "title": "Protocole de Montréal (1987) sur les substances qui appauvrissent la couche d'ozone",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "L'énergie électrique"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Anomalie",
+       "Description",
+       "Durée"
+      ],
+      [
+       "Pic (spike)",
+       "Surtension",
+       "Brève"
+      ],
+      [
+       "Surtension prolongée (surge)",
+       "Surtension",
+       "Prolongée"
+      ],
+      [
+       "Creux (sag, dip)",
+       "Sous-tension",
+       "Brève"
+      ],
+      [
+       "Baisse de tension (brownout)",
+       "Sous-tension",
+       "Prolongée"
+      ],
+      [
+       "Coupure brève (fault)",
+       "Perte totale",
+       "Brève"
+      ],
+      [
+       "Panne (blackout)",
+       "Perte totale",
+       "Prolongée"
+      ],
+      [
+       "Courant d'appel (inrush)",
+       "Pic au démarrage d'un équipement",
+       "Brève"
+      ],
+      [
+       "Bruit (EMI, RFI)",
+       "Interférences électromagnétiques ou radio",
+       "Variable"
+      ]
+     ]
+    },
+    {
+     "type": "diagram",
+     "title": "Trop ou pas assez, bref ou long",
+     "alt": "Tableau en quatre cases : une surtension brève est un pic, une surtension prolongée est un surge, une sous-tension brève est un creux, une sous-tension prolongée est un brownout.",
+     "diagram": {
+      "type": "quadrant",
+      "xLabel": "Durée",
+      "yLabel": "Tension",
+      "cells": [
+       {
+        "emoji": "⚡",
+        "label": "Pic (spike)",
+        "detail": "trop, bref",
+        "tone": "red"
+       },
+       {
+        "emoji": "🌊",
+        "label": "Surge",
+        "detail": "trop, prolongé",
+        "tone": "orange"
+       },
+       {
+        "emoji": "📉",
+        "label": "Creux (sag)",
+        "detail": "pas assez, bref",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🕯️",
+        "label": "Brownout",
+        "detail": "pas assez, prolongé",
+        "tone": "violet"
+       }
+      ]
+     }
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Parade",
+       "Rôle"
+      ],
+      [
+       "Parafoudre, protection contre les surtensions",
+       "Absorbe les pics et les surtensions"
+      ],
+      [
+       "Conditionneur de ligne, régulateur",
+       "Lisse la tension et filtre le bruit"
+      ],
+      [
+       "Onduleur (UPS)",
+       "Fournit l'énergie quelques minutes pendant une coupure, le temps d'arrêter proprement ou de démarrer le groupe. Un onduleur en ligne (online) alimente en permanence par ses batteries : aucun temps de basculement."
+      ],
+      [
+       "Groupe électrogène",
+       "Prend le relais pendant les coupures longues ; il faut du carburant et des essais réguliers"
+      ],
+      [
+       "Double arrivée électrique",
+       "Deux alimentations indépendantes, idéalement depuis deux postes différents"
+      ],
+      [
+       "Câbles blindés, séparation des câbles",
+       "Réduisent les interférences"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "Onduleur = tenir quelques minutes. Groupe électrogène = tenir des heures ou des jours."
+    },
+    {
+     "type": "heading",
+     "text": "Le climat de la salle"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Paramètre",
+       "Repère",
+       "Si c'est mal réglé"
+      ],
+      [
+       "Température",
+       "18 à 27 °C (plage recommandée par l'ASHRAE pour les salles informatiques)",
+       "Trop chaud : pannes, durée de vie réduite"
+      ],
+      [
+       "Humidité relative",
+       "Environ 40 à 60 % (repère souvent cité dans les manuels)",
+       "Trop sèche : électricité statique ; trop humide : condensation et corrosion"
+      ],
+      [
+       "Pression de l'air",
+       "Pression positive dans la salle",
+       "Sans elle, poussière et fumée entrent quand on ouvre la porte"
+      ]
+     ]
+    },
+    {
+     "type": "practice",
+     "title": "Protéger contre l'eau",
+     "items": [
+      "Capteurs de fuite sous le faux plancher et près de la climatisation.",
+      "Vannes d'arrêt connues, étiquetées et accessibles.",
+      "Pas de canalisation au-dessus des baies.",
+      "Équipements surélevés et salle hors des zones inondables."
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Le feu"
+    },
+    {
+     "type": "text",
+     "text": "Un feu a besoin de combustible, d'oxygène et de chaleur (le triangle du feu), ainsi que d'une réaction chimique en chaîne (le tétraèdre du feu). Éteindre un feu, c'est retirer l'un de ces éléments : l'eau refroidit, le CO2 et les gaz inertes privent d'oxygène, certains agents chimiques interrompent la réaction."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Classe",
+       "États-Unis (NFPA 10)",
+       "Europe (EN 2)",
+       "Agents adaptés"
+      ],
+      [
+       "A",
+       "Solides ordinaires : papier, bois",
+       "Solides : papier, bois",
+       "Eau, mousse"
+      ],
+      [
+       "B",
+       "Liquides inflammables",
+       "Liquides inflammables",
+       "Mousse, CO2, poudre"
+      ],
+      [
+       "C",
+       "Équipements électriques sous tension",
+       "Gaz",
+       "États-Unis : CO2, agents gazeux, poudre (jamais d'eau)"
+      ],
+      [
+       "D",
+       "Métaux combustibles",
+       "Métaux",
+       "Poudres spéciales"
+      ],
+      [
+       "K (É.-U.) / F (Europe)",
+       "Huiles de cuisson",
+       "Huiles et graisses de cuisson",
+       "Agents spécifiques"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Attention aux lettres",
+     "text": "La lettre C ne désigne pas la même chose aux États-Unis (feu électrique) et en Europe (feu de gaz). Lis bien le contexte de la question. Dans tous les cas, on coupe l'alimentation électrique avant d'utiliser de l'eau sur des équipements."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Détecteur",
+       "Principe",
+       "Points à retenir"
+      ],
+      [
+       "Fumée par ionisation",
+       "Les particules modifient un courant ionisé",
+       "Réagit vite aux feux vifs"
+      ],
+      [
+       "Fumée optique (photoélectrique)",
+       "La fumée dévie ou bloque la lumière",
+       "Réagit vite aux feux couvants"
+      ],
+      [
+       "Chaleur à seuil fixe",
+       "Se déclenche à une température donnée",
+       "Peu de fausses alarmes, mais tardif"
+      ],
+      [
+       "Chaleur thermovélocimétrique",
+       "Se déclenche si la température monte vite",
+       "Plus rapide que le seuil fixe"
+      ],
+      [
+       "Flamme",
+       "Infrarouge ou ultraviolet de la flamme",
+       "Très rapide, coûteux"
+      ]
+     ]
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Sprinkleur",
+       "Fonctionnement",
+       "Usage"
+      ],
+      [
+       "Sous eau (wet pipe)",
+       "Les tuyaux sont pleins d'eau ; la tête qui chauffe s'ouvre",
+       "Le plus rapide et le plus simple ; risque de fuite et de gel"
+      ],
+      [
+       "Sous air (dry pipe)",
+       "Les tuyaux contiennent de l'air sous pression ; l'eau arrive quand une tête s'ouvre",
+       "Locaux non chauffés"
+      ],
+      [
+       "Préaction (pre-action)",
+       "L'eau n'entre dans les tuyaux qu'après une détection ; une tête doit ensuite s'ouvrir",
+       "Recommandé pour les salles informatiques : laisse le temps d'agir et limite les dégâts en cas de déclenchement accidentel"
+      ],
+      [
+       "Déluge (deluge)",
+       "Toutes les têtes sont ouvertes ; un grand volume d'eau est libéré",
+       "Risques élevés, pas pour une salle informatique"
+      ]
+     ]
+    },
+    {
+     "type": "text",
+     "text": "Les systèmes à gaz protègent les équipements sans eau. Le halon est efficace mais détruit la couche d'ozone : sa production a été arrêtée dans les pays développés en 1994 dans le cadre du Protocole de Montréal. Il est remplacé par des agents comme le FM-200 (HFC-227ea) ou des gaz inertes (Inergen, IG-541). Le CO2 est dangereux pour les personnes : il est réservé aux locaux inoccupés ou exige une évacuation avant la décharge."
+    },
+    {
+     "type": "trainerNote",
+     "text": "Pour une salle informatique occupée, la réponse attendue est souvent : détection précoce de fumée, sprinkleur à préaction et, si le budget le permet, un agent gazeux sans danger pour les personnes comme le FM-200. Le CO2 et le déluge sont des pièges."
+    },
+    {
+     "type": "heading",
+     "text": "Protéger les équipements"
+    },
+    {
+     "type": "practice",
+     "title": "Contre le vol, les fuites et les interférences",
+     "items": [
+      "Inventaire des équipements, étiquettes et contrôle des sorties de matériel.",
+      "Câbles antivol et chiffrement complet des ordinateurs portables.",
+      "Bureau propre et écran verrouillé en quittant son poste.",
+      "Câblage protégé dans des chemins de câbles ou des gaines, baies fermées à clé.",
+      "Protection contre les émanations (TEMPEST, cage de Faraday) pour les informations très sensibles.",
+      "Assainissement ou destruction des supports avant leur mise au rebut."
+     ]
+    },
+    {
+     "type": "socCase",
+     "title": "Cas : la canicule",
+     "kind": "example",
+     "text": "Dans un centre de données fictif, une climatisation tombe en panne pendant une canicule. Les capteurs signalent 30 °C au fond de la salle. L'équipe arrête les serveurs de test, ouvre la procédure de dégradation, bascule des charges vers le site secondaire et fait intervenir le mainteneur. Le retour d'expérience conduit à ajouter une unité de climatisation redondante (N+1)."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "Technicien de maintenance : je teste l'onduleur et le groupe électrogène selon le calendrier prévu.",
+      "Responsable de la salle : je suis la température, l'humidité et les capteurs de fuite en continu.",
+      "Pompier : je dois pouvoir couper l'électricité et accéder aux locaux rapidement.",
+      "RSSI : je relie ces mesures au plan de continuité et aux objectifs de disponibilité."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Spike/surge = surtension ; sag/brownout = sous-tension ; fault/blackout = coupure.",
+      "Onduleur = minutes ; groupe = heures.",
+      "Humidité trop basse = électricité statique ; trop haute = corrosion.",
+      "Pression positive : l'air sort quand on ouvre la porte.",
+      "Classe C : électrique aux États-Unis, gaz en Europe.",
+      "Salle informatique : préaction, pas déluge ; halon = production arrêtée ; CO2 dangereux."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Énergie : anomalies, parafoudre, conditionneur, onduleur, groupe, double arrivée.",
+      "Climat : 18 à 27 °C, humidité maîtrisée, pression positive, détection de fuite.",
+      "Feu : triangle et tétraèdre, classes, détecteurs, sprinkleurs, agents gazeux.",
+      "Équipements : inventaire, antivol, chiffrement, câblage protégé, mise au rebut sûre."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c4-q21",
+      "m5c4-q26"
+     ]
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "id": "m5c4-q01",
+   "domain": "operations-security",
+   "level": "beginner",
+   "concept": "Sécurité des personnes",
+   "prompt": "Quelle est la priorité absolue de la sécurité physique ?",
+   "choices": [
+    "La sécurité des personnes",
+    "La protection des serveurs",
+    "La confidentialité des données",
+    "La réduction des coûts"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Quand les deux s'opposent, les personnes passent avant les biens.",
+   "whyNot": {
+    "1": "Important, mais après les personnes.",
+    "2": "Important, mais après les personnes.",
+    "3": "Ce n'est pas une priorité de sécurité."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c4-q02",
+   "domain": "operations-security",
+   "level": "beginner",
+   "concept": "Emplacement de la salle",
+   "prompt": "Où placer de préférence une salle informatique dans un bâtiment ?",
+   "choices": [
+    "Au centre du bâtiment, sans fenêtre",
+    "Au sous-sol",
+    "Sous le toit",
+    "Contre la façade vitrée, pour la lumière"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Loin des murs extérieurs, de l'eau et des regards.",
+   "whyNot": {
+    "1": "Risque d'inondation.",
+    "2": "Fuites et chaleur.",
+    "3": "Exposée et visible."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c4-q03",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "Murs",
+   "prompt": "Pourquoi les murs d'une salle sensible doivent-ils aller du vrai sol au vrai plafond ?",
+   "choices": [
+    "Pour qu'on ne puisse pas entrer par le faux plafond ou le faux plancher",
+    "Pour améliorer l'acoustique",
+    "Pour réduire la facture d'électricité",
+    "Pour faciliter le câblage"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Une cloison qui s'arrête au faux plafond laisse un passage au-dessus.",
+   "whyNot": {
+    "1": "Ce n'est pas l'objectif de sécurité.",
+    "2": "Sans rapport.",
+    "3": "Sans rapport."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c4-q04",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "Barrières",
+   "prompt": "Que fait une clôture ou une serrure face à un intrus déterminé ?",
+   "choices": [
+    "Elle le retarde, d'où la nécessité de détecter et de réagir",
+    "Elle l'arrête à coup sûr",
+    "Elle le détecte automatiquement",
+    "Elle le dénonce à la police"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Toute barrière finit par céder ; il faut la coupler à la détection et à la réaction.",
+   "whyNot": {
+    "1": "Aucune barrière n'est infranchissable.",
+    "2": "C'est le rôle d'un capteur.",
+    "3": "Absurde."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c4-q05",
+   "domain": "operations-security",
+   "level": "beginner",
+   "concept": "Plots",
+   "prompt": "À quoi servent des plots (bollards) placés devant une entrée ?",
+   "choices": [
+    "Empêcher un véhicule de foncer sur l'entrée ou la façade",
+    "Contrôler les badges",
+    "Éclairer l'entrée",
+    "Détecter les intrus à pied"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Ils protègent contre les attaques à la voiture-bélier et les accidents.",
+   "whyNot": {
+    "1": "C'est un lecteur de badge.",
+    "2": "C'est l'éclairage.",
+    "3": "Ils ne détectent rien."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c4-q06",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "CPTED",
+   "prompt": "Tailler les haies et éclairer l'entrée pour que chacun voie qui s'en approche relève de quelle stratégie CPTED ?",
+   "choices": [
+    "La surveillance naturelle",
+    "Le renforcement territorial",
+    "Le contrôle d'accès logique",
+    "La défense active"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Voir et être vu décourage les comportements malveillants.",
+   "whyNot": {
+    "1": "Consiste à marquer l'espace privé.",
+    "2": "Sans rapport avec l'aménagement.",
+    "3": "N'est pas une stratégie CPTED."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c4-q07",
+   "domain": "operations-security",
+   "level": "advanced",
+   "concept": "CPTED",
+   "prompt": "Lesquels font partie des stratégies de la CPTED ? (plusieurs réponses)",
+   "choices": [
+    "Le contrôle naturel des accès",
+    "Le renforcement territorial",
+    "L'entretien des lieux",
+    "Le chiffrement des disques"
+   ],
+   "correct": [
+    0,
+    1,
+    2
+   ],
+   "explanation": "Avec la surveillance naturelle, ce sont les stratégies principales.",
+   "whyNot": {
+    "3": "Mesure logique, sans rapport avec l'aménagement."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c4-q08",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "Défense en profondeur",
+   "prompt": "Un centre de données a une clôture, un accueil avec badges, un sas pour la salle et des baies fermées. Quel principe est appliqué ?",
+   "choices": [
+    "La défense en profondeur",
+    "Le moindre privilège logique",
+    "La séparation des tâches",
+    "La sécurité par l'obscurité"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Plusieurs couches indépendantes, du périmètre à la baie.",
+   "whyNot": {
+    "1": "Concerne les droits d'accès.",
+    "2": "Concerne la répartition des tâches.",
+    "3": "Ne compte que sur le secret."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c4-q09",
+   "domain": "operations-security",
+   "level": "advanced",
+   "concept": "Choix du site",
+   "prompt": "Quels critères comptent dans le choix d'un site pour un centre de données ? (plusieurs réponses)",
+   "choices": [
+    "Les risques naturels de la zone",
+    "Plusieurs arrivées électriques et télécoms indépendantes",
+    "La proximité des secours",
+    "Une grande enseigne visible depuis la route"
+   ],
+   "correct": [
+    0,
+    1,
+    2
+   ],
+   "explanation": "La discrétion fait aussi partie des bonnes pratiques.",
+   "whyNot": {
+    "3": "Attire l'attention sur une cible."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c4-q10",
+   "domain": "operations-security",
+   "level": "advanced",
+   "concept": "Clôtures",
+   "prompt": "Selon les repères souvent cités dans les manuels, quelle clôture vise un intrus déterminé ?",
+   "choices": [
+    "Environ 2,4 m surmontés de barbelés",
+    "Environ 1 m",
+    "Une simple haie",
+    "Une ligne peinte au sol"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Environ 1 m dissuade le passant ; environ 2 m est difficile à escalader ; environ 2,4 m avec barbelés vise l'intrus déterminé.",
+   "whyNot": {
+    "1": "Dissuade seulement le simple passant.",
+    "2": "Marque un territoire, sans ralentir.",
+    "3": "N'arrête personne."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c4-q11",
+   "domain": "operations-security",
+   "level": "beginner",
+   "concept": "Sas",
+   "prompt": "Quel dispositif à deux portes, dont une seule s'ouvre à la fois, empêche de suivre une personne autorisée ?",
+   "choices": [
+    "Le sas (mantrap)",
+    "Le tourniquet de parking",
+    "Le contact magnétique",
+    "La caméra dôme"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Chaque personne doit s'identifier seule pour passer.",
+   "whyNot": {
+    "1": "Contrôle des véhicules.",
+    "2": "Détecte une ouverture.",
+    "3": "Observe sans bloquer."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c4-q12",
+   "domain": "operations-security",
+   "level": "beginner",
+   "concept": "Talonnage",
+   "prompt": "Comment appelle-t-on le fait d'entrer derrière une personne autorisée sans qu'elle s'en rende compte ?",
+   "choices": [
+    "Le talonnage (tailgating)",
+    "L'hameçonnage",
+    "La surveillance naturelle",
+    "L'escalade de privilèges"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le ferroutage (piggybacking) désigne souvent le même passage fait avec l'accord de la personne.",
+   "whyNot": {
+    "1": "Attaque par message.",
+    "2": "Stratégie CPTED.",
+    "3": "Attaque logique."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c4-q13",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "Gardien",
+   "prompt": "Quelle mesure de sécurité physique est la plus souple face à une situation imprévue ?",
+   "choices": [
+    "Le gardien",
+    "La clôture",
+    "La serrure à clé",
+    "Le contact magnétique"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le jugement humain lui permet de dissuader, détecter, évaluer et réagir.",
+   "whyNot": {
+    "1": "Fixe.",
+    "2": "Fixe.",
+    "3": "Ne fait que détecter."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c4-q14",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "Badge",
+   "prompt": "Quel avantage un système de badges a-t-il sur des serrures à clé ?",
+   "choices": [
+    "Un journal des passages et une révocation immédiate",
+    "Il fonctionne sans électricité",
+    "Il ne peut jamais être prêté",
+    "Il est gratuit"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "On sait qui est passé, et un badge perdu se désactive tout de suite.",
+   "whyNot": {
+    "1": "Il a besoin d'énergie.",
+    "2": "Un badge peut être prêté.",
+    "3": "Il a un coût."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c4-q15",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "Fail-safe",
+   "prompt": "Une porte d'issue de secours est équipée d'une serrure électrique. Que doit-elle faire si le courant est coupé ?",
+   "choices": [
+    "Se déverrouiller (fail-safe)",
+    "Rester verrouillée (fail-secure)",
+    "Déclencher le sprinkleur",
+    "Bloquer toutes les portes du bâtiment"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Les personnes doivent pouvoir sortir : la vie humaine passe en premier.",
+   "whyNot": {
+    "1": "Convient à un coffre, pas à une issue.",
+    "2": "Sans rapport.",
+    "3": "Dangereux."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c4-q16",
+   "domain": "operations-security",
+   "level": "advanced",
+   "concept": "Fail-secure",
+   "prompt": "Pour quelle porte un mode fail-secure est-il le plus adapté ?",
+   "choices": [
+    "La porte d'une baie de serveurs",
+    "L'issue de secours d'un open space",
+    "La porte principale d'un hall accueillant du public",
+    "La porte d'une cage d'escalier"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Personne ne doit la franchir pour évacuer ; elle protège un bien.",
+   "whyNot": {
+    "1": "Doit être fail-safe.",
+    "2": "Doit permettre l'évacuation.",
+    "3": "Voie d'évacuation."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c4-q17",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "Visiteurs",
+   "prompt": "Quelle pratique est attendue pour un visiteur dans une zone sensible ?",
+   "choices": [
+    "Il est accompagné du début à la fin de la visite",
+    "Il reçoit le même badge que le personnel",
+    "Il circule librement s'il a signé le registre",
+    "Il est laissé seul en salle serveurs pour gagner du temps"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Registre, badge visiteur distinct, accompagnement et restitution du badge.",
+   "whyNot": {
+    "1": "Le badge doit être distinct.",
+    "2": "Le registre ne suffit pas.",
+    "3": "Contraire à la règle d'accompagnement."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c4-q18",
+   "domain": "operations-security",
+   "level": "advanced",
+   "concept": "Capteurs",
+   "prompt": "Quel capteur détecte la chaleur d'une personne qui se déplace dans une pièce ?",
+   "choices": [
+    "L'infrarouge passif",
+    "Le contact magnétique",
+    "Le détecteur de bris de vitre",
+    "Le lecteur de badge"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Il réagit aux variations de rayonnement infrarouge.",
+   "whyNot": {
+    "1": "Détecte l'ouverture d'une porte.",
+    "2": "Détecte un choc ou un son.",
+    "3": "Identifie, ne détecte pas."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c4-q19",
+   "domain": "operations-security",
+   "level": "advanced",
+   "concept": "CCTV",
+   "prompt": "Quelles conditions rendent une vidéosurveillance utile ? (plusieurs réponses)",
+   "choices": [
+    "Les images sont regardées ou analysées",
+    "Les enregistrements sont conservés et protégés",
+    "Les personnes filmées sont informées",
+    "Les caméras sont cachées dans les toilettes"
+   ],
+   "correct": [
+    0,
+    1,
+    2
+   ],
+   "explanation": "Elle dissuade, aide à évaluer et fournit des preuves, dans le respect de la vie privée.",
+   "whyNot": {
+    "3": "Atteinte grave à la vie privée."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c4-q20",
+   "domain": "operations-security",
+   "level": "advanced",
+   "concept": "Chaîne de protection",
+   "prompt": "Une alarme se déclenche la nuit, mais personne n'est chargé d'y réagir. Quel maillon manque ?",
+   "choices": [
+    "La réaction",
+    "La dissuasion",
+    "Le retard",
+    "La détection"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Détecter sans réagir ne protège rien.",
+   "whyNot": {
+    "1": "Présente ou non, elle ne compense pas.",
+    "2": "Même problème.",
+    "3": "L'alarme a bien détecté."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c4-q21",
+   "domain": "operations-security",
+   "level": "beginner",
+   "concept": "Onduleur",
+   "prompt": "Quel équipement fournit l'énergie pendant quelques minutes lors d'une coupure ?",
+   "choices": [
+    "L'onduleur (UPS)",
+    "Le parafoudre",
+    "Le conditionneur de ligne",
+    "Le détecteur de fumée"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le temps d'arrêter proprement ou de démarrer le groupe électrogène.",
+   "whyNot": {
+    "1": "Absorbe les surtensions.",
+    "2": "Lisse la tension.",
+    "3": "Sans rapport."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c4-q22",
+   "domain": "operations-security",
+   "level": "beginner",
+   "concept": "Brownout",
+   "prompt": "Comment appelle-t-on une sous-tension prolongée ?",
+   "choices": [
+    "Une baisse de tension (brownout)",
+    "Un pic (spike)",
+    "Une panne (blackout)",
+    "Un courant d'appel (inrush)"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le creux (sag) est une sous-tension brève.",
+   "whyNot": {
+    "1": "Surtension brève.",
+    "2": "Perte totale prolongée.",
+    "3": "Pic au démarrage."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c4-q23",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "Anomalies électriques",
+   "prompt": "Quelle anomalie correspond à une perte totale d'alimentation de courte durée ?",
+   "choices": [
+    "La coupure brève (fault)",
+    "La panne (blackout)",
+    "Le creux (sag)",
+    "La surtension prolongée (surge)"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "La panne (blackout) est une perte totale prolongée.",
+   "whyNot": {
+    "1": "Prolongée.",
+    "2": "Sous-tension, pas perte totale.",
+    "3": "Surtension."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c4-q24",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "Humidité",
+   "prompt": "Quel risque présente une humidité trop basse dans une salle informatique ?",
+   "choices": [
+    "L'électricité statique",
+    "La corrosion",
+    "La condensation",
+    "Les inondations"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Trop humide : condensation et corrosion.",
+   "whyNot": {
+    "1": "Liée à une humidité trop haute.",
+    "2": "Liée à une humidité trop haute.",
+    "3": "Sans rapport."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c4-q25",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "Pression positive",
+   "prompt": "Pourquoi maintenir une pression d'air positive dans une salle informatique ?",
+   "choices": [
+    "Quand on ouvre la porte, l'air sort et la poussière ou la fumée n'entrent pas",
+    "Pour refroidir les processeurs plus vite",
+    "Pour éteindre un incendie",
+    "Pour réduire le bruit"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Les contaminants sont repoussés vers l'extérieur.",
+   "whyNot": {
+    "1": "Ce n'est pas l'objectif.",
+    "2": "Ce n'est pas un moyen d'extinction.",
+    "3": "Sans rapport."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c4-q26",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "Sprinkleurs",
+   "prompt": "Quel type de sprinkleur est généralement recommandé pour une salle informatique ?",
+   "choices": [
+    "À préaction",
+    "À déluge",
+    "Sous eau sans détection",
+    "Aucun, on laisse brûler"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "L'eau n'entre dans les tuyaux qu'après une détection, ce qui limite les déclenchements accidentels.",
+   "whyNot": {
+    "1": "Libère beaucoup d'eau partout.",
+    "2": "Plus de risque de dégâts des eaux.",
+    "3": "Absurde."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c4-q27",
+   "domain": "operations-security",
+   "level": "advanced",
+   "concept": "Classes de feu",
+   "prompt": "Aux États-Unis, quel agent ne faut-il jamais utiliser sur un feu de classe C ?",
+   "choices": [
+    "L'eau",
+    "Le CO2",
+    "Un agent gazeux",
+    "La poudre adaptée"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "La classe C américaine désigne les équipements électriques sous tension. En Europe, la lettre C désigne les feux de gaz.",
+   "whyNot": {
+    "1": "Adapté.",
+    "2": "Adapté.",
+    "3": "Adaptée."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c4-q28",
+   "domain": "operations-security",
+   "level": "advanced",
+   "concept": "Halon",
+   "prompt": "Pourquoi le halon n'est-il plus installé dans les nouvelles salles ?",
+   "choices": [
+    "Il détruit la couche d'ozone ; sa production a été arrêtée dans le cadre du Protocole de Montréal",
+    "Il est inefficace contre les feux",
+    "Il conduit l'électricité",
+    "Il est interdit seulement en France"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Il est remplacé par le FM-200 ou des gaz inertes comme l'Inergen.",
+   "whyNot": {
+    "1": "Il est très efficace.",
+    "2": "Faux.",
+    "3": "Accord international."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c4-q29",
+   "domain": "operations-security",
+   "level": "advanced",
+   "concept": "CO2",
+   "prompt": "Quel est le principal danger d'un système d'extinction au CO2 ?",
+   "choices": [
+    "Il peut asphyxier les personnes présentes",
+    "Il endommage l'électronique avec de l'eau",
+    "Il détruit la couche d'ozone",
+    "Il ne fonctionne pas sur les feux électriques"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Réservé aux locaux inoccupés ou avec évacuation préalable.",
+   "whyNot": {
+    "1": "Ce n'est pas de l'eau.",
+    "2": "C'est le halon.",
+    "3": "Il est adapté aux feux électriques."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c4-q30",
+   "domain": "operations-security",
+   "level": "advanced",
+   "concept": "Énergie",
+   "prompt": "Quelles mesures améliorent la disponibilité électrique d'un centre de données ? (plusieurs réponses)",
+   "choices": [
+    "Un onduleur",
+    "Un groupe électrogène testé régulièrement",
+    "Deux arrivées électriques indépendantes",
+    "Un sprinkleur à déluge"
+   ],
+   "correct": [
+    0,
+    1,
+    2
+   ],
+   "explanation": "L'onduleur couvre les minutes, le groupe les heures, la double arrivée évite le point unique de défaillance.",
+   "whyNot": {
+    "3": "Protection incendie, pas électrique."
+   },
+   "kind": "general"
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "m5c4-f01",
+   "front": "Priorité de la sécurité physique",
+   "back": "Les personnes d'abord, puis les biens.",
+   "concept": "Sécurité physique"
+  },
+  {
+   "id": "m5c4-f02",
+   "front": "Salle informatique",
+   "back": "Au centre, sans fenêtre, ni sous-sol ni sous le toit.",
+   "concept": "Sécurité physique"
+  },
+  {
+   "id": "m5c4-f03",
+   "front": "Murs de la salle",
+   "back": "Du vrai sol au vrai plafond.",
+   "concept": "Sécurité physique"
+  },
+  {
+   "id": "m5c4-f04",
+   "front": "Barrière",
+   "back": "Retarde ; à coupler avec détection et réaction.",
+   "concept": "Défense en profondeur"
+  },
+  {
+   "id": "m5c4-f05",
+   "front": "CPTED",
+   "back": "Surveillance naturelle, contrôle naturel des accès, renforcement territorial, entretien.",
+   "concept": "CPTED"
+  },
+  {
+   "id": "m5c4-f06",
+   "front": "Clôtures (repères des manuels)",
+   "back": "≈1 m passant, ≈2 m difficile à escalader, ≈2,4 m + barbelés intrus déterminé.",
+   "concept": "Clôture"
+  },
+  {
+   "id": "m5c4-f07",
+   "front": "Plots (bollards)",
+   "back": "Arrêtent les véhicules.",
+   "concept": "Plot (bollard)"
+  },
+  {
+   "id": "m5c4-f08",
+   "front": "Chaîne de protection",
+   "back": "Dissuader, retarder, détecter, évaluer, réagir.",
+   "concept": "Sécurité physique"
+  },
+  {
+   "id": "m5c4-f09",
+   "front": "Sas (mantrap)",
+   "back": "Deux portes, une seule ouverte à la fois.",
+   "concept": "Sas (mantrap)"
+  },
+  {
+   "id": "m5c4-f10",
+   "front": "Talonnage / ferroutage",
+   "back": "Sans l'accord / avec l'accord de la personne autorisée.",
+   "concept": "Talonnage"
+  },
+  {
+   "id": "m5c4-f11",
+   "front": "Gardien",
+   "back": "Mesure la plus souple : jugement humain.",
+   "concept": "Sécurité physique"
+  },
+  {
+   "id": "m5c4-f12",
+   "front": "Fail-safe / fail-secure",
+   "back": "Se déverrouille (personnes) / reste verrouillée (biens).",
+   "concept": "Fail safe"
+  },
+  {
+   "id": "m5c4-f13",
+   "front": "Visiteurs",
+   "back": "Registre, badge distinct, accompagnement, restitution.",
+   "concept": "Sécurité physique"
+  },
+  {
+   "id": "m5c4-f14",
+   "front": "Anomalies électriques",
+   "back": "Spike/surge trop ; sag/brownout pas assez ; fault/blackout coupure.",
+   "concept": "Brownout"
+  },
+  {
+   "id": "m5c4-f15",
+   "front": "Onduleur / groupe",
+   "back": "Minutes / heures.",
+   "concept": "Onduleur"
+  },
+  {
+   "id": "m5c4-f16",
+   "front": "Climat",
+   "back": "18 à 27 °C ; humidité basse = statique, haute = corrosion ; pression positive.",
+   "concept": "Pression positive"
+  },
+  {
+   "id": "m5c4-f17",
+   "front": "Triangle du feu",
+   "back": "Combustible, oxygène, chaleur (+ réaction en chaîne).",
+   "concept": "Incendie"
+  },
+  {
+   "id": "m5c4-f18",
+   "front": "Classe C",
+   "back": "États-Unis : électrique ; Europe : gaz.",
+   "concept": "Incendie"
+  },
+  {
+   "id": "m5c4-f19",
+   "front": "Sprinkleurs",
+   "back": "Sous eau, sous air, préaction (salle informatique), déluge.",
+   "concept": "Sprinkleur à préaction"
+  },
+  {
+   "id": "m5c4-f20",
+   "front": "Agents gazeux",
+   "back": "Halon arrêté (Montréal) ; FM-200, Inergen ; CO2 dangereux.",
+   "concept": "Halon"
+  }
+ ],
+ "revisionSheet": [
+  "# Fiche de révision : sécurité physique et environnementale",
+  "Priorité : la sécurité des personnes passe avant celle des biens (issues de secours, fail-safe).",
+  "Site : risques naturels, voisinage, secours, plusieurs arrivées électriques et télécoms, discrétion.",
+  "Salle informatique : au centre du bâtiment, sans fenêtre, ni sous-sol ni sous le toit, loin de l'eau ; murs du vrai sol au vrai plafond.",
+  "Défense en profondeur : périmètre (clôture, éclairage, plots), bâtiment (accueil, badges), zones, salle (sas), baie (serrure).",
+  "Clôtures, repères souvent cités : ≈1 m passant, ≈2 m difficile à escalader, ≈2,4 m avec barbelés pour l'intrus déterminé. Une barrière retarde seulement.",
+  "CPTED : surveillance naturelle, contrôle naturel des accès, renforcement territorial, entretien.",
+  "Chaîne de protection : dissuader, retarder, détecter, évaluer, réagir.",
+  "Accès : clés, codes, badges (journal, révocation), biométrie, gardiens (les plus souples), sas (une porte à la fois). Talonnage et ferroutage. Visiteurs : registre, badge, accompagnement.",
+  "Détection : contact magnétique, infrarouge passif, faisceau, vibration, volumétrique ; CCTV regardée, conservée, annoncée.",
+  "Fail-safe = se déverrouille (personnes) ; fail-secure = reste verrouillée (biens).",
+  "Énergie : spike (pic bref), surge (surtension prolongée), sag (creux bref), brownout (sous-tension prolongée), fault (coupure brève), blackout (panne prolongée), inrush, bruit EMI/RFI. Parafoudre, conditionneur, onduleur (minutes), groupe (heures), double arrivée.",
+  "Climat : 18 à 27 °C (ASHRAE) ; humidité ≈40 à 60 % (basse = statique, haute = corrosion) ; pression positive ; capteurs de fuite.",
+  "Feu : triangle (combustible, oxygène, chaleur) et tétraèdre (+ réaction en chaîne). Classes États-Unis A, B, C électrique, D, K ; Europe A, B, C gaz, D, F.",
+  "Détecteurs : ionisation (feux vifs), optique (feux couvants), chaleur fixe ou thermovélocimétrique, flamme.",
+  "Sprinkleurs : sous eau, sous air, préaction (salle informatique), déluge. Gaz : halon (production arrêtée, Montréal), FM-200, Inergen ; CO2 dangereux pour les personnes.",
+  "Équipements : inventaire, antivol, chiffrement des portables, bureau propre, câblage protégé, TEMPEST, mise au rebut sûre."
+ ],
+ "mindMap": {
+  "label": "Sécurité physique et environnementale",
+  "en": "Physical and Environmental Security",
+  "emoji": "🏢",
+  "children": [
+   {
+    "label": "Site",
+    "en": "Site",
+    "emoji": "🗺️",
+    "tone": "blue",
+    "children": [
+     {
+      "label": "Emplacement",
+      "children": [
+       {
+        "label": "Risques naturels"
+       },
+       {
+        "label": "Secours, services redondants"
+       },
+       {
+        "label": "Discrétion"
+       }
+      ]
+     },
+     {
+      "label": "Salle informatique",
+      "detail": "Au centre, sans fenêtre."
+     },
+     {
+      "label": "Personnes d'abord"
+     }
+    ]
+   },
+   {
+    "label": "Couches",
+    "en": "Layers",
+    "emoji": "🧅",
+    "tone": "orange",
+    "children": [
+     {
+      "label": "Périmètre",
+      "detail": "Clôture, éclairage, plots."
+     },
+     {
+      "label": "Bâtiment, zones, salle, baie"
+     },
+     {
+      "label": "CPTED",
+      "children": [
+       {
+        "label": "Surveillance naturelle"
+       },
+       {
+        "label": "Contrôle naturel des accès"
+       },
+       {
+        "label": "Renforcement territorial"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "label": "Accès",
+    "en": "Access Control",
+    "emoji": "🪪",
+    "tone": "violet",
+    "children": [
+     {
+      "label": "Badges, serrures, biométrie"
+     },
+     {
+      "label": "Gardiens",
+      "detail": "Les plus souples."
+     },
+     {
+      "label": "Sas",
+      "detail": "Contre le talonnage."
+     },
+     {
+      "label": "Visiteurs",
+      "detail": "Accompagnés."
+     }
+    ]
+   },
+   {
+    "label": "Surveillance",
+    "en": "Monitoring",
+    "emoji": "📹",
+    "tone": "pink",
+    "children": [
+     {
+      "label": "Capteurs",
+      "detail": "Contact, infrarouge, faisceau."
+     },
+     {
+      "label": "CCTV",
+      "detail": "Regardée, conservée."
+     },
+     {
+      "label": "Fail-safe, fail-secure"
+     }
+    ]
+   },
+   {
+    "label": "Énergie et climat",
+    "en": "Power and HVAC",
+    "emoji": "⚡",
+    "tone": "green",
+    "children": [
+     {
+      "label": "Anomalies",
+      "detail": "Spike, surge, sag, brownout, fault, blackout."
+     },
+     {
+      "label": "Onduleur, groupe, double arrivée"
+     },
+     {
+      "label": "18 à 27 °C, humidité, pression positive"
+     }
+    ]
+   },
+   {
+    "label": "Incendie",
+    "en": "Fire",
+    "emoji": "🔥",
+    "tone": "red",
+    "children": [
+     {
+      "label": "Triangle, tétraèdre"
+     },
+     {
+      "label": "Classes",
+      "detail": "C : électrique (É.-U.), gaz (Europe)."
+     },
+     {
+      "label": "Sprinkleurs",
+      "detail": "Préaction."
+     },
+     {
+      "label": "Gaz",
+      "detail": "FM-200, Inergen ; pas de CO2 si occupé."
+     }
+    ]
+   }
+  ]
+ }
+}

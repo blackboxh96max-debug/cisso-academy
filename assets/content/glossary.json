@@ -2704,5 +2704,160 @@
   "definition": "Règles de conduite professionnelle d'un organisme de certification ou d'une profession.",
   "example": "Protéger la société d'abord.",
   "kind": "general"
+ },
+ {
+  "id": "physical-security",
+  "en": "Physical security",
+  "fr": "Sécurité physique",
+  "definition": "Protection des personnes, des bâtiments, des équipements et des informations contre les menaces physiques et environnementales.",
+  "example": "Clôture, badges, onduleur, détection incendie.",
+  "kind": "general"
+ },
+ {
+  "id": "cpted",
+  "en": "Crime Prevention Through Environmental Design",
+  "fr": "Prévention de la délinquance par l'aménagement de l'environnement",
+  "acronym": "CPTED",
+  "definition": "Approche qui réduit la délinquance par l'aménagement : surveillance naturelle, contrôle naturel des accès, renforcement territorial, entretien.",
+  "example": "Haies basses et entrée bien éclairée.",
+  "kind": "general"
+ },
+ {
+  "id": "fence",
+  "en": "Fence",
+  "fr": "Clôture",
+  "definition": "Barrière de périmètre qui délimite et retarde ; sa hauteur dépend de l'intrus visé.",
+  "example": "Clôture de 2,4 m surmontée de barbelés.",
+  "kind": "general"
+ },
+ {
+  "id": "bollard",
+  "en": "Bollard",
+  "fr": "Plot (bollard)",
+  "definition": "Poteau robuste qui empêche un véhicule d'atteindre une entrée ou une façade.",
+  "example": "Plots devant un hall vitré.",
+  "kind": "general"
+ },
+ {
+  "id": "mantrap",
+  "en": "Mantrap",
+  "fr": "Sas (mantrap)",
+  "definition": "Espace à deux portes dont une seule s'ouvre à la fois, pour faire passer une personne à la fois.",
+  "example": "Sas d'entrée d'une salle serveurs.",
+  "kind": "general"
+ },
+ {
+  "id": "tailgating",
+  "en": "Tailgating",
+  "fr": "Talonnage",
+  "definition": "Passage derrière une personne autorisée sans qu'elle le sache.",
+  "example": "Suivre un salarié qui badge.",
+  "kind": "general"
+ },
+ {
+  "id": "piggybacking",
+  "en": "Piggybacking",
+  "fr": "Ferroutage",
+  "definition": "Passage avec une personne autorisée, avec son accord (distinction faite par certains manuels).",
+  "example": "Un salarié tient la porte à un inconnu.",
+  "kind": "general"
+ },
+ {
+  "id": "cctv",
+  "en": "Closed-Circuit Television",
+  "fr": "Vidéosurveillance",
+  "acronym": "CCTV",
+  "definition": "Système de caméras qui dissuade, aide à évaluer une alarme et fournit des preuves.",
+  "example": "Caméras du hall enregistrées 30 jours.",
+  "kind": "general"
+ },
+ {
+  "id": "generator",
+  "en": "Backup generator",
+  "fr": "Groupe électrogène",
+  "definition": "Moteur qui produit l'électricité pendant les coupures longues ; nécessite carburant et essais.",
+  "example": "Relais de l'onduleur après quelques minutes.",
+  "kind": "general"
+ },
+ {
+  "id": "brownout",
+  "en": "Brownout",
+  "fr": "Baisse de tension (brownout)",
+  "definition": "Sous-tension prolongée de l'alimentation électrique.",
+  "example": "Tension basse pendant une heure de pointe.",
+  "kind": "general"
+ },
+ {
+  "id": "power-surge",
+  "en": "Surge",
+  "fr": "Surtension prolongée (surge)",
+  "definition": "Surtension qui dure ; le pic bref s'appelle spike.",
+  "example": "Surtension après un défaut sur le réseau.",
+  "kind": "general"
+ },
+ {
+  "id": "blackout",
+  "en": "Blackout",
+  "fr": "Panne de courant (blackout)",
+  "definition": "Perte totale et prolongée de l'alimentation ; la coupure brève s'appelle fault.",
+  "example": "Panne régionale de plusieurs heures.",
+  "kind": "general"
+ },
+ {
+  "id": "hvac",
+  "en": "Heating, Ventilation and Air Conditioning",
+  "fr": "Chauffage, ventilation et climatisation",
+  "acronym": "HVAC",
+  "definition": "Systèmes qui maintiennent température, humidité et qualité de l'air.",
+  "example": "Climatisation redondante N+1.",
+  "kind": "general"
+ },
+ {
+  "id": "positive-pressurization",
+  "en": "Positive pressurization",
+  "fr": "Pression positive",
+  "definition": "Pression d'air plus forte à l'intérieur qu'à l'extérieur : l'air sort quand on ouvre la porte.",
+  "example": "La fumée du couloir n'entre pas dans la salle.",
+  "kind": "general"
+ },
+ {
+  "id": "fire-triangle",
+  "en": "Fire triangle",
+  "fr": "Incendie (triangle du feu)",
+  "definition": "Un feu a besoin de combustible, d'oxygène et de chaleur ; le tétraèdre ajoute la réaction en chaîne.",
+  "example": "Le CO2 éteint en privant d'oxygène.",
+  "kind": "general"
+ },
+ {
+  "id": "pre-action-sprinkler",
+  "en": "Pre-action sprinkler",
+  "fr": "Sprinkleur à préaction",
+  "definition": "Sprinkleur dont les tuyaux ne se remplissent qu'après une détection ; une tête doit ensuite s'ouvrir.",
+  "example": "Protection d'une salle informatique.",
+  "kind": "general"
+ },
+ {
+  "id": "deluge-sprinkler",
+  "en": "Deluge sprinkler",
+  "fr": "Sprinkleur à déluge",
+  "definition": "Sprinkleur aux têtes ouvertes qui libère un grand volume d'eau partout à la fois.",
+  "example": "Zone de stockage de produits inflammables.",
+  "kind": "general"
+ },
+ {
+  "id": "halon",
+  "en": "Halon",
+  "fr": "Halon",
+  "definition": "Agent d'extinction gazeux efficace qui détruit la couche d'ozone ; production arrêtée dans le cadre du Protocole de Montréal.",
+  "example": "Remplacé par le FM-200.",
+  "kind": "general"
+ },
+ {
+  "id": "tempest",
+  "en": "TEMPEST",
+  "fr": "Protection contre les émanations (TEMPEST)",
+  "definition": "Ensemble de mesures contre la fuite d'informations par les émanations électromagnétiques des équipements.",
+  "example": "Salle blindée pour des informations classifiées.",
+  "kind": "general"
  }
 ]
