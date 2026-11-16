@@ -12,6 +12,7 @@ import '../models/content.dart';
 import 'chapter_page.dart';
 import 'lesson_page.dart';
 import 'notebook/hand_drawn.dart';
+import 'notebook/page_kit.dart';
 import 'notebook/note_box.dart';
 import 'notebook/palette.dart';
 import 'notebook/typography.dart';
@@ -257,72 +258,7 @@ class DashboardPage extends StatelessWidget {
 }
 
 /// Carte de section du tableau de bord : titre manuscrit, encadré dessiné.
-class _Panel extends StatelessWidget {
-  const _Panel({
-    required this.title,
-    required this.child,
-    this.emoji,
-    this.seed = 9,
-    this.trailing,
-    this.tone = Tone.blue,
-  });
-
-  final Tone tone;
-  final String title;
-  final String? emoji;
-  final Widget child;
-  final int seed;
-  final Widget? trailing;
-
-  @override
-  Widget build(BuildContext context) {
-    final paper = Paper.of(context);
-    final c = toneColors(tone, Theme.of(context).brightness);
-    return Padding(
-      padding: const EdgeInsets.only(top: 18),
-      child: HandBox(
-        fill: paper.page,
-        stroke: toneBright(tone),
-        strokeWidth: 2.4,
-        seed: seed,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                if (emoji != null) ...[
-                  Text(emoji!, style: const TextStyle(fontSize: 20)),
-                  const SizedBox(width: 8),
-                ],
-                Expanded(
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: HandUnderline(
-                      color: toneBright(tone),
-                      seed: seed,
-                      child: Text(
-                        title,
-                        style: TextStyle(
-                          fontFamily: Hand.title,
-                          fontSize: 28,
-                          fontWeight: FontWeight.w700,
-                          color: c.ink,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                ?trailing,
-              ],
-            ),
-            const SizedBox(height: 8),
-            child,
-          ],
-        ),
-      ),
-    );
-  }
-}
+typedef _Panel = NotePanel;
 
 class _WelcomeCard extends StatelessWidget {
   const _WelcomeCard({required this.stats, required this.onOpen});

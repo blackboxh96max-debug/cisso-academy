@@ -4,6 +4,7 @@ import 'package:cisso_academy/app_state.dart';
 import 'package:cisso_academy/data/progress_store.dart';
 import 'package:cisso_academy/main.dart';
 import 'package:cisso_academy/models/content.dart';
+import 'package:cisso_academy/ui/chapter_page.dart';
 import 'package:cisso_academy/ui/quiz_page.dart';
 import 'package:cisso_academy/ui/quiz_result_page.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -244,4 +245,44 @@ void main() {
       );
     },
   );
+
+  testWidgets('cours, chapitre et fiche suivent le style cahier', (
+    tester,
+  ) async {
+    await pumpApp(tester);
+    await tester.tap(
+      find.descendant(
+        of: find.byType(NavigationBar),
+        matching: find.text('Cours'),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('Module 1'), findsOneWidget);
+    expect(find.text('🔒 Bientôt disponible'), findsWidgets);
+    expect(find.text('📖 3 leçons'), findsWidgets);
+
+    await tester.tap(find.text('Gestion, analyse et traitement des risques'));
+    await tester.pumpAndSettle();
+    expect(find.text('Leçons'), findsOneWidget);
+    expect(find.text('📖 À lire'), findsNWidgets(3));
+
+    final sheet = find.text('Fiche de révision');
+    await tester.scrollUntilVisible(
+      sheet,
+      300,
+      scrollable: find
+          .descendant(
+            of: find.byType(ChapterPage),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(sheet);
+    await tester.pumpAndSettle();
+    expect(
+      find.textContaining('points clés à savoir par cœur'),
+      findsOneWidget,
+    );
+  });
 }

@@ -40,6 +40,7 @@ Dernière mise à jour : 2026-11-16. Règle : une fonctionnalité n'est marquée
 | Tableau de bord : illustration d'accueil, anneau de progression, 5 modules colorés, courbe des scores, radar des 11 domaines, camembert, maîtrise des chapitres, 8 badges, objectif du jour (20 réponses), série de jours, accès rapide ; 2 colonnes sur grand écran | Fait, **à valider** | `lib/ui/dashboard_page.dart`, `test/stats_test.dart` |
 | Flashcards façon fiche bristol : retournement 3D, couleur du module, difficulté, animation « carte maîtrisée » | Fait | `lib/ui/flashcards_page.dart`, `test/widget_test.dart` |
 | Animations légères désactivables (Réglages) et respect du réglage système « réduire les animations » | Fait | `test/widget_test.dart`, migration SQLite v2 testée dans `test/sqlite_store_test.dart` |
+| Pages Cours, Chapitre, QCM et examens, Flashcards, Glossaire, Fiche de révision et Résultats au style cahier (bandeaux en dégradé, cartes dessinées, gommettes, boutons colorés) | Fait | `lib/ui/notebook/page_kit.dart`, `test/widget_test.dart` (« cours, chapitre et fiche suivent le style cahier ») |
 | Application du design aux autres chapitres, schémas par chapitre (OSI, PDCA, SOC, IR, PKI, PCA/PRA, RTO/RPO, Zero Trust…) | À faire, après validation | |
 | Essai sur un vrai téléphone Android et sur ordinateur (hors aperçu web) | À faire | |
 

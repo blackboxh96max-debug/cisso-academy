@@ -1,6 +1,10 @@
 import 'package:material_ui/material_ui.dart';
 
 import '../models/content.dart';
+import 'notebook/hand_drawn.dart';
+import 'notebook/page_kit.dart';
+import 'notebook/palette.dart';
+import 'notebook/typography.dart';
 import 'theme.dart';
 
 /// Étiquette qui indique la nature d'une information (officiel, général…).
@@ -57,12 +61,27 @@ class SectionTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final c = toneColors(Tone.blue, Theme.of(context).brightness);
     return Padding(
       padding: const EdgeInsets.only(top: 24, bottom: 8),
       child: Row(
         children: [
           Expanded(
-            child: Text(text, style: Theme.of(context).textTheme.titleMedium),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: HandUnderline(
+                color: toneBright(Tone.blue),
+                child: Text(
+                  text,
+                  style: TextStyle(
+                    fontFamily: Hand.title,
+                    fontSize: 26,
+                    fontWeight: FontWeight.w700,
+                    color: c.ink,
+                  ),
+                ),
+              ),
+            ),
           ),
           ?trailing,
         ],
@@ -71,57 +90,51 @@ class SectionTitle extends StatelessWidget {
   }
 }
 
-/// Indicateur chiffré du tableau de bord.
+/// Indicateur chiffré, au style cahier.
 class StatTile extends StatelessWidget {
   const StatTile({
     super.key,
     required this.label,
     required this.value,
     this.caption,
+    this.tone = Tone.blue,
   });
 
   final String label;
   final String value;
   final String? caption;
+  final Tone tone;
 
   @override
   Widget build(BuildContext context) {
-    final text = Theme.of(context).textTheme;
-    final scheme = Theme.of(context).colorScheme;
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(14),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              label,
-              style: text.labelMedium?.copyWith(color: scheme.onSurfaceVariant),
-            ),
-            const SizedBox(height: 4),
-            Text(value, style: text.headlineSmall),
-            if (caption != null)
-              Text(
-                caption!,
-                style: text.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
-              ),
-          ],
-        ),
-      ),
+    final stat = HandStat(label: label, value: value, tone: tone);
+    if (caption == null) return stat;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        stat,
+        Text(caption!, style: Hand.sansText(context, size: 12)),
+      ],
     );
   }
 }
 
 /// Barre de progression avec libellé et pourcentage.
 class LabeledProgress extends StatelessWidget {
-  const LabeledProgress({super.key, required this.label, required this.value});
+  const LabeledProgress({
+    super.key,
+    required this.label,
+    required this.value,
+    this.tone = Tone.blue,
+  });
 
   final String label;
   final double value;
+  final Tone tone;
 
   @override
   Widget build(BuildContext context) {
-    final text = Theme.of(context).textTheme;
+    final c = toneColors(tone, Theme.of(context).brightness);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: Column(
@@ -129,18 +142,20 @@ class LabeledProgress extends StatelessWidget {
         children: [
           Row(
             children: [
-              Expanded(child: Text(label, style: text.bodyMedium)),
-              Text('${(value * 100).round()} %', style: text.labelLarge),
+              Expanded(
+                child: Text(label, style: Hand.sansText(context, size: 14)),
+              ),
+              Text(
+                '${(value * 100).round()} %',
+                style: Hand.sansText(
+                  context,
+                  size: 14,
+                ).copyWith(color: c.ink, fontWeight: FontWeight.w800),
+              ),
             ],
           ),
           const SizedBox(height: 6),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(4),
-            child: LinearProgressIndicator(
-              value: value.clamp(0, 1),
-              minHeight: 8,
-            ),
-          ),
+          HandProgress(value: value, tone: tone),
         ],
       ),
     );

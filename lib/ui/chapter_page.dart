@@ -1,10 +1,16 @@
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:material_ui/material_ui.dart';
 
 import '../app_state.dart';
+import '../models/content.dart';
+import 'flashcards_page.dart';
 import 'lesson_page.dart';
+import 'notebook/hand_drawn.dart';
+import 'notebook/page_kit.dart';
+import 'notebook/palette.dart';
+import 'notebook/typography.dart';
 import 'quiz_hub_page.dart';
 import 'revision_sheet_page.dart';
-import 'widgets.dart';
 
 class ChapterPage extends StatelessWidget {
   const ChapterPage({super.key, required this.chapterId});
@@ -19,75 +25,249 @@ class ChapterPage extends StatelessWidget {
       (c) => c.chapter.id == chapterId,
     );
     final module = state.library.module(chapter.moduleId);
-    final scheme = Theme.of(context).colorScheme;
+    final (tone, emoji) = moduleStyle(module.number);
+    final white = Hand.sansText(
+      context,
+      size: 13,
+    ).copyWith(color: Colors.white, fontWeight: FontWeight.w700);
 
-    return Scaffold(
-      appBar: AppBar(title: Text(chapter.title)),
-      body: ReadingList(
-        children: [
-          Text(
-            'Module ${module.number} · ${module.title}',
-            style: Theme.of(context).textTheme.labelLarge
-                ?.copyWith(color: scheme.onSurfaceVariant),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            'Domaine officiel : ${chapter.domainIds.map((d) {
-              final dom = state.library.domain(d);
-              return '${dom.nameFr} (${dom.weight} % de l\'examen)';
-            }).join(', ')}',
-          ),
-          const SizedBox(height: 12),
-          LabeledProgress(
-            label: 'Progression du chapitre',
-            value: stats.progress,
-          ),
-          Text('Statut : ${stats.status.label}'),
-          const SectionTitle('Leçons'),
-          Card(
-            child: Column(
-              children: [
-                for (final (i, lesson) in chapter.lessons.indexed)
-                  ListTile(
-                    leading: CircleAvatar(
-                      child: state.readLessons.contains(lesson.id)
-                          ? const Icon(Icons.check)
-                          : Text('${i + 1}'),
+    return NotebookPage(
+      title: 'Chapitre',
+      children: [
+        GradientBanner(
+          tone: tone,
+          seed: 51,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '$emoji  Module ${module.number} · ${module.title}',
+                style: white,
+              ),
+              const SizedBox(height: 4),
+              Text(
+                chapter.title,
+                style: const TextStyle(
+                  fontFamily: Hand.title,
+                  fontSize: 36,
+                  height: 1.05,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Wrap(
+                spacing: 6,
+                runSpacing: 6,
+                children: [
+                  for (final d in chapter.domainIds)
+                    _WhitePill(
+                      '🎯 ${state.library.domain(d).nameFr} · '
+                      '${state.library.domain(d).weight} % de l\'examen',
                     ),
-                    title: Text(lesson.title),
-                    subtitle: Text('Environ ${lesson.minutes} min'),
-                    trailing: const Icon(Icons.chevron_right),
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => LessonPage(lesson: lesson),
-                      ),
+                  _WhitePill('📊 ${stats.status.label}'),
+                ],
+              ),
+              const SizedBox(height: 12),
+              HandProgress(value: stats.progress, onDark: true),
+              const SizedBox(height: 4),
+              Text(
+                'Progression du chapitre : ${(stats.progress * 100).round()} %'
+                ' · ${stats.lessonsRead}/${stats.lessonCount} leçon(s) lue(s)',
+                style: white,
+              ),
+            ],
+          ),
+        ),
+        NotePanel(
+          title: 'Leçons',
+          emoji: '📚',
+          tone: Tone.blue,
+          seed: 52,
+          child: Column(
+            children: [
+              for (final (i, lesson) in chapter.lessons.indexed)
+                Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: _LessonCard(
+                    lesson: lesson,
+                    index: i,
+                    read: state.readLessons.contains(lesson.id),
+                    tone: tone,
+                  ),
+                ),
+            ],
+          ),
+        ),
+        NotePanel(
+          title: 'S\'entraîner et réviser',
+          emoji: '💪',
+          tone: Tone.pink,
+          seed: 53,
+          child: Wrap(
+            spacing: 10,
+            runSpacing: 10,
+            children: [
+              GradientButton(
+                emoji: '📝',
+                label: 'QCM du chapitre (${chapter.questions.length})',
+                from: Tone.pink,
+                to: Tone.violet,
+                onPressed: () => startPractice(context, chapterId: chapterId),
+              ),
+              GradientButton(
+                emoji: '🃏',
+                label: 'Flashcards (${chapter.flashcards.length})',
+                from: Tone.turquoise,
+                to: Tone.blue,
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => FlashcardSessionPage(
+                      cardIds: chapter.flashcards.map((f) => f.id).toList(),
                     ),
                   ),
-              ],
-            ),
-          ),
-          const SectionTitle('S\'entraîner et réviser'),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: [
-              FilledButton.icon(
-                onPressed: () => startPractice(context, chapterId: chapterId),
-                icon: const Icon(Icons.quiz_outlined),
-                label: Text('QCM du chapitre (${chapter.questions.length})'),
+                ),
               ),
-              OutlinedButton.icon(
+              GradientButton(
+                emoji: '📄',
+                label: 'Fiche de révision',
+                from: Tone.orange,
+                to: Tone.yellow,
                 onPressed: () => Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (_) => RevisionSheetPage(chapter: chapter),
                   ),
                 ),
-                icon: const Icon(Icons.description_outlined),
-                label: const Text('Fiche de révision'),
               ),
             ],
           ),
-        ],
+        ),
+      ],
+    );
+  }
+}
+
+class _WhitePill extends StatelessWidget {
+  const _WhitePill(this.text);
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.22),
+        borderRadius: BorderRadius.circular(999),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.6)),
+      ),
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontFamily: Hand.sans,
+          fontSize: 12.5,
+          fontWeight: FontWeight.w700,
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
+}
+
+class _LessonCard extends StatelessWidget {
+  const _LessonCard({
+    required this.lesson,
+    required this.index,
+    required this.read,
+    required this.tone,
+  });
+
+  final Lesson lesson;
+  final int index;
+  final bool read;
+  final Tone tone;
+
+  @override
+  Widget build(BuildContext context) {
+    final paper = Paper.of(context);
+    final c = toneColors(tone, Theme.of(context).brightness);
+    final thumb = Container(
+      width: 64,
+      height: 64,
+      padding: const EdgeInsets.all(6),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        shape: BoxShape.circle,
+        border: Border.all(color: toneBright(tone), width: 2.4),
+      ),
+      child: lesson.illustration != null
+          ? SvgPicture.asset(lesson.illustration!, excludeFromSemantics: true)
+          : Center(
+              child: Text(
+                '${index + 1}',
+                style: TextStyle(
+                  fontFamily: Hand.title,
+                  fontSize: 28,
+                  fontWeight: FontWeight.w700,
+                  color: c.ink,
+                ),
+              ),
+            ),
+    );
+    return InkWell(
+      borderRadius: BorderRadius.circular(16),
+      onTap: () => Navigator.of(context)
+          .push(MaterialPageRoute(builder: (_) => LessonPage(lesson: lesson))),
+      child: HandBox(
+        fill: c.fill,
+        stroke: toneBright(tone),
+        strokeWidth: 2,
+        seed: 60 + index,
+        padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
+        child: Row(
+          children: [
+            thumb,
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Leçon ${index + 1}',
+                    style: Hand.sansText(
+                      context,
+                      size: 12.5,
+                    ).copyWith(color: c.ink, fontWeight: FontWeight.w800),
+                  ),
+                  Text(
+                    lesson.title,
+                    style: TextStyle(
+                      fontFamily: Hand.body,
+                      fontSize: 21,
+                      height: 1.2,
+                      color: paper.ink,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Wrap(
+                    spacing: 6,
+                    runSpacing: 6,
+                    children: [
+                      Sticker(
+                        text: '⏱️ ${lesson.minutes} min',
+                        tone: Tone.yellow,
+                      ),
+                      read
+                          ? const Sticker(text: '✅ Lue', tone: Tone.green)
+                          : const Sticker(text: '📖 À lire', tone: Tone.orange),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Icon(Icons.arrow_forward_rounded, color: c.ink),
+          ],
+        ),
       ),
     );
   }

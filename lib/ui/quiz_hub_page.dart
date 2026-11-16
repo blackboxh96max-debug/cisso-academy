@@ -4,6 +4,10 @@ import '../app_state.dart';
 import '../data/progress_store.dart';
 import '../logic/quiz_engine.dart';
 import '../models/content.dart';
+import 'notebook/hand_drawn.dart';
+import 'notebook/page_kit.dart';
+import 'notebook/palette.dart';
+import 'notebook/typography.dart';
 import 'quiz_page.dart';
 import 'widgets.dart';
 
@@ -128,167 +132,190 @@ class _QuizHubPageState extends State<QuizHubPage> {
       color: Theme.of(context).colorScheme.onSurfaceVariant,
     );
 
-    return Scaffold(
-      appBar: AppBar(title: const Text('QCM et examens')),
-      body: ReadingList(
-        children: [
-          const SectionTitle('Entraînement par chapitre'),
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  DropdownButtonFormField<String>(
-                    initialValue: _chapterId,
-                    isExpanded: true,
-                    decoration: const InputDecoration(labelText: 'Chapitre'),
-                    items: [
-                      for (final c in chapters)
-                        DropdownMenuItem(value: c.id, child: Text(c.title)),
-                    ],
-                    onChanged: (v) => setState(() => _chapterId = v),
-                  ),
-                  const SizedBox(height: 16),
-                  Text('Niveau', style: text.labelLarge),
-                  const SizedBox(height: 6),
-                  Wrap(
-                    spacing: 8,
-                    children: [
-                      for (final l in Level.values)
-                        FilterChip(
-                          label: Text(l.label),
-                          selected: _levels.contains(l),
-                          onSelected: (on) => setState(
-                            () => on ? _levels.add(l) : _levels.remove(l),
-                          ),
-                        ),
-                    ],
-                  ),
-                  Text(
-                    'Aucun niveau sélectionné = tous les niveaux.',
-                    style: muted,
-                  ),
-                  const SizedBox(height: 16),
-                  Text('Nombre de questions', style: text.labelLarge),
-                  const SizedBox(height: 6),
-                  SegmentedButton<int?>(
-                    segments: const [
-                      ButtonSegment(value: 10, label: Text('10')),
-                      ButtonSegment(value: 20, label: Text('20')),
-                      ButtonSegment(value: null, label: Text('Toutes')),
-                    ],
-                    selected: {_count},
-                    onSelectionChanged: (s) => setState(() => _count = s.first),
-                  ),
-                  SwitchListTile(
-                    contentPadding: EdgeInsets.zero,
-                    title: const Text('Mode chronométré'),
-                    subtitle: Text(
-                      'Même rythme que l\'examen : '
-                      '${info.secondsPerQuestion.round()} s par question',
-                    ),
-                    value: _timed,
-                    onChanged: (v) => setState(() => _timed = v),
-                  ),
-                  const SizedBox(height: 8),
-                  FilledButton.icon(
-                    onPressed: _chapterId == null
-                        ? null
-                        : () => startPractice(
-                            context,
-                            chapterId: _chapterId!,
-                            levels: _levels,
-                            count: _count,
-                            timed: _timed,
-                          ),
-                    icon: const Icon(Icons.play_arrow),
-                    label: const Text('Commencer'),
-                  ),
+    return NotebookPage(
+      title: 'QCM et examens',
+      children: [
+        NotePanel(
+          title: 'Entraînement par chapitre',
+          emoji: '🎯',
+          tone: Tone.violet,
+          seed: 101,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              DropdownButtonFormField<String>(
+                initialValue: _chapterId,
+                isExpanded: true,
+                decoration: const InputDecoration(labelText: 'Chapitre'),
+                items: [
+                  for (final c in chapters)
+                    DropdownMenuItem(value: c.id, child: Text(c.title)),
                 ],
+                onChanged: (v) => setState(() => _chapterId = v),
               ),
-            ),
-          ),
-          const SectionTitle('Reprise des erreurs'),
-          Card(
-            child: ListTile(
-              leading: const Icon(Icons.replay),
-              title: Text(
-                state.stats.wrongQuestionIds.isEmpty
-                    ? 'Aucune erreur en cours'
-                    : '${state.stats.wrongQuestionIds.length} question(s) à reprendre',
-              ),
-              subtitle: const Text(
-                'Les questions dont votre dernière réponse était fausse.',
-              ),
-              trailing: const Icon(Icons.chevron_right),
-              enabled: state.stats.wrongQuestionIds.isNotEmpty,
-              onTap: () => startRetry(context),
-            ),
-          ),
-          const SectionTitle('Examen blanc'),
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              const SizedBox(height: 16),
+              Text('Niveau', style: text.labelLarge),
+              const SizedBox(height: 6),
+              Wrap(
+                spacing: 8,
                 children: [
-                  Row(
-                    children: [
-                      const Expanded(
-                        child: Text('Conditions proches de l\'examen'),
+                  for (final l in Level.values)
+                    FilterChip(
+                      label: Text(l.label),
+                      selected: _levels.contains(l),
+                      onSelected: (on) => setState(
+                        () => on ? _levels.add(l) : _levels.remove(l),
                       ),
-                      const SourceBadge(SourceKind.official),
-                    ],
-                  ),
-                  const SizedBox(height: 6),
-                  Text(
-                    'Examen réel : ${info.questionCount} questions en '
-                    '${info.durationMinutes} min, seuil ${info.passingScore}/100 '
-                    '(${info.source}). Ici, le temps est calculé au prorata et '
-                    'les questions sont réparties selon le poids des domaines.',
-                    style: muted,
-                  ),
-                  if (available < info.questionCount) ...[
-                    const SizedBox(height: 6),
-                    Text(
-                      'Banque actuelle : $available questions originales. '
-                      'L\'examen complet de ${info.questionCount} questions sera '
-                      'possible quand la banque sera assez fournie.',
-                      style: muted,
                     ),
-                  ],
-                  const SizedBox(height: 12),
-                  SegmentedButton<int>(
-                    segments: [
-                      for (final s in examSizes)
-                        ButtonSegment(value: s, label: Text('$s q.')),
-                    ],
-                    selected: {_examSize},
-                    onSelectionChanged: (s) =>
-                        setState(() => _examSize = s.first),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Durée : ${formatDuration(examDuration(info, _examSize))}',
-                    style: text.bodyMedium,
-                  ),
-                  const SizedBox(height: 12),
-                  FilledButton.icon(
-                    onPressed: available == 0
-                        ? null
-                        : () => startExam(context, _examSize),
-                    icon: const Icon(Icons.timer_outlined),
-                    label: const Text('Démarrer l\'examen blanc'),
-                  ),
                 ],
               ),
-            ),
+              Text(
+                'Aucun niveau sélectionné = tous les niveaux.',
+                style: muted,
+              ),
+              const SizedBox(height: 16),
+              Text('Nombre de questions', style: text.labelLarge),
+              const SizedBox(height: 6),
+              SegmentedButton<int?>(
+                segments: const [
+                  ButtonSegment(value: 10, label: Text('10')),
+                  ButtonSegment(value: 20, label: Text('20')),
+                  ButtonSegment(value: null, label: Text('Toutes')),
+                ],
+                selected: {_count},
+                onSelectionChanged: (s) => setState(() => _count = s.first),
+              ),
+              SwitchListTile(
+                contentPadding: EdgeInsets.zero,
+                title: const Text('Mode chronométré'),
+                subtitle: Text(
+                  'Même rythme que l\'examen : '
+                  '${info.secondsPerQuestion.round()} s par question',
+                ),
+                value: _timed,
+                onChanged: (v) => setState(() => _timed = v),
+              ),
+              const SizedBox(height: 8),
+              GradientButton(
+                emoji: '▶️',
+                label: 'Commencer',
+                from: Tone.violet,
+                to: Tone.pink,
+                onPressed: _chapterId == null
+                    ? null
+                    : () => startPractice(
+                        context,
+                        chapterId: _chapterId!,
+                        levels: _levels,
+                        count: _count,
+                        timed: _timed,
+                      ),
+              ),
+            ],
           ),
-          const SectionTitle('Tentatives d\'examen blanc'),
-          ..._examHistory(context, state),
-        ],
-      ),
+        ),
+        NotePanel(
+          title: 'Reprise des erreurs',
+          emoji: '🔁',
+          tone: Tone.orange,
+          seed: 102,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                state.stats.wrongQuestionIds.isEmpty
+                    ? 'Aucune erreur en cours, bravo !'
+                    : '${state.stats.wrongQuestionIds.length} question(s) à reprendre',
+                style: Hand.bodyText(context),
+              ),
+              Text(
+                'Les questions dont votre dernière réponse était fausse.',
+                style: muted,
+              ),
+              const SizedBox(height: 10),
+              GradientButton(
+                emoji: '🔁',
+                label: 'Reprendre mes erreurs',
+                from: Tone.orange,
+                to: Tone.pink,
+                onPressed: state.stats.wrongQuestionIds.isEmpty
+                    ? null
+                    : () => startRetry(context),
+              ),
+            ],
+          ),
+        ),
+        NotePanel(
+          title: 'Examen blanc',
+          emoji: '⏱️',
+          tone: Tone.pink,
+          seed: 103,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  const Expanded(
+                    child: Text('Conditions proches de l\'examen'),
+                  ),
+                  const SourceBadge(SourceKind.official),
+                ],
+              ),
+              const SizedBox(height: 6),
+              Text(
+                'Examen réel : ${info.questionCount} questions en '
+                '${info.durationMinutes} min, seuil ${info.passingScore}/100 '
+                '(${info.source}). Ici, le temps est calculé au prorata et '
+                'les questions sont réparties selon le poids des domaines.',
+                style: muted,
+              ),
+              if (available < info.questionCount) ...[
+                const SizedBox(height: 6),
+                Text(
+                  'Banque actuelle : $available questions originales. '
+                  'L\'examen complet de ${info.questionCount} questions sera '
+                  'possible quand la banque sera assez fournie.',
+                  style: muted,
+                ),
+              ],
+              const SizedBox(height: 12),
+              SegmentedButton<int>(
+                segments: [
+                  for (final s in examSizes)
+                    ButtonSegment(value: s, label: Text('$s q.')),
+                ],
+                selected: {_examSize},
+                onSelectionChanged: (s) => setState(() => _examSize = s.first),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Durée : ${formatDuration(examDuration(info, _examSize))}',
+                style: text.bodyMedium,
+              ),
+              const SizedBox(height: 12),
+              GradientButton(
+                emoji: '⏱️',
+                label: 'Démarrer l\'examen blanc',
+                from: Tone.pink,
+                to: Tone.orange,
+                onPressed: available == 0
+                    ? null
+                    : () => startExam(context, _examSize),
+              ),
+            ],
+          ),
+        ),
+        NotePanel(
+          title: 'Tentatives d\'examen blanc',
+          emoji: '📈',
+          tone: Tone.blue,
+          seed: 104,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: _examHistory(context, state),
+          ),
+        ),
+      ],
     );
   }
 
@@ -299,26 +326,37 @@ class _QuizHubPageState extends State<QuizHubPage> {
         .reversed
         .toList();
     if (exams.isEmpty) {
-      return [const Text('Aucune tentative pour l\'instant.')];
+      return [
+        Text(
+          'Aucune tentative pour l\'instant : lancez-vous, c\'est le meilleur entraînement !',
+          style: Hand.bodyText(context),
+        ),
+      ];
     }
     final pass = state.library.examInfo.passingScore;
     return [
-      Card(
-        child: Column(
-          children: [
-            for (final e in exams)
-              ListTile(
-                title: Text(
-                  '${e.score}/100 · ${e.score >= pass ? 'réussi' : 'non atteint'}',
-                ),
-                subtitle: Text(
+      for (final e in exams)
+        Padding(
+          padding: const EdgeInsets.only(top: 8),
+          child: Row(
+            children: [
+              Sticker(
+                text: e.score >= pass
+                    ? '🏆 ${e.score}/100 · réussi'
+                    : '💪 ${e.score}/100 · non atteint',
+                tone: e.score >= pass ? Tone.green : Tone.orange,
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
                   '${formatDate(e.finishedAt)} · ${e.total} questions · '
                   '${formatDuration(Duration(seconds: e.durationSeconds))}',
+                  style: Hand.sansText(context, size: 13),
                 ),
               ),
-          ],
+            ],
+          ),
         ),
-      ),
     ];
   }
 }
