@@ -27,7 +27,7 @@ void main() {
 
   test('chaque chapitre disponible respecte le format pédagogique', () {
     final chapters = library.availableChapters.toList();
-    expect(chapters.map((c) => c.id), containsAll(['m1c1', 'm1c2']));
+    expect(chapters.map((c) => c.id), containsAll(['m1c1', 'm1c2', 'm1c3']));
     for (final ch in chapters) {
       expect(ch.lessons.length, greaterThanOrEqualTo(3), reason: ch.id);
       expect(ch.questions.length, greaterThanOrEqualTo(20), reason: ch.id);
