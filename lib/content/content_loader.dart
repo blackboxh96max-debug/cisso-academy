@@ -93,6 +93,9 @@ class ContentLoader {
           .toList(),
       revisionSheet: (data['revisionSheet'] as List? ?? const [])
           .cast<String>(),
+      mindMap: data['mindMap'] == null
+          ? null
+          : MindNode.fromJson(data['mindMap'] as Map<String, dynamic>),
     );
   }
 
@@ -149,6 +152,9 @@ class ContentLoader {
       for (final f in chapter.flashcards) {
         unique(f.id);
       }
+      if (chapter.mindMap case final map?) {
+        _validateMindNode(chapter.id, map);
+      }
     }
     for (final g in library.glossary) {
       unique(g.id);
@@ -158,6 +164,32 @@ class ContentLoader {
       throw FormatException(
         'Les poids des domaines totalisent $total, pas 100',
       );
+    }
+  }
+
+  /// Couleurs utilisables dans une carte mentale.
+  static const mindTones = {
+    'blue',
+    'violet',
+    'green',
+    'orange',
+    'red',
+    'yellow',
+    'turquoise',
+    'pink',
+  };
+
+  static void _validateMindNode(String chapterId, MindNode node) {
+    if (node.label.trim().isEmpty) {
+      throw FormatException('$chapterId : nœud de carte mentale sans libellé');
+    }
+    if (node.tone != null && !mindTones.contains(node.tone)) {
+      throw FormatException(
+        '$chapterId : couleur inconnue dans la carte mentale (${node.tone})',
+      );
+    }
+    for (final c in node.children) {
+      _validateMindNode(chapterId, c);
     }
   }
 

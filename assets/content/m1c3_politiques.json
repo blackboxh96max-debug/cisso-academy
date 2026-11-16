@@ -1529,5 +1529,129 @@
   "PCI DSS : cartes de paiement. SOC 2 (AICPA) : type I conception, type II efficacité sur une période.",
   "ANSSI : guide d'hygiène (42 mesures), EBIOS Risk Manager.",
   "Paires à ne pas confondre : 27001/27002 ; standard/guideline ; politique/procédure ; SOC 2/SOC ; type I/type II ; COBIT/ITIL."
- ]
+ ],
+ "mindMap": {
+  "label": "Politiques, normes et ISO 27000",
+  "en": "Policies and Standards",
+  "emoji": "📜",
+  "children": [
+   {
+    "label": "Pyramide documentaire",
+    "en": "Policy Framework",
+    "emoji": "🔺",
+    "children": [
+     {
+      "label": "Politique",
+      "en": "Policy",
+      "detail": "POURQUOI : intention de la direction, obligatoire."
+     },
+     {
+      "label": "Norme interne",
+      "en": "Standard",
+      "detail": "QUOI : exigence mesurable, obligatoire."
+     },
+     {
+      "label": "Baseline",
+      "detail": "Niveau minimum de configuration."
+     },
+     {
+      "label": "Procédure",
+      "en": "Procedure",
+      "detail": "COMMENT : étapes détaillées."
+     },
+     {
+      "label": "Ligne directrice",
+      "en": "Guideline",
+      "detail": "Conseil, non obligatoire."
+     },
+     {
+      "label": "Exceptions",
+      "detail": "Justifiée, temporaire, compensée, approuvée, enregistrée, revue."
+     }
+    ]
+   },
+   {
+    "label": "Famille ISO/IEC 27000",
+    "en": "ISO/IEC 27000 family",
+    "emoji": "📚",
+    "children": [
+     {
+      "label": "27000",
+      "detail": "Vocabulaire."
+     },
+     {
+      "label": "27001",
+      "detail": "Exigences du SMSI, certifiable (certificat 3 ans + audits de surveillance)."
+     },
+     {
+      "label": "27002",
+      "detail": "Guide des mesures."
+     },
+     {
+      "label": "27005",
+      "detail": "Gestion des risques."
+     },
+     {
+      "label": "Autres",
+      "detail": "27014 gouvernance, 27017/27018 cloud, 27035 incidents, 27037 preuves, 27701 vie privée."
+     },
+     {
+      "label": "Mémo",
+      "detail": "« 27000 Dit, 27001 Exige, 27002 Guide, 27005 Risque »."
+     }
+    ]
+   },
+   {
+    "label": "SMSI ISO/IEC 27001:2022",
+    "en": "ISMS",
+    "emoji": "🔄",
+    "children": [
+     {
+      "label": "PDCA",
+      "detail": "Plan (ch. 6), Do (ch. 8), Check (ch. 9), Act (ch. 10)."
+     },
+     {
+      "label": "Annexe A",
+      "detail": "93 mesures en 4 thèmes : 37 organisationnelles, 8 humaines, 14 physiques, 34 technologiques."
+     },
+     {
+      "label": "Déclaration d'applicabilité",
+      "en": "SoA",
+      "detail": "Obligatoire : justifie inclusions et exclusions."
+     }
+    ]
+   },
+   {
+    "label": "Autres référentiels",
+    "en": "Other Frameworks",
+    "emoji": "🌐",
+    "children": [
+     {
+      "label": "NIST CSF 2.0",
+      "detail": "6 fonctions dont Govern ; non certifiable."
+     },
+     {
+      "label": "NIST SP 800-53",
+      "detail": "Catalogue de mesures."
+     },
+     {
+      "label": "COBIT / ITIL",
+      "detail": "Gouvernance du SI / gestion des services."
+     },
+     {
+      "label": "PCI DSS",
+      "detail": "Données de cartes de paiement."
+     },
+     {
+      "label": "SOC 2",
+      "detail": "Type I = une photo (conception) ; type II = un film (efficacité sur une période)."
+     },
+     {
+      "label": "ANSSI",
+      "detail": "Guide d'hygiène (42 mesures), EBIOS Risk Manager."
+     }
+    ]
+   }
+  ]
+ }
 }

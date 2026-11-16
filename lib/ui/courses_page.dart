@@ -4,6 +4,7 @@ import '../app_state.dart';
 import '../logic/stats.dart';
 import '../models/content.dart';
 import 'chapter_page.dart';
+import 'mind_map_page.dart';
 import 'notebook/hand_drawn.dart';
 import 'notebook/page_kit.dart';
 import 'notebook/palette.dart';
@@ -26,6 +27,24 @@ class CoursesPage extends StatelessWidget {
           '$available chapitre(s) déjà disponible(s), les autres arrivent '
           'au fil des mises à jour. Un chapitre est validé à 80 %.',
           style: Hand.bodyText(context),
+        ),
+        const SizedBox(height: 12),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: GradientButton(
+            emoji: '🧠',
+            label: 'Carte mentale de toute la formation',
+            from: Tone.violet,
+            to: Tone.pink,
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => MindMapPage(
+                  title: 'Toute la formation',
+                  root: courseMindMap(library),
+                ),
+              ),
+            ),
+          ),
         ),
         for (final m in library.modules) ...[
           const SizedBox(height: 22),
@@ -97,13 +116,50 @@ class _ModuleBanner extends StatelessWidget {
           const SizedBox(height: 10),
           HandProgress(value: progress, onDark: true),
           const SizedBox(height: 4),
-          Text(
-            '${(progress * 100).round()} % · $open/${module.chapters.length} '
-            'chapitre(s) disponible(s)',
-            style: Hand.sansText(
-              context,
-              size: 12.5,
-            ).copyWith(color: Colors.white, fontWeight: FontWeight.w600),
+          Wrap(
+            spacing: 10,
+            runSpacing: 6,
+            alignment: WrapAlignment.spaceBetween,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              Text(
+                '${(progress * 100).round()} % · $open/${module.chapters.length} '
+                'chapitre(s) disponible(s)',
+                style: Hand.sansText(
+                  context,
+                  size: 12.5,
+                ).copyWith(color: Colors.white, fontWeight: FontWeight.w600),
+              ),
+              Material(
+                color: Colors.white.withValues(alpha: 0.22),
+                shape: StadiumBorder(
+                  side: BorderSide(color: Colors.white.withValues(alpha: 0.7)),
+                ),
+                child: InkWell(
+                  customBorder: const StadiumBorder(),
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => MindMapPage(
+                        title: 'Module ${module.number}',
+                        root: moduleMindMap(module),
+                      ),
+                    ),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                    child: Text(
+                      '🧠 Carte du module',
+                      style: TextStyle(
+                        fontFamily: Hand.sans,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),

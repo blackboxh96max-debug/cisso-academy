@@ -6,6 +6,7 @@ import 'package:cisso_academy/main.dart';
 import 'package:cisso_academy/models/content.dart';
 import 'package:cisso_academy/ui/chapter_page.dart';
 import 'package:cisso_academy/ui/courses_page.dart';
+import 'package:cisso_academy/ui/mind_map_page.dart';
 import 'package:cisso_academy/ui/quiz_page.dart';
 import 'package:cisso_academy/ui/quiz_result_page.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -266,10 +267,10 @@ void main() {
           matching: find.byType(Scrollable),
         )
         .first;
-    await tester.drag(list, const Offset(0, -1500));
+    await tester.drag(list, const Offset(0, -2500));
     await tester.pumpAndSettle();
     expect(find.text('🔒 Bientôt disponible'), findsWidgets);
-    await tester.drag(list, const Offset(0, 3000));
+    await tester.drag(list, const Offset(0, 5000));
     await tester.pumpAndSettle();
 
     await tester.tap(find.text('Gestion, analyse et traitement des risques'));
@@ -295,5 +296,60 @@ void main() {
       find.textContaining('points clés à savoir par cœur'),
       findsOneWidget,
     );
+  });
+
+  testWidgets('carte mentale : branches dépliables et vue liste', (
+    tester,
+  ) async {
+    await pumpApp(tester, size: const Size(1280, 900));
+    final chapter = library.chapter('m1c1');
+    await tester.pumpWidget(
+      MaterialApp(
+        home: MindMapPage(
+          title: 'Carte mentale',
+          root: chapterMindMap(chapter),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('Gestion des risques'), findsOneWidget);
+    expect(find.text('📖 Définitions du risque'), findsOneWidget);
+    // Les idées de 2e niveau sont visibles, leurs détails repliés.
+    expect(find.text('ALE = SLE × ARO'), findsOneWidget);
+    expect(find.text('Ex. : 30 000 € × 0,25 = 7 500 € par an'), findsNothing);
+    await tester.tap(find.text('ALE = SLE × ARO'));
+    await tester.pumpAndSettle();
+    expect(find.text('Ex. : 30 000 € × 0,25 = 7 500 € par an'), findsOneWidget);
+    // Replier une branche entière.
+    await tester.tap(find.text('🔍 Appréciation des risques'));
+    await tester.pumpAndSettle();
+    expect(find.text('ALE = SLE × ARO'), findsNothing);
+    // Vue liste : tout le contenu, branche par branche.
+    await tester.tap(find.byTooltip('Voir la liste'));
+    await tester.pumpAndSettle();
+    expect(find.textContaining('Définitions du risque'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('cartes du module et de la formation', (tester) async {
+    await pumpApp(tester, size: const Size(1280, 900));
+    final m1 = library.module('m1');
+    for (final root in [moduleMindMap(m1), courseMindMap(library)]) {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: MindMapPage(title: 'Carte', root: root),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(tester.takeException(), isNull);
+    }
+    final course = courseMindMap(library);
+    expect(course.children.length, library.modules.length + 1);
+    expect(
+      course.children.last.children.length,
+      library.domains.length,
+      reason: 'une feuille par domaine officiel',
+    );
+    expect(moduleMindMap(m1).children.length, m1.chapters.length);
   });
 }

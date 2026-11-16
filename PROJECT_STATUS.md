@@ -55,6 +55,7 @@ Glossaire : 99 termes.
 | Animations légères désactivables (Réglages) et respect du réglage système « réduire les animations » | Fait | `test/widget_test.dart`, migration SQLite v2 testée dans `test/sqlite_store_test.dart` |
 | Pages Cours, Chapitre, QCM et examens, Flashcards, Glossaire, Fiche de révision et Résultats au style cahier (bandeaux en dégradé, cartes dessinées, gommettes, boutons colorés) | Fait | `lib/ui/notebook/page_kit.dart`, `test/widget_test.dart` (« cours, chapitre et fiche suivent le style cahier ») |
 | Chapitres « Gouvernance » et « Politiques, ISO 27000 » au format cahier : 6 illustrations, 7 schémas (dont NIST CSF 2.0, PDCA, 93 mesures de l'annexe A), notes, mémos, petits tests | Fait, **à relire** | `assets/content/m1c2_gouvernance.json`, `assets/content/m1c3_politiques.json`, `test/content_test.dart` (chaque leçon : illustration, schéma, petit test, note ou mémo) |
+| Cartes mentales interactives : une par chapitre (rédigée dans le contenu), une par module et une pour toute la formation (11 domaines et leurs poids) ; branches repliables, zoom, vue liste sur téléphone. Carte du chapitre 1 développée à partir de l'exemple fourni par l'apprenant | Fait, **à valider** | `lib/ui/mind_map_page.dart`, clé `mindMap` des chapitres, `test/content_test.dart`, `test/widget_test.dart` |
 | Application du design aux chapitres suivants, schémas par chapitre (OSI, PDCA, SOC, IR, PKI, PCA/PRA, RTO/RPO, Zero Trust…) | À faire, après validation | |
 | Essai sur un vrai téléphone Android et sur ordinateur (hors aperçu web) | À faire | |
 

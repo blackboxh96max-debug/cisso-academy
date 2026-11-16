@@ -1421,5 +1421,300 @@
   "Natures des contrôles : administratif, technique, physique.",
   "Le propriétaire du risque accepte le risque résiduel, par écrit, et l'acceptation est revue.",
   "Paires à ne pas confondre : menace/vulnérabilité ; SLE/ALE ; compensatoire/correctif ; appétence/tolérance ; transfert/acceptation."
- ]
+ ],
+ "mindMap": {
+  "label": "Gestion des risques",
+  "en": "Risk Management",
+  "emoji": "⚖️",
+  "children": [
+   {
+    "label": "Définitions du risque",
+    "en": "Risk Definitions",
+    "emoji": "📖",
+    "children": [
+     {
+      "label": "Actifs et valorisation",
+      "en": "Assets and Valuation",
+      "detail": "Tout ce qui a de la valeur : données, systèmes, personnes, réputation.",
+      "children": [
+       {
+        "label": "AV : coût de remplacement, revenus perdus, amendes, image"
+       },
+       {
+        "label": "Chaque actif a un propriétaire"
+       }
+      ]
+     },
+     {
+      "label": "BIA : impacts métier",
+      "en": "BIA: Business Impacts",
+      "detail": "Mesure les conséquences d'un arrêt sur les activités de l'entreprise.",
+      "children": [
+       {
+        "label": "Processus critiques et dépendances"
+       },
+       {
+        "label": "Impacts financiers, légaux, d'image, humains"
+       }
+      ]
+     },
+     {
+      "label": "Menaces et acteurs",
+      "en": "Threats and Threat Actors",
+      "detail": "Ce qui peut causer un dommage.",
+      "children": [
+       {
+        "label": "Naturelles, accidentelles, intentionnelles"
+       },
+       {
+        "label": "Cybercriminels, États, initiés, hacktivistes"
+       }
+      ]
+     },
+     {
+      "label": "Vulnérabilités",
+      "en": "Vulnerabilities",
+      "detail": "Faiblesse qu'une menace peut exploiter.",
+      "children": [
+       {
+        "label": "Ex. : VPN non corrigé, mot de passe faible, porte non fermée"
+       }
+      ]
+     },
+     {
+      "label": "Contrôles et contre-mesures",
+      "en": "Controls and Countermeasures",
+      "detail": "Mesures qui réduisent la vraisemblance ou l'impact.",
+      "children": [
+       {
+        "label": "Natures : administratif, technique, physique"
+       },
+       {
+        "label": "Fonctions : préventif, détectif, correctif, dissuasif, compensatoire, de récupération"
+       }
+      ]
+     },
+     {
+      "label": "Vraisemblance, exposition, impact",
+      "en": "Likelihood, Exposure, Impact",
+      "detail": "Risque = vraisemblance × impact.",
+      "children": [
+       {
+        "label": "Exposition (EF) : part de la valeur de l'actif perdue lors d'un incident"
+       }
+      ]
+     },
+     {
+      "label": "Efficacité des contrôles",
+      "en": "Control Effectiveness",
+      "detail": "Un contrôle doit prouver qu'il réduit vraiment le risque.",
+      "children": [
+       {
+        "label": "Tests, audits, indicateurs"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "label": "Appréciation des risques",
+    "en": "Risk Assessment",
+    "emoji": "🔍",
+    "children": [
+     {
+      "label": "Approches",
+      "en": "Quantitative / Qualitative / Hybrid",
+      "detail": "Quantitative = chiffres en euros ; qualitative = échelles et avis ; hybride = les deux."
+     },
+     {
+      "label": "SLE = AV × EF",
+      "en": "Single Loss Expectancy",
+      "detail": "Perte attendue pour UN incident.",
+      "children": [
+       {
+        "label": "Ex. : 100 000 € × 30 % = 30 000 €"
+       }
+      ]
+     },
+     {
+      "label": "ARO : fréquence annuelle",
+      "en": "Annual Rate of Occurrence",
+      "detail": "Nombre d'occurrences attendues par an.",
+      "children": [
+       {
+        "label": "1 fois tous les 4 ans → ARO = 0,25"
+       },
+       {
+        "label": "Piège : l'ARO peut dépasser 1"
+       }
+      ]
+     },
+     {
+      "label": "ALE = SLE × ARO",
+      "en": "Annualized Loss Expectancy",
+      "detail": "Perte attendue par an.",
+      "children": [
+       {
+        "label": "Ex. : 30 000 € × 0,25 = 7 500 € par an"
+       }
+      ]
+     },
+     {
+      "label": "Qualitatif : scénarios, Delphi, échelles",
+      "en": "Scenarios, Delphi, Rating Scales",
+      "detail": "Rapide, fondé sur le jugement d'experts.",
+      "children": [
+       {
+        "label": "Delphi : avis anonymes en plusieurs tours jusqu'au consensus"
+       },
+       {
+        "label": "Échelles : faible, moyen, élevé, critique"
+       }
+      ]
+     },
+     {
+      "label": "Matrice des risques",
+      "en": "Risk Matrix: Likelihood × Impact",
+      "detail": "Place chaque risque selon vraisemblance et impact ; en haut à droite = prioritaire."
+     },
+     {
+      "label": "Hybride : AMDE et arbre de défaillances",
+      "en": "Hybrid: FMEA and FTA",
+      "children": [
+       {
+        "label": "AMDE (FMEA) : part des modes de défaillance de chaque composant"
+       },
+       {
+        "label": "Arbre de défaillances (FTA) : part de l'événement redouté et remonte aux causes"
+       }
+      ]
+     },
+     {
+      "label": "Rapport et recommandations",
+      "en": "Reporting and Recommendations",
+      "detail": "Résultats présentés à la direction pour décider du traitement."
+     }
+    ]
+   },
+   {
+    "label": "Traitement et surveillance",
+    "en": "Risk Response and Monitoring",
+    "emoji": "🛠️",
+    "children": [
+     {
+      "label": "Les 4 options de traitement",
+      "en": "Mitigate / Avoid / Transfer / Accept",
+      "detail": "Réduire, éviter, transférer (partager), accepter.",
+      "children": [
+       {
+        "label": "Jamais « ignorer »"
+       },
+       {
+        "label": "Transférer le coût, pas la responsabilité (accountability)"
+       }
+      ]
+     },
+     {
+      "label": "Risque résiduel et seuil d'acceptation",
+      "en": "Residual Risk and Acceptance Threshold",
+      "detail": "Ce qui reste après les contrôles ; accepté par écrit par le propriétaire du risque s'il respecte l'appétence."
+     },
+     {
+      "label": "Analyse coût-bénéfice",
+      "en": "Cost-Benefit Analysis of Controls",
+      "detail": "Valeur du contrôle = ALE avant − ALE après − coût annuel du contrôle.",
+      "children": [
+       {
+        "label": "Un contrôle ne doit pas coûter plus que ce qu'il protège"
+       }
+      ]
+     },
+     {
+      "label": "Choix des contrôles",
+      "en": "Control Selection Principles",
+      "detail": "Coût proportionné, défense en profondeur, moindre privilège, conformité."
+     },
+     {
+      "label": "Surveillance et actions correctives",
+      "en": "Monitoring and Corrective Actions",
+      "detail": "Revoir les risques après un changement majeur ou un incident."
+     },
+     {
+      "label": "KRI",
+      "en": "Key Risk Indicators",
+      "detail": "Signale qu'un risque augmente.",
+      "children": [
+       {
+        "label": "Ex. : % de serveurs sans correctif depuis plus de 30 jours"
+       }
+      ]
+     },
+     {
+      "label": "KPI",
+      "en": "Key Performance Indicators",
+      "detail": "Mesure la performance d'un processus.",
+      "children": [
+       {
+        "label": "Ex. : délai moyen de correction des failles critiques"
+       }
+      ]
+     },
+     {
+      "label": "Registre des risques",
+      "en": "Risk Register and Reporting",
+      "detail": "Risque, propriétaire, niveau, traitement, échéance, statut."
+     },
+     {
+      "label": "Maturité",
+      "en": "Risk Management Maturity",
+      "detail": "Du processus improvisé au processus mesuré et amélioré en continu."
+     }
+    ]
+   },
+   {
+    "label": "Le processus de gestion",
+    "en": "Risk Management",
+    "emoji": "🔁",
+    "children": [
+     {
+      "label": "Objectifs et contexte",
+      "en": "Objectives and Context",
+      "detail": "Périmètre, critères d'acceptation, appétence au risque, fixés AVANT l'analyse."
+     },
+     {
+      "label": "Identifier → Analyser → Évaluer",
+      "en": "Identify → Analyze → Evaluate",
+      "detail": "L'appréciation des risques selon ISO/IEC 27005."
+     },
+     {
+      "label": "Décider → Traiter → Surveiller",
+      "en": "Decide → Treat → Monitor",
+      "detail": "Puis on recommence : la gestion des risques est un cycle."
+     },
+     {
+      "label": "Référentiels",
+      "en": "Frameworks",
+      "children": [
+       {
+        "label": "ISO/IEC 27005",
+        "detail": "Gestion des risques liés à la sécurité de l'information"
+       },
+       {
+        "label": "NIST SP 800-30",
+        "detail": "Conduite de l'appréciation des risques"
+       },
+       {
+        "label": "NIST SP 800-39",
+        "detail": "Gestion des risques à l'échelle de l'organisation"
+       },
+       {
+        "label": "COBIT 5 for Risk",
+        "detail": "Vision gouvernance du risque (ISACA)"
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ }
 }

@@ -286,4 +286,78 @@ void main() {
       }
     }
   });
+
+  test('chaque chapitre disponible a une carte mentale', () async {
+    final library = await loadRealContent();
+    for (final ch in library.availableChapters) {
+      final map = ch.mindMap;
+      expect(map, isNotNull, reason: '${ch.id} : carte mentale');
+      expect(map!.children.length, greaterThanOrEqualTo(3), reason: ch.id);
+      expect(map.depth, greaterThanOrEqualTo(3), reason: ch.id);
+    }
+    // La carte du chapitre 1 développe l'exemple de l'apprenant :
+    // ses 4 branches anglaises sont reprises.
+    final c1 = library.chapter('m1c1').mindMap!;
+    expect(c1.children.map((b) => b.en), [
+      'Risk Definitions',
+      'Risk Assessment',
+      'Risk Response and Monitoring',
+      'Risk Management',
+    ]);
+    expect(c1.size, greaterThan(28));
+  });
+
+  test('la validation rejette une couleur inconnue dans une carte', () async {
+    final catalog = {
+      'exam': {
+        'questionCount': 10,
+        'durationMinutes': 10,
+        'passingScore': 50,
+        'source': 'test',
+        'verifiedOn': '2026-01-01',
+      },
+      'domains': [
+        {'id': 'd', 'nameEn': 'D', 'nameFr': 'D', 'weight': 100},
+      ],
+      'modules': [
+        {
+          'id': 'm',
+          'number': 1,
+          'title': 'M',
+          'chapters': [
+            {
+              'id': 'c',
+              'title': 'C',
+              'domains': ['d'],
+              'file': 'c.json',
+            },
+          ],
+        },
+      ],
+    };
+    Map<String, String> files(String tone) => {
+      'r/catalog.json': jsonEncode(catalog),
+      'r/c.json': jsonEncode({
+        'lessons': [],
+        'flashcards': [],
+        'questions': [],
+        'mindMap': {
+          'label': 'C',
+          'children': [
+            {'label': 'B', 'tone': tone},
+          ],
+        },
+      }),
+      'r/glossary.json': '[]',
+    };
+    expect(
+      ContentLoader((p) async => files('fuchsia')[p]!, root: 'r').load(),
+      throwsFormatException,
+    );
+    final ok = await ContentLoader(
+      (p) async => files('pink')[p]!,
+      root: 'r',
+    ).load();
+    expect(ok.chapter('c').mindMap!.children.single.label, 'B');
+  });
 }

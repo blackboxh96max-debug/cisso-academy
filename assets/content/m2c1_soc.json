@@ -1483,5 +1483,103 @@
   "Indicateurs : MTTD (détection), MTTR (réponse), taux de faux positifs, couverture ATT&CK, sources raccordées.",
   "Le SOC est surtout un contrôle détectif, avec une part corrective (confinement).",
   "Paires à ne pas confondre : séparation des tâches/double contrôle ; faux positif/faux négatif ; SIEM/SOAR ; IOC/IOA ; triage/chasse ; MTTD/MTTR."
- ]
+ ],
+ "mindMap": {
+  "label": "Opérations de sécurité et SOC",
+  "en": "Security Operations",
+  "emoji": "🛰️",
+  "children": [
+   {
+    "label": "Principes des opérations",
+    "en": "Operational Controls",
+    "emoji": "⚙️",
+    "children": [
+     {
+      "label": "Contrôles sur les personnes",
+      "detail": "Séparation des tâches, double contrôle (préventifs) ; rotation, congés obligatoires (détectifs)."
+     },
+     {
+      "label": "Gestion des changements",
+      "en": "Change Management",
+      "detail": "Demande, analyse, approbation, test et retour arrière, mise en œuvre, revue.",
+      "children": [
+       {
+        "label": "Urgence : tracée et régularisée après coup"
+       }
+      ]
+     },
+     {
+      "label": "Configuration de référence",
+      "en": "Baseline",
+      "detail": "Détecter les dérives."
+     },
+     {
+      "label": "Inventaire des actifs",
+      "detail": "On ne protège pas ce qu'on ne connaît pas ; attention au shadow IT."
+     }
+    ]
+   },
+   {
+    "label": "Journalisation",
+    "en": "Logging",
+    "emoji": "📜",
+    "children": [
+     {
+      "label": "Quoi journaliser",
+      "detail": "Authentifications, droits, configuration, données sensibles, frontières réseau."
+     },
+     {
+      "label": "Heure, intégrité, durée",
+      "detail": "NTP, stockage non modifiable, conservation définie."
+     }
+    ]
+   },
+   {
+    "label": "SIEM et outils",
+    "en": "SIEM",
+    "emoji": "🧮",
+    "children": [
+     {
+      "label": "Pipeline",
+      "detail": "Collecte → normalisation → enrichissement → corrélation → alerte."
+     },
+     {
+      "label": "Vrai / faux, positif / négatif",
+      "detail": "Faux négatif = attaque manquée (le pire) ; faux positif = bruit."
+     },
+     {
+      "label": "UEBA, SOAR, EDR/XDR",
+      "detail": "Comportements / automatisation de la réponse / postes et sources multiples."
+     }
+    ]
+   },
+   {
+    "label": "Le SOC",
+    "en": "Security Operations Center",
+    "emoji": "🧑‍💻",
+    "children": [
+     {
+      "label": "N1, N2, N3",
+      "detail": "Trier / enquêter et contenir / cas complexes et chasse."
+     },
+     {
+      "label": "Playbooks",
+      "detail": "Traitement rapide et homogène."
+     },
+     {
+      "label": "IOC et IOA",
+      "detail": "Trace connue / comportement d'attaque."
+     },
+     {
+      "label": "Chasse et MITRE ATT&CK",
+      "detail": "Hypothèse proactive ; carte des techniques couvertes."
+     },
+     {
+      "label": "Indicateurs",
+      "detail": "MTTD, MTTR, faux positifs, couverture."
+     }
+    ]
+   }
+  ]
+ }
 }
