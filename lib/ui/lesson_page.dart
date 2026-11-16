@@ -9,6 +9,9 @@ import 'notebook/hand_drawn.dart';
 import 'notebook/note_box.dart';
 import 'notebook/palette.dart';
 import 'notebook/typography.dart';
+import '../logic/terms.dart';
+import 'bilingual.dart';
+import 'search_page.dart';
 
 /// Leçon présentée comme une page de cahier manuscrit.
 ///
@@ -32,6 +35,7 @@ class LessonPage extends StatelessWidget {
     final width = MediaQuery.sizeOf(context).width;
     final wide = width >= 1100;
     final paper = Paper.of(context);
+    final plan = _termPlan(state.terms, lesson);
 
     final page = NotebookPaper(
       child: Padding(
@@ -102,30 +106,59 @@ class LessonPage extends StatelessWidget {
       backgroundColor: paper.background,
       appBar: AppBar(
         title: Text(chapter.title, overflow: TextOverflow.ellipsis),
+        actions: const [SearchAction()],
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(
-          horizontal: width < 600 ? 0 : 20,
-          vertical: width < 600 ? 0 : 16,
-        ),
-        child: Center(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: wide ? 1240 : 880),
-            child: wide
-                ? Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(width: 300, child: _SidePanel(lesson: lesson)),
-                      const SizedBox(width: 24),
-                      Expanded(child: shadowedPage),
-                    ],
-                  )
-                : shadowedPage,
+      body: TermPlan(
+        plan: plan,
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(
+            horizontal: width < 600 ? 0 : 20,
+            vertical: width < 600 ? 0 : 16,
+          ),
+          child: Center(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: wide ? 1240 : 880),
+              child: wide
+                  ? Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(width: 300, child: _SidePanel(lesson: lesson)),
+                        const SizedBox(width: 24),
+                        Expanded(child: shadowedPage),
+                      ],
+                    )
+                  : shadowedPage,
+            ),
           ),
         ),
       ),
     );
   }
+}
+
+/// Repère, dans l'ordre de lecture, la première apparition de chaque terme
+/// clé de la leçon pour afficher son équivalent anglais.
+Map<Object, List<TermMatch>> _termPlan(TermIndex terms, Lesson lesson) {
+  final seen = <String>{};
+  final plan = <Object, List<TermMatch>>{};
+  for (final b in lesson.blocks) {
+    switch (b.type) {
+      case BlockType.text ||
+          BlockType.definition ||
+          BlockType.important ||
+          BlockType.socCase ||
+          BlockType.trainerNote ||
+          BlockType.risk ||
+          BlockType.practice:
+        if (b.text != null) plan[b] = terms.findIn(b.text!, skip: seen);
+        for (final (i, item) in b.items.indexed) {
+          plan[(b, i)] = terms.findIn(item, skip: seen);
+        }
+      default:
+        break;
+    }
+  }
+  return plan;
 }
 
 class _LessonHeader extends StatelessWidget {
@@ -302,6 +335,9 @@ class NotebookBlock extends StatelessWidget {
         ? null
         : Sticker(text: block.kind!.label, tone: _sourceTone(block.kind!));
     final body = Hand.bodyText(context);
+    final english = block.type == BlockType.definition && block.title != null
+        ? AppScope.of(context).terms.englishFor(block.title!)
+        : null;
 
     switch (block.type) {
       case BlockType.heading:
@@ -322,7 +358,7 @@ class NotebookBlock extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SelectableText(block.text ?? '', style: body),
+              BilingualText(block.text ?? '', planKey: block, style: body),
               if (source != null) ...[const SizedBox(height: 6), source],
             ],
           ),
@@ -339,9 +375,19 @@ class NotebookBlock extends StatelessWidget {
           title: block.title,
           trailing: source,
           seed: seed,
-          child: SelectableText(
-            block.text ?? '',
-            style: Hand.definition(context),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (english != null) ...[
+                EnTag(english),
+                const SizedBox(height: 6),
+              ],
+              BilingualText(
+                block.text ?? '',
+                planKey: block,
+                style: Hand.definition(context),
+              ),
+            ],
           ),
         );
       case BlockType.socCase:
@@ -351,8 +397,9 @@ class NotebookBlock extends StatelessWidget {
           title: block.title,
           trailing: source,
           seed: seed,
-          child: SelectableText(
+          child: BilingualText(
             block.text ?? '',
+            planKey: block,
             style: body.copyWith(fontSize: 19),
           ),
         );
@@ -406,7 +453,12 @@ class NotebookBlock extends StatelessWidget {
           label: block.title ?? 'Note du formateur',
           sticky: true,
           seed: seed,
-          child: Text(block.text ?? '', style: Hand.noteText(context)),
+          child: BilingualText(
+            block.text ?? '',
+            planKey: block,
+            style: Hand.noteText(context),
+            selectable: false,
+          ),
         );
       case BlockType.memo:
         return NoteBox(
@@ -425,7 +477,7 @@ class NotebookBlock extends StatelessWidget {
           label: block.title ?? 'Important',
           trailing: source,
           seed: seed,
-          child: SelectableText(block.text ?? '', style: body),
+          child: BilingualText(block.text ?? '', planKey: block, style: body),
         );
       case BlockType.practice:
         return NoteBox(
@@ -434,8 +486,17 @@ class NotebookBlock extends StatelessWidget {
           trailing: source,
           seed: seed,
           child: block.items.isNotEmpty
-              ? HandBullets(block.items, bullet: '✓')
-              : SelectableText(block.text ?? '', style: body),
+              ? HandBullets(
+                  block.items,
+                  bullet: '✓',
+                  itemSpan: (i, item, style) => bilingualSpan(
+                    context,
+                    item,
+                    TermPlan.matchesFor(context, (block, i)),
+                    style,
+                  ),
+                )
+              : BilingualText(block.text ?? '', planKey: block, style: body),
         );
       case BlockType.risk:
         return NoteBox(
@@ -443,8 +504,17 @@ class NotebookBlock extends StatelessWidget {
           label: block.title ?? 'Risque',
           seed: seed,
           child: block.items.isNotEmpty
-              ? HandBullets(block.items, bullet: '!')
-              : SelectableText(block.text ?? '', style: body),
+              ? HandBullets(
+                  block.items,
+                  bullet: '!',
+                  itemSpan: (i, item, style) => bilingualSpan(
+                    context,
+                    item,
+                    TermPlan.matchesFor(context, (block, i)),
+                    style,
+                  ),
+                )
+              : BilingualText(block.text ?? '', planKey: block, style: body),
         );
       case BlockType.diagram:
         return NoteBox(

@@ -12,6 +12,7 @@ import 'notebook/palette.dart';
 import 'notebook/typography.dart';
 import 'quiz_hub_page.dart';
 import 'revision_sheet_page.dart';
+import 'bilingual.dart';
 
 class ChapterPage extends StatelessWidget {
   const ChapterPage({super.key, required this.chapterId});
@@ -56,6 +57,10 @@ class ChapterPage extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
+              if (chapter.titleEn != null) ...[
+                const SizedBox(height: 4),
+                EnTag(chapter.titleEn!, onDark: true, size: 14),
+              ],
               const SizedBox(height: 10),
               Wrap(
                 spacing: 6,

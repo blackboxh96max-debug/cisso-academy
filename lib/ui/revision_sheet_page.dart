@@ -1,12 +1,14 @@
 import 'package:flutter/services.dart';
 import 'package:material_ui/material_ui.dart';
 
+import '../app_state.dart';
 import '../models/content.dart';
 import 'notebook/hand_drawn.dart';
 import 'notebook/note_box.dart';
 import 'notebook/page_kit.dart';
 import 'notebook/palette.dart';
 import 'notebook/typography.dart';
+import 'bilingual.dart';
 
 /// Fiche de révision d'un chapitre, consultable hors ligne et copiable.
 class RevisionSheetPage extends StatelessWidget {
@@ -28,6 +30,9 @@ class RevisionSheetPage extends StatelessWidget {
     final points = chapter.revisionSheet
         .where((l) => !l.startsWith('# '))
         .toList();
+    final terms = AppScope.of(context).terms;
+    final seen = <String>{};
+    final matches = [for (final p in points) terms.findIn(p, skip: seen)];
 
     return NotebookPage(
       title: 'Fiche de révision',
@@ -114,16 +119,20 @@ class RevisionSheetPage extends StatelessWidget {
                       ),
                       const SizedBox(width: 12),
                       Expanded(
-                        child: SelectableText(
-                          line,
-                          style: Hand.bodyText(context).copyWith(
-                            fontSize: 19,
-                            color: i.isEven
-                                ? paper.ink
-                                : toneColors(
-                                    rainbowTones[i % rainbowTones.length],
-                                    brightness,
-                                  ).ink,
+                        child: SelectableText.rich(
+                          bilingualSpan(
+                            context,
+                            line,
+                            matches[i],
+                            Hand.bodyText(context).copyWith(
+                              fontSize: 19,
+                              color: i.isEven
+                                  ? paper.ink
+                                  : toneColors(
+                                      rainbowTones[i % rainbowTones.length],
+                                      brightness,
+                                    ).ink,
+                            ),
                           ),
                         ),
                       ),

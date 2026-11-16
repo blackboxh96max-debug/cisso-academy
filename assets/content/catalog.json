@@ -21,45 +21,45 @@
   ],
   "modules": [
     {
-      "id": "m1", "number": 1, "title": "Management des risques et sécurité",
+      "id": "m1", "number": 1, "title": "Management des risques et sécurité", "titleEn": "Risk and Security Management",
       "chapters": [
-        {"id": "m1c1", "title": "Gestion, analyse et traitement des risques", "domains": ["risk-management"], "file": "m1c1_risques.json"},
-        {"id": "m1c2", "title": "Gouvernance et management de la sécurité", "domains": ["security-management"], "file": "m1c2_gouvernance.json"},
-        {"id": "m1c3", "title": "Politiques, normes, procédures et famille ISO 27000", "domains": ["security-management"], "file": "m1c3_politiques.json"},
-        {"id": "m1c4", "title": "IAM, authentification et contrôle d'accès", "domains": ["iaaa"], "file": "m1c4_iam.json"}
+        {"id": "m1c1", "title": "Gestion, analyse et traitement des risques", "titleEn": "Risk Management, Analysis and Treatment", "domains": ["risk-management"], "file": "m1c1_risques.json"},
+        {"id": "m1c2", "title": "Gouvernance et management de la sécurité", "titleEn": "Security Governance and Management", "domains": ["security-management"], "file": "m1c2_gouvernance.json"},
+        {"id": "m1c3", "title": "Politiques, normes, procédures et famille ISO 27000", "titleEn": "Policies, Standards, Procedures and the ISO 27000 Family", "domains": ["security-management"], "file": "m1c3_politiques.json"},
+        {"id": "m1c4", "title": "IAM, authentification et contrôle d'accès", "titleEn": "IAM, Authentication and Access Control", "domains": ["iaaa"], "file": "m1c4_iam.json"}
       ]
     },
     {
-      "id": "m2", "number": 2, "title": "Opérations de sécurité et cryptographie",
+      "id": "m2", "number": 2, "title": "Opérations de sécurité et cryptographie", "titleEn": "Security Operations and Cryptography",
       "chapters": [
-        {"id": "m2c1", "title": "Opérations de sécurité, journalisation, SIEM et SOC", "domains": ["operations-security"], "file": "m2c1_soc.json"},
-        {"id": "m2c2", "title": "Cryptographie, signatures, certificats et PKI", "domains": ["cryptography"], "file": "m2c2_crypto.json"},
-        {"id": "m2c3", "title": "Gestion des vulnérabilités et des correctifs", "domains": ["operations-security"], "file": "m2c3_vulnerabilites.json"}
+        {"id": "m2c1", "title": "Opérations de sécurité, journalisation, SIEM et SOC", "titleEn": "Security Operations, Logging, SIEM and SOC", "domains": ["operations-security"], "file": "m2c1_soc.json"},
+        {"id": "m2c2", "title": "Cryptographie, signatures, certificats et PKI", "titleEn": "Cryptography, Digital Signatures, Certificates and PKI", "domains": ["cryptography"], "file": "m2c2_crypto.json"},
+        {"id": "m2c3", "title": "Gestion des vulnérabilités et des correctifs", "titleEn": "Vulnerability and Patch Management", "domains": ["operations-security"], "file": "m2c3_vulnerabilites.json"}
       ]
     },
     {
-      "id": "m3", "number": 3, "title": "Sécurité réseaux, communications et architecture",
+      "id": "m3", "number": 3, "title": "Sécurité réseaux, communications et architecture", "titleEn": "Network, Communications and Architecture Security",
       "chapters": [
-        {"id": "m3c1", "title": "Modèles OSI, TCP/IP et protocoles sécurisés", "domains": ["network-security"], "file": "m3c1_reseau.json"},
-        {"id": "m3c2", "title": "Pare-feu, IDS/IPS, VPN, segmentation et sans-fil", "domains": ["network-security"]},
-        {"id": "m3c3", "title": "Architecture sécurisée, défense en profondeur et Zero Trust", "domains": ["architecture"]}
+        {"id": "m3c1", "title": "Modèles OSI, TCP/IP et protocoles sécurisés", "titleEn": "OSI and TCP/IP Models and Secure Protocols", "domains": ["network-security"], "file": "m3c1_reseau.json"},
+        {"id": "m3c2", "title": "Pare-feu, IDS/IPS, VPN, segmentation et sans-fil", "titleEn": "Firewalls, IDS/IPS, VPN, Segmentation and Wireless", "domains": ["network-security"]},
+        {"id": "m3c3", "title": "Architecture sécurisée, défense en profondeur et Zero Trust", "titleEn": "Secure Architecture, Defense in Depth and Zero Trust", "domains": ["architecture"]}
       ]
     },
     {
-      "id": "m4", "number": 4, "title": "Sécurité du développement logiciel et des données",
+      "id": "m4", "number": 4, "title": "Sécurité du développement logiciel et des données", "titleEn": "Secure Software and Data Security",
       "chapters": [
-        {"id": "m4c1", "title": "Développement sécurisé et OWASP", "domains": ["secure-software"]},
-        {"id": "m4c2", "title": "Bases de données et protection des données", "domains": ["data-security"]},
-        {"id": "m4c3", "title": "Malwares, ransomware et analyse", "domains": ["malware"]}
+        {"id": "m4c1", "title": "Développement sécurisé et OWASP", "titleEn": "Secure Development and OWASP", "domains": ["secure-software"]},
+        {"id": "m4c2", "title": "Bases de données et protection des données", "titleEn": "Databases and Data Protection", "domains": ["data-security"]},
+        {"id": "m4c3", "title": "Malwares, ransomware et analyse", "titleEn": "Malware, Ransomware and Analysis", "domains": ["malware"]}
       ]
     },
     {
-      "id": "m5", "number": 5, "title": "Continuité, incidents, droit et sécurité physique",
+      "id": "m5", "number": 5, "title": "Continuité, incidents, droit et sécurité physique", "titleEn": "Continuity, Incidents, Law and Physical Security",
       "chapters": [
-        {"id": "m5c1", "title": "Continuité d'activité et reprise (BCP, DRP, RTO, RPO)", "domains": ["bcp-dr-ir-law"]},
-        {"id": "m5c2", "title": "Gestion des incidents, investigation et réponse", "domains": ["bcp-dr-ir-law"]},
-        {"id": "m5c3", "title": "Lois, réglementation et éthique", "domains": ["bcp-dr-ir-law"]},
-        {"id": "m5c4", "title": "Sécurité physique et environnementale", "domains": []}
+        {"id": "m5c1", "title": "Continuité d'activité et reprise (BCP, DRP, RTO, RPO)", "titleEn": "Business Continuity and Disaster Recovery (BCP, DRP, RTO, RPO)", "domains": ["bcp-dr-ir-law"]},
+        {"id": "m5c2", "title": "Gestion des incidents, investigation et réponse", "titleEn": "Incident Management, Investigation and Response", "domains": ["bcp-dr-ir-law"]},
+        {"id": "m5c3", "title": "Lois, réglementation et éthique", "titleEn": "Law, Regulations and Ethics", "domains": ["bcp-dr-ir-law"]},
+        {"id": "m5c4", "title": "Sécurité physique et environnementale", "titleEn": "Physical and Environmental Security", "domains": []}
       ]
     }
   ]

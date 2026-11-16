@@ -1,6 +1,7 @@
 import 'package:material_ui/material_ui.dart';
 
 import '../../logic/stats.dart';
+import '../search_page.dart';
 import 'hand_drawn.dart';
 import 'palette.dart';
 import 'typography.dart';
@@ -13,6 +14,7 @@ class NotebookPage extends StatelessWidget {
     required this.children,
     this.actions,
     this.maxWidth = 920,
+    this.showSearch = true,
   });
 
   final String title;
@@ -20,12 +22,18 @@ class NotebookPage extends StatelessWidget {
   final List<Widget>? actions;
   final double maxWidth;
 
+  /// Affiche la loupe de recherche globale dans la barre.
+  final bool showSearch;
+
   @override
   Widget build(BuildContext context) {
     final narrow = MediaQuery.sizeOf(context).width < 600;
     return Scaffold(
       backgroundColor: Paper.of(context).background,
-      appBar: AppBar(title: Text(title), actions: actions),
+      appBar: AppBar(
+        title: Text(title),
+        actions: [...?actions, if (showSearch) const SearchAction()],
+      ),
       body: Align(
         alignment: Alignment.topCenter,
         child: ConstrainedBox(

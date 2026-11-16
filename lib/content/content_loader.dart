@@ -36,6 +36,7 @@ class ContentLoader {
           id: moduleId,
           number: moduleJson['number'] as int,
           title: moduleJson['title'] as String,
+          titleEn: moduleJson['titleEn'] as String?,
           chapters: chapters,
         ),
       );
@@ -71,6 +72,7 @@ class ContentLoader {
         id: id,
         moduleId: moduleId,
         title: json['title'] as String,
+        titleEn: json['titleEn'] as String?,
         domainIds: domainIds,
         available: false,
       );
@@ -80,6 +82,7 @@ class ContentLoader {
       id: id,
       moduleId: moduleId,
       title: json['title'] as String,
+      titleEn: json['titleEn'] as String?,
       domainIds: domainIds,
       available: true,
       lessons: (data['lessons'] as List)

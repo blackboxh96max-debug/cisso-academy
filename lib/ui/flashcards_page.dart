@@ -12,6 +12,7 @@ import 'notebook/page_kit.dart';
 import 'notebook/palette.dart';
 import 'notebook/typography.dart';
 import 'widgets.dart';
+import 'bilingual.dart';
 
 /// Flashcards avec répétition espacée (SM-2).
 class FlashcardsPage extends StatelessWidget {
@@ -267,6 +268,9 @@ class _FlashcardSessionPageState extends State<FlashcardSessionPage> {
                       label: 'Question',
                       difficulty: _difficulty(state.cards[card.id]),
                       text: card.front,
+                      english:
+                          state.terms.englishFor(card.front) ??
+                          state.terms.englishFor(card.concept),
                       big: true,
                     ),
                     back: _IndexCard(
@@ -376,7 +380,11 @@ class _IndexCard extends StatelessWidget {
     required this.text,
     required this.big,
     this.back = false,
+    this.english,
   });
+
+  /// Terme anglais affiché sous le recto.
+  final String? english;
 
   final Tone tone;
   final String corner;
@@ -484,6 +492,10 @@ class _IndexCard extends StatelessWidget {
                                   : Hand.noteText(context)
                                         .copyWith(fontSize: 19),
                             ),
+                            if (english != null) ...[
+                              const SizedBox(height: 8),
+                              EnTag(english!, size: 15),
+                            ],
                           ],
                         ),
                       ),
