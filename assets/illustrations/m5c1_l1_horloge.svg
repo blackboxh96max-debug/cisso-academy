@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <g stroke="#26324A" stroke-width="2.2" stroke-linejoin="round">
+    <path d="M30 30 L80 30 L80 36 L60 70 L80 104 L80 110 L30 110 L30 104 L50 70 L30 36 Z" fill="#E0F2FE" />
+    <path d="M38 40 L72 40 L55 66 Z" fill="#FCD34D" stroke-width="1.2" />
+    <path d="M40 104 L70 104 L55 88 Z" fill="#FCD34D" stroke-width="1.2" />
+    <rect x="26" y="24" width="58" height="8" rx="2" fill="#A16207" />
+    <rect x="26" y="108" width="58" height="8" rx="2" fill="#A16207" />
+  </g>
+  <g stroke="#26324A" stroke-width="2.2" stroke-linejoin="round">
+    <rect x="146" y="30" width="56" height="84" rx="5" fill="#CBD5E1" />
+    <path d="M154 46 L194 46 M154 62 L194 62 M154 78 L194 78" />
+    <circle cx="188" cy="98" r="5" fill="#EF4444" />
+  </g>
+  <path d="M162 18 L170 8 L176 18 L184 6" fill="none" stroke="#EF4444" stroke-width="2.5" stroke-linecap="round" />
+  <g stroke-width="3" fill="none" stroke-linecap="round">
+    <path d="M140 140 L40 140" stroke="#2563EB" /><path d="M48 132 L40 140 L48 148" stroke="#2563EB" />
+    <path d="M150 140 L226 140" stroke="#EA580C" /><path d="M218 132 L226 140 L218 148" stroke="#EA580C" />
+  </g>
+  <path d="M145 128 L145 152" stroke="#26324A" stroke-width="2" stroke-dasharray="3 3" />
+  <g font-family="Caveat, cursive" font-size="17" text-anchor="middle">
+    <text x="90" y="166" fill="#1D4ED8">RPO : données perdues</text>
+    <text x="194" y="166" fill="#C2410C">RTO</text>
+  </g>
+</svg>

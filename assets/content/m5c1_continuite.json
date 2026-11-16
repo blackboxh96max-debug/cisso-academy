@@ -1,0 +1,1697 @@
+{
+ "lessons": [
+  {
+   "id": "m5c1-l1",
+   "title": "Continuité d'activité et bilan d'impact (BIA)",
+   "minutes": 35,
+   "illustration": "assets/illustrations/m5c1_l1_horloge.svg",
+   "illustrationAlt": "Dessin d'un sablier posé à côté d'un serveur en panne, avec une flèche vers l'arrière marquée RPO et une flèche vers l'avant marquée RTO.",
+   "objectives": [
+    "Distinguer plan de continuité d'activité (PCA), plan de reprise (PRA) et plan de réponse aux incidents.",
+    "Conduire un bilan d'impact sur l'activité (BIA).",
+    "Définir et relier MTD, RTO, RPO et WRT.",
+    "Situer les grandes étapes d'un programme de continuité."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-34 Rev. 1, Contingency Planning Guide for Federal Information Systems",
+     "kind": "general"
+    },
+    {
+     "title": "ISO 22301, Sécurité et résilience : systèmes de management de la continuité d'activité",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Trois plans à ne pas confondre"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Plan",
+       "Question à laquelle il répond",
+       "Portée"
+      ],
+      [
+       "Plan de continuité d'activité (PCA, BCP)",
+       "Comment l'organisation continue-t-elle ses activités essentielles pendant et après une crise ?",
+       "Toute l'organisation : personnes, processus, locaux, fournisseurs"
+      ],
+      [
+       "Plan de reprise d'activité (PRA, DRP)",
+       "Comment remet-on en service les systèmes informatiques et les données ?",
+       "Surtout les technologies, souvent sur un autre site"
+      ],
+      [
+       "Plan de réponse aux incidents (IRP)",
+       "Comment détecte-t-on, contient-on et traite-t-on un incident de sécurité ?",
+       "Événements de sécurité, souvent sans perte du site"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "PCA = l'entreprise continue. PRA = l'informatique revient. Le PRA est une partie du PCA."
+    },
+    {
+     "type": "important",
+     "title": "La vie humaine d'abord",
+     "text": "Dans tout plan de continuité, la sécurité des personnes passe avant les biens, les données et les systèmes. Évacuer, mettre à l'abri et compter les personnes vient toujours avant la reprise informatique."
+    },
+    {
+     "type": "heading",
+     "text": "Le bilan d'impact sur l'activité"
+    },
+    {
+     "type": "definition",
+     "title": "BIA (Business Impact Analysis)",
+     "text": "Étude qui identifie les processus essentiels, leurs dépendances (personnes, applications, fournisseurs, locaux) et l'impact de leur interruption dans le temps. Elle fixe les objectifs de reprise et sert de base à toutes les stratégies de continuité.",
+     "kind": "general"
+    },
+    {
+     "type": "practice",
+     "title": "Étapes d'un BIA",
+     "items": [
+      "Identifier les processus métier et leurs responsables.",
+      "Recenser les ressources et dépendances de chaque processus.",
+      "Évaluer l'impact d'une interruption dans le temps : financier, juridique, image, sécurité des personnes.",
+      "Fixer la durée maximale d'interruption tolérable (MTD) et en déduire RTO et RPO.",
+      "Classer les processus par priorité de reprise.",
+      "Faire valider les résultats par la direction."
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Les indicateurs de temps"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Indicateur",
+       "Signification",
+       "Exemple"
+      ],
+      [
+       "MTD (ou MTPD, MAO)",
+       "Durée maximale d'interruption tolérable avant un dommage inacceptable",
+       "La paie ne peut pas s'arrêter plus de 72 h"
+      ],
+      [
+       "RTO",
+       "Délai visé pour remettre le système en service",
+       "Serveur de paie relancé en 24 h"
+      ],
+      [
+       "WRT",
+       "Temps pour vérifier les données et reprendre le travail normal après la remise en service",
+       "Contrôle et ressaisie : 12 h"
+      ],
+      [
+       "RPO",
+       "Perte de données maximale acceptable, mesurée en temps avant l'incident",
+       "On accepte de perdre 4 h de saisie"
+      ]
+     ]
+    },
+    {
+     "type": "diagram",
+     "title": "Avant et après l'incident",
+     "alt": "Frise : à gauche de l'incident, le RPO mesure combien de données récentes on accepte de perdre depuis la dernière sauvegarde ; à droite, le RTO puis le WRT, dont la somme doit rester inférieure ou égale à la MTD.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "💾",
+        "label": "Dernière sauvegarde",
+        "detail": "RPO : données perdues",
+        "tone": "blue"
+       },
+       {
+        "emoji": "💥",
+        "label": "Incident",
+        "detail": "début de l'interruption",
+        "tone": "red"
+       },
+       {
+        "emoji": "🛠️",
+        "label": "Système relancé",
+        "detail": "fin du RTO",
+        "tone": "orange"
+       },
+       {
+        "emoji": "✅",
+        "label": "Travail normal",
+        "detail": "fin du WRT",
+        "tone": "green"
+       },
+       {
+        "emoji": "⏳",
+        "label": "Limite MTD",
+        "detail": "RTO + WRT ≤ MTD",
+        "tone": "violet"
+       }
+      ]
+     }
+    },
+    {
+     "type": "trainerNote",
+     "text": "Deux réflexes : le RPO regarde en arrière (combien de données perdues) et dicte la fréquence des sauvegardes ou de la réplication ; le RTO regarde en avant (combien de temps d'arrêt) et dicte le type de site de secours. Et le RTO est toujours plus court que la MTD."
+    },
+    {
+     "type": "heading",
+     "text": "Un programme, pas un document"
+    },
+    {
+     "type": "diagram",
+     "title": "Les étapes d'un programme de continuité (d'après NIST SP 800-34)",
+     "alt": "Cycle en sept étapes : politique, bilan d'impact, mesures préventives, stratégies de reprise, rédaction du plan, tests et formation, maintenance du plan, au centre le soutien de la direction.",
+     "diagram": {
+      "type": "cycle",
+      "center": "👔 Soutien\nde la direction",
+      "nodes": [
+       {
+        "emoji": "📜",
+        "label": "Politique",
+        "detail": "périmètre, rôles",
+        "tone": "blue"
+       },
+       {
+        "emoji": "📊",
+        "label": "BIA",
+        "detail": "priorités, MTD",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🛡️",
+        "label": "Prévention",
+        "detail": "réduire la probabilité",
+        "tone": "green"
+       },
+       {
+        "emoji": "🧭",
+        "label": "Stratégies",
+        "detail": "sites, sauvegardes",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "📝",
+        "label": "Plan",
+        "detail": "procédures, équipes",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🧪",
+        "label": "Tests",
+        "detail": "exercices, formation",
+        "tone": "pink"
+       },
+       {
+        "emoji": "🔁",
+        "label": "Maintenance",
+        "detail": "mise à jour",
+        "tone": "red"
+       }
+      ]
+     }
+    },
+    {
+     "type": "socCase",
+     "title": "Cas : l'atelier de BIA",
+     "kind": "example",
+     "text": "Dans une entreprise fictive de vente en ligne, l'atelier de BIA montre que la prise de commande perd 40 000 € par heure d'arrêt et que la direction ne tolère pas plus de 8 heures (MTD). L'équipe fixe un RTO de 4 heures, un WRT de 2 heures et un RPO de 15 minutes, ce qui impose une réplication continue de la base de commandes. La comptabilité, moins urgente, reçoit une MTD de 5 jours et de simples sauvegardes quotidiennes."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "Direction : je valide les MTD, car ce sont des choix d'acceptation du risque.",
+      "Responsable métier : je connais l'impact réel d'une heure d'arrêt de mon processus.",
+      "DSI : je traduis RTO et RPO en solutions techniques et en budget.",
+      "Auditeur : je vérifie que le BIA est récent et validé, et que le plan en découle."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Le BIA vient avant les stratégies et le plan.",
+      "RPO = données perdues (passé) ; RTO = temps d'arrêt (futur).",
+      "RTO + WRT ≤ MTD.",
+      "Le soutien de la direction est le premier facteur de réussite.",
+      "La sécurité des personnes passe toujours en premier."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "PCA (activité), PRA (informatique), IRP (incidents).",
+      "BIA : processus critiques, dépendances, impacts, priorités.",
+      "MTD, RTO, WRT, RPO et leur relation.",
+      "Programme continu soutenu par la direction."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c1-q03",
+      "m5c1-q05"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m5c1-l2",
+   "title": "Stratégies de reprise : sites, sauvegardes et redondance",
+   "minutes": 35,
+   "illustration": "assets/illustrations/m5c1_l2_sites.svg",
+   "illustrationAlt": "Dessin de trois bâtiments : un site chaud avec des serveurs allumés, un site tiède avec quelques équipements, et un site froid vide avec seulement des prises électriques.",
+   "objectives": [
+    "Comparer sites chaud, tiède, froid, mobile, accord réciproque et reprise dans le cloud.",
+    "Choisir entre sauvegarde complète, incrémentale et différentielle.",
+    "Expliquer les niveaux RAID et la redondance des composants.",
+    "Utiliser MTBF et temps moyen de réparation pour raisonner sur la disponibilité."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-34 Rev. 1, Contingency Planning Guide for Federal Information Systems",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Les sites de secours"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Site",
+       "Contenu",
+       "Délai de reprise",
+       "Coût"
+      ],
+      [
+       "Site miroir (redondant)",
+       "Copie active, données synchronisées",
+       "Quasi immédiat",
+       "Très élevé"
+      ],
+      [
+       "Site chaud (hot site)",
+       "Matériel, réseau et logiciels prêts ; il manque surtout les dernières données",
+       "Quelques heures",
+       "Élevé"
+      ],
+      [
+       "Site tiède (warm site)",
+       "Locaux, réseau et une partie du matériel",
+       "Un à quelques jours",
+       "Moyen"
+      ],
+      [
+       "Site froid (cold site)",
+       "Locaux, électricité, climatisation ; pas de matériel",
+       "Une à plusieurs semaines",
+       "Faible"
+      ],
+      [
+       "Site mobile",
+       "Remorque ou conteneur équipé",
+       "Selon l'équipement",
+       "Variable"
+      ],
+      [
+       "Accord réciproque",
+       "Une autre organisation héberge en cas de sinistre",
+       "Incertain",
+       "Faible mais peu fiable"
+      ],
+      [
+       "Reprise dans le cloud (DRaaS)",
+       "Machines répliquées chez un fournisseur",
+       "Minutes à heures",
+       "À l'usage"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "Plus le site est chaud, plus il est rapide et cher. Le RTO choisit la température du site."
+    },
+    {
+     "type": "risk",
+     "title": "Accords réciproques et sites trop proches",
+     "text": "Un accord réciproque est difficile à faire respecter : l'autre organisation peut manquer de capacité ou être touchée par le même sinistre, et la confidentialité est délicate. Un site de secours trop proche peut subir la même inondation, la même panne électrique ou la même zone de séisme."
+    },
+    {
+     "type": "heading",
+     "text": "Les types de sauvegarde"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Type",
+       "Ce qui est copié",
+       "Sauvegarde",
+       "Restauration"
+      ],
+      [
+       "Complète (full)",
+       "Tout",
+       "Longue",
+       "Rapide : un seul jeu"
+      ],
+      [
+       "Incrémentale",
+       "Ce qui a changé depuis la dernière sauvegarde, quelle qu'elle soit",
+       "Rapide",
+       "Lente : la complète puis toutes les incrémentales"
+      ],
+      [
+       "Différentielle",
+       "Ce qui a changé depuis la dernière complète",
+       "De plus en plus longue dans la semaine",
+       "Moyenne : la complète puis la dernière différentielle"
+      ]
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "Question classique : restaurer après une panne jeudi, avec une complète le dimanche. Avec des incrémentales : la complète plus celles de lundi, mardi et mercredi. Avec des différentielles : la complète plus celle de mercredi seulement. Les sauvegardes complète et incrémentale remettent à zéro l'attribut d'archive des fichiers ; la différentielle ne le fait pas."
+    },
+    {
+     "type": "important",
+     "title": "Une sauvegarde se teste",
+     "text": "Les supports se conservent hors site, protégés (chiffrement, contrôle d'accès) et au moins une copie hors ligne ou immuable. On teste régulièrement la restauration pour vérifier qu'elle fonctionne et qu'elle tient dans le RTO."
+    },
+    {
+     "type": "heading",
+     "text": "La redondance"
+    },
+    {
+     "type": "diagram",
+     "title": "Niveaux RAID courants",
+     "alt": "Tableau en quatre cases : RAID 0 répartit les données sans redondance ; RAID 1 copie en miroir sur deux disques ; RAID 5 répartit avec une parité et supporte la perte d'un disque ; RAID 6 utilise une double parité et supporte la perte de deux disques.",
+     "diagram": {
+      "type": "quadrant",
+      "xLabel": "Niveau",
+      "yLabel": "Tolérance",
+      "cells": [
+       {
+        "emoji": "⚡",
+        "label": "RAID 0",
+        "detail": "répartition, aucune tolérance",
+        "tone": "red"
+       },
+       {
+        "emoji": "🪞",
+        "label": "RAID 1",
+        "detail": "miroir, 1 disque",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🧮",
+        "label": "RAID 5",
+        "detail": "parité, 1 disque (min. 3)",
+        "tone": "green"
+       },
+       {
+        "emoji": "🛡️",
+        "label": "RAID 6",
+        "detail": "double parité, 2 disques",
+        "tone": "violet"
+       }
+      ]
+     }
+    },
+    {
+     "type": "definition",
+     "title": "RAID n'est pas une sauvegarde",
+     "text": "Le RAID protège contre la panne d'un disque, pas contre une suppression, une corruption ou un rançongiciel : l'erreur est recopiée instantanément sur tous les disques. Il complète les sauvegardes sans les remplacer.",
+     "kind": "general"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Mesure",
+       "Contre quoi"
+      ],
+      [
+       "Grappe de serveurs (cluster) avec bascule",
+       "Panne d'un serveur"
+      ],
+      [
+       "Répartition de charge",
+       "Surcharge et panne d'un nœud"
+      ],
+      [
+       "Onduleur (UPS)",
+       "Coupures courtes, le temps d'arrêter proprement ou de démarrer le groupe"
+      ],
+      [
+       "Groupe électrogène",
+       "Coupures longues"
+      ],
+      [
+       "Double alimentation, double lien opérateur",
+       "Point de défaillance unique"
+      ]
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "MTBF et temps moyen de réparation",
+     "text": "Le MTBF (temps moyen entre pannes) mesure la fiabilité d'un composant ; le temps moyen de réparation (souvent noté MTTR, Mean Time To Repair) mesure le temps pour le remettre en état. Disponibilité ≈ MTBF / (MTBF + temps de réparation). Attention : en SOC, MTTR désigne plutôt le délai moyen de réponse à un incident.",
+     "kind": "general"
+    },
+    {
+     "type": "socCase",
+     "title": "Cas : choisir le site",
+     "kind": "example",
+     "text": "Une mutuelle fictive a un RTO de 4 heures pour son service de remboursement et de 15 jours pour ses archives. Elle loue un site chaud dans une autre région pour le remboursement, avec réplication toutes les 15 minutes, et un site froid partagé pour les archives. Le site chaud est choisi à plus de 100 km pour ne pas dépendre du même réseau électrique."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "DSI : le RTO et le RPO me disent quelle solution acheter ; sans eux je surdimensionne ou je sous-dimensionne.",
+      "Directeur financier : un site miroir coûte cher, il doit protéger un processus qui le justifie.",
+      "Auditeur : je demande la preuve du dernier test de restauration.",
+      "Exploitant : je surveille les sauvegardes chaque jour, une sauvegarde en échec doit lever une alerte."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Site chaud = heures ; tiède = jours ; froid = semaines.",
+      "Incrémentale : sauvegarde rapide, restauration longue ; différentielle : l'inverse.",
+      "RAID 0 n'offre aucune redondance ; RAID 5 = au moins 3 disques.",
+      "RAID ne remplace pas la sauvegarde.",
+      "Accord réciproque : bon marché mais difficile à faire respecter."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Sites : miroir, chaud, tiède, froid, mobile, réciproque, cloud.",
+      "Sauvegardes : complète, incrémentale, différentielle ; stockage hors site, tests.",
+      "Redondance : RAID, grappes, répartition de charge, énergie.",
+      "Disponibilité : MTBF et temps de réparation."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c1-q11",
+      "m5c1-q13"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m5c1-l3",
+   "title": "Rédiger, tester et maintenir le plan",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m5c1_l3_exercice.svg",
+   "illustrationAlt": "Dessin d'une table autour de laquelle sont posés un classeur « Plan de continuité », un chronomètre et des cartes de scénario, avec une case à cocher « exercice ».",
+   "objectives": [
+    "Lister le contenu attendu d'un plan de continuité et de reprise.",
+    "Organiser les équipes et la communication de crise.",
+    "Comparer les cinq types de tests, du moins au plus risqué.",
+    "Maintenir le plan à jour et exploiter les retours d'expérience."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-34 Rev. 1, Contingency Planning Guide for Federal Information Systems",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-84, Guide to Test, Training, and Exercise Programs for IT Plans and Capabilities",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Ce que contient le plan"
+    },
+    {
+     "type": "practice",
+     "title": "Contenu type",
+     "items": [
+      "Objectifs, périmètre et hypothèses (issus du BIA).",
+      "Critères et autorité pour déclarer un sinistre et activer le plan.",
+      "Équipes, rôles, suppléants et coordonnées à jour.",
+      "Procédures de reprise par ordre de priorité, avec RTO et RPO.",
+      "Plan de communication : personnel, clients, autorités, médias, avec un porte-parole désigné.",
+      "Procédure de retour au site principal.",
+      "Annexes : inventaires, contrats fournisseurs, configurations."
+     ]
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Équipe",
+       "Rôle"
+      ],
+      [
+       "Cellule de crise (direction)",
+       "Décide, déclare le sinistre, arbitre, communique"
+      ],
+      [
+       "Équipe de reprise",
+       "Remet en service au site de secours, dans l'ordre des priorités"
+      ],
+      [
+       "Équipe de restauration (salvage)",
+       "Évalue les dégâts et remet en état le site principal"
+      ],
+      [
+       "Communication",
+       "Informe le personnel, les clients, les médias"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Revenir au site principal",
+     "text": "Le retour se prépare comme une reprise : on revient d'abord avec les fonctions les moins critiques, pour vérifier que le site principal est sûr et stable, puis on bascule les plus critiques. Le sinistre n'est terminé que lorsque l'activité normale a repris au site principal."
+    },
+    {
+     "type": "heading",
+     "text": "Tester le plan"
+    },
+    {
+     "type": "diagram",
+     "title": "Les tests, du plus léger au plus risqué",
+     "alt": "Échelle en cinq marches : revue documentaire (checklist), exercice sur table (walk-through), simulation, test en parallèle sur le site de secours, puis interruption complète de la production, la plus risquée.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "📋",
+        "label": "Revue documentaire",
+        "detail": "chacun relit sa partie",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🗣️",
+        "label": "Exercice sur table",
+        "detail": "on déroule le scénario ensemble",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "🎭",
+        "label": "Simulation",
+        "detail": "scénario joué, sans arrêter la production",
+        "tone": "green"
+       },
+       {
+        "emoji": "🔀",
+        "label": "Parallèle",
+        "detail": "systèmes lancés au site de secours, production maintenue",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🛑",
+        "label": "Interruption complète",
+        "detail": "production arrêtée, bascule réelle",
+        "tone": "red"
+       }
+      ]
+     }
+    },
+    {
+     "type": "risk",
+     "title": "L'interruption complète",
+     "text": "Arrêter la production pour basculer réellement est le test le plus réaliste et le plus risqué : il peut provoquer le sinistre qu'il veut prévenir. Il exige l'accord écrit de la direction, une préparation solide et un retour arrière prévu."
+    },
+    {
+     "type": "trainerNote",
+     "text": "À l'examen : la revue documentaire est la moins coûteuse ; l'exercice sur table réunit les équipes autour du scénario ; le test parallèle met en route le site de secours sans couper la production ; l'interruption complète est la plus risquée et demande l'approbation de la direction."
+    },
+    {
+     "type": "heading",
+     "text": "Maintenir le plan"
+    },
+    {
+     "type": "practice",
+     "title": "Garder le plan vivant",
+     "items": [
+      "Le revoir au moins une fois par an et à chaque changement majeur : nouvelle application, déménagement, fournisseur, réorganisation.",
+      "Mettre à jour les coordonnées et les suppléants.",
+      "Former les nouveaux arrivants et sensibiliser tout le personnel.",
+      "Après chaque test ou incident réel, rédiger un retour d'expérience et corriger le plan.",
+      "Intégrer la mise à jour du plan dans la gestion des changements.",
+      "Conserver des copies hors site et accessibles même sans le système d'information."
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "Un plan non testé est une hypothèse ; un plan non mis à jour est un piège."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas : l'exercice sur table",
+     "kind": "example",
+     "text": "Lors d'un exercice sur table simulé, l'animateur annonce l'inondation du sous-sol qui abrite la salle informatique. En déroulant le plan, l'équipe découvre que le numéro d'astreinte du fournisseur de site de secours a changé et que la procédure suppose un accès au partage réseau… qui se trouve dans la salle inondée. Les deux corrections sont faites la semaine suivante et une copie papier du plan est placée dans chaque site."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "Direction : je préside la cellule de crise et j'approuve les tests à risque.",
+      "Responsable de la continuité : je planifie un programme de tests progressif sur l'année.",
+      "Communication : je prépare à l'avance des messages types pour les clients et la presse.",
+      "Auditeur : je compare la date du dernier test et la dernière mise à jour du plan aux changements récents."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Ordre des tests : revue, table, simulation, parallèle, interruption complète.",
+      "Interruption complète = approbation de la direction.",
+      "Retour au site principal : les fonctions les moins critiques d'abord.",
+      "Le plan doit être accessible sans le système d'information.",
+      "Toute modification importante du SI déclenche une mise à jour du plan."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Plan : déclenchement, équipes, priorités, communication, retour.",
+      "Tests progressifs ; interruption complète réservée et approuvée.",
+      "Maintenance : revue annuelle, changements, retours d'expérience, formation.",
+      "Copies hors site et hors ligne."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c1-q21",
+      "m5c1-q24"
+     ]
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "id": "m5c1-q01",
+   "domain": "bcp-dr-ir-law",
+   "level": "beginner",
+   "concept": "PCA et PRA",
+   "prompt": "Quelle est la différence principale entre un PCA et un PRA ?",
+   "choices": [
+    "Le PCA vise la continuité de toute l'activité ; le PRA vise la remise en service des systèmes informatiques",
+    "Ce sont des synonymes",
+    "Le PRA couvre toute l'organisation et le PCA seulement l'informatique",
+    "Le PCA ne concerne que les incendies"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le PRA est une composante technique du PCA.",
+   "whyNot": {
+    "1": "Ils diffèrent par la portée.",
+    "2": "C'est l'inverse.",
+    "3": "Le PCA couvre tous les types de sinistres."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c1-q02",
+   "domain": "bcp-dr-ir-law",
+   "level": "beginner",
+   "concept": "Priorité",
+   "prompt": "Quelle est la priorité absolue dans un plan de continuité ?",
+   "choices": [
+    "La sécurité des personnes",
+    "La restauration des données",
+    "La protection du matériel",
+    "La communication avec la presse"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "La vie humaine passe avant les biens, les données et les systèmes.",
+   "whyNot": {
+    "1": "Importante, mais après les personnes.",
+    "2": "Après les personnes.",
+    "3": "Après les personnes."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c1-q03",
+   "domain": "bcp-dr-ir-law",
+   "level": "beginner",
+   "concept": "BIA",
+   "prompt": "Quelle activité doit être menée avant de choisir les stratégies de reprise ?",
+   "choices": [
+    "Le bilan d'impact sur l'activité (BIA)",
+    "L'achat d'un site chaud",
+    "Le test d'interruption complète",
+    "La rédaction du communiqué de presse"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le BIA fixe les priorités et les objectifs (MTD, RTO, RPO) dont découlent les stratégies.",
+   "whyNot": {
+    "1": "On ne choisit un site qu'une fois le RTO connu.",
+    "2": "Les tests viennent après le plan.",
+    "3": "Sans rapport."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c1-q04",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "RPO",
+   "prompt": "La direction accepte de perdre au maximum 2 heures de saisie. Quel indicateur cela fixe-t-il ?",
+   "choices": [
+    "Le RPO",
+    "Le RTO",
+    "La MTD",
+    "Le MTBF"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le RPO est la perte de données acceptable, mesurée en temps ; il impose ici une sauvegarde ou une réplication au moins toutes les 2 heures.",
+   "whyNot": {
+    "1": "Le RTO est le délai de remise en service.",
+    "2": "La MTD est la durée d'interruption tolérable.",
+    "3": "Le MTBF mesure la fiabilité."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c1-q05",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "MTD",
+   "prompt": "Quelle relation doit être respectée entre RTO, WRT et MTD ?",
+   "choices": [
+    "RTO + WRT ≤ MTD",
+    "MTD + WRT ≤ RTO",
+    "RTO = RPO",
+    "WRT ≥ MTD"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le temps de remise en service plus le temps de reprise du travail ne doit pas dépasser la durée maximale tolérable.",
+   "whyNot": {
+    "1": "La MTD est la borne supérieure.",
+    "2": "Ils mesurent des choses différentes.",
+    "3": "Le WRT n'est qu'une partie de la MTD."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c1-q06",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "RTO",
+   "prompt": "Un processus a un RTO de 2 heures. Quelle décision ce chiffre guide-t-il surtout ?",
+   "choices": [
+    "Le type de site et de solution de reprise",
+    "La fréquence des sauvegardes",
+    "La durée de conservation des journaux",
+    "Le choix de l'antivirus"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le RTO court impose une solution de reprise rapide (site chaud, réplication, bascule).",
+   "whyNot": {
+    "1": "C'est le RPO qui dicte la fréquence des sauvegardes.",
+    "2": "Sans rapport.",
+    "3": "Sans rapport."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c1-q07",
+   "domain": "bcp-dr-ir-law",
+   "level": "beginner",
+   "concept": "Direction",
+   "prompt": "Quel est le facteur le plus important pour la réussite d'un programme de continuité ?",
+   "choices": [
+    "Le soutien et l'engagement de la direction",
+    "Le choix du logiciel de sauvegarde",
+    "Le nombre de pages du plan",
+    "La couleur des classeurs"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "La direction fixe les priorités, valide les MTD et attribue les moyens.",
+   "whyNot": {
+    "1": "Utile mais secondaire.",
+    "2": "Un plan long n'est pas un plan efficace.",
+    "3": "Sans rapport."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c1-q08",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "BIA",
+   "prompt": "Lors d'un BIA, quels éléments faut-il recenser pour chaque processus critique ? (plusieurs réponses)",
+   "choices": [
+    "Les dépendances : applications, personnes, fournisseurs, locaux",
+    "L'impact de l'interruption dans le temps",
+    "La marque des écrans",
+    "La durée maximale d'interruption tolérable"
+   ],
+   "correct": [
+    0,
+    1,
+    3
+   ],
+   "explanation": "Le BIA relie processus, dépendances, impacts et objectifs de reprise.",
+   "whyNot": {
+    "2": "Sans intérêt pour la continuité."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c1-q09",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "Indicateurs",
+   "prompt": "La MTD de la facturation est de 48 h, le WRT est estimé à 12 h. Quel RTO maximal peut-on fixer ?",
+   "choices": [
+    "36 h",
+    "48 h",
+    "60 h",
+    "12 h"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "RTO + WRT ≤ MTD, donc RTO ≤ 48 − 12 = 36 h.",
+   "whyNot": {
+    "1": "Il faut retirer le WRT.",
+    "2": "On dépasserait la MTD.",
+    "3": "Possible mais pas le maximum."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c1-q10",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Plans",
+   "prompt": "Une attaque par hameçonnage compromet trois comptes, sans perte de site ni de système. Quel plan s'applique d'abord ?",
+   "choices": [
+    "Le plan de réponse aux incidents",
+    "Le plan de reprise d'activité sur site de secours",
+    "Le plan d'évacuation",
+    "Aucun plan"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Un incident de sécurité sans sinistre relève de la réponse aux incidents ; le PCA peut être activé si l'impact s'aggrave.",
+   "whyNot": {
+    "1": "Aucun site n'est perdu.",
+    "2": "Aucun danger physique.",
+    "3": "Un plan est prévu pour ce cas."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c1-q11",
+   "domain": "bcp-dr-ir-law",
+   "level": "beginner",
+   "concept": "Sites",
+   "prompt": "Quel site de secours dispose déjà du matériel, du réseau et des logiciels, et peut reprendre en quelques heures ?",
+   "choices": [
+    "Le site chaud",
+    "Le site froid",
+    "Le site tiède",
+    "Un accord réciproque"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le site chaud est prêt ; il manque surtout les dernières données.",
+   "whyNot": {
+    "1": "Le site froid n'a que les locaux et l'énergie.",
+    "2": "Le site tiède demande des jours.",
+    "3": "Disponibilité incertaine."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c1-q12",
+   "domain": "bcp-dr-ir-law",
+   "level": "beginner",
+   "concept": "Sites",
+   "prompt": "Quel site est le moins cher mais le plus long à rendre opérationnel ?",
+   "choices": [
+    "Le site froid",
+    "Le site chaud",
+    "Le site miroir",
+    "La reprise dans le cloud"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Il ne fournit que les locaux, l'électricité et la climatisation : il faut tout installer.",
+   "whyNot": {
+    "1": "Rapide mais cher.",
+    "2": "Le plus cher.",
+    "3": "Rapide."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c1-q13",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Sauvegardes",
+   "prompt": "Complète le dimanche, incrémentales du lundi au samedi. Panne le jeudi matin. Que faut-il restaurer ?",
+   "choices": [
+    "La complète puis les incrémentales de lundi, mardi et mercredi",
+    "La complète puis l'incrémentale de mercredi seulement",
+    "Uniquement l'incrémentale de mercredi",
+    "Uniquement la complète"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Chaque incrémentale ne contient que les changements depuis la sauvegarde précédente : il faut toute la chaîne.",
+   "whyNot": {
+    "1": "Ce serait le cas avec des différentielles.",
+    "2": "Il manquerait la base et les jours précédents.",
+    "3": "On perdrait trois jours."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c1-q14",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Sauvegardes",
+   "prompt": "Complète le dimanche, différentielles chaque jour. Panne le jeudi matin. Que faut-il restaurer ?",
+   "choices": [
+    "La complète puis la différentielle de mercredi",
+    "La complète puis toutes les différentielles",
+    "Seulement la différentielle de mercredi",
+    "Seulement la complète"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "La différentielle contient tous les changements depuis la dernière complète.",
+   "whyNot": {
+    "1": "Inutile : la dernière contient les précédentes.",
+    "2": "Il manque la base.",
+    "3": "On perdrait trois jours."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c1-q15",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "RAID",
+   "prompt": "Quel niveau RAID n'offre aucune redondance ?",
+   "choices": [
+    "RAID 0",
+    "RAID 1",
+    "RAID 5",
+    "RAID 6"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "RAID 0 répartit les données pour la performance : la perte d'un disque fait tout perdre.",
+   "whyNot": {
+    "1": "Miroir.",
+    "2": "Parité.",
+    "3": "Double parité."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c1-q16",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "RAID",
+   "prompt": "Combien de disques peuvent tomber en panne simultanément sans perte de données en RAID 6 ?",
+   "choices": [
+    "Deux",
+    "Un",
+    "Aucun",
+    "Tous sauf un"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "La double parité tolère la perte de deux disques.",
+   "whyNot": {
+    "1": "C'est le RAID 5.",
+    "2": "C'est le RAID 0.",
+    "3": "Non."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c1-q17",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "RAID et sauvegarde",
+   "prompt": "Pourquoi un RAID 1 ne protège-t-il pas contre un rançongiciel ?",
+   "choices": [
+    "Parce que le chiffrement malveillant est recopié instantanément sur les deux disques",
+    "Parce que le RAID 1 n'a qu'un disque",
+    "Parce que le RAID 1 est toujours hors ligne",
+    "Parce que le RAID 1 chiffre lui-même les données"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le RAID protège contre la panne matérielle, pas contre une modification logique ; il faut des sauvegardes.",
+   "whyNot": {
+    "1": "Il a au moins deux disques.",
+    "2": "Il est en ligne.",
+    "3": "Il ne chiffre pas."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c1-q18",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "Accord réciproque",
+   "prompt": "Quel est le principal inconvénient d'un accord réciproque entre deux entreprises ?",
+   "choices": [
+    "Il est difficile à faire respecter et l'autre site peut manquer de capacité au moment du sinistre",
+    "Il coûte plus cher qu'un site miroir",
+    "Il est interdit par la loi",
+    "Il n'a aucun inconvénient"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Bon marché, mais peu fiable : capacité, confidentialité, sinistre commun.",
+   "whyNot": {
+    "1": "Il est au contraire peu coûteux.",
+    "2": "Il est autorisé.",
+    "3": "Il en a plusieurs."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c1-q19",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "Disponibilité",
+   "prompt": "Un équipement a un MTBF de 990 heures et un temps moyen de réparation de 10 heures. Quelle est sa disponibilité approximative ?",
+   "choices": [
+    "99 %",
+    "90 %",
+    "99,9 %",
+    "1 %"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "990 / (990 + 10) = 0,99.",
+   "whyNot": {
+    "1": "Erreur de calcul.",
+    "2": "Il faudrait une réparation de 1 heure environ.",
+    "3": "Confusion avec l'indisponibilité."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c1-q20",
+   "domain": "bcp-dr-ir-law",
+   "level": "beginner",
+   "concept": "Énergie",
+   "prompt": "Quel équipement assure l'alimentation pendant une coupure courte, le temps de démarrer le groupe électrogène ?",
+   "choices": [
+    "L'onduleur (UPS)",
+    "Le routeur",
+    "Le pare-feu",
+    "Le RAID"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "L'onduleur couvre les minutes ; le groupe électrogène couvre les longues coupures.",
+   "whyNot": {
+    "1": "Sans rapport.",
+    "2": "Sans rapport.",
+    "3": "Protège les disques, pas l'énergie."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c1-q21",
+   "domain": "bcp-dr-ir-law",
+   "level": "beginner",
+   "concept": "Tests",
+   "prompt": "Quel test est le moins coûteux et le moins risqué ?",
+   "choices": [
+    "La revue documentaire (checklist)",
+    "Le test en parallèle",
+    "L'interruption complète",
+    "La simulation"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Chacun relit sa partie du plan, sans mobiliser de systèmes.",
+   "whyNot": {
+    "1": "Mobilise le site de secours.",
+    "2": "Le plus risqué.",
+    "3": "Plus lourd qu'une revue."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c1-q22",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Tests",
+   "prompt": "Quel test met en route les systèmes au site de secours tout en maintenant la production au site principal ?",
+   "choices": [
+    "Le test en parallèle",
+    "L'interruption complète",
+    "La revue documentaire",
+    "L'exercice sur table"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Il vérifie le site de secours sans couper l'activité.",
+   "whyNot": {
+    "1": "La production y est arrêtée.",
+    "2": "Aucun système n'est démarré.",
+    "3": "Discussion seulement."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c1-q23",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Tests",
+   "prompt": "Que faut-il obtenir avant un test d'interruption complète ?",
+   "choices": [
+    "L'approbation de la direction",
+    "L'avis des clients",
+    "Un nouvel antivirus",
+    "Rien de particulier"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "C'est le test le plus risqué : il peut provoquer une vraie interruption.",
+   "whyNot": {
+    "1": "Non requis.",
+    "2": "Sans rapport.",
+    "3": "Un tel test exige une validation formelle."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c1-q24",
+   "domain": "bcp-dr-ir-law",
+   "level": "beginner",
+   "concept": "Exercice sur table",
+   "prompt": "Comment se déroule un exercice sur table (walk-through) ?",
+   "choices": [
+    "Les équipes se réunissent et déroulent ensemble un scénario étape par étape",
+    "On coupe réellement le courant du centre de données",
+    "On restaure toutes les sauvegardes en production",
+    "Chacun lit seul le plan chez soi"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Il révèle les incohérences et les oublis sans risque pour la production.",
+   "whyNot": {
+    "1": "Ce serait une interruption réelle.",
+    "2": "Risqué et hors sujet.",
+    "3": "C'est la revue documentaire."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c1-q25",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Retour au site",
+   "prompt": "Lors du retour au site principal, quelles fonctions bascule-t-on en premier ?",
+   "choices": [
+    "Les moins critiques",
+    "Les plus critiques",
+    "Toutes en même temps",
+    "Aucune, on reste au site de secours"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "On vérifie la stabilité du site principal avec les fonctions les moins sensibles avant d'y ramener les critiques.",
+   "whyNot": {
+    "1": "On risquerait les fonctions vitales sur un site non éprouvé.",
+    "2": "Trop risqué.",
+    "3": "Le site de secours n'est pas prévu pour durer."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c1-q26",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Maintenance",
+   "prompt": "Quel événement doit déclencher une mise à jour du plan de continuité ?",
+   "choices": [
+    "Le déploiement d'une nouvelle application critique",
+    "Un changement de fond d'écran",
+    "Une mise à jour mineure du navigateur",
+    "L'arrivée d'un stagiaire sans rôle dans le plan"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Tout changement majeur du SI, des locaux ou de l'organisation doit être reflété dans le plan.",
+   "whyNot": {
+    "1": "Sans rapport.",
+    "2": "Changement mineur.",
+    "3": "Sans effet sur le plan."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c1-q27",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "Accessibilité du plan",
+   "prompt": "Pourquoi conserver des copies du plan hors site et hors du système d'information ?",
+   "choices": [
+    "Parce que le sinistre peut rendre inaccessibles les locaux et les systèmes où le plan est stocké",
+    "Pour respecter la charte graphique",
+    "Pour réduire le nombre de pages",
+    "Parce que le plan est confidentiel et doit être détruit"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Un plan stocké uniquement sur le serveur sinistré ne sert à rien.",
+   "whyNot": {
+    "1": "Sans rapport.",
+    "2": "Sans rapport.",
+    "3": "Il doit être protégé, pas détruit."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c1-q28",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "Déclaration",
+   "prompt": "Qui doit avoir l'autorité de déclarer un sinistre et d'activer le plan ?",
+   "choices": [
+    "Une personne désignée de la direction (et ses suppléants)",
+    "N'importe quel employé",
+    "Le fournisseur du site de secours",
+    "Les médias"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "L'activation engage des coûts et des décisions : l'autorité et les critères sont définis à l'avance.",
+   "whyNot": {
+    "1": "Risque d'activations injustifiées.",
+    "2": "Il exécute le contrat, il ne décide pas.",
+    "3": "Sans rapport."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c1-q29",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "Communication",
+   "prompt": "Pourquoi désigner un porte-parole unique dans le plan de communication de crise ?",
+   "choices": [
+    "Pour éviter les messages contradictoires et maîtriser les informations diffusées",
+    "Pour que personne d'autre ne soit informé",
+    "Pour remplacer la cellule de crise",
+    "Parce que la loi l'interdit"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Un message cohérent protège l'image et évite les fuites ou les erreurs.",
+   "whyNot": {
+    "1": "Le personnel doit être informé.",
+    "2": "Il en fait partie.",
+    "3": "Sans rapport."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c1-q30",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "Retour d'expérience",
+   "prompt": "Quelles actions suivent un test du plan ? (plusieurs réponses)",
+   "choices": [
+    "Rédiger un retour d'expérience",
+    "Corriger le plan selon les écarts constatés",
+    "Former les personnes sur les points faibles",
+    "Supprimer les résultats pour éviter l'audit"
+   ],
+   "correct": [
+    0,
+    1,
+    2
+   ],
+   "explanation": "Le test sert à améliorer : retour d'expérience, correction, formation.",
+   "whyNot": {
+    "3": "Les résultats sont des preuves utiles à l'audit."
+   },
+   "kind": "general"
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "m5c1-f01",
+   "front": "PCA / PRA",
+   "back": "Continuité de l'activité / reprise de l'informatique ; le PRA fait partie du PCA.",
+   "concept": "Plan de continuité d'activité"
+  },
+  {
+   "id": "m5c1-f02",
+   "front": "Priorité n°1",
+   "back": "La sécurité des personnes.",
+   "concept": "Plan de continuité d'activité"
+  },
+  {
+   "id": "m5c1-f03",
+   "front": "BIA",
+   "back": "Processus critiques, dépendances, impacts dans le temps ; vient avant les stratégies.",
+   "concept": "Bilan d'impact sur l'activité"
+  },
+  {
+   "id": "m5c1-f04",
+   "front": "MTD",
+   "back": "Durée maximale d'interruption tolérable.",
+   "concept": "MTD"
+  },
+  {
+   "id": "m5c1-f05",
+   "front": "RTO",
+   "back": "Délai pour remettre le système en service ; choisit le site.",
+   "concept": "RTO"
+  },
+  {
+   "id": "m5c1-f06",
+   "front": "RPO",
+   "back": "Perte de données acceptable ; fixe la fréquence des sauvegardes.",
+   "concept": "RPO"
+  },
+  {
+   "id": "m5c1-f07",
+   "front": "WRT",
+   "back": "Temps pour vérifier et reprendre le travail ; RTO + WRT ≤ MTD.",
+   "concept": "WRT"
+  },
+  {
+   "id": "m5c1-f08",
+   "front": "Site chaud / tiède / froid",
+   "back": "Heures / jours / semaines.",
+   "concept": "Site chaud"
+  },
+  {
+   "id": "m5c1-f09",
+   "front": "Accord réciproque",
+   "back": "Bon marché, peu fiable, difficile à faire respecter.",
+   "concept": "Accord réciproque"
+  },
+  {
+   "id": "m5c1-f10",
+   "front": "Incrémentale",
+   "back": "Rapide à faire ; restaurer la complète + toutes les incrémentales.",
+   "concept": "Sauvegarde incrémentale"
+  },
+  {
+   "id": "m5c1-f11",
+   "front": "Différentielle",
+   "back": "Restaurer la complète + la dernière différentielle.",
+   "concept": "Sauvegarde différentielle"
+  },
+  {
+   "id": "m5c1-f12",
+   "front": "RAID 0 / 1",
+   "back": "Répartition sans redondance / miroir.",
+   "concept": "RAID"
+  },
+  {
+   "id": "m5c1-f13",
+   "front": "RAID 5 / 6",
+   "back": "Parité, 1 disque (min. 3) / double parité, 2 disques.",
+   "concept": "RAID"
+  },
+  {
+   "id": "m5c1-f14",
+   "front": "RAID ≠ sauvegarde",
+   "back": "Une suppression ou un chiffrement est recopié partout.",
+   "concept": "RAID"
+  },
+  {
+   "id": "m5c1-f15",
+   "front": "MTBF",
+   "back": "Temps moyen entre pannes ; disponibilité ≈ MTBF / (MTBF + réparation).",
+   "concept": "MTBF"
+  },
+  {
+   "id": "m5c1-f16",
+   "front": "Onduleur / groupe",
+   "back": "Coupure courte / coupure longue.",
+   "concept": "Onduleur"
+  },
+  {
+   "id": "m5c1-f17",
+   "front": "Tests (ordre)",
+   "back": "Revue, table, simulation, parallèle, interruption complète.",
+   "concept": "Test du plan"
+  },
+  {
+   "id": "m5c1-f18",
+   "front": "Interruption complète",
+   "back": "Le plus risqué ; approbation de la direction.",
+   "concept": "Test du plan"
+  },
+  {
+   "id": "m5c1-f19",
+   "front": "Retour au site principal",
+   "back": "Les fonctions les moins critiques d'abord.",
+   "concept": "Plan de reprise d'activité"
+  },
+  {
+   "id": "m5c1-f20",
+   "front": "Maintenance",
+   "back": "Revue annuelle, changements majeurs, retours d'expérience, copies hors site.",
+   "concept": "Plan de continuité d'activité"
+  }
+ ],
+ "revisionSheet": [
+  "# Fiche de révision : continuité d'activité et reprise",
+  "PCA : continuité de toute l'activité ; PRA : remise en service des systèmes et des données (partie du PCA) ; IRP : réponse aux incidents de sécurité.",
+  "Priorité absolue : la sécurité des personnes. Premier facteur de réussite : le soutien de la direction.",
+  "BIA avant tout : processus critiques, dépendances, impacts dans le temps, priorités, validation par la direction.",
+  "MTD (interruption tolérable), RTO (remise en service), WRT (reprise du travail), RPO (données perdues) ; RTO + WRT ≤ MTD.",
+  "RPO → fréquence des sauvegardes ou de la réplication ; RTO → type de site et de solution.",
+  "Sites : miroir (immédiat), chaud (heures), tiède (jours), froid (semaines), mobile, accord réciproque (peu fiable), cloud ; éloigner le site de secours.",
+  "Sauvegardes : complète ; incrémentale (rapide, restauration = complète + toutes) ; différentielle (restauration = complète + dernière) ; hors site, protégées, testées.",
+  "RAID 0 (aucune redondance), 1 (miroir), 5 (parité, 1 disque, min. 3), 6 (double parité, 2 disques), 10 ; RAID n'est pas une sauvegarde.",
+  "Redondance : grappes et bascule, répartition de charge, onduleur, groupe électrogène, doubles alimentations et liens.",
+  "Disponibilité ≈ MTBF / (MTBF + temps de réparation).",
+  "Plan : déclenchement et autorité, équipes et suppléants, priorités, communication (porte-parole), retour au site principal (moins critiques d'abord).",
+  "Tests : revue documentaire, exercice sur table, simulation, parallèle, interruption complète (approbation de la direction).",
+  "Maintenance : revue annuelle et à chaque changement majeur, retours d'expérience, formation, copies hors site et hors ligne.",
+  "Paires à ne pas confondre : PCA/PRA ; RTO/RPO ; incrémentale/différentielle ; RAID/sauvegarde ; parallèle/interruption complète."
+ ],
+ "mindMap": {
+  "label": "Continuité d'activité et reprise",
+  "en": "Business Continuity and Disaster Recovery",
+  "emoji": "🏢",
+  "children": [
+   {
+    "label": "Plans",
+    "en": "Plans",
+    "emoji": "📚",
+    "tone": "blue",
+    "children": [
+     {
+      "label": "PCA",
+      "detail": "Toute l'activité."
+     },
+     {
+      "label": "PRA",
+      "detail": "Systèmes et données."
+     },
+     {
+      "label": "Réponse aux incidents"
+     },
+     {
+      "label": "Personnes d'abord"
+     }
+    ]
+   },
+   {
+    "label": "BIA",
+    "en": "Business Impact Analysis",
+    "emoji": "📊",
+    "tone": "violet",
+    "children": [
+     {
+      "label": "Processus critiques"
+     },
+     {
+      "label": "Dépendances"
+     },
+     {
+      "label": "Impacts dans le temps"
+     },
+     {
+      "label": "Indicateurs",
+      "children": [
+       {
+        "label": "MTD",
+        "detail": "Interruption tolérable."
+       },
+       {
+        "label": "RTO",
+        "detail": "Remise en service."
+       },
+       {
+        "label": "WRT",
+        "detail": "RTO + WRT ≤ MTD."
+       },
+       {
+        "label": "RPO",
+        "detail": "Données perdues."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "label": "Sites",
+    "en": "Recovery Sites",
+    "emoji": "🏭",
+    "tone": "orange",
+    "children": [
+     {
+      "label": "Miroir"
+     },
+     {
+      "label": "Chaud",
+      "detail": "Heures."
+     },
+     {
+      "label": "Tiède",
+      "detail": "Jours."
+     },
+     {
+      "label": "Froid",
+      "detail": "Semaines."
+     },
+     {
+      "label": "Réciproque, mobile, cloud"
+     }
+    ]
+   },
+   {
+    "label": "Sauvegardes",
+    "en": "Backups",
+    "emoji": "💾",
+    "tone": "green",
+    "children": [
+     {
+      "label": "Complète"
+     },
+     {
+      "label": "Incrémentale",
+      "detail": "Toute la chaîne."
+     },
+     {
+      "label": "Différentielle",
+      "detail": "La dernière."
+     },
+     {
+      "label": "Hors site, testées"
+     }
+    ]
+   },
+   {
+    "label": "Redondance",
+    "en": "Redundancy",
+    "emoji": "🪞",
+    "tone": "turquoise",
+    "children": [
+     {
+      "label": "RAID 0, 1, 5, 6"
+     },
+     {
+      "label": "Grappes, répartition"
+     },
+     {
+      "label": "Onduleur, groupe"
+     },
+     {
+      "label": "MTBF, réparation"
+     }
+    ]
+   },
+   {
+    "label": "Plan et tests",
+    "en": "Plan Testing and Maintenance",
+    "emoji": "🧪",
+    "tone": "pink",
+    "children": [
+     {
+      "label": "Équipes, déclaration, communication"
+     },
+     {
+      "label": "Tests",
+      "detail": "Revue, table, simulation, parallèle, interruption."
+     },
+     {
+      "label": "Retour au site",
+      "detail": "Moins critiques d'abord."
+     },
+     {
+      "label": "Maintenance",
+      "detail": "Changements, retours d'expérience."
+     }
+    ]
+   }
+  ]
+ }
+}
