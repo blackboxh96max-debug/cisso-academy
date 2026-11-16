@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <g stroke="#26324A" stroke-width="2.2" stroke-linejoin="round">
+    <rect x="10" y="24" width="120" height="70" rx="6" fill="#FFFFFF" />
+    <rect x="20" y="50" width="100" height="22" rx="4" fill="#FEF3C7" />
+    <path d="M150 112 C150 102 210 102 210 112 L210 150 C210 160 150 160 150 150 Z" fill="#DBEAFE" />
+    <path d="M150 112 C150 122 210 122 210 112" fill="none" />
+    <path d="M60 110 L84 110 L76 136 L68 136 Z" fill="#DCFCE7" />
+  </g>
+  <g font-family="JetBrains Mono, monospace" font-size="10" fill="#B91C1C">
+    <text x="26" y="65">' OR 1=1 --</text>
+  </g>
+  <g stroke="#26324A" stroke-width="2.2" stroke-linecap="round" fill="none">
+    <path d="M124 74 L168 100" />
+    <path d="M118 70 L130 78" stroke="#DC2626" />
+  </g>
+  <path d="M168 100 L174 104" stroke="#DC2626" stroke-width="3" stroke-linecap="round" />
+  <g font-family="Caveat, cursive" font-size="14" text-anchor="middle">
+    <text x="70" y="42" fill="#1D4ED8">recherche</text>
+    <text x="180" y="174" fill="#1D4ED8">base</text>
+    <text x="72" y="154" fill="#15803D">filtrer</text>
+  </g>
+</svg>

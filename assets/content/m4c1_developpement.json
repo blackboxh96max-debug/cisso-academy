@@ -1,0 +1,1711 @@
+{
+ "lessons": [
+  {
+   "id": "m4c1-l1",
+   "title": "Un cycle de développement sécurisé",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m4c1_l1_cycle.svg",
+   "illustrationAlt": "Dessin d'une roue à six rayons colorés représentant les étapes du développement, avec un petit bouclier au centre de la roue.",
+   "objectives": [
+    "Citer les étapes d'un cycle de développement logiciel sécurisé (SDLC sécurisé).",
+    "Expliquer l'intérêt de traiter la sécurité au plus tôt (shift left).",
+    "Mener une modélisation des menaces simple avec STRIDE.",
+    "Séparer les environnements de développement, de test et de production."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-218, Secure Software Development Framework (SSDF)",
+     "kind": "general"
+    },
+    {
+     "title": "OWASP SAMM (Software Assurance Maturity Model)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "La sécurité à chaque étape"
+    },
+    {
+     "type": "text",
+     "text": "Un logiciel sûr ne s'obtient pas en ajoutant un test à la fin. La sécurité s'intègre à chaque étape du cycle de développement : des exigences jusqu'à la maintenance. Plus un défaut est trouvé tôt, moins il coûte à corriger."
+    },
+    {
+     "type": "diagram",
+     "title": "Le cycle de développement sécurisé",
+     "alt": "Cycle en six étapes autour de la sécurité : exigences, conception, développement, tests, déploiement, maintenance, puis retour aux exigences.",
+     "diagram": {
+      "type": "cycle",
+      "center": "🛡️ Sécurité\nà chaque étape",
+      "nodes": [
+       {
+        "emoji": "📝",
+        "label": "Exigences",
+        "detail": "besoins de sécurité, conformité",
+        "tone": "blue"
+       },
+       {
+        "emoji": "📐",
+        "label": "Conception",
+        "detail": "modélisation des menaces",
+        "tone": "violet"
+       },
+       {
+        "emoji": "⌨️",
+        "label": "Développement",
+        "detail": "codage sûr, revue de code",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "🧪",
+        "label": "Tests",
+        "detail": "SAST, DAST, tests d'intrusion",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🚀",
+        "label": "Déploiement",
+        "detail": "configuration durcie, signature",
+        "tone": "green"
+       },
+       {
+        "emoji": "🔧",
+        "label": "Maintenance",
+        "detail": "correctifs, surveillance, retrait",
+        "tone": "pink"
+       }
+      ]
+     }
+    },
+    {
+     "type": "definition",
+     "title": "Shift left (décalage à gauche)",
+     "text": "Pratique qui consiste à traiter la sécurité le plus tôt possible dans le cycle de développement (exigences, conception, codage) plutôt qu'à la fin. Le DevSecOps l'applique en automatisant les contrôles dans la chaîne d'intégration et de déploiement continus.",
+     "kind": "general"
+    },
+    {
+     "type": "memo",
+     "text": "Un défaut coûte peu sur le papier, plus cher dans le code, très cher en production : sécuriser tôt, c'est économiser."
+    },
+    {
+     "type": "heading",
+     "text": "Modéliser les menaces"
+    },
+    {
+     "type": "text",
+     "text": "La modélisation des menaces se fait pendant la conception : on dessine l'application (flux de données, frontières de confiance), on se demande ce qui peut mal tourner, puis on choisit les contrôles. Le modèle STRIDE aide à ne rien oublier."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Lettre",
+       "Menace",
+       "Propriété attaquée",
+       "Contrôle typique"
+      ],
+      [
+       "S",
+       "Usurpation d'identité (Spoofing)",
+       "Authentification",
+       "MFA, certificats"
+      ],
+      [
+       "T",
+       "Altération (Tampering)",
+       "Intégrité",
+       "Signatures, contrôles d'intégrité"
+      ],
+      [
+       "R",
+       "Répudiation (Repudiation)",
+       "Non-répudiation",
+       "Journaux protégés, signatures"
+      ],
+      [
+       "I",
+       "Divulgation d'information (Information disclosure)",
+       "Confidentialité",
+       "Chiffrement, contrôle d'accès"
+      ],
+      [
+       "D",
+       "Déni de service (Denial of service)",
+       "Disponibilité",
+       "Limitation de débit, redondance"
+      ],
+      [
+       "E",
+       "Élévation de privilèges (Elevation of privilege)",
+       "Autorisation",
+       "Moindre privilège, contrôles côté serveur"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Les exigences de sécurité dès le départ",
+     "text": "Les besoins de sécurité (authentification, journalisation, chiffrement, conformité) doivent être écrits avec les besoins fonctionnels. Une exigence oubliée au départ devient une faille de conception, très coûteuse à corriger plus tard."
+    },
+    {
+     "type": "heading",
+     "text": "Environnements et changements"
+    },
+    {
+     "type": "practice",
+     "title": "Bonnes pratiques d'organisation",
+     "items": [
+      "Séparer développement, test et production ; les développeurs n'ont pas d'accès en écriture à la production.",
+      "Ne jamais utiliser de données de production réelles en test ; utiliser des données fictives ou anonymisées.",
+      "Faire passer chaque mise en production par la gestion des changements (validation, retour arrière prévu).",
+      "Faire relire le code par une autre personne avant fusion.",
+      "Retirer les comptes, commentaires et fonctions de débogage avant la mise en production."
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "Les questions d'examen opposent souvent « ajouter de la sécurité à la fin » et « l'intégrer dès les exigences ». La bonne réponse est presque toujours la plus précoce. Retenez aussi que la séparation des environnements est une application de la séparation des tâches."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : une porte dérobée de débogage",
+     "kind": "example",
+     "text": "Sur une application interne simulée, l'analyste remarque des accès à une page « /debug » qui affiche les variables du serveur, dont un mot de passe de base de données. La page avait été ajoutée pendant le développement et jamais retirée. Le SOC déclenche la rotation du mot de passe, l'équipe retire la page, et la liste de contrôle avant mise en production inclut désormais la recherche des fonctions de débogage."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "Développeur : la modélisation des menaces m'évite de découvrir les failles en production.",
+      "Architecte : je dessine les frontières de confiance avant d'écrire la première ligne de code.",
+      "Auditeur : je vérifie que les développeurs n'ont pas d'accès en écriture à la production.",
+      "RSSI : chaque projet a des exigences de sécurité validées avant le début du développement."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "La sécurité commence aux exigences, pas aux tests.",
+      "STRIDE : chaque lettre correspond à une propriété de sécurité attaquée.",
+      "Données de production en test = fuite potentielle.",
+      "Un développeur qui déploie seul en production viole la séparation des tâches."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "SDLC sécurisé : exigences, conception, développement, tests, déploiement, maintenance.",
+      "Shift left et DevSecOps : sécuriser tôt et automatiser.",
+      "STRIDE : usurpation, altération, répudiation, divulgation, déni de service, élévation de privilèges.",
+      "Environnements séparés, données fictives en test, gestion des changements, revue de code."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m4c1-q02",
+      "m4c1-q05"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m4c1-l2",
+   "title": "Les failles applicatives et l'OWASP Top 10",
+   "minutes": 35,
+   "illustration": "assets/illustrations/m4c1_l2_injection.svg",
+   "illustrationAlt": "Dessin d'un formulaire web dont le champ contient une apostrophe et du texte suspect, avec une seringue qui pique une base de données ; à côté, un filtre en forme d'entonnoir retient le texte suspect.",
+   "objectives": [
+    "Citer les grandes catégories de l'OWASP Top 10.",
+    "Expliquer l'injection SQL, le XSS, le CSRF et le contrôle d'accès défaillant.",
+    "Choisir la bonne parade : requêtes paramétrées, encodage en sortie, jetons anti-CSRF, contrôles côté serveur.",
+    "Reconnaître le débordement de tampon et la situation de concurrence."
+   ],
+   "references": [
+    {
+     "title": "OWASP Top 10, édition 2021 (vérifier sur owasp.org si une édition plus récente est en vigueur)",
+     "kind": "general"
+    },
+    {
+     "title": "OWASP Cheat Sheet Series (fiches de prévention)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "L'OWASP Top 10"
+    },
+    {
+     "type": "text",
+     "text": "L'OWASP (Open Worldwide Application Security Project) est une communauté ouverte qui publie régulièrement une liste des dix catégories de risques les plus critiques pour les applications web. Voici l'édition 2021."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Rang",
+       "Catégorie (2021)",
+       "Exemple"
+      ],
+      [
+       "A01",
+       "Contrôle d'accès défaillant",
+       "Changer l'identifiant dans l'URL pour voir le compte d'un autre"
+      ],
+      [
+       "A02",
+       "Défaillances cryptographiques",
+       "Données sensibles en clair, algorithmes faibles"
+      ],
+      [
+       "A03",
+       "Injection (dont XSS)",
+       "Injection SQL, injection de commandes"
+      ],
+      [
+       "A04",
+       "Conception non sécurisée",
+       "Pas de limite au nombre d'essais de réinitialisation"
+      ],
+      [
+       "A05",
+       "Mauvaise configuration de sécurité",
+       "Pages d'erreur détaillées, comptes par défaut"
+      ],
+      [
+       "A06",
+       "Composants vulnérables et obsolètes",
+       "Bibliothèque non corrigée"
+      ],
+      [
+       "A07",
+       "Défaillances d'identification et d'authentification",
+       "Pas de MFA, sessions sans expiration"
+      ],
+      [
+       "A08",
+       "Défaillances d'intégrité des logiciels et des données",
+       "Mise à jour non signée"
+      ],
+      [
+       "A09",
+       "Défaillances de journalisation et de surveillance",
+       "Attaque non détectée faute de journaux"
+      ],
+      [
+       "A10",
+       "Falsification de requête côté serveur (SSRF)",
+       "Le serveur appelle une adresse interne choisie par l'attaquant"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Les injections"
+    },
+    {
+     "type": "definition",
+     "title": "Injection SQL",
+     "text": "Attaque où des données saisies par l'utilisateur sont interprétées comme une partie de la requête SQL, ce qui permet de lire, modifier ou supprimer des données. Parade principale : les requêtes paramétrées (requêtes préparées).",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Cross-site scripting (XSS)",
+     "text": "Injection de script dans une page web, exécuté ensuite dans le navigateur d'autres utilisateurs. Il peut être stocké (enregistré sur le serveur), réfléchi (renvoyé dans la réponse) ou basé sur le DOM. Parade principale : l'encodage des données en sortie, complété par une politique de sécurité du contenu (CSP).",
+     "kind": "general"
+    },
+    {
+     "type": "diagram",
+     "title": "Quatre failles, quatre parades",
+     "alt": "Tableau en quatre cases associant chaque faille à sa parade : injection SQL et requêtes paramétrées, XSS et encodage en sortie, CSRF et jeton anti-CSRF, contrôle d'accès défaillant et vérification côté serveur à chaque requête.",
+     "diagram": {
+      "type": "quadrant",
+      "xLabel": "Faille",
+      "yLabel": "Parade",
+      "cells": [
+       {
+        "emoji": "💉",
+        "label": "Injection SQL",
+        "detail": "requêtes paramétrées",
+        "tone": "red"
+       },
+       {
+        "emoji": "📜",
+        "label": "XSS",
+        "detail": "encodage en sortie + CSP",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🎣",
+        "label": "CSRF",
+        "detail": "jeton anti-CSRF, SameSite",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🚪",
+        "label": "Accès défaillant",
+        "detail": "contrôle côté serveur",
+        "tone": "blue"
+       }
+      ]
+     }
+    },
+    {
+     "type": "important",
+     "title": "Valider en entrée, encoder en sortie",
+     "text": "Toute donnée venant de l'extérieur est suspecte. On la valide côté serveur avec une liste d'autorisation (format, longueur, type attendus), et on l'encode selon le contexte au moment de l'afficher. La validation côté navigateur améliore le confort, mais un attaquant la contourne facilement."
+    },
+    {
+     "type": "memo",
+     "text": "SQL → paramétrer. XSS → encoder. CSRF → jeton. Accès → vérifier côté serveur. « Le client ment toujours »."
+    },
+    {
+     "type": "heading",
+     "text": "Autres failles à connaître"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Faille",
+       "Principe",
+       "Parade"
+      ],
+      [
+       "CSRF (falsification de requête intersite)",
+       "Un site piégé fait envoyer une requête par le navigateur d'un utilisateur connecté",
+       "Jeton anti-CSRF, cookies SameSite, réauthentification pour les actions sensibles"
+      ],
+      [
+       "Référence directe non sécurisée (IDOR)",
+       "Changer un identifiant donne accès aux données d'un autre",
+       "Vérifier l'autorisation côté serveur pour chaque objet"
+      ],
+      [
+       "Débordement de tampon",
+       "Écrire plus de données que la zone mémoire prévue, jusqu'à exécuter du code",
+       "Contrôle des longueurs, langages sûrs pour la mémoire, protections du système (ASLR, DEP)"
+      ],
+      [
+       "Situation de concurrence (TOCTOU)",
+       "L'état change entre la vérification et l'utilisation",
+       "Opérations atomiques, verrous"
+      ],
+      [
+       "SSRF",
+       "Le serveur est amené à appeler une adresse choisie par l'attaquant",
+       "Liste d'autorisation des destinations, filtrage des adresses internes"
+      ]
+     ]
+    },
+    {
+     "type": "risk",
+     "title": "Les messages d'erreur trop bavards",
+     "text": "Une erreur qui affiche la requête SQL, la version du serveur ou une trace d'exécution donne à l'attaquant la carte de l'application. En production, on affiche un message générique à l'utilisateur et on garde le détail dans les journaux."
+    },
+    {
+     "type": "trainerNote",
+     "text": "Classique d'examen : « quelle est la meilleure défense contre l'injection SQL ? ». La réponse est la requête paramétrée. Le WAF et la validation des entrées aident, mais ne sont pas la parade principale."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : des apostrophes dans les journaux",
+     "kind": "example",
+     "text": "Sur une application de démonstration isolée, le WAF journalise des requêtes contenant « ' OR 1=1 -- » dans le champ de recherche, puis une réponse beaucoup plus volumineuse que d'habitude. L'analyste conclut à une injection réussie. Le correctif (requête paramétrée) est déployé, et les journaux d'accès à la base servent à mesurer les données exposées."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "Développeur : j'utilise les requêtes paramétrées et l'encodage automatique de mon framework.",
+      "Analyste SOC : une hausse soudaine d'erreurs 500 sur un formulaire peut signaler une tentative d'injection.",
+      "Auditeur : je vérifie que les contrôles d'accès sont faits côté serveur, pas seulement dans l'interface.",
+      "RSSI : l'OWASP Top 10 sert de base minimale aux exigences de sécurité des projets web."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Injection SQL → requêtes paramétrées (pas « échapper les apostrophes à la main »).",
+      "XSS → encodage en sortie ; la victime est le navigateur de l'utilisateur.",
+      "CSRF exploite la session déjà ouverte de la victime.",
+      "Validation côté client = confort, jamais sécurité."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "OWASP Top 10 (2021) : accès, crypto, injection, conception, configuration, composants, authentification, intégrité, journalisation, SSRF.",
+      "Injection SQL : requêtes paramétrées. XSS : encodage en sortie et CSP. CSRF : jeton.",
+      "Valider côté serveur avec une liste d'autorisation ; messages d'erreur génériques.",
+      "Débordement de tampon, TOCTOU, IDOR, SSRF : savoir les reconnaître."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m4c1-q11",
+      "m4c1-q14"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m4c1-l3",
+   "title": "Tester le code et sécuriser la chaîne logicielle",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m4c1_l3_pipeline.svg",
+   "illustrationAlt": "Dessin d'un tapis roulant qui transporte des boîtes de code à travers trois portiques de contrôle marqués analyse, tests et signature, jusqu'à un serveur.",
+   "objectives": [
+    "Distinguer SAST, DAST, IAST, SCA et fuzzing.",
+    "Placer les contrôles automatiques dans une chaîne CI/CD.",
+    "Gérer les dépendances avec une nomenclature logicielle (SBOM).",
+    "Protéger l'intégrité du logiciel : signature du code, secrets hors du code."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-218, Secure Software Development Framework (SSDF)",
+     "kind": "general"
+    },
+    {
+     "title": "OWASP Application Security Verification Standard (ASVS)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Les familles de tests"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Méthode",
+       "Comment",
+       "Quand",
+       "Force",
+       "Limite"
+      ],
+      [
+       "SAST (analyse statique)",
+       "Lit le code source sans l'exécuter",
+       "Pendant le développement",
+       "Tôt, montre la ligne fautive",
+       "Faux positifs ; ne voit pas la configuration réelle"
+      ],
+      [
+       "DAST (analyse dynamique)",
+       "Attaque l'application en fonctionnement, de l'extérieur",
+       "En test ou préproduction",
+       "Voit le comportement réel",
+       "Ne montre pas la ligne de code ; tardif"
+      ],
+      [
+       "IAST (analyse interactive)",
+       "Agent dans l'application pendant les tests",
+       "Pendant les tests",
+       "Relie l'attaque au code",
+       "Dépend de la couverture des tests"
+      ],
+      [
+       "SCA (analyse de composition)",
+       "Inventorie les bibliothèques et leurs vulnérabilités connues",
+       "En continu",
+       "Repère les composants vulnérables",
+       "Ne voit pas les failles du code maison"
+      ],
+      [
+       "Fuzzing",
+       "Envoie des données aléatoires ou malformées en masse",
+       "En test",
+       "Trouve les plantages et cas limites",
+       "Long ; résultats à analyser"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "SAST = lire le code (boîte blanche, au repos). DAST = attaquer l'application (boîte noire, en marche)."
+    },
+    {
+     "type": "heading",
+     "text": "Une chaîne CI/CD sécurisée"
+    },
+    {
+     "type": "diagram",
+     "title": "Les contrôles automatiques du pipeline",
+     "alt": "Schéma en cinq étapes : le développeur pousse le code, l'analyse statique et la recherche de secrets s'exécutent, l'analyse des dépendances produit la nomenclature logicielle, l'analyse dynamique teste l'application en préproduction, puis l'artefact est signé avant le déploiement.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "⌨️",
+        "label": "Commit",
+        "detail": "revue de code",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🔍",
+        "label": "SAST + secrets",
+        "detail": "à chaque fusion",
+        "tone": "violet"
+       },
+       {
+        "emoji": "📦",
+        "label": "SCA + SBOM",
+        "detail": "dépendances connues",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🧪",
+        "label": "DAST",
+        "detail": "en préproduction",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "✍️",
+        "label": "Signature",
+        "detail": "puis déploiement",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "definition",
+     "title": "SBOM (nomenclature logicielle)",
+     "text": "Liste structurée de tous les composants d'un logiciel (bibliothèques, versions, fournisseurs). Elle permet de savoir en quelques minutes si une nouvelle vulnérabilité publiée touche nos applications.",
+     "kind": "general"
+    },
+    {
+     "type": "important",
+     "title": "La chaîne d'approvisionnement logicielle",
+     "text": "Une application moderne contient surtout du code écrit par d'autres. Un composant vulnérable, un paquet piégé ou une mise à jour compromise affecte tous ceux qui l'utilisent. Il faut inventorier (SBOM), surveiller (SCA), choisir des sources fiables et vérifier les signatures."
+    },
+    {
+     "type": "heading",
+     "text": "Intégrité et secrets"
+    },
+    {
+     "type": "practice",
+     "title": "Protéger le logiciel livré",
+     "items": [
+      "Signer le code et les mises à jour ; vérifier la signature avant installation.",
+      "Ne jamais écrire de mot de passe ou de clé dans le code : utiliser un coffre-fort de secrets.",
+      "Rechercher automatiquement les secrets dans chaque commit ; en cas de fuite, révoquer et remplacer le secret.",
+      "Protéger le pipeline lui-même : comptes avec MFA, droits minimaux, journaux.",
+      "Sécuriser les API : authentification, autorisation par objet, limitation de débit, validation des entrées."
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "Signature du code",
+     "text": "Signature numérique apposée par l'éditeur sur un logiciel ou une mise à jour. Elle prouve l'origine (authenticité) et que le code n'a pas été modifié (intégrité), mais pas qu'il est exempt de failles.",
+     "kind": "general"
+    },
+    {
+     "type": "trainerNote",
+     "text": "Retenez qu'aucune méthode ne suffit seule : SAST et DAST sont complémentaires, et le test d'intrusion manuel trouve des failles de logique que les outils ratent. À l'examen, une réponse qui combine plusieurs méthodes est souvent la meilleure."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : une clé dans le dépôt",
+     "kind": "example",
+     "text": "L'outil de recherche de secrets signale une clé d'accès cloud dans un commit poussé sur un dépôt de démonstration. Même si le commit est supprimé, la clé reste dans l'historique : le SOC la révoque immédiatement, vérifie les journaux du fournisseur cloud pour s'assurer qu'elle n'a pas servi, et le développeur passe par le coffre-fort de secrets."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "Développeur : les résultats du SAST arrivent dans ma demande de fusion, je corrige avant d'intégrer.",
+      "Analyste SOC : la SBOM me dit tout de suite quelles applications sont touchées par une nouvelle CVE.",
+      "Auditeur : je vérifie que les déploiements en production sont signés et tracés.",
+      "RSSI : le pipeline est un actif critique : qui le contrôle contrôle le code livré."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "SAST = code source, sans exécution ; DAST = application en marche.",
+      "La signature prouve origine et intégrité, pas l'absence de faille.",
+      "Supprimer un secret du code ne suffit pas : il faut le révoquer.",
+      "La SCA concerne les composants tiers, pas le code maison."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "SAST, DAST, IAST, SCA, fuzzing, test d'intrusion : des méthodes complémentaires.",
+      "CI/CD : contrôles automatiques à chaque étape, pipeline protégé.",
+      "SBOM et SCA pour maîtriser les dépendances.",
+      "Signature du code, secrets dans un coffre-fort, sécurité des API."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m4c1-q21",
+      "m4c1-q24"
+     ]
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "id": "m4c1-q01",
+   "domain": "secure-software",
+   "level": "beginner",
+   "concept": "SDLC sécurisé",
+   "prompt": "À quel moment faut-il commencer à traiter la sécurité d'un nouveau logiciel ?",
+   "choices": [
+    "Juste avant la mise en production",
+    "Dès la définition des exigences",
+    "Après le premier incident",
+    "Pendant la maintenance seulement"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Les exigences de sécurité s'écrivent avec les exigences fonctionnelles : c'est le moment où corriger coûte le moins.",
+   "whyNot": {
+    "0": "Trop tard : les défauts de conception sont alors coûteux.",
+    "2": "Réagir après un incident n'est pas une démarche de développement sécurisé.",
+    "3": "La maintenance arrive en fin de cycle."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c1-q02",
+   "domain": "secure-software",
+   "level": "beginner",
+   "concept": "STRIDE",
+   "prompt": "Dans STRIDE, que signifie la lettre E ?",
+   "choices": [
+    "Encryption (chiffrement)",
+    "Elevation of privilege (élévation de privilèges)",
+    "Exfiltration",
+    "Exposure (exposition)"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "STRIDE : Spoofing, Tampering, Repudiation, Information disclosure, Denial of service, Elevation of privilege.",
+   "whyNot": {
+    "0": "Le chiffrement est un contrôle, pas une menace STRIDE.",
+    "2": "L'exfiltration relève de la divulgation (I).",
+    "3": "Ce n'est pas une lettre du modèle."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c1-q03",
+   "domain": "secure-software",
+   "level": "beginner",
+   "concept": "Environnements",
+   "prompt": "Quelle pratique est recommandée pour les tests d'une application ?",
+   "choices": [
+    "Copier la base de production telle quelle",
+    "Utiliser des données fictives ou anonymisées",
+    "Tester directement en production",
+    "Donner aux testeurs les mots de passe des clients"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Les environnements de test sont moins protégés : on n'y met pas de données réelles.",
+   "whyNot": {
+    "0": "Des données réelles en test créent un risque de fuite.",
+    "2": "Tester en production met en danger le service et les données.",
+    "3": "Aucune raison légitime ; c'est une fuite."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c1-q04",
+   "domain": "secure-software",
+   "level": "intermediate",
+   "concept": "STRIDE",
+   "prompt": "Un utilisateur nie avoir validé un virement et aucun journal ne permet de prouver le contraire. Quelle menace STRIDE n'a pas été traitée ?",
+   "choices": [
+    "Spoofing",
+    "Repudiation (répudiation)",
+    "Denial of service",
+    "Tampering"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La répudiation se traite par des journaux protégés et des signatures qui prouvent qui a fait quoi.",
+   "whyNot": {
+    "0": "L'usurpation concerne l'identité de l'émetteur, pas la preuve de son action.",
+    "2": "Le service n'est pas interrompu.",
+    "3": "Les données ne sont pas modifiées."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c1-q05",
+   "domain": "secure-software",
+   "level": "intermediate",
+   "concept": "Shift left",
+   "prompt": "Que signifie « shift left » en développement sécurisé ?",
+   "choices": [
+    "Déplacer les serveurs vers la gauche du schéma réseau",
+    "Traiter la sécurité le plus tôt possible dans le cycle de développement",
+    "Retarder les tests de sécurité",
+    "Confier la sécurité à l'équipe d'exploitation"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "On avance les activités de sécurité (exigences, conception, codage, tests automatiques) pour trouver les défauts tôt.",
+   "whyNot": {
+    "0": "Jeu de mots sans rapport.",
+    "2": "C'est l'inverse.",
+    "3": "La sécurité devient l'affaire de tous, dès le début."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c1-q06",
+   "domain": "secure-software",
+   "level": "intermediate",
+   "concept": "Séparation des tâches",
+   "prompt": "Un développeur peut modifier le code et le déployer seul en production, sans validation. Quel principe est violé ?",
+   "choices": [
+    "La séparation des tâches",
+    "La conception ouverte",
+    "Le fail safe",
+    "La défense en profondeur uniquement"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Écrire et déployer sans contrôle d'une autre personne permet d'introduire une erreur ou une porte dérobée sans détection.",
+   "whyNot": {
+    "1": "La conception ouverte concerne le secret de la conception.",
+    "2": "Le fail safe concerne les pannes.",
+    "3": "Le principe directement violé est la séparation des tâches."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c1-q07",
+   "domain": "secure-software",
+   "level": "intermediate",
+   "concept": "Modélisation des menaces",
+   "prompt": "Quand la modélisation des menaces est-elle la plus utile ?",
+   "choices": [
+    "Pendant la conception",
+    "Après la mise en production",
+    "Pendant l'audit annuel",
+    "Lors de la mise au rebut"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Elle sert à choisir les contrôles avant d'écrire le code ; on la met à jour quand l'application évolue.",
+   "whyNot": {
+    "1": "Elle peut être révisée, mais son intérêt principal est en conception.",
+    "2": "L'audit vérifie ; il ne conçoit pas.",
+    "3": "Trop tard pour influencer la conception."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c1-q08",
+   "domain": "secure-software",
+   "level": "advanced",
+   "concept": "Gestion des changements",
+   "prompt": "Un correctif urgent doit partir en production le soir même. Quelle démarche est la bonne ?",
+   "choices": [
+    "Le déployer sans trace pour aller vite",
+    "Suivre la procédure de changement d'urgence : approbation accélérée, test minimal, retour arrière prévu, régularisation ensuite",
+    "Attendre le prochain comité mensuel quoi qu'il arrive",
+    "Laisser chaque développeur décider"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "L'urgence accélère le processus mais ne le supprime pas : traçabilité et retour arrière restent obligatoires.",
+   "whyNot": {
+    "0": "Un changement non tracé est un risque majeur.",
+    "2": "Attendre peut laisser une faille exploitable.",
+    "3": "Pas de contrôle, pas de séparation des tâches."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c1-q09",
+   "domain": "secure-software",
+   "level": "advanced",
+   "concept": "Avant la mise en production",
+   "prompt": "Quelles vérifications faire avant de mettre une application en production ? (plusieurs réponses)",
+   "choices": [
+    "Retirer les pages et comptes de débogage",
+    "Désactiver les messages d'erreur détaillés pour les utilisateurs",
+    "Laisser les identifiants de test pour le support",
+    "Vérifier que les secrets ne sont pas dans le code"
+   ],
+   "correct": [
+    0,
+    1,
+    3
+   ],
+   "explanation": "Fonctions de débogage, erreurs bavardes et secrets dans le code sont des failles classiques de mise en production.",
+   "whyNot": {
+    "2": "Des identifiants de test en production sont une porte d'entrée."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c1-q10",
+   "domain": "secure-software",
+   "level": "beginner",
+   "concept": "Revue de code",
+   "prompt": "Quel est l'intérêt principal d'une revue de code par une autre personne ?",
+   "choices": [
+    "Ralentir les projets",
+    "Trouver des erreurs et des failles que l'auteur n'a pas vues, et appliquer la séparation des tâches",
+    "Remplacer tous les tests automatiques",
+    "Vérifier l'orthographe des commentaires"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Un second regard détecte des défauts et rend plus difficile l'introduction volontaire d'un code malveillant.",
+   "whyNot": {
+    "0": "Ce n'est pas l'objectif.",
+    "2": "Elle complète les tests, elle ne les remplace pas.",
+    "3": "Ce n'est pas l'objectif principal."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c1-q11",
+   "domain": "secure-software",
+   "level": "beginner",
+   "concept": "Injection SQL",
+   "prompt": "Quelle est la meilleure défense contre l'injection SQL ?",
+   "choices": [
+    "Masquer les messages d'erreur",
+    "Les requêtes paramétrées (préparées)",
+    "Un mot de passe long pour la base",
+    "Le chiffrement du disque"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Avec une requête paramétrée, la saisie reste une donnée et n'est jamais interprétée comme du SQL.",
+   "whyNot": {
+    "0": "Utile, mais l'injection reste possible.",
+    "2": "L'injection passe par l'application, déjà connectée.",
+    "3": "Le chiffrement du disque ne change rien à la requête."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c1-q12",
+   "domain": "secure-software",
+   "level": "beginner",
+   "concept": "XSS",
+   "prompt": "Dans une attaque XSS, où le code malveillant s'exécute-t-il ?",
+   "choices": [
+    "Sur le serveur de base de données",
+    "Dans le navigateur des utilisateurs qui consultent la page",
+    "Dans le pare-feu",
+    "Dans le système de sauvegarde"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le script injecté s'exécute dans le navigateur des victimes, par exemple pour voler leur session.",
+   "whyNot": {
+    "0": "C'est le cas de l'injection SQL.",
+    "2": "Le pare-feu n'exécute pas le script.",
+    "3": "Sans rapport."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c1-q13",
+   "domain": "secure-software",
+   "level": "beginner",
+   "concept": "OWASP",
+   "prompt": "Que publie l'OWASP avec son « Top 10 » ?",
+   "choices": [
+    "Les dix meilleurs antivirus",
+    "Une liste des catégories de risques les plus critiques pour les applications web",
+    "Les dix ports à fermer",
+    "Une norme de certification obligatoire"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le Top 10 est un document de sensibilisation, mis à jour régulièrement, qui sert de base minimale.",
+   "whyNot": {
+    "0": "Ce n'est pas un comparatif de produits.",
+    "2": "Ce n'est pas une liste de ports.",
+    "3": "Ce n'est pas une norme obligatoire."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c1-q14",
+   "domain": "secure-software",
+   "level": "intermediate",
+   "concept": "IDOR",
+   "prompt": "En changeant « facture=1001 » en « facture=1002 » dans l'URL, un client voit la facture d'un autre. De quelle catégorie s'agit-il ?",
+   "choices": [
+    "Contrôle d'accès défaillant",
+    "Déni de service",
+    "Défaillance cryptographique",
+    "SSRF"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "L'application ne vérifie pas que l'objet demandé appartient à l'utilisateur : c'est un IDOR, cas de contrôle d'accès défaillant.",
+   "whyNot": {
+    "1": "Le service fonctionne.",
+    "2": "Le problème n'est pas le chiffrement.",
+    "3": "Le serveur n'appelle pas une autre adresse."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c1-q15",
+   "domain": "secure-software",
+   "level": "intermediate",
+   "concept": "CSRF",
+   "prompt": "Un utilisateur connecté à sa banque visite un site piégé qui déclenche un virement à son insu. Quelle parade protège le mieux ?",
+   "choices": [
+    "Un jeton anti-CSRF propre à la session dans chaque formulaire sensible",
+    "Un antivirus sur le serveur",
+    "Le chiffrement de la base",
+    "Un mot de passe plus long"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le site piégé ne connaît pas le jeton : la requête forgée est rejetée. Les cookies SameSite renforcent la protection.",
+   "whyNot": {
+    "1": "La requête paraît légitime pour le serveur.",
+    "2": "Le chiffrement ne distingue pas une requête forgée.",
+    "3": "La session est déjà ouverte."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c1-q16",
+   "domain": "secure-software",
+   "level": "intermediate",
+   "concept": "Validation des entrées",
+   "prompt": "Pourquoi la validation des saisies côté navigateur ne suffit-elle pas ?",
+   "choices": [
+    "Parce qu'elle est trop lente",
+    "Parce qu'un attaquant peut envoyer directement des requêtes au serveur en la contournant",
+    "Parce qu'elle est interdite",
+    "Parce qu'elle chiffre les données"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le client est sous le contrôle de l'utilisateur : la validation de sécurité se fait toujours côté serveur.",
+   "whyNot": {
+    "0": "La vitesse n'est pas le problème.",
+    "2": "Elle est autorisée et utile pour le confort.",
+    "3": "Elle ne chiffre rien."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c1-q17",
+   "domain": "secure-software",
+   "level": "intermediate",
+   "concept": "XSS",
+   "prompt": "Quelle parade principale empêche un XSS stocké dans les commentaires d'un site ?",
+   "choices": [
+    "L'encodage des données selon le contexte au moment de l'affichage",
+    "Le NAT",
+    "La sauvegarde quotidienne",
+    "Le chiffrement TLS"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Encodé, le script s'affiche comme du texte au lieu de s'exécuter. Une CSP limite en plus les scripts autorisés.",
+   "whyNot": {
+    "1": "Sans rapport.",
+    "2": "La sauvegarde conserve aussi le script.",
+    "3": "TLS protège le transport, pas le contenu affiché."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c1-q18",
+   "domain": "secure-software",
+   "level": "advanced",
+   "concept": "Débordement de tampon",
+   "prompt": "Quelles mesures réduisent le risque de débordement de tampon ? (plusieurs réponses)",
+   "choices": [
+    "Contrôler la longueur des données copiées",
+    "Utiliser des langages sûrs pour la mémoire quand c'est possible",
+    "Activer les protections du système comme ASLR et DEP",
+    "Afficher les adresses mémoire dans les erreurs"
+   ],
+   "correct": [
+    0,
+    1,
+    2
+   ],
+   "explanation": "Contrôle des longueurs, langages sûrs et protections du système rendent l'exploitation beaucoup plus difficile.",
+   "whyNot": {
+    "3": "Afficher les adresses aide au contraire l'attaquant."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c1-q19",
+   "domain": "secure-software",
+   "level": "advanced",
+   "concept": "TOCTOU",
+   "prompt": "Un programme vérifie qu'un fichier appartient à l'utilisateur, puis l'ouvre quelques millisecondes plus tard ; entre-temps, un attaquant le remplace par un lien vers un fichier système. Quel type de faille est-ce ?",
+   "choices": [
+    "Injection SQL",
+    "Situation de concurrence (TOCTOU)",
+    "XSS",
+    "CSRF"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Time of check to time of use : l'état change entre la vérification et l'utilisation. Parade : opérations atomiques et verrous.",
+   "whyNot": {
+    "0": "Aucune requête SQL.",
+    "2": "Aucune page web.",
+    "3": "Aucune requête intersite."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c1-q20",
+   "domain": "secure-software",
+   "level": "advanced",
+   "concept": "SSRF",
+   "prompt": "Une fonction « importer une image depuis une URL » permet de faire appeler par le serveur l'adresse d'un service interne d'administration. Quelle parade est la plus adaptée ?",
+   "choices": [
+    "Une liste d'autorisation des destinations et le blocage des adresses internes",
+    "Un mot de passe plus long pour les utilisateurs",
+    "Un antivirus sur les postes",
+    "Le masquage du SSID"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Contre la SSRF, on limite les destinations que le serveur peut joindre et on filtre les adresses internes.",
+   "whyNot": {
+    "1": "Sans effet sur ce que le serveur appelle.",
+    "2": "Le problème est côté serveur.",
+    "3": "Sans rapport avec le Wi-Fi."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c1-q21",
+   "domain": "secure-software",
+   "level": "beginner",
+   "concept": "SAST",
+   "prompt": "Quelle méthode analyse le code source sans exécuter l'application ?",
+   "choices": [
+    "DAST",
+    "SAST",
+    "Test de charge",
+    "Fuzzing"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "L'analyse statique (SAST) lit le code et signale les lignes à risque.",
+   "whyNot": {
+    "0": "Le DAST teste l'application en fonctionnement.",
+    "2": "Le test de charge mesure les performances.",
+    "3": "Le fuzzing exécute le programme avec des données malformées."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c1-q22",
+   "domain": "secure-software",
+   "level": "beginner",
+   "concept": "Signature du code",
+   "prompt": "Que prouve la signature numérique d'une mise à jour ?",
+   "choices": [
+    "Qu'elle ne contient aucune faille",
+    "Son origine et le fait qu'elle n'a pas été modifiée",
+    "Qu'elle est gratuite",
+    "Qu'elle est compatible avec tous les systèmes"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La signature garantit l'authenticité et l'intégrité, pas la qualité du code.",
+   "whyNot": {
+    "0": "Un éditeur peut signer un code vulnérable.",
+    "2": "Sans rapport.",
+    "3": "Sans rapport."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c1-q23",
+   "domain": "secure-software",
+   "level": "beginner",
+   "concept": "Secrets",
+   "prompt": "Où ranger le mot de passe de la base de données utilisé par une application ?",
+   "choices": [
+    "En clair dans le code source",
+    "Dans un coffre-fort de secrets, lu au démarrage",
+    "Dans un commentaire du code",
+    "Dans le nom du dépôt"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le coffre-fort de secrets protège, journalise et permet de faire tourner les secrets sans modifier le code.",
+   "whyNot": {
+    "0": "Toute personne qui lit le dépôt voit le secret.",
+    "2": "Même problème.",
+    "3": "Absurde et visible."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c1-q24",
+   "domain": "secure-software",
+   "level": "intermediate",
+   "concept": "SBOM",
+   "prompt": "Une vulnérabilité critique est publiée dans une bibliothèque très répandue. Quel outil permet de savoir rapidement quelles applications l'utilisent ?",
+   "choices": [
+    "La SBOM (nomenclature logicielle) de chaque application",
+    "Le plan de continuité",
+    "La politique de mots de passe",
+    "Le registre des visiteurs"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "La SBOM liste les composants et leurs versions : on cherche la bibliothèque et on obtient la liste des applications concernées.",
+   "whyNot": {
+    "1": "Il ne liste pas les composants logiciels.",
+    "2": "Sans rapport.",
+    "3": "Sans rapport."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c1-q25",
+   "domain": "secure-software",
+   "level": "intermediate",
+   "concept": "DAST",
+   "prompt": "Quel avantage le DAST a-t-il sur le SAST ?",
+   "choices": [
+    "Il montre la ligne de code fautive",
+    "Il observe le comportement réel de l'application déployée, avec sa configuration",
+    "Il s'exécute avant l'écriture du code",
+    "Il ne produit jamais de faux positifs"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le DAST teste l'application en marche, de l'extérieur : il voit les problèmes de configuration et d'exécution.",
+   "whyNot": {
+    "0": "C'est l'avantage du SAST.",
+    "2": "Il faut une application qui fonctionne.",
+    "3": "Aucun outil n'est exempt de faux positifs."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c1-q26",
+   "domain": "secure-software",
+   "level": "intermediate",
+   "concept": "Secret exposé",
+   "prompt": "Une clé d'API a été poussée par erreur dans un dépôt partagé. Quelle est la première action ?",
+   "choices": [
+    "Supprimer le commit et ne rien faire d'autre",
+    "Révoquer la clé et en émettre une nouvelle, puis vérifier si elle a été utilisée",
+    "Renommer le dépôt",
+    "Attendre de voir si quelqu'un l'utilise"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La clé reste dans l'historique et a pu être copiée : seule la révocation la rend inutilisable.",
+   "whyNot": {
+    "0": "L'historique et les copies conservent la clé.",
+    "2": "Le nom du dépôt ne change rien.",
+    "3": "Attendre laisse l'attaquant agir."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c1-q27",
+   "domain": "secure-software",
+   "level": "intermediate",
+   "concept": "SCA",
+   "prompt": "Que fait une analyse de composition logicielle (SCA) ?",
+   "choices": [
+    "Elle teste la vitesse de l'application",
+    "Elle inventorie les composants tiers et signale leurs vulnérabilités et licences connues",
+    "Elle chiffre le code",
+    "Elle remplace la revue de code"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La SCA s'appuie sur les bases de vulnérabilités connues pour les bibliothèques utilisées.",
+   "whyNot": {
+    "0": "Sans rapport.",
+    "2": "Elle ne chiffre rien.",
+    "3": "Elle ne regarde pas le code maison."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c1-q28",
+   "domain": "secure-software",
+   "level": "advanced",
+   "concept": "Chaîne d'approvisionnement",
+   "prompt": "Un attaquant compromet le serveur de compilation d'un éditeur et insère du code malveillant dans une mise à jour signée. Quelle leçon en tirer ?",
+   "choices": [
+    "La signature suffit toujours",
+    "Le pipeline de construction est un actif critique à protéger (accès, MFA, intégrité, journaux) en plus de la signature",
+    "Il faut arrêter toute mise à jour",
+    "Le problème vient des utilisateurs"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Si la compromission a lieu avant la signature, celle-ci authentifie un code piégé : il faut protéger toute la chaîne.",
+   "whyNot": {
+    "0": "La signature prouve l'origine, pas la propreté du code.",
+    "2": "Ne plus corriger crée d'autres risques.",
+    "3": "Les utilisateurs ne pouvaient pas le détecter."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c1-q29",
+   "domain": "secure-software",
+   "level": "advanced",
+   "concept": "Combiner les tests",
+   "prompt": "Quel programme de tests couvre le mieux une application web critique ?",
+   "choices": [
+    "SAST seul, une fois par an",
+    "SAST et SCA à chaque fusion, DAST en préproduction, test d'intrusion manuel avant les versions majeures",
+    "DAST seul en production",
+    "Aucun test, un WAF suffit"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Les méthodes se complètent : automatisation continue et regard humain sur la logique métier.",
+   "whyNot": {
+    "0": "Trop rare et trop partiel.",
+    "2": "Tardif et partiel.",
+    "3": "Le WAF est une couche, pas un substitut au code sûr."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c1-q30",
+   "domain": "secure-software",
+   "level": "intermediate",
+   "concept": "Sécurité des API",
+   "prompt": "Quelles mesures protègent une API exposée sur Internet ? (plusieurs réponses)",
+   "choices": [
+    "Authentification et autorisation pour chaque objet demandé",
+    "Limitation du nombre de requêtes",
+    "Validation des données reçues",
+    "Clé d'API écrite dans l'application mobile publique"
+   ],
+   "correct": [
+    0,
+    1,
+    2
+   ],
+   "explanation": "Authentifier, autoriser objet par objet, limiter le débit et valider les entrées sont les bases.",
+   "whyNot": {
+    "3": "Une clé intégrée à une application publique peut être extraite par n'importe qui."
+   },
+   "kind": "general"
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "m4c1-f01",
+   "front": "SDLC sécurisé",
+   "back": "Exigences, conception, développement, tests, déploiement, maintenance : sécurité à chaque étape.",
+   "concept": "SDLC sécurisé"
+  },
+  {
+   "id": "m4c1-f02",
+   "front": "Shift left",
+   "back": "Traiter la sécurité le plus tôt possible ; DevSecOps l'automatise.",
+   "concept": "Shift left"
+  },
+  {
+   "id": "m4c1-f03",
+   "front": "STRIDE",
+   "back": "Usurpation, altération, répudiation, divulgation, déni de service, élévation de privilèges.",
+   "concept": "STRIDE"
+  },
+  {
+   "id": "m4c1-f04",
+   "front": "Modélisation des menaces",
+   "back": "En conception : flux, frontières de confiance, menaces, contrôles.",
+   "concept": "Modélisation des menaces"
+  },
+  {
+   "id": "m4c1-f05",
+   "front": "Environnements",
+   "back": "Dev, test, prod séparés ; données fictives en test.",
+   "concept": "Séparation des environnements"
+  },
+  {
+   "id": "m4c1-f06",
+   "front": "OWASP Top 10",
+   "back": "Liste des catégories de risques web les plus critiques (édition 2021 : A01 contrôle d'accès).",
+   "concept": "OWASP"
+  },
+  {
+   "id": "m4c1-f07",
+   "front": "Injection SQL",
+   "back": "Saisie interprétée comme du SQL. Parade : requêtes paramétrées.",
+   "concept": "Injection SQL"
+  },
+  {
+   "id": "m4c1-f08",
+   "front": "XSS",
+   "back": "Script exécuté dans le navigateur des victimes. Parade : encodage en sortie, CSP.",
+   "concept": "XSS"
+  },
+  {
+   "id": "m4c1-f09",
+   "front": "CSRF",
+   "back": "Requête forgée via la session de la victime. Parade : jeton anti-CSRF, SameSite.",
+   "concept": "CSRF"
+  },
+  {
+   "id": "m4c1-f10",
+   "front": "IDOR",
+   "back": "Changer un identifiant donne l'objet d'un autre. Parade : autorisation côté serveur.",
+   "concept": "Contrôle d'accès défaillant"
+  },
+  {
+   "id": "m4c1-f11",
+   "front": "SSRF",
+   "back": "Le serveur appelle une adresse choisie par l'attaquant. Parade : liste d'autorisation.",
+   "concept": "SSRF"
+  },
+  {
+   "id": "m4c1-f12",
+   "front": "Débordement de tampon",
+   "back": "Écrire au-delà de la mémoire prévue. Parades : longueurs, langages sûrs, ASLR, DEP.",
+   "concept": "Débordement de tampon"
+  },
+  {
+   "id": "m4c1-f13",
+   "front": "TOCTOU",
+   "back": "L'état change entre vérification et utilisation. Parade : opérations atomiques.",
+   "concept": "Situation de concurrence"
+  },
+  {
+   "id": "m4c1-f14",
+   "front": "Valider / encoder",
+   "back": "Valider en entrée côté serveur (liste d'autorisation), encoder en sortie.",
+   "concept": "Validation des entrées"
+  },
+  {
+   "id": "m4c1-f15",
+   "front": "SAST / DAST",
+   "back": "Code au repos (boîte blanche) / application en marche (boîte noire).",
+   "concept": "SAST"
+  },
+  {
+   "id": "m4c1-f16",
+   "front": "IAST / fuzzing",
+   "back": "Agent pendant les tests / données malformées en masse.",
+   "concept": "Fuzzing"
+  },
+  {
+   "id": "m4c1-f17",
+   "front": "SCA et SBOM",
+   "back": "Inventaire et vulnérabilités des composants tiers.",
+   "concept": "SBOM"
+  },
+  {
+   "id": "m4c1-f18",
+   "front": "Signature du code",
+   "back": "Prouve origine et intégrité, pas l'absence de faille.",
+   "concept": "Signature du code"
+  },
+  {
+   "id": "m4c1-f19",
+   "front": "Secrets",
+   "back": "Coffre-fort de secrets ; secret exposé = révoquer et remplacer.",
+   "concept": "Gestion des secrets"
+  },
+  {
+   "id": "m4c1-f20",
+   "front": "Pipeline CI/CD",
+   "back": "Actif critique : MFA, droits minimaux, intégrité, journaux.",
+   "concept": "DevSecOps"
+  }
+ ],
+ "revisionSheet": [
+  "# Fiche de révision : développement sécurisé et OWASP",
+  "SDLC sécurisé : exigences, conception, développement, tests, déploiement, maintenance ; la sécurité commence aux exigences.",
+  "Shift left : sécuriser au plus tôt ; DevSecOps : contrôles automatiques dans la chaîne CI/CD.",
+  "Modélisation des menaces en conception ; STRIDE = usurpation, altération, répudiation, divulgation, déni de service, élévation de privilèges.",
+  "Organisation : environnements dev/test/prod séparés, données fictives en test, gestion des changements, revue de code (séparation des tâches).",
+  "Avant production : retirer débogage et comptes de test, messages d'erreur génériques, pas de secret dans le code.",
+  "OWASP Top 10 (2021) : A01 contrôle d'accès, A02 crypto, A03 injection, A04 conception, A05 configuration, A06 composants, A07 authentification, A08 intégrité, A09 journalisation, A10 SSRF.",
+  "Injection SQL → requêtes paramétrées. XSS (stocké, réfléchi, DOM) → encodage en sortie + CSP. CSRF → jeton anti-CSRF, SameSite.",
+  "IDOR → autorisation côté serveur pour chaque objet. SSRF → liste d'autorisation des destinations.",
+  "Valider en entrée côté serveur (liste d'autorisation), encoder en sortie ; la validation côté client n'est qu'un confort.",
+  "Débordement de tampon → contrôle des longueurs, langages sûrs pour la mémoire, ASLR, DEP. TOCTOU → opérations atomiques, verrous.",
+  "Tests : SAST (code, sans exécution), DAST (application en marche), IAST (agent), SCA (composants tiers), fuzzing, test d'intrusion manuel.",
+  "Chaîne logicielle : SBOM, SCA, sources fiables, signature du code (origine + intégrité, pas absence de faille), pipeline protégé.",
+  "Secrets : coffre-fort ; secret exposé = révoquer, remplacer, vérifier son usage.",
+  "API : authentification, autorisation par objet, limitation de débit, validation des entrées.",
+  "Paires à ne pas confondre : SAST/DAST ; XSS/CSRF ; validation/encodage ; signature/qualité ; SCA/SAST."
+ ],
+ "mindMap": {
+  "label": "Développement sécurisé et OWASP",
+  "en": "Secure Software Development",
+  "emoji": "💻",
+  "children": [
+   {
+    "label": "SDLC sécurisé",
+    "en": "Secure SDLC",
+    "emoji": "🔄",
+    "tone": "blue",
+    "children": [
+     {
+      "label": "Étapes",
+      "children": [
+       {
+        "label": "Exigences",
+        "detail": "Sécurité écrite dès le départ."
+       },
+       {
+        "label": "Conception",
+        "detail": "Modélisation des menaces."
+       },
+       {
+        "label": "Développement",
+        "detail": "Codage sûr, revue."
+       },
+       {
+        "label": "Tests"
+       },
+       {
+        "label": "Déploiement et maintenance"
+       }
+      ]
+     },
+     {
+      "label": "Shift left / DevSecOps",
+      "detail": "Tôt et automatisé."
+     }
+    ]
+   },
+   {
+    "label": "Modélisation des menaces",
+    "en": "Threat Modeling",
+    "emoji": "🗺️",
+    "tone": "violet",
+    "children": [
+     {
+      "label": "STRIDE",
+      "children": [
+       {
+        "label": "S usurpation",
+        "detail": "Authentification."
+       },
+       {
+        "label": "T altération",
+        "detail": "Intégrité."
+       },
+       {
+        "label": "R répudiation",
+        "detail": "Non-répudiation."
+       },
+       {
+        "label": "I divulgation",
+        "detail": "Confidentialité."
+       },
+       {
+        "label": "D déni de service",
+        "detail": "Disponibilité."
+       },
+       {
+        "label": "E élévation",
+        "detail": "Autorisation."
+       }
+      ]
+     },
+     {
+      "label": "Frontières de confiance"
+     }
+    ]
+   },
+   {
+    "label": "Organisation",
+    "en": "Development Governance",
+    "emoji": "🏗️",
+    "tone": "turquoise",
+    "children": [
+     {
+      "label": "Environnements séparés",
+      "detail": "Dev, test, prod."
+     },
+     {
+      "label": "Données fictives en test"
+     },
+     {
+      "label": "Gestion des changements"
+     },
+     {
+      "label": "Revue de code",
+      "detail": "Séparation des tâches."
+     }
+    ]
+   },
+   {
+    "label": "OWASP Top 10",
+    "en": "OWASP Top 10",
+    "emoji": "🔟",
+    "tone": "red",
+    "children": [
+     {
+      "label": "Injections",
+      "children": [
+       {
+        "label": "Injection SQL",
+        "detail": "Requêtes paramétrées."
+       },
+       {
+        "label": "XSS",
+        "detail": "Encodage en sortie, CSP."
+       }
+      ]
+     },
+     {
+      "label": "Accès",
+      "children": [
+       {
+        "label": "IDOR",
+        "detail": "Autorisation côté serveur."
+       },
+       {
+        "label": "CSRF",
+        "detail": "Jeton, SameSite."
+       }
+      ]
+     },
+     {
+      "label": "SSRF",
+      "detail": "Liste d'autorisation."
+     },
+     {
+      "label": "Mauvaise configuration",
+      "detail": "Erreurs bavardes, comptes par défaut."
+     }
+    ]
+   },
+   {
+    "label": "Failles de code",
+    "en": "Code Flaws",
+    "emoji": "🐛",
+    "tone": "orange",
+    "children": [
+     {
+      "label": "Débordement de tampon",
+      "detail": "Longueurs, ASLR, DEP."
+     },
+     {
+      "label": "TOCTOU",
+      "detail": "Opérations atomiques."
+     },
+     {
+      "label": "Valider / encoder",
+      "detail": "Côté serveur, liste d'autorisation."
+     }
+    ]
+   },
+   {
+    "label": "Tests et chaîne logicielle",
+    "en": "Testing and Supply Chain",
+    "emoji": "🧪",
+    "tone": "green",
+    "children": [
+     {
+      "label": "Tests",
+      "children": [
+       {
+        "label": "SAST",
+        "detail": "Code au repos."
+       },
+       {
+        "label": "DAST",
+        "detail": "Application en marche."
+       },
+       {
+        "label": "IAST, fuzzing"
+       },
+       {
+        "label": "Test d'intrusion"
+       }
+      ]
+     },
+     {
+      "label": "Dépendances",
+      "children": [
+       {
+        "label": "SCA"
+       },
+       {
+        "label": "SBOM"
+       }
+      ]
+     },
+     {
+      "label": "Intégrité",
+      "children": [
+       {
+        "label": "Signature du code"
+       },
+       {
+        "label": "Coffre-fort de secrets"
+       },
+       {
+        "label": "Pipeline protégé"
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}
