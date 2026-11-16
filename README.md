@@ -1,7 +1,7 @@
 # CISSO Academy
 
 Application de préparation à la certification **CISSO** (Certified Information Systems Security Officer) de MILE2.
-Elle fonctionne **entièrement hors ligne** sur Android, Windows, macOS et Linux : cours, QCM, examens blancs, flashcards, glossaire et statistiques restent sur l'appareil, sans compte ni abonnement.
+Elle fonctionne **entièrement hors ligne** sur Android et Windows : cours, QCM, examens blancs, flashcards, glossaire et statistiques restent sur l'appareil, sans compte ni abonnement.
 
 > Projet indépendant, sans lien avec MILE2. Les questions sont originales : elles ne reproduisent pas les questions de l'examen.
 
@@ -30,7 +30,7 @@ Le détail de ce qui est fait, testé et prévu se trouve dans [PROJECT_STATUS.m
 Chaque mise à jour de `main` est compilée par GitHub Actions (onglet **Actions**, artefacts en bas de l'exécution) :
 
 - `cisso-academy-android` : APK à installer sur téléphone ou tablette (autoriser les « sources inconnues ») ;
-- `cisso-academy-windows`, `cisso-academy-macos`, `cisso-academy-linux` : archives à décompresser.
+- `cisso-academy-windows` : archive à décompresser.
 
 Une étiquette `v*` (par exemple `v0.1.0`) publie automatiquement ces fichiers dans **Releases**.
 
@@ -39,7 +39,7 @@ Une étiquette `v*` (par exemple `v0.1.0`) publie automatiquement ces fichiers d
 ```bash
 flutter pub get
 flutter test          # tests automatisés
-flutter run -d linux  # ou -d windows, -d macos, ou un appareil Android
+flutter run -d windows  # ou un appareil Android
 ```
 
 Version de Flutter utilisée : 3.50.0 (stable). Voir [docs/COMPILATION.md](docs/COMPILATION.md).
