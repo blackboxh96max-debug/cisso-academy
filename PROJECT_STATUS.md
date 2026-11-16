@@ -41,7 +41,7 @@ Glossaire : 155 termes.
 | Navigation téléphone (barre du bas) et grand écran (rail latéral) | Fait | `test/widget_test.dart` |
 | Chapitre pilote : 3 leçons, 24 questions, 20 flashcards, fiche de révision | Fait, **à relire** | `assets/content/m1c1_risques.json` |
 | Glossaire : 32 termes | Fait, **à relire** | `assets/content/glossary.json` |
-| Compilation Android, Linux, Windows, macOS | Configurée, **à confirmer par la première exécution GitHub Actions** | `.github/workflows/build.yml` |
+| Compilation Android et Windows (macOS et Linux retirés à la demande de l'apprenant le 2026-11-16) | Fonctionne sur GitHub Actions | `.github/workflows/build.yml` |
 
 ## Design « cahier manuscrit » : phase 1 (tableau de bord et chapitre modèle)
 
@@ -69,7 +69,7 @@ Glossaire : 155 termes.
 - **Fiches de révision** : consultables et copiables ; l'export en fichier arrivera avec l'import/export (étape 4).
 - **Examen blanc** : limité à la banque disponible (84 questions) jusqu'à la fin de l'étape 2.
 - **Ressources vidéo** : pas encore de bibliothèque ; aucune vidéo ne sera listée sans vérification.
-- **Emoji des encadrés** : affichés par la police emoji du système (Android, Windows, macOS en ont une). Sur Linux, il faut le paquet Noto Color Emoji ; sinon des carrés vides peuvent apparaître.
+- **Emoji des encadrés** : affichés par la police emoji du système (Android et Windows en ont une).
 - **Signature** : APK signé avec la clé de débogage ; applications ordinateur non signées.
 
 ## Comment lancer les tests
