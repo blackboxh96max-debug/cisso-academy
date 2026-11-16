@@ -1,0 +1,66 @@
+{
+  "exam": {
+    "questionCount": 100,
+    "durationMinutes": 120,
+    "passingScore": 62,
+    "source": "mile2.com, CISSO exam blueprint (CISSO-A, révision 2026.04.23)",
+    "verifiedOn": "2026-11-16"
+  },
+  "domains": [
+    {"id": "operations-security", "nameEn": "Operations Security", "nameFr": "Sécurité des opérations", "weight": 14},
+    {"id": "network-security", "nameEn": "Network Security", "nameFr": "Sécurité des réseaux", "weight": 13},
+    {"id": "iaaa", "nameEn": "Identification, Authentication, Authorization, Accountability", "nameFr": "Identification, authentification, autorisation, traçabilité", "weight": 11},
+    {"id": "security-management", "nameEn": "Security Management", "nameFr": "Management de la sécurité", "weight": 10},
+    {"id": "bcp-dr-ir-law", "nameEn": "Business Continuity, Disaster Recovery, Incident Response, Law", "nameFr": "Continuité, reprise, réponse à incident, droit", "weight": 10},
+    {"id": "secure-software", "nameEn": "Secure Software Development", "nameFr": "Développement logiciel sécurisé", "weight": 9},
+    {"id": "cryptography", "nameEn": "Cryptography", "nameFr": "Cryptographie", "weight": 8},
+    {"id": "architecture", "nameEn": "Security Architecture", "nameFr": "Architecture de sécurité", "weight": 8},
+    {"id": "risk-management", "nameEn": "Risk Management", "nameFr": "Gestion des risques", "weight": 7},
+    {"id": "data-security", "nameEn": "Data Security", "nameFr": "Sécurité des données", "weight": 6},
+    {"id": "malware", "nameEn": "Malware", "nameFr": "Logiciels malveillants", "weight": 4}
+  ],
+  "modules": [
+    {
+      "id": "m1", "number": 1, "title": "Management des risques et sécurité",
+      "chapters": [
+        {"id": "m1c1", "title": "Gestion, analyse et traitement des risques", "domains": ["risk-management"], "file": "m1c1_risques.json"},
+        {"id": "m1c2", "title": "Gouvernance et management de la sécurité", "domains": ["security-management"]},
+        {"id": "m1c3", "title": "Politiques, normes, procédures et famille ISO 27000", "domains": ["security-management"]},
+        {"id": "m1c4", "title": "IAM, authentification et contrôle d'accès", "domains": ["iaaa"]}
+      ]
+    },
+    {
+      "id": "m2", "number": 2, "title": "Opérations de sécurité et cryptographie",
+      "chapters": [
+        {"id": "m2c1", "title": "Opérations de sécurité, journalisation, SIEM et SOC", "domains": ["operations-security"]},
+        {"id": "m2c2", "title": "Cryptographie, signatures, certificats et PKI", "domains": ["cryptography"]},
+        {"id": "m2c3", "title": "Gestion des vulnérabilités et des correctifs", "domains": ["operations-security"]}
+      ]
+    },
+    {
+      "id": "m3", "number": 3, "title": "Sécurité réseaux, communications et architecture",
+      "chapters": [
+        {"id": "m3c1", "title": "Modèles OSI, TCP/IP et protocoles sécurisés", "domains": ["network-security"]},
+        {"id": "m3c2", "title": "Pare-feu, IDS/IPS, VPN, segmentation et sans-fil", "domains": ["network-security"]},
+        {"id": "m3c3", "title": "Architecture sécurisée, défense en profondeur et Zero Trust", "domains": ["architecture"]}
+      ]
+    },
+    {
+      "id": "m4", "number": 4, "title": "Sécurité du développement logiciel et des données",
+      "chapters": [
+        {"id": "m4c1", "title": "Développement sécurisé et OWASP", "domains": ["secure-software"]},
+        {"id": "m4c2", "title": "Bases de données et protection des données", "domains": ["data-security"]},
+        {"id": "m4c3", "title": "Malwares, ransomware et analyse", "domains": ["malware"]}
+      ]
+    },
+    {
+      "id": "m5", "number": 5, "title": "Continuité, incidents, droit et sécurité physique",
+      "chapters": [
+        {"id": "m5c1", "title": "Continuité d'activité et reprise (BCP, DRP, RTO, RPO)", "domains": ["bcp-dr-ir-law"]},
+        {"id": "m5c2", "title": "Gestion des incidents, investigation et réponse", "domains": ["bcp-dr-ir-law"]},
+        {"id": "m5c3", "title": "Lois, réglementation et éthique", "domains": ["bcp-dr-ir-law"]},
+        {"id": "m5c4", "title": "Sécurité physique et environnementale", "domains": []}
+      ]
+    }
+  ]
+}
