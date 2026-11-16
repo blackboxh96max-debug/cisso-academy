@@ -1,7 +1,14 @@
 import 'dart:math';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 
+import 'package:flutter/rendering.dart';
 import 'package:material_ui/material_ui.dart';
 
+import '../app_state.dart';
+import '../export/pdf_export.dart';
+import '../export/pdf_save.dart';
+import '../logic/terms.dart';
 import '../models/content.dart';
 import 'notebook/hand_drawn.dart';
 import 'notebook/page_kit.dart';
@@ -17,6 +24,7 @@ MindNode chapterMindMap(Chapter chapter) =>
     chapter.mindMap ??
     MindNode(
       label: chapter.title,
+      en: chapter.titleEn,
       children: [
         for (final l in chapter.lessons)
           MindNode(
@@ -35,16 +43,19 @@ MindNode moduleMindMap(Module module) {
   final (_, emoji) = moduleStyle(module.number);
   return MindNode(
     label: 'Module ${module.number}\n${module.title}',
+    en: module.titleEn,
     emoji: emoji,
     children: [
       for (final (i, c) in module.chapters.indexed)
         c.available
             ? MindNode(
                 label: '${module.number}.${i + 1} ${c.title}',
+                en: c.titleEn,
                 children: chapterMindMap(c).children,
               )
             : MindNode(
                 label: '${module.number}.${i + 1} ${c.title}',
+                en: c.titleEn,
                 children: const [MindNode(label: '🔒 Bientôt disponible')],
               ),
     ],
@@ -60,12 +71,14 @@ MindNode courseMindMap(ContentLibrary library) => MindNode(
     for (final m in library.modules)
       MindNode(
         label: 'Module ${m.number} · ${m.title}',
+        en: m.titleEn,
         emoji: moduleStyle(m.number).$2,
         tone: moduleStyle(m.number).$1.name,
         children: [
           for (final (i, c) in m.chapters.indexed)
             MindNode(
               label: '${m.number}.${i + 1} ${c.title}',
+              en: c.titleEn,
               children: c.available
                   ? [
                       for (final b in chapterMindMap(c).children)
@@ -85,10 +98,20 @@ MindNode courseMindMap(ContentLibrary library) => MindNode(
         for (final d in [
           ...library.domains,
         ]..sort((a, b) => b.weight.compareTo(a.weight)))
-          MindNode(label: '${d.nameFr} · ${d.weight}\u00a0%'),
+          MindNode(label: '${d.nameFr} · ${d.weight}\u00a0%', en: d.nameEn),
       ],
     ),
   ],
+);
+
+/// Complète les nœuds sans terme anglais grâce au glossaire.
+MindNode withEnglish(MindNode n, TermIndex terms) => MindNode(
+  label: n.label,
+  en: n.en ?? terms.englishFor(n.label),
+  emoji: n.emoji,
+  detail: n.detail,
+  tone: n.tone,
+  children: [for (final c in n.children) withEnglish(c, terms)],
 );
 
 Tone _toneNamed(String? name, Tone fallback) =>
@@ -99,10 +122,18 @@ Tone _toneNamed(String? name, Tone fallback) =>
 // ---------------------------------------------------------------------------
 
 class MindMapPage extends StatefulWidget {
-  const MindMapPage({super.key, required this.title, required this.root});
+  const MindMapPage({
+    super.key,
+    required this.title,
+    required this.root,
+    this.exportOnOpen = false,
+  });
 
   final String title;
   final MindNode root;
+
+  /// Ouvre la carte puis lance tout de suite l'export PDF.
+  final bool exportOnOpen;
 
   @override
   State<MindMapPage> createState() => _MindMapPageState();
@@ -114,6 +145,61 @@ class _MindMapPageState extends State<MindMapPage> {
   bool? _listView;
   final _transform = TransformationController();
   Size? _fittedFor;
+  final _canvasKey = GlobalKey();
+  MindNode? _enriched;
+  bool _exporting = false;
+
+  /// La carte, complétée des termes anglais du glossaire.
+  MindNode _root(BuildContext context) => _enriched ??= switch (context
+      .getInheritedWidgetOfExactType<AppScope>()
+      ?.notifier) {
+    final state? => withEnglish(widget.root, state.terms),
+    null => widget.root,
+  };
+
+  /// Déplie tout, photographie la carte, puis crée le PDF (image + plan).
+  Future<void> _exportPdf() async {
+    if (_exporting) return;
+    final before = _collapsed;
+    final beforeList = _listView;
+    setState(() {
+      _exporting = true;
+      _collapsed = {};
+      _listView = false;
+    });
+    await WidgetsBinding.instance.endOfFrame;
+    await WidgetsBinding.instance.endOfFrame;
+    if (!mounted) return;
+    Uint8List? png;
+    Size? size;
+    final boundary =
+        _canvasKey.currentContext?.findRenderObject() as RenderRepaintBoundary?;
+    if (boundary != null) {
+      size = boundary.size;
+      final ratio = (3000 / max(size.width, size.height)).clamp(0.6, 2.0);
+      final image = await boundary.toImage(pixelRatio: ratio);
+      final data = await image.toByteData(format: ui.ImageByteFormat.png);
+      png = data?.buffer.asUint8List();
+    }
+    if (!mounted) return;
+    final root = _root(context);
+    setState(() {
+      _collapsed = before;
+      _listView = beforeList;
+      _exporting = false;
+    });
+    await exportPdf(
+      context,
+      title: 'Carte mentale ${widget.title}',
+      build: () => mindMapPdf(
+        title: 'Carte mentale · ${widget.title}',
+        root: root,
+        image: png,
+        imageWidth: size?.width,
+        imageHeight: size?.height,
+      ),
+    );
+  }
 
   Set<String> _defaultCollapsed() {
     final out = <String>{};
@@ -142,6 +228,12 @@ class _MindMapPageState extends State<MindMapPage> {
   void initState() {
     super.initState();
     PaintingBinding.instance.systemFonts.addListener(_fontsChanged);
+    if (widget.exportOnOpen) {
+      // Laisse le temps aux polices manuscrites de se charger.
+      Future<void>.delayed(const Duration(milliseconds: 600), () {
+        if (mounted) _exportPdf();
+      });
+    }
   }
 
   @override
@@ -173,6 +265,16 @@ class _MindMapPageState extends State<MindMapPage> {
             ),
           ],
           IconButton(
+            tooltip: 'Télécharger en PDF',
+            icon: _exporting
+                ? const SizedBox.square(
+                    dimension: 20,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  )
+                : const Icon(Icons.picture_as_pdf_outlined),
+            onPressed: _exporting ? null : _exportPdf,
+          ),
+          IconButton(
             tooltip: list ? 'Voir la carte' : 'Voir la liste',
             icon: Icon(list ? Icons.account_tree_outlined : Icons.list_alt),
             onPressed: () => setState(() => _listView = !list),
@@ -180,12 +282,12 @@ class _MindMapPageState extends State<MindMapPage> {
         ],
       ),
       body: list
-          ? _MindOutline(root: widget.root)
+          ? _MindOutline(root: _root(context))
           : LayoutBuilder(
               builder: (context, box) {
                 final layout = _MindLayout.compute(
                   context,
-                  widget.root,
+                  _root(context),
                   _collapsed,
                 );
                 // Premier affichage : la carte entière tient dans l'écran.
@@ -213,10 +315,13 @@ class _MindMapPageState extends State<MindMapPage> {
                   boundaryMargin: const EdgeInsets.all(400),
                   minScale: 0.2,
                   maxScale: 2.5,
-                  child: _MindCanvas(
-                    layout: layout,
-                    collapsed: _collapsed,
-                    onToggle: _toggle,
+                  child: RepaintBoundary(
+                    key: _canvasKey,
+                    child: _MindCanvas(
+                      layout: layout,
+                      collapsed: _collapsed,
+                      onToggle: _toggle,
+                    ),
                   ),
                 );
               },

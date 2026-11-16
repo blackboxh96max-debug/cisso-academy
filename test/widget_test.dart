@@ -4,6 +4,7 @@ import 'package:cisso_academy/app_state.dart';
 import 'package:cisso_academy/data/progress_store.dart';
 import 'package:cisso_academy/main.dart';
 import 'package:cisso_academy/models/content.dart';
+import 'package:cisso_academy/ui/flashcards_page.dart';
 import 'package:cisso_academy/ui/chapter_page.dart';
 import 'package:cisso_academy/ui/courses_page.dart';
 import 'package:cisso_academy/ui/mind_map_page.dart';
@@ -44,7 +45,7 @@ void main() {
 
   testWidgets('navigation vers chaque onglet', (tester) async {
     await pumpApp(tester);
-    for (final label in ['Cours', 'QCM', 'Flashcards', 'Glossaire']) {
+    for (final label in ['Cours', 'QCM', 'Révisions', 'Glossaire']) {
       await tester.tap(
         find.descendant(
           of: find.byType(NavigationBar),
@@ -177,15 +178,25 @@ void main() {
   });
 
   testWidgets('flashcards : une révision est enregistrée', (tester) async {
-    final state = await pumpApp(tester);
+    final state = await pumpApp(tester, size: const Size(800, 2400));
     await tester.tap(
       find.descendant(
         of: find.byType(NavigationBar),
-        matching: find.text('Flashcards'),
+        matching: find.text('Révisions'),
       ),
     );
     await tester.pumpAndSettle();
-    await tester.tap(find.textContaining('Réviser'));
+    await tester.ensureVisible(
+      find.text('Répétition espacée : cartes du jour'),
+    );
+    await tester.tap(find.text('Répétition espacée : cartes du jour'));
+    await tester.pumpAndSettle();
+    await tester.tap(
+      find.descendant(
+        of: find.byType(FlashcardsPage),
+        matching: find.textContaining('carte(s)'),
+      ),
+    );
     await tester.pumpAndSettle();
     await tester.tap(find.text('Afficher la réponse'));
     await tester.pumpAndSettle();
@@ -357,5 +368,53 @@ void main() {
       reason: 'une feuille par domaine officiel',
     );
     expect(moduleMindMap(m1).children.length, m1.chapters.length);
+  });
+
+  testWidgets('révisions : trois supports, filtre par module', (tester) async {
+    await pumpApp(tester, size: const Size(800, 2400));
+    await tester.tap(
+      find.descendant(
+        of: find.byType(NavigationBar),
+        matching: find.text('Révisions'),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('Répétition espacée : cartes du jour'), findsOneWidget);
+    expect(find.text('Réviser le module'), findsWidgets);
+
+    await tester.tap(find.text('📋 Fiches'));
+    await tester.pumpAndSettle();
+    expect(find.text('PDF du module'), findsWidgets);
+    expect(find.text('Réviser le module'), findsNothing);
+
+    await tester.tap(
+      find.descendant(
+        of: find.byType(ChoiceChip),
+        matching: find.textContaining('Module 2'),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.textContaining('Module 1 ·'), findsNothing);
+    expect(find.textContaining('Module 2 ·'), findsOneWidget);
+
+    await tester.tap(find.text('🧠 Cartes mentales'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.widgetWithText(ChoiceChip, 'Tous les modules'));
+    await tester.pumpAndSettle();
+    expect(find.text('Toute la formation'), findsOneWidget);
+  });
+
+  testWidgets('recherche : un terme anglais retrouve le glossaire', (
+    tester,
+  ) async {
+    await pumpApp(tester);
+    await tester.tap(find.byTooltip('Rechercher').first);
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextField), 'separation of duties');
+    await tester.pumpAndSettle();
+    expect(find.text('SoD · Séparation des tâches'), findsWidgets);
+    await tester.tap(find.text('SoD · Séparation des tâches').first);
+    await tester.pumpAndSettle();
+    expect(find.text('Separation of duties'), findsWidgets);
   });
 }

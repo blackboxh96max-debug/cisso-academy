@@ -408,6 +408,7 @@ class Chapter {
     required this.id,
     required this.moduleId,
     required this.title,
+    this.titleEn,
     required this.domainIds,
     required this.available,
     this.lessons = const [],
@@ -420,6 +421,9 @@ class Chapter {
   final String id;
   final String moduleId;
   final String title;
+
+  /// Titre anglais, tel qu'on le rencontre dans les supports officiels.
+  final String? titleEn;
   final List<String> domainIds;
 
   /// Faux tant que le contenu du chapitre n'est pas encore rédigé.
@@ -480,12 +484,14 @@ class Module {
     required this.id,
     required this.number,
     required this.title,
+    this.titleEn,
     required this.chapters,
   });
 
   final String id;
   final int number;
   final String title;
+  final String? titleEn;
   final List<Chapter> chapters;
 }
 

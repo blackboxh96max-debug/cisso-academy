@@ -143,11 +143,20 @@ class NoteBox extends StatelessWidget {
 
 /// Liste à puces manuscrite.
 class HandBullets extends StatelessWidget {
-  const HandBullets(this.items, {super.key, this.style, this.bullet = '•'});
+  const HandBullets(
+    this.items, {
+    super.key,
+    this.style,
+    this.bullet = '•',
+    this.itemSpan,
+  });
 
   final List<String> items;
   final TextStyle? style;
   final String bullet;
+
+  /// Construit le texte enrichi d'un élément (termes anglais, par exemple).
+  final InlineSpan Function(int index, String item, TextStyle style)? itemSpan;
 
   @override
   Widget build(BuildContext context) {
@@ -155,14 +164,18 @@ class HandBullets extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        for (final item in items)
+        for (final (i, item) in items.indexed)
           Padding(
             padding: const EdgeInsets.only(bottom: 6),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(width: 22, child: Text(bullet, style: s)),
-                Expanded(child: Text(item, style: s)),
+                Expanded(
+                  child: itemSpan == null
+                      ? Text(item, style: s)
+                      : Text.rich(itemSpan!(i, item, s)),
+                ),
               ],
             ),
           ),

@@ -17,6 +17,9 @@ Elle fonctionne **entièrement hors ligne** sur Android, Windows, macOS et Linux
 | Examen blanc chronométré, réparti selon le poids officiel des domaines, avec analyse des erreurs | ✅ |
 | Flashcards à répétition espacée (SM-2) | ✅ |
 | Glossaire bilingue anglais / français avec recherche hors ligne | ✅ |
+| Recherche globale (termes, chapitres, leçons, flashcards, cartes mentales), en français ou en anglais | ✅ |
+| Termes clés affichés en français et en anglais dans les cours, fiches, flashcards et cartes | ✅ |
+| Menu Révisions : flashcards, fiches et cartes mentales par chapitre ou par module, export PDF | ✅ |
 | Suivi des erreurs par notion et par domaine officiel | ✅ |
 | Contenu : modules 1 et 2 complets et 1er chapitre du module 3 (234 questions) | ✅ (étape 2 en cours) |
 

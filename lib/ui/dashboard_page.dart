@@ -19,6 +19,7 @@ import 'notebook/typography.dart';
 import 'quiz_hub_page.dart';
 import 'theme.dart';
 import 'widgets.dart';
+import 'search_page.dart';
 
 /// Tableau de bord visuel : accueil illustré, progression, modules,
 /// graphiques, badges, objectif du jour et accès rapides.
@@ -96,6 +97,7 @@ class DashboardPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('CISSO Academy'),
         actions: [
+          const SearchAction(),
           PopupMenuButton<String>(
             tooltip: 'Menu',
             onSelected: (v) {
@@ -518,13 +520,18 @@ class _ModuleCards extends StatelessWidget {
                                     style: const TextStyle(fontSize: 22),
                                   ),
                                   const SizedBox(width: 6),
-                                  Text(
-                                    'Module ${m.number}',
-                                    style: const TextStyle(
-                                      fontFamily: Hand.title,
-                                      fontSize: 26,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.white,
+                                  Flexible(
+                                    child: Text(
+                                      'Module ${m.number}',
+                                      maxLines: 1,
+                                      overflow: TextOverflow.fade,
+                                      softWrap: false,
+                                      style: const TextStyle(
+                                        fontFamily: Hand.title,
+                                        fontSize: 26,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -657,7 +664,7 @@ class _QuickAccess extends StatelessWidget {
         children: [
           button('📘', 'Cours', Tone.blue, () => onNavigate(1)),
           button('📝', 'QCM et examen blanc', Tone.pink, () => onNavigate(2)),
-          button('🃏', 'Flashcards', Tone.violet, () => onNavigate(3)),
+          button('🃏', 'Révisions', Tone.violet, () => onNavigate(3)),
           button('🔤', 'Glossaire', Tone.turquoise, () => onNavigate(4)),
         ],
       ),

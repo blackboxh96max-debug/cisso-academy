@@ -2,9 +2,9 @@ import 'package:material_ui/material_ui.dart';
 
 import 'courses_page.dart';
 import 'dashboard_page.dart';
-import 'flashcards_page.dart';
 import 'glossary_page.dart';
 import 'quiz_hub_page.dart';
+import 'revisions_page.dart';
 
 /// Navigation principale : barre du bas sur téléphone, rail latéral sur
 /// tablette et ordinateur.
@@ -26,7 +26,7 @@ const _destinations = [
   _Destination('Accueil', Icons.dashboard_outlined, Icons.dashboard),
   _Destination('Cours', Icons.menu_book_outlined, Icons.menu_book),
   _Destination('QCM', Icons.quiz_outlined, Icons.quiz),
-  _Destination('Flashcards', Icons.style_outlined, Icons.style),
+  _Destination('Révisions', Icons.style_outlined, Icons.style),
   _Destination('Glossaire', Icons.translate_outlined, Icons.translate),
 ];
 
@@ -41,7 +41,7 @@ class _HomeShellState extends State<HomeShell> {
       DashboardPage(onNavigate: _go),
       const CoursesPage(),
       const QuizHubPage(),
-      const FlashcardsPage(),
+      const RevisionsPage(),
       const GlossaryPage(),
     ];
     final wide = MediaQuery.sizeOf(context).width >= 840;

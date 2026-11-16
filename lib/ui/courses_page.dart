@@ -9,6 +9,7 @@ import 'notebook/hand_drawn.dart';
 import 'notebook/page_kit.dart';
 import 'notebook/palette.dart';
 import 'notebook/typography.dart';
+import 'bilingual.dart';
 
 /// Programme : 5 modules, chacun rattaché aux domaines officiels MILE2.
 class CoursesPage extends StatelessWidget {
@@ -108,6 +109,8 @@ class _ModuleBanner extends StatelessWidget {
                         fontWeight: FontWeight.w800,
                       ),
                     ),
+                    if (module.titleEn != null)
+                      EnTag(module.titleEn!, onDark: true, size: 12),
                   ],
                 ),
               ),
@@ -228,6 +231,10 @@ class _ChapterCard extends StatelessWidget {
             color: open ? paper.ink : paper.inkSoft,
           ),
         ),
+        if (chapter.titleEn != null) ...[
+          const SizedBox(height: 2),
+          EnTag(chapter.titleEn!, size: 12),
+        ],
         const SizedBox(height: 6),
         if (open) ...[
           Wrap(

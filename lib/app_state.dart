@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'data/progress_store.dart';
 import 'logic/stats.dart';
 import 'models/content.dart';
+import 'logic/search.dart';
+import 'logic/terms.dart';
 
 /// État partagé de l'application : contenu, stockage et statistiques.
 class AppState extends ChangeNotifier {
@@ -13,6 +15,12 @@ class AppState extends ChangeNotifier {
   }) : now = clock ?? DateTime.now;
 
   final ContentLibrary library;
+
+  /// Correspondances français ↔ anglais du glossaire.
+  late final TermIndex terms = TermIndex(library.glossary);
+
+  /// Index de la recherche globale.
+  late final SearchIndex search = SearchIndex(library);
   final ProgressStore store;
 
   /// Horloge injectable (tests).
