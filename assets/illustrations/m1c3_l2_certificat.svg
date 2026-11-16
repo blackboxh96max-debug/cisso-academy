@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <g stroke="#26324A" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 30 C60 26 110 26 150 30 C152 70 151 110 149 146 C110 150 60 150 23 147 C20 110 20 70 22 30 Z" fill="#FFFBF2" />
+  </g>
+  <g stroke="#9DB4D8" stroke-width="2" stroke-linecap="round">
+    <path d="M40 54 L132 54" stroke="#7A3BE6" stroke-width="3.4" /><path d="M40 74 L132 74" /><path d="M40 90 L118 90" /><path d="M40 106 L100 106" />
+  </g>
+  <g stroke="#B07800" stroke-width="2.6" stroke-linejoin="round">
+    <path d="M112 118 L104 160 L118 150 L126 162 L130 120" fill="#F97316" />
+    <circle cx="122" cy="118" r="16" fill="#FFE08A" />
+    <circle cx="122" cy="118" r="8" fill="none" />
+  </g>
+  <!-- calendrier 3 ans -->
+  <g stroke="#26324A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M166 58 L222 56 L224 132 L168 134 Z" fill="#DCE9FF" />
+    <path d="M166 74 L223 72" fill="none" />
+    <path d="M180 50 L180 64 M208 48 L208 62" fill="none" />
+  </g>
+  <text x="180" y="116" font-family="Caveat, cursive" font-size="34" font-weight="700" fill="#1F5FE0">3</text>
+  <text x="196" y="116" font-family="Caveat, cursive" font-size="16" fill="#1F5FE0">ans</text>
+</svg>
