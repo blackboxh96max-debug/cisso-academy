@@ -30,6 +30,41 @@
      "text": "La sécurité d'une organisation repose sur un ensemble de documents emboîtés. En haut, peu de documents, très stables et approuvés par la direction ; en bas, beaucoup de documents détaillés, qui changent souvent avec la technique."
     },
     {
+     "type": "diagram",
+     "title": "La pyramide documentaire",
+     "alt": "Schéma en quatre étapes du plus général au plus détaillé : politique, norme interne, référentiel de base (baseline), procédure. Les lignes directrices, facultatives, sont à part.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🏛️",
+        "label": "Politique",
+        "detail": "le pourquoi, signée par la direction",
+        "tone": "violet"
+       },
+       {
+        "emoji": "📏",
+        "label": "Norme",
+        "detail": "le quoi, chiffré",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🧱",
+        "label": "Baseline",
+        "detail": "le minimum par système",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "📝",
+        "label": "Procédure",
+        "detail": "le comment, pas à pas",
+        "tone": "green"
+       }
+      ]
+     },
+     "text": "Les lignes directrices (guidelines) conseillent sans obliger : elles restent à côté de la pyramide."
+    },
+    {
      "type": "table",
      "rows": [
       [
@@ -76,6 +111,10 @@
      "kind": "practice"
     },
     {
+     "type": "memo",
+     "text": "Politique = POURQUOI · Norme = QUOI (avec des chiffres) · Procédure = COMMENT. Seule la ligne directrice dit « je vous conseille »."
+    },
+    {
      "type": "heading",
      "text": "Les types de politiques"
     },
@@ -102,6 +141,11 @@
      "kind": "practice"
     },
     {
+     "type": "risk",
+     "title": "L'exception oubliée",
+     "text": "Une exception sans date de fin devient une faille permanente. Le registre des exceptions doit être revu, sinon personne ne se souvient du serveur « temporairement » exempté il y a trois ans."
+    },
+    {
      "type": "socCase",
      "title": "Cas SOC : quand la procédure manque",
      "text": "Une nuit, un analyste découvre une connexion suspecte sur le compte d'un dirigeant. La politique dit que « les incidents sont traités selon leur gravité », la norme fixe les niveaux de gravité, mais aucune procédure ne dit comment réinitialiser le compte d'un dirigeant en voyage. L'analyste perd une heure à chercher qui appeler. Leçon tirée : rédiger une procédure (le « comment ») avec les contacts et les étapes, et la tester.",
@@ -116,6 +160,10 @@
       "Auditeur : je vérifie que chaque document est approuvé, daté, diffusé et appliqué.",
       "Risk manager : je suis le registre des exceptions et leurs échéances."
      ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "Pour classer un document à l'examen, repérez les chiffres : « au moins 16 caractères » est une norme, « protéger les accès » est une politique, « cliquez sur Isoler puis appelez l'astreinte » est une procédure."
     },
     {
      "type": "pitfalls",
@@ -134,8 +182,17 @@
       "Trois types de politiques : générale, thématique, propre à un système.",
       "Une exception est justifiée, temporaire, compensée, approuvée et suivie."
      ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m1c3-q02",
+      "m1c3-q05"
+     ]
     }
-   ]
+   ],
+   "illustration": "assets/illustrations/m1c3_l1_pyramide.svg",
+   "illustrationAlt": "Dessin d'une pyramide en quatre étages colorés, avec un petit drapeau au sommet."
   },
   {
    "id": "m1c3-l2",
@@ -263,6 +320,42 @@
      "kind": "general"
     },
     {
+     "type": "diagram",
+     "title": "La logique PDCA dans ISO/IEC 27001",
+     "alt": "Cycle en quatre étapes : Plan (chapitre 6, planification), Do (chapitre 8, fonctionnement), Check (chapitre 9, évaluation des performances), Act (chapitre 10, amélioration), puis on recommence.",
+     "diagram": {
+      "type": "cycle",
+      "center": "🔁 Amélioration\ncontinue",
+      "nodes": [
+       {
+        "emoji": "🗺️",
+        "label": "Plan",
+        "detail": "ch. 6 planifier",
+        "tone": "blue"
+       },
+       {
+        "emoji": "⚙️",
+        "label": "Do",
+        "detail": "ch. 8 faire",
+        "tone": "green"
+       },
+       {
+        "emoji": "🔍",
+        "label": "Check",
+        "detail": "ch. 9 vérifier",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🚀",
+        "label": "Act",
+        "detail": "ch. 10 améliorer",
+        "tone": "violet"
+       }
+      ]
+     },
+     "kind": "general"
+    },
+    {
      "type": "heading",
      "text": "L'annexe A et la déclaration d'applicabilité"
     },
@@ -270,6 +363,43 @@
      "type": "text",
      "text": "L'annexe A d'ISO/IEC 27001:2022 liste 93 mesures réparties en quatre thèmes : organisationnelles (37), liées aux personnes (8), physiques (14) et technologiques (34). ISO/IEC 27002:2022 détaille chacune d'elles. La version 2013 en comptait 114 réparties en 14 domaines ; la période de transition vers la version 2022 s'est terminée le 31 octobre 2025.",
      "kind": "general"
+    },
+    {
+     "type": "diagram",
+     "title": "Les 93 mesures de l'annexe A (2022)",
+     "alt": "Graphique en barres : 37 mesures organisationnelles, 8 liées aux personnes, 14 physiques, 34 technologiques, soit 93 au total.",
+     "diagram": {
+      "type": "bars",
+      "unit": "",
+      "bars": [
+       {
+        "label": "Organisationnelles",
+        "value": 37,
+        "tone": "violet"
+       },
+       {
+        "label": "Personnes",
+        "value": 8,
+        "tone": "pink"
+       },
+       {
+        "label": "Physiques",
+        "value": 14,
+        "tone": "orange"
+       },
+       {
+        "label": "Technologiques",
+        "value": 34,
+        "tone": "blue"
+       }
+      ]
+     },
+     "text": "37 + 8 + 14 + 34 = 93. Ancienne version 2013 : 114 mesures en 14 domaines.",
+     "kind": "official"
+    },
+    {
+     "type": "memo",
+     "text": "« 27000 Dit, 27001 Exige, 27002 Guide, 27005 Risque » : le vocabulaire, les exigences certifiables, le guide des mesures, la gestion des risques."
     },
     {
      "type": "definition",
@@ -286,6 +416,11 @@
       "Audits de surveillance (en général annuels) pendant ces trois ans.",
       "Audit de renouvellement avant l'échéance."
      ]
+    },
+    {
+     "type": "important",
+     "title": "Point clé",
+     "text": "On est certifié ISO/IEC 27001, jamais ISO/IEC 27002 : la 27002 est un guide qui aide à mettre en œuvre les mesures, elle ne contient pas d'exigences à auditer."
     },
     {
      "type": "socCase",
@@ -320,8 +455,17 @@
       "27001:2022 : chapitres 4 à 10, annexe A de 93 mesures en 4 thèmes.",
       "SoA obligatoire ; certificat de 3 ans avec audits de surveillance."
      ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m1c3-q11",
+      "m1c3-q12"
+     ]
     }
-   ]
+   ],
+   "illustration": "assets/illustrations/m1c3_l2_certificat.svg",
+   "illustrationAlt": "Dessin d'un certificat avec un sceau et un ruban, à côté d'un calendrier de trois ans."
   },
   {
    "id": "m1c3-l3",
@@ -453,12 +597,56 @@
      "kind": "general"
     },
     {
+     "type": "memo",
+     "text": "SOC 2 Type I = une photo (les contrôles sont bien conçus à une date). SOC 2 Type II = un film (ils ont fonctionné pendant 6 à 12 mois)."
+    },
+    {
+     "type": "risk",
+     "title": "Confusion fréquente",
+     "text": "SOC 2 est un rapport d'audit sur un prestataire ; un SOC est un centre opérationnel de sécurité. Une question qui parle de « rapport », d'« auditeur » ou de « période » vise SOC 2."
+    },
+    {
      "type": "heading",
      "text": "Choisir et combiner"
     },
     {
      "type": "text",
      "text": "Les référentiels se complètent : ISO/IEC 27001 pour le système de management, ISO/IEC 27002 ou NIST SP 800-53 pour les mesures, le NIST CSF pour communiquer un niveau de maturité, PCI DSS si l'on traite des cartes, EBIOS Risk Manager pour l'analyse de risques. Des tables de correspondance existent entre la plupart d'entre eux.",
+     "kind": "practice"
+    },
+    {
+     "type": "diagram",
+     "title": "Combiner les référentiels",
+     "alt": "Schéma en quatre étapes : ISO/IEC 27001 pour le système de management, ISO/IEC 27002 ou NIST SP 800-53 pour choisir les mesures, NIST CSF pour communiquer la maturité, PCI DSS si l'on traite des cartes bancaires.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🏗️",
+        "label": "ISO 27001",
+        "detail": "le système de management",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🧰",
+        "label": "27002 / 800-53",
+        "detail": "les mesures",
+        "tone": "blue"
+       },
+       {
+        "emoji": "📊",
+        "label": "NIST CSF",
+        "detail": "la maturité",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "💳",
+        "label": "PCI DSS",
+        "detail": "si cartes bancaires",
+        "tone": "orange"
+       }
+      ]
+     },
      "kind": "practice"
     },
     {
@@ -476,6 +664,10 @@
       "Auditeur : un rapport SOC 2 de type II vaut plus qu'un type I pour juger l'efficacité.",
       "Risk manager : EBIOS Risk Manager structure les scénarios de risque avec les métiers."
      ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "Retenez une question à se poser devant chaque référentiel : « est-il certifiable ? ». ISO/IEC 27001 oui, le NIST CSF non, PCI DSS donne lieu à une évaluation de conformité, SOC 2 à un rapport d'audit."
     },
     {
      "type": "pitfalls",
@@ -496,8 +688,17 @@
       "PCI DSS pour les cartes ; SOC 2 pour rassurer les clients d'un prestataire.",
       "ANSSI : guide d'hygiène (42 mesures), EBIOS Risk Manager."
      ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m1c3-q21",
+      "m1c3-q24"
+     ]
     }
-   ]
+   ],
+   "illustration": "assets/illustrations/m1c3_l3_boite.svg",
+   "illustrationAlt": "Dessin d'une boîte à outils ouverte contenant des fiches de couleur : chaque référentiel est un outil."
   }
  ],
  "questions": [

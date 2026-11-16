@@ -51,7 +51,8 @@ Glossaire : 66 termes.
 | Tableau de bord : illustration d'accueil, anneau de progression, 5 modules colorés, courbe des scores, radar des 11 domaines, camembert, maîtrise des chapitres, 8 badges, objectif du jour (20 réponses), série de jours, accès rapide ; 2 colonnes sur grand écran | Fait, **à valider** | `lib/ui/dashboard_page.dart`, `test/stats_test.dart` |
 | Flashcards façon fiche bristol : retournement 3D, couleur du module, difficulté, animation « carte maîtrisée » | Fait | `lib/ui/flashcards_page.dart`, `test/widget_test.dart` |
 | Animations légères désactivables (Réglages) et respect du réglage système « réduire les animations » | Fait | `test/widget_test.dart`, migration SQLite v2 testée dans `test/sqlite_store_test.dart` |
-| Application du design aux autres chapitres, schémas par chapitre (OSI, PDCA, SOC, IR, PKI, PCA/PRA, RTO/RPO, Zero Trust…) | À faire, après validation | |
+| Chapitres « Gouvernance » et « Politiques, ISO 27000 » au format cahier : 6 illustrations, 7 schémas (dont NIST CSF 2.0, PDCA, 93 mesures de l'annexe A), notes, mémos, petits tests | Fait, **à relire** | `assets/content/m1c2_gouvernance.json`, `assets/content/m1c3_politiques.json`, `test/content_test.dart` (chaque leçon : illustration, schéma, petit test, note ou mémo) |
+| Application du design aux chapitres suivants, schémas par chapitre (OSI, PDCA, SOC, IR, PKI, PCA/PRA, RTO/RPO, Zero Trust…) | À faire, après validation | |
 | Essai sur un vrai téléphone Android et sur ordinateur (hors aperçu web) | À faire | |
 
 ## Écarts connus et décisions
