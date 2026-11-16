@@ -1,0 +1,271 @@
+[
+ {
+  "id": "asset",
+  "en": "Asset",
+  "fr": "Actif",
+  "definition": "Tout élément qui a de la valeur pour l'organisation : information, système, personne, réputation.",
+  "example": "Le serveur de messagerie et les données RH sont des actifs à protéger.",
+  "kind": "general"
+ },
+ {
+  "id": "threat",
+  "en": "Threat",
+  "fr": "Menace",
+  "definition": "Cause potentielle d'un incident indésirable, humaine (intentionnelle ou non) ou naturelle.",
+  "example": "Un groupe de rançongiciel ciblant le secteur de la santé.",
+  "kind": "general"
+ },
+ {
+  "id": "vulnerability",
+  "en": "Vulnerability",
+  "fr": "Vulnérabilité",
+  "definition": "Faiblesse d'un actif ou d'un contrôle pouvant être exploitée par une menace.",
+  "example": "Un VPN sans correctif de sécurité récent.",
+  "kind": "general"
+ },
+ {
+  "id": "risk",
+  "en": "Risk",
+  "fr": "Risque",
+  "definition": "Effet de l'incertitude sur les objectifs ; en pratique, combinaison de la vraisemblance d'un scénario et de son impact.",
+  "example": "Risque de chiffrement des serveurs de fichiers par un rançongiciel.",
+  "kind": "general"
+ },
+ {
+  "id": "likelihood",
+  "en": "Likelihood",
+  "fr": "Vraisemblance",
+  "definition": "Chance qu'un événement se produise, exprimée qualitativement ou en fréquence.",
+  "example": "Vraisemblance « élevée » d'un hameçonnage réussi sans sensibilisation.",
+  "kind": "general"
+ },
+ {
+  "id": "impact",
+  "en": "Impact",
+  "fr": "Impact",
+  "definition": "Conséquence d'un incident sur les objectifs de l'organisation.",
+  "example": "Arrêt de la facturation pendant trois jours.",
+  "kind": "general"
+ },
+ {
+  "id": "inherent-risk",
+  "en": "Inherent risk",
+  "fr": "Risque inhérent",
+  "definition": "Risque avant la mise en place de toute mesure de sécurité.",
+  "example": "Un serveur RDP exposé sur Internet sans aucune protection.",
+  "kind": "general"
+ },
+ {
+  "id": "residual-risk",
+  "en": "Residual risk",
+  "fr": "Risque résiduel",
+  "definition": "Risque qui subsiste après traitement.",
+  "example": "Le risque d'hameçonnage restant malgré le MFA et la sensibilisation.",
+  "kind": "general"
+ },
+ {
+  "id": "risk-appetite",
+  "en": "Risk appetite",
+  "fr": "Appétence au risque",
+  "definition": "Niveau global de risque qu'une organisation accepte de prendre pour atteindre ses objectifs.",
+  "example": "La direction accepte un risque modéré pour accélérer le lancement d'un service en ligne.",
+  "kind": "general"
+ },
+ {
+  "id": "risk-tolerance",
+  "en": "Risk tolerance",
+  "fr": "Tolérance au risque",
+  "definition": "Écart acceptable autour de l'appétence pour un objectif précis.",
+  "example": "Pas plus de 4 heures d'indisponibilité par an pour le site marchand.",
+  "kind": "general"
+ },
+ {
+  "id": "risk-owner",
+  "en": "Risk owner",
+  "fr": "Propriétaire du risque",
+  "definition": "Personne ou entité qui a la responsabilité et l'autorité pour gérer un risque et accepter le risque résiduel.",
+  "example": "Le directeur commercial est propriétaire du risque lié au CRM.",
+  "kind": "general"
+ },
+ {
+  "id": "risk-assessment",
+  "en": "Risk assessment",
+  "fr": "Appréciation du risque",
+  "definition": "Processus global d'identification, d'analyse et d'évaluation des risques (ISO 31000, ISO/IEC 27005).",
+  "example": "Atelier annuel d'appréciation des risques du SI.",
+  "kind": "general"
+ },
+ {
+  "id": "risk-treatment",
+  "en": "Risk treatment",
+  "fr": "Traitement du risque",
+  "definition": "Choix et mise en œuvre d'options pour modifier le risque : réduire, transférer, éviter, accepter.",
+  "example": "Le plan de traitement prévoit le MFA sur tous les accès distants.",
+  "kind": "general"
+ },
+ {
+  "id": "risk-register",
+  "en": "Risk register",
+  "fr": "Registre des risques",
+  "definition": "Document de suivi des risques identifiés, de leurs propriétaires, niveaux, traitements et revues.",
+  "example": "Le registre est revu chaque trimestre par le comité sécurité.",
+  "kind": "general"
+ },
+ {
+  "id": "av",
+  "en": "Asset Value",
+  "fr": "Valeur de l'actif",
+  "acronym": "AV",
+  "definition": "Valeur monétaire attribuée à un actif pour l'analyse quantitative.",
+  "example": "AV du serveur de base de données : 500 000 €.",
+  "kind": "general"
+ },
+ {
+  "id": "ef",
+  "en": "Exposure Factor",
+  "fr": "Facteur d'exposition",
+  "acronym": "EF",
+  "definition": "Pourcentage de la valeur d'un actif perdu lors d'une occurrence d'un incident.",
+  "example": "Un rançongiciel détruirait 40 % de la valeur : EF = 40 %.",
+  "kind": "general"
+ },
+ {
+  "id": "sle",
+  "en": "Single Loss Expectancy",
+  "fr": "Espérance de perte unitaire",
+  "acronym": "SLE",
+  "definition": "Perte attendue pour une occurrence : SLE = AV × EF.",
+  "example": "500 000 € × 20 % = 100 000 €.",
+  "kind": "general"
+ },
+ {
+  "id": "aro",
+  "en": "Annualized Rate of Occurrence",
+  "fr": "Taux annuel d'occurrence",
+  "acronym": "ARO",
+  "definition": "Nombre d'occurrences attendues d'un incident par an.",
+  "example": "Une fois tous les 4 ans : ARO = 0,25.",
+  "kind": "general"
+ },
+ {
+  "id": "ale",
+  "en": "Annualized Loss Expectancy",
+  "fr": "Espérance de perte annuelle",
+  "acronym": "ALE",
+  "definition": "Perte moyenne attendue par an : ALE = SLE × ARO.",
+  "example": "100 000 € × 0,1 = 10 000 € par an.",
+  "kind": "general"
+ },
+ {
+  "id": "kri",
+  "en": "Key Risk Indicator",
+  "fr": "Indicateur clé de risque",
+  "acronym": "KRI",
+  "definition": "Mesure qui signale l'évolution d'un risque et permet d'alerter avant qu'il se matérialise.",
+  "example": "Nombre de comptes à privilèges sans MFA.",
+  "kind": "general"
+ },
+ {
+  "id": "control",
+  "en": "Control / safeguard",
+  "fr": "Contrôle, mesure de sécurité",
+  "definition": "Mesure qui modifie un risque, par exemple en réduisant sa vraisemblance ou son impact.",
+  "example": "Le chiffrement des portables est un contrôle technique préventif.",
+  "kind": "general"
+ },
+ {
+  "id": "compensating-control",
+  "en": "Compensating control",
+  "fr": "Contrôle compensatoire",
+  "definition": "Contrôle qui remplace une mesure attendue impossible à mettre en place.",
+  "example": "Isolement réseau d'un système qui ne peut plus être corrigé.",
+  "kind": "general"
+ },
+ {
+  "id": "detective-control",
+  "en": "Detective control",
+  "fr": "Contrôle détectif",
+  "definition": "Contrôle qui repère un incident en cours ou passé.",
+  "example": "Règle de corrélation SIEM sur les connexions impossibles.",
+  "kind": "general"
+ },
+ {
+  "id": "preventive-control",
+  "en": "Preventive control",
+  "fr": "Contrôle préventif",
+  "definition": "Contrôle qui empêche la survenue d'un incident.",
+  "example": "Blocage des macros Office provenant d'Internet.",
+  "kind": "general"
+ },
+ {
+  "id": "corrective-control",
+  "en": "Corrective control",
+  "fr": "Contrôle correctif",
+  "definition": "Contrôle qui limite les dégâts ou corrige après un incident.",
+  "example": "Isolement automatique d'un poste compromis par l'EDR.",
+  "kind": "general"
+ },
+ {
+  "id": "mssp",
+  "en": "Managed Security Service Provider",
+  "fr": "Prestataire de services de sécurité managés",
+  "acronym": "MSSP",
+  "definition": "Prestataire qui opère des services de sécurité (SOC, EDR managé) pour le compte de clients.",
+  "example": "La PME confie la surveillance 24/7 de ses journaux à un MSSP.",
+  "kind": "general"
+ },
+ {
+  "id": "soc",
+  "en": "Security Operations Center",
+  "fr": "Centre opérationnel de sécurité",
+  "acronym": "SOC",
+  "definition": "Équipe et dispositif qui surveillent, détectent, analysent et répondent aux incidents de sécurité.",
+  "example": "Le SOC qualifie l'alerte et ouvre un incident.",
+  "kind": "general"
+ },
+ {
+  "id": "siem",
+  "en": "Security Information and Event Management",
+  "fr": "Gestion des informations et des événements de sécurité",
+  "acronym": "SIEM",
+  "definition": "Outil qui collecte, normalise et corrèle les journaux pour produire des alertes.",
+  "example": "Le SIEM corrèle échecs de connexion VPN et connexions réussies depuis un nouveau pays.",
+  "kind": "general"
+ },
+ {
+  "id": "edr",
+  "en": "Endpoint Detection and Response",
+  "fr": "Détection et réponse sur les terminaux",
+  "acronym": "EDR",
+  "definition": "Outil installé sur les postes et serveurs qui détecte les comportements malveillants et permet d'y répondre.",
+  "example": "L'EDR isole le poste qui chiffre des fichiers.",
+  "kind": "general"
+ },
+ {
+  "id": "mfa",
+  "en": "Multi-Factor Authentication",
+  "fr": "Authentification multifacteur",
+  "acronym": "MFA",
+  "definition": "Authentification qui combine au moins deux facteurs de catégories différentes (connaissance, possession, inhérence).",
+  "example": "Mot de passe + application d'authentification sur smartphone.",
+  "kind": "general"
+ },
+ {
+  "id": "cia",
+  "en": "Confidentiality, Integrity, Availability",
+  "fr": "Confidentialité, intégrité, disponibilité",
+  "acronym": "CIA / DIC",
+  "definition": "Les trois propriétés de sécurité de l'information. En français on trouve souvent l'ordre DIC (disponibilité, intégrité, confidentialité).",
+  "example": "Un rançongiciel atteint d'abord la disponibilité, et souvent la confidentialité par exfiltration.",
+  "kind": "general"
+ },
+ {
+  "id": "rssi",
+  "en": "Chief Information Security Officer",
+  "fr": "Responsable de la sécurité des systèmes d'information",
+  "acronym": "CISO / RSSI",
+  "definition": "Responsable du pilotage de la sécurité de l'information et de la gestion des risques associés.",
+  "example": "Le RSSI présente le registre des risques au comité de direction.",
+  "kind": "general"
+ }
+]

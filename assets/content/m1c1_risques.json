@@ -1,0 +1,1200 @@
+{
+ "lessons": [
+  {
+   "id": "m1c1-l1",
+   "title": "Les briques du risque et le processus de gestion",
+   "minutes": 25,
+   "objectives": [
+    "Distinguer actif, menace, vulnérabilité, impact et vraisemblance.",
+    "Situer risque inhérent, risque résiduel, appétence et tolérance au risque.",
+    "Décrire les étapes du processus de gestion des risques selon ISO/IEC 27005 et NIST.",
+    "Identifier qui décide quoi : propriétaire du risque, direction, RSSI, SOC."
+   ],
+   "references": [
+    {
+     "title": "ISO/IEC 27005:2022, Information security, cybersecurity and privacy protection — Guidance on managing information security risks",
+     "kind": "general"
+    },
+    {
+     "title": "ISO 31000:2018, Management du risque — Lignes directrices",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-30 Rev. 1, Guide for Conducting Risk Assessments",
+     "url": "https://csrc.nist.gov/pubs/sp/800/30/r1/final",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-39, Managing Information Security Risk",
+     "url": "https://csrc.nist.gov/pubs/sp/800/39/final",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Pourquoi parler de risque ?"
+    },
+    {
+     "type": "text",
+     "text": "Une organisation ne peut pas tout protéger au même niveau : son budget, son temps et ses équipes sont limités. La gestion des risques sert à décider où investir en priorité. Le RSSI ne cherche pas le risque zéro, qui n'existe pas, mais un risque ramené à un niveau que la direction accepte en connaissance de cause."
+    },
+    {
+     "type": "heading",
+     "text": "Les cinq briques"
+    },
+    {
+     "type": "definition",
+     "title": "Actif (asset)",
+     "text": "Tout ce qui a de la valeur pour l'organisation : données clients, serveur de messagerie, application métier, réputation, personnel clé.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Menace (threat)",
+     "text": "Cause potentielle d'un incident indésirable. Elle peut être humaine et intentionnelle (groupe de rançongiciel), humaine et accidentelle (erreur d'un administrateur) ou naturelle (inondation).",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Vulnérabilité (vulnerability)",
+     "text": "Faiblesse d'un actif ou d'un contrôle qui peut être exploitée par une menace : correctif absent, mot de passe faible, port d'administration exposé, salarié non sensibilisé.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Impact (impact)",
+     "text": "Conséquence d'un incident sur les objectifs de l'organisation : perte financière, arrêt de production, sanction réglementaire, atteinte à l'image. On l'exprime souvent selon la confidentialité, l'intégrité et la disponibilité touchées.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Vraisemblance (likelihood)",
+     "text": "Chance qu'un scénario de risque se produise sur une période donnée. Elle dépend de la motivation et des capacités de la menace, et de la facilité d'exploitation de la vulnérabilité.",
+     "kind": "general"
+    },
+    {
+     "type": "steps",
+     "title": "La chaîne du risque",
+     "items": [
+      "Une menace…",
+      "…exploite une vulnérabilité…",
+      "…d'un actif…",
+      "…ce qui produit un impact…",
+      "…avec une certaine vraisemblance : c'est le risque."
+     ]
+    },
+    {
+     "type": "text",
+     "text": "Retenez la formule de travail : risque = vraisemblance × impact. Certains supports, dont la préparation MILE2, présentent aussi le risque comme la combinaison menace × vulnérabilité × valeur de l'actif. Les deux disent la même chose : sans menace, sans vulnérabilité ou sans valeur, il n'y a pas de risque."
+    },
+    {
+     "type": "heading",
+     "text": "Avant et après les contrôles"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Notion",
+       "Définition",
+       "Exemple SOC"
+      ],
+      [
+       "Risque inhérent",
+       "Risque avant toute mesure de sécurité",
+       "Un serveur RDP exposé sur Internet sans protection"
+      ],
+      [
+       "Contrôle",
+       "Mesure qui modifie le risque",
+       "VPN obligatoire, MFA, règle SIEM sur les échecs de connexion"
+      ],
+      [
+       "Risque résiduel",
+       "Risque qui subsiste après les contrôles",
+       "Vol d'identifiants VPN par hameçonnage malgré le MFA"
+      ],
+      [
+       "Appétence au risque",
+       "Niveau de risque que l'organisation accepte de prendre pour atteindre ses objectifs",
+       "La direction accepte un risque « moyen » sur les postes de test"
+      ],
+      [
+       "Tolérance au risque",
+       "Écart acceptable autour de l'appétence, pour un objectif donné",
+       "Disponibilité du site web : jusqu'à 4 h d'arrêt par an"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Le processus ISO/IEC 27005"
+    },
+    {
+     "type": "text",
+     "text": "ISO/IEC 27005:2022 applique à la sécurité de l'information le cadre général d'ISO 31000. Le processus est itératif : on le recommence quand le contexte change (nouvelle menace, nouveau projet, incident).",
+     "kind": "general"
+    },
+    {
+     "type": "steps",
+     "title": "Étapes",
+     "items": [
+      "Établir le contexte : périmètre, critères d'évaluation et d'acceptation des risques.",
+      "Apprécier les risques (risk assessment), en trois temps : identification, analyse, évaluation.",
+      "Traiter les risques : réduire, transférer (partager), éviter ou accepter.",
+      "Accepter formellement le risque résiduel (propriétaire du risque).",
+      "En continu : communication et concertation, surveillance et revue."
+     ]
+    },
+    {
+     "type": "text",
+     "text": "NIST SP 800-30 décrit une démarche voisine en quatre étapes : préparer l'évaluation, la conduire, communiquer les résultats, la maintenir. NIST SP 800-39 situe la gestion des risques à trois niveaux : l'organisation, la mission et les processus métier, le système d'information.",
+     "kind": "general"
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : l'alerte qui révèle un risque",
+     "text": "Le SOC détecte des connexions RDP répétées depuis l'étranger vers un serveur de fichiers. L'actif est le serveur et ses données ; la menace est un attaquant qui tente des mots de passe ; la vulnérabilité est le port RDP exposé sans MFA ; l'impact possible est un chiffrement par rançongiciel. Le responsable SOC remonte le constat au RSSI, qui l'ajoute au registre des risques et propose un traitement au propriétaire du risque.",
+     "kind": "example"
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : je présente les risques en langage métier et je propose des traitements chiffrés.",
+      "Responsable SOC : mes alertes et mes incidents alimentent l'identification des risques réels.",
+      "Auditeur : je vérifie que le processus est documenté, appliqué et que chaque risque a un propriétaire.",
+      "Risk manager : je garantis des critères d'évaluation communs à toute l'organisation."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Menace ≠ vulnérabilité : la menace vient de l'extérieur de l'actif, la vulnérabilité est une faiblesse de l'actif ou du contrôle.",
+      "Appréciation (assessment) = identification + analyse + évaluation. Le traitement n'en fait pas partie.",
+      "Le propriétaire du risque accepte le risque, pas le RSSI ni l'analyste SOC.",
+      "CISSP vs CISSO : les deux utilisent ces notions ; le CISSO insiste davantage sur le vocabulaire ISO/NIST et la logique managériale."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Risque = vraisemblance × impact, issu d'une menace qui exploite une vulnérabilité d'un actif.",
+      "Les contrôles font passer du risque inhérent au risque résiduel.",
+      "ISO/IEC 27005 : contexte, appréciation, traitement, acceptation, avec communication et surveillance en continu.",
+      "Chaque risque a un propriétaire qui décide de son traitement et de son acceptation."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m1c1-l2",
+   "title": "Analyser le risque : qualitatif et quantitatif",
+   "minutes": 30,
+   "objectives": [
+    "Comparer analyse qualitative et analyse quantitative.",
+    "Calculer SLE, ARO et ALE sur un cas concret.",
+    "Calculer la valeur annuelle d'un contrôle pour justifier un budget."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-30 Rev. 1, Guide for Conducting Risk Assessments",
+     "url": "https://csrc.nist.gov/pubs/sp/800/30/r1/final",
+     "kind": "general"
+    },
+    {
+     "title": "ISO/IEC 27005:2022",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Deux façons de mesurer"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "",
+       "Qualitative",
+       "Quantitative"
+      ],
+      [
+       "Résultat",
+       "Niveaux : faible, moyen, élevé, critique",
+       "Montants en euros par an"
+      ],
+      [
+       "Outils",
+       "Matrice vraisemblance × impact, ateliers, avis d'experts",
+       "Formules SLE, ARO, ALE, données historiques"
+      ],
+      [
+       "Forces",
+       "Rapide, compréhensible par tous, peu de données nécessaires",
+       "Comparaison coût/bénéfice des contrôles, arbitrages budgétaires"
+      ],
+      [
+       "Limites",
+       "Subjective, difficile de comparer deux risques « élevés »",
+       "Demande des données fiables, longue à mener, fausse impression de précision"
+      ]
+     ]
+    },
+    {
+     "type": "text",
+     "text": "En pratique, on combine souvent les deux (approche semi-quantitative) : une matrice pour trier rapidement, puis un chiffrage des risques les plus importants pour décider des investissements.",
+     "kind": "practice"
+    },
+    {
+     "type": "heading",
+     "text": "Les formules à connaître"
+    },
+    {
+     "type": "definition",
+     "title": "AV, Asset Value (valeur de l'actif)",
+     "text": "Valeur de l'actif en euros : coût de remplacement, revenus générés, coût de reconstitution des données.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "EF, Exposure Factor (facteur d'exposition)",
+     "text": "Pourcentage de la valeur de l'actif perdu lors d'un incident donné, entre 0 et 100 %.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "SLE, Single Loss Expectancy (perte unitaire)",
+     "text": "SLE = AV × EF. Perte attendue pour une seule occurrence de l'incident.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "ARO, Annualized Rate of Occurrence (fréquence annuelle)",
+     "text": "Nombre d'occurrences attendues par an. Une fois tous les 4 ans donne ARO = 0,25 ; trois fois par an donne ARO = 3.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "ALE, Annualized Loss Expectancy (perte annuelle)",
+     "text": "ALE = SLE × ARO. Perte moyenne attendue par an pour ce scénario.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Valeur d'un contrôle",
+     "text": "Valeur = ALE avant le contrôle − ALE après le contrôle − coût annuel du contrôle. Si le résultat est positif, le contrôle est rentable.",
+     "kind": "general"
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC chiffré",
+     "text": "Le serveur de fichiers d'un cabinet vaut 200 000 € (AV). Un rançongiciel en détruirait 40 % de la valeur (EF), soit une SLE de 80 000 €. Les indicateurs du SOC et le contexte sectoriel donnent une attaque réussie tous les 4 ans (ARO = 0,25), donc une ALE de 20 000 €. Un EDR managé coûte 6 000 € par an et ramènerait l'ARO à 0,05, soit une ALE de 4 000 €. Valeur du contrôle : 20 000 − 4 000 − 6 000 = 10 000 € par an. Le RSSI peut défendre cet achat devant la direction.",
+     "kind": "example"
+    },
+    {
+     "type": "steps",
+     "title": "Méthode de calcul pas à pas",
+     "items": [
+      "1. Valoriser l'actif (AV).",
+      "2. Estimer la part perdue par incident (EF) → SLE = AV × EF.",
+      "3. Estimer la fréquence annuelle (ARO) → ALE = SLE × ARO.",
+      "4. Recalculer l'ALE avec le contrôle envisagé.",
+      "5. Valeur = ALE avant − ALE après − coût annuel du contrôle."
+     ]
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : l'ALE transforme un sujet technique en décision budgétaire.",
+      "Responsable SOC : mes statistiques d'incidents donnent des ARO plus réalistes que les estimations au doigt mouillé.",
+      "Auditeur : je demande d'où viennent les chiffres et s'ils sont revus chaque année.",
+      "Risk manager : j'harmonise les échelles qualitatives pour que « élevé » signifie la même chose partout."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Ne pas confondre SLE (une occurrence) et ALE (par an).",
+      "« Une fois tous les 10 ans » donne ARO = 0,1, pas 10.",
+      "La valeur du contrôle soustrait aussi son coût annuel : un contrôle plus cher que la perte évitée n'est pas justifié.",
+      "Le quantitatif n'est pas « plus juste » par nature : il dépend de la qualité des données."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Qualitatif : niveaux et matrice ; quantitatif : euros par an.",
+      "SLE = AV × EF ; ALE = SLE × ARO.",
+      "Valeur d'un contrôle = ALE avant − ALE après − coût annuel."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m1c1-l3",
+   "title": "Traiter le risque et choisir les contrôles",
+   "minutes": 25,
+   "objectives": [
+    "Choisir entre réduire, transférer, éviter et accepter un risque.",
+    "Classer un contrôle par fonction (préventif, détectif, correctif…) et par nature (administratif, technique, physique).",
+    "Tenir un registre des risques utile au pilotage."
+   ],
+   "references": [
+    {
+     "title": "ISO/IEC 27005:2022",
+     "kind": "general"
+    },
+    {
+     "title": "ISO/IEC 27002:2022, Mesures de sécurité de l'information",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-39, Managing Information Security Risk",
+     "url": "https://csrc.nist.gov/pubs/sp/800/39/final",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Les quatre options de traitement"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Option",
+       "Principe",
+       "Exemple"
+      ],
+      [
+       "Réduire (mitigate)",
+       "Mettre en place des contrôles pour baisser la vraisemblance ou l'impact",
+       "Déployer le MFA, un EDR, des sauvegardes hors ligne"
+      ],
+      [
+       "Transférer / partager (transfer, share)",
+       "Faire porter une partie des conséquences par un tiers",
+       "Cyber-assurance, clause contractuelle avec un prestataire"
+      ],
+      [
+       "Éviter (avoid)",
+       "Supprimer l'activité ou l'actif à l'origine du risque",
+       "Renoncer à un service en ligne trop exposé"
+      ],
+      [
+       "Accepter (accept)",
+       "Conserver le risque, en connaissance de cause et par écrit",
+       "Risque faible sur un poste de test isolé"
+      ]
+     ]
+    },
+    {
+     "type": "text",
+     "text": "Le transfert ne transfère jamais la responsabilité finale : si un prestataire perd vos données clients, c'est votre organisation qui répond devant ses clients et le régulateur. Seules certaines conséquences financières sont partagées.",
+     "kind": "general"
+    },
+    {
+     "type": "text",
+     "text": "Ignorer un risque (ne rien décider) n'est pas une option de traitement : c'est une faute de gouvernance. L'acceptation doit être explicite, documentée et revue périodiquement.",
+     "kind": "practice"
+    },
+    {
+     "type": "heading",
+     "text": "Classer les contrôles"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Fonction",
+       "Rôle",
+       "Exemple SOC"
+      ],
+      [
+       "Préventif",
+       "Empêcher l'incident",
+       "Pare-feu qui bloque un port, MFA"
+      ],
+      [
+       "Détectif",
+       "Repérer l'incident en cours ou passé",
+       "Règle SIEM, IDS, revue de journaux"
+      ],
+      [
+       "Correctif",
+       "Limiter les dégâts et corriger",
+       "Isolement d'un poste par l'EDR, application d'un correctif"
+      ],
+      [
+       "Récupération (recovery)",
+       "Rétablir le fonctionnement",
+       "Restauration depuis sauvegarde"
+      ],
+      [
+       "Dissuasif",
+       "Décourager l'attaquant",
+       "Bannière légale, caméras visibles"
+      ],
+      [
+       "Compensatoire",
+       "Remplacer un contrôle impossible à mettre en place",
+       "Isoler dans un VLAN un automate impossible à corriger"
+      ]
+     ]
+    },
+    {
+     "type": "text",
+     "text": "Par nature, un contrôle est administratif (politique, procédure, sensibilisation), technique ou logique (chiffrement, ACL, EDR) ou physique (badge, serrure, vidéosurveillance). Un même contrôle a donc une nature et une fonction : le MFA est technique et préventif.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Le registre des risques"
+    },
+    {
+     "type": "bullets",
+     "items": [
+      "Identifiant et description du scénario de risque.",
+      "Actif concerné et propriétaire du risque.",
+      "Niveau de risque inhérent puis résiduel.",
+      "Traitement choisi, contrôles, responsable et échéance.",
+      "Date de dernière revue et indicateurs de suivi (KRI)."
+     ]
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : un automate impossible à corriger",
+     "text": "Une usine utilise un automate industriel dont le fabricant ne publie plus de correctif. Le SOC constate qu'il est joignable depuis le réseau bureautique. Traitement retenu : réduire le risque par un contrôle compensatoire (VLAN dédié, filtrage strict, supervision des flux par l'IDS), puis le propriétaire du risque (directeur d'usine) accepte par écrit le risque résiduel jusqu'au remplacement prévu dans 18 mois.",
+     "kind": "example"
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : je propose une option de traitement par risque, avec son coût et le risque résiduel attendu.",
+      "Responsable SOC : je mets en place et je surveille les contrôles détectifs ; je signale quand un contrôle ne fonctionne plus.",
+      "Auditeur : je vérifie que chaque acceptation est signée par une personne habilitée et revue.",
+      "Risk manager : je consolide le registre et je rends compte à la direction."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Assurance = transfert (ou partage), pas réduction.",
+      "La responsabilité (accountability) ne se transfère pas.",
+      "Contrôle compensatoire ≠ contrôle correctif : le premier remplace une mesure impossible, le second répare après un incident.",
+      "Accepter un risque au-delà de l'appétence demande une décision de la direction, pas du SOC."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Quatre options : réduire, transférer, éviter, accepter.",
+      "Un contrôle a une fonction (préventif, détectif, correctif…) et une nature (administratif, technique, physique).",
+      "Le registre des risques trace propriétaires, traitements, risques résiduels et revues."
+     ]
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "id": "m1c1-q01",
+   "domain": "risk-management",
+   "level": "beginner",
+   "concept": "Menace et vulnérabilité",
+   "prompt": "Un serveur web exposé sur Internet utilise une version d'Apache sans les derniers correctifs. Dans ce scénario, la version non corrigée est :",
+   "choices": [
+    "Une menace",
+    "Une vulnérabilité",
+    "Un impact",
+    "Un contrôle"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Une version non corrigée est une faiblesse de l'actif lui-même : c'est une vulnérabilité, qu'une menace pourra exploiter.",
+   "whyNot": {
+    "0": "La menace est la cause potentielle de l'incident (par exemple un attaquant qui scanne Internet), pas la faiblesse.",
+    "2": "L'impact est la conséquence d'un incident, par exemple l'indisponibilité du site.",
+    "3": "Un contrôle réduirait le risque ; ici c'est son absence (le correctif) qui crée la faiblesse."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c1-q02",
+   "domain": "risk-management",
+   "level": "beginner",
+   "concept": "Menace et vulnérabilité",
+   "prompt": "Le CERT sectoriel signale qu'un groupe de rançongiciel cible activement les cliniques privées. Pour une clinique, ce groupe représente :",
+   "choices": [
+    "Une vulnérabilité",
+    "Un actif",
+    "Une menace",
+    "Un risque résiduel"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Le groupe est une source potentielle d'incident extérieure à l'actif : c'est une menace (humaine et intentionnelle).",
+   "whyNot": {
+    "0": "Une vulnérabilité est une faiblesse interne (correctif manquant, mot de passe faible), pas un attaquant.",
+    "1": "L'actif est ce qui a de la valeur pour la clinique (dossiers patients, systèmes).",
+    "3": "Le risque résiduel est ce qui reste après les contrôles ; le groupe n'est qu'une des composantes du risque."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c1-q03",
+   "domain": "risk-management",
+   "level": "intermediate",
+   "concept": "Risque inhérent et résiduel",
+   "prompt": "Après le déploiement d'un EDR et de sauvegardes hors ligne, le RSSI estime le risque de rançongiciel qui subsiste. Il s'agit du :",
+   "choices": [
+    "Risque inhérent",
+    "Risque résiduel",
+    "Risque accepté par défaut",
+    "Seuil de tolérance"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le risque résiduel est le risque qui subsiste après la mise en place des contrôles.",
+   "whyNot": {
+    "0": "Le risque inhérent est mesuré avant tout contrôle.",
+    "2": "Il n'existe pas d'acceptation par défaut : l'acceptation doit être une décision explicite du propriétaire du risque.",
+    "3": "La tolérance est l'écart acceptable autour de l'appétence, pas une mesure du risque restant."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c1-q04",
+   "domain": "risk-management",
+   "level": "intermediate",
+   "concept": "Appétence et tolérance",
+   "prompt": "La direction déclare : « Nous acceptons un niveau de risque modéré pour développer nos services en ligne. » Cette déclaration exprime :",
+   "choices": [
+    "L'appétence au risque",
+    "Le risque inhérent",
+    "Le facteur d'exposition",
+    "Un contrôle dissuasif"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "L'appétence au risque est le niveau global de risque que l'organisation accepte de prendre pour atteindre ses objectifs. C'est une décision de la direction.",
+   "whyNot": {
+    "1": "Le risque inhérent est un niveau mesuré avant contrôles, pas une préférence de la direction.",
+    "2": "Le facteur d'exposition (EF) est un pourcentage de perte de la valeur d'un actif, utilisé en analyse quantitative.",
+    "3": "Un contrôle dissuasif décourage un attaquant ; une déclaration d'appétence n'a pas ce rôle."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c1-q05",
+   "domain": "risk-management",
+   "level": "intermediate",
+   "concept": "Processus ISO 27005",
+   "prompt": "Selon ISO/IEC 27005, l'appréciation du risque (risk assessment) regroupe :",
+   "choices": [
+    "L'identification, le traitement et l'acceptation",
+    "L'analyse, le traitement et la surveillance",
+    "L'identification, l'analyse et l'évaluation",
+    "Le contexte, la communication et la revue"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Dans ISO/IEC 27005 comme dans ISO 31000, l'appréciation du risque comprend trois activités : identification, analyse et évaluation. Le traitement vient ensuite.",
+   "whyNot": {
+    "0": "Le traitement et l'acceptation suivent l'appréciation, ils n'en font pas partie.",
+    "1": "Le traitement et la surveillance sont des étapes distinctes de l'appréciation.",
+    "3": "Ce sont des activités qui encadrent tout le processus, pas le contenu de l'appréciation."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c1-q06",
+   "domain": "risk-management",
+   "level": "advanced",
+   "concept": "Composantes du risque",
+   "prompt": "Pour estimer le niveau d'un risque, quels sont les deux éléments indispensables ? (2 réponses)",
+   "choices": [
+    "La vraisemblance du scénario",
+    "Le nom de l'éditeur de l'EDR",
+    "L'impact du scénario sur l'organisation",
+    "Le nombre d'analystes dans le SOC"
+   ],
+   "correct": [
+    0,
+    2
+   ],
+   "explanation": "Le niveau de risque se calcule à partir de la vraisemblance et de l'impact (risque = vraisemblance × impact).",
+   "whyNot": {
+    "1": "L'éditeur d'un outil peut influencer l'efficacité d'un contrôle, mais ce n'est pas une composante du niveau de risque.",
+    "3": "La taille du SOC est une donnée de capacité ; elle n'entre pas directement dans le calcul du risque."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c1-q07",
+   "domain": "risk-management",
+   "level": "intermediate",
+   "concept": "Propriétaire du risque",
+   "prompt": "Qui doit accepter formellement le risque résiduel lié à une application métier ?",
+   "choices": [
+    "L'analyste SOC qui a détecté la vulnérabilité",
+    "Le propriétaire du risque, responsable métier ayant l'autorité nécessaire",
+    "L'auditeur externe",
+    "L'administrateur système de l'application"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "L'acceptation revient au propriétaire du risque : la personne qui a l'autorité et la responsabilité de l'activité concernée, et donc le budget pour agir.",
+   "whyNot": {
+    "0": "L'analyste signale et documente, il n'a pas l'autorité pour engager l'organisation.",
+    "2": "L'auditeur doit rester indépendant : il vérifie le processus mais ne prend pas les décisions de gestion.",
+    "3": "L'administrateur met en œuvre les contrôles techniques, il ne porte pas la décision métier."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c1-q08",
+   "domain": "risk-management",
+   "level": "advanced",
+   "concept": "Niveaux NIST SP 800-39",
+   "prompt": "NIST SP 800-39 organise la gestion des risques sur trois niveaux. Lesquels ?",
+   "choices": [
+    "Prévention, détection, réponse",
+    "Organisation ; mission et processus métier ; système d'information",
+    "Identifier, protéger, détecter",
+    "Actif, menace, vulnérabilité"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "SP 800-39 décrit trois niveaux (tiers) : l'organisation, la mission et les processus métier, puis le système d'information.",
+   "whyNot": {
+    "0": "Ce sont des fonctions de contrôle, pas les niveaux de SP 800-39.",
+    "2": "Ce sont des fonctions du NIST Cybersecurity Framework, un autre document.",
+    "3": "Ce sont des composantes du risque, pas des niveaux d'organisation."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c1-q09",
+   "domain": "risk-management",
+   "level": "beginner",
+   "concept": "Qualitatif et quantitatif",
+   "prompt": "Une analyse qui classe les risques en « faible », « moyen » ou « élevé » à l'aide d'une matrice vraisemblance × impact est une analyse :",
+   "choices": [
+    "Quantitative",
+    "Qualitative",
+    "Financière",
+    "Probabiliste"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Utiliser des niveaux et une matrice, sans montants en euros, caractérise l'analyse qualitative.",
+   "whyNot": {
+    "0": "L'analyse quantitative produit des valeurs chiffrées (euros par an) avec SLE, ARO et ALE.",
+    "2": "« Financière » n'est pas un type d'analyse de risque standard ; c'est le quantitatif qui exprime le risque en argent.",
+    "3": "Une approche probabiliste repose sur des probabilités chiffrées, pas sur des niveaux qualitatifs."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c1-q10",
+   "domain": "risk-management",
+   "level": "intermediate",
+   "concept": "SLE",
+   "prompt": "Un serveur de base de données vaut 500 000 €. Un incident de rançongiciel en détruirait 20 % de la valeur. Quelle est la SLE ?",
+   "choices": [
+    "25 000 €",
+    "100 000 €",
+    "400 000 €",
+    "2 500 000 €"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "SLE = AV × EF = 500 000 × 0,20 = 100 000 €.",
+   "whyNot": {
+    "0": "25 000 € correspond à 5 %, pas à 20 %.",
+    "2": "400 000 € est la valeur qui reste intacte (80 %), pas la perte.",
+    "3": "Ce résultat multiplie au lieu d'appliquer un pourcentage."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c1-q11",
+   "domain": "risk-management",
+   "level": "intermediate",
+   "concept": "ALE",
+   "prompt": "La SLE d'un scénario est de 100 000 € et l'incident est attendu une fois tous les 10 ans. Quelle est l'ALE ?",
+   "choices": [
+    "1 000 000 €",
+    "100 000 €",
+    "10 000 €",
+    "1 000 €"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Une fois tous les 10 ans donne ARO = 0,1. ALE = SLE × ARO = 100 000 × 0,1 = 10 000 € par an.",
+   "whyNot": {
+    "0": "Ce calcul utilise ARO = 10 au lieu de 0,1.",
+    "1": "C'est la SLE, la perte pour une seule occurrence, pas la perte annuelle.",
+    "3": "Ce calcul utilise ARO = 0,01 (une fois tous les 100 ans)."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c1-q12",
+   "domain": "risk-management",
+   "level": "beginner",
+   "concept": "ARO",
+   "prompt": "Un incident est attendu une fois tous les 4 ans. Quel est son ARO ?",
+   "choices": [
+    "4",
+    "0,4",
+    "0,25",
+    "25"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "ARO = nombre d'occurrences par an = 1 / 4 = 0,25.",
+   "whyNot": {
+    "0": "4 signifierait quatre incidents par an.",
+    "1": "0,4 correspondrait à un incident tous les 2,5 ans.",
+    "3": "25 n'a pas de sens ici ; c'est un pourcentage mal converti."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c1-q13",
+   "domain": "risk-management",
+   "level": "advanced",
+   "concept": "Valeur d'un contrôle",
+   "prompt": "L'ALE d'un risque est de 50 000 €. Avec un nouveau contrôle, elle passerait à 10 000 €. Le contrôle coûte 15 000 € par an. Quelle est sa valeur annuelle ?",
+   "choices": [
+    "40 000 €",
+    "35 000 €",
+    "25 000 €",
+    "−5 000 €"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Valeur = ALE avant − ALE après − coût annuel = 50 000 − 10 000 − 15 000 = 25 000 €. Le contrôle est rentable.",
+   "whyNot": {
+    "0": "40 000 € oublie de soustraire le coût du contrôle.",
+    "1": "35 000 € = 50 000 − 15 000 : ce calcul oublie la perte qui subsiste avec le contrôle (ALE après).",
+    "3": "−5 000 € = 10 000 − 15 000 : ce calcul part de l'ALE après au lieu de la perte évitée."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c1-q14",
+   "domain": "risk-management",
+   "level": "advanced",
+   "concept": "Qualitatif et quantitatif",
+   "prompt": "Quels sont les avantages de l'analyse quantitative ? (2 réponses)",
+   "choices": [
+    "Elle fournit des montants qui facilitent les arbitrages budgétaires",
+    "Elle ne nécessite aucune donnée historique",
+    "Elle permet de comparer le coût d'un contrôle à la perte qu'il évite",
+    "Elle est plus rapide à mener que l'analyse qualitative"
+   ],
+   "correct": [
+    0,
+    2
+   ],
+   "explanation": "Le quantitatif exprime le risque en euros : on peut donc comparer les risques entre eux et calculer la rentabilité d'un contrôle.",
+   "whyNot": {
+    "1": "C'est l'inverse : le quantitatif dépend fortement de données fiables (valeurs, fréquences).",
+    "3": "C'est l'inverse : le quantitatif est généralement plus long que le qualitatif."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c1-q15",
+   "domain": "risk-management",
+   "level": "beginner",
+   "concept": "Facteur d'exposition",
+   "prompt": "Que mesure le facteur d'exposition (EF) ?",
+   "choices": [
+    "Le nombre d'incidents attendus par an",
+    "Le pourcentage de la valeur de l'actif perdu lors d'un incident",
+    "La valeur totale de l'actif",
+    "Le coût annuel d'un contrôle"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "L'EF est la part de la valeur de l'actif perdue à chaque occurrence, entre 0 et 100 %.",
+   "whyNot": {
+    "0": "C'est l'ARO.",
+    "2": "C'est l'AV (Asset Value).",
+    "3": "Le coût du contrôle sert au calcul de sa valeur, pas à l'EF."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c1-q16",
+   "domain": "risk-management",
+   "level": "intermediate",
+   "concept": "ALE",
+   "prompt": "Le SOC enregistre en moyenne 2 compromissions de poste de travail par an. Chacune coûte 15 000 € (investigation, réinstallation, perte de productivité). Quelle est l'ALE de ce scénario ?",
+   "choices": [
+    "7 500 €",
+    "15 000 €",
+    "17 000 €",
+    "30 000 €"
+   ],
+   "correct": [
+    3
+   ],
+   "explanation": "Ici la SLE vaut 15 000 € et l'ARO vaut 2. ALE = 15 000 × 2 = 30 000 € par an.",
+   "whyNot": {
+    "0": "7 500 € divise la SLE par l'ARO au lieu de multiplier.",
+    "1": "15 000 € est la SLE (une seule compromission).",
+    "2": "17 000 € additionne SLE et ARO."
+   },
+   "kind": "example"
+  },
+  {
+   "id": "m1c1-q17",
+   "domain": "risk-management",
+   "level": "beginner",
+   "concept": "Options de traitement",
+   "prompt": "Une entreprise souscrit une cyber-assurance couvrant les pertes d'exploitation après une attaque. Quelle option de traitement applique-t-elle ?",
+   "choices": [
+    "Réduction",
+    "Transfert (partage)",
+    "Évitement",
+    "Acceptation"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "L'assurance fait porter une partie des conséquences financières par un tiers : c'est un transfert (ou partage) du risque.",
+   "whyNot": {
+    "0": "La réduction baisse la vraisemblance ou l'impact par des contrôles ; l'assurance ne rend pas l'attaque moins probable.",
+    "2": "L'évitement supprime l'activité à l'origine du risque.",
+    "3": "Accepter, c'est conserver le risque sans le traiter davantage."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c1-q18",
+   "domain": "risk-management",
+   "level": "intermediate",
+   "concept": "Options de traitement",
+   "prompt": "Après l'analyse des risques, une banque renonce à lancer un service de paiement par une application tierce qu'elle ne peut pas sécuriser. Quelle option a-t-elle choisie ?",
+   "choices": [
+    "Évitement",
+    "Transfert",
+    "Réduction",
+    "Acceptation"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Renoncer à l'activité qui crée le risque, c'est éviter le risque.",
+   "whyNot": {
+    "1": "Aucune partie des conséquences n'est confiée à un tiers.",
+    "2": "Aucun contrôle n'est mis en place pour réduire le risque.",
+    "3": "La banque ne conserve pas le risque : elle supprime l'activité."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c1-q19",
+   "domain": "risk-management",
+   "level": "intermediate",
+   "concept": "Transfert et responsabilité",
+   "prompt": "Une entreprise confie la supervision de sécurité à un MSSP (SOC externalisé). Une fuite de données clients se produit. Qui reste responsable (accountable) vis-à-vis des clients et du régulateur ?",
+   "choices": [
+    "Le MSSP",
+    "L'éditeur du SIEM",
+    "L'entreprise cliente et sa direction",
+    "L'assureur"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "On peut transférer des tâches et une partie des conséquences financières, mais pas la responsabilité finale : elle reste à l'organisation qui détient les données.",
+   "whyNot": {
+    "0": "Le MSSP peut voir sa responsabilité contractuelle engagée envers son client, mais il ne remplace pas l'entreprise face à ses clients et au régulateur.",
+    "1": "L'éditeur fournit un outil ; il n'est pas responsable des données de ses clients.",
+    "3": "L'assureur indemnise certaines pertes, il ne porte pas la responsabilité."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c1-q20",
+   "domain": "risk-management",
+   "level": "intermediate",
+   "concept": "Types de contrôles",
+   "prompt": "Une règle SIEM déclenche une alerte quand un compte subit plus de 20 échecs d'authentification en 5 minutes. De quel type de contrôle s'agit-il ?",
+   "choices": [
+    "Préventif",
+    "Détectif",
+    "Correctif",
+    "Dissuasif"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La règle ne bloque rien : elle repère une activité suspecte et alerte. C'est un contrôle détectif.",
+   "whyNot": {
+    "0": "Un contrôle préventif empêcherait l'action, par exemple un verrouillage automatique du compte.",
+    "2": "Un contrôle correctif agirait après coup pour limiter ou réparer les dégâts.",
+    "3": "Un contrôle dissuasif chercherait à décourager l'attaquant, par exemple une bannière légale."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c1-q21",
+   "domain": "risk-management",
+   "level": "advanced",
+   "concept": "Types de contrôles",
+   "prompt": "Un automate industriel ne peut plus recevoir de correctifs. L'équipe l'isole dans un VLAN dédié avec un filtrage strict, en remplacement du correctif impossible. Comment qualifier ce contrôle ?",
+   "choices": [
+    "Dissuasif",
+    "Correctif",
+    "Compensatoire",
+    "Directif"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Un contrôle compensatoire remplace une mesure attendue qui ne peut pas être mise en place, ici le correctif.",
+   "whyNot": {
+    "0": "Rien ici ne vise à décourager l'attaquant.",
+    "1": "Un contrôle correctif répare après un incident ; ici on anticipe en remplaçant une mesure impossible.",
+    "3": "Un contrôle directif impose un comportement (politique, consigne), ce n'est pas le cas d'une segmentation réseau."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c1-q22",
+   "domain": "risk-management",
+   "level": "advanced",
+   "concept": "Acceptation du risque",
+   "prompt": "Quelles conditions rendent une acceptation de risque valable ? (2 réponses)",
+   "choices": [
+    "La décision est documentée et signée par le propriétaire du risque",
+    "L'analyste qui a trouvé la faille décide seul",
+    "Le risque résiduel reste dans les limites de l'appétence définie par la direction",
+    "L'acceptation est définitive et n'a pas besoin d'être revue"
+   ],
+   "correct": [
+    0,
+    2
+   ],
+   "explanation": "Une acceptation valable est explicite, prise par une personne habilitée et cohérente avec l'appétence au risque. Elle doit aussi être revue périodiquement.",
+   "whyNot": {
+    "1": "L'analyste n'a pas l'autorité pour engager l'organisation.",
+    "3": "Le contexte évolue (nouvelles menaces) : une acceptation doit être revue, par exemple chaque année."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c1-q23",
+   "domain": "risk-management",
+   "level": "beginner",
+   "concept": "Registre des risques",
+   "prompt": "À quoi sert principalement le registre des risques ?",
+   "choices": [
+    "Stocker les journaux bruts collectés par le SIEM",
+    "Recenser les risques, leurs propriétaires, leurs niveaux, leurs traitements et leur suivi",
+    "Faire l'inventaire des licences logicielles",
+    "Archiver les tickets d'incidents clôturés"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le registre des risques est l'outil de pilotage : il trace chaque risque, son propriétaire, son niveau, son traitement et ses revues.",
+   "whyNot": {
+    "0": "Les journaux bruts sont conservés dans le SIEM ou un stockage de logs.",
+    "2": "C'est le rôle de la gestion des actifs logiciels.",
+    "3": "C'est le rôle de l'outil de gestion des incidents, même si les incidents alimentent l'identification des risques."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c1-q24",
+   "domain": "risk-management",
+   "level": "intermediate",
+   "concept": "Nature des contrôles",
+   "prompt": "Une politique de mots de passe approuvée par la direction est un contrôle de nature :",
+   "choices": [
+    "Technique",
+    "Physique",
+    "Administrative",
+    "Corrective"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Une politique est un document de gouvernance : c'est un contrôle administratif. Sa mise en œuvre dans l'annuaire, elle, serait technique.",
+   "whyNot": {
+    "0": "Le contrôle technique serait le paramétrage de la longueur minimale dans Active Directory.",
+    "1": "Un contrôle physique protège l'accès aux locaux et aux équipements.",
+    "3": "« Correctif » décrit une fonction, pas une nature ; et une politique est d'abord préventive ou directive."
+   },
+   "kind": "general"
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "m1c1-f01",
+   "front": "Menace",
+   "back": "Cause potentielle d'un incident indésirable (attaquant, erreur, catastrophe naturelle).",
+   "concept": "Menace et vulnérabilité"
+  },
+  {
+   "id": "m1c1-f02",
+   "front": "Vulnérabilité",
+   "back": "Faiblesse d'un actif ou d'un contrôle qu'une menace peut exploiter.",
+   "concept": "Menace et vulnérabilité"
+  },
+  {
+   "id": "m1c1-f03",
+   "front": "Risque (formule de travail)",
+   "back": "Risque = vraisemblance × impact.",
+   "concept": "Composantes du risque"
+  },
+  {
+   "id": "m1c1-f04",
+   "front": "Risque inhérent",
+   "back": "Risque avant toute mesure de sécurité.",
+   "concept": "Risque inhérent et résiduel"
+  },
+  {
+   "id": "m1c1-f05",
+   "front": "Risque résiduel",
+   "back": "Risque qui subsiste après la mise en place des contrôles.",
+   "concept": "Risque inhérent et résiduel"
+  },
+  {
+   "id": "m1c1-f06",
+   "front": "Appétence au risque",
+   "back": "Niveau global de risque que l'organisation accepte de prendre pour atteindre ses objectifs (décision de la direction).",
+   "concept": "Appétence et tolérance"
+  },
+  {
+   "id": "m1c1-f07",
+   "front": "Appréciation du risque (ISO 27005)",
+   "back": "Identification + analyse + évaluation.",
+   "concept": "Processus ISO 27005"
+  },
+  {
+   "id": "m1c1-f08",
+   "front": "Qui accepte le risque résiduel ?",
+   "back": "Le propriétaire du risque, par une décision documentée et revue.",
+   "concept": "Propriétaire du risque"
+  },
+  {
+   "id": "m1c1-f09",
+   "front": "Trois niveaux de NIST SP 800-39",
+   "back": "Organisation ; mission et processus métier ; système d'information.",
+   "concept": "Niveaux NIST SP 800-39"
+  },
+  {
+   "id": "m1c1-f10",
+   "front": "SLE",
+   "back": "Single Loss Expectancy = AV × EF (perte pour une occurrence).",
+   "concept": "SLE"
+  },
+  {
+   "id": "m1c1-f11",
+   "front": "ALE",
+   "back": "Annualized Loss Expectancy = SLE × ARO (perte attendue par an).",
+   "concept": "ALE"
+  },
+  {
+   "id": "m1c1-f12",
+   "front": "ARO d'un incident tous les 5 ans",
+   "back": "0,2",
+   "concept": "ARO"
+  },
+  {
+   "id": "m1c1-f13",
+   "front": "Valeur d'un contrôle",
+   "back": "ALE avant − ALE après − coût annuel du contrôle.",
+   "concept": "Valeur d'un contrôle"
+  },
+  {
+   "id": "m1c1-f14",
+   "front": "Cyber-assurance",
+   "back": "Option de traitement : transfert (partage) du risque.",
+   "concept": "Options de traitement"
+  },
+  {
+   "id": "m1c1-f15",
+   "front": "Renoncer à une activité trop risquée",
+   "back": "Option de traitement : évitement.",
+   "concept": "Options de traitement"
+  },
+  {
+   "id": "m1c1-f16",
+   "front": "La responsabilité se transfère-t-elle ?",
+   "back": "Non. On transfère des tâches et des conséquences financières, jamais la responsabilité finale (accountability).",
+   "concept": "Transfert et responsabilité"
+  },
+  {
+   "id": "m1c1-f17",
+   "front": "Règle SIEM qui alerte",
+   "back": "Contrôle détectif.",
+   "concept": "Types de contrôles"
+  },
+  {
+   "id": "m1c1-f18",
+   "front": "Contrôle compensatoire",
+   "back": "Contrôle qui remplace une mesure attendue impossible à mettre en place.",
+   "concept": "Types de contrôles"
+  },
+  {
+   "id": "m1c1-f19",
+   "front": "Trois natures de contrôles",
+   "back": "Administratif, technique (logique), physique.",
+   "concept": "Nature des contrôles"
+  },
+  {
+   "id": "m1c1-f20",
+   "front": "Registre des risques",
+   "back": "Liste des risques avec propriétaire, niveau inhérent et résiduel, traitement, échéance et revue.",
+   "concept": "Registre des risques"
+  }
+ ],
+ "revisionSheet": [
+  "# Fiche de révision : gestion des risques",
+  "Risque = vraisemblance × impact. Une menace exploite une vulnérabilité d'un actif et produit un impact.",
+  "Risque inhérent (avant contrôles) → contrôles → risque résiduel (après contrôles).",
+  "Appétence : niveau de risque accepté par la direction. Tolérance : écart acceptable autour de l'appétence.",
+  "ISO/IEC 27005 : contexte → appréciation (identification, analyse, évaluation) → traitement → acceptation, avec communication et surveillance en continu.",
+  "NIST SP 800-30 : préparer, conduire, communiquer, maintenir. NIST SP 800-39 : organisation, mission/processus, système d'information.",
+  "SLE = AV × EF. ALE = SLE × ARO. Une fois tous les N ans : ARO = 1/N.",
+  "Valeur d'un contrôle = ALE avant − ALE après − coût annuel.",
+  "Traitement : réduire, transférer (partager), éviter, accepter. Ignorer n'est pas une option.",
+  "La responsabilité (accountability) ne se transfère jamais.",
+  "Fonctions des contrôles : préventif, détectif, correctif, récupération, dissuasif, compensatoire.",
+  "Natures des contrôles : administratif, technique, physique.",
+  "Le propriétaire du risque accepte le risque résiduel, par écrit, et l'acceptation est revue.",
+  "Paires à ne pas confondre : menace/vulnérabilité ; SLE/ALE ; compensatoire/correctif ; appétence/tolérance ; transfert/acceptation."
+ ]
+}
