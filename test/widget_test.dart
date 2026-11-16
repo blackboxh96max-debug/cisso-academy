@@ -69,7 +69,7 @@ void main() {
     final state = await pumpApp(tester);
     await tester.tap(find.text('Prochaine révision recommandée'));
     await tester.pumpAndSettle();
-    expect(find.text('Objectifs'), findsOneWidget);
+    expect(find.text('OBJECTIFS DE LA LEÇON'), findsOneWidget);
     final button = find.text('J\'ai terminé cette leçon');
     await tester.scrollUntilVisible(
       button,
@@ -191,4 +191,57 @@ void main() {
     expect(state.cards, hasLength(1));
     expect(state.cards.values.single.intervalDays, 1);
   });
+
+  testWidgets('leçon cahier : schémas, encadrés colorés et petit test', (
+    tester,
+  ) async {
+    await pumpApp(tester, size: const Size(1280, 900));
+    await tester.tap(find.text('Prochaine révision recommandée'));
+    await tester.pumpAndSettle();
+    expect(find.text('SCHÉMA EXPLICATIF'), findsWidgets);
+    expect(find.text('DÉFINITION'), findsWidgets);
+    expect(find.text('NOTE DU FORMATEUR'), findsOneWidget);
+    expect(
+      find.text('🗂️'),
+      findsOneWidget,
+      reason: 'sommaire latéral sur grand écran',
+    );
+    expect(
+      find.bySemanticsLabel(RegExp('Matrice cinq par cinq')),
+      findsOneWidget,
+    );
+
+    // Petit test : choisir une réponse puis vérifier, sans toucher aux stats.
+    final q = library.question('m1c1-q01');
+    final choice = find.text(q.choices[q.correct.first]);
+    await tester.scrollUntilVisible(
+      choice,
+      400,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.tap(choice);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Vérifier').first);
+    await tester.pumpAndSettle();
+    expect(find.textContaining('Bravo'), findsOneWidget);
+  });
+
+  testWidgets(
+    'réglages : les animations se désactivent et le choix est conservé',
+    (tester) async {
+      final state = await pumpApp(tester);
+      expect(state.animationsSetting, isTrue);
+      await tester.tap(find.byTooltip('Menu'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Réglages'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byType(Switch));
+      await tester.pumpAndSettle();
+      expect(state.animationsSetting, isFalse);
+      expect(
+        await tester.runAsync(() => state.store.setting('animations')),
+        '0',
+      );
+    },
+  );
 }

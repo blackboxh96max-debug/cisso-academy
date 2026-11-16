@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:cisso_academy/content/content_loader.dart';
 import 'package:cisso_academy/models/content.dart';
@@ -147,4 +148,98 @@ void main() {
       expect(loader.load(), throwsFormatException);
     },
   );
+
+  test('la validation rejette un schéma sans description accessible', () async {
+    final catalog = {
+      'exam': {
+        'questionCount': 10,
+        'durationMinutes': 10,
+        'passingScore': 50,
+        'source': 'test',
+        'verifiedOn': '2026-01-01',
+      },
+      'domains': [
+        {'id': 'd', 'nameEn': 'D', 'nameFr': 'D', 'weight': 100},
+      ],
+      'modules': [
+        {
+          'id': 'm',
+          'number': 1,
+          'title': 'M',
+          'chapters': [
+            {
+              'id': 'c',
+              'title': 'C',
+              'domains': ['d'],
+              'file': 'c.json',
+            },
+          ],
+        },
+      ],
+    };
+    Map<String, String> files(Map<String, dynamic> block) => {
+      'r/catalog.json': jsonEncode(catalog),
+      'r/c.json': jsonEncode({
+        'lessons': [
+          {
+            'id': 'l',
+            'title': 'L',
+            'minutes': 5,
+            'objectives': ['o'],
+            'blocks': [block],
+          },
+        ],
+        'flashcards': [],
+        'questions': [],
+      }),
+      'r/glossary.json': '[]',
+    };
+    final diagram = {
+      'type': 'diagram',
+      'diagram': {'type': 'flow', 'nodes': []},
+    };
+    expect(
+      ContentLoader((p) async => files(diagram)[p]!, root: 'r').load(),
+      throwsFormatException,
+      reason: 'alt manquant',
+    );
+    final ok = {...diagram, 'alt': 'Schéma vide'};
+    await ContentLoader((p) async => files(ok)[p]!, root: 'r').load();
+    final quiz = {
+      'type': 'miniQuiz',
+      'questions': ['inconnue'],
+    };
+    expect(
+      ContentLoader((p) async => files(quiz)[p]!, root: 'r').load(),
+      throwsFormatException,
+      reason: 'question inexistante',
+    );
+  });
+
+  test('le chapitre modèle utilise les blocs du design cahier', () async {
+    final library = await loadRealContent();
+    final lessons = library.chapters.firstWhere((c) => c.id == 'm1c1').lessons;
+    final types = lessons.expand((l) => l.blocks).map((b) => b.type).toSet();
+    expect(
+      types,
+      containsAll([
+        BlockType.diagram,
+        BlockType.trainerNote,
+        BlockType.memo,
+        BlockType.miniQuiz,
+        BlockType.practice,
+        BlockType.important,
+        BlockType.risk,
+      ]),
+    );
+    for (final l in lessons) {
+      expect(l.illustration, isNotNull);
+      expect(
+        File(l.illustration!).existsSync(),
+        isTrue,
+        reason: l.illustration,
+      );
+      expect(l.illustrationAlt, isNotEmpty);
+    }
+  });
 }

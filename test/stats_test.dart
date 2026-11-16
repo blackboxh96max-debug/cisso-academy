@@ -1,4 +1,5 @@
 import 'package:cisso_academy/data/progress_store.dart';
+import 'package:cisso_academy/logic/badges.dart';
 import 'package:cisso_academy/logic/stats.dart';
 import 'package:cisso_academy/models/content.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -134,5 +135,39 @@ void main() {
     expect(s.averageScore, 70);
     expect(s.dueCardCount, 1);
     expect(s.recommendation.kind, RecommendationKind.flashcards);
+  });
+
+  test('objectif du jour, série de jours et badges', () {
+    final qs = library.questions.take(3).toList();
+    AnswerRecord on(Question q, int daysAgo) => AnswerRecord(
+      questionId: q.id,
+      chapterId: q.chapterId,
+      domainId: q.domainId,
+      concept: q.concept,
+      chosen: q.correct,
+      correct: true,
+      mode: SessionMode.practice,
+      answeredAt: now.subtract(Duration(days: daysAgo)),
+    );
+    final s = compute(
+      answers: [on(qs[0], 2), on(qs[1], 1), on(qs[2], 0), on(qs[2], 0)],
+    );
+    expect(s.answersToday, 2);
+    expect(s.streakDays, 3);
+
+    // Pas encore révisé aujourd'hui : la série d'hier compte toujours.
+    final yesterday = compute(answers: [on(qs[0], 2), on(qs[1], 1)]);
+    expect(yesterday.answersToday, 0);
+    expect(yesterday.streakDays, 2);
+
+    // Trou d'un jour : la série repart.
+    expect(compute(answers: [on(qs[0], 3), on(qs[1], 0)]).streakDays, 1);
+
+    final badges = {for (final b in computeAchievements(s)) b.title: b.earned};
+    expect(badges['Premier pas'], isTrue);
+    expect(badges['Régularité'], isTrue);
+    expect(badges['Objectif du jour'], isFalse);
+    expect(badges['Examen blanc'], isFalse);
+    expect(computeAchievements(compute()).where((b) => b.earned), isEmpty);
   });
 }

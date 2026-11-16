@@ -22,12 +22,25 @@ class AppState extends ChangeNotifier {
   Map<String, CardState> _cards = const {};
   Set<String> _readLessons = const {};
 
+  bool _animations = true;
+
   ProgressStats get stats => _stats!;
+
+  /// Réglage utilisateur : animations activées.
+  bool get animationsSetting => _animations;
+
+  Future<void> setAnimations(bool enabled) async {
+    _animations = enabled;
+    await store.setSetting('animations', enabled ? '1' : '0');
+    notifyListeners();
+  }
+
   Map<String, CardState> get cards => _cards;
   Set<String> get readLessons => _readLessons;
 
   /// Relit l'historique local et recalcule les statistiques.
   Future<void> refresh() async {
+    _animations = (await store.setting('animations')) != '0';
     final answers = await store.answers();
     final sessions = await store.sessions();
     _cards = await store.cards();
@@ -82,6 +95,12 @@ class AppState extends ChangeNotifier {
     await refresh();
   }
 }
+
+/// Vrai si les animations doivent être jouées : réglage de l'application
+/// et préférence « réduire les animations » du système.
+bool animationsOn(BuildContext context) =>
+    AppScope.of(context).animationsSetting &&
+    !MediaQuery.disableAnimationsOf(context);
 
 /// Donne accès à [AppState] dans l'arbre de widgets.
 class AppScope extends InheritedNotifier<AppState> {

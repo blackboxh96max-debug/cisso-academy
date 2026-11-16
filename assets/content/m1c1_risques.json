@@ -40,6 +40,10 @@
      "text": "Une organisation ne peut pas tout protéger au même niveau : son budget, son temps et ses équipes sont limités. La gestion des risques sert à décider où investir en priorité. Le RSSI ne cherche pas le risque zéro, qui n'existe pas, mais un risque ramené à un niveau que la direction accepte en connaissance de cause."
     },
     {
+     "type": "trainerNote",
+     "text": "Quand un sujet d'examen vous perd, revenez toujours à la question du dirigeant : « qu'est-ce qui peut nous arriver, à quel point ce serait grave, et combien sommes-nous prêts à payer pour l'éviter ? ». Toute la gestion des risques répond à cette phrase."
+    },
+    {
      "type": "heading",
      "text": "Les cinq briques"
     },
@@ -74,19 +78,84 @@
      "kind": "general"
     },
     {
-     "type": "steps",
+     "type": "diagram",
      "title": "La chaîne du risque",
-     "items": [
-      "Une menace…",
-      "…exploite une vulnérabilité…",
-      "…d'un actif…",
-      "…ce qui produit un impact…",
-      "…avec une certaine vraisemblance : c'est le risque."
-     ]
+     "alt": "Schéma en cinq étapes reliées par des flèches : une menace exploite une vulnérabilité d'un actif, ce qui produit un impact, avec une certaine vraisemblance ; c'est le risque.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🌩️",
+        "label": "Menace",
+        "detail": "le rançongiciel",
+        "tone": "red"
+       },
+       {
+        "emoji": "🕳️",
+        "label": "Vulnérabilité",
+        "detail": "VPN non corrigé",
+        "tone": "orange"
+       },
+       {
+        "emoji": "💾",
+        "label": "Actif",
+        "detail": "serveur de fichiers",
+        "tone": "blue"
+       },
+       {
+        "emoji": "💥",
+        "label": "Impact",
+        "detail": "arrêt de l'activité",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🎲",
+        "label": "Vraisemblance",
+        "detail": "probable cette année",
+        "tone": "pink"
+       }
+      ]
+     },
+     "text": "Retirez un seul maillon et le risque disparaît : c'est ce que font les contrôles."
     },
     {
      "type": "text",
      "text": "Retenez la formule de travail : risque = vraisemblance × impact. Certains supports, dont la préparation MILE2, présentent aussi le risque comme la combinaison menace × vulnérabilité × valeur de l'actif. Les deux disent la même chose : sans menace, sans vulnérabilité ou sans valeur, il n'y a pas de risque."
+    },
+    {
+     "type": "memo",
+     "text": "Moyen mnémotechnique : « Mon Voisin A Imprimé Vite » → Menace, Vulnérabilité, Actif, Impact, Vraisemblance. Risque = Vraisemblance × Impact."
+    },
+    {
+     "type": "diagram",
+     "title": "Matrice des risques",
+     "alt": "Matrice cinq par cinq, vraisemblance en ordonnée et impact en abscisse. Trois risques placés : rançongiciel (vraisemblance 4, impact 5) en zone rouge, panne de climatisation (2, 3) en zone orange, vol d'un badge visiteur (3, 1) en zone verte.",
+     "diagram": {
+      "type": "matrix",
+      "xLabel": "Impact",
+      "yLabel": "Vraisemblance",
+      "points": [
+       {
+        "label": "Rançongiciel",
+        "emoji": "🔒",
+        "x": 5,
+        "y": 4
+       },
+       {
+        "label": "Clim en panne",
+        "emoji": "🌡️",
+        "x": 3,
+        "y": 2
+       },
+       {
+        "label": "Badge visiteur",
+        "emoji": "🪪",
+        "x": 1,
+        "y": 3
+       }
+      ]
+     },
+     "text": "Exemple pédagogique : les positions sont fictives. Plus on va en haut à droite, plus le risque est prioritaire."
     },
     {
      "type": "heading",
@@ -137,15 +206,46 @@
      "kind": "general"
     },
     {
-     "type": "steps",
-     "title": "Étapes",
-     "items": [
-      "Établir le contexte : périmètre, critères d'évaluation et d'acceptation des risques.",
-      "Apprécier les risques (risk assessment), en trois temps : identification, analyse, évaluation.",
-      "Traiter les risques : réduire, transférer (partager), éviter ou accepter.",
-      "Accepter formellement le risque résiduel (propriétaire du risque).",
-      "En continu : communication et concertation, surveillance et revue."
-     ]
+     "type": "diagram",
+     "title": "Le cycle ISO/IEC 27005",
+     "alt": "Cycle en cinq étapes autour du mot « Communication et surveillance » : établir le contexte, apprécier les risques, traiter les risques, accepter le risque résiduel, surveiller et revoir, puis retour au contexte.",
+     "diagram": {
+      "type": "cycle",
+      "center": "💬 Communication\net surveillance",
+      "nodes": [
+       {
+        "emoji": "🧭",
+        "label": "Contexte",
+        "detail": "périmètre et critères",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🔍",
+        "label": "Appréciation",
+        "detail": "identifier, analyser, évaluer",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🛠️",
+        "label": "Traitement",
+        "detail": "réduire, transférer, éviter, accepter",
+        "tone": "green"
+       },
+       {
+        "emoji": "✍️",
+        "label": "Acceptation",
+        "detail": "risque résiduel signé",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🔁",
+        "label": "Revue",
+        "detail": "surveiller, recommencer",
+        "tone": "turquoise"
+       }
+      ]
+     },
+     "kind": "official"
     },
     {
      "type": "text",
@@ -169,6 +269,16 @@
      ]
     },
     {
+     "type": "practice",
+     "title": "Bonnes pratiques",
+     "items": [
+      "Nommer un propriétaire pour chaque risque, pas seulement pour chaque actif.",
+      "Fixer les critères d'acceptation avant l'analyse, pour ne pas les ajuster au résultat.",
+      "Revoir l'appréciation après tout changement majeur ou incident significatif."
+     ],
+     "kind": "practice"
+    },
+    {
      "type": "pitfalls",
      "title": "Pièges à l'examen",
      "items": [
@@ -186,8 +296,17 @@
       "ISO/IEC 27005 : contexte, appréciation, traitement, acceptation, avec communication et surveillance en continu.",
       "Chaque risque a un propriétaire qui décide de son traitement et de son acceptation."
      ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m1c1-q01",
+      "m1c1-q05"
+     ]
     }
-   ]
+   ],
+   "illustration": "assets/illustrations/m1c1_l1_balance.svg",
+   "illustrationAlt": "Dessin d'une balance : sur un plateau, un cadenas (les contrôles) ; sur l'autre, un nuage d'orage (les menaces). La balance est presque à l'équilibre."
   },
   {
    "id": "m1c1-l2",
@@ -290,10 +409,42 @@
      "kind": "general"
     },
     {
+     "type": "memo",
+     "title": "La formule en une ligne",
+     "text": "AV × EF = SLE      SLE × ARO = ALE\n« Avec Elle, Sophie A Racheté Ailleurs » : AV, EF, SLE, ARO, ALE, dans l'ordre du calcul."
+    },
+    {
      "type": "socCase",
      "title": "Cas SOC chiffré",
      "text": "Le serveur de fichiers d'un cabinet vaut 200 000 € (AV). Un rançongiciel en détruirait 40 % de la valeur (EF), soit une SLE de 80 000 €. Les indicateurs du SOC et le contexte sectoriel donnent une attaque réussie tous les 4 ans (ARO = 0,25), donc une ALE de 20 000 €. Un EDR managé coûte 6 000 € par an et ramènerait l'ARO à 0,05, soit une ALE de 4 000 €. Valeur du contrôle : 20 000 − 4 000 − 6 000 = 10 000 € par an. Le RSSI peut défendre cet achat devant la direction.",
      "kind": "example"
+    },
+    {
+     "type": "diagram",
+     "title": "Le cas chiffré en un coup d'œil",
+     "alt": "Graphique en barres : ALE avant le contrôle 20 000 euros, ALE après le contrôle 4 000 euros, coût annuel du contrôle 6 000 euros. Le gain net est de 10 000 euros par an.",
+     "diagram": {
+      "type": "bars",
+      "unit": "€",
+      "bars": [
+       {
+        "label": "ALE avant",
+        "value": 20000,
+        "tone": "red"
+       },
+       {
+        "label": "ALE après",
+        "value": 4000,
+        "tone": "green"
+       },
+       {
+        "label": "Coût du contrôle",
+        "value": 6000,
+        "tone": "orange"
+       }
+      ]
+     },
+     "text": "20 000 − 4 000 − 6 000 = 10 000 € par an : le contrôle se justifie (chiffres d'exemple)."
     },
     {
      "type": "steps",
@@ -307,6 +458,11 @@
      ]
     },
     {
+     "type": "important",
+     "title": "Point clé",
+     "text": "L'ARO est une fréquence annuelle, pas une probabilité : un incident tous les 4 ans donne ARO = 0,25 ; deux incidents par an donnent ARO = 2. Une ARO peut donc dépasser 1."
+    },
+    {
      "type": "viewpoints",
      "title": "Points de vue",
      "items": [
@@ -315,6 +471,10 @@
       "Auditeur : je demande d'où viennent les chiffres et s'ils sont revus chaque année.",
       "Risk manager : j'harmonise les échelles qualitatives pour que « élevé » signifie la même chose partout."
      ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "À l'examen, écrivez toujours les unités au brouillon (€, €/an, fois/an). La plupart des erreurs viennent d'une SLE confondue avec une ALE, pas d'un mauvais calcul."
     },
     {
      "type": "pitfalls",
@@ -333,8 +493,17 @@
       "SLE = AV × EF ; ALE = SLE × ARO.",
       "Valeur d'un contrôle = ALE avant − ALE après − coût annuel."
      ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m1c1-q12",
+      "m1c1-q11"
+     ]
     }
-   ]
+   ],
+   "illustration": "assets/illustrations/m1c1_l2_calcul.svg",
+   "illustrationAlt": "Dessin d'une calculatrice à côté d'une pile de pièces et d'un graphique en barres qui descend : chiffrer le risque pour décider."
   },
   {
    "id": "m1c1-l3",
@@ -364,6 +533,44 @@
     {
      "type": "heading",
      "text": "Les quatre options de traitement"
+    },
+    {
+     "type": "diagram",
+     "title": "Quelle option selon le risque ?",
+     "alt": "Grille deux par deux, vraisemblance en ordonnée et impact en abscisse. Vraisemblance forte et impact faible : réduire. Vraisemblance forte et impact fort : éviter. Vraisemblance faible et impact faible : accepter. Vraisemblance faible et impact fort : transférer.",
+     "diagram": {
+      "type": "quadrant",
+      "xLabel": "Impact",
+      "yLabel": "Vraisemblance",
+      "cells": [
+       {
+        "emoji": "🛠️",
+        "label": "Réduire",
+        "detail": "incidents fréquents mais peu graves",
+        "tone": "green"
+       },
+       {
+        "emoji": "🚫",
+        "label": "Éviter",
+        "detail": "fréquent et grave : on arrête l'activité",
+        "tone": "red"
+       },
+       {
+        "emoji": "✍️",
+        "label": "Accepter",
+        "detail": "rare et peu grave, par écrit",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🤝",
+        "label": "Transférer",
+        "detail": "rare mais grave : assurance, contrat",
+        "tone": "violet"
+       }
+      ]
+     },
+     "text": "Repère de bonne pratique, pas une règle absolue : la décision dépend aussi de l'appétence au risque.",
+     "kind": "practice"
     },
     {
      "type": "table",
@@ -404,6 +611,11 @@
      "type": "text",
      "text": "Ignorer un risque (ne rien décider) n'est pas une option de traitement : c'est une faute de gouvernance. L'acceptation doit être explicite, documentée et revue périodiquement.",
      "kind": "practice"
+    },
+    {
+     "type": "risk",
+     "title": "Risque à signaler",
+     "text": "Un risque « oublié » dans le registre n'est pas accepté : il n'a ni propriétaire ni décision. Lors d'un audit, c'est un écart, et lors d'un incident, personne n'en répond."
     },
     {
      "type": "heading",
@@ -469,6 +681,10 @@
      ]
     },
     {
+     "type": "memo",
+     "text": "Les 4 options : « RéTEA » → Réduire, Transférer, Éviter, Accepter. Et jamais « Ignorer »."
+    },
+    {
      "type": "socCase",
      "title": "Cas SOC : un automate impossible à corriger",
      "text": "Une usine utilise un automate industriel dont le fabricant ne publie plus de correctif. Le SOC constate qu'il est joignable depuis le réseau bureautique. Traitement retenu : réduire le risque par un contrôle compensatoire (VLAN dédié, filtrage strict, supervision des flux par l'IDS), puis le propriétaire du risque (directeur d'usine) accepte par écrit le risque résiduel jusqu'au remplacement prévu dans 18 mois.",
@@ -501,8 +717,17 @@
       "Un contrôle a une fonction (préventif, détectif, correctif…) et une nature (administratif, technique, physique).",
       "Le registre des risques trace propriétaires, traitements, risques résiduels et revues."
      ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m1c1-q17",
+      "m1c1-q18"
+     ]
     }
-   ]
+   ],
+   "illustration": "assets/illustrations/m1c1_l3_carrefour.svg",
+   "illustrationAlt": "Dessin d'un panneau indicateur à quatre flèches : réduire, transférer, éviter, accepter."
   }
  ],
  "questions": [

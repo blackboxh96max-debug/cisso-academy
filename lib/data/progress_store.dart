@@ -123,7 +123,11 @@ abstract class ProgressStore {
   Future<void> markLessonRead(String lessonId, DateTime at);
   Future<Set<String>> readLessons();
 
-  /// Efface toute la progression (réinitialisation).
+  /// Réglages de l'application (clé → valeur texte).
+  Future<String?> setting(String key);
+  Future<void> setSetting(String key, String value);
+
+  /// Efface toute la progression (réinitialisation). Les réglages sont conservés.
   Future<void> clear();
 
   Future<void> close();
@@ -135,6 +139,14 @@ class MemoryProgressStore implements ProgressStore {
   final _sessions = <SessionRecord>[];
   final _cards = <String, CardState>{};
   final _lessons = <String>{};
+  final _settings = <String, String>{};
+
+  @override
+  Future<String?> setting(String key) async => _settings[key];
+
+  @override
+  Future<void> setSetting(String key, String value) async =>
+      _settings[key] = value;
 
   @override
   Future<void> addAnswers(List<AnswerRecord> answers) async =>
