@@ -1,0 +1,1533 @@
+{
+ "lessons": [
+  {
+   "id": "m1c3-l1",
+   "title": "Politiques, normes, procédures : la pyramide documentaire",
+   "minutes": 20,
+   "objectives": [
+    "Distinguer politique, norme interne (standard), référentiel de base (baseline), ligne directrice et procédure.",
+    "Savoir ce qui est obligatoire et ce qui est recommandé.",
+    "Connaître les types de politiques et la gestion des exceptions."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-12 Rev. 1, An Introduction to Information Security (chapitre sur les politiques)",
+     "url": "https://csrc.nist.gov/pubs/sp/800/12/r1/final",
+     "kind": "general"
+    },
+    {
+     "title": "ISO/IEC 27002:2022, mesure 5.1 (politiques de sécurité de l'information)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Du « pourquoi » au « comment »"
+    },
+    {
+     "type": "text",
+     "text": "La sécurité d'une organisation repose sur un ensemble de documents emboîtés. En haut, peu de documents, très stables et approuvés par la direction ; en bas, beaucoup de documents détaillés, qui changent souvent avec la technique."
+    },
+    {
+     "type": "diagram",
+     "title": "La pyramide documentaire",
+     "alt": "Schéma en quatre étapes du plus général au plus détaillé : politique, norme interne, référentiel de base (baseline), procédure. Les lignes directrices, facultatives, sont à part.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🏛️",
+        "label": "Politique",
+        "detail": "le pourquoi, signée par la direction",
+        "tone": "violet"
+       },
+       {
+        "emoji": "📏",
+        "label": "Norme",
+        "detail": "le quoi, chiffré",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🧱",
+        "label": "Baseline",
+        "detail": "le minimum par système",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "📝",
+        "label": "Procédure",
+        "detail": "le comment, pas à pas",
+        "tone": "green"
+       }
+      ]
+     },
+     "text": "Les lignes directrices (guidelines) conseillent sans obliger : elles restent à côté de la pyramide."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Document",
+       "Rôle",
+       "Obligatoire ?",
+       "Exemple"
+      ],
+      [
+       "Politique (policy)",
+       "Intentions et principes de la direction, le « pourquoi »",
+       "Oui",
+       "« Les accès distants sont protégés par une authentification forte. »"
+      ],
+      [
+       "Norme interne (standard)",
+       "Exigence précise et mesurable, le « quoi »",
+       "Oui",
+       "« MFA obligatoire par application d'authentification ou clé FIDO2. »"
+      ],
+      [
+       "Référentiel de base (baseline)",
+       "Niveau minimal de configuration pour un type de système",
+       "Oui",
+       "Configuration durcie de Windows Server : services désactivés, journalisation activée"
+      ],
+      [
+       "Ligne directrice (guideline)",
+       "Recommandation, conseil de mise en œuvre",
+       "Non",
+       "« Il est conseillé d'utiliser un gestionnaire de mots de passe. »"
+      ],
+      [
+       "Procédure (procedure)",
+       "Étapes détaillées pour réaliser une tâche, le « comment »",
+       "Oui",
+       "Procédure pas à pas de création d'un compte VPN"
+      ]
+     ]
+    },
+    {
+     "type": "text",
+     "text": "La politique est courte, rédigée en termes généraux et signée par la direction : elle donne l'autorité aux documents qui en découlent. Une norme qui fixe « 14 caractères minimum » change plus souvent qu'une politique ; on évite donc de mettre des détails techniques dans la politique.",
+     "kind": "practice"
+    },
+    {
+     "type": "memo",
+     "text": "Politique = POURQUOI · Norme = QUOI (avec des chiffres) · Procédure = COMMENT. Seule la ligne directrice dit « je vous conseille »."
+    },
+    {
+     "type": "heading",
+     "text": "Les types de politiques"
+    },
+    {
+     "type": "bullets",
+     "items": [
+      "Politique générale (ou de programme) : définit le programme de sécurité, les rôles et l'autorité du RSSI.",
+      "Politique thématique (issue-specific) : traite un sujet, par exemple le télétravail, l'usage acceptable, les supports amovibles.",
+      "Politique propre à un système (system-specific) : règles d'un système donné, par exemple qui peut modifier la configuration du SIEM."
+     ]
+    },
+    {
+     "type": "text",
+     "text": "Cette classification en trois types est notamment présentée par NIST SP 800-12.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Les exceptions"
+    },
+    {
+     "type": "text",
+     "text": "Une exigence ne peut pas toujours être respectée (application ancienne, contrainte métier). Plutôt que de laisser l'écart caché, on demande une exception : elle est justifiée, limitée dans le temps, assortie de mesures compensatoires et approuvée par le propriétaire du risque. Elle est inscrite dans un registre et revue à échéance.",
+     "kind": "practice"
+    },
+    {
+     "type": "risk",
+     "title": "L'exception oubliée",
+     "text": "Une exception sans date de fin devient une faille permanente. Le registre des exceptions doit être revu, sinon personne ne se souvient du serveur « temporairement » exempté il y a trois ans."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : quand la procédure manque",
+     "text": "Une nuit, un analyste découvre une connexion suspecte sur le compte d'un dirigeant. La politique dit que « les incidents sont traités selon leur gravité », la norme fixe les niveaux de gravité, mais aucune procédure ne dit comment réinitialiser le compte d'un dirigeant en voyage. L'analyste perd une heure à chercher qui appeler. Leçon tirée : rédiger une procédure (le « comment ») avec les contacts et les étapes, et la tester.",
+     "kind": "example"
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : je garde la politique courte et stable, et je fais vivre les normes et procédures.",
+      "Responsable SOC : je veux des procédures précises (playbooks) utilisables à 3 h du matin.",
+      "Auditeur : je vérifie que chaque document est approuvé, daté, diffusé et appliqué.",
+      "Risk manager : je suis le registre des exceptions et leurs échéances."
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "Pour classer un document à l'examen, repérez les chiffres : « au moins 16 caractères » est une norme, « protéger les accès » est une politique, « cliquez sur Isoler puis appelez l'astreinte » est une procédure."
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "La ligne directrice (guideline) est le seul document non obligatoire.",
+      "La politique dit « pourquoi » et « quoi » à haut niveau ; la procédure dit « comment ».",
+      "La baseline est un minimum obligatoire, pas une recommandation.",
+      "Une politique est approuvée par la direction, pas par l'équipe technique."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Politique → normes → baselines → procédures ; les lignes directrices conseillent.",
+      "Trois types de politiques : générale, thématique, propre à un système.",
+      "Une exception est justifiée, temporaire, compensée, approuvée et suivie."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m1c3-q02",
+      "m1c3-q05"
+     ]
+    }
+   ],
+   "illustration": "assets/illustrations/m1c3_l1_pyramide.svg",
+   "illustrationAlt": "Dessin d'une pyramide en quatre étages colorés, avec un petit drapeau au sommet."
+  },
+  {
+   "id": "m1c3-l2",
+   "title": "La famille ISO/IEC 27000 et le SMSI",
+   "minutes": 30,
+   "objectives": [
+    "Situer les principales normes de la famille ISO/IEC 27000.",
+    "Décrire la structure d'ISO/IEC 27001:2022 et son annexe A.",
+    "Expliquer la déclaration d'applicabilité et le cycle de certification."
+   ],
+   "references": [
+    {
+     "title": "ISO/IEC 27000, vue d'ensemble et vocabulaire",
+     "kind": "general"
+    },
+    {
+     "title": "ISO/IEC 27001:2022, exigences du système de management de la sécurité de l'information",
+     "kind": "general"
+    },
+    {
+     "title": "ISO/IEC 27002:2022, mesures de sécurité de l'information",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Une famille de normes"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Norme",
+       "Objet"
+      ],
+      [
+       "ISO/IEC 27000",
+       "Vue d'ensemble et vocabulaire"
+      ],
+      [
+       "ISO/IEC 27001",
+       "Exigences d'un SMSI : la seule norme de la liste contre laquelle une organisation est certifiée"
+      ],
+      [
+       "ISO/IEC 27002",
+       "Guide de mise en œuvre des mesures de sécurité"
+      ],
+      [
+       "ISO/IEC 27005",
+       "Gestion des risques de sécurité de l'information"
+      ],
+      [
+       "ISO/IEC 27014",
+       "Gouvernance de la sécurité de l'information"
+      ],
+      [
+       "ISO/IEC 27017 et 27018",
+       "Mesures pour le cloud ; protection des données personnelles dans le cloud public"
+      ],
+      [
+       "ISO/IEC 27035",
+       "Gestion des incidents de sécurité"
+      ],
+      [
+       "ISO/IEC 27037",
+       "Identification, collecte et préservation des preuves numériques"
+      ],
+      [
+       "ISO/IEC 27701",
+       "Management de la protection de la vie privée (données personnelles)"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "ISO/IEC 27001:2022, le SMSI"
+    },
+    {
+     "type": "definition",
+     "title": "SMSI (ISMS, Information Security Management System)",
+     "text": "Ensemble organisé de politiques, processus, rôles et ressources qui permet de gérer la sécurité de l'information de façon systématique et de l'améliorer en continu.",
+     "kind": "general"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Chapitre",
+       "Contenu"
+      ],
+      [
+       "4 Contexte",
+       "Enjeux internes et externes, parties intéressées, périmètre du SMSI"
+      ],
+      [
+       "5 Leadership",
+       "Engagement de la direction, politique, rôles et responsabilités"
+      ],
+      [
+       "6 Planification",
+       "Appréciation et traitement des risques, objectifs de sécurité"
+      ],
+      [
+       "7 Support",
+       "Ressources, compétences, sensibilisation, communication, informations documentées"
+      ],
+      [
+       "8 Fonctionnement",
+       "Mise en œuvre des plans et du traitement des risques"
+      ],
+      [
+       "9 Évaluation des performances",
+       "Surveillance, mesure, audit interne, revue de direction"
+      ],
+      [
+       "10 Amélioration",
+       "Non-conformités, actions correctives, amélioration continue"
+      ]
+     ]
+    },
+    {
+     "type": "text",
+     "text": "Ces chapitres suivent la logique d'amélioration continue souvent résumée par le cycle PDCA (Plan, Do, Check, Act) : planifier (6), faire (8), vérifier (9), agir (10). La version 2022 ne cite plus le PDCA comme modèle obligatoire, mais la logique demeure.",
+     "kind": "general"
+    },
+    {
+     "type": "diagram",
+     "title": "La logique PDCA dans ISO/IEC 27001",
+     "alt": "Cycle en quatre étapes : Plan (chapitre 6, planification), Do (chapitre 8, fonctionnement), Check (chapitre 9, évaluation des performances), Act (chapitre 10, amélioration), puis on recommence.",
+     "diagram": {
+      "type": "cycle",
+      "center": "🔁 Amélioration\ncontinue",
+      "nodes": [
+       {
+        "emoji": "🗺️",
+        "label": "Plan",
+        "detail": "ch. 6 planifier",
+        "tone": "blue"
+       },
+       {
+        "emoji": "⚙️",
+        "label": "Do",
+        "detail": "ch. 8 faire",
+        "tone": "green"
+       },
+       {
+        "emoji": "🔍",
+        "label": "Check",
+        "detail": "ch. 9 vérifier",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🚀",
+        "label": "Act",
+        "detail": "ch. 10 améliorer",
+        "tone": "violet"
+       }
+      ]
+     },
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "L'annexe A et la déclaration d'applicabilité"
+    },
+    {
+     "type": "text",
+     "text": "L'annexe A d'ISO/IEC 27001:2022 liste 93 mesures réparties en quatre thèmes : organisationnelles (37), liées aux personnes (8), physiques (14) et technologiques (34). ISO/IEC 27002:2022 détaille chacune d'elles. La version 2013 en comptait 114 réparties en 14 domaines ; la période de transition vers la version 2022 s'est terminée le 31 octobre 2025.",
+     "kind": "general"
+    },
+    {
+     "type": "diagram",
+     "title": "Les 93 mesures de l'annexe A (2022)",
+     "alt": "Graphique en barres : 37 mesures organisationnelles, 8 liées aux personnes, 14 physiques, 34 technologiques, soit 93 au total.",
+     "diagram": {
+      "type": "bars",
+      "unit": "",
+      "bars": [
+       {
+        "label": "Organisationnelles",
+        "value": 37,
+        "tone": "violet"
+       },
+       {
+        "label": "Personnes",
+        "value": 8,
+        "tone": "pink"
+       },
+       {
+        "label": "Physiques",
+        "value": 14,
+        "tone": "orange"
+       },
+       {
+        "label": "Technologiques",
+        "value": 34,
+        "tone": "blue"
+       }
+      ]
+     },
+     "text": "37 + 8 + 14 + 34 = 93. Ancienne version 2013 : 114 mesures en 14 domaines.",
+     "kind": "official"
+    },
+    {
+     "type": "memo",
+     "text": "« 27000 Dit, 27001 Exige, 27002 Guide, 27005 Risque » : le vocabulaire, les exigences certifiables, le guide des mesures, la gestion des risques."
+    },
+    {
+     "type": "definition",
+     "title": "Déclaration d'applicabilité (SoA, Statement of Applicability)",
+     "text": "Document obligatoire qui liste toutes les mesures de l'annexe A, indique si chacune est appliquée ou exclue, et justifie ce choix au regard du traitement des risques.",
+     "kind": "general"
+    },
+    {
+     "type": "steps",
+     "title": "Cycle de certification",
+     "items": [
+      "Audit initial en deux étapes : revue documentaire (étape 1), puis vérification de la mise en œuvre (étape 2).",
+      "Certificat valable trois ans.",
+      "Audits de surveillance (en général annuels) pendant ces trois ans.",
+      "Audit de renouvellement avant l'échéance."
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Point clé",
+     "text": "On est certifié ISO/IEC 27001, jamais ISO/IEC 27002 : la 27002 est un guide qui aide à mettre en œuvre les mesures, elle ne contient pas d'exigences à auditer."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : le SOC dans le SMSI",
+     "text": "Pendant l'audit 27001 de son employeur, la responsable SOC doit montrer que les mesures de journalisation et de surveillance de l'annexe A sont appliquées. Elle présente la politique de journalisation, la liste des sources raccordées au SIEM, des tickets d'incidents traités et le rapport mensuel d'indicateurs. L'auditeur demande aussi la preuve que les leçons des incidents alimentent l'amélioration (chapitre 10).",
+     "kind": "example"
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : la certification n'est pas un but ; le SMSI sert à piloter durablement les risques.",
+      "Responsable SOC : mes tickets et mes indicateurs sont des preuves d'audit précieuses.",
+      "Auditeur : sans revue de direction ni audit interne, le SMSI n'est pas conforme.",
+      "Risk manager : la SoA doit découler du traitement des risques, pas l'inverse."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "On se certifie sur ISO/IEC 27001, pas sur 27002 (qui est un guide).",
+      "Annexe A 2022 : 93 mesures, 4 thèmes. Ancienne version 2013 : 114 mesures, 14 domaines.",
+      "La SoA justifie aussi les exclusions.",
+      "La direction a des obligations explicites (chapitre 5 Leadership, revue de direction au chapitre 9)."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "27000 vocabulaire, 27001 exigences (certifiable), 27002 mesures, 27005 risques.",
+      "27001:2022 : chapitres 4 à 10, annexe A de 93 mesures en 4 thèmes.",
+      "SoA obligatoire ; certificat de 3 ans avec audits de surveillance."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m1c3-q11",
+      "m1c3-q12"
+     ]
+    }
+   ],
+   "illustration": "assets/illustrations/m1c3_l2_certificat.svg",
+   "illustrationAlt": "Dessin d'un certificat avec un sceau et un ruban, à côté d'un calendrier de trois ans."
+  },
+  {
+   "id": "m1c3-l3",
+   "title": "Autres référentiels : NIST, COBIT, PCI DSS, SOC 2, ANSSI",
+   "minutes": 25,
+   "objectives": [
+    "Citer les six fonctions du NIST Cybersecurity Framework 2.0.",
+    "Situer NIST SP 800-53, COBIT, ITIL, PCI DSS et SOC 2.",
+    "Connaître les principales ressources de l'ANSSI.",
+    "Choisir un référentiel selon le besoin."
+   ],
+   "references": [
+    {
+     "title": "NIST Cybersecurity Framework 2.0 (2024)",
+     "url": "https://www.nist.gov/cyberframework",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-53 Rev. 5, Security and Privacy Controls for Information Systems and Organizations",
+     "url": "https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final",
+     "kind": "general"
+    },
+    {
+     "title": "ANSSI, Guide d'hygiène informatique (42 mesures)",
+     "kind": "general"
+    },
+    {
+     "title": "ANSSI, méthode EBIOS Risk Manager",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "NIST Cybersecurity Framework 2.0"
+    },
+    {
+     "type": "text",
+     "text": "Publié en 2024, le CSF 2.0 organise la cybersécurité en six fonctions : Govern (gouverner), Identify (identifier), Protect (protéger), Detect (détecter), Respond (répondre) et Recover (rétablir). Il n'est pas certifiable : c'est un cadre pour décrire son niveau actuel, fixer un niveau cible et prioriser.",
+     "kind": "general"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Fonction",
+       "Question posée",
+       "Exemple SOC"
+      ],
+      [
+       "Govern",
+       "Qui décide et selon quelle stratégie ?",
+       "Politique de réponse aux incidents approuvée"
+      ],
+      [
+       "Identify",
+       "Que faut-il protéger et contre quoi ?",
+       "Inventaire des actifs raccordés au SIEM"
+      ],
+      [
+       "Protect",
+       "Comment empêcher l'incident ?",
+       "MFA, durcissement, sensibilisation"
+      ],
+      [
+       "Detect",
+       "Comment le voir ?",
+       "Règles de corrélation, EDR"
+      ],
+      [
+       "Respond",
+       "Comment le contenir ?",
+       "Playbook d'isolement d'un poste"
+      ],
+      [
+       "Recover",
+       "Comment revenir à la normale ?",
+       "Restauration et retour d'expérience"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "D'autres référentiels utiles"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Référentiel",
+       "Nature",
+       "Usage"
+      ],
+      [
+       "NIST SP 800-53",
+       "Catalogue détaillé de mesures de sécurité et de vie privée",
+       "Choisir et décrire des contrôles (secteur public américain et au-delà)"
+      ],
+      [
+       "COBIT (ISACA)",
+       "Référentiel de gouvernance et de management du SI",
+       "Aligner l'informatique sur les objectifs de l'entreprise"
+      ],
+      [
+       "ITIL",
+       "Bonnes pratiques de gestion des services informatiques",
+       "Gestion des incidents, des changements, des problèmes"
+      ],
+      [
+       "PCI DSS",
+       "Norme du secteur des cartes de paiement",
+       "Obligatoire pour qui stocke, traite ou transmet des données de cartes"
+      ],
+      [
+       "SOC 2 (AICPA)",
+       "Rapport d'audit sur les contrôles d'un prestataire",
+       "Rassurer les clients d'un fournisseur de services, notamment cloud"
+      ],
+      [
+       "ANSSI",
+       "Guides et méthodes de l'agence française",
+       "Guide d'hygiène informatique (42 mesures), méthode EBIOS Risk Manager"
+      ]
+     ]
+    },
+    {
+     "type": "text",
+     "text": "Un rapport SOC 2 de type I décrit la conception des contrôles à une date donnée ; un rapport de type II évalue aussi leur fonctionnement effectif sur une période (souvent 6 à 12 mois). Attention à ne pas confondre SOC 2 (rapport d'audit) et SOC (centre opérationnel de sécurité).",
+     "kind": "general"
+    },
+    {
+     "type": "memo",
+     "text": "SOC 2 Type I = une photo (les contrôles sont bien conçus à une date). SOC 2 Type II = un film (ils ont fonctionné pendant 6 à 12 mois)."
+    },
+    {
+     "type": "risk",
+     "title": "Confusion fréquente",
+     "text": "SOC 2 est un rapport d'audit sur un prestataire ; un SOC est un centre opérationnel de sécurité. Une question qui parle de « rapport », d'« auditeur » ou de « période » vise SOC 2."
+    },
+    {
+     "type": "heading",
+     "text": "Choisir et combiner"
+    },
+    {
+     "type": "text",
+     "text": "Les référentiels se complètent : ISO/IEC 27001 pour le système de management, ISO/IEC 27002 ou NIST SP 800-53 pour les mesures, le NIST CSF pour communiquer un niveau de maturité, PCI DSS si l'on traite des cartes, EBIOS Risk Manager pour l'analyse de risques. Des tables de correspondance existent entre la plupart d'entre eux.",
+     "kind": "practice"
+    },
+    {
+     "type": "diagram",
+     "title": "Combiner les référentiels",
+     "alt": "Schéma en quatre étapes : ISO/IEC 27001 pour le système de management, ISO/IEC 27002 ou NIST SP 800-53 pour choisir les mesures, NIST CSF pour communiquer la maturité, PCI DSS si l'on traite des cartes bancaires.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🏗️",
+        "label": "ISO 27001",
+        "detail": "le système de management",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🧰",
+        "label": "27002 / 800-53",
+        "detail": "les mesures",
+        "tone": "blue"
+       },
+       {
+        "emoji": "📊",
+        "label": "NIST CSF",
+        "detail": "la maturité",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "💳",
+        "label": "PCI DSS",
+        "detail": "si cartes bancaires",
+        "tone": "orange"
+       }
+      ]
+     },
+     "kind": "practice"
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : un client exige des preuves",
+     "text": "Un MSSP (SOC externalisé) répond à l'appel d'offres d'une banque. La banque demande une certification ISO/IEC 27001 et un rapport SOC 2 de type II couvrant les douze derniers mois, et rappelle que le périmètre traite des données de cartes soumises à PCI DSS. Le responsable SOC du prestataire doit fournir les preuves de fonctionnement des contrôles : journaux, tickets, revues d'accès.",
+     "kind": "example"
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : je choisis un référentiel principal et je fais correspondre les autres pour éviter les doublons.",
+      "Responsable SOC : le NIST CSF m'aide à montrer la couverture Detect et Respond à la direction.",
+      "Auditeur : un rapport SOC 2 de type II vaut plus qu'un type I pour juger l'efficacité.",
+      "Risk manager : EBIOS Risk Manager structure les scénarios de risque avec les métiers."
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "Retenez une question à se poser devant chaque référentiel : « est-il certifiable ? ». ISO/IEC 27001 oui, le NIST CSF non, PCI DSS donne lieu à une évaluation de conformité, SOC 2 à un rapport d'audit."
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "NIST CSF 2.0 : six fonctions, dont Govern ajoutée en 2.0.",
+      "Le NIST CSF n'est pas certifiable ; ISO/IEC 27001 l'est.",
+      "PCI DSS est une norme sectorielle (cartes de paiement), pas une loi.",
+      "SOC 2 type I = conception à une date ; type II = efficacité sur une période.",
+      "ITIL gère les services informatiques ; COBIT gouverne le SI."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "NIST CSF 2.0 : Govern, Identify, Protect, Detect, Respond, Recover.",
+      "SP 800-53 : catalogue de mesures ; COBIT : gouvernance du SI ; ITIL : services.",
+      "PCI DSS pour les cartes ; SOC 2 pour rassurer les clients d'un prestataire.",
+      "ANSSI : guide d'hygiène (42 mesures), EBIOS Risk Manager."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m1c3-q21",
+      "m1c3-q24"
+     ]
+    }
+   ],
+   "illustration": "assets/illustrations/m1c3_l3_boite.svg",
+   "illustrationAlt": "Dessin d'une boîte à outils ouverte contenant des fiches de couleur : chaque référentiel est un outil."
+  }
+ ],
+ "questions": [
+  {
+   "id": "m1c3-q01",
+   "domain": "security-management",
+   "level": "beginner",
+   "concept": "Pyramide documentaire",
+   "prompt": "Quel document exprime les intentions et principes de sécurité de la direction, en termes généraux ?",
+   "choices": [
+    "La procédure",
+    "La politique",
+    "La ligne directrice",
+    "La baseline"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La politique, approuvée par la direction, fixe les principes et donne l'autorité aux autres documents.",
+   "whyNot": {
+    "0": "La procédure décrit les étapes d'une tâche, le « comment ».",
+    "2": "La ligne directrice est une recommandation non obligatoire.",
+    "3": "La baseline fixe une configuration minimale pour un type de système."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c3-q02",
+   "domain": "security-management",
+   "level": "beginner",
+   "concept": "Pyramide documentaire",
+   "prompt": "Lequel de ces documents n'est PAS obligatoire ?",
+   "choices": [
+    "La politique",
+    "La norme interne (standard)",
+    "La ligne directrice (guideline)",
+    "La procédure"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "La ligne directrice donne des conseils ; elle est recommandée mais non obligatoire.",
+   "whyNot": {
+    "0": "La politique s'impose à tous.",
+    "1": "La norme interne fixe des exigences obligatoires et mesurables.",
+    "3": "La procédure décrit la manière obligatoire de réaliser une tâche."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c3-q03",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "Pyramide documentaire",
+   "prompt": "« Les mots de passe des comptes à privilèges comportent au moins 16 caractères. » Ce texte est typiquement :",
+   "choices": [
+    "Une politique",
+    "Une norme interne (standard)",
+    "Une ligne directrice",
+    "Une procédure"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "C'est une exigence précise et mesurable : elle relève d'une norme interne (standard), qui découle de la politique.",
+   "whyNot": {
+    "0": "Une politique reste générale et évite les détails techniques qui changent souvent.",
+    "2": "Le texte est impératif, pas une recommandation.",
+    "3": "Une procédure décrirait les étapes pour, par exemple, changer un mot de passe."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c3-q04",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "Pyramide documentaire",
+   "prompt": "Une configuration durcie minimale imposée à tous les serveurs Linux de production s'appelle :",
+   "choices": [
+    "Une baseline",
+    "Une ligne directrice",
+    "Une politique thématique",
+    "Une exception"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Une baseline fixe le niveau minimal obligatoire de sécurité pour un type de système.",
+   "whyNot": {
+    "1": "Une ligne directrice ne serait pas imposée.",
+    "2": "Une politique thématique traite d'un sujet en termes généraux, pas d'une configuration détaillée.",
+    "3": "Une exception est un écart autorisé à une exigence, l'inverse d'un minimum imposé."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c3-q05",
+   "domain": "security-management",
+   "level": "beginner",
+   "concept": "Pyramide documentaire",
+   "prompt": "Quel document décrit étape par étape comment isoler un poste compromis depuis la console EDR ?",
+   "choices": [
+    "Une politique",
+    "Une procédure (ou playbook)",
+    "Une norme interne",
+    "Une ligne directrice"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La procédure décrit le « comment » : les étapes précises d'une tâche. Au SOC, on parle souvent de playbook.",
+   "whyNot": {
+    "0": "La politique donne les principes, pas les étapes.",
+    "2": "La norme interne fixe une exigence, pas le mode opératoire.",
+    "3": "Une ligne directrice conseille, elle ne décrit pas une marche à suivre imposée."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c3-q06",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "Types de politiques",
+   "prompt": "Une politique encadrant l'utilisation des clés USB dans toute l'entreprise est une politique :",
+   "choices": [
+    "Générale (de programme)",
+    "Thématique (issue-specific)",
+    "Propre à un système (system-specific)",
+    "De continuité d'activité"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Elle traite un sujet précis pour toute l'organisation : c'est une politique thématique.",
+   "whyNot": {
+    "0": "La politique générale définit le programme de sécurité dans son ensemble.",
+    "2": "Une politique propre à un système fixe les règles d'un système donné.",
+    "3": "La continuité d'activité est un autre sujet."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c3-q07",
+   "domain": "security-management",
+   "level": "advanced",
+   "concept": "Exceptions",
+   "prompt": "Quelles conditions doit remplir une exception valable à une norme de sécurité ? (2 réponses)",
+   "choices": [
+    "Être limitée dans le temps et revue à échéance",
+    "Être accordée oralement par l'équipe technique",
+    "Être approuvée par le propriétaire du risque, avec des mesures compensatoires",
+    "Rester confidentielle et hors de tout registre"
+   ],
+   "correct": [
+    0,
+    2
+   ],
+   "explanation": "Une exception est justifiée, temporaire, compensée, approuvée par une personne habilitée et suivie dans un registre.",
+   "whyNot": {
+    "1": "Une exception orale de l'équipe technique n'a ni trace ni autorité suffisante.",
+    "3": "Une exception cachée empêche le suivi du risque ; elle doit être enregistrée."
+   },
+   "kind": "practice"
+  },
+  {
+   "id": "m1c3-q08",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "Pyramide documentaire",
+   "prompt": "Pourquoi évite-t-on d'écrire des paramètres techniques détaillés dans la politique de sécurité ?",
+   "choices": [
+    "Parce que la direction ne doit pas les connaître",
+    "Parce que la politique doit rester stable alors que les paramètres évoluent souvent",
+    "Parce que la loi l'interdit",
+    "Parce qu'une politique n'est pas obligatoire"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Une politique approuvée par la direction doit durer. Les détails techniques changent souvent ; on les place dans les normes et procédures pour éviter de faire réapprouver la politique à chaque évolution.",
+   "whyNot": {
+    "0": "Il ne s'agit pas de cacher quoi que ce soit à la direction.",
+    "2": "Aucune loi n'impose ce découpage : c'est une bonne pratique.",
+    "3": "La politique est obligatoire."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c3-q09",
+   "domain": "security-management",
+   "level": "beginner",
+   "concept": "Approbation",
+   "prompt": "Qui approuve la politique de sécurité de l'information ?",
+   "choices": [
+    "L'administrateur réseau",
+    "La direction",
+    "Le fournisseur du pare-feu",
+    "Chaque salarié"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La politique engage l'organisation : elle est approuvée par la direction, ce qui lui donne son autorité.",
+   "whyNot": {
+    "0": "L'administrateur applique les mesures ; il n'engage pas l'organisation.",
+    "2": "Un fournisseur externe n'a aucune autorité sur la politique.",
+    "3": "Les salariés en prennent connaissance et la respectent ; ils ne l'approuvent pas."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c3-q10",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "Pyramide documentaire",
+   "prompt": "Un analyste SOC suit la consigne « en cas d'alerte rançongiciel, appeler l'astreinte système, puis isoler le poste, puis ouvrir un incident ». Quel document l'analyste applique-t-il ?",
+   "choices": [
+    "Une politique",
+    "Une ligne directrice",
+    "Une procédure",
+    "Une baseline"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Une suite ordonnée d'étapes à réaliser est une procédure.",
+   "whyNot": {
+    "0": "La politique ne détaille pas d'étapes.",
+    "1": "Une ligne directrice ne serait pas une consigne imposée.",
+    "3": "Une baseline décrit une configuration minimale, pas une réaction à une alerte."
+   },
+   "kind": "example"
+  },
+  {
+   "id": "m1c3-q11",
+   "domain": "security-management",
+   "level": "beginner",
+   "concept": "Famille ISO 27000",
+   "prompt": "Contre quelle norme une organisation obtient-elle une certification de son système de management de la sécurité de l'information ?",
+   "choices": [
+    "ISO/IEC 27002",
+    "ISO/IEC 27001",
+    "ISO/IEC 27005",
+    "ISO/IEC 27000"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "ISO/IEC 27001 contient les exigences du SMSI : c'est la norme de certification.",
+   "whyNot": {
+    "0": "ISO/IEC 27002 est un guide de mise en œuvre des mesures ; on ne s'y certifie pas.",
+    "2": "ISO/IEC 27005 guide la gestion des risques.",
+    "3": "ISO/IEC 27000 donne la vue d'ensemble et le vocabulaire."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c3-q12",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "Annexe A",
+   "prompt": "Combien de mesures compte l'annexe A d'ISO/IEC 27001:2022 ?",
+   "choices": [
+    "114",
+    "93",
+    "133",
+    "42"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La version 2022 compte 93 mesures réparties en 4 thèmes.",
+   "whyNot": {
+    "0": "114 mesures, c'était la version 2013.",
+    "2": "133 était le nombre de mesures de la version 2005.",
+    "3": "42 est le nombre de mesures du guide d'hygiène de l'ANSSI."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c3-q13",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "Annexe A",
+   "prompt": "Quels sont les quatre thèmes de l'annexe A d'ISO/IEC 27001:2022 ?",
+   "choices": [
+    "Prévention, détection, réponse, rétablissement",
+    "Organisationnel, personnes, physique, technologique",
+    "Confidentialité, intégrité, disponibilité, traçabilité",
+    "Gouverner, identifier, protéger, détecter"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Les 93 mesures sont classées en mesures organisationnelles (37), liées aux personnes (8), physiques (14) et technologiques (34).",
+   "whyNot": {
+    "0": "Ce sont des fonctions de contrôle, pas les thèmes de l'annexe A.",
+    "2": "Ce sont des propriétés de sécurité, pas les thèmes de l'annexe A.",
+    "3": "Ce sont des fonctions du NIST CSF."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c3-q14",
+   "domain": "security-management",
+   "level": "beginner",
+   "concept": "Déclaration d'applicabilité",
+   "prompt": "Quel document ISO/IEC 27001 liste les mesures de l'annexe A, indique lesquelles sont appliquées et justifie les exclusions ?",
+   "choices": [
+    "Le registre des risques",
+    "La déclaration d'applicabilité (SoA)",
+    "La politique de sécurité",
+    "Le rapport d'audit"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La déclaration d'applicabilité (Statement of Applicability) est obligatoire et justifie l'inclusion ou l'exclusion de chaque mesure.",
+   "whyNot": {
+    "0": "Le registre des risques recense les risques ; la SoA en découle.",
+    "2": "La politique fixe les principes, pas l'état de chaque mesure.",
+    "3": "Le rapport d'audit constate la conformité ; il ne décide pas des mesures."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c3-q15",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "Certification",
+   "prompt": "Quelle est la durée de validité d'un certificat ISO/IEC 27001, et que se passe-t-il entre-temps ?",
+   "choices": [
+    "1 an, sans contrôle intermédiaire",
+    "3 ans, avec des audits de surveillance (en général annuels)",
+    "5 ans, avec un audit à mi-parcours",
+    "Illimitée tant qu'aucun incident ne survient"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le certificat est valable trois ans ; des audits de surveillance ont lieu pendant cette période, puis un audit de renouvellement.",
+   "whyNot": {
+    "0": "La validité est de trois ans, et des audits de surveillance ont lieu.",
+    "2": "La durée standard est de trois ans, pas cinq.",
+    "3": "Le certificat n'est jamais illimité."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c3-q16",
+   "domain": "security-management",
+   "level": "advanced",
+   "concept": "Structure ISO 27001",
+   "prompt": "Dans ISO/IEC 27001:2022, quels chapitres traitent de la revue de direction et des actions correctives ? (2 réponses)",
+   "choices": [
+    "Chapitre 9, Évaluation des performances (revue de direction)",
+    "Chapitre 4, Contexte",
+    "Chapitre 10, Amélioration (non-conformités et actions correctives)",
+    "Chapitre 7, Support"
+   ],
+   "correct": [
+    0,
+    2
+   ],
+   "explanation": "La revue de direction et l'audit interne sont au chapitre 9 ; les non-conformités et actions correctives au chapitre 10.",
+   "whyNot": {
+    "1": "Le chapitre 4 traite du contexte, des parties intéressées et du périmètre.",
+    "3": "Le chapitre 7 traite des ressources, compétences, communication et documents."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c3-q17",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "Famille ISO 27000",
+   "prompt": "Quelle norme donne des lignes directrices pour identifier, collecter et préserver des preuves numériques ?",
+   "choices": [
+    "ISO/IEC 27035",
+    "ISO/IEC 27037",
+    "ISO/IEC 27017",
+    "ISO/IEC 27014"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "ISO/IEC 27037 traite de l'identification, de la collecte, de l'acquisition et de la préservation des preuves numériques.",
+   "whyNot": {
+    "0": "ISO/IEC 27035 traite de la gestion des incidents dans son ensemble.",
+    "2": "ISO/IEC 27017 traite des mesures de sécurité pour le cloud.",
+    "3": "ISO/IEC 27014 traite de la gouvernance."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c3-q18",
+   "domain": "security-management",
+   "level": "beginner",
+   "concept": "Famille ISO 27000",
+   "prompt": "Quelle norme de la famille 27000 porte sur la gestion des incidents de sécurité de l'information ?",
+   "choices": [
+    "ISO/IEC 27035",
+    "ISO/IEC 27005",
+    "ISO/IEC 27002",
+    "ISO/IEC 27701"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "ISO/IEC 27035 décrit la gestion des incidents : préparation, détection, évaluation, réponse, retour d'expérience.",
+   "whyNot": {
+    "1": "ISO/IEC 27005 porte sur la gestion des risques.",
+    "2": "ISO/IEC 27002 décrit les mesures de sécurité en général.",
+    "3": "ISO/IEC 27701 porte sur la protection de la vie privée."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c3-q19",
+   "domain": "security-management",
+   "level": "advanced",
+   "concept": "Annexe A",
+   "prompt": "Une organisation exclut de sa SoA la mesure sur le développement externalisé, car elle ne développe ni ne fait développer aucun logiciel. Cette exclusion est :",
+   "choices": [
+    "Interdite : toutes les mesures de l'annexe A sont obligatoires",
+    "Possible si elle est justifiée dans la SoA",
+    "Possible sans justification",
+    "Possible seulement avec l'accord de l'ANSSI"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Les mesures de l'annexe A sont à considérer, pas toutes à appliquer : une exclusion est permise si elle est justifiée, par exemple par l'absence du risque.",
+   "whyNot": {
+    "0": "La norme demande de considérer chaque mesure et de justifier les choix, pas de toutes les appliquer.",
+    "2": "Toute exclusion doit être justifiée dans la SoA.",
+    "3": "La certification ISO ne dépend pas de l'ANSSI ; c'est l'organisme certificateur qui audite."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c3-q20",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "Version 2022",
+   "prompt": "Jusqu'à quelle date les organisations certifiées ISO/IEC 27001:2013 devaient-elles passer à la version 2022 ?",
+   "choices": [
+    "31 décembre 2023",
+    "31 octobre 2025",
+    "1er janvier 2027",
+    "Aucune date : les deux versions restent valables"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La période de transition de trois ans s'est terminée le 31 octobre 2025 ; les certificats 2013 ne sont plus valables après cette date.",
+   "whyNot": {
+    "0": "Cette date ne correspond pas à la fin de la transition.",
+    "2": "La transition s'est terminée avant cette date.",
+    "3": "Les certificats selon la version 2013 ont expiré à la fin de la transition."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c3-q21",
+   "domain": "security-management",
+   "level": "beginner",
+   "concept": "NIST CSF",
+   "prompt": "Combien de fonctions compte le NIST Cybersecurity Framework 2.0 ?",
+   "choices": [
+    "4",
+    "5",
+    "6",
+    "7"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Le CSF 2.0 compte six fonctions : Govern, Identify, Protect, Detect, Respond, Recover. Govern a été ajoutée en 2.0.",
+   "whyNot": {
+    "0": "Quatre fonctions ne correspond à aucune version du CSF.",
+    "1": "Cinq fonctions, c'était la version 1.1, sans Govern.",
+    "3": "Il n'y a pas de septième fonction."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c3-q22",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "NIST CSF",
+   "prompt": "Dans le NIST CSF 2.0, à quelle fonction appartient l'écriture de règles de corrélation dans le SIEM ?",
+   "choices": [
+    "Identify",
+    "Protect",
+    "Detect",
+    "Recover"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Les règles de corrélation servent à repérer des événements suspects : fonction Detect.",
+   "whyNot": {
+    "0": "Identify concerne l'inventaire des actifs, des risques et du contexte.",
+    "1": "Protect concerne les mesures qui empêchent l'incident.",
+    "3": "Recover concerne le retour à la normale après l'incident."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c3-q23",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "Certification",
+   "prompt": "Quelle affirmation sur le NIST Cybersecurity Framework est exacte ?",
+   "choices": [
+    "C'est une norme certifiable comme ISO/IEC 27001",
+    "C'est un cadre volontaire pour décrire et améliorer son niveau de cybersécurité",
+    "Il est imposé par la loi à toutes les entreprises européennes",
+    "Il remplace PCI DSS pour les données de cartes"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le CSF est un cadre volontaire, non certifiable, utilisé pour évaluer un niveau actuel, fixer une cible et prioriser.",
+   "whyNot": {
+    "0": "Il n'existe pas de certification officielle CSF.",
+    "2": "Ce n'est pas une obligation légale européenne.",
+    "3": "PCI DSS reste exigé pour les données de cartes."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c3-q24",
+   "domain": "security-management",
+   "level": "beginner",
+   "concept": "PCI DSS",
+   "prompt": "Une boutique en ligne stocke des numéros de cartes bancaires. Quel référentiel lui est imposé par les réseaux de cartes ?",
+   "choices": [
+    "COBIT",
+    "PCI DSS",
+    "ITIL",
+    "ISO/IEC 27014"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "PCI DSS s'applique à toute entité qui stocke, traite ou transmet des données de cartes de paiement.",
+   "whyNot": {
+    "0": "COBIT est un référentiel de gouvernance du SI, non imposé.",
+    "2": "ITIL décrit des bonnes pratiques de gestion des services.",
+    "3": "ISO/IEC 27014 traite de la gouvernance de la sécurité."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c3-q25",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "SOC 2",
+   "prompt": "Un client veut savoir si les contrôles de son prestataire cloud ont réellement fonctionné pendant l'année écoulée. Quel document est le plus adapté ?",
+   "choices": [
+    "Un rapport SOC 2 de type I",
+    "Un rapport SOC 2 de type II",
+    "La politique de sécurité du prestataire",
+    "La plaquette commerciale"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le type II évalue l'efficacité opérationnelle des contrôles sur une période ; le type I ne décrit que leur conception à une date.",
+   "whyNot": {
+    "0": "Le type I ne couvre pas le fonctionnement sur une période.",
+    "2": "Une politique déclare des intentions ; elle ne prouve pas l'efficacité.",
+    "3": "Un document commercial n'apporte aucune assurance d'audit."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c3-q26",
+   "domain": "security-management",
+   "level": "advanced",
+   "concept": "Référentiels",
+   "prompt": "Quelles associations référentiel / usage sont correctes ? (2 réponses)",
+   "choices": [
+    "ITIL : gestion des services informatiques (incidents, changements)",
+    "COBIT : catalogue de mesures techniques du gouvernement américain",
+    "NIST SP 800-53 : catalogue détaillé de mesures de sécurité et de vie privée",
+    "PCI DSS : loi européenne sur les données personnelles"
+   ],
+   "correct": [
+    0,
+    2
+   ],
+   "explanation": "ITIL décrit la gestion des services informatiques ; NIST SP 800-53 est un catalogue détaillé de mesures.",
+   "whyNot": {
+    "1": "COBIT est un référentiel de gouvernance et de management du SI, publié par l'ISACA.",
+    "3": "PCI DSS est une norme sectorielle des cartes de paiement ; la loi européenne sur les données personnelles est le RGPD."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c3-q27",
+   "domain": "security-management",
+   "level": "beginner",
+   "concept": "ANSSI",
+   "prompt": "Combien de mesures compte le guide d'hygiène informatique de l'ANSSI ?",
+   "choices": [
+    "10",
+    "42",
+    "93",
+    "114"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le guide d'hygiène informatique de l'ANSSI propose 42 mesures.",
+   "whyNot": {
+    "0": "10 ne correspond pas à ce guide.",
+    "2": "93 est le nombre de mesures de l'annexe A d'ISO/IEC 27001:2022.",
+    "3": "114 était le nombre de mesures de l'annexe A en 2013."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c3-q28",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "ANSSI",
+   "prompt": "Quelle méthode d'analyse de risques est publiée par l'ANSSI ?",
+   "choices": [
+    "OCTAVE",
+    "EBIOS Risk Manager",
+    "FAIR",
+    "STRIDE"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "EBIOS Risk Manager est la méthode d'appréciation et de traitement des risques numériques de l'ANSSI.",
+   "whyNot": {
+    "0": "OCTAVE a été développée par le Software Engineering Institute (Carnegie Mellon).",
+    "2": "FAIR est une méthode d'analyse quantitative du risque portée par le FAIR Institute.",
+    "3": "STRIDE est une méthode de modélisation des menaces issue de Microsoft."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c3-q29",
+   "domain": "security-management",
+   "level": "advanced",
+   "concept": "Référentiels",
+   "prompt": "Une entreprise veut une certification reconnue de son système de management, et une méthode pour présenter simplement son niveau à la direction. Quelle combinaison est la plus cohérente ?",
+   "choices": [
+    "ISO/IEC 27001 pour la certification, NIST CSF pour présenter le niveau",
+    "NIST CSF pour la certification, ITIL pour présenter le niveau",
+    "PCI DSS pour la certification, COBIT pour le niveau",
+    "ISO/IEC 27002 pour la certification, SOC 2 pour le niveau"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "ISO/IEC 27001 est certifiable ; le CSF, avec ses six fonctions, est pratique pour décrire un niveau actuel et cible.",
+   "whyNot": {
+    "1": "Le NIST CSF n'est pas certifiable.",
+    "2": "PCI DSS ne concerne que les données de cartes ; il ne certifie pas un SMSI.",
+    "3": "On ne se certifie pas sur ISO/IEC 27002, et SOC 2 est un rapport d'audit pour des clients, pas un outil de pilotage interne."
+   },
+   "kind": "practice"
+  },
+  {
+   "id": "m1c3-q30",
+   "domain": "security-management",
+   "level": "beginner",
+   "concept": "SOC 2",
+   "prompt": "Dans le contexte des référentiels, que désigne « SOC 2 » ?",
+   "choices": [
+    "Un centre opérationnel de sécurité de niveau 2",
+    "Un rapport d'audit sur les contrôles d'une organisation de services (AICPA)",
+    "Une norme ISO sur la supervision",
+    "La deuxième version du NIST CSF"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "SOC 2 est un rapport d'audit défini par l'AICPA sur les contrôles d'un prestataire, sans rapport avec un Security Operations Center.",
+   "whyNot": {
+    "0": "C'est le piège classique : SOC 2 n'est pas un niveau de SOC.",
+    "2": "Ce n'est pas une norme ISO.",
+    "3": "La version actuelle du NIST CSF est la 2.0 ; ce n'est pas SOC 2."
+   },
+   "kind": "general"
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "m1c3-f01",
+   "front": "Politique",
+   "back": "Principes et intentions de la direction ; obligatoire, stable, approuvée par la direction.",
+   "concept": "Pyramide documentaire"
+  },
+  {
+   "id": "m1c3-f02",
+   "front": "Norme interne (standard)",
+   "back": "Exigence précise et mesurable ; obligatoire.",
+   "concept": "Pyramide documentaire"
+  },
+  {
+   "id": "m1c3-f03",
+   "front": "Baseline",
+   "back": "Configuration minimale obligatoire pour un type de système.",
+   "concept": "Pyramide documentaire"
+  },
+  {
+   "id": "m1c3-f04",
+   "front": "Ligne directrice (guideline)",
+   "back": "Recommandation : le seul document non obligatoire.",
+   "concept": "Pyramide documentaire"
+  },
+  {
+   "id": "m1c3-f05",
+   "front": "Procédure",
+   "back": "Étapes détaillées d'une tâche : le « comment ».",
+   "concept": "Pyramide documentaire"
+  },
+  {
+   "id": "m1c3-f06",
+   "front": "Trois types de politiques",
+   "back": "Générale (programme), thématique (issue-specific), propre à un système (system-specific).",
+   "concept": "Types de politiques"
+  },
+  {
+   "id": "m1c3-f07",
+   "front": "Exception valable",
+   "back": "Justifiée, temporaire, compensée, approuvée par le propriétaire du risque, enregistrée.",
+   "concept": "Exceptions"
+  },
+  {
+   "id": "m1c3-f08",
+   "front": "Norme ISO certifiable du SMSI",
+   "back": "ISO/IEC 27001.",
+   "concept": "Famille ISO 27000"
+  },
+  {
+   "id": "m1c3-f09",
+   "front": "ISO/IEC 27002",
+   "back": "Guide de mise en œuvre des mesures (non certifiable).",
+   "concept": "Famille ISO 27000"
+  },
+  {
+   "id": "m1c3-f10",
+   "front": "Annexe A 27001:2022",
+   "back": "93 mesures, 4 thèmes : organisationnel 37, personnes 8, physique 14, technologique 34.",
+   "concept": "Annexe A"
+  },
+  {
+   "id": "m1c3-f11",
+   "front": "SoA",
+   "back": "Déclaration d'applicabilité : chaque mesure de l'annexe A, appliquée ou exclue, avec justification.",
+   "concept": "Déclaration d'applicabilité"
+  },
+  {
+   "id": "m1c3-f12",
+   "front": "Cycle de certification ISO 27001",
+   "back": "Audit initial en 2 étapes, certificat de 3 ans, audits de surveillance, renouvellement.",
+   "concept": "Certification"
+  },
+  {
+   "id": "m1c3-f13",
+   "front": "ISO/IEC 27035 / 27037",
+   "back": "Gestion des incidents / preuves numériques.",
+   "concept": "Famille ISO 27000"
+  },
+  {
+   "id": "m1c3-f14",
+   "front": "Fin de la transition 27001:2013 → 2022",
+   "back": "31 octobre 2025.",
+   "concept": "Version 2022"
+  },
+  {
+   "id": "m1c3-f15",
+   "front": "NIST CSF 2.0",
+   "back": "6 fonctions : Govern, Identify, Protect, Detect, Respond, Recover. Non certifiable.",
+   "concept": "NIST CSF"
+  },
+  {
+   "id": "m1c3-f16",
+   "front": "NIST SP 800-53",
+   "back": "Catalogue détaillé de mesures de sécurité et de vie privée.",
+   "concept": "Référentiels"
+  },
+  {
+   "id": "m1c3-f17",
+   "front": "COBIT / ITIL",
+   "back": "COBIT : gouvernance du SI (ISACA). ITIL : gestion des services informatiques.",
+   "concept": "Référentiels"
+  },
+  {
+   "id": "m1c3-f18",
+   "front": "PCI DSS",
+   "back": "Norme sectorielle obligatoire pour les données de cartes de paiement.",
+   "concept": "PCI DSS"
+  },
+  {
+   "id": "m1c3-f19",
+   "front": "SOC 2 type I / type II",
+   "back": "Type I : conception à une date. Type II : efficacité sur une période.",
+   "concept": "SOC 2"
+  },
+  {
+   "id": "m1c3-f20",
+   "front": "ANSSI",
+   "back": "Guide d'hygiène informatique (42 mesures), méthode EBIOS Risk Manager.",
+   "concept": "ANSSI"
+  }
+ ],
+ "revisionSheet": [
+  "# Fiche de révision : politiques, normes et référentiels",
+  "Politique (pourquoi, direction) → norme interne (quoi, mesurable) → baseline (minimum) → procédure (comment). Ligne directrice = conseil non obligatoire.",
+  "Politiques : générale, thématique, propre à un système (NIST SP 800-12).",
+  "Exception : justifiée, temporaire, compensée, approuvée, enregistrée, revue.",
+  "27000 vocabulaire ; 27001 exigences SMSI (certifiable) ; 27002 mesures ; 27005 risques ; 27014 gouvernance ; 27017/27018 cloud ; 27035 incidents ; 27037 preuves ; 27701 vie privée.",
+  "27001:2022 : chapitres 4 Contexte, 5 Leadership, 6 Planification, 7 Support, 8 Fonctionnement, 9 Évaluation, 10 Amélioration.",
+  "Annexe A 2022 : 93 mesures en 4 thèmes (37 / 8 / 14 / 34). Version 2013 : 114 mesures, 14 domaines. Transition terminée le 31/10/2025.",
+  "SoA obligatoire, justifie inclusions et exclusions. Certificat 3 ans + audits de surveillance.",
+  "NIST CSF 2.0 : Govern, Identify, Protect, Detect, Respond, Recover ; non certifiable.",
+  "SP 800-53 : catalogue de mesures. COBIT : gouvernance du SI. ITIL : services.",
+  "PCI DSS : cartes de paiement. SOC 2 (AICPA) : type I conception, type II efficacité sur une période.",
+  "ANSSI : guide d'hygiène (42 mesures), EBIOS Risk Manager.",
+  "Paires à ne pas confondre : 27001/27002 ; standard/guideline ; politique/procédure ; SOC 2/SOC ; type I/type II ; COBIT/ITIL."
+ ]
+}

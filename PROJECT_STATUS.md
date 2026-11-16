@@ -7,7 +7,7 @@ Dernière mise à jour : 2026-11-16. Règle : une fonctionnalité n'est marquée
 | Étape | Contenu | État |
 |---|---|---|
 | 1 | Socle multiplateforme + chapitre pilote | Fait (PR #1) |
-| 2 | Base pédagogique complète, ≥ 500 questions originales relues | **En cours** : 2 chapitres sur 17, 54 questions |
+| 2 | Base pédagogique complète, ≥ 500 questions originales relues | **En cours** : 4 chapitres sur 17, 114 questions |
 | 3 | Tuteur : version sans IA, puis modèle local optionnel | À faire |
 | 4 | Simulateur SOC, sauvegarde chiffrée, import/export, installateurs, documentation finale | À faire |
 
@@ -17,9 +17,11 @@ Dernière mise à jour : 2026-11-16. Règle : une fonctionnalité n'est marquée
 |---|---|---|---|---|
 | M1 ch. 1 · Gestion, analyse et traitement des risques | 3 | 24 | 20 | Fait, à relire |
 | M1 ch. 2 · Gouvernance et management de la sécurité | 3 | 30 | 20 | Fait, à relire |
-| 15 autres chapitres | – | – | – | À faire, dans l'ordre de la formation |
+| M1 ch. 3 · Politiques, normes, procédures et famille ISO 27000 | 3 | 30 | 20 | Fait, à relire |
+| M1 ch. 4 · IAM, authentification et contrôle d'accès (format cahier dès l'écriture) | 3 | 30 | 20 | Fait, à relire |
+| 13 autres chapitres | – | – | – | À faire, dans l'ordre de la formation |
 
-Glossaire : 50 termes.
+Glossaire : 87 termes.
 
 ## Étape 1 : détail
 
@@ -50,7 +52,8 @@ Glossaire : 50 termes.
 | Tableau de bord : illustration d'accueil, anneau de progression, 5 modules colorés, courbe des scores, radar des 11 domaines, camembert, maîtrise des chapitres, 8 badges, objectif du jour (20 réponses), série de jours, accès rapide ; 2 colonnes sur grand écran | Fait, **à valider** | `lib/ui/dashboard_page.dart`, `test/stats_test.dart` |
 | Flashcards façon fiche bristol : retournement 3D, couleur du module, difficulté, animation « carte maîtrisée » | Fait | `lib/ui/flashcards_page.dart`, `test/widget_test.dart` |
 | Animations légères désactivables (Réglages) et respect du réglage système « réduire les animations » | Fait | `test/widget_test.dart`, migration SQLite v2 testée dans `test/sqlite_store_test.dart` |
-| Application du design aux autres chapitres, schémas par chapitre (OSI, PDCA, SOC, IR, PKI, PCA/PRA, RTO/RPO, Zero Trust…) | À faire, après validation | |
+| Chapitres « Gouvernance » et « Politiques, ISO 27000 » au format cahier : 6 illustrations, 7 schémas (dont NIST CSF 2.0, PDCA, 93 mesures de l'annexe A), notes, mémos, petits tests | Fait, **à relire** | `assets/content/m1c2_gouvernance.json`, `assets/content/m1c3_politiques.json`, `test/content_test.dart` (chaque leçon : illustration, schéma, petit test, note ou mémo) |
+| Application du design aux chapitres suivants, schémas par chapitre (OSI, PDCA, SOC, IR, PKI, PCA/PRA, RTO/RPO, Zero Trust…) | À faire, après validation | |
 | Essai sur un vrai téléphone Android et sur ordinateur (hors aperçu web) | À faire | |
 
 ## Écarts connus et décisions
@@ -58,7 +61,7 @@ Glossaire : 50 termes.
 - **5 modules / 11 domaines** : l'application affiche les 5 modules du cahier des charges ; chaque chapitre et chaque question est rattaché à l'un des 11 domaines officiels du blueprint MILE2 (poids vérifiés le 2026-11-16). La sécurité physique n'a pas de domaine propre dans le blueprint.
 - **Seuil de réussite** : 62/100 selon le blueprint MILE2 consulté ; certaines fiches de formation tierces indiquent 70 %. À revérifier avant l'inscription.
 - **Fiches de révision** : consultables et copiables ; l'export en fichier arrivera avec l'import/export (étape 4).
-- **Examen blanc** : limité à la banque disponible (54 questions) jusqu'à la fin de l'étape 2.
+- **Examen blanc** : limité à la banque disponible (84 questions) jusqu'à la fin de l'étape 2.
 - **Ressources vidéo** : pas encore de bibliothèque ; aucune vidéo ne sera listée sans vérification.
 - **Emoji des encadrés** : affichés par la police emoji du système (Android, Windows, macOS en ont une). Sur Linux, il faut le paquet Noto Color Emoji ; sinon des carrés vides peuvent apparaître.
 - **Signature** : APK signé avec la clé de débogage ; applications ordinateur non signées.

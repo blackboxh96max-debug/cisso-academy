@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <g stroke="#26324A" stroke-width="2.6" stroke-linejoin="round">
+    <path d="M18 160 L20 40 C30 28 58 28 68 40 L70 160 Z" fill="#DCE9FF" />
+    <path d="M94 160 L95 40 C105 28 134 28 144 40 L146 160 Z" fill="#D7F5E8" />
+    <path d="M170 160 L172 40 C182 28 210 28 220 40 L222 160 Z" fill="#FFE4D1" />
+  </g>
+  <path d="M10 162 L232 160" stroke="#26324A" stroke-width="2.6" stroke-linecap="round" />
+  <!-- serrure (DAC) -->
+  <g stroke="#26324A" stroke-width="2.2">
+    <circle cx="44" cy="96" r="7" fill="#F5B800" />
+    <path d="M44 102 L44 114" stroke-width="3" />
+  </g>
+  <!-- badge de rôle (RBAC) -->
+  <g stroke="#26324A" stroke-width="2.2" stroke-linejoin="round">
+    <path d="M106 80 L134 80 L134 116 L106 116 Z" fill="#FFFBF2" />
+    <circle cx="120" cy="92" r="6" fill="#10B981" />
+    <path d="M110 110 C112 100 128 100 130 110" fill="none" />
+  </g>
+  <!-- étiquette secret (MAC) -->
+  <g stroke="#26324A" stroke-width="2.2" stroke-linejoin="round">
+    <path d="M178 84 L208 80 L214 92 L208 104 L178 106 Z" fill="#EF4444" />
+  </g>
+  <text x="180" y="98" font-family="Caveat, cursive" font-size="15" font-weight="700" fill="#FFFFFF">SECRET</text>
+  <text x="30" y="24" font-family="Caveat, cursive" font-size="20" font-weight="700" fill="#1F5FE0">DAC</text>
+  <text x="104" y="24" font-family="Caveat, cursive" font-size="20" font-weight="700" fill="#0E8F63">RBAC</text>
+  <text x="182" y="24" font-family="Caveat, cursive" font-size="20" font-weight="700" fill="#D9480F">MAC</text>
+</svg>
