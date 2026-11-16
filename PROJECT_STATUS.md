@@ -7,7 +7,7 @@ Dernière mise à jour : 2026-11-16. Règle : une fonctionnalité n'est marquée
 | Étape | Contenu | État |
 |---|---|---|
 | 1 | Socle multiplateforme + chapitre pilote | Fait (PR #1) |
-| 2 | Base pédagogique complète, ≥ 500 questions originales relues | **En cours** : 3 chapitres sur 17, 84 questions |
+| 2 | Base pédagogique complète, ≥ 500 questions originales relues | **En cours** : 4 chapitres sur 17, 114 questions |
 | 3 | Tuteur : version sans IA, puis modèle local optionnel | À faire |
 | 4 | Simulateur SOC, sauvegarde chiffrée, import/export, installateurs, documentation finale | À faire |
 
@@ -18,9 +18,10 @@ Dernière mise à jour : 2026-11-16. Règle : une fonctionnalité n'est marquée
 | M1 ch. 1 · Gestion, analyse et traitement des risques | 3 | 24 | 20 | Fait, à relire |
 | M1 ch. 2 · Gouvernance et management de la sécurité | 3 | 30 | 20 | Fait, à relire |
 | M1 ch. 3 · Politiques, normes, procédures et famille ISO 27000 | 3 | 30 | 20 | Fait, à relire |
-| 14 autres chapitres | – | – | – | À faire, dans l'ordre de la formation |
+| M1 ch. 4 · IAM, authentification et contrôle d'accès (format cahier dès l'écriture) | 3 | 30 | 20 | Fait, à relire |
+| 13 autres chapitres | – | – | – | À faire, dans l'ordre de la formation |
 
-Glossaire : 66 termes.
+Glossaire : 87 termes.
 
 ## Étape 1 : détail
 

@@ -1,0 +1,1566 @@
+{
+ "lessons": [
+  {
+   "id": "m1c4-l1",
+   "title": "Identifier, authentifier, autoriser, tracer",
+   "minutes": 25,
+   "illustration": "assets/illustrations/m1c4_l1_cles.svg",
+   "illustrationAlt": "Dessin d'un trousseau avec trois objets : une bulle « mot de passe », un téléphone et une empreinte digitale.",
+   "objectives": [
+    "Distinguer identification, authentification, autorisation et traçabilité (IAAA).",
+    "Classer un moyen d'authentification dans le bon facteur et reconnaître une vraie MFA.",
+    "Interpréter les taux d'erreur d'un système biométrique (FAR, FRR, CER).",
+    "Appliquer les recommandations actuelles sur les mots de passe et la MFA résistante à l'hameçonnage."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-63B, Digital Identity Guidelines : authentification et cycle de vie des authentifiants",
+     "kind": "general"
+    },
+    {
+     "title": "ISO/IEC 27002:2022, mesures 5.17 (informations d'authentification) et 8.5 (authentification sécurisée)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Quatre questions, dans l'ordre"
+    },
+    {
+     "type": "text",
+     "text": "Chaque accès à un système répond à quatre questions successives. Qui prétendez-vous être ? Le prouvez-vous ? Qu'avez-vous le droit de faire ? Qu'avez-vous fait ? Les manuels anglophones parlent d'IAAA : Identification, Authentication, Authorization, Accountability."
+    },
+    {
+     "type": "diagram",
+     "title": "La chaîne IAAA",
+     "alt": "Schéma en quatre étapes : identification (je déclare une identité), authentification (je la prouve), autorisation (le système accorde des droits), traçabilité (mes actions sont journalisées et m'engagent).",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🙋",
+        "label": "Identification",
+        "detail": "« je suis alice »",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🔑",
+        "label": "Authentification",
+        "detail": "je le prouve",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🚦",
+        "label": "Autorisation",
+        "detail": "ce que j'ai le droit de faire",
+        "tone": "green"
+       },
+       {
+        "emoji": "📜",
+        "label": "Traçabilité",
+        "detail": "ce que j'ai fait",
+        "tone": "orange"
+       }
+      ]
+     },
+     "text": "La traçabilité n'existe que si l'identité est unique : un compte partagé « admin » casse la chaîne."
+    },
+    {
+     "type": "definition",
+     "title": "Identification",
+     "text": "Déclarer une identité, par exemple saisir un identifiant ou présenter un badge. À elle seule, elle ne prouve rien.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Authentification",
+     "text": "Vérifier que l'identité déclarée est bien la bonne, à l'aide d'un ou plusieurs facteurs.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Autorisation",
+     "text": "Décider des ressources et des actions permises à une identité authentifiée.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Traçabilité (accountability)",
+     "text": "Pouvoir relier chaque action à une personne, grâce à des identités uniques et des journaux protégés. Elle permet l'imputabilité et la non-répudiation.",
+     "kind": "general"
+    },
+    {
+     "type": "trainerNote",
+     "text": "À l'examen, une question qui parle de « nom d'utilisateur » vise l'identification, pas l'authentification. Et un journal sans identité unique ne prouve rien : c'est la traçabilité qui en souffre."
+    },
+    {
+     "type": "heading",
+     "text": "Les facteurs d'authentification"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Facteur",
+       "Principe",
+       "Exemples"
+      ],
+      [
+       "Connaissance (ce que je sais)",
+       "Un secret mémorisé",
+       "Mot de passe, code PIN, réponse à une question"
+      ],
+      [
+       "Possession (ce que j'ai)",
+       "Un objet que je détiens",
+       "Clé de sécurité FIDO2, carte à puce, téléphone avec application d'authentification"
+      ],
+      [
+       "Inhérence (ce que je suis)",
+       "Une caractéristique biométrique",
+       "Empreinte digitale, visage, iris, voix"
+      ]
+     ]
+    },
+    {
+     "type": "text",
+     "text": "Certains supports ajoutent des éléments de contexte (lieu, heure, comportement de frappe). Ils servent surtout à ajuster le niveau de confiance, par exemple dans un accès conditionnel, plutôt que de facteur à part entière.",
+     "kind": "general"
+    },
+    {
+     "type": "important",
+     "title": "Vraie MFA ou pas ?",
+     "text": "L'authentification multifacteur combine au moins deux facteurs de catégories DIFFÉRENTES. Un mot de passe plus un code PIN, ce sont deux éléments de connaissance : ce n'est pas de la MFA."
+    },
+    {
+     "type": "memo",
+     "text": "« SAIS, AI, SUIS » : ce que je SAIS, ce que j'AI, ce que je SUIS. Deux mots différents = MFA ; deux fois le même mot = pas de MFA."
+    },
+    {
+     "type": "heading",
+     "text": "La biométrie et ses erreurs"
+    },
+    {
+     "type": "definition",
+     "title": "FRR, taux de faux rejets (erreur de type I)",
+     "text": "Proportion de personnes légitimes refusées à tort. Un FRR élevé gêne les utilisateurs.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "FAR, taux de fausses acceptations (erreur de type II)",
+     "text": "Proportion d'imposteurs acceptés à tort. C'est l'erreur la plus dangereuse pour la sécurité.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "CER ou EER, taux d'erreur égal",
+     "text": "Point où FAR et FRR sont égaux quand on règle la sensibilité. Plus ce taux est bas, plus le système biométrique est précis : c'est le critère de comparaison entre produits.",
+     "kind": "general"
+    },
+    {
+     "type": "diagram",
+     "title": "Régler la sensibilité d'un lecteur biométrique",
+     "alt": "Graphique en barres comparant deux réglages fictifs d'un lecteur : réglage souple avec fausses acceptations 5 pour cent et faux rejets 2 pour cent ; réglage strict avec fausses acceptations 1 pour cent et faux rejets 6 pour cent.",
+     "diagram": {
+      "type": "bars",
+      "unit": " %",
+      "bars": [
+       {
+        "label": "FAR souple",
+        "value": 5,
+        "tone": "red"
+       },
+       {
+        "label": "FRR souple",
+        "value": 2,
+        "tone": "blue"
+       },
+       {
+        "label": "FAR strict",
+        "value": 1,
+        "tone": "red"
+       },
+       {
+        "label": "FRR strict",
+        "value": 6,
+        "tone": "blue"
+       }
+      ]
+     },
+     "text": "Chiffres d'exemple : durcir le réglage fait baisser le FAR mais monter le FRR. On ne peut pas réduire les deux en même temps."
+    },
+    {
+     "type": "memo",
+     "title": "Type I ou type II ?",
+     "text": "Type I = I comme « Interdit à tort » (faux rejet, FRR). Type II = l'imposteur passe (fausse acceptation, FAR)."
+    },
+    {
+     "type": "heading",
+     "text": "Mots de passe et MFA aujourd'hui"
+    },
+    {
+     "type": "practice",
+     "title": "Bonnes pratiques actuelles",
+     "kind": "general",
+     "items": [
+      "Privilégier la longueur (phrases de passe) plutôt que des règles de complexité arbitraires.",
+      "Ne pas imposer de changement périodique sans raison ; changer immédiatement en cas de compromission.",
+      "Refuser les mots de passe déjà présents dans des listes de fuites connues.",
+      "Stocker les mots de passe hachés avec un sel et un algorithme lent conçu pour cela.",
+      "Préférer une MFA résistante à l'hameçonnage : clés FIDO2 ou passkeys (WebAuthn)."
+     ]
+    },
+    {
+     "type": "risk",
+     "title": "Attaques courantes",
+     "items": [
+      "Pulvérisation de mots de passe (password spraying) : quelques mots de passe courants essayés sur beaucoup de comptes, pour passer sous les seuils de verrouillage.",
+      "Bourrage d'identifiants (credential stuffing) : couples identifiant / mot de passe volés ailleurs, rejoués sur vos services.",
+      "Fatigue MFA : notifications push envoyées en rafale jusqu'à ce que la victime accepte.",
+      "Hameçonnage en temps réel (adversary-in-the-middle) : un faux site relaie mot de passe et code à usage unique."
+     ]
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : 400 échecs, 1 succès",
+     "kind": "example",
+     "text": "Le SIEM remonte 400 échecs de connexion en dix minutes, répartis sur 380 comptes différents, avec un seul mot de passe testé par compte, depuis quelques adresses d'hébergeurs. Un compte finit par réussir. L'analyste reconnaît une pulvérisation de mots de passe : aucun compte n'a été verrouillé car chacun n'a subi qu'un essai. Il désactive les sessions du compte compromis, force le changement de mot de passe, vérifie qu'aucune règle de transfert de messagerie n'a été créée et propose d'étendre la MFA aux comptes qui n'en avaient pas."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : la MFA résistante à l'hameçonnage est ma priorité pour les comptes à privilèges et l'accès distant.",
+      "Responsable SOC : je détecte les échecs répartis sur de nombreux comptes, pas seulement les échecs répétés sur un compte.",
+      "Auditeur : je vérifie l'absence de comptes partagés et la protection des journaux d'authentification.",
+      "Risk manager : un compte sans MFA exposé sur Internet est un risque à traiter en priorité."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Identifiant = identification ; mot de passe = authentification.",
+      "Deux éléments du même facteur ne font pas une MFA.",
+      "FAR (type II) est l'erreur la plus grave pour la sécurité ; CER bas = système plus précis.",
+      "La traçabilité exige des identités uniques : pas de comptes partagés."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "IAAA : identifier, authentifier, autoriser, tracer.",
+      "Facteurs : connaissance, possession, inhérence ; MFA = au moins deux catégories différentes.",
+      "Biométrie : FRR (type I), FAR (type II), CER pour comparer.",
+      "Longueur, listes de mots de passe compromis, pas de rotation forcée sans raison, MFA résistante à l'hameçonnage."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m1c4-q03",
+      "m1c4-q06"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m1c4-l2",
+   "title": "Les modèles de contrôle d'accès",
+   "minutes": 25,
+   "illustration": "assets/illustrations/m1c4_l2_portes.svg",
+   "illustrationAlt": "Dessin de trois portes de couleurs différentes avec des étiquettes : une serrure, un badge de rôle et une étiquette « secret ».",
+   "objectives": [
+    "Distinguer DAC, MAC, RBAC, contrôle par règles et ABAC.",
+    "Appliquer moindre privilège, besoin d'en connaître et refus par défaut.",
+    "Retenir les règles des modèles Bell-LaPadula (confidentialité) et Biba (intégrité)."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-162, Guide to Attribute Based Access Control (ABAC)",
+     "kind": "general"
+    },
+    {
+     "title": "ISO/IEC 27002:2022, mesures 5.15 (contrôle d'accès) et 5.18 (droits d'accès)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Qui décide de l'accès ?"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Modèle",
+       "Qui décide ?",
+       "Comment",
+       "Exemple"
+      ],
+      [
+       "DAC, discrétionnaire",
+       "Le propriétaire de la ressource",
+       "Listes de contrôle d'accès (ACL) qu'il modifie lui-même",
+       "Partager un dossier Windows avec un collègue"
+      ],
+      [
+       "MAC, obligatoire",
+       "Le système, selon une politique centrale",
+       "Étiquettes de classification sur les objets, habilitations sur les sujets",
+       "Systèmes militaires, SELinux en mode strict"
+      ],
+      [
+       "RBAC, par rôles",
+       "L'organisation, via les rôles métier",
+       "Les droits sont donnés au rôle, les personnes reçoivent des rôles",
+       "Rôle « analyste SOC N1 » avec lecture du SIEM"
+      ],
+      [
+       "Par règles (rule-based)",
+       "L'administrateur, via des règles globales",
+       "Règles qui s'appliquent à tous, sans regarder l'identité",
+       "Règles de pare-feu, horaires d'accès"
+      ],
+      [
+       "ABAC, par attributs",
+       "Un moteur de politiques",
+       "Combinaison d'attributs du sujet, de la ressource, de l'action et du contexte",
+       "« Les médecins du service, en poste, depuis un appareil géré »"
+      ]
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "Le mot-clé qui trahit le modèle : « propriétaire » → DAC ; « étiquette » ou « habilitation » → MAC ; « poste » ou « fonction » → RBAC ; « pare-feu » ou « horaire » → règles ; « contexte » ou « attributs » → ABAC."
+    },
+    {
+     "type": "diagram",
+     "title": "Une décision ABAC",
+     "alt": "Schéma en cinq étapes : les attributs du sujet, de la ressource, de l'action et du contexte sont envoyés au point de décision (PDP), qui renvoie permis ou refusé au point d'application (PEP).",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🧑‍⚕️",
+        "label": "Sujet",
+        "detail": "rôle, service, habilitation",
+        "tone": "blue"
+       },
+       {
+        "emoji": "📁",
+        "label": "Ressource",
+        "detail": "classification, propriétaire",
+        "tone": "violet"
+       },
+       {
+        "emoji": "✍️",
+        "label": "Action",
+        "detail": "lire, modifier",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "🌍",
+        "label": "Contexte",
+        "detail": "heure, lieu, appareil",
+        "tone": "orange"
+       },
+       {
+        "emoji": "⚖️",
+        "label": "Décision",
+        "detail": "le PDP décide, le PEP applique",
+        "tone": "green"
+       }
+      ]
+     },
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Les principes qui s'appliquent partout"
+    },
+    {
+     "type": "definition",
+     "title": "Moindre privilège (least privilege)",
+     "text": "Chaque identité ne reçoit que les droits strictement nécessaires à sa mission, et seulement pour le temps nécessaire.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Besoin d'en connaître (need to know)",
+     "text": "Même avec l'habilitation suffisante, on n'accède à une information que si sa mission l'exige.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Refus par défaut (implicit deny)",
+     "text": "Tout ce qui n'est pas explicitement autorisé est interdit. La dernière règle d'un pare-feu bien configuré refuse tout le reste.",
+     "kind": "practice"
+    },
+    {
+     "type": "heading",
+     "text": "Deux modèles formels à connaître"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Modèle",
+       "Protège",
+       "Règle de lecture",
+       "Règle d'écriture"
+      ],
+      [
+       "Bell-LaPadula",
+       "La confidentialité",
+       "Pas de lecture vers le haut (no read up)",
+       "Pas d'écriture vers le bas (no write down)"
+      ],
+      [
+       "Biba",
+       "L'intégrité",
+       "Pas de lecture vers le bas (no read down)",
+       "Pas d'écriture vers le haut (no write up)"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "title": "Bell-LaPadula ou Biba ?",
+     "text": "Bell-LaPadula garde les secrets : on ne lit pas au-dessus, on ne fuit pas en dessous. Biba est son miroir pour l'intégrité : on ne se salit pas avec ce qui est en dessous, on ne pollue pas ce qui est au-dessus."
+    },
+    {
+     "type": "important",
+     "title": "Point clé",
+     "text": "Dans un modèle MAC, l'utilisateur ne peut pas partager une ressource de sa propre initiative, même s'il l'a créée. C'est la différence essentielle avec le DAC."
+    },
+    {
+     "type": "risk",
+     "title": "Accumulation de droits",
+     "text": "Sans revue régulière, un salarié qui change de poste garde ses anciens droits (privilege creep). Le RBAC limite ce risque si les rôles sont retirés à chaque mobilité."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : le rôle trop large",
+     "kind": "example",
+     "text": "Lors d'une investigation, le SOC constate qu'un compte de stagiaire a pu lire les dossiers RH. Cause : le rôle « Utilisateur siège » donnait accès au partage RH depuis une ancienne migration. Le responsable SOC demande la révision du rôle (RBAC), l'application du refus par défaut sur le partage et une revue des accès par le propriétaire des données RH."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : je préfère le RBAC pour sa simplicité de revue, complété par de l'ABAC pour les accès sensibles.",
+      "Responsable SOC : mes analystes N1 lisent les alertes, seuls les N3 peuvent isoler un serveur.",
+      "Auditeur : je compare les droits réels aux rôles approuvés.",
+      "Risk manager : chaque droit en trop augmente l'impact d'un compte compromis."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "DAC : le propriétaire décide ; MAC : le système décide selon les étiquettes.",
+      "Le contrôle par règles (rule-based) n'est pas le RBAC (role-based).",
+      "Bell-LaPadula = confidentialité ; Biba = intégrité.",
+      "Le besoin d'en connaître s'ajoute à l'habilitation, il ne la remplace pas."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "DAC, MAC, RBAC, règles, ABAC : retenez qui décide.",
+      "Moindre privilège, besoin d'en connaître, refus par défaut.",
+      "Bell-LaPadula : no read up, no write down. Biba : no read down, no write up."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m1c4-q11",
+      "m1c4-q16"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m1c4-l3",
+   "title": "Cycle de vie des identités, SSO, fédération et accès à privilèges",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m1c4_l3_federation.svg",
+   "illustrationAlt": "Dessin d'un badge central relié par des flèches à trois applications : un seul badge ouvre plusieurs portes.",
+   "objectives": [
+    "Décrire le cycle arrivée, mobilité, départ et la revue des accès.",
+    "Distinguer SSO, fédération, SAML 2.0, OAuth 2.0 et OpenID Connect.",
+    "Expliquer le fonctionnement de Kerberos et ses points faibles.",
+    "Connaître les mesures de gestion des accès à privilèges (PAM)."
+   ],
+   "references": [
+    {
+     "title": "ISO/IEC 27002:2022, mesures 5.16 (gestion des identités), 5.18 (droits d'accès) et 8.2 (droits d'accès à privilèges)",
+     "kind": "general"
+    },
+    {
+     "title": "RFC 6749, The OAuth 2.0 Authorization Framework",
+     "kind": "general"
+    },
+    {
+     "title": "RFC 4120, The Kerberos Network Authentication Service (V5)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Arrivée, mobilité, départ"
+    },
+    {
+     "type": "diagram",
+     "title": "Le cycle de vie d'une identité",
+     "alt": "Cycle en quatre étapes : arrivée (création du compte et des rôles), mobilité (ajout et retrait de droits), revue périodique des accès, départ (désactivation immédiate), puis retour au début pour la personne suivante.",
+     "diagram": {
+      "type": "cycle",
+      "center": "🪪 Identité\nunique",
+      "nodes": [
+       {
+        "emoji": "👋",
+        "label": "Arrivée",
+        "detail": "compte et rôles",
+        "tone": "green"
+       },
+       {
+        "emoji": "🔀",
+        "label": "Mobilité",
+        "detail": "ajouter et retirer",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🔍",
+        "label": "Revue",
+        "detail": "recertifier les droits",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🚪",
+        "label": "Départ",
+        "detail": "désactiver tout de suite",
+        "tone": "red"
+       }
+      ]
+     },
+     "kind": "practice"
+    },
+    {
+     "type": "text",
+     "text": "Les anglophones parlent de processus JML (Joiner, Mover, Leaver). Le provisionnement automatique depuis le système RH réduit les oublis : quand la fiche RH change, les droits suivent."
+    },
+    {
+     "type": "definition",
+     "title": "Revue des accès (recertification)",
+     "text": "Contrôle périodique où le responsable ou le propriétaire des données confirme, ou retire, chaque droit de ses équipes.",
+     "kind": "practice"
+    },
+    {
+     "type": "heading",
+     "text": "SSO et fédération"
+    },
+    {
+     "type": "definition",
+     "title": "Authentification unique (SSO)",
+     "text": "Une seule authentification donne accès à plusieurs applications. Confort et moins de mots de passe, mais un compte compromis ouvre tout : la MFA devient indispensable.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Fédération d'identités",
+     "text": "Relation de confiance entre organisations : un fournisseur d'identité (IdP) authentifie l'utilisateur, un fournisseur de service (SP) accepte sa décision.",
+     "kind": "general"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Protocole",
+       "Sert à",
+       "Ce qui circule",
+       "Usage typique"
+      ],
+      [
+       "SAML 2.0",
+       "Authentifier et fédérer",
+       "Assertions XML signées",
+       "SSO d'entreprise vers des applications web"
+      ],
+      [
+       "OAuth 2.0",
+       "Déléguer une autorisation",
+       "Jetons d'accès (access tokens)",
+       "Une application accède à vos fichiers sans connaître votre mot de passe"
+      ],
+      [
+       "OpenID Connect",
+       "Authentifier, au-dessus d'OAuth 2.0",
+       "Jeton d'identité (ID token, au format JWT)",
+       "« Se connecter avec… » sur le web et le mobile"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Point clé",
+     "text": "OAuth 2.0 est un protocole d'autorisation, pas d'authentification. Pour savoir QUI est l'utilisateur, on ajoute OpenID Connect par-dessus."
+    },
+    {
+     "type": "memo",
+     "text": "SAML = « Signé, Assertions, Monde de l'entreprise ». OAuth = « Oui, Autorise ». OIDC = « OAuth + IDentité »."
+    },
+    {
+     "type": "heading",
+     "text": "Kerberos"
+    },
+    {
+     "type": "diagram",
+     "title": "Kerberos en quatre temps",
+     "alt": "Schéma en quatre étapes : le client s'authentifie auprès du service d'authentification (AS), qui lui remet un ticket TGT ; le client présente le TGT au service de tickets (TGS), qui lui remet un ticket de service ; le client présente ce ticket au serveur visé.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "💻",
+        "label": "Client",
+        "detail": "demande à s'authentifier",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🏛️",
+        "label": "AS",
+        "detail": "remet le TGT",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🎫",
+        "label": "TGS",
+        "detail": "remet le ticket de service",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🖥️",
+        "label": "Service",
+        "detail": "accepte le ticket",
+        "tone": "green"
+       }
+      ]
+     },
+     "text": "Le KDC (centre de distribution de clés) regroupe l'AS et le TGS. Dans Active Directory, ce sont les contrôleurs de domaine.",
+     "kind": "general"
+    },
+    {
+     "type": "risk",
+     "title": "Points faibles de Kerberos",
+     "items": [
+      "Le KDC est un point unique de défaillance et une cible de choix : il faut le redonder et le protéger.",
+      "Les horloges doivent être synchronisées : un écart trop grand fait échouer l'authentification.",
+      "Un ticket volé peut être rejoué jusqu'à son expiration (attaque pass-the-ticket).",
+      "Les comptes de service avec un mot de passe faible exposent leurs tickets au cassage hors ligne (Kerberoasting)."
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Les accès à privilèges"
+    },
+    {
+     "type": "practice",
+     "title": "Mesures PAM (Privileged Access Management)",
+     "kind": "practice",
+     "items": [
+      "Comptes d'administration distincts des comptes de bureautique.",
+      "Coffre-fort de mots de passe avec rotation automatique après usage.",
+      "Accès juste-à-temps : le droit est accordé pour une durée limitée, après approbation.",
+      "Enregistrement des sessions d'administration et alertes envoyées au SOC.",
+      "Postes d'administration dédiés et MFA résistante à l'hameçonnage."
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "Dans presque toutes les intrusions graves, l'attaquant cherche un compte à privilèges. Un SOC qui surveille les connexions des administrateurs (heure inhabituelle, nouvel appareil, nouveau pays) détecte souvent l'attaque avant le chiffrement."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : le voyage impossible",
+     "kind": "example",
+     "text": "Le compte d'un administrateur se connecte depuis Lyon à 9 h 02, puis depuis un autre continent à 9 h 15. Aucun avion ne fait ce trajet en 13 minutes : c'est une alerte de « voyage impossible ». L'analyste vérifie l'appareil et le jeton utilisés, révoque les sessions et jetons actifs, réinitialise le mot de passe et les facteurs MFA, puis recherche toute création de compte ou modification de droits depuis 9 h 15."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : SSO avec MFA forte pour tous, PAM pour les administrateurs, revue trimestrielle des accès sensibles.",
+      "Responsable SOC : les journaux de l'IdP et des contrôleurs de domaine sont mes sources les plus précieuses.",
+      "Auditeur : je vérifie que chaque départ RH a entraîné la désactivation du compte, avec la date.",
+      "Risk manager : le fournisseur d'identité concentre le risque ; sa disponibilité et sa sécurité sont critiques."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "OAuth 2.0 autorise, OpenID Connect authentifie.",
+      "SAML échange des assertions XML ; OIDC des jetons JWT.",
+      "Kerberos : TGT remis par l'AS, ticket de service remis par le TGS.",
+      "Au départ d'un salarié, on désactive immédiatement, on ne supprime pas forcément tout de suite (les journaux et données peuvent servir)."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Arrivée, mobilité, départ, et revue régulière des accès.",
+      "SSO = une authentification, plusieurs applications ; fédération = confiance entre IdP et SP.",
+      "SAML (assertions), OAuth 2.0 (autorisation déléguée), OIDC (identité).",
+      "Kerberos : KDC, AS, TGS, tickets, horloges synchronisées.",
+      "PAM : comptes séparés, coffre, juste-à-temps, sessions enregistrées."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m1c4-q21",
+      "m1c4-q24"
+     ]
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "id": "m1c4-q01",
+   "domain": "iaaa",
+   "level": "beginner",
+   "concept": "IAAA",
+   "prompt": "Un utilisateur saisit son nom d'utilisateur « j.martin » sur la page de connexion. Quelle étape réalise-t-il ?",
+   "choices": [
+    "L'authentification",
+    "L'identification",
+    "L'autorisation",
+    "La traçabilité"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Déclarer une identité, sans la prouver, est une identification.",
+   "whyNot": {
+    "0": "L'authentification commence quand il prouve l'identité, par exemple avec son mot de passe.",
+    "2": "L'autorisation vient après, quand le système décide de ses droits.",
+    "3": "La traçabilité relie ensuite ses actions à son identité."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c4-q02",
+   "domain": "iaaa",
+   "level": "beginner",
+   "concept": "Facteurs d'authentification",
+   "prompt": "Une clé de sécurité FIDO2 branchée en USB relève de quel facteur ?",
+   "choices": [
+    "Connaissance",
+    "Possession",
+    "Inhérence",
+    "Localisation"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La clé est un objet que l'utilisateur détient : c'est un facteur de possession.",
+   "whyNot": {
+    "0": "La connaissance regroupe les secrets mémorisés (mot de passe, PIN).",
+    "2": "L'inhérence regroupe les caractéristiques biométriques.",
+    "3": "La localisation est un élément de contexte, pas le facteur de cette clé."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c4-q03",
+   "domain": "iaaa",
+   "level": "intermediate",
+   "concept": "MFA",
+   "prompt": "Laquelle de ces combinaisons est une véritable authentification multifacteur ?",
+   "choices": [
+    "Mot de passe et code PIN",
+    "Mot de passe et question secrète",
+    "Mot de passe et empreinte digitale",
+    "Deux mots de passe différents"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "La MFA combine des facteurs de catégories différentes : connaissance (mot de passe) et inhérence (empreinte).",
+   "whyNot": {
+    "0": "Mot de passe et PIN sont deux éléments de connaissance.",
+    "1": "La question secrète est aussi un élément de connaissance.",
+    "3": "Deux mots de passe restent un seul facteur, la connaissance."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c4-q04",
+   "domain": "iaaa",
+   "level": "intermediate",
+   "concept": "Biométrie",
+   "prompt": "Un lecteur d'empreintes laisse entrer une personne non enregistrée. Quel type d'erreur s'est produit ?",
+   "choices": [
+    "Un faux rejet (FRR, type I)",
+    "Une fausse acceptation (FAR, type II)",
+    "Le taux d'erreur égal (CER)",
+    "Une erreur d'enrôlement"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Accepter un imposteur est une fausse acceptation, l'erreur de type II, la plus dangereuse pour la sécurité.",
+   "whyNot": {
+    "0": "Le faux rejet refuse une personne légitime.",
+    "2": "Le CER est le point où FAR et FRR sont égaux, pas une erreur ponctuelle.",
+    "3": "L'enrôlement est l'enregistrement initial des empreintes, ce n'est pas ce qui s'est passé ici."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c4-q05",
+   "domain": "iaaa",
+   "level": "intermediate",
+   "concept": "Biométrie",
+   "prompt": "Pour comparer la précision de deux lecteurs biométriques, quel indicateur utilise-t-on ?",
+   "choices": [
+    "Le FRR le plus élevé",
+    "Le FAR le plus élevé",
+    "Le CER (ou EER) le plus bas",
+    "Le temps de lecture le plus court"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Le taux d'erreur égal résume la précision : plus il est bas, plus le système est précis.",
+   "whyNot": {
+    "0": "Un FRR élevé signifie beaucoup de refus d'utilisateurs légitimes.",
+    "1": "Un FAR élevé signifie beaucoup d'imposteurs acceptés.",
+    "3": "La rapidité est un critère de confort, pas de précision."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c4-q06",
+   "domain": "iaaa",
+   "level": "intermediate",
+   "concept": "Mots de passe",
+   "prompt": "Quelle mesure est conforme aux recommandations actuelles sur les mots de passe (par exemple NIST SP 800-63B) ?",
+   "choices": [
+    "Imposer un changement tous les 30 jours",
+    "Exiger majuscule, chiffre et symbole quelle que soit la longueur",
+    "Refuser les mots de passe présents dans des listes de fuites connues",
+    "Envoyer un indice de mot de passe par courriel"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Les recommandations actuelles privilégient la longueur et le refus des mots de passe compromis ou trop courants.",
+   "whyNot": {
+    "0": "Le changement périodique sans raison pousse à des mots de passe prévisibles ; on change en cas de compromission.",
+    "1": "Les règles de composition arbitraires sont déconseillées au profit de la longueur.",
+    "3": "Les indices facilitent la tâche de l'attaquant."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c4-q07",
+   "domain": "iaaa",
+   "level": "advanced",
+   "concept": "MFA résistante à l'hameçonnage",
+   "prompt": "Quels moyens d'authentification résistent le mieux à un site d'hameçonnage qui relaie la connexion en temps réel ? (2 réponses)",
+   "choices": [
+    "Clé de sécurité FIDO2",
+    "Code à usage unique reçu par SMS",
+    "Passkey (WebAuthn) liée au nom de domaine",
+    "Code à usage unique d'une application"
+   ],
+   "correct": [
+    0,
+    2
+   ],
+   "explanation": "FIDO2 et les passkeys lient la signature au nom de domaine réel : un faux site ne peut pas obtenir une réponse valide pour le vrai.",
+   "whyNot": {
+    "1": "Un code SMS peut être saisi sur le faux site et relayé immédiatement.",
+    "3": "Un code d'application peut aussi être relayé par l'attaquant pendant sa validité."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c4-q08",
+   "domain": "iaaa",
+   "level": "intermediate",
+   "concept": "Attaques sur l'authentification",
+   "prompt": "Le SIEM montre un seul essai de mot de passe sur chacun de 500 comptes, depuis la même source, en quelques minutes. De quoi s'agit-il ?",
+   "choices": [
+    "Une attaque par force brute sur un compte",
+    "Une pulvérisation de mots de passe (password spraying)",
+    "Un rejeu de ticket Kerberos",
+    "Une fatigue MFA"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Peu d'essais sur beaucoup de comptes, pour rester sous les seuils de verrouillage : c'est une pulvérisation.",
+   "whyNot": {
+    "0": "La force brute cible un compte avec de nombreux essais.",
+    "2": "Le rejeu de ticket ne passe pas par des essais de mot de passe.",
+    "3": "La fatigue MFA consiste à envoyer des notifications push en rafale."
+   },
+   "kind": "example"
+  },
+  {
+   "id": "m1c4-q09",
+   "domain": "iaaa",
+   "level": "beginner",
+   "concept": "Traçabilité",
+   "prompt": "Pourquoi les comptes partagés (« admin » utilisé par cinq personnes) posent-ils problème ?",
+   "choices": [
+    "Ils ralentissent les connexions",
+    "Ils empêchent d'imputer une action à une personne",
+    "Ils sont interdits par tous les systèmes d'exploitation",
+    "Ils empêchent la sauvegarde"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Sans identité unique, les journaux ne permettent pas de savoir qui a fait quoi : la traçabilité est perdue.",
+   "whyNot": {
+    "0": "Le partage n'a pas d'effet sur la vitesse.",
+    "2": "Les systèmes le permettent techniquement, c'est une mauvaise pratique.",
+    "3": "Les sauvegardes ne dépendent pas de cela."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c4-q10",
+   "domain": "iaaa",
+   "level": "advanced",
+   "concept": "Fatigue MFA",
+   "prompt": "Un utilisateur signale des dizaines de notifications MFA qu'il n'a pas demandées. Quelles mesures réduisent ce risque ? (2 réponses)",
+   "choices": [
+    "Activer la correspondance de nombres (saisir le nombre affiché à l'écran)",
+    "Désactiver la MFA pour cet utilisateur",
+    "Limiter le nombre de notifications et alerter le SOC au-delà d'un seuil",
+    "Augmenter la durée de validité des sessions"
+   ],
+   "correct": [
+    0,
+    2
+   ],
+   "explanation": "La correspondance de nombres empêche l'approbation réflexe, et la limitation avec alerte stoppe et signale la rafale.",
+   "whyNot": {
+    "1": "Supprimer la MFA ouvrirait le compte au seul mot de passe, que l'attaquant possède déjà.",
+    "3": "Des sessions plus longues n'empêchent pas l'attaque et prolongent l'usage d'une session volée."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c4-q11",
+   "domain": "iaaa",
+   "level": "beginner",
+   "concept": "Modèles de contrôle d'accès",
+   "prompt": "Une salariée partage elle-même son dossier avec un collègue en modifiant les droits. Quel modèle est en jeu ?",
+   "choices": [
+    "MAC",
+    "DAC",
+    "RBAC",
+    "Contrôle par règles"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Dans le contrôle discrétionnaire (DAC), le propriétaire décide des droits sur ses ressources.",
+   "whyNot": {
+    "0": "En MAC, le système impose l'accès selon les étiquettes ; l'utilisateur ne peut pas partager librement.",
+    "2": "En RBAC, les droits suivent les rôles définis par l'organisation.",
+    "3": "Le contrôle par règles applique des règles globales, comme un pare-feu."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c4-q12",
+   "domain": "iaaa",
+   "level": "beginner",
+   "concept": "Modèles de contrôle d'accès",
+   "prompt": "Dans quel modèle les droits sont-ils attribués à des fonctions comme « comptable » ou « analyste SOC N1 » ?",
+   "choices": [
+    "DAC",
+    "MAC",
+    "RBAC",
+    "ABAC"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Le RBAC attribue les droits aux rôles, puis les rôles aux personnes.",
+   "whyNot": {
+    "0": "Le DAC laisse le propriétaire décider.",
+    "1": "Le MAC s'appuie sur des étiquettes de classification.",
+    "3": "L'ABAC combine des attributs ; un rôle peut en être un, mais le modèle décrit ici est le RBAC."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c4-q13",
+   "domain": "iaaa",
+   "level": "intermediate",
+   "concept": "Modèles de contrôle d'accès",
+   "prompt": "Un système militaire compare l'étiquette « Secret » d'un document à l'habilitation de l'utilisateur, sans que celui-ci puisse rien changer. Quel modèle ?",
+   "choices": [
+    "DAC",
+    "MAC",
+    "RBAC",
+    "Contrôle par règles"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le contrôle obligatoire (MAC) impose l'accès selon des étiquettes et des habilitations définies centralement.",
+   "whyNot": {
+    "0": "En DAC, le propriétaire pourrait modifier les droits.",
+    "2": "Le RBAC raisonne en rôles, pas en niveaux de classification.",
+    "3": "Le contrôle par règles applique des règles générales sans comparer habilitation et classification."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c4-q14",
+   "domain": "iaaa",
+   "level": "intermediate",
+   "concept": "ABAC",
+   "prompt": "« Les médecins du service de cardiologie peuvent lire les dossiers de leurs patients, en poste, depuis un appareil géré. » Quel modèle exprime le mieux cette règle ?",
+   "choices": [
+    "DAC",
+    "MAC",
+    "RBAC seul",
+    "ABAC"
+   ],
+   "correct": [
+    3
+   ],
+   "explanation": "La règle combine des attributs du sujet (métier, service), de la ressource (patient), du contexte (horaire, appareil) : c'est de l'ABAC.",
+   "whyNot": {
+    "0": "Aucun propriétaire ne décide ici au cas par cas.",
+    "1": "Il n'est pas question d'étiquettes de classification.",
+    "2": "Le RBAC seul ne sait pas prendre en compte l'horaire ou l'appareil."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c4-q15",
+   "domain": "iaaa",
+   "level": "intermediate",
+   "concept": "Principes",
+   "prompt": "Un analyste habilité « Confidentiel » demande un dossier « Confidentiel » d'une enquête à laquelle il ne participe pas. Quel principe justifie le refus ?",
+   "choices": [
+    "Le moindre privilège",
+    "Le besoin d'en connaître",
+    "La séparation des tâches",
+    "Le refus par défaut"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "L'habilitation est suffisante, mais sa mission ne l'exige pas : c'est le besoin d'en connaître.",
+   "whyNot": {
+    "0": "Le moindre privilège porte sur l'étendue des droits accordés ; ici le critère décisif est le lien avec la mission.",
+    "2": "La séparation des tâches répartit une tâche sensible entre plusieurs personnes.",
+    "3": "Le refus par défaut concerne ce qui n'est pas explicitement autorisé."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c4-q16",
+   "domain": "iaaa",
+   "level": "intermediate",
+   "concept": "Bell-LaPadula",
+   "prompt": "Quel modèle protège la confidentialité avec les règles « pas de lecture vers le haut, pas d'écriture vers le bas » ?",
+   "choices": [
+    "Biba",
+    "Bell-LaPadula",
+    "Clark-Wilson",
+    "Brewer-Nash"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Bell-LaPadula empêche de lire au-dessus de son niveau et de recopier une information vers un niveau inférieur.",
+   "whyNot": {
+    "0": "Biba protège l'intégrité avec les règles inverses.",
+    "2": "Clark-Wilson protège l'intégrité par des transactions bien formées et la séparation des tâches.",
+    "3": "Brewer-Nash (muraille de Chine) évite les conflits d'intérêts."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c4-q17",
+   "domain": "iaaa",
+   "level": "advanced",
+   "concept": "Biba",
+   "prompt": "Dans le modèle Biba, quelles affirmations sont exactes ? (2 réponses)",
+   "choices": [
+    "Il protège l'intégrité",
+    "Il interdit de lire des données de niveau d'intégrité inférieur",
+    "Il interdit de lire des données de niveau supérieur",
+    "Il protège la confidentialité"
+   ],
+   "correct": [
+    0,
+    1
+   ],
+   "explanation": "Biba protège l'intégrité : pas de lecture vers le bas (no read down), pas d'écriture vers le haut (no write up).",
+   "whyNot": {
+    "2": "Interdire la lecture vers le haut est une règle de Bell-LaPadula.",
+    "3": "La confidentialité est l'objet de Bell-LaPadula."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c4-q18",
+   "domain": "iaaa",
+   "level": "beginner",
+   "concept": "Principes",
+   "prompt": "La dernière règle d'un pare-feu bloque tout trafic qui n'a pas été autorisé par une règle précédente. Quel principe est appliqué ?",
+   "choices": [
+    "Le refus par défaut",
+    "Le besoin d'en connaître",
+    "La défense en profondeur",
+    "La rotation des postes"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Tout ce qui n'est pas explicitement permis est interdit : c'est le refus par défaut (implicit deny).",
+   "whyNot": {
+    "1": "Le besoin d'en connaître concerne l'accès d'une personne à une information.",
+    "2": "La défense en profondeur empile plusieurs couches de protection.",
+    "3": "La rotation des postes concerne le personnel."
+   },
+   "kind": "practice"
+  },
+  {
+   "id": "m1c4-q19",
+   "domain": "iaaa",
+   "level": "intermediate",
+   "concept": "Accumulation de privilèges",
+   "prompt": "Après trois changements de service, un salarié garde tous ses anciens droits. Quelle mesure corrige le mieux ce problème ?",
+   "choices": [
+    "Augmenter la longueur de son mot de passe",
+    "Une revue des accès et le retrait des droits à chaque mobilité",
+    "Activer le chiffrement de son disque",
+    "Lui attribuer un rôle d'administrateur unique"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "L'accumulation de privilèges se traite par le retrait des droits lors des mobilités et des revues régulières.",
+   "whyNot": {
+    "0": "Le mot de passe n'a pas d'effet sur l'étendue des droits.",
+    "2": "Le chiffrement protège les données au repos, pas les droits d'accès.",
+    "3": "Un rôle administrateur aggraverait le problème."
+   },
+   "kind": "practice"
+  },
+  {
+   "id": "m1c4-q20",
+   "domain": "iaaa",
+   "level": "advanced",
+   "concept": "Contrôle par règles",
+   "prompt": "Quelle affirmation distingue correctement le contrôle par règles (rule-based) du contrôle par rôles (role-based) ?",
+   "choices": [
+    "Ce sont deux noms du même modèle",
+    "Le contrôle par règles applique des règles globales à tous, sans tenir compte de la fonction de l'utilisateur",
+    "Le contrôle par règles laisse le propriétaire décider",
+    "Le contrôle par règles utilise des étiquettes de classification"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le contrôle par règles (pare-feu, plages horaires) applique les mêmes règles à tous ; le RBAC dépend de la fonction.",
+   "whyNot": {
+    "0": "Les deux sigles se ressemblent (RBAC), mais les modèles sont différents.",
+    "2": "C'est le principe du DAC.",
+    "3": "Les étiquettes caractérisent le MAC."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c4-q21",
+   "domain": "iaaa",
+   "level": "beginner",
+   "concept": "Fédération",
+   "prompt": "Quel protocole est conçu pour déléguer une autorisation, par exemple permettre à une application d'accéder à vos fichiers sans connaître votre mot de passe ?",
+   "choices": [
+    "SAML 2.0",
+    "OAuth 2.0",
+    "Kerberos",
+    "LDAP"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "OAuth 2.0 délivre des jetons d'accès qui représentent une autorisation déléguée.",
+   "whyNot": {
+    "0": "SAML 2.0 sert surtout à l'authentification et à la fédération par assertions XML.",
+    "2": "Kerberos authentifie dans un domaine à l'aide de tickets.",
+    "3": "LDAP est un protocole d'accès à un annuaire."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c4-q22",
+   "domain": "iaaa",
+   "level": "intermediate",
+   "concept": "Fédération",
+   "prompt": "Quel protocole ajoute une couche d'authentification (jeton d'identité) au-dessus d'OAuth 2.0 ?",
+   "choices": [
+    "SAML 2.0",
+    "OpenID Connect",
+    "RADIUS",
+    "Kerberos"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "OpenID Connect s'appuie sur OAuth 2.0 et fournit un ID token, au format JWT, qui décrit l'utilisateur authentifié.",
+   "whyNot": {
+    "0": "SAML 2.0 est un standard distinct, fondé sur XML.",
+    "2": "RADIUS est un protocole d'authentification réseau, sans lien avec OAuth.",
+    "3": "Kerberos fonctionne avec des tickets, pas au-dessus d'OAuth."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c4-q23",
+   "domain": "iaaa",
+   "level": "intermediate",
+   "concept": "Fédération",
+   "prompt": "Dans une fédération SAML, quel acteur authentifie l'utilisateur et émet l'assertion ?",
+   "choices": [
+    "Le fournisseur de service (SP)",
+    "Le fournisseur d'identité (IdP)",
+    "Le navigateur",
+    "Le pare-feu"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le fournisseur d'identité authentifie l'utilisateur et émet une assertion signée que le fournisseur de service accepte.",
+   "whyNot": {
+    "0": "Le SP consomme l'assertion ; il ne l'émet pas.",
+    "2": "Le navigateur transporte souvent l'assertion mais ne l'émet pas.",
+    "3": "Le pare-feu ne participe pas à SAML."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c4-q24",
+   "domain": "iaaa",
+   "level": "beginner",
+   "concept": "Kerberos",
+   "prompt": "Dans Kerberos, quel composant délivre le ticket d'octroi de tickets (TGT) ?",
+   "choices": [
+    "Le service d'authentification (AS)",
+    "Le service de tickets (TGS)",
+    "Le serveur de fichiers",
+    "Le client"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le client s'authentifie auprès de l'AS, qui lui remet le TGT ; il présentera ensuite ce TGT au TGS.",
+   "whyNot": {
+    "1": "Le TGS délivre les tickets de service, en échange du TGT.",
+    "2": "Le serveur de fichiers reçoit un ticket de service, il n'en délivre pas.",
+    "3": "Le client demande les tickets, il ne les émet pas."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c4-q25",
+   "domain": "iaaa",
+   "level": "intermediate",
+   "concept": "Kerberos",
+   "prompt": "Les horloges d'un poste et du contrôleur de domaine ont 20 minutes d'écart. Quelle conséquence probable avec Kerberos ?",
+   "choices": [
+    "Aucune, Kerberos ignore l'heure",
+    "L'authentification échoue, car les tickets sont horodatés",
+    "Le mot de passe est envoyé en clair",
+    "Le poste devient contrôleur de domaine"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Kerberos horodate ses échanges pour limiter le rejeu ; au-delà de la tolérance configurée, l'authentification est refusée.",
+   "whyNot": {
+    "0": "L'heure est au contraire essentielle à Kerberos.",
+    "2": "Kerberos n'envoie pas le mot de passe sur le réseau.",
+    "3": "Un écart d'horloge ne change pas le rôle d'une machine."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c4-q26",
+   "domain": "iaaa",
+   "level": "advanced",
+   "concept": "Kerberos",
+   "prompt": "Quelles affirmations sur les faiblesses de Kerberos sont exactes ? (2 réponses)",
+   "choices": [
+    "Le KDC est un point unique de défaillance à redonder",
+    "Un ticket volé peut être rejoué jusqu'à son expiration",
+    "Kerberos transmet les mots de passe en clair",
+    "Kerberos ne fonctionne qu'avec la biométrie"
+   ],
+   "correct": [
+    0,
+    1
+   ],
+   "explanation": "Le KDC concentre la confiance et la disponibilité ; un ticket volé reste utilisable tant qu'il est valide (pass-the-ticket).",
+   "whyNot": {
+    "2": "Le mot de passe sert à dériver une clé, il ne circule pas en clair.",
+    "3": "Kerberos n'impose aucun facteur particulier."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c4-q27",
+   "domain": "iaaa",
+   "level": "beginner",
+   "concept": "Cycle de vie des identités",
+   "prompt": "Un administrateur quitte l'entreprise ce soir. Quelle action est prioritaire ?",
+   "choices": [
+    "Supprimer immédiatement toutes ses données",
+    "Désactiver ses comptes et révoquer ses accès et sessions dès son départ",
+    "Attendre la revue trimestrielle des accès",
+    "Changer le mot de passe Wi-Fi invité"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La désactivation immédiate des comptes et la révocation des sessions ferment l'accès ; les données sont conservées selon les règles en vigueur.",
+   "whyNot": {
+    "0": "Supprimer tout de suite peut détruire des données utiles ou des preuves.",
+    "2": "Attendre la revue laisse un compte actif sans propriétaire.",
+    "3": "Le Wi-Fi invité n'est pas l'accès le plus critique d'un administrateur."
+   },
+   "kind": "practice"
+  },
+  {
+   "id": "m1c4-q28",
+   "domain": "iaaa",
+   "level": "intermediate",
+   "concept": "PAM",
+   "prompt": "Quelle mesure relève de la gestion des accès à privilèges (PAM) ?",
+   "choices": [
+    "Un coffre-fort de mots de passe administrateur avec rotation après usage",
+    "Un antivirus sur les postes",
+    "Une politique de bureau propre",
+    "Une sauvegarde hebdomadaire"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le coffre-fort, l'accès juste-à-temps et l'enregistrement des sessions sont des mesures PAM typiques.",
+   "whyNot": {
+    "1": "L'antivirus protège contre les logiciels malveillants.",
+    "2": "Le bureau propre est une mesure de sécurité physique et organisationnelle.",
+    "3": "La sauvegarde relève de la disponibilité."
+   },
+   "kind": "practice"
+  },
+  {
+   "id": "m1c4-q29",
+   "domain": "iaaa",
+   "level": "advanced",
+   "concept": "SSO",
+   "prompt": "Quels sont les effets du SSO sur la sécurité ? (2 réponses)",
+   "choices": [
+    "Moins de mots de passe à retenir, donc moins de réutilisation",
+    "Un compte compromis donne accès à toutes les applications reliées",
+    "Il supprime le besoin d'authentification",
+    "Il rend la MFA inutile"
+   ],
+   "correct": [
+    0,
+    1
+   ],
+   "explanation": "Le SSO réduit la fatigue des mots de passe mais concentre le risque sur une seule authentification, qui doit donc être forte.",
+   "whyNot": {
+    "2": "L'utilisateur s'authentifie toujours, une seule fois.",
+    "3": "La MFA devient au contraire indispensable sur le compte SSO."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c4-q30",
+   "domain": "iaaa",
+   "level": "intermediate",
+   "concept": "Détection",
+   "prompt": "Un même compte se connecte depuis Paris puis, 10 minutes plus tard, depuis un autre continent. Quelle détection est déclenchée ?",
+   "choices": [
+    "Un voyage impossible",
+    "Une pulvérisation de mots de passe",
+    "Une fatigue MFA",
+    "Un Kerberoasting"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Deux connexions trop éloignées pour un délai si court signent un voyage impossible : identifiants ou jetons probablement volés.",
+   "whyNot": {
+    "1": "La pulvérisation vise beaucoup de comptes avec peu d'essais chacun.",
+    "2": "La fatigue MFA se manifeste par des notifications en rafale.",
+    "3": "Le Kerberoasting vise les tickets de comptes de service."
+   },
+   "kind": "example"
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "m1c4-f01",
+   "front": "IAAA",
+   "back": "Identification, authentification, autorisation, traçabilité (accountability).",
+   "concept": "IAAA"
+  },
+  {
+   "id": "m1c4-f02",
+   "front": "Identification",
+   "back": "Déclarer une identité (identifiant, badge). Ne prouve rien.",
+   "concept": "IAAA"
+  },
+  {
+   "id": "m1c4-f03",
+   "front": "Authentification",
+   "back": "Prouver l'identité déclarée avec un ou plusieurs facteurs.",
+   "concept": "IAAA"
+  },
+  {
+   "id": "m1c4-f04",
+   "front": "Les 3 facteurs",
+   "back": "Connaissance (sais), possession (ai), inhérence (suis).",
+   "concept": "Facteurs d'authentification"
+  },
+  {
+   "id": "m1c4-f05",
+   "front": "MFA",
+   "back": "Au moins deux facteurs de catégories différentes.",
+   "concept": "MFA"
+  },
+  {
+   "id": "m1c4-f06",
+   "front": "FRR (type I)",
+   "back": "Faux rejet : une personne légitime est refusée.",
+   "concept": "Biométrie"
+  },
+  {
+   "id": "m1c4-f07",
+   "front": "FAR (type II)",
+   "back": "Fausse acceptation : un imposteur est accepté. Erreur la plus grave.",
+   "concept": "Biométrie"
+  },
+  {
+   "id": "m1c4-f08",
+   "front": "CER / EER",
+   "back": "Point où FAR = FRR. Plus il est bas, plus le système est précis.",
+   "concept": "Biométrie"
+  },
+  {
+   "id": "m1c4-f09",
+   "front": "Password spraying",
+   "back": "Quelques mots de passe courants essayés sur beaucoup de comptes.",
+   "concept": "Attaques sur l'authentification"
+  },
+  {
+   "id": "m1c4-f10",
+   "front": "MFA résistante à l'hameçonnage",
+   "back": "FIDO2 / passkeys (WebAuthn), liées au nom de domaine réel.",
+   "concept": "MFA résistante à l'hameçonnage"
+  },
+  {
+   "id": "m1c4-f11",
+   "front": "DAC",
+   "back": "Le propriétaire décide (ACL).",
+   "concept": "Modèles de contrôle d'accès"
+  },
+  {
+   "id": "m1c4-f12",
+   "front": "MAC",
+   "back": "Le système décide selon étiquettes et habilitations.",
+   "concept": "Modèles de contrôle d'accès"
+  },
+  {
+   "id": "m1c4-f13",
+   "front": "RBAC",
+   "back": "Droits attribués aux rôles, rôles attribués aux personnes.",
+   "concept": "Modèles de contrôle d'accès"
+  },
+  {
+   "id": "m1c4-f14",
+   "front": "ABAC",
+   "back": "Décision selon attributs du sujet, de la ressource, de l'action et du contexte.",
+   "concept": "ABAC"
+  },
+  {
+   "id": "m1c4-f15",
+   "front": "Bell-LaPadula",
+   "back": "Confidentialité : no read up, no write down.",
+   "concept": "Bell-LaPadula"
+  },
+  {
+   "id": "m1c4-f16",
+   "front": "Biba",
+   "back": "Intégrité : no read down, no write up.",
+   "concept": "Biba"
+  },
+  {
+   "id": "m1c4-f17",
+   "front": "OAuth 2.0 / OIDC",
+   "back": "OAuth autorise (access token). OIDC authentifie (ID token JWT) au-dessus d'OAuth.",
+   "concept": "Fédération"
+  },
+  {
+   "id": "m1c4-f18",
+   "front": "SAML 2.0",
+   "back": "Assertions XML signées émises par l'IdP pour le SP.",
+   "concept": "Fédération"
+  },
+  {
+   "id": "m1c4-f19",
+   "front": "Kerberos",
+   "back": "AS → TGT ; TGS → ticket de service ; horloges synchronisées.",
+   "concept": "Kerberos"
+  },
+  {
+   "id": "m1c4-f20",
+   "front": "PAM",
+   "back": "Comptes admin séparés, coffre, juste-à-temps, sessions enregistrées.",
+   "concept": "PAM"
+  }
+ ],
+ "revisionSheet": [
+  "# Fiche de révision : IAM, authentification et contrôle d'accès",
+  "IAAA : identification (déclarer) → authentification (prouver) → autorisation (droits) → traçabilité (journaux, identités uniques).",
+  "Facteurs : connaissance, possession, inhérence. MFA = au moins deux catégories différentes.",
+  "Biométrie : FRR = type I (refus à tort) ; FAR = type II (imposteur accepté, le plus grave) ; CER/EER bas = plus précis.",
+  "Mots de passe : longueur, refus des mots de passe compromis, pas de rotation forcée sans raison, hachage salé lent.",
+  "MFA résistante à l'hameçonnage : FIDO2, passkeys. Contre la fatigue MFA : correspondance de nombres, limitation et alerte.",
+  "Attaques : force brute, pulvérisation, bourrage d'identifiants, fatigue MFA, hameçonnage en temps réel.",
+  "Modèles : DAC (propriétaire), MAC (étiquettes), RBAC (rôles), règles (pare-feu, horaires), ABAC (attributs, PDP/PEP).",
+  "Principes : moindre privilège, besoin d'en connaître, refus par défaut, séparation des tâches.",
+  "Bell-LaPadula (confidentialité) : no read up, no write down. Biba (intégrité) : no read down, no write up.",
+  "Cycle de vie : arrivée, mobilité, départ (JML) + revues d'accès ; désactiver immédiatement au départ.",
+  "SSO (une authentification, plusieurs applications) ; fédération (IdP ↔ SP) ; SAML (assertions XML) ; OAuth 2.0 (autorisation) ; OIDC (identité, JWT).",
+  "Kerberos : KDC = AS + TGS ; TGT puis ticket de service ; horloges synchronisées ; risques pass-the-ticket et Kerberoasting.",
+  "PAM : comptes séparés, coffre-fort, rotation, juste-à-temps, sessions enregistrées.",
+  "Paires à ne pas confondre : identification/authentification ; FAR/FRR ; DAC/MAC ; rule-based/role-based ; Bell-LaPadula/Biba ; OAuth/OIDC ; AS/TGS."
+ ]
+}
