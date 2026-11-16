@@ -267,11 +267,17 @@ void main() {
           matching: find.byType(Scrollable),
         )
         .first;
-    await tester.drag(list, const Offset(0, -2500));
-    await tester.pumpAndSettle();
-    expect(find.text('🔒 Bientôt disponible'), findsWidgets);
-    await tester.drag(list, const Offset(0, 5000));
-    await tester.pumpAndSettle();
+    // Descendre jusqu'aux chapitres à venir, quel que soit leur nombre.
+    final locked = find.text('🔒 Bientôt disponible');
+    for (var i = 0; i < 20 && locked.evaluate().isEmpty; i++) {
+      await tester.drag(list, const Offset(0, -800));
+      await tester.pumpAndSettle();
+    }
+    expect(locked, findsWidgets);
+    for (var i = 0; i < 25; i++) {
+      await tester.drag(list, const Offset(0, 2000));
+      await tester.pumpAndSettle();
+    }
 
     await tester.tap(find.text('Gestion, analyse et traitement des risques'));
     await tester.pumpAndSettle();

@@ -1021,5 +1021,307 @@
   "definition": "Protocole qui chiffre et authentifie les communications réseau, à la base de HTTPS.",
   "example": "TLS 1.3 entre le navigateur et le serveur.",
   "kind": "general"
+ },
+ {
+  "id": "cve",
+  "en": "Common Vulnerabilities and Exposures",
+  "fr": "Vulnérabilités et expositions communes",
+  "acronym": "CVE",
+  "definition": "Identifiant public et unique d'une vulnérabilité précise.",
+  "example": "CVE-2021-44228 (Log4Shell).",
+  "kind": "general"
+ },
+ {
+  "id": "cwe",
+  "en": "Common Weakness Enumeration",
+  "fr": "Énumération des faiblesses communes",
+  "acronym": "CWE",
+  "definition": "Catalogue des types de faiblesses logicielles et matérielles.",
+  "example": "CWE-89 : injection SQL.",
+  "kind": "general"
+ },
+ {
+  "id": "cvss",
+  "en": "Common Vulnerability Scoring System",
+  "fr": "Système commun de notation des vulnérabilités",
+  "acronym": "CVSS",
+  "definition": "Méthode publiée par le FIRST qui note la gravité technique d'une vulnérabilité de 0 à 10.",
+  "example": "Score de base 9,8 : critique.",
+  "kind": "general"
+ },
+ {
+  "id": "nvd",
+  "en": "National Vulnerability Database",
+  "fr": "Base nationale des vulnérabilités (NIST)",
+  "acronym": "NVD",
+  "definition": "Base publique du NIST qui enrichit les CVE avec des scores et des références.",
+  "example": "Consulter la NVD pour connaître les produits touchés.",
+  "kind": "general"
+ },
+ {
+  "id": "kev",
+  "en": "Known Exploited Vulnerabilities catalog",
+  "fr": "Catalogue des vulnérabilités exploitées",
+  "acronym": "KEV",
+  "definition": "Catalogue de la CISA listant les vulnérabilités dont l'exploitation réelle est confirmée.",
+  "example": "Une CVE ajoutée au KEV devient prioritaire.",
+  "kind": "general"
+ },
+ {
+  "id": "epss",
+  "en": "Exploit Prediction Scoring System",
+  "fr": "Système de prédiction d'exploitation",
+  "acronym": "EPSS",
+  "definition": "Score du FIRST estimant la probabilité qu'une CVE soit exploitée dans les 30 jours.",
+  "example": "EPSS de 0,9 : exploitation très probable.",
+  "kind": "general"
+ },
+ {
+  "id": "vulnerability-scan",
+  "en": "Vulnerability scan",
+  "fr": "Scan de vulnérabilités",
+  "definition": "Analyse automatisée qui recherche des vulnérabilités connues sur des systèmes autorisés.",
+  "example": "Scan authentifié hebdomadaire des serveurs.",
+  "kind": "general"
+ },
+ {
+  "id": "patch-management",
+  "en": "Patch management",
+  "fr": "Gestion des correctifs",
+  "definition": "Processus de veille, test, déploiement et vérification des correctifs.",
+  "example": "Déploiement mensuel par vagues.",
+  "kind": "general"
+ },
+ {
+  "id": "virtual-patching",
+  "en": "Virtual patching",
+  "fr": "Patch virtuel",
+  "definition": "Mesure placée devant un système vulnérable pour bloquer l'exploitation sans le modifier.",
+  "example": "Règle de WAF bloquant une requête malveillante.",
+  "kind": "general"
+ },
+ {
+  "id": "zero-day",
+  "en": "Zero-day vulnerability",
+  "fr": "Vulnérabilité zero-day",
+  "definition": "Vulnérabilité connue ou exploitée avant qu'un correctif soit disponible.",
+  "example": "Faille exploitée annoncée sans correctif.",
+  "kind": "general"
+ },
+ {
+  "id": "eol",
+  "en": "End of life",
+  "fr": "Fin de vie",
+  "acronym": "EOL",
+  "definition": "Statut d'un produit qui ne reçoit plus de correctifs de sécurité de son éditeur.",
+  "example": "Ancien système d'exploitation non maintenu.",
+  "kind": "general"
+ },
+ {
+  "id": "exploit",
+  "en": "Exploit",
+  "fr": "Exploit",
+  "definition": "Code ou technique qui tire parti d'une vulnérabilité.",
+  "example": "Script public donnant un accès à distance.",
+  "kind": "general"
+ },
+ {
+  "id": "penetration-test",
+  "en": "Penetration test",
+  "fr": "Test d'intrusion",
+  "definition": "Test autorisé qui tente d'exploiter des vulnérabilités pour démontrer leur impact.",
+  "example": "Test d'intrusion annuel du site web.",
+  "kind": "general"
+ },
+ {
+  "id": "rules-of-engagement",
+  "en": "Rules of engagement",
+  "fr": "Règles d'engagement",
+  "acronym": "RoE",
+  "definition": "Document qui fixe le périmètre, les dates, les techniques et les contacts d'un test de sécurité.",
+  "example": "Interdiction des tests de déni de service.",
+  "kind": "general"
+ },
+ {
+  "id": "red-team",
+  "en": "Red Team",
+  "fr": "Équipe rouge",
+  "definition": "Équipe qui simule un adversaire réaliste pour tester la détection et la réponse de la défense.",
+  "example": "Exercice de trois semaines contre le SOC.",
+  "kind": "general"
+ },
+ {
+  "id": "blue-team",
+  "en": "Blue Team",
+  "fr": "Équipe bleue",
+  "definition": "Équipe de défense chargée de détecter et de répondre aux attaques.",
+  "example": "Le SOC est la Blue Team.",
+  "kind": "general"
+ },
+ {
+  "id": "osi",
+  "en": "Open Systems Interconnection model",
+  "fr": "Modèle d'interconnexion des systèmes ouverts",
+  "acronym": "OSI",
+  "definition": "Modèle de référence en 7 couches pour décrire les communications réseau.",
+  "example": "Un switch travaille en couche 2 du modèle OSI.",
+  "kind": "general"
+ },
+ {
+  "id": "tcp-ip",
+  "en": "TCP/IP model",
+  "fr": "Modèle TCP/IP",
+  "definition": "Modèle en 4 couches sur lequel repose Internet.",
+  "example": "IP appartient à la couche Internet.",
+  "kind": "general"
+ },
+ {
+  "id": "encapsulation",
+  "en": "Encapsulation",
+  "fr": "Encapsulation",
+  "definition": "Ajout par chaque couche de son en-tête autour des données de la couche supérieure.",
+  "example": "Un segment TCP encapsulé dans un paquet IP.",
+  "kind": "general"
+ },
+ {
+  "id": "tcp",
+  "en": "Transmission Control Protocol",
+  "fr": "Protocole de contrôle de transmission",
+  "acronym": "TCP",
+  "definition": "Protocole de transport fiable et orienté connexion.",
+  "example": "HTTPS utilise TCP 443.",
+  "kind": "general"
+ },
+ {
+  "id": "udp",
+  "en": "User Datagram Protocol",
+  "fr": "Protocole de datagramme utilisateur",
+  "acronym": "UDP",
+  "definition": "Protocole de transport rapide et sans connexion.",
+  "example": "Les requêtes DNS passent en UDP 53.",
+  "kind": "general"
+ },
+ {
+  "id": "three-way-handshake",
+  "en": "Three-way handshake",
+  "fr": "Poignée de main en trois temps",
+  "definition": "Établissement d'une connexion TCP : SYN, SYN-ACK, ACK.",
+  "example": "Une inondation SYN abuse de cette étape.",
+  "kind": "general"
+ },
+ {
+  "id": "arp",
+  "en": "Address Resolution Protocol",
+  "fr": "Protocole de résolution d'adresses",
+  "acronym": "ARP",
+  "definition": "Protocole qui associe une adresse IP à une adresse MAC sur le réseau local.",
+  "example": "Usurpation ARP de la passerelle.",
+  "kind": "general"
+ },
+ {
+  "id": "dns",
+  "en": "Domain Name System",
+  "fr": "Système de noms de domaine",
+  "acronym": "DNS",
+  "definition": "Service qui traduit les noms de domaine en adresses IP.",
+  "example": "Le résolveur interne répond aux postes.",
+  "kind": "general"
+ },
+ {
+  "id": "dnssec",
+  "en": "DNS Security Extensions",
+  "fr": "Extensions de sécurité du DNS",
+  "acronym": "DNSSEC",
+  "definition": "Extensions qui signent les réponses DNS pour garantir leur intégrité et leur authenticité.",
+  "example": "Zone signée avec DNSSEC.",
+  "kind": "general"
+ },
+ {
+  "id": "syn-flood",
+  "en": "SYN flood",
+  "fr": "Inondation SYN",
+  "definition": "Déni de service qui envoie de nombreux SYN sans terminer la poignée de main.",
+  "example": "Parade : cookies SYN.",
+  "kind": "general"
+ },
+ {
+  "id": "arp-spoofing",
+  "en": "ARP spoofing",
+  "fr": "Usurpation ARP",
+  "definition": "Fausses annonces ARP permettant de se placer en homme du milieu sur le réseau local.",
+  "example": "Parade : inspection ARP dynamique.",
+  "kind": "general"
+ },
+ {
+  "id": "ipsec",
+  "en": "Internet Protocol Security",
+  "fr": "Sécurité du protocole IP",
+  "acronym": "IPsec",
+  "definition": "Ensemble de protocoles qui protègent les paquets IP (AH, ESP, IKE).",
+  "example": "VPN site à site en ESP mode tunnel.",
+  "kind": "general"
+ },
+ {
+  "id": "esp",
+  "en": "Encapsulating Security Payload",
+  "fr": "Encapsulation de la charge utile de sécurité",
+  "acronym": "ESP",
+  "definition": "Protocole IPsec qui chiffre et protège l'intégrité des données.",
+  "example": "ESP en mode tunnel entre deux sites.",
+  "kind": "general"
+ },
+ {
+  "id": "ah",
+  "en": "Authentication Header",
+  "fr": "En-tête d'authentification",
+  "acronym": "AH",
+  "definition": "Protocole IPsec qui assure intégrité et authentification, sans chiffrement.",
+  "example": "AH ne traverse pas le NAT.",
+  "kind": "general"
+ },
+ {
+  "id": "ssh",
+  "en": "Secure Shell",
+  "fr": "Shell sécurisé",
+  "acronym": "SSH",
+  "definition": "Protocole d'administration à distance chiffré, port 22.",
+  "example": "Connexion SSH par clé.",
+  "kind": "general"
+ },
+ {
+  "id": "snmp",
+  "en": "Simple Network Management Protocol",
+  "fr": "Protocole simple de gestion de réseau",
+  "acronym": "SNMP",
+  "definition": "Protocole de supervision des équipements ; seule la version 3 est sécurisée.",
+  "example": "Supervision des commutateurs en SNMPv3.",
+  "kind": "general"
+ },
+ {
+  "id": "spf",
+  "en": "Sender Policy Framework",
+  "fr": "Cadre de politique d'expéditeur",
+  "acronym": "SPF",
+  "definition": "Enregistrement DNS listant les serveurs autorisés à envoyer du courrier pour un domaine.",
+  "example": "SPF en échec dans les en-têtes.",
+  "kind": "general"
+ },
+ {
+  "id": "dkim",
+  "en": "DomainKeys Identified Mail",
+  "fr": "Courrier identifié par clés de domaine",
+  "acronym": "DKIM",
+  "definition": "Signature des courriels par le domaine expéditeur, vérifiable avec une clé publiée dans le DNS.",
+  "example": "Signature DKIM valide.",
+  "kind": "general"
+ },
+ {
+  "id": "dmarc",
+  "en": "Domain-based Message Authentication, Reporting and Conformance",
+  "fr": "Authentification, rapports et conformité des messages par domaine",
+  "acronym": "DMARC",
+  "definition": "Politique publiée dans le DNS qui exige l'alignement SPF ou DKIM et indique quoi faire en cas d'échec.",
+  "example": "Politique DMARC « reject ».",
+  "kind": "general"
  }
 ]

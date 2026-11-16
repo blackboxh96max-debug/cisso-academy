@@ -30,7 +30,16 @@ void main() {
     final chapters = library.availableChapters.toList();
     expect(
       chapters.map((c) => c.id),
-      containsAll(['m1c1', 'm1c2', 'm1c3', 'm1c4', 'm2c1', 'm2c2']),
+      containsAll([
+        'm1c1',
+        'm1c2',
+        'm1c3',
+        'm1c4',
+        'm2c1',
+        'm2c2',
+        'm2c3',
+        'm3c1',
+      ]),
     );
     for (final ch in chapters) {
       expect(ch.lessons.length, greaterThanOrEqualTo(3), reason: ch.id);

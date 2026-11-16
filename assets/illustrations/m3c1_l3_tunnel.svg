@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <path d="M40 150 L100 40 L130 80 L150 54 L210 150 Z" fill="#E5E7EB" stroke="#26324A" stroke-width="2.4" stroke-linejoin="round" />
+  <path d="M92 54 L100 40 L108 51 Z" fill="#FFFFFF" stroke="#26324A" stroke-width="1.6" />
+  <text x="96" y="106" font-family="Caveat, cursive" font-size="16" fill="#26324A">Internet</text>
+  <path d="M20 132 C80 112 160 112 220 132 L220 154 C160 134 80 134 20 154 Z" fill="#22C55E" fill-opacity="0.55" stroke="#15803D" stroke-width="2.4" />
+  <g stroke="#26324A" stroke-width="2" stroke-linejoin="round">
+    <path d="M4 110 L26 110 L26 160 L4 160 Z" fill="#DCE9FF" />
+    <path d="M214 110 L236 110 L236 160 L214 160 Z" fill="#EDE4FF" />
+    <path d="M102 124 L136 124 L136 144 L102 144 Z" fill="#FFFBF2" />
+    <path d="M102 124 L119 136 L136 124" fill="none" />
+    <path d="M114 140 L124 140 L124 150 L114 150 Z" fill="#FFD84D" />
+  </g>
+  <path d="M116 140 L116 136 C116 132 122 132 122 136 L122 140" fill="none" stroke="#26324A" stroke-width="1.8" />
+  <g fill="#26324A"><rect x="9" y="118" width="5" height="5" /><rect x="16" y="118" width="5" height="5" /><rect x="219" y="118" width="5" height="5" /><rect x="226" y="118" width="5" height="5" /></g>
+</svg>

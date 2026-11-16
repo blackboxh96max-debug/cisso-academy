@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <g stroke="#26324A" stroke-width="2.6" stroke-linejoin="round">
+    <path d="M30 22 L190 18 L192 124 L32 128 Z" fill="#DCE9FF" />
+    <path d="M96 128 L128 127 L134 150 L90 151 Z" fill="#C7D2E5" />
+    <path d="M70 152 C100 148 124 148 154 152" fill="none" />
+  </g>
+  <g transform="rotate(-30 111 72)" stroke="#26324A" stroke-width="2.2">
+    <rect x="61" y="58" width="100" height="28" rx="12" fill="#FFD8B0" />
+    <rect x="96" y="58" width="30" height="28" fill="#FFE9D2" />
+  </g>
+  <g transform="rotate(30 111 72)" stroke="#26324A" stroke-width="2.2">
+    <rect x="61" y="58" width="100" height="28" rx="12" fill="#FFD8B0" />
+    <rect x="96" y="58" width="30" height="28" fill="#FFE9D2" />
+  </g>
+  <g fill="#C2410C"><circle cx="104" cy="68" r="1.6" /><circle cx="116" cy="68" r="1.6" /><circle cx="104" cy="78" r="1.6" /><circle cx="116" cy="78" r="1.6" /></g>
+  <path d="M212 60 A22 22 0 1 1 196 38" fill="none" stroke="#22C55E" stroke-width="4" stroke-linecap="round" />
+  <path d="M190 30 L198 38 L188 44" fill="none" stroke="#22C55E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="160" y="172" font-family="Caveat, cursive" font-size="15" fill="#15803D">mise à jour</text>
+</svg>
