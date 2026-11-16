@@ -1594,7 +1594,7 @@
    },
    {
     "label": "OWASP Top 10",
-    "en": "OWASP Top 10",
+    "en": "Top 10 Web Application Security Risks",
     "emoji": "🔟",
     "tone": "red",
     "children": [
