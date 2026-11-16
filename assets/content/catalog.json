@@ -49,7 +49,7 @@
       "id": "m4", "number": 4, "title": "Sécurité du développement logiciel et des données", "titleEn": "Secure Software and Data Security",
       "chapters": [
         {"id": "m4c1", "title": "Développement sécurisé et OWASP", "titleEn": "Secure Development and OWASP", "domains": ["secure-software"], "file": "m4c1_developpement.json"},
-        {"id": "m4c2", "title": "Bases de données et protection des données", "titleEn": "Databases and Data Protection", "domains": ["data-security"]},
+        {"id": "m4c2", "title": "Bases de données et protection des données", "titleEn": "Databases and Data Protection", "domains": ["data-security"], "file": "m4c2_donnees.json"},
         {"id": "m4c3", "title": "Malwares, ransomware et analyse", "titleEn": "Malware, Ransomware and Analysis", "domains": ["malware"]}
       ]
     },

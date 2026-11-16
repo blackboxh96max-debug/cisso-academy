@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <g stroke="#26324A" stroke-width="2.2" stroke-linejoin="round">
+    <path d="M70 46 C70 32 150 32 150 46 L150 128 C150 142 70 142 70 128 Z" fill="#DBEAFE" />
+    <path d="M70 46 C70 60 150 60 150 46" fill="none" />
+    <path d="M70 74 C70 88 150 88 150 74" fill="none" />
+    <path d="M70 102 C70 116 150 116 150 102" fill="none" />
+    <rect x="98" y="90" width="26" height="22" rx="4" fill="#FDE68A" />
+    <path d="M103 90 L103 82 C103 72 119 72 119 82 L119 90" fill="none" />
+    <circle cx="190" cy="56" r="20" fill="#FFFFFF" />
+    <path d="M204 70 L224 90" stroke-width="4" stroke-linecap="round" />
+  </g>
+  <g stroke="#26324A" stroke-width="2" fill="#EDE4FF">
+    <rect x="14" y="40" width="40" height="26" rx="3" />
+    <rect x="14" y="78" width="40" height="26" rx="3" fill="#DCFCE7" />
+    <rect x="14" y="116" width="40" height="26" rx="3" fill="#FED7AA" />
+  </g>
+  <g stroke="#26324A" stroke-width="1.6"><path d="M20 50 L40 50 M20 58 L32 58 M20 88 L44 88 M20 96 L30 96 M20 126 L36 126 M20 134 L46 134" /></g>
+  <g font-family="Caveat, cursive" font-size="14" text-anchor="middle">
+    <text x="34" y="162" fill="#6D28D9">vues</text>
+    <text x="110" y="162" fill="#1D4ED8">base chiffrée</text>
+    <text x="196" y="112" fill="#C2410C">surveillance</text>
+  </g>
+</svg>

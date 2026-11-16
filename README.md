@@ -21,7 +21,7 @@ Elle fonctionne **entièrement hors ligne** sur Android et Windows : cours, QCM,
 | Termes clés affichés en français et en anglais dans les cours, fiches, flashcards et cartes | ✅ |
 | Menu Révisions : flashcards, fiches et cartes mentales par chapitre ou par module, export PDF | ✅ |
 | Suivi des erreurs par notion et par domaine officiel | ✅ |
-| Contenu : modules 1, 2 et 3 complets et 1er chapitre du module 4 (324 questions) | ✅ (étape 2 en cours) |
+| Contenu : modules 1, 2 et 3 complets et chapitres 1 et 2 du module 4 (354 questions) | ✅ (étape 2 en cours) |
 
 Le détail de ce qui est fait, testé et prévu se trouve dans [PROJECT_STATUS.md](PROJECT_STATUS.md).
 

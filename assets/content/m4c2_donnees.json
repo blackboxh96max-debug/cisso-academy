@@ -1,0 +1,1689 @@
+{
+ "lessons": [
+  {
+   "id": "m4c2-l1",
+   "title": "Sécuriser les bases de données",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m4c2_l1_base.svg",
+   "illustrationAlt": "Dessin d'une base de données en forme de cylindre entourée d'un cadenas, avec une loupe qui surveille les requêtes et trois petites fenêtres qui ne montrent chacune qu'une partie des données.",
+   "objectives": [
+    "Appliquer le moindre privilège aux comptes et aux applications qui accèdent à une base.",
+    "Expliquer l'agrégation, l'inférence et la polyinstanciation.",
+    "Utiliser les vues, les procédures stockées et le chiffrement pour limiter l'exposition.",
+    "Surveiller l'activité d'une base de données."
+   ],
+   "references": [
+    {
+     "title": "CIS Benchmarks pour les systèmes de gestion de bases de données",
+     "kind": "general"
+    },
+    {
+     "title": "OWASP Database Security Cheat Sheet",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "La base de données, cible prioritaire"
+    },
+    {
+     "type": "text",
+     "text": "Les bases de données concentrent les informations les plus précieuses : clients, paie, santé, secrets industriels. Un attaquant cherche presque toujours à les atteindre. Leur protection combine contrôle d'accès, durcissement, chiffrement, sauvegardes et surveillance."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Mesure",
+       "But",
+       "Exemple"
+      ],
+      [
+       "Comptes nominatifs et moindre privilège",
+       "Chacun n'accède qu'à ce qu'il doit",
+       "L'application lit les commandes, sans droit d'administration"
+      ],
+      [
+       "Vues",
+       "Ne montrer qu'une partie des colonnes ou des lignes",
+       "Le support voit le nom du client, pas son IBAN"
+      ],
+      [
+       "Procédures stockées",
+       "N'autoriser que des opérations prévues",
+       "« créer_commande » au lieu d'un accès direct aux tables"
+      ],
+      [
+       "Chiffrement",
+       "Protéger les fichiers et les colonnes sensibles",
+       "Chiffrement transparent des fichiers (TDE), colonne « numéro de carte » chiffrée"
+      ],
+      [
+       "Surveillance de l'activité (DAM)",
+       "Voir et alerter sur les requêtes suspectes",
+       "Extraction massive à 3 h du matin"
+      ],
+      [
+       "Durcissement",
+       "Réduire la surface d'attaque",
+       "Comptes par défaut supprimés, base non exposée sur Internet"
+      ]
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "Vue (base de données)",
+     "text": "Table virtuelle construite par une requête, qui ne présente qu'une partie des données. Donner accès à une vue plutôt qu'à la table applique le moindre privilège.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Trois menaces propres aux bases"
+    },
+    {
+     "type": "diagram",
+     "title": "Agrégation, inférence et leur parade",
+     "alt": "Tableau en quatre cases : l'agrégation combine des données peu sensibles pour obtenir une information sensible ; l'inférence déduit une information cachée à partir de données accessibles ; la polyinstanciation présente des versions différentes selon le niveau d'habilitation ; le contrôle du contexte limite les combinaisons de requêtes.",
+     "diagram": {
+      "type": "quadrant",
+      "xLabel": "Menace",
+      "yLabel": "Parade",
+      "cells": [
+       {
+        "emoji": "🧩",
+        "label": "Agrégation",
+        "detail": "petits morceaux → secret",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🕵️",
+        "label": "Inférence",
+        "detail": "déduire ce qui est caché",
+        "tone": "red"
+       },
+       {
+        "emoji": "🪞",
+        "label": "Polyinstanciation",
+        "detail": "une version par niveau",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🎛️",
+        "label": "Contrôle du contexte",
+        "detail": "limiter les combinaisons",
+        "tone": "blue"
+       }
+      ]
+     }
+    },
+    {
+     "type": "definition",
+     "title": "Agrégation",
+     "text": "Combinaison de plusieurs données peu sensibles qui, rassemblées, révèlent une information sensible. Exemple : les adresses de livraison et les dates de commandes d'un fournisseur militaire révèlent les mouvements d'une unité.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Inférence",
+     "text": "Déduction d'une information à laquelle on n'a pas accès à partir de données auxquelles on a accès. Exemple : la masse salariale d'un service de deux personnes et le salaire de l'une révèlent le salaire de l'autre.",
+     "kind": "general"
+    },
+    {
+     "type": "important",
+     "title": "La polyinstanciation",
+     "text": "La polyinstanciation consiste à conserver plusieurs versions d'un même enregistrement selon le niveau d'habilitation. Un utilisateur non habilité voit une version anodine (« navire en exercice ») au lieu d'un refus qui trahirait l'existence d'une information secrète. C'est une parade à l'inférence."
+    },
+    {
+     "type": "memo",
+     "text": "Agrégation = additionner pour savoir. Inférence = déduire pour savoir. Polyinstanciation = montrer une autre version pour cacher qu'il y a un secret."
+    },
+    {
+     "type": "heading",
+     "text": "Intégrité des transactions"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Propriété ACID",
+       "Sens"
+      ],
+      [
+       "Atomicité",
+       "Tout ou rien : une transaction est entièrement faite ou entièrement annulée"
+      ],
+      [
+       "Cohérence",
+       "La base passe d'un état valide à un autre état valide"
+      ],
+      [
+       "Isolation",
+       "Les transactions simultanées ne se perturbent pas"
+      ],
+      [
+       "Durabilité",
+       "Une transaction validée survit à une panne"
+      ]
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "Les questions sur l'agrégation et l'inférence se ressemblent. Demandez-vous : la personne rassemble-t-elle beaucoup de données (agrégation) ou raisonne-t-elle à partir de quelques-unes (inférence) ? Et retenez que la polyinstanciation répond à l'inférence."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : une extraction nocturne",
+     "kind": "example",
+     "text": "Sur une base de démonstration, l'outil de surveillance de l'activité (DAM) alerte : le compte de service du site web exécute à 3 h du matin une requête « SELECT * » sur toute la table clients, alors qu'il ne lit d'habitude qu'une commande à la fois. L'analyste coupe le compte, découvre une injection SQL dans un formulaire, et l'équipe restreint le compte à des procédures stockées."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "Administrateur de base : je supprime les comptes par défaut et je sépare les comptes d'administration des comptes applicatifs.",
+      "Analyste SOC : une requête qui renvoie des milliers de lignes d'un coup mérite une alerte.",
+      "Auditeur : je vérifie qui a les droits d'administration et si les accès aux données sensibles sont journalisés.",
+      "RSSI : les bases sensibles ne sont jamais exposées directement sur Internet."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Agrégation ≠ inférence : rassembler ou déduire.",
+      "La polyinstanciation est une parade à l'inférence.",
+      "Les vues limitent ce qu'un utilisateur voit : moindre privilège.",
+      "ACID = atomicité, cohérence, isolation, durabilité."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Moindre privilège, vues, procédures stockées, chiffrement, durcissement, surveillance (DAM).",
+      "Agrégation : rassembler des données anodines ; inférence : déduire une donnée cachée.",
+      "Polyinstanciation : une version par niveau d'habilitation.",
+      "ACID garantit l'intégrité des transactions."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m4c2-q02",
+      "m4c2-q05"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m4c2-l2",
+   "title": "Classifier les données et gérer leur cycle de vie",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m4c2_l2_etiquettes.svg",
+   "illustrationAlt": "Dessin de trois dossiers avec des étiquettes de couleur : vert public, jaune interne, rouge confidentiel, et une flèche circulaire qui va de la création à la destruction.",
+   "objectives": [
+    "Classifier les données selon leur sensibilité.",
+    "Distinguer les rôles : propriétaire, dépositaire, utilisateur, responsable de traitement et sous-traitant.",
+    "Décrire le cycle de vie des données, de la création à la destruction.",
+    "Protéger les données dans leurs trois états : au repos, en transit, en cours d'utilisation."
+   ],
+   "references": [
+    {
+     "title": "ISO/IEC 27001:2022, annexe A, mesures 5.12 (classification) et 5.13 (marquage)",
+     "kind": "general"
+    },
+    {
+     "title": "Règlement (UE) 2016/679, règlement général sur la protection des données (RGPD)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Pourquoi classifier ?"
+    },
+    {
+     "type": "text",
+     "text": "On ne peut pas tout protéger au même niveau : ce serait trop cher et trop contraignant. La classification indique la valeur et la sensibilité de chaque information, pour lui appliquer les bonnes mesures : chiffrement, accès, conservation, destruction."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Niveau (exemple d'entreprise)",
+       "Impact d'une divulgation",
+       "Exemples"
+      ],
+      [
+       "Public",
+       "Aucun",
+       "Site web, communiqués"
+      ],
+      [
+       "Interne",
+       "Faible",
+       "Annuaire, procédures internes"
+      ],
+      [
+       "Confidentiel",
+       "Important",
+       "Contrats, données clients, paie"
+      ],
+      [
+       "Secret / restreint",
+       "Grave",
+       "Fusions en cours, secrets industriels"
+      ]
+     ]
+    },
+    {
+     "type": "text",
+     "text": "Dans le secteur public et militaire, on rencontre d'autres échelles, par exemple en anglais : Unclassified, Confidential, Secret, Top Secret. Le principe est le même : plus l'impact d'une divulgation est grave, plus le niveau est élevé."
+    },
+    {
+     "type": "important",
+     "title": "C'est le propriétaire qui classifie",
+     "text": "Le propriétaire des données (un responsable métier) décide de leur classification et de qui peut y accéder. Le dépositaire (souvent l'équipe informatique) applique les protections au quotidien : sauvegardes, droits, chiffrement. La sécurité conseille, mais ne classifie pas à la place du métier."
+    },
+    {
+     "type": "heading",
+     "text": "Les rôles"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Rôle",
+       "Responsabilité"
+      ],
+      [
+       "Propriétaire des données",
+       "Classifie, décide des accès, répond de la protection"
+      ],
+      [
+       "Dépositaire (custodian)",
+       "Met en œuvre les protections : sauvegardes, droits, chiffrement"
+      ],
+      [
+       "Utilisateur",
+       "Utilise les données selon les règles"
+      ],
+      [
+       "Responsable de traitement (RGPD)",
+       "Détermine les finalités et les moyens du traitement de données personnelles"
+      ],
+      [
+       "Sous-traitant (RGPD)",
+       "Traite des données personnelles pour le compte du responsable de traitement"
+      ],
+      [
+       "Délégué à la protection des données (DPO)",
+       "Conseille et contrôle la conformité au RGPD"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Le cycle de vie"
+    },
+    {
+     "type": "diagram",
+     "title": "De la création à la destruction",
+     "alt": "Cycle en six étapes : créer, stocker, utiliser, partager, archiver, détruire, puis retour à la création de nouvelles données.",
+     "diagram": {
+      "type": "cycle",
+      "center": "🏷️ Classification\nà chaque étape",
+      "nodes": [
+       {
+        "emoji": "✏️",
+        "label": "Créer",
+        "detail": "classifier dès la création",
+        "tone": "blue"
+       },
+       {
+        "emoji": "💾",
+        "label": "Stocker",
+        "detail": "chiffrer au repos",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🖥️",
+        "label": "Utiliser",
+        "detail": "accès selon le besoin",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "📤",
+        "label": "Partager",
+        "detail": "chiffrer en transit",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🗄️",
+        "label": "Archiver",
+        "detail": "durée de conservation",
+        "tone": "green"
+       },
+       {
+        "emoji": "🗑️",
+        "label": "Détruire",
+        "detail": "méthode adaptée",
+        "tone": "red"
+       }
+      ]
+     }
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "État des données",
+       "Protection typique"
+      ],
+      [
+       "Au repos (stockées)",
+       "Chiffrement des disques, des bases, des sauvegardes"
+      ],
+      [
+       "En transit (sur le réseau)",
+       "TLS, VPN, IPsec"
+      ],
+      [
+       "En cours d'utilisation (en mémoire)",
+       "Contrôle d'accès, isolation, enclaves de calcul confidentiel"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "Trois états : au repos (disque), en transit (réseau), en usage (mémoire). Chacun a sa protection."
+    },
+    {
+     "type": "trainerNote",
+     "text": "Retenez la différence de vocabulaire : propriétaire = responsabilité et décision ; dépositaire = mise en œuvre technique. Une question qui demande « qui décide de la classification » attend le propriétaire, jamais l'administrateur."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : un fichier mal étiqueté",
+     "kind": "example",
+     "text": "Dans un exercice, un tableur de paie marqué « Interne » est envoyé à un prestataire. L'outil de prévention des fuites ne le bloque pas, car il se fie à l'étiquette. L'enquête montre que le fichier avait été créé à partir d'un modèle « Interne ». Le propriétaire de la paie reclassifie le modèle en « Confidentiel » et une règle détecte désormais les numéros de sécurité sociale quel que soit l'étiquetage."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "Propriétaire métier : je décide qui a besoin de mes données et pour combien de temps.",
+      "Administrateur (dépositaire) : j'applique les droits et je vérifie les sauvegardes.",
+      "Auditeur : je vérifie que chaque donnée sensible a un propriétaire et une durée de conservation.",
+      "DPO : je m'assure que les données personnelles ont une finalité et une base légale."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Le propriétaire classifie ; le dépositaire protège.",
+      "Les données sont à protéger dans les trois états, pas seulement au repos.",
+      "Une classification se revoit : une information peut devenir publique (par exemple après une annonce).",
+      "Responsable de traitement = décide ; sous-traitant = exécute pour son compte."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Classifier selon l'impact d'une divulgation ; marquer et protéger en conséquence.",
+      "Propriétaire, dépositaire, utilisateur ; responsable de traitement, sous-traitant, DPO.",
+      "Cycle de vie : créer, stocker, utiliser, partager, archiver, détruire.",
+      "Trois états : au repos, en transit, en cours d'utilisation."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m4c2-q11",
+      "m4c2-q13"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m4c2-l3",
+   "title": "Prévenir les fuites et détruire les données",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m4c2_l3_destruction.svg",
+   "illustrationAlt": "Dessin d'un disque dur qui passe dans un broyeur, à côté d'un document dont certains chiffres sont masqués par des étoiles.",
+   "objectives": [
+    "Expliquer le rôle d'une solution de prévention des fuites de données (DLP).",
+    "Distinguer masquage, tokenisation, pseudonymisation et anonymisation.",
+    "Choisir une méthode d'effacement adaptée : nettoyage, purge, destruction.",
+    "Appliquer les grands principes du RGPD aux données personnelles."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-88 Rev. 1, Guidelines for Media Sanitization",
+     "kind": "general"
+    },
+    {
+     "title": "Règlement (UE) 2016/679 (RGPD), article 5 (principes) et article 33 (notification des violations)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Prévenir les fuites (DLP)"
+    },
+    {
+     "type": "definition",
+     "title": "DLP (prévention des fuites de données)",
+     "text": "Ensemble d'outils et de règles qui repèrent les données sensibles (par leur contenu ou leur étiquette) et empêchent ou signalent leur sortie non autorisée : courriel, clé USB, cloud, impression.",
+     "kind": "general"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Où",
+       "Ce que la DLP surveille"
+      ],
+      [
+       "Sur le poste (endpoint)",
+       "Copie sur clé USB, impression, téléversement"
+      ],
+      [
+       "Sur le réseau",
+       "Courriels et flux web sortants"
+      ],
+      [
+       "Dans le cloud",
+       "Partages publics, applications SaaS (souvent via un CASB)"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Réduire l'exposition des données"
+    },
+    {
+     "type": "diagram",
+     "title": "Quatre techniques, quatre niveaux de réversibilité",
+     "alt": "Tableau en quatre cases : le masquage cache une partie d'une donnée à l'affichage ; la tokenisation remplace la donnée par un jeton, réversible via un coffre ; la pseudonymisation remplace l'identité mais reste une donnée personnelle ; l'anonymisation rend la réidentification impossible et sort du champ du RGPD.",
+     "diagram": {
+      "type": "quadrant",
+      "xLabel": "Technique",
+      "yLabel": "Réversible ?",
+      "cells": [
+       {
+        "emoji": "🎭",
+        "label": "Masquage",
+        "detail": "**** **** **** 1234",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🎟️",
+        "label": "Tokenisation",
+        "detail": "jeton ↔ coffre sécurisé",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🥸",
+        "label": "Pseudonymisation",
+        "detail": "réversible avec une clé : RGPD s'applique",
+        "tone": "orange"
+       },
+       {
+        "emoji": "👻",
+        "label": "Anonymisation",
+        "detail": "irréversible : hors RGPD",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "important",
+     "title": "Pseudonymiser n'est pas anonymiser",
+     "text": "Des données pseudonymisées (le nom remplacé par un identifiant, avec une table de correspondance) restent des données personnelles : le RGPD s'applique. Seules des données vraiment anonymisées, dont personne ne peut réidentifier la personne, sortent du champ du RGPD. L'anonymisation est difficile : croiser plusieurs jeux de données suffit souvent à réidentifier."
+    },
+    {
+     "type": "heading",
+     "text": "Effacer pour de bon"
+    },
+    {
+     "type": "text",
+     "text": "Supprimer un fichier ou formater un disque n'efface pas les données : elles restent lisibles avec des outils de récupération. C'est la rémanence des données. Le NIST SP 800-88 distingue trois niveaux d'assainissement des supports."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Niveau (NIST SP 800-88)",
+       "Principe",
+       "Exemple",
+       "Réutilisation"
+      ],
+      [
+       "Nettoyage (clear)",
+       "Protège contre une récupération simple",
+       "Réécriture des données par le logiciel",
+       "Oui, en interne"
+      ],
+      [
+       "Purge (purge)",
+       "Protège contre une récupération en laboratoire",
+       "Commande d'effacement sécurisé du disque, effacement cryptographique, démagnétisation",
+       "Selon le support"
+      ],
+      [
+       "Destruction (destroy)",
+       "Le support ne peut plus être utilisé",
+       "Broyage, désintégration, incinération",
+       "Non"
+      ]
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "Effacement cryptographique (crypto-shredding)",
+     "text": "Destruction de la clé qui chiffrait des données : sans clé, les données chiffrées deviennent illisibles. Très utile dans le cloud, où l'on ne peut pas détruire les disques physiques.",
+     "kind": "general"
+    },
+    {
+     "type": "risk",
+     "title": "La démagnétisation et les SSD",
+     "text": "La démagnétisation (degaussing) efface les supports magnétiques comme les disques durs classiques et les bandes, mais elle est inefficace sur les SSD et les clés USB, qui stockent les données dans de la mémoire flash. Pour eux, on utilise l'effacement sécurisé du fabricant, l'effacement cryptographique ou la destruction physique."
+    },
+    {
+     "type": "heading",
+     "text": "Données personnelles : l'essentiel du RGPD"
+    },
+    {
+     "type": "practice",
+     "title": "Principes à appliquer",
+     "items": [
+      "Licéité, loyauté, transparence : une base légale et une information claire des personnes.",
+      "Limitation des finalités : collecter pour un but précis.",
+      "Minimisation : ne collecter que ce qui est nécessaire.",
+      "Exactitude et limitation de la conservation : données à jour, gardées le temps nécessaire.",
+      "Intégrité et confidentialité : mesures de sécurité adaptées.",
+      "Violation de données : notification à l'autorité de contrôle dans les 72 heures après en avoir pris connaissance, sauf risque improbable pour les personnes."
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "RGPD : « Moins, moins longtemps, mieux protégé » : minimiser, limiter la conservation, sécuriser."
+    },
+    {
+     "type": "trainerNote",
+     "text": "Pour les questions de destruction, regardez deux indices : le type de support (magnétique ou flash) et le devenir du support (réutilisé en interne, revendu, jeté). Plus le support sort de votre contrôle, plus la méthode doit être forte."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : des disques revendus",
+     "kind": "example",
+     "text": "Lors d'un audit simulé, un lot d'ordinateurs réformés vendus à un recycleur est testé : sur deux disques simplement formatés, des fichiers clients sont récupérés en quelques minutes. Le SOC ouvre un incident, le DPO évalue s'il faut notifier, et la procédure impose désormais une purge certifiée, avec un certificat d'effacement pour chaque disque."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "DPO : je préfère des données que l'on n'a jamais collectées : la minimisation est la meilleure protection.",
+      "Analyste SOC : une alerte DLP sur un envoi massif vers une messagerie personnelle est prioritaire.",
+      "Auditeur : je demande les certificats d'effacement des supports réformés.",
+      "RSSI : dans le cloud, je compte sur le chiffrement avec mes propres clés et l'effacement cryptographique."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Formater ou supprimer ≠ effacer : rémanence.",
+      "Démagnétisation inefficace sur SSD et mémoire flash.",
+      "Pseudonymisation = toujours des données personnelles.",
+      "Notification RGPD à l'autorité : 72 heures."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "DLP sur le poste, le réseau et le cloud.",
+      "Masquage, tokenisation, pseudonymisation (réversible), anonymisation (irréversible).",
+      "NIST SP 800-88 : nettoyage, purge, destruction ; effacement cryptographique.",
+      "RGPD : minimisation, limitation de conservation, sécurité, notification sous 72 heures."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m4c2-q21",
+      "m4c2-q24"
+     ]
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "id": "m4c2-q01",
+   "domain": "data-security",
+   "level": "beginner",
+   "concept": "Vues",
+   "prompt": "Le service client doit voir le nom des clients mais pas leur IBAN. Quelle fonction de la base de données convient ?",
+   "choices": [
+    "Une vue qui n'expose que les colonnes nécessaires",
+    "Un accès complet à la table",
+    "Une sauvegarde quotidienne",
+    "Un index"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "La vue ne montre qu'une partie des données : c'est le moindre privilège appliqué à la base.",
+   "whyNot": {
+    "1": "L'IBAN serait visible.",
+    "2": "La sauvegarde ne limite pas l'accès.",
+    "3": "Un index accélère les recherches, il ne restreint rien."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c2-q02",
+   "domain": "data-security",
+   "level": "beginner",
+   "concept": "Agrégation",
+   "prompt": "Un employé rassemble les dates de livraison et les adresses de nombreuses commandes, toutes peu sensibles, et en déduit les déplacements d'une unité militaire. Comment s'appelle ce risque ?",
+   "choices": [
+    "L'agrégation",
+    "La polyinstanciation",
+    "La normalisation",
+    "La réplication"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Combiner beaucoup de données anodines pour obtenir une information sensible, c'est l'agrégation.",
+   "whyNot": {
+    "1": "La polyinstanciation est une parade.",
+    "2": "La normalisation organise les tables.",
+    "3": "La réplication copie la base."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c2-q03",
+   "domain": "data-security",
+   "level": "beginner",
+   "concept": "ACID",
+   "prompt": "Que garantit l'atomicité d'une transaction ?",
+   "choices": [
+    "Qu'elle est chiffrée",
+    "Qu'elle est entièrement réalisée ou entièrement annulée",
+    "Qu'elle est rapide",
+    "Qu'elle est anonyme"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Tout ou rien : un virement ne peut pas débiter un compte sans créditer l'autre.",
+   "whyNot": {
+    "0": "L'atomicité ne concerne pas le chiffrement.",
+    "2": "Elle ne concerne pas la vitesse.",
+    "3": "Sans rapport."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c2-q04",
+   "domain": "data-security",
+   "level": "intermediate",
+   "concept": "Inférence",
+   "prompt": "Un utilisateur connaît la masse salariale d'un service de deux personnes et le salaire de l'une d'elles. Il en déduit le salaire de l'autre. De quoi s'agit-il ?",
+   "choices": [
+    "D'agrégation",
+    "D'inférence",
+    "D'injection SQL",
+    "D'escalade de privilèges"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Il déduit une information à laquelle il n'a pas accès à partir de données accessibles : c'est l'inférence.",
+   "whyNot": {
+    "0": "Il ne rassemble pas une grande quantité de données ; il raisonne.",
+    "2": "Aucune requête piégée.",
+    "3": "Ses droits ne changent pas."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c2-q05",
+   "domain": "data-security",
+   "level": "intermediate",
+   "concept": "Polyinstanciation",
+   "prompt": "Quel mécanisme montre à un utilisateur non habilité une version anodine d'un enregistrement secret, pour qu'il ne devine pas qu'un secret existe ?",
+   "choices": [
+    "La polyinstanciation",
+    "L'agrégation",
+    "La sauvegarde différentielle",
+    "Le hachage"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Plusieurs versions d'un enregistrement selon le niveau d'habilitation : c'est une parade à l'inférence.",
+   "whyNot": {
+    "1": "L'agrégation est une menace.",
+    "2": "Sans rapport.",
+    "3": "Le hachage protège l'intégrité."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c2-q06",
+   "domain": "data-security",
+   "level": "intermediate",
+   "concept": "Procédures stockées",
+   "prompt": "Pourquoi donner à une application le droit d'exécuter des procédures stockées plutôt qu'un accès direct aux tables ?",
+   "choices": [
+    "Pour qu'elle ne puisse faire que les opérations prévues",
+    "Pour accélérer les sauvegardes",
+    "Pour supprimer les journaux",
+    "Pour éviter le chiffrement"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Les procédures limitent les opérations possibles et réduisent l'impact d'une compromission de l'application.",
+   "whyNot": {
+    "1": "Sans rapport.",
+    "2": "Les journaux restent nécessaires.",
+    "3": "Sans rapport."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c2-q07",
+   "domain": "data-security",
+   "level": "intermediate",
+   "concept": "DAM",
+   "prompt": "Quel outil alerte quand un compte applicatif lit d'un coup toute la table clients à 3 h du matin ?",
+   "choices": [
+    "La surveillance de l'activité de la base (DAM)",
+    "Le pare-feu à états",
+    "Le NAT",
+    "La sauvegarde"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le DAM observe les requêtes et repère les comportements inhabituels sur les données.",
+   "whyNot": {
+    "1": "Il voit des connexions, pas le contenu des requêtes.",
+    "2": "Sans rapport.",
+    "3": "La sauvegarde ne surveille rien."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c2-q08",
+   "domain": "data-security",
+   "level": "advanced",
+   "concept": "Durcissement",
+   "prompt": "Quelles mesures renforcent une base de données de production ? (plusieurs réponses)",
+   "choices": [
+    "Supprimer les comptes par défaut",
+    "Séparer comptes d'administration et comptes applicatifs",
+    "Exposer le port de la base sur Internet pour le support",
+    "Chiffrer les fichiers et les sauvegardes"
+   ],
+   "correct": [
+    0,
+    1,
+    3
+   ],
+   "explanation": "Comptes par défaut supprimés, séparation des comptes et chiffrement réduisent fortement le risque.",
+   "whyNot": {
+    "2": "Une base ne doit jamais être exposée directement sur Internet."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c2-q09",
+   "domain": "data-security",
+   "level": "advanced",
+   "concept": "Inférence",
+   "prompt": "Quelle mesure réduit le mieux le risque d'inférence dans une base de statistiques sur les salaires ?",
+   "choices": [
+    "Refuser les requêtes qui portent sur des groupes trop petits",
+    "Ajouter des index",
+    "Augmenter la taille des disques",
+    "Désactiver les sauvegardes"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Sur un groupe de une ou deux personnes, une statistique révèle une donnée individuelle : on fixe une taille minimale.",
+   "whyNot": {
+    "1": "Sans effet sur la confidentialité.",
+    "2": "Sans rapport.",
+    "3": "Dangereux et sans rapport."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c2-q10",
+   "domain": "data-security",
+   "level": "beginner",
+   "concept": "Moindre privilège",
+   "prompt": "Le compte utilisé par un site web pour lire les commandes doit avoir :",
+   "choices": [
+    "Les droits d'administrateur de la base",
+    "Uniquement les droits nécessaires à ses opérations",
+    "Le même mot de passe que l'administrateur",
+    "Aucun mot de passe"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Si le site est compromis, l'attaquant n'aura que ces droits limités.",
+   "whyNot": {
+    "0": "Une compromission du site donnerait toute la base.",
+    "2": "Mot de passe partagé : aucun cloisonnement.",
+    "3": "Inacceptable."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c2-q11",
+   "domain": "data-security",
+   "level": "beginner",
+   "concept": "Propriétaire",
+   "prompt": "Qui décide de la classification d'une donnée ?",
+   "choices": [
+    "L'administrateur système",
+    "Le propriétaire de la donnée (responsable métier)",
+    "N'importe quel utilisateur",
+    "Le fournisseur cloud"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le propriétaire connaît la valeur de la donnée et en répond ; le dépositaire applique les protections.",
+   "whyNot": {
+    "0": "C'est le dépositaire : il met en œuvre.",
+    "2": "Les utilisateurs suivent la classification.",
+    "3": "Le fournisseur ne connaît pas la valeur métier."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c2-q12",
+   "domain": "data-security",
+   "level": "beginner",
+   "concept": "États des données",
+   "prompt": "Le chiffrement TLS protège les données dans quel état ?",
+   "choices": [
+    "Au repos",
+    "En transit",
+    "En cours d'utilisation",
+    "Archivées"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "TLS chiffre les données qui circulent sur le réseau.",
+   "whyNot": {
+    "0": "Au repos, on chiffre les disques et les bases.",
+    "2": "En mémoire, d'autres mécanismes s'appliquent.",
+    "3": "Archivées = au repos."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c2-q13",
+   "domain": "data-security",
+   "level": "intermediate",
+   "concept": "Dépositaire",
+   "prompt": "Quel rôle met en œuvre les sauvegardes, les droits et le chiffrement décidés pour les données ?",
+   "choices": [
+    "Le propriétaire",
+    "Le dépositaire (custodian)",
+    "L'auditeur",
+    "Le DPO"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le dépositaire applique au quotidien les protections décidées par le propriétaire.",
+   "whyNot": {
+    "0": "Le propriétaire décide.",
+    "2": "L'auditeur vérifie.",
+    "3": "Le DPO conseille et contrôle la conformité RGPD."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c2-q14",
+   "domain": "data-security",
+   "level": "beginner",
+   "concept": "Classification",
+   "prompt": "Pourquoi classifier les données ?",
+   "choices": [
+    "Pour appliquer à chaque information des protections proportionnées à sa sensibilité",
+    "Pour chiffrer tout au même niveau",
+    "Pour supprimer les données anciennes",
+    "Pour accélérer le réseau"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "La classification évite de surprotéger l'anodin et de sous-protéger le sensible.",
+   "whyNot": {
+    "1": "Tout protéger au maximum est coûteux et gênant.",
+    "2": "La destruction suit la conservation, pas seulement l'âge.",
+    "3": "Sans rapport."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c2-q15",
+   "domain": "data-security",
+   "level": "intermediate",
+   "concept": "RGPD : rôles",
+   "prompt": "Une entreprise confie la gestion de sa paie à un prestataire qui traite les données des salariés selon ses instructions. Quel est le rôle du prestataire au sens du RGPD ?",
+   "choices": [
+    "Responsable de traitement",
+    "Sous-traitant",
+    "Délégué à la protection des données",
+    "Autorité de contrôle"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le sous-traitant traite des données personnelles pour le compte du responsable de traitement, qui fixe les finalités.",
+   "whyNot": {
+    "0": "C'est l'entreprise qui fixe les finalités.",
+    "2": "Le DPO conseille l'organisme.",
+    "3": "L'autorité de contrôle est publique (par exemple la CNIL en France)."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c2-q16",
+   "domain": "data-security",
+   "level": "intermediate",
+   "concept": "Cycle de vie",
+   "prompt": "À quel moment faut-il classifier une donnée ?",
+   "choices": [
+    "Dès sa création",
+    "Seulement à l'archivage",
+    "Seulement en cas d'incident",
+    "Jamais, c'est inutile"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "La classification guide toutes les étapes suivantes : stockage, partage, conservation, destruction.",
+   "whyNot": {
+    "1": "Trop tard : elle aura circulé sans protection adaptée.",
+    "2": "Trop tard.",
+    "3": "Elle est indispensable."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c2-q17",
+   "domain": "data-security",
+   "level": "intermediate",
+   "concept": "Reclassification",
+   "prompt": "Les résultats financiers sont « confidentiels » jusqu'à leur publication officielle. Que faire après la publication ?",
+   "choices": [
+    "Les laisser confidentiels pour toujours",
+    "Revoir leur classification, par exemple en « public »",
+    "Les détruire immédiatement",
+    "Les chiffrer deux fois"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La classification se revoit : une information perd sa sensibilité quand elle devient publique.",
+   "whyNot": {
+    "0": "Surprotéger inutilement coûte et gêne.",
+    "2": "Ils peuvent devoir être conservés.",
+    "3": "Inutile."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c2-q18",
+   "domain": "data-security",
+   "level": "advanced",
+   "concept": "Données en cours d'utilisation",
+   "prompt": "Quelle protection vise spécifiquement les données en cours d'utilisation, en mémoire ?",
+   "choices": [
+    "TLS 1.3",
+    "Les enclaves de calcul confidentiel et l'isolation de la mémoire",
+    "Le chiffrement du disque",
+    "La sauvegarde hors ligne"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Les enclaves protègent les données pendant leur traitement, même vis-à-vis du système hôte.",
+   "whyNot": {
+    "0": "TLS protège en transit.",
+    "2": "Au repos.",
+    "3": "Disponibilité, pas usage."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c2-q19",
+   "domain": "data-security",
+   "level": "advanced",
+   "concept": "Rôles",
+   "prompt": "Le propriétaire d'une base clients est absent et l'administrateur reçoit une demande d'accès d'un nouveau service. Que doit faire l'administrateur ?",
+   "choices": [
+    "Accorder l'accès, il en a la capacité technique",
+    "Obtenir l'accord du propriétaire (ou de son suppléant désigné) avant d'accorder l'accès",
+    "Refuser définitivement",
+    "Copier la base pour le nouveau service"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La décision d'accès revient au propriétaire ; l'administrateur (dépositaire) l'applique.",
+   "whyNot": {
+    "0": "Capacité technique n'est pas autorisation.",
+    "2": "La demande peut être légitime.",
+    "3": "Copier multiplie les risques."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c2-q20",
+   "domain": "data-security",
+   "level": "intermediate",
+   "concept": "Trois états",
+   "prompt": "Quelles associations entre protection et état des données sont exactes ? (plusieurs réponses)",
+   "choices": [
+    "Chiffrement de disque : données au repos",
+    "VPN : données en transit",
+    "TLS : données au repos",
+    "Isolation de la mémoire : données en cours d'utilisation"
+   ],
+   "correct": [
+    0,
+    1,
+    3
+   ],
+   "explanation": "Repos : disque ; transit : réseau ; usage : mémoire.",
+   "whyNot": {
+    "2": "TLS protège les données en transit."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c2-q21",
+   "domain": "data-security",
+   "level": "beginner",
+   "concept": "DLP",
+   "prompt": "Quel outil peut empêcher l'envoi par courriel d'un fichier contenant des numéros de carte bancaire ?",
+   "choices": [
+    "La DLP (prévention des fuites de données)",
+    "Le pare-feu à états",
+    "Le serveur DNS",
+    "Le TPM"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "La DLP reconnaît les données sensibles dans le contenu et bloque ou signale leur sortie.",
+   "whyNot": {
+    "1": "Il ne lit pas le contenu des courriels.",
+    "2": "Sans rapport.",
+    "3": "Le TPM protège des clés sur la machine."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c2-q22",
+   "domain": "data-security",
+   "level": "beginner",
+   "concept": "Rémanence",
+   "prompt": "Un disque est simplement formaté avant d'être donné à une association. Quel risque reste-t-il ?",
+   "choices": [
+    "Aucun, le formatage efface tout",
+    "Les données peuvent être récupérées : rémanence",
+    "Le disque ne fonctionnera plus",
+    "Le disque sera chiffré"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le formatage efface les index, pas les données : des outils simples les récupèrent.",
+   "whyNot": {
+    "0": "C'est l'erreur classique.",
+    "2": "Il fonctionne très bien.",
+    "3": "Le formatage ne chiffre rien."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c2-q23",
+   "domain": "data-security",
+   "level": "beginner",
+   "concept": "RGPD",
+   "prompt": "Quel principe du RGPD demande de ne collecter que les données nécessaires ?",
+   "choices": [
+    "La minimisation",
+    "La portabilité",
+    "L'agrégation",
+    "La polyinstanciation"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Minimiser réduit l'impact d'une fuite : on ne perd pas ce qu'on n'a pas.",
+   "whyNot": {
+    "1": "La portabilité est un droit des personnes.",
+    "2": "L'agrégation est une menace.",
+    "3": "Notion de base de données."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c2-q24",
+   "domain": "data-security",
+   "level": "intermediate",
+   "concept": "Pseudonymisation",
+   "prompt": "Des données où le nom est remplacé par un identifiant, avec une table de correspondance conservée à part, sont-elles encore soumises au RGPD ?",
+   "choices": [
+    "Non, elles sont anonymes",
+    "Oui, ce sont des données pseudonymisées, donc toujours personnelles",
+    "Non, si la table est chiffrée",
+    "Seulement si elles sont imprimées"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La réidentification reste possible avec la table : le RGPD s'applique toujours.",
+   "whyNot": {
+    "0": "Anonymes signifierait que personne ne peut réidentifier.",
+    "2": "Le chiffrement de la table ne change pas la nature des données.",
+    "3": "Sans rapport."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c2-q25",
+   "domain": "data-security",
+   "level": "intermediate",
+   "concept": "Démagnétisation",
+   "prompt": "Pourquoi la démagnétisation ne convient-elle pas à un SSD ?",
+   "choices": [
+    "Parce qu'un SSD stocke les données dans de la mémoire flash, pas sur un support magnétique",
+    "Parce qu'elle est trop lente",
+    "Parce qu'elle est interdite par le RGPD",
+    "Parce qu'elle chiffre le disque"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Pour un SSD : effacement sécurisé du fabricant, effacement cryptographique ou destruction physique.",
+   "whyNot": {
+    "1": "La vitesse n'est pas la question.",
+    "2": "Le RGPD n'interdit pas une méthode.",
+    "3": "Elle ne chiffre rien."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c2-q26",
+   "domain": "data-security",
+   "level": "intermediate",
+   "concept": "Effacement cryptographique",
+   "prompt": "Comment rendre illisibles des données stockées chez un fournisseur cloud dont on ne peut pas détruire les disques ?",
+   "choices": [
+    "Détruire la clé de chiffrement de ces données (effacement cryptographique)",
+    "Demander les disques au fournisseur",
+    "Renommer les fichiers",
+    "Désactiver son compte sans rien supprimer"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Sans la clé, les données chiffrées sont inexploitables : c'est l'effacement cryptographique.",
+   "whyNot": {
+    "1": "Rarement possible en cloud mutualisé.",
+    "2": "Renommer ne change pas le contenu.",
+    "3": "Les données resteraient en place."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c2-q27",
+   "domain": "data-security",
+   "level": "intermediate",
+   "concept": "Tokenisation",
+   "prompt": "Qu'est-ce que la tokenisation d'un numéro de carte bancaire ?",
+   "choices": [
+    "Le remplacement du numéro par un jeton sans valeur, la correspondance étant gardée dans un coffre sécurisé",
+    "L'affichage des quatre derniers chiffres seulement",
+    "La suppression définitive du numéro",
+    "Le chiffrement du disque"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Les systèmes qui manipulent le jeton n'ont plus besoin de voir le vrai numéro, ce qui réduit leur exposition.",
+   "whyNot": {
+    "1": "C'est le masquage.",
+    "2": "La tokenisation est réversible via le coffre.",
+    "3": "Le chiffrement du disque est autre chose."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c2-q28",
+   "domain": "data-security",
+   "level": "advanced",
+   "concept": "Choix de la méthode",
+   "prompt": "Des disques durs magnétiques contenant des données « secret » sont réformés et ne seront pas réutilisés. Quelle méthode est la plus appropriée ?",
+   "choices": [
+    "Un simple formatage",
+    "La destruction physique (broyage), après purge si possible, avec certificat",
+    "La suppression des fichiers",
+    "Le renommage des partitions"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Pour un niveau élevé et un support qui ne sera pas réutilisé, la destruction offre la meilleure assurance.",
+   "whyNot": {
+    "0": "Rémanence.",
+    "2": "Rémanence.",
+    "3": "Sans effet."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c2-q29",
+   "domain": "data-security",
+   "level": "advanced",
+   "concept": "Notification RGPD",
+   "prompt": "Une base de données clients a été dérobée et présente un risque pour les personnes. Dans quel délai l'autorité de contrôle doit-elle être notifiée selon le RGPD ?",
+   "choices": [
+    "72 heures après en avoir pris connaissance, dans la mesure du possible",
+    "30 jours",
+    "1 an",
+    "Aucune notification n'est prévue"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "L'article 33 prévoit 72 heures ; si le risque est élevé, les personnes concernées doivent aussi être informées (article 34).",
+   "whyNot": {
+    "1": "Trop long.",
+    "2": "Trop long.",
+    "3": "La notification est obligatoire sauf risque improbable."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m4c2-q30",
+   "domain": "data-security",
+   "level": "advanced",
+   "concept": "DLP",
+   "prompt": "Quelles affirmations sur la DLP sont exactes ? (plusieurs réponses)",
+   "choices": [
+    "Elle peut agir sur le poste, le réseau et le cloud",
+    "Elle s'appuie sur le contenu ou l'étiquette de classification",
+    "Elle remplace la classification des données",
+    "Elle peut bloquer ou seulement alerter"
+   ],
+   "correct": [
+    0,
+    1,
+    3
+   ],
+   "explanation": "La DLP applique des règles fondées sur la classification et le contenu ; elle ne la remplace pas.",
+   "whyNot": {
+    "2": "Une bonne classification rend la DLP plus précise ; elle ne la remplace pas."
+   },
+   "kind": "general"
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "m4c2-f01",
+   "front": "Vue",
+   "back": "Table virtuelle qui n'expose qu'une partie des données : moindre privilège.",
+   "concept": "Vue"
+  },
+  {
+   "id": "m4c2-f02",
+   "front": "Procédure stockée",
+   "back": "Seules les opérations prévues sont possibles.",
+   "concept": "Procédure stockée"
+  },
+  {
+   "id": "m4c2-f03",
+   "front": "Agrégation",
+   "back": "Rassembler des données anodines pour obtenir une information sensible.",
+   "concept": "Agrégation"
+  },
+  {
+   "id": "m4c2-f04",
+   "front": "Inférence",
+   "back": "Déduire une donnée cachée à partir de données accessibles.",
+   "concept": "Inférence"
+  },
+  {
+   "id": "m4c2-f05",
+   "front": "Polyinstanciation",
+   "back": "Une version par niveau d'habilitation ; parade à l'inférence.",
+   "concept": "Polyinstanciation"
+  },
+  {
+   "id": "m4c2-f06",
+   "front": "ACID",
+   "back": "Atomicité, cohérence, isolation, durabilité.",
+   "concept": "ACID"
+  },
+  {
+   "id": "m4c2-f07",
+   "front": "DAM",
+   "back": "Surveillance de l'activité des bases : requêtes inhabituelles.",
+   "concept": "DAM"
+  },
+  {
+   "id": "m4c2-f08",
+   "front": "Propriétaire / dépositaire",
+   "back": "Décide et classifie / met en œuvre les protections.",
+   "concept": "Propriétaire des données"
+  },
+  {
+   "id": "m4c2-f09",
+   "front": "Responsable / sous-traitant",
+   "back": "Fixe les finalités / traite pour son compte (RGPD).",
+   "concept": "Responsable de traitement"
+  },
+  {
+   "id": "m4c2-f10",
+   "front": "Classification",
+   "back": "Niveau selon l'impact d'une divulgation ; décidée par le propriétaire.",
+   "concept": "Classification"
+  },
+  {
+   "id": "m4c2-f11",
+   "front": "Cycle de vie",
+   "back": "Créer, stocker, utiliser, partager, archiver, détruire.",
+   "concept": "Cycle de vie des données"
+  },
+  {
+   "id": "m4c2-f12",
+   "front": "Trois états",
+   "back": "Au repos (disque), en transit (réseau), en usage (mémoire).",
+   "concept": "États des données"
+  },
+  {
+   "id": "m4c2-f13",
+   "front": "DLP",
+   "back": "Repère et bloque la sortie de données sensibles : poste, réseau, cloud.",
+   "concept": "DLP"
+  },
+  {
+   "id": "m4c2-f14",
+   "front": "Masquage / tokenisation",
+   "back": "Cacher à l'affichage / remplacer par un jeton (coffre).",
+   "concept": "Tokenisation"
+  },
+  {
+   "id": "m4c2-f15",
+   "front": "Pseudonymisation / anonymisation",
+   "back": "Réversible : RGPD / irréversible : hors RGPD.",
+   "concept": "Pseudonymisation"
+  },
+  {
+   "id": "m4c2-f16",
+   "front": "Rémanence",
+   "back": "Données récupérables après suppression ou formatage.",
+   "concept": "Rémanence des données"
+  },
+  {
+   "id": "m4c2-f17",
+   "front": "NIST SP 800-88",
+   "back": "Nettoyage (clear), purge, destruction.",
+   "concept": "Assainissement des supports"
+  },
+  {
+   "id": "m4c2-f18",
+   "front": "Effacement cryptographique",
+   "back": "Détruire la clé rend les données illisibles.",
+   "concept": "Effacement cryptographique"
+  },
+  {
+   "id": "m4c2-f19",
+   "front": "Démagnétisation",
+   "back": "Efficace sur supports magnétiques, inefficace sur SSD et flash.",
+   "concept": "Démagnétisation"
+  },
+  {
+   "id": "m4c2-f20",
+   "front": "RGPD : 72 heures",
+   "back": "Notification à l'autorité ; minimisation, conservation limitée.",
+   "concept": "RGPD"
+  }
+ ],
+ "revisionSheet": [
+  "# Fiche de révision : bases de données et protection des données",
+  "Bases : comptes nominatifs, moindre privilège, vues, procédures stockées, chiffrement (TDE, colonnes, sauvegardes), durcissement, DAM, jamais exposées sur Internet.",
+  "Agrégation : rassembler des données anodines → information sensible. Inférence : déduire une donnée cachée. Polyinstanciation : une version par niveau, parade à l'inférence.",
+  "ACID : atomicité (tout ou rien), cohérence, isolation, durabilité.",
+  "Classification selon l'impact d'une divulgation (public, interne, confidentiel, secret) ; décidée par le propriétaire ; revue dans le temps.",
+  "Rôles : propriétaire (décide), dépositaire (met en œuvre), utilisateur ; RGPD : responsable de traitement (finalités), sous-traitant (pour son compte), DPO (conseil, contrôle).",
+  "Cycle de vie : créer, stocker, utiliser, partager, archiver, détruire ; classifier dès la création.",
+  "Trois états : au repos (chiffrement disque), en transit (TLS, VPN), en usage (isolation, enclaves).",
+  "DLP : poste, réseau, cloud ; s'appuie sur le contenu et les étiquettes ; bloque ou alerte.",
+  "Masquage (affichage), tokenisation (jeton + coffre), pseudonymisation (réversible, RGPD), anonymisation (irréversible, hors RGPD).",
+  "Rémanence : supprimer ou formater n'efface pas.",
+  "NIST SP 800-88 : nettoyage (clear), purge, destruction. Effacement cryptographique : détruire la clé. Démagnétisation : magnétique seulement, pas SSD.",
+  "RGPD : licéité, finalité, minimisation, exactitude, conservation limitée, sécurité ; violation notifiée à l'autorité sous 72 heures.",
+  "Paires à ne pas confondre : agrégation/inférence ; propriétaire/dépositaire ; responsable/sous-traitant ; pseudonymisation/anonymisation ; nettoyage/purge/destruction."
+ ],
+ "mindMap": {
+  "label": "Bases de données et protection des données",
+  "en": "Database and Data Security",
+  "emoji": "🗄️",
+  "children": [
+   {
+    "label": "Bases de données",
+    "en": "Database Security",
+    "emoji": "🛢️",
+    "tone": "blue",
+    "children": [
+     {
+      "label": "Contrôle d'accès",
+      "children": [
+       {
+        "label": "Moindre privilège"
+       },
+       {
+        "label": "Vues",
+        "detail": "Une partie des données."
+       },
+       {
+        "label": "Procédures stockées",
+        "detail": "Opérations prévues."
+       }
+      ]
+     },
+     {
+      "label": "Chiffrement",
+      "detail": "Fichiers (TDE), colonnes, sauvegardes."
+     },
+     {
+      "label": "DAM",
+      "detail": "Surveillance des requêtes."
+     },
+     {
+      "label": "ACID",
+      "detail": "Atomicité, cohérence, isolation, durabilité."
+     }
+    ]
+   },
+   {
+    "label": "Menaces propres",
+    "en": "Database Threats",
+    "emoji": "🧩",
+    "tone": "orange",
+    "children": [
+     {
+      "label": "Agrégation",
+      "detail": "Rassembler."
+     },
+     {
+      "label": "Inférence",
+      "detail": "Déduire.",
+      "children": [
+       {
+        "label": "Polyinstanciation",
+        "detail": "Une version par niveau."
+       },
+       {
+        "label": "Taille minimale des groupes"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "label": "Classification",
+    "en": "Data Classification",
+    "emoji": "🏷️",
+    "tone": "violet",
+    "children": [
+     {
+      "label": "Niveaux",
+      "detail": "Public, interne, confidentiel, secret."
+     },
+     {
+      "label": "Rôles",
+      "children": [
+       {
+        "label": "Propriétaire",
+        "detail": "Décide."
+       },
+       {
+        "label": "Dépositaire",
+        "detail": "Met en œuvre."
+       },
+       {
+        "label": "Responsable de traitement",
+        "detail": "RGPD."
+       },
+       {
+        "label": "Sous-traitant",
+        "detail": "RGPD."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "label": "Cycle de vie",
+    "en": "Data Lifecycle",
+    "emoji": "🔄",
+    "tone": "turquoise",
+    "children": [
+     {
+      "label": "Étapes",
+      "detail": "Créer, stocker, utiliser, partager, archiver, détruire."
+     },
+     {
+      "label": "Trois états",
+      "children": [
+       {
+        "label": "Au repos",
+        "detail": "Chiffrement du disque."
+       },
+       {
+        "label": "En transit",
+        "detail": "TLS, VPN."
+       },
+       {
+        "label": "En usage",
+        "detail": "Isolation, enclaves."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "label": "Réduire l'exposition",
+    "en": "Data Loss Prevention",
+    "emoji": "🛡️",
+    "tone": "green",
+    "children": [
+     {
+      "label": "DLP",
+      "detail": "Poste, réseau, cloud."
+     },
+     {
+      "label": "Techniques",
+      "children": [
+       {
+        "label": "Masquage"
+       },
+       {
+        "label": "Tokenisation"
+       },
+       {
+        "label": "Pseudonymisation",
+        "detail": "RGPD s'applique."
+       },
+       {
+        "label": "Anonymisation",
+        "detail": "Hors RGPD."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "label": "Destruction et RGPD",
+    "en": "Sanitization and Privacy",
+    "emoji": "🗑️",
+    "tone": "red",
+    "children": [
+     {
+      "label": "NIST SP 800-88",
+      "children": [
+       {
+        "label": "Nettoyage"
+       },
+       {
+        "label": "Purge"
+       },
+       {
+        "label": "Destruction"
+       }
+      ]
+     },
+     {
+      "label": "Effacement cryptographique"
+     },
+     {
+      "label": "Rémanence",
+      "detail": "Formater ≠ effacer."
+     },
+     {
+      "label": "RGPD",
+      "detail": "Minimisation, conservation limitée, 72 h."
+     }
+    ]
+   }
+  ]
+ }
+}

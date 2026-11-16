@@ -1877,5 +1877,194 @@
   "definition": "Stockage, distribution et rotation des mots de passe, clés et jetons dans un coffre-fort dédié.",
   "example": "Mot de passe de base lu depuis le coffre-fort.",
   "kind": "general"
+ },
+ {
+  "id": "database-view",
+  "en": "Database view",
+  "fr": "Vue (base de données)",
+  "definition": "Table virtuelle qui ne présente qu'une partie des données d'une ou plusieurs tables.",
+  "example": "Vue sans la colonne IBAN pour le support.",
+  "kind": "general"
+ },
+ {
+  "id": "stored-procedure",
+  "en": "Stored procedure",
+  "fr": "Procédure stockée",
+  "definition": "Programme enregistré dans la base qui réalise une opération prévue.",
+  "example": "L'application appelle « créer_commande ».",
+  "kind": "general"
+ },
+ {
+  "id": "aggregation",
+  "en": "Aggregation",
+  "fr": "Agrégation",
+  "definition": "Combinaison de données peu sensibles qui révèle une information sensible.",
+  "example": "Dates et adresses de livraison révélant des mouvements.",
+  "kind": "general"
+ },
+ {
+  "id": "inference",
+  "en": "Inference",
+  "fr": "Inférence",
+  "definition": "Déduction d'une information cachée à partir de données accessibles.",
+  "example": "Salaire déduit d'une masse salariale.",
+  "kind": "general"
+ },
+ {
+  "id": "polyinstantiation",
+  "en": "Polyinstantiation",
+  "fr": "Polyinstanciation",
+  "definition": "Conservation de plusieurs versions d'un enregistrement selon le niveau d'habilitation.",
+  "example": "Navire « en exercice » pour un lecteur non habilité.",
+  "kind": "general"
+ },
+ {
+  "id": "acid",
+  "en": "Atomicity, Consistency, Isolation, Durability",
+  "fr": "Atomicité, cohérence, isolation, durabilité",
+  "acronym": "ACID",
+  "definition": "Propriétés qui garantissent la fiabilité des transactions d'une base de données.",
+  "example": "Un virement est tout ou rien.",
+  "kind": "general"
+ },
+ {
+  "id": "dam",
+  "en": "Database Activity Monitoring",
+  "fr": "Surveillance de l'activité des bases de données",
+  "acronym": "DAM",
+  "definition": "Outil qui observe les requêtes sur une base et alerte sur les comportements inhabituels.",
+  "example": "Extraction massive détectée la nuit.",
+  "kind": "general"
+ },
+ {
+  "id": "data-controller",
+  "en": "Data controller",
+  "fr": "Responsable de traitement",
+  "definition": "Organisme qui détermine les finalités et les moyens d'un traitement de données personnelles.",
+  "example": "L'employeur pour la paie.",
+  "kind": "general"
+ },
+ {
+  "id": "data-processor",
+  "en": "Data processor",
+  "fr": "Sous-traitant",
+  "definition": "Organisme qui traite des données personnelles pour le compte du responsable de traitement.",
+  "example": "Le prestataire de paie.",
+  "kind": "general"
+ },
+ {
+  "id": "dpo",
+  "en": "Data Protection Officer",
+  "fr": "Délégué à la protection des données",
+  "acronym": "DPO",
+  "definition": "Personne qui conseille l'organisme et contrôle sa conformité au RGPD.",
+  "example": "Le DPO évalue s'il faut notifier une violation.",
+  "kind": "general"
+ },
+ {
+  "id": "gdpr",
+  "en": "General Data Protection Regulation",
+  "fr": "Règlement général sur la protection des données",
+  "acronym": "RGPD",
+  "definition": "Règlement européen (UE) 2016/679 sur la protection des données personnelles.",
+  "example": "Notification d'une violation sous 72 heures.",
+  "kind": "general"
+ },
+ {
+  "id": "data-at-rest",
+  "en": "Data at rest",
+  "fr": "Données au repos",
+  "definition": "Données stockées sur un support (disque, base, sauvegarde).",
+  "example": "Chiffrement du disque.",
+  "kind": "general"
+ },
+ {
+  "id": "data-in-transit",
+  "en": "Data in transit",
+  "fr": "Données en transit",
+  "definition": "Données qui circulent sur un réseau.",
+  "example": "Protégées par TLS.",
+  "kind": "general"
+ },
+ {
+  "id": "data-in-use",
+  "en": "Data in use",
+  "fr": "Données en cours d'utilisation",
+  "definition": "Données en mémoire pendant leur traitement.",
+  "example": "Protégées par isolation ou enclave.",
+  "kind": "general"
+ },
+ {
+  "id": "dlp",
+  "en": "Data Loss Prevention",
+  "fr": "Prévention des fuites de données",
+  "acronym": "DLP",
+  "definition": "Outils et règles qui repèrent les données sensibles et empêchent leur sortie non autorisée.",
+  "example": "Courriel bloqué : numéros de carte détectés.",
+  "kind": "general"
+ },
+ {
+  "id": "data-masking",
+  "en": "Data masking",
+  "fr": "Masquage des données",
+  "definition": "Dissimulation d'une partie d'une donnée à l'affichage.",
+  "example": "**** **** **** 1234.",
+  "kind": "general"
+ },
+ {
+  "id": "tokenization",
+  "en": "Tokenization",
+  "fr": "Tokenisation",
+  "definition": "Remplacement d'une donnée sensible par un jeton sans valeur, la correspondance étant gardée dans un coffre.",
+  "example": "Numéro de carte remplacé par un jeton.",
+  "kind": "general"
+ },
+ {
+  "id": "pseudonymization",
+  "en": "Pseudonymization",
+  "fr": "Pseudonymisation",
+  "definition": "Remplacement des identifiants directs par un pseudonyme, réidentification possible avec une information séparée.",
+  "example": "Patient « P-0457 ».",
+  "kind": "general"
+ },
+ {
+  "id": "anonymization",
+  "en": "Anonymization",
+  "fr": "Anonymisation",
+  "definition": "Traitement qui rend impossible, de façon irréversible, la réidentification des personnes.",
+  "example": "Statistiques agrégées sans réidentification possible.",
+  "kind": "general"
+ },
+ {
+  "id": "data-remanence",
+  "en": "Data remanence",
+  "fr": "Rémanence des données",
+  "definition": "Persistance de données récupérables après suppression ou formatage.",
+  "example": "Fichiers récupérés sur un disque formaté.",
+  "kind": "general"
+ },
+ {
+  "id": "media-sanitization",
+  "en": "Media sanitization",
+  "fr": "Assainissement des supports",
+  "definition": "Effacement d'un support selon un niveau défini : nettoyage, purge ou destruction (NIST SP 800-88).",
+  "example": "Purge certifiée avant revente.",
+  "kind": "general"
+ },
+ {
+  "id": "crypto-shredding",
+  "en": "Cryptographic erasure (crypto-shredding)",
+  "fr": "Effacement cryptographique",
+  "definition": "Destruction de la clé de chiffrement qui rend les données chiffrées illisibles.",
+  "example": "Données cloud rendues illisibles.",
+  "kind": "general"
+ },
+ {
+  "id": "degaussing",
+  "en": "Degaussing",
+  "fr": "Démagnétisation",
+  "definition": "Effacement d'un support magnétique par un champ magnétique puissant ; inefficace sur SSD.",
+  "example": "Bandes de sauvegarde démagnétisées.",
+  "kind": "general"
  }
 ]
