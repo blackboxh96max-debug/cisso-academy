@@ -554,5 +554,189 @@
   "definition": "Autorité nationale française en matière de cybersécurité ; publie guides et méthodes.",
   "example": "Le guide d'hygiène de l'ANSSI propose 42 mesures.",
   "kind": "general"
+ },
+ {
+  "id": "identification",
+  "en": "Identification",
+  "fr": "Identification",
+  "definition": "Déclaration d'une identité, sans preuve.",
+  "example": "Saisir son identifiant sur une page de connexion.",
+  "kind": "general"
+ },
+ {
+  "id": "authentication",
+  "en": "Authentication",
+  "fr": "Authentification",
+  "definition": "Vérification d'une identité déclarée à l'aide d'un ou plusieurs facteurs.",
+  "example": "Mot de passe suivi d'une validation sur clé FIDO2.",
+  "kind": "general"
+ },
+ {
+  "id": "authorization",
+  "en": "Authorization",
+  "fr": "Autorisation",
+  "definition": "Décision sur les ressources et actions permises à une identité authentifiée.",
+  "example": "L'analyste N1 peut lire les alertes mais pas isoler un serveur.",
+  "kind": "general"
+ },
+ {
+  "id": "far",
+  "en": "False Acceptance Rate",
+  "fr": "Taux de fausses acceptations",
+  "acronym": "FAR",
+  "definition": "Proportion d'imposteurs acceptés par un système biométrique (erreur de type II).",
+  "example": "Un FAR de 0,1 % signifie un imposteur accepté sur mille tentatives.",
+  "kind": "general"
+ },
+ {
+  "id": "frr",
+  "en": "False Rejection Rate",
+  "fr": "Taux de faux rejets",
+  "acronym": "FRR",
+  "definition": "Proportion d'utilisateurs légitimes refusés par un système biométrique (erreur de type I).",
+  "example": "Un FRR élevé provoque des appels au support.",
+  "kind": "general"
+ },
+ {
+  "id": "cer",
+  "en": "Crossover Error Rate / Equal Error Rate",
+  "fr": "Taux d'erreur égal",
+  "acronym": "CER / EER",
+  "definition": "Point où FAR et FRR sont égaux ; sert à comparer la précision des systèmes biométriques.",
+  "example": "Le lecteur A a un CER plus bas que le lecteur B : il est plus précis.",
+  "kind": "general"
+ },
+ {
+  "id": "password-spraying",
+  "en": "Password spraying",
+  "fr": "Pulvérisation de mots de passe",
+  "definition": "Attaque qui essaie quelques mots de passe courants sur un grand nombre de comptes.",
+  "example": "Le SOC repère un essai par compte sur 500 comptes.",
+  "kind": "general"
+ },
+ {
+  "id": "fido2",
+  "en": "FIDO2 / WebAuthn",
+  "fr": "FIDO2 / WebAuthn",
+  "acronym": "FIDO2",
+  "definition": "Standards d'authentification par clé publique, liée au nom de domaine, résistante à l'hameçonnage.",
+  "example": "Les administrateurs utilisent une clé FIDO2.",
+  "kind": "general"
+ },
+ {
+  "id": "dac",
+  "en": "Discretionary Access Control",
+  "fr": "Contrôle d'accès discrétionnaire",
+  "acronym": "DAC",
+  "definition": "Modèle où le propriétaire d'une ressource décide de ses droits d'accès.",
+  "example": "Partage d'un dossier par son créateur.",
+  "kind": "general"
+ },
+ {
+  "id": "mac",
+  "en": "Mandatory Access Control",
+  "fr": "Contrôle d'accès obligatoire",
+  "acronym": "MAC",
+  "definition": "Modèle où le système impose l'accès selon étiquettes de classification et habilitations.",
+  "example": "Système militaire multi-niveaux.",
+  "kind": "general"
+ },
+ {
+  "id": "rbac",
+  "en": "Role-Based Access Control",
+  "fr": "Contrôle d'accès à base de rôles",
+  "acronym": "RBAC",
+  "definition": "Modèle où les droits sont attribués à des rôles, eux-mêmes attribués aux personnes.",
+  "example": "Rôle « analyste SOC N1 ».",
+  "kind": "general"
+ },
+ {
+  "id": "abac",
+  "en": "Attribute-Based Access Control",
+  "fr": "Contrôle d'accès à base d'attributs",
+  "acronym": "ABAC",
+  "definition": "Modèle où un moteur de politiques décide selon les attributs du sujet, de la ressource, de l'action et du contexte.",
+  "example": "Accès autorisé seulement en poste et depuis un appareil géré.",
+  "kind": "general"
+ },
+ {
+  "id": "sso",
+  "en": "Single Sign-On",
+  "fr": "Authentification unique",
+  "acronym": "SSO",
+  "definition": "Une seule authentification donne accès à plusieurs applications.",
+  "example": "Connexion unique au portail d'entreprise.",
+  "kind": "general"
+ },
+ {
+  "id": "idp",
+  "en": "Identity Provider",
+  "fr": "Fournisseur d'identité",
+  "acronym": "IdP",
+  "definition": "Service qui authentifie l'utilisateur et émet des assertions ou jetons pour d'autres services.",
+  "example": "L'IdP de l'entreprise émet une assertion SAML pour l'application RH.",
+  "kind": "general"
+ },
+ {
+  "id": "saml",
+  "en": "Security Assertion Markup Language",
+  "fr": "SAML",
+  "acronym": "SAML",
+  "definition": "Standard XML d'échange d'assertions d'authentification entre IdP et SP.",
+  "example": "SSO vers une application SaaS en SAML 2.0.",
+  "kind": "general"
+ },
+ {
+  "id": "oauth",
+  "en": "OAuth 2.0",
+  "fr": "OAuth 2.0",
+  "acronym": "OAuth",
+  "definition": "Cadre d'autorisation déléguée fondé sur des jetons d'accès.",
+  "example": "Une application lit votre agenda sans votre mot de passe.",
+  "kind": "general"
+ },
+ {
+  "id": "oidc",
+  "en": "OpenID Connect",
+  "fr": "OpenID Connect",
+  "acronym": "OIDC",
+  "definition": "Couche d'authentification au-dessus d'OAuth 2.0, avec un jeton d'identité JWT.",
+  "example": "Bouton « Se connecter avec » d'un site web.",
+  "kind": "general"
+ },
+ {
+  "id": "kerberos",
+  "en": "Kerberos",
+  "fr": "Kerberos",
+  "definition": "Protocole d'authentification par tickets délivrés par un KDC (AS et TGS).",
+  "example": "Authentification des postes dans Active Directory.",
+  "kind": "general"
+ },
+ {
+  "id": "tgt",
+  "en": "Ticket-Granting Ticket",
+  "fr": "Ticket d'octroi de tickets",
+  "acronym": "TGT",
+  "definition": "Ticket Kerberos remis par l'AS, présenté au TGS pour obtenir des tickets de service.",
+  "example": "Le TGT est valable quelques heures.",
+  "kind": "general"
+ },
+ {
+  "id": "pam",
+  "en": "Privileged Access Management",
+  "fr": "Gestion des accès à privilèges",
+  "acronym": "PAM",
+  "definition": "Ensemble de mesures pour contrôler, limiter et tracer l'usage des comptes à privilèges.",
+  "example": "Coffre-fort de mots de passe et sessions enregistrées.",
+  "kind": "general"
+ },
+ {
+  "id": "jml",
+  "en": "Joiner-Mover-Leaver",
+  "fr": "Arrivée, mobilité, départ",
+  "acronym": "JML",
+  "definition": "Processus de gestion du cycle de vie des identités et des droits.",
+  "example": "Le départ RH déclenche la désactivation automatique du compte.",
+  "kind": "general"
  }
 ]

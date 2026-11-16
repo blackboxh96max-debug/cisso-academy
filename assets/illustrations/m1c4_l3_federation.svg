@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <g stroke="#7A3BE6" stroke-width="2.6" stroke-linecap="round" fill="none" stroke-dasharray="6 5">
+    <path d="M100 82 C70 60 52 50 46 44" /><path d="M120 70 L120 36" /><path d="M140 82 C170 60 188 50 194 44" />
+    <path d="M100 112 C76 130 60 140 50 146" /><path d="M140 112 C164 130 180 140 190 146" />
+  </g>
+  <!-- badge central -->
+  <g stroke="#26324A" stroke-width="2.8" stroke-linejoin="round">
+    <path d="M94 70 L146 69 L148 124 L95 126 Z" fill="#EDE4FF" />
+    <path d="M112 62 L128 62 L128 72 L112 72 Z" fill="#FFFBF2" />
+    <circle cx="121" cy="90" r="9" fill="#8B5CF6" />
+    <path d="M106 116 C108 104 134 104 136 116" fill="none" />
+  </g>
+  <!-- applications -->
+  <g stroke="#26324A" stroke-width="2.4" stroke-linejoin="round">
+    <rect x="22" y="18" width="40" height="30" rx="6" fill="#DCE9FF" />
+    <rect x="100" y="8" width="40" height="30" rx="6" fill="#D7F5E8" />
+    <rect x="178" y="18" width="40" height="30" rx="6" fill="#FFE4D1" />
+    <rect x="22" y="136" width="40" height="30" rx="6" fill="#FFE4F1" />
+    <rect x="178" y="136" width="40" height="30" rx="6" fill="#D9F6FB" />
+  </g>
+  <g fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M34 34 L40 40 L50 26" stroke="#3B82F6" />
+    <path d="M112 24 L118 30 L128 16" stroke="#10B981" />
+    <path d="M190 34 L196 40 L206 26" stroke="#F97316" />
+    <path d="M34 152 L40 158 L50 144" stroke="#EC4899" />
+    <path d="M190 152 L196 158 L206 144" stroke="#06B6D4" />
+  </g>
+  <text x="96" y="150" font-family="Caveat, cursive" font-size="20" font-weight="700" fill="#7A3BE6">SSO</text>
+</svg>
