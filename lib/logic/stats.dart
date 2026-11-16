@@ -101,6 +101,8 @@ class ProgressStats {
     required this.masteredCardCount,
     required this.domainAccuracy,
     required this.recommendation,
+    this.answersToday = 0,
+    this.streakDays = 0,
   });
 
   final List<ChapterStats> chapters;
@@ -117,6 +119,13 @@ class ProgressStats {
   /// Réussite (dernière réponse) par domaine officiel : id → (justes, vues).
   final Map<String, (int, int)> domainAccuracy;
   final Recommendation recommendation;
+
+  /// Réponses données aujourd'hui (objectif de révision quotidien).
+  final int answersToday;
+
+  /// Jours consécutifs avec au moins une réponse, jusqu'à aujourd'hui
+  /// (ou hier, si l'apprenant n'a pas encore révisé aujourd'hui).
+  final int streakDays;
 
   Iterable<ChapterStats> get availableChapters =>
       chapters.where((c) => c.chapter.available);
@@ -215,6 +224,8 @@ class ProgressStats {
       masteredCardCount: mastered,
       domainAccuracy: domainAccuracy,
       recommendation: const Recommendation(RecommendationKind.exam, '', ''),
+      answersToday: answers.where((a) => _sameDay(a.answeredAt, now)).length,
+      streakDays: _streak(answers.map((a) => a.answeredAt), now),
     );
     return base._withRecommendation(_recommend(base, readLessons));
   }
@@ -230,7 +241,24 @@ class ProgressStats {
     masteredCardCount: masteredCardCount,
     domainAccuracy: domainAccuracy,
     recommendation: r,
+    answersToday: answersToday,
+    streakDays: streakDays,
   );
+
+  static bool _sameDay(DateTime a, DateTime b) =>
+      a.year == b.year && a.month == b.month && a.day == b.day;
+
+  static int _streak(Iterable<DateTime> times, DateTime now) {
+    final days = {for (final t in times) DateTime(t.year, t.month, t.day)};
+    var day = DateTime(now.year, now.month, now.day);
+    if (!days.contains(day)) day = DateTime(day.year, day.month, day.day - 1);
+    var n = 0;
+    while (days.contains(day)) {
+      n++;
+      day = DateTime(day.year, day.month, day.day - 1);
+    }
+    return n;
+  }
 
   /// Ordre de priorité : cartes échues, erreurs récurrentes, leçon non lue,
   /// entraînement sur un chapitre non maîtrisé, puis examen blanc.

@@ -1,15 +1,26 @@
+import 'dart:math';
+
+import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:material_ui/material_ui.dart';
 
 import '../app_state.dart';
+import '../data/progress_store.dart';
+import '../logic/badges.dart';
 import '../logic/stats.dart';
 import '../models/content.dart';
 import 'chapter_page.dart';
 import 'lesson_page.dart';
+import 'notebook/hand_drawn.dart';
+import 'notebook/note_box.dart';
+import 'notebook/palette.dart';
+import 'notebook/typography.dart';
 import 'quiz_hub_page.dart';
 import 'theme.dart';
 import 'widgets.dart';
 
-/// Tableau de bord : progression, scores, lacunes, prochaine révision.
+/// Tableau de bord visuel : accueil illustré, progression, modules,
+/// graphiques, badges, objectif du jour et accès rapides.
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key, required this.onNavigate});
 
@@ -20,27 +31,79 @@ class DashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = AppScope.of(context);
     final stats = state.stats;
-    final library = state.library;
-    final scheme = Theme.of(context).colorScheme;
-    final text = Theme.of(context).textTheme;
-    final avg = stats.averageScore;
-    final mastered = stats.availableChapters
-        .where((c) => c.status == ChapterStatus.mastered)
-        .toList();
-    final toReview = stats.availableChapters
-        .where((c) => c.status == ChapterStatus.toReview)
-        .toList();
+    final width = MediaQuery.sizeOf(context).width;
+    final twoColumns = width >= 1000;
+
+    final welcome = _WelcomeCard(
+      stats: stats,
+      onOpen: () => _openRecommendation(context, stats.recommendation),
+    );
+    final modules = _ModuleCards(stats: stats, onOpen: () => onNavigate(1));
+    final daily = _DailyGoal(stats: stats);
+    final quick = _QuickAccess(onNavigate: onNavigate);
+    final scores = _ScoreChart(sessions: stats.sessions);
+    final radar = _DomainRadar(stats: stats);
+    final pie = _AnswersPie(stats: stats);
+    final mastery = _ChapterMastery(stats: stats);
+    final badges = _Badges(achievements: computeAchievements(stats));
+    final errors = _WeakSpots(stats: stats);
+    final history = _History(stats: stats);
+
+    final Widget body;
+    if (twoColumns) {
+      body = Column(
+        children: [
+          welcome,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 3,
+                child: Column(
+                  children: [modules, scores, radar, mastery, history],
+                ),
+              ),
+              const SizedBox(width: 20),
+              Expanded(
+                flex: 2,
+                child: Column(children: [daily, quick, pie, badges, errors]),
+              ),
+            ],
+          ),
+        ],
+      );
+    } else {
+      body = Column(
+        children: [
+          welcome,
+          daily,
+          quick,
+          modules,
+          scores,
+          radar,
+          pie,
+          mastery,
+          badges,
+          errors,
+          history,
+        ],
+      );
+    }
 
     return Scaffold(
+      backgroundColor: Paper.of(context).background,
       appBar: AppBar(
         title: const Text('CISSO Academy'),
         actions: [
           PopupMenuButton<String>(
+            tooltip: 'Menu',
             onSelected: (v) {
+              if (v == 'settings') _settings(context);
               if (v == 'reset') _confirmReset(context);
               if (v == 'about') _about(context);
             },
             itemBuilder: (_) => const [
+              PopupMenuItem(value: 'settings', child: Text('Réglages')),
               PopupMenuItem(
                 value: 'about',
                 child: Text('À propos de l\'examen'),
@@ -53,173 +116,19 @@ class DashboardPage extends StatelessWidget {
           ),
         ],
       ),
-      body: ReadingList(
-        children: [
-          _RecommendationCard(
-            recommendation: stats.recommendation,
-            onOpen: () => _openRecommendation(context, stats.recommendation),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.fromLTRB(
+          width < 600 ? 12 : 24,
+          4,
+          width < 600 ? 12 : 24,
+          32,
+        ),
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 1200),
+            child: body,
           ),
-          const SectionTitle('Vue d\'ensemble'),
-          TileGrid(
-            children: [
-              StatTile(
-                label: 'Progression globale',
-                value: '${(stats.overallProgress * 100).round()} %',
-                caption:
-                    '${library.availableChapters.length}/${library.chapters.length} chapitres disponibles',
-              ),
-              StatTile(
-                label: 'Score moyen',
-                value: avg == null ? '–' : '$avg/100',
-                caption: '${stats.sessions.length} série(s) terminée(s)',
-              ),
-              StatTile(
-                label: 'Questions traitées',
-                value: '${stats.distinctQuestions}/${library.questions.length}',
-                caption: '${stats.totalAnswers} réponse(s) au total',
-              ),
-              StatTile(
-                label: 'Flashcards',
-                value:
-                    '${stats.masteredCardCount}/${library.flashcards.length}',
-                caption: 'maîtrisées · ${stats.dueCardCount} à revoir',
-              ),
-            ],
-          ),
-          const SectionTitle('Progression par module'),
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                children: [
-                  for (final m in library.modules)
-                    LabeledProgress(
-                      label: 'Module ${m.number} · ${m.title}',
-                      value: stats.moduleProgress(m.id),
-                    ),
-                ],
-              ),
-            ),
-          ),
-          const SectionTitle('Chapitres'),
-          Card(
-            child: Column(
-              children: [
-                for (final c in stats.availableChapters)
-                  ListTile(
-                    title: Text(c.chapter.title),
-                    subtitle: Text(
-                      '${c.lessonsRead}/${c.lessonCount} leçons · '
-                      '${c.questionsSeen}/${c.questionCount} questions · '
-                      'réussite ${(c.accuracy * 100).round()} %',
-                    ),
-                    trailing: _StatusChip(c.status),
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => ChapterPage(chapterId: c.chapter.id),
-                      ),
-                    ),
-                  ),
-              ],
-            ),
-          ),
-          if (mastered.isNotEmpty || toReview.isNotEmpty) ...[
-            const SizedBox(height: 8),
-            Text(
-              'Maîtrisés : ${mastered.length} · À revoir : ${toReview.length} '
-              '(seuil de validation : ${(masteryThreshold * 100).round()} %)',
-              style: text.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
-            ),
-          ],
-          SectionTitle(
-            'Suivi des erreurs',
-            trailing: stats.wrongQuestionIds.isEmpty
-                ? null
-                : TextButton(
-                    onPressed: () => startRetry(context),
-                    child: Text('Reprendre (${stats.wrongQuestionIds.length})'),
-                  ),
-          ),
-          if (stats.weakConcepts.isEmpty)
-            Text(
-              stats.totalAnswers == 0
-                  ? 'Répondez à quelques questions pour voir apparaître vos notions fragiles.'
-                  : 'Aucune erreur en cours : toutes vos dernières réponses sont justes.',
-              style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
-            )
-          else
-            Card(
-              child: Column(
-                children: [
-                  for (final c in stats.weakConcepts.take(6))
-                    ListTile(
-                      leading: Icon(
-                        c.recurrent ? Icons.priority_high : Icons.error_outline,
-                        color: c.recurrent
-                            ? scheme.error
-                            : scheme.onSurfaceVariant,
-                      ),
-                      title: Text(c.concept),
-                      subtitle: Text(
-                        '${c.errors} erreur(s) sur ${c.attempts} réponse(s)'
-                        '${c.recurrent ? ' · lacune récurrente' : ''}',
-                      ),
-                    ),
-                ],
-              ),
-            ),
-          const SectionTitle('Réussite par domaine officiel'),
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                children: [
-                  for (final d in library.domains)
-                    if (stats.domainAccuracy.containsKey(d.id))
-                      LabeledProgress(
-                        label: '${d.nameFr} (poids ${d.weight} %)',
-                        value:
-                            stats.domainAccuracy[d.id]!.$1 /
-                            stats.domainAccuracy[d.id]!.$2,
-                      ),
-                  if (stats.domainAccuracy.isEmpty)
-                    Text(
-                      'Aucune donnée pour l\'instant.',
-                      style: text.bodyMedium?.copyWith(
-                        color: scheme.onSurfaceVariant,
-                      ),
-                    ),
-                ],
-              ),
-            ),
-          ),
-          if (stats.sessions.isNotEmpty) ...[
-            const SectionTitle('Historique'),
-            Card(
-              child: Column(
-                children: [
-                  for (final s in stats.sessions.reversed.take(8))
-                    ListTile(
-                      dense: true,
-                      title: Text('${s.mode.label} · ${s.score}/100'),
-                      subtitle: Text(
-                        '${formatDate(s.finishedAt)} · ${s.correctCount}/${s.total} · '
-                        '${formatDuration(Duration(seconds: s.durationSeconds))}',
-                      ),
-                      trailing: Icon(
-                        Icons.circle,
-                        size: 12,
-                        color: successColor(
-                          s.score >= masteryThreshold * 100,
-                          scheme,
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-            ),
-          ],
-        ],
+        ),
       ),
     );
   }
@@ -243,6 +152,41 @@ class DashboardPage extends StatelessWidget {
       case RecommendationKind.exam:
         onNavigate(2);
     }
+  }
+
+  void _settings(BuildContext context) {
+    showDialog<void>(
+      context: context,
+      builder: (ctx) {
+        final state = AppScope.of(ctx);
+        final systemReduced = MediaQuery.disableAnimationsOf(ctx);
+        return AlertDialog(
+          title: const Text('Réglages'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SwitchListTile(
+                contentPadding: EdgeInsets.zero,
+                title: const Text('Animations'),
+                subtitle: Text(
+                  systemReduced
+                      ? 'Désactivées par le réglage « réduire les animations » de votre appareil.'
+                      : 'Apparition des schémas, retournement des flashcards, effets de réussite.',
+                ),
+                value: state.animationsSetting,
+                onChanged: (v) => state.setAnimations(v),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx),
+              child: const Text('Fermer'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Future<void> _confirmReset(BuildContext context) async {
@@ -312,81 +256,1036 @@ class DashboardPage extends StatelessWidget {
   }
 }
 
-class _RecommendationCard extends StatelessWidget {
-  const _RecommendationCard({
-    required this.recommendation,
-    required this.onOpen,
+/// Carte de section du tableau de bord : titre manuscrit, encadré dessiné.
+class _Panel extends StatelessWidget {
+  const _Panel({
+    required this.title,
+    required this.child,
+    this.emoji,
+    this.seed = 9,
+    this.trailing,
   });
 
-  final Recommendation recommendation;
-  final VoidCallback onOpen;
+  final String title;
+  final String? emoji;
+  final Widget child;
+  final int seed;
+  final Widget? trailing;
 
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    final text = Theme.of(context).textTheme;
-    return Card(
-      color: scheme.primaryContainer,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(16),
-        onTap: onOpen,
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Prochaine révision recommandée',
-                      style: text.labelMedium?.copyWith(
-                        color: scheme.onPrimaryContainer,
-                      ),
+    final paper = Paper.of(context);
+    return Padding(
+      padding: const EdgeInsets.only(top: 18),
+      child: HandBox(
+        fill: paper.page,
+        seed: seed,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                if (emoji != null) ...[
+                  Text(emoji!, style: const TextStyle(fontSize: 20)),
+                  const SizedBox(width: 8),
+                ],
+                Expanded(
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      fontFamily: Hand.title,
+                      fontSize: 28,
+                      fontWeight: FontWeight.w700,
+                      color: paper.ink,
                     ),
-                    const SizedBox(height: 4),
-                    Text(
-                      recommendation.title,
-                      style: text.titleLarge?.copyWith(
-                        color: scheme.onPrimaryContainer,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      recommendation.detail,
-                      style: text.bodyMedium?.copyWith(
-                        color: scheme.onPrimaryContainer,
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-              Icon(Icons.arrow_forward, color: scheme.onPrimaryContainer),
-            ],
-          ),
+                ?trailing,
+              ],
+            ),
+            const SizedBox(height: 8),
+            child,
+          ],
         ),
       ),
     );
   }
 }
 
-class _StatusChip extends StatelessWidget {
-  const _StatusChip(this.status);
+class _WelcomeCard extends StatelessWidget {
+  const _WelcomeCard({required this.stats, required this.onOpen});
 
-  final ChapterStatus status;
+  final ProgressStats stats;
+  final VoidCallback onOpen;
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final blue = toneColors(Tone.blue, brightness);
+    final paper = Paper.of(context);
+    final r = stats.recommendation;
+    final ring = _ProgressRing(value: stats.overallProgress);
+    final art = Semantics(
+      label: 'Illustration : un cahier ouvert, un crayon et un bouclier de sécurité.',
+      image: true,
+      child: SvgPicture.asset(
+        'assets/illustrations/welcome.svg',
+        height: 130,
+        excludeFromSemantics: true,
+      ),
+    );
+    final recommendation = InkWell(
+      onTap: onOpen,
+      borderRadius: BorderRadius.circular(14),
+      child: HandBox(
+        fill: toneColors(Tone.yellow, brightness).fill,
+        stroke: toneColors(Tone.yellow, brightness).ink,
+        seed: 21,
+        padding: const EdgeInsets.fromLTRB(14, 10, 10, 12),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Prochaine révision recommandée',
+                    style: Hand.boxLabel(context, Tone.orange),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    r.title,
+                    style: TextStyle(
+                      fontFamily: Hand.title,
+                      fontSize: 26,
+                      fontWeight: FontWeight.w700,
+                      color: paper.ink,
+                      height: 1.1,
+                    ),
+                  ),
+                  Text(r.detail, style: Hand.sansText(context, size: 14)),
+                ],
+              ),
+            ),
+            Icon(Icons.arrow_forward_rounded, color: paper.ink),
+          ],
+        ),
+      ),
+    );
+    return HandBox(
+      fill: blue.fill,
+      stroke: blue.ink,
+      seed: 17,
+      child: LayoutBuilder(
+        builder: (context, c) {
+          final greeting = Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Bonjour et bonne révision !',
+                style: TextStyle(
+                  fontFamily: Hand.title,
+                  fontSize: 36,
+                  fontWeight: FontWeight.w700,
+                  color: blue.ink,
+                  height: 1,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                'Votre cahier de préparation au CISSO de MILE2, entièrement hors ligne.',
+                style: Hand.bodyText(context).copyWith(fontSize: 18),
+              ),
+              const SizedBox(height: 10),
+              recommendation,
+            ],
+          );
+          if (c.maxWidth >= 720) {
+            return Row(
+              children: [
+                art,
+                const SizedBox(width: 16),
+                Expanded(child: greeting),
+                const SizedBox(width: 20),
+                ring,
+              ],
+            );
+          }
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(height: 110, child: art),
+                  ring,
+                ],
+              ),
+              const SizedBox(height: 8),
+              greeting,
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _ProgressRing extends StatelessWidget {
+  const _ProgressRing({required this.value});
+
+  final double value;
+
+  @override
+  Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final paper = Paper.of(context);
+    Widget ring(double v) => SizedBox(
+      width: 112,
+      height: 112,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          SizedBox.expand(
+            child: CircularProgressIndicator(
+              value: v,
+              strokeWidth: 11,
+              strokeCap: StrokeCap.round,
+              backgroundColor: paper.rule,
+              color: toneColors(Tone.green, brightness).ink,
+            ),
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                '${(v * 100).round()} %',
+                style: TextStyle(
+                  fontFamily: Hand.title,
+                  fontSize: 32,
+                  fontWeight: FontWeight.w700,
+                  color: paper.ink,
+                  height: 1,
+                ),
+              ),
+              Text(
+                'Progression globale',
+                textAlign: TextAlign.center,
+                style: Hand.sansText(context, size: 10.5),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+    if (!animationsOn(context)) return ring(value);
+    return TweenAnimationBuilder<double>(
+      tween: Tween(begin: 0, end: value),
+      duration: const Duration(milliseconds: 900),
+      curve: Curves.easeOutCubic,
+      builder: (_, v, _) => ring(v),
+    );
+  }
+}
+
+class _ModuleCards extends StatelessWidget {
+  const _ModuleCards({required this.stats, required this.onOpen});
+
+  final ProgressStats stats;
+  final VoidCallback onOpen;
+
+  @override
+  Widget build(BuildContext context) {
+    final library = AppScope.of(context).library;
+    final brightness = Theme.of(context).brightness;
+    final paper = Paper.of(context);
+    return _Panel(
+      title: 'Mes 5 modules',
+      emoji: '🗂️',
+      seed: 23,
+      child: LayoutBuilder(
+        builder: (context, c) {
+          final perRow = c.maxWidth >= 640 ? 3 : (c.maxWidth >= 380 ? 2 : 1);
+          final w = (c.maxWidth - 10 * (perRow - 1)) / perRow;
+          return Wrap(
+            spacing: 10,
+            runSpacing: 10,
+            children: [
+              for (final m in library.modules)
+                SizedBox(
+                  width: w,
+                  child: Builder(
+                    builder: (context) {
+                      final (tone, emoji) = moduleStyle(m.number);
+                      final colors = toneColors(tone, brightness);
+                      final available = m.chapters
+                          .where((ch) => ch.available)
+                          .length;
+                      final progress = stats.moduleProgress(m.id);
+                      return InkWell(
+                        onTap: onOpen,
+                        borderRadius: BorderRadius.circular(14),
+                        child: HandBox(
+                          fill: colors.fill,
+                          stroke: colors.ink,
+                          seed: 30 + m.number,
+                          padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    emoji,
+                                    style: const TextStyle(fontSize: 22),
+                                  ),
+                                  const SizedBox(width: 6),
+                                  Text(
+                                    'Module ${m.number}',
+                                    style: TextStyle(
+                                      fontFamily: Hand.title,
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w700,
+                                      color: colors.ink,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                m.title,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: Hand.sansText(context, size: 13),
+                              ),
+                              const SizedBox(height: 8),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(6),
+                                child: LinearProgressIndicator(
+                                  value: progress,
+                                  minHeight: 8,
+                                  color: colors.ink,
+                                  backgroundColor: paper.page,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                '${(progress * 100).round()} % · $available/${m.chapters.length} chapitre(s) disponible(s)',
+                                style: Hand.sansText(context, size: 11.5),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _DailyGoal extends StatelessWidget {
+  const _DailyGoal({required this.stats});
+
+  final ProgressStats stats;
+
+  @override
+  Widget build(BuildContext context) {
+    final done = min(stats.answersToday, dailyAnswerGoal);
+    final reached = stats.answersToday >= dailyAnswerGoal;
+    final orange = toneColors(Tone.orange, Theme.of(context).brightness);
+    return NoteBox(
+      tone: Tone.yellow,
+      emoji: '📅',
+      label: 'Objectif du jour',
+      sticky: true,
+      seed: 12,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            reached
+                ? '🎉 Objectif atteint : ${stats.answersToday} réponses aujourd\'hui !'
+                : '$done / $dailyAnswerGoal réponses aujourd\'hui',
+            style: Hand.noteText(context).copyWith(fontSize: 20),
+          ),
+          const SizedBox(height: 6),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(6),
+            child: LinearProgressIndicator(
+              value: done / dailyAnswerGoal,
+              minHeight: 10,
+              color: orange.ink,
+              backgroundColor: Colors.white.withValues(alpha: 0.6),
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            stats.streakDays == 0
+                ? 'Répondez à une question pour démarrer une série de jours.'
+                : '🔥 ${stats.streakDays} jour(s) de révision d\'affilée',
+            style: Hand.sansText(context, size: 13),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _QuickAccess extends StatelessWidget {
+  const _QuickAccess({required this.onNavigate});
+
+  final ValueChanged<int> onNavigate;
+
+  @override
+  Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    Widget button(String emoji, String label, Tone tone, VoidCallback onTap) {
+      final c = toneColors(tone, brightness);
+      return ActionChip(
+        avatar: Text(emoji),
+        label: Text(label),
+        backgroundColor: c.fill,
+        side: BorderSide(color: c.ink.withValues(alpha: 0.5)),
+        labelStyle: TextStyle(
+          fontFamily: Hand.sans,
+          fontWeight: FontWeight.w700,
+          color: c.ink,
+        ),
+        onPressed: onTap,
+      );
+    }
+
+    return _Panel(
+      title: 'Accès rapide',
+      emoji: '⚡',
+      seed: 25,
+      child: Wrap(
+        spacing: 8,
+        runSpacing: 8,
+        children: [
+          button('📘', 'Cours', Tone.blue, () => onNavigate(1)),
+          button('📝', 'QCM et examen blanc', Tone.pink, () => onNavigate(2)),
+          button('🃏', 'Flashcards', Tone.violet, () => onNavigate(3)),
+          button('🔤', 'Glossaire', Tone.turquoise, () => onNavigate(4)),
+        ],
+      ),
+    );
+  }
+}
+
+/// Courbe des scores des séries terminées (interactive : toucher un point).
+class _ScoreChart extends StatelessWidget {
+  const _ScoreChart({required this.sessions});
+
+  final List<SessionRecord> sessions;
+
+  @override
+  Widget build(BuildContext context) {
+    final paper = Paper.of(context);
+    final brightness = Theme.of(context).brightness;
+    final recent = sessions.length > 15
+        ? sessions.sublist(sessions.length - 15)
+        : sessions;
+    final Widget child;
+    if (recent.length < 2) {
+      child = _Empty(
+        recent.isEmpty
+            ? 'Terminez deux séries de QCM pour voir votre courbe de progression.'
+            : 'Encore une série et votre courbe apparaîtra (dernier score : ${recent.first.score}/100).',
+      );
+    } else {
+      final blue = toneColors(Tone.blue, brightness);
+      child = SizedBox(
+        height: 200,
+        child: LineChart(
+          LineChartData(
+            minY: 0,
+            maxY: 100,
+            minX: 0,
+            maxX: (recent.length - 1).toDouble(),
+            gridData: FlGridData(
+              drawVerticalLine: false,
+              horizontalInterval: 20,
+              getDrawingHorizontalLine: (v) => FlLine(
+                color: v == masteryThreshold * 100
+                    ? toneColors(Tone.green, brightness).ink
+                    : paper.rule,
+                strokeWidth: v == masteryThreshold * 100 ? 1.6 : 1,
+                dashArray: v == masteryThreshold * 100 ? [6, 4] : null,
+              ),
+            ),
+            borderData: FlBorderData(show: false),
+            titlesData: FlTitlesData(
+              topTitles: const AxisTitles(),
+              rightTitles: const AxisTitles(),
+              bottomTitles: AxisTitles(
+                sideTitles: SideTitles(
+                  showTitles: true,
+                  interval: 1,
+                  reservedSize: 22,
+                  getTitlesWidget: (v, _) => Text(
+                    '${v.toInt() + 1}',
+                    style: Hand.sansText(context, size: 11),
+                  ),
+                ),
+              ),
+              leftTitles: AxisTitles(
+                sideTitles: SideTitles(
+                  showTitles: true,
+                  interval: 20,
+                  reservedSize: 32,
+                  getTitlesWidget: (v, _) => Text(
+                    '${v.toInt()}',
+                    style: Hand.sansText(context, size: 11),
+                  ),
+                ),
+              ),
+            ),
+            lineTouchData: LineTouchData(
+              touchTooltipData: LineTouchTooltipData(
+                getTooltipColor: (_) => paper.card,
+                getTooltipItems: (spots) => [
+                  for (final s in spots)
+                    LineTooltipItem(
+                      '${recent[s.x.toInt()].mode.label}\n${s.y.toInt()}/100 · ${formatDate(recent[s.x.toInt()].finishedAt)}',
+                      TextStyle(
+                        fontFamily: Hand.sans,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        color: paper.ink,
+                      ),
+                    ),
+                ],
+              ),
+            ),
+            lineBarsData: [
+              LineChartBarData(
+                spots: [
+                  for (final (i, s) in recent.indexed)
+                    FlSpot(i.toDouble(), s.score.toDouble()),
+                ],
+                isCurved: true,
+                preventCurveOverShooting: true,
+                color: blue.ink,
+                barWidth: 3,
+                dotData: const FlDotData(show: true),
+                belowBarData: BarAreaData(
+                  show: true,
+                  color: blue.fill.withValues(alpha: 0.6),
+                ),
+              ),
+            ],
+          ),
+          duration: animationsOn(context)
+              ? const Duration(milliseconds: 400)
+              : Duration.zero,
+        ),
+      );
+    }
+    return _Panel(
+      title: 'Évolution de mes scores',
+      emoji: '📈',
+      seed: 27,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          child,
+          if (recent.length >= 2)
+            Padding(
+              padding: const EdgeInsets.only(top: 6),
+              child: Text(
+                'Pointillés verts : seuil de maîtrise (${(masteryThreshold * 100).round()}/100). Touchez un point pour le détail.',
+                style: Hand.sansText(context, size: 12),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Radar des compétences par domaine officiel (réussite en %).
+class _DomainRadar extends StatelessWidget {
+  const _DomainRadar({required this.stats});
+
+  final ProgressStats stats;
+
+  @override
+  Widget build(BuildContext context) {
+    final library = AppScope.of(context).library;
+    final paper = Paper.of(context);
+    final brightness = Theme.of(context).brightness;
+    final violet = toneColors(Tone.violet, brightness);
+    final domains = library.domains;
+    final withData = stats.domainAccuracy.length;
+    double rate(String id) {
+      final v = stats.domainAccuracy[id];
+      return v == null || v.$2 == 0 ? 0 : v.$1 / v.$2 * 100;
+    }
+
+    return _Panel(
+      title: 'Radar des compétences',
+      emoji: '🕸️',
+      seed: 29,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (withData == 0)
+            const _Empty(
+              'Répondez à des questions : chaque domaine officiel de l\'examen apparaîtra sur le radar.',
+            ),
+          SizedBox(
+            height: 260,
+            child: RadarChart(
+              RadarChartData(
+                radarShape: RadarShape.polygon,
+                tickCount: 4,
+                ticksTextStyle: const TextStyle(
+                  fontSize: 0,
+                  color: Colors.transparent,
+                ),
+                radarBorderData: BorderSide(color: paper.inkSoft, width: 1.2),
+                gridBorderData: BorderSide(color: paper.rule, width: 1),
+                tickBorderData: BorderSide(color: paper.rule, width: 1),
+                titlePositionPercentageOffset: 0.12,
+                titleTextStyle: TextStyle(
+                  fontFamily: Hand.title,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                  color: paper.ink,
+                ),
+                getTitle: (i, _) => RadarChartTitle(text: 'D${i + 1}'),
+                dataSets: [
+                  RadarDataSet(
+                    fillColor: violet.ink.withValues(alpha: 0.25),
+                    borderColor: violet.ink,
+                    borderWidth: 2.5,
+                    entryRadius: 3,
+                    dataEntries: [
+                      for (final d in domains) RadarEntry(value: rate(d.id)),
+                    ],
+                  ),
+                  // Jeu invisible fixant l'échelle de 0 à 100 %.
+                  RadarDataSet(
+                    fillColor: Colors.transparent,
+                    borderColor: Colors.transparent,
+                    entryRadius: 0,
+                    dataEntries: [
+                      for (final _ in domains) const RadarEntry(value: 100),
+                    ],
+                  ),
+                ],
+              ),
+              duration: animationsOn(context)
+                  ? const Duration(milliseconds: 400)
+                  : Duration.zero,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Wrap(
+            spacing: 12,
+            runSpacing: 2,
+            children: [
+              for (final (i, d) in domains.indexed)
+                Text(
+                  'D${i + 1} ${d.nameFr}'
+                  '${stats.domainAccuracy.containsKey(d.id) ? ' · ${rate(d.id).round()} %' : ''}',
+                  style: Hand.sansText(context, size: 12).copyWith(
+                    fontWeight: stats.domainAccuracy.containsKey(d.id)
+                        ? FontWeight.w800
+                        : FontWeight.w400,
+                  ),
+                ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Camembert des dernières réponses justes ou fausses.
+class _AnswersPie extends StatelessWidget {
+  const _AnswersPie({required this.stats});
+
+  final ProgressStats stats;
+
+  @override
+  Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final ok = stats.domainAccuracy.values.fold<int>(0, (s, v) => s + v.$1);
+    final seen = stats.domainAccuracy.values.fold<int>(0, (s, v) => s + v.$2);
+    final ko = seen - ok;
+    final green = toneColors(Tone.green, brightness);
+    final red = toneColors(Tone.red, brightness);
+    final paper = Paper.of(context);
+    return _Panel(
+      title: 'Justes ou fausses ?',
+      emoji: '🥧',
+      seed: 31,
+      child: seen == 0
+          ? const _Empty('Aucune réponse pour l\'instant.')
+          : Row(
+              children: [
+                SizedBox(
+                  width: 130,
+                  height: 130,
+                  child: PieChart(
+                    PieChartData(
+                      centerSpaceRadius: 30,
+                      sectionsSpace: 3,
+                      sections: [
+                        PieChartSectionData(
+                          value: ok.toDouble(),
+                          color: green.ink,
+                          radius: 32,
+                          title: ok == 0 ? '' : '$ok',
+                          titleStyle: const TextStyle(
+                            fontFamily: Hand.title,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
+                        PieChartSectionData(
+                          value: ko.toDouble(),
+                          color: red.ink,
+                          radius: 32,
+                          title: ko == 0 ? '' : '$ko',
+                          titleStyle: const TextStyle(
+                            fontFamily: Hand.title,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${(ok / seen * 100).round()} % de réussite',
+                        style: TextStyle(
+                          fontFamily: Hand.title,
+                          fontSize: 28,
+                          fontWeight: FontWeight.w700,
+                          color: paper.ink,
+                        ),
+                      ),
+                      Text(
+                        '✔ $ok juste(s)   ✘ $ko à revoir',
+                        style: Hand.sansText(context, size: 13),
+                      ),
+                      Text(
+                        'Dernière réponse à chaque question vue.',
+                        style: Hand.sansText(context, size: 12),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+    );
+  }
+}
+
+/// Barres de maîtrise par chapitre disponible, avec statut.
+class _ChapterMastery extends StatelessWidget {
+  const _ChapterMastery({required this.stats});
+
+  final ProgressStats stats;
+
+  @override
+  Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final paper = Paper.of(context);
+    return _Panel(
+      title: 'Maîtrise des chapitres',
+      emoji: '📊',
+      seed: 33,
+      trailing: Text(
+        'seuil ${(masteryThreshold * 100).round()} %',
+        style: Hand.sansText(context, size: 12),
+      ),
+      child: Column(
+        children: [
+          for (final c in stats.availableChapters)
+            InkWell(
+              borderRadius: BorderRadius.circular(10),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => ChapterPage(chapterId: c.chapter.id),
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 2),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            c.chapter.title,
+                            style: Hand.bodyText(context)
+                                .copyWith(fontSize: 18, height: 1.2),
+                          ),
+                        ),
+                        Sticker(
+                          text: c.status.label,
+                          tone: _statusTone(c.status),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 4),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(6),
+                      child: LinearProgressIndicator(
+                        value: c.progress,
+                        minHeight: 9,
+                        color: toneColors(
+                          _statusTone(c.status),
+                          brightness,
+                        ).ink,
+                        backgroundColor: paper.rule,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      '${c.lessonsRead}/${c.lessonCount} leçons · ${c.questionsSeen}/${c.questionCount} questions · '
+                      'réussite ${(c.accuracy * 100).round()} %',
+                      style: Hand.sansText(context, size: 12),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+Tone _statusTone(ChapterStatus s) => switch (s) {
+  ChapterStatus.mastered => Tone.green,
+  ChapterStatus.toReview => Tone.red,
+  ChapterStatus.inProgress => Tone.blue,
+  ChapterStatus.notStarted => Tone.yellow,
+};
+
+class _Badges extends StatelessWidget {
+  const _Badges({required this.achievements});
+
+  final List<Achievement> achievements;
+
+  @override
+  Widget build(BuildContext context) {
+    final paper = Paper.of(context);
+    final earned = achievements.where((a) => a.earned).length;
+    return _Panel(
+      title: 'Mes badges',
+      emoji: '🏅',
+      seed: 35,
+      trailing: Text(
+        '$earned/${achievements.length}',
+        style: Hand.sansText(
+          context,
+          size: 13,
+        ).copyWith(fontWeight: FontWeight.w800),
+      ),
+      child: Wrap(
+        spacing: 10,
+        runSpacing: 10,
+        children: [
+          for (final a in achievements)
+            Tooltip(
+              message: a.rule,
+              child: Semantics(
+                label:
+                    '${a.title} : ${a.earned ? 'obtenu' : 'pas encore obtenu'}. ${a.rule}.',
+                excludeSemantics: true,
+                child: SizedBox(
+                  width: 84,
+                  child: Opacity(
+                    opacity: a.earned ? 1 : 0.38,
+                    child: Column(
+                      children: [
+                        Container(
+                          width: 54,
+                          height: 54,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: a.earned
+                                ? toneColors(
+                                    Tone.yellow,
+                                    Theme.of(context).brightness,
+                                  ).fill
+                                : paper.rule,
+                            border: Border.all(
+                              color: paper.inkSoft,
+                              width: 1.6,
+                            ),
+                          ),
+                          child: Text(
+                            a.earned ? a.emoji : '🔒',
+                            style: const TextStyle(fontSize: 24),
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          a.title,
+                          textAlign: TextAlign.center,
+                          style: Hand.sansText(context, size: 11.5),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+class _WeakSpots extends StatelessWidget {
+  const _WeakSpots({required this.stats});
+
+  final ProgressStats stats;
+
+  @override
+  Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    return _Panel(
+      title: 'Suivi des erreurs',
+      emoji: '🎯',
+      seed: 37,
+      trailing: stats.wrongQuestionIds.isEmpty
+          ? null
+          : TextButton(
+              onPressed: () => startRetry(context),
+              child: Text('Reprendre (${stats.wrongQuestionIds.length})'),
+            ),
+      child: stats.weakConcepts.isEmpty
+          ? _Empty(
+              stats.totalAnswers == 0
+                  ? 'Répondez à quelques questions pour voir apparaître vos notions fragiles.'
+                  : 'Aucune erreur en cours : toutes vos dernières réponses sont justes.',
+            )
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                for (final c in stats.weakConcepts.take(6))
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 6),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          c.recurrent ? '🚨 ' : '• ',
+                          style: const TextStyle(fontSize: 15),
+                        ),
+                        Expanded(
+                          child: Text.rich(
+                            TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: c.concept,
+                                  style: Hand.bodyText(context).copyWith(
+                                    fontSize: 18,
+                                    height: 1.2,
+                                    color: c.recurrent
+                                        ? toneColors(Tone.red, brightness).ink
+                                        : null,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text:
+                                      '\n${c.errors} erreur(s) sur ${c.attempts} réponse(s)'
+                                      '${c.recurrent ? ' · lacune récurrente' : ''}',
+                                  style: Hand.sansText(context, size: 12),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+              ],
+            ),
+    );
+  }
+}
+
+class _History extends StatelessWidget {
+  const _History({required this.stats});
+
+  final ProgressStats stats;
+
+  @override
+  Widget build(BuildContext context) {
+    if (stats.sessions.isEmpty) return const SizedBox.shrink();
     final scheme = Theme.of(context).colorScheme;
-    final color = switch (status) {
-      ChapterStatus.mastered => successColor(true, scheme),
-      ChapterStatus.toReview => scheme.error,
-      ChapterStatus.inProgress => scheme.primary,
-      ChapterStatus.notStarted => scheme.outline,
-    };
-    return Text(
-      status.label,
-      style: Theme.of(context).textTheme.labelMedium?.copyWith(color: color),
+    return _Panel(
+      title: 'Historique',
+      emoji: '🕘',
+      seed: 39,
+      child: Column(
+        children: [
+          for (final s in stats.sessions.reversed.take(8))
+            ListTile(
+              dense: true,
+              contentPadding: EdgeInsets.zero,
+              title: Text(
+                '${s.mode.label} · ${s.score}/100',
+                style: Hand.sansText(
+                  context,
+                  size: 14,
+                ).copyWith(fontWeight: FontWeight.w700),
+              ),
+              subtitle: Text(
+                '${formatDate(s.finishedAt)} · ${s.correctCount}/${s.total} · '
+                '${formatDuration(Duration(seconds: s.durationSeconds))}',
+                style: Hand.sansText(context, size: 12),
+              ),
+              trailing: Icon(
+                Icons.circle,
+                size: 12,
+                color: successColor(s.score >= masteryThreshold * 100, scheme),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Empty extends StatelessWidget {
+  const _Empty(this.text);
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Text(
+        text,
+        style: Hand.noteText(context)
+            .copyWith(fontSize: 16, color: Paper.of(context).inkSoft),
+      ),
     );
   }
 }
