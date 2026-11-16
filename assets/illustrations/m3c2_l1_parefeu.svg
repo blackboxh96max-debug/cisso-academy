@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <path d="M14 70 C8 52 30 40 44 50 C50 34 76 36 80 54 C96 52 98 76 82 80 L22 82 C12 82 8 76 14 70 Z" fill="#DBEAFE" stroke="#26324A" stroke-width="2.2" />
+  <g stroke="#26324A" stroke-width="2" fill="#FDBA8C">
+    <rect x="104" y="40" width="34" height="18" /><rect x="104" y="58" width="17" height="18" /><rect x="121" y="58" width="17" height="18" />
+    <rect x="104" y="112" width="34" height="18" /><rect x="104" y="130" width="17" height="18" /><rect x="121" y="130" width="17" height="18" />
+  </g>
+  <rect x="104" y="76" width="34" height="36" fill="#FEF3C7" stroke="#26324A" stroke-width="2" stroke-dasharray="4 3" />
+  <g stroke="#26324A" stroke-width="2.2" stroke-linejoin="round">
+    <path d="M168 92 L196 70 L224 92 L224 140 L168 140 Z" fill="#DCFCE7" />
+    <rect x="186" y="112" width="18" height="28" fill="#BBF7D0" />
+  </g>
+  <path d="M60 94 C80 94 92 94 160 94" fill="none" stroke="#16A34A" stroke-width="3.2" stroke-linecap="round" />
+  <path d="M152 88 L162 94 L152 100" fill="none" stroke="#16A34A" stroke-width="3.2" stroke-linecap="round" />
+  <path d="M40 124 C60 122 80 124 98 124" fill="none" stroke="#DC2626" stroke-width="3.2" stroke-linecap="round" />
+  <path d="M92 116 L102 132 M102 116 L92 132" stroke="#DC2626" stroke-width="3" stroke-linecap="round" />
+  <g font-family="Caveat, cursive" font-size="15" text-anchor="middle">
+    <text x="48" y="70" fill="#1D4ED8">Internet</text>
+    <text x="121" y="30" fill="#C2410C">pare-feu</text>
+    <text x="196" y="160" fill="#15803D">interne</text>
+    <text x="50" y="146" fill="#B91C1C">refusé</text>
+  </g>
+</svg>

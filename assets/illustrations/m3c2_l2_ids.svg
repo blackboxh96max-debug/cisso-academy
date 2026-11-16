@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <g stroke="#26324A" stroke-width="2.2" stroke-linejoin="round">
+    <path d="M30 20 L40 20 L40 44 L30 44 Z" fill="#C7D2E5" />
+    <path d="M22 44 L96 30 L102 56 L28 70 Z" fill="#EDE4FF" />
+    <circle cx="96" cy="48" r="9" fill="#DBEAFE" />
+  </g>
+  <path d="M104 52 L150 84 M100 62 L132 104" stroke="#8B5CF6" stroke-width="1.6" stroke-dasharray="4 4" />
+  <path d="M10 130 L230 130" stroke="#26324A" stroke-width="2" />
+  <g stroke="#26324A" stroke-width="2">
+    <rect x="22" y="112" width="22" height="16" rx="3" fill="#DCFCE7" />
+    <rect x="62" y="112" width="22" height="16" rx="3" fill="#DCFCE7" />
+    <rect x="128" y="112" width="22" height="16" rx="3" fill="#FECACA" />
+  </g>
+  <g stroke="#26324A" stroke-width="2.2">
+    <rect x="166" y="96" width="8" height="54" fill="#FEF3C7" />
+    <path d="M174 100 L232 86 L232 96 L174 110 Z" fill="#FDBA8C" />
+  </g>
+  <g font-family="Caveat, cursive" font-size="15" text-anchor="middle">
+    <text x="66" y="92" fill="#6D28D9">IDS : je vois</text>
+    <text x="182" y="168" fill="#C2410C">IPS : je bloque</text>
+    <text x="139" y="152" fill="#B91C1C">attaque</text>
+  </g>
+</svg>
