@@ -1,0 +1,1826 @@
+{
+ "lessons": [
+  {
+   "id": "m3c2-l1",
+   "title": "Pare-feu, DMZ et règles de filtrage",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m3c2_l1_parefeu.svg",
+   "illustrationAlt": "Dessin d'un mur de briques avec une porte gardée : à gauche un nuage Internet, à droite un réseau d'entreprise ; une flèche verte passe par la porte, une flèche rouge est arrêtée par le mur.",
+   "objectives": [
+    "Distinguer les types de pare-feu : filtrage de paquets, à états, proxy applicatif, nouvelle génération et WAF.",
+    "Écrire une politique de filtrage avec refus par défaut et règles ordonnées.",
+    "Placer les serveurs exposés dans une DMZ.",
+    "Connaître le rôle du NAT et ses limites pour la sécurité."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-41 Rev. 1, Guidelines on Firewalls and Firewall Policy",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "À quoi sert un pare-feu ?"
+    },
+    {
+     "type": "text",
+     "text": "Un pare-feu contrôle les flux entre deux zones de confiance différentes, par exemple Internet et le réseau interne. Il applique une politique écrite : ce qui n'est pas explicitement autorisé doit être refusé. Il ne remplace ni les correctifs ni la surveillance : c'est une couche de la défense en profondeur."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Type",
+       "Couches OSI",
+       "Ce qu'il voit",
+       "Limite"
+      ],
+      [
+       "Filtrage de paquets (sans état)",
+       "3 et 4",
+       "Adresses, ports, protocole, paquet par paquet",
+       "Ne suit pas les connexions ; règles de retour larges"
+      ],
+      [
+       "Pare-feu à états (stateful)",
+       "3 et 4",
+       "Les mêmes champs + l'état de chaque connexion",
+       "Ne lit pas le contenu applicatif"
+      ],
+      [
+       "Proxy applicatif",
+       "7",
+       "Le contenu du protocole (HTTP, SMTP…)",
+       "Plus lent ; un proxy par protocole"
+      ],
+      [
+       "Pare-feu nouvelle génération (NGFW)",
+       "3 à 7",
+       "Applications, utilisateurs, IPS intégré, inspection TLS",
+       "Coût, complexité, performance"
+      ],
+      [
+       "Pare-feu applicatif web (WAF)",
+       "7",
+       "Requêtes HTTP vers une application web",
+       "Protège le web seulement"
+      ]
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "Pare-feu à états",
+     "text": "Pare-feu qui garde en mémoire une table des connexions en cours. Une réponse n'est acceptée que si elle correspond à une connexion ouverte depuis l'intérieur, ce qui évite d'ouvrir de larges règles de retour.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Écrire les règles"
+    },
+    {
+     "type": "diagram",
+     "title": "Le parcours d'un paquet dans la liste de règles",
+     "alt": "Schéma en quatre étapes : le paquet arrive, il est comparé aux règles de haut en bas, la première règle qui correspond s'applique, et s'il n'en trouve aucune la règle finale refuse tout.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "📨",
+        "label": "Paquet",
+        "detail": "source, destination, port",
+        "tone": "blue"
+       },
+       {
+        "emoji": "📜",
+        "label": "Règles lues",
+        "detail": "de haut en bas",
+        "tone": "violet"
+       },
+       {
+        "emoji": "✅",
+        "label": "1re correspondance",
+        "detail": "elle s'applique, on s'arrête",
+        "tone": "green"
+       },
+       {
+        "emoji": "⛔",
+        "label": "Refus final",
+        "detail": "tout le reste est refusé",
+        "tone": "red"
+       }
+      ]
+     }
+    },
+    {
+     "type": "important",
+     "title": "Refus par défaut et ordre des règles",
+     "text": "La dernière règle refuse tout (deny all). Les règles les plus précises vont en haut : une règle large placée trop tôt masque celles du dessous. Chaque règle a un propriétaire, une justification et une date de revue."
+    },
+    {
+     "type": "memo",
+     "text": "Pare-feu : « Tout ce qui n'est pas permis est interdit », et la première règle qui correspond gagne."
+    },
+    {
+     "type": "practice",
+     "title": "Bonnes pratiques de filtrage",
+     "items": [
+      "Filtrer aussi en sortie : un poste n'a pas à joindre Internet sur n'importe quel port.",
+      "Refuser en entrée les adresses source internes ou privées venant d'Internet (anti-usurpation).",
+      "Journaliser les refus et les règles sensibles, et envoyer les journaux au SIEM.",
+      "Revoir les règles au moins une fois par an et supprimer celles qui ne servent plus.",
+      "Protéger l'administration du pare-feu : réseau dédié, authentification forte."
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "La DMZ"
+    },
+    {
+     "type": "definition",
+     "title": "DMZ (zone démilitarisée)",
+     "text": "Sous-réseau placé entre Internet et le réseau interne, où l'on installe les serveurs qui doivent être joints depuis l'extérieur (web, messagerie, DNS public). Si l'un d'eux est compromis, l'attaquant n'est pas encore dans le réseau interne.",
+     "kind": "general"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Architecture",
+       "Principe",
+       "Point fort"
+      ],
+      [
+       "Un pare-feu à trois pattes",
+       "Un pare-feu avec trois interfaces : Internet, DMZ, interne",
+       "Simple et économique"
+      ],
+      [
+       "Deux pare-feu (DMZ entre les deux)",
+       "Un pare-feu externe, la DMZ, puis un pare-feu interne",
+       "Deux barrières ; idéalement de deux fabricants différents"
+      ],
+      [
+       "Hôte bastion",
+       "Serveur durci exposé, seul point de passage d'un service",
+       "Surface réduite, très surveillé"
+      ]
+     ]
+    },
+    {
+     "type": "risk",
+     "title": "Flux interdit : de la DMZ vers l'interne",
+     "text": "Un serveur de la DMZ ne doit pas pouvoir ouvrir de connexion vers le réseau interne, sauf flux précis et justifié (par exemple vers une base de données sur un port donné). Sinon, la compromission du serveur web devient un tremplin vers tout le système d'information."
+    },
+    {
+     "type": "heading",
+     "text": "NAT : utile, mais pas une protection"
+    },
+    {
+     "type": "text",
+     "text": "La traduction d'adresses (NAT) permet à de nombreux postes d'utiliser une seule adresse publique et masque les adresses internes. Elle complique certaines attaques, mais ce n'est pas un contrôle de sécurité : seule la politique de filtrage décide de ce qui passe."
+    },
+    {
+     "type": "trainerNote",
+     "text": "Question piège classique : « quel pare-feu protège contre une injection SQL ? ». Un filtrage de paquets ou un pare-feu à états ne lit pas le contenu HTTP : il faut un WAF ou un proxy applicatif, en plus du code sécurisé."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : une règle « temporaire » oubliée",
+     "kind": "example",
+     "text": "Lors d'une revue, l'analyste trouve une règle « ANY vers serveur-test, tous ports », créée deux ans plus tôt pour un dépannage. Le serveur de test n'a plus de correctifs et les journaux montrent des scans réguliers venant d'Internet. La règle est supprimée, le serveur isolé, et la procédure de changement impose désormais une date d'expiration à toute règle temporaire."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : chaque règle doit avoir un propriétaire métier ; sinon, elle est supprimée à la revue.",
+      "Analyste SOC : les refus en sortie depuis un serveur sont souvent le premier signe d'un logiciel malveillant.",
+      "Auditeur : je demande la dernière revue des règles et je cherche les règles « any any ».",
+      "Administrateur réseau : je teste chaque changement de règle avant la mise en production."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Le NAT n'est pas un pare-feu.",
+      "Pare-feu à états = suit les connexions (couche 4) ; il ne lit pas le contenu applicatif.",
+      "La règle implicite finale est « refuser tout », pas « autoriser tout ».",
+      "Les serveurs joignables depuis Internet vont en DMZ, jamais dans le réseau interne."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Types : paquets (sans état), à états, proxy applicatif, NGFW, WAF.",
+      "Refus par défaut, règles précises en haut, première correspondance appliquée.",
+      "DMZ : serveurs exposés isolés de l'interne ; architecture à trois pattes ou à deux pare-feu.",
+      "Filtrer aussi en sortie, journaliser, revoir les règles."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m3c2-q02",
+      "m3c2-q05"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m3c2-l2",
+   "title": "Détecter et bloquer : IDS, IPS et contrôle d'accès au réseau",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m3c2_l2_ids.svg",
+   "illustrationAlt": "Dessin d'une caméra de surveillance qui observe un flux de paquets, à côté d'une barrière levante qui arrête un paquet rouge.",
+   "objectives": [
+    "Distinguer IDS et IPS, réseau (NIDS) et hôte (HIDS).",
+    "Comparer la détection par signatures et la détection d'anomalies.",
+    "Interpréter les faux positifs et les faux négatifs.",
+    "Expliquer le contrôle d'accès au réseau avec 802.1X."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-94, Guide to Intrusion Detection and Prevention Systems (IDPS)",
+     "kind": "general"
+    },
+    {
+     "title": "IEEE 802.1X, contrôle d'accès au réseau par port",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Voir ou bloquer"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "",
+       "IDS (détection)",
+       "IPS (prévention)"
+      ],
+      [
+       "Position",
+       "Hors ligne : copie du trafic (port miroir, TAP)",
+       "En ligne : le trafic le traverse"
+      ],
+      [
+       "Action",
+       "Alerte",
+       "Alerte et bloque"
+      ],
+      [
+       "Risque principal",
+       "Une attaque réussit pendant qu'on lit l'alerte",
+       "Un faux positif bloque une activité légitime"
+      ],
+      [
+       "Panne",
+       "Aucun effet sur le trafic",
+       "Peut couper le réseau (prévoir le comportement en cas de panne)"
+      ]
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "IPS (système de prévention d'intrusion)",
+     "text": "Équipement ou logiciel placé en coupure du trafic, qui analyse les flux et bloque ceux qui correspondent à une attaque.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Réseau ou hôte"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "",
+       "NIDS / NIPS",
+       "HIDS / HIPS"
+      ],
+      [
+       "Où",
+       "Sur un segment réseau",
+       "Sur le poste ou le serveur"
+      ],
+      [
+       "Voit",
+       "Le trafic qui passe sur le segment",
+       "Journaux, fichiers, processus, trafic déchiffré de l'hôte"
+      ],
+      [
+       "Ne voit pas",
+       "Le contenu chiffré, le trafic d'autres segments",
+       "Ce qui se passe sur les autres machines"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Comment détecter"
+    },
+    {
+     "type": "diagram",
+     "title": "Deux méthodes de détection",
+     "alt": "Tableau en quatre cases : la détection par signatures est précise sur les attaques connues mais aveugle aux attaques nouvelles ; la détection d'anomalies repère l'inconnu mais produit plus de faux positifs.",
+     "diagram": {
+      "type": "quadrant",
+      "xLabel": "Méthode",
+      "yLabel": "Effet",
+      "cells": [
+       {
+        "emoji": "🔖",
+        "label": "Signatures",
+        "detail": "motifs d'attaques connues",
+        "tone": "blue"
+       },
+       {
+        "emoji": "📈",
+        "label": "Anomalies",
+        "detail": "écart à une base de référence",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🎯",
+        "label": "Peu de faux positifs",
+        "detail": "mais aveugle au zero-day",
+        "tone": "green"
+       },
+       {
+        "emoji": "🔔",
+        "label": "Repère l'inconnu",
+        "detail": "mais plus de faux positifs",
+        "tone": "orange"
+       }
+      ]
+     }
+    },
+    {
+     "type": "important",
+     "title": "Faux positifs et faux négatifs",
+     "text": "Un faux positif est une alerte sans attaque réelle : il fatigue les analystes. Un faux négatif est une attaque sans alerte : c'est le plus dangereux. Régler un IDS, c'est chercher le bon équilibre entre les deux."
+    },
+    {
+     "type": "memo",
+     "text": "IDS = caméra (il regarde et prévient). IPS = vigile à la porte (il regarde et arrête)."
+    },
+    {
+     "type": "heading",
+     "text": "Les leurres"
+    },
+    {
+     "type": "text",
+     "text": "Un pot de miel (honeypot) est un faux système, isolé, qui n'a aucun usage légitime : toute connexion vers lui est suspecte. Un réseau de pots de miel s'appelle un honeynet. Ils servent à détecter tôt et à étudier les techniques des attaquants, sans jamais être reliés aux données réelles."
+    },
+    {
+     "type": "heading",
+     "text": "Contrôle d'accès au réseau (NAC) et 802.1X"
+    },
+    {
+     "type": "diagram",
+     "title": "802.1X : trois acteurs",
+     "alt": "Schéma en trois étapes : le poste (demandeur) se branche, le commutateur ou la borne Wi-Fi (authentificateur) relaie la demande, le serveur RADIUS (serveur d'authentification) accepte ou refuse, puis le port s'ouvre.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "💻",
+        "label": "Demandeur",
+        "detail": "le poste (supplicant)",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🔀",
+        "label": "Authentificateur",
+        "detail": "switch ou borne Wi-Fi",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🗄️",
+        "label": "Serveur RADIUS",
+        "detail": "accepte ou refuse",
+        "tone": "green"
+       },
+       {
+        "emoji": "🚪",
+        "label": "Port ouvert",
+        "detail": "dans le bon VLAN",
+        "tone": "turquoise"
+       }
+      ]
+     }
+    },
+    {
+     "type": "definition",
+     "title": "802.1X",
+     "text": "Norme IEEE de contrôle d'accès par port : tant que l'appareil n'est pas authentifié (par EAP, auprès d'un serveur RADIUS), le port du commutateur ou l'accès Wi-Fi ne laisse passer que l'authentification.",
+     "kind": "general"
+    },
+    {
+     "type": "trainerNote",
+     "text": "Le NAC va souvent plus loin que 802.1X : il vérifie l'état du poste (antivirus à jour, correctifs, chiffrement) avant de l'admettre, et place les appareils non conformes dans un VLAN de quarantaine."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : le pot de miel parle",
+     "kind": "example",
+     "text": "Un serveur leurre nommé comme un serveur de fichiers reçoit, un dimanche, des tentatives de connexion SMB depuis un poste du service comptable. Aucun utilisateur légitime ne connaît ce serveur. L'analyste isole le poste via le NAC, collecte la mémoire et découvre un outil de découverte réseau lancé par un logiciel malveillant."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "Analyste SOC : un IDS mal réglé produit des milliers d'alertes ; je veux des règles adaptées à notre réseau.",
+      "Architecte : je place un NIDS derrière le pare-feu externe et devant les zones sensibles.",
+      "Auditeur : je vérifie que les signatures sont à jour et que les alertes sont traitées.",
+      "RSSI : un IPS en coupure doit avoir un mode de panne choisi (laisser passer ou bloquer) selon la criticité."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "IDS = passif (alerte) ; IPS = en ligne (bloque).",
+      "Les signatures ne détectent pas une attaque inconnue (zero-day).",
+      "Faux négatif = attaque non détectée : le cas le plus grave.",
+      "802.1X : demandeur, authentificateur, serveur d'authentification (RADIUS)."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "IDS hors ligne (alerte), IPS en ligne (bloque) ; réseau (NIDS) ou hôte (HIDS).",
+      "Signatures : précis mais aveugle à l'inconnu. Anomalies : repère l'inconnu, plus de faux positifs.",
+      "Pots de miel : leurres isolés, toute connexion est suspecte.",
+      "802.1X et NAC : authentifier et vérifier l'appareil avant de lui ouvrir le réseau."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m3c2-q11",
+      "m3c2-q14"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m3c2-l3",
+   "title": "VPN, segmentation et réseaux sans fil",
+   "minutes": 35,
+   "illustration": "assets/illustrations/m3c2_l3_wifi.svg",
+   "illustrationAlt": "Dessin d'une borne Wi-Fi avec un cadenas, émettant des ondes vers un ordinateur portable, et d'un tuyau qui relie le portable au bâtiment de l'entreprise.",
+   "objectives": [
+    "Comparer VPN site à site et VPN d'accès distant, IPsec et TLS.",
+    "Expliquer le risque du split tunneling.",
+    "Segmenter un réseau avec des VLAN, des sous-réseaux et la microsegmentation.",
+    "Choisir la bonne sécurité Wi-Fi et reconnaître les attaques sans fil."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-77 Rev. 1, Guide to IPsec VPNs",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-153, Guidelines for Securing Wireless Local Area Networks (WLANs)",
+     "kind": "general"
+    },
+    {
+     "title": "IEEE 802.11i, sécurité des réseaux sans fil (base de WPA2)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Les VPN"
+    },
+    {
+     "type": "definition",
+     "title": "VPN (réseau privé virtuel)",
+     "text": "Tunnel chiffré et authentifié à travers un réseau non fiable, comme Internet, qui relie un utilisateur ou un site au réseau de l'entreprise.",
+     "kind": "general"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Type",
+       "Usage",
+       "Technologie courante"
+      ],
+      [
+       "Site à site",
+       "Relier deux bureaux en permanence",
+       "IPsec en mode tunnel entre deux passerelles"
+      ],
+      [
+       "Accès distant",
+       "Un salarié en déplacement ou en télétravail",
+       "VPN TLS (client ou navigateur) ou IPsec avec client"
+      ],
+      [
+       "Sans client (portail TLS)",
+       "Accès à quelques applications web",
+       "Portail HTTPS"
+      ]
+     ]
+    },
+    {
+     "type": "risk",
+     "title": "Le split tunneling",
+     "text": "Avec le split tunneling, seul le trafic vers l'entreprise passe dans le VPN ; le reste sort directement sur Internet. C'est plus rapide, mais le poste est à la fois relié au réseau interne et exposé sans les protections de l'entreprise. Un tunnel complet (full tunnel) envoie tout le trafic dans le VPN."
+    },
+    {
+     "type": "practice",
+     "title": "Sécuriser l'accès distant",
+     "items": [
+      "Authentification multifacteur obligatoire sur le VPN.",
+      "Correctifs rapides sur la passerelle VPN : c'est un équipement exposé et très ciblé.",
+      "Vérifier l'état du poste avant connexion (NAC).",
+      "Donner accès aux seules applications nécessaires, pas à tout le réseau."
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Segmenter le réseau"
+    },
+    {
+     "type": "text",
+     "text": "Un réseau « à plat », où tout le monde voit tout, laisse un attaquant se déplacer librement une fois entré. Segmenter, c'est découper le réseau en zones et contrôler les flux entre elles."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Technique",
+       "Principe",
+       "Exemple"
+      ],
+      [
+       "VLAN",
+       "Réseaux logiques séparés sur les mêmes commutateurs (couche 2)",
+       "VLAN invités, VLAN serveurs, VLAN téléphonie"
+      ],
+      [
+       "Sous-réseaux et filtrage",
+       "Zones IP séparées, flux filtrés par un pare-feu ou des ACL",
+       "Le VLAN invités ne joint qu'Internet"
+      ],
+      [
+       "Microsegmentation",
+       "Règles au niveau de chaque charge de travail (serveur, conteneur)",
+       "Le serveur web ne parle qu'à sa base de données"
+      ],
+      [
+       "Isolement physique (air gap)",
+       "Aucune liaison avec les autres réseaux",
+       "Systèmes industriels critiques"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Un VLAN n'est pas un pare-feu",
+     "text": "Les VLAN séparent le trafic, mais le routage entre VLAN doit être filtré, sinon la séparation ne protège rien. Désactiver les ports inutilisés, ne pas utiliser le VLAN natif pour les utilisateurs et interdire la négociation automatique des liens trunk limitent le saut de VLAN (VLAN hopping)."
+    },
+    {
+     "type": "heading",
+     "text": "Les réseaux sans fil"
+    },
+    {
+     "type": "diagram",
+     "title": "Évolution de la sécurité Wi-Fi",
+     "alt": "Barres montrant la robustesse croissante des protocoles Wi-Fi : WEP très faible, WPA avec TKIP faible, WPA2 avec AES-CCMP solide, WPA3 avec SAE le plus robuste.",
+     "diagram": {
+      "type": "bars",
+      "unit": "/ 4",
+      "bars": [
+       {
+        "label": "WEP (RC4) : cassé",
+        "value": 1,
+        "tone": "red"
+       },
+       {
+        "label": "WPA (TKIP) : retiré",
+        "value": 2,
+        "tone": "orange"
+       },
+       {
+        "label": "WPA2 (AES-CCMP)",
+        "value": 3,
+        "tone": "blue"
+       },
+       {
+        "label": "WPA3 (SAE)",
+        "value": 4,
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Mode",
+       "Authentification",
+       "Usage"
+      ],
+      [
+       "Personnel (PSK / SAE)",
+       "Une phrase secrète partagée par tous",
+       "Maison, petit bureau"
+      ],
+      [
+       "Entreprise",
+       "802.1X avec EAP et un serveur RADIUS, identifiant propre à chacun",
+       "Entreprise : révocation individuelle, traçabilité"
+      ]
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "WPA3 et SAE",
+     "text": "WPA3 remplace l'échange de clé à partir de la phrase secrète de WPA2-Personnel par SAE (Simultaneous Authentication of Equals), qui résiste aux attaques par dictionnaire hors ligne sur une capture de la poignée de main.",
+     "kind": "general"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Attaque sans fil",
+       "Description",
+       "Parade"
+      ],
+      [
+       "Point d'accès pirate (rogue AP)",
+       "Borne non autorisée branchée sur le réseau interne",
+       "Détection sans fil (WIDS), 802.1X sur les prises"
+      ],
+      [
+       "Jumeau maléfique (evil twin)",
+       "Fausse borne qui imite le nom d'un réseau légitime",
+       "802.1X avec vérification du certificat serveur, VPN"
+      ],
+      [
+       "Désauthentification",
+       "Trames forgées qui déconnectent les clients",
+       "Trames de gestion protégées (802.11w), obligatoires en WPA3"
+      ],
+      [
+       "Wardriving",
+       "Recherche de réseaux Wi-Fi en se déplaçant",
+       "Chiffrement fort, puissance d'émission adaptée"
+      ],
+      [
+       "Bluejacking / bluesnarfing",
+       "Messages non sollicités / vol de données par Bluetooth",
+       "Bluetooth désactivé ou non visible, appairage contrôlé"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "Wi-Fi d'entreprise : WPA3 (ou au minimum WPA2) en mode Entreprise, 802.1X, certificat serveur vérifié, réseau invités séparé."
+    },
+    {
+     "type": "trainerNote",
+     "text": "Masquer le nom du réseau (SSID) ou filtrer les adresses MAC ne sont pas des protections : le SSID se voit dans le trafic et une adresse MAC se copie facilement. À l'examen, ce sont des distracteurs fréquents."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : une borne de trop",
+     "kind": "example",
+     "text": "Le système de détection sans fil signale une borne inconnue diffusant le nom du réseau invité, avec un signal très fort dans le hall. Sur un banc de test isolé, l'équipe reproduit le scénario et vérifie que les postes de l'entreprise refusent de s'y connecter, car ils exigent le certificat du serveur RADIUS. La sûreté retire l'appareil et un rappel est envoyé : ne jamais saisir ses identifiants sur une page de connexion Wi-Fi inattendue."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "Architecte : je segmente par sensibilité et je filtre chaque passage entre zones.",
+      "Analyste SOC : les connexions VPN depuis deux pays en une heure méritent une alerte.",
+      "Auditeur : je vérifie l'absence de WEP et de WPA, et la séparation du réseau invités.",
+      "RSSI : la passerelle VPN est un actif critique exposé : correctifs en priorité."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Split tunneling = trafic Internet hors du VPN : risque de pont entre Internet et l'interne.",
+      "VLAN = séparation logique ; il faut filtrer le routage entre VLAN.",
+      "WEP est cassé ; WPA (TKIP) est retiré ; WPA2 utilise AES-CCMP ; WPA3 utilise SAE.",
+      "Masquer le SSID et filtrer les MAC ne protègent pas réellement."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "VPN site à site (IPsec tunnel) ou accès distant (TLS ou IPsec) ; MFA ; éviter le split tunneling.",
+      "Segmentation : VLAN, sous-réseaux filtrés, microsegmentation, isolement physique.",
+      "Wi-Fi : WPA3 ou WPA2 Entreprise avec 802.1X ; WEP et WPA à proscrire.",
+      "Attaques : point d'accès pirate, jumeau maléfique, désauthentification, Bluetooth."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m3c2-q22",
+      "m3c2-q27"
+     ]
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "id": "m3c2-q01",
+   "domain": "network-security",
+   "level": "beginner",
+   "concept": "Refus par défaut",
+   "prompt": "Quelle doit être la dernière règle d'un pare-feu bien configuré ?",
+   "choices": [
+    "Autoriser tout",
+    "Refuser tout",
+    "Autoriser le web",
+    "Journaliser sans décider"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Ce qui n'est pas explicitement autorisé est refusé : la règle finale est « refuser tout ».",
+   "whyNot": {
+    "0": "Autoriser tout annule l'intérêt du pare-feu.",
+    "2": "Le web doit être autorisé par une règle explicite, plus haut.",
+    "3": "Une règle doit décider ; la journalisation s'ajoute à la décision."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c2-q02",
+   "domain": "network-security",
+   "level": "beginner",
+   "concept": "Types de pare-feu",
+   "prompt": "Quel type de pare-feu garde en mémoire les connexions ouvertes pour n'accepter que les réponses attendues ?",
+   "choices": [
+    "Filtrage de paquets sans état",
+    "Pare-feu à états",
+    "Concentrateur",
+    "Serveur DNS"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le pare-feu à états tient une table des connexions et accepte les réponses qui y correspondent.",
+   "whyNot": {
+    "0": "Sans état, chaque paquet est jugé seul, sans mémoire des connexions.",
+    "2": "Un concentrateur (hub) ne filtre rien.",
+    "3": "Un serveur DNS résout des noms, il ne filtre pas le trafic."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c2-q03",
+   "domain": "network-security",
+   "level": "beginner",
+   "concept": "DMZ",
+   "prompt": "Où placer le serveur web public de l'entreprise ?",
+   "choices": [
+    "Dans le réseau interne, près des postes",
+    "Dans une DMZ",
+    "Dans le VLAN des administrateurs",
+    "Directement sur Internet sans pare-feu"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Les serveurs joignables depuis Internet vont dans une DMZ, isolée du réseau interne.",
+   "whyNot": {
+    "0": "Sa compromission ouvrirait directement le réseau interne.",
+    "2": "Le VLAN des administrateurs est l'une des zones les plus sensibles.",
+    "3": "Sans pare-feu, il serait exposé sur tous ses ports."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c2-q04",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "WAF",
+   "prompt": "Quel contrôle peut bloquer une injection SQL envoyée dans une requête HTTPS autorisée vers le site web ?",
+   "choices": [
+    "Un filtrage de paquets sur le port 443",
+    "Un pare-feu applicatif web (WAF)",
+    "Le NAT",
+    "Un VLAN dédié"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le WAF lit le contenu HTTP (couche 7) et reconnaît les motifs d'injection. Les autres contrôles ne voient que les adresses et les ports.",
+   "whyNot": {
+    "0": "Il autorise ou refuse le port 443 sans lire la requête.",
+    "2": "Le NAT traduit les adresses ; il ne lit pas le contenu.",
+    "3": "Un VLAN sépare le trafic mais ne lit pas les requêtes."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c2-q05",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "Ordre des règles",
+   "prompt": "Une règle « autoriser tout le réseau interne vers Internet » est placée en tête, au-dessus d'une règle « refuser le poste X vers Internet ». Que se passe-t-il pour le poste X ?",
+   "choices": [
+    "Il est bloqué, car la règle la plus précise gagne toujours",
+    "Il est autorisé, car la première règle qui correspond s'applique",
+    "Le pare-feu signale un conflit et bloque tout",
+    "Cela dépend de l'heure"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Les règles sont lues de haut en bas et la première correspondance s'applique : la règle large masque la règle précise.",
+   "whyNot": {
+    "0": "La plupart des pare-feu appliquent la première règle qui correspond, pas la plus précise.",
+    "2": "Le pare-feu n'arbitre pas : il applique l'ordre.",
+    "3": "Aucune notion d'horaire dans ces règles."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c2-q06",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "NAT",
+   "prompt": "Un collègue affirme : « nous avons du NAT, donc nous n'avons pas besoin de règles de filtrage ». Que répondre ?",
+   "choices": [
+    "Il a raison, le NAT bloque toutes les attaques",
+    "Le NAT masque les adresses internes mais n'est pas un contrôle de sécurité ; il faut une politique de filtrage",
+    "Le NAT remplace l'IDS",
+    "Le NAT chiffre le trafic"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le NAT traduit les adresses ; seule la politique de filtrage décide de ce qui passe, en entrée comme en sortie.",
+   "whyNot": {
+    "0": "Les redirections de ports et le trafic sortant passent malgré le NAT.",
+    "2": "Le NAT ne détecte rien.",
+    "3": "Le NAT ne chiffre rien."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c2-q07",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "Filtrage en sortie",
+   "prompt": "Pourquoi filtrer aussi le trafic sortant ?",
+   "choices": [
+    "Pour limiter l'exfiltration et les communications d'un logiciel malveillant vers son serveur de contrôle",
+    "Pour accélérer Internet",
+    "Parce que le filtrage entrant est inutile",
+    "Pour éviter de journaliser"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Un poste ou un serveur n'a besoin que de quelques flux sortants ; bloquer le reste gêne l'exfiltration et le contrôle à distance.",
+   "whyNot": {
+    "1": "Le filtrage n'accélère pas le trafic.",
+    "2": "Le filtrage entrant reste indispensable.",
+    "3": "Les refus en sortie doivent au contraire être journalisés."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c2-q08",
+   "domain": "network-security",
+   "level": "advanced",
+   "concept": "Architecture DMZ",
+   "prompt": "Quel avantage principal apporte une DMZ placée entre deux pare-feu de fabricants différents ?",
+   "choices": [
+    "Elle supprime le besoin de correctifs",
+    "Une faille propre à un fabricant ne suffit pas à traverser les deux barrières",
+    "Elle rend le NAT inutile",
+    "Elle double le débit"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Deux pare-feu différents obligent l'attaquant à exploiter deux failles distinctes : c'est la défense en profondeur appliquée au périmètre.",
+   "whyNot": {
+    "0": "Les correctifs restent nécessaires sur les deux.",
+    "2": "Le NAT est une question d'adressage, indépendante.",
+    "3": "Ajouter un équipement n'augmente pas le débit."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c2-q09",
+   "domain": "network-security",
+   "level": "advanced",
+   "concept": "Flux de la DMZ",
+   "prompt": "Le serveur web en DMZ doit lire une base de données interne. Quelle règle est la plus appropriée ?",
+   "choices": [
+    "Autoriser la DMZ vers tout le réseau interne",
+    "Autoriser uniquement le serveur web vers le serveur de base de données, sur le port de la base, et journaliser",
+    "Placer la base de données dans la DMZ sans filtrage",
+    "Autoriser tout le réseau interne vers la DMZ et inversement"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Un flux précis (source, destination, port), justifié et journalisé limite l'usage du serveur web comme tremplin.",
+   "whyNot": {
+    "0": "C'est exactement le tremplin à éviter.",
+    "2": "Les données sensibles seraient exposées à côté des serveurs publics.",
+    "3": "Des règles larges dans les deux sens annulent la DMZ."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c2-q10",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "Revue des règles",
+   "prompt": "Lors d'un audit, quel constat sur un pare-feu est le plus préoccupant ?",
+   "choices": [
+    "Des règles documentées avec un propriétaire",
+    "Une règle « any vers any, tous ports » créée pour un test il y a deux ans",
+    "La journalisation des refus",
+    "Une revue annuelle des règles"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Une règle permissive oubliée ouvre largement le réseau. Les trois autres constats sont de bonnes pratiques.",
+   "whyNot": {
+    "0": "C'est une bonne pratique.",
+    "2": "C'est une bonne pratique.",
+    "3": "C'est une bonne pratique."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c2-q11",
+   "domain": "network-security",
+   "level": "beginner",
+   "concept": "IDS et IPS",
+   "prompt": "Quelle est la différence principale entre un IDS et un IPS ?",
+   "choices": [
+    "L'IDS chiffre, l'IPS déchiffre",
+    "L'IDS détecte et alerte, l'IPS est en ligne et peut bloquer",
+    "L'IDS est matériel, l'IPS est toujours logiciel",
+    "Il n'y a aucune différence"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "L'IDS observe une copie du trafic et alerte ; l'IPS est placé en coupure et bloque.",
+   "whyNot": {
+    "0": "Ni l'un ni l'autre n'a pour rôle de chiffrer.",
+    "2": "Les deux existent sous forme matérielle et logicielle.",
+    "3": "La position et l'action diffèrent."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c2-q12",
+   "domain": "network-security",
+   "level": "beginner",
+   "concept": "Faux négatif",
+   "prompt": "Comment appelle-t-on une attaque réelle qui ne déclenche aucune alerte ?",
+   "choices": [
+    "Un faux positif",
+    "Un faux négatif",
+    "Un vrai positif",
+    "Un vrai négatif"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Faux négatif : il y a une attaque, mais l'outil dit « rien ». C'est le cas le plus dangereux.",
+   "whyNot": {
+    "0": "Faux positif : une alerte sans attaque.",
+    "2": "Vrai positif : une attaque correctement détectée.",
+    "3": "Vrai négatif : pas d'attaque et pas d'alerte."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c2-q13",
+   "domain": "network-security",
+   "level": "beginner",
+   "concept": "Pot de miel",
+   "prompt": "Qu'est-ce qu'un pot de miel (honeypot) ?",
+   "choices": [
+    "Un serveur de sauvegarde",
+    "Un système leurre isolé, sans usage légitime, qui attire et révèle les attaquants",
+    "Un antivirus",
+    "Un VPN gratuit"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Toute connexion vers un pot de miel est suspecte, car personne n'a de raison légitime de s'y connecter.",
+   "whyNot": {
+    "0": "Un serveur de sauvegarde contient de vraies données.",
+    "2": "Un antivirus protège un poste.",
+    "3": "Un VPN relie des réseaux."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c2-q14",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "Signatures et anomalies",
+   "prompt": "Quel est le principal défaut d'une détection uniquement par signatures ?",
+   "choices": [
+    "Elle produit énormément de faux positifs",
+    "Elle ne détecte pas une attaque inconnue (zero-day)",
+    "Elle ne fonctionne que sur Wi-Fi",
+    "Elle empêche la journalisation"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Une signature décrit une attaque connue : une attaque nouvelle n'a pas encore de signature.",
+   "whyNot": {
+    "0": "C'est plutôt le défaut de la détection d'anomalies.",
+    "2": "Les signatures s'appliquent à tout type de trafic.",
+    "3": "Elle n'a pas de lien avec la journalisation."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c2-q15",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "NIDS et HIDS",
+   "prompt": "Le trafic vers un serveur est chiffré de bout en bout en TLS. Quel outil verra le mieux une attaque dans le contenu ?",
+   "choices": [
+    "Un NIDS sur le segment réseau",
+    "Un HIDS installé sur le serveur",
+    "Un concentrateur",
+    "Le NAT"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le HIDS observe l'hôte, où le trafic est déchiffré, ainsi que ses journaux et processus. Le NIDS ne voit que le flux chiffré.",
+   "whyNot": {
+    "0": "Sans déchiffrement, le NIDS ne voit pas le contenu.",
+    "2": "Un concentrateur ne détecte rien.",
+    "3": "Le NAT ne détecte rien."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c2-q16",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "802.1X",
+   "prompt": "Dans 802.1X, quel est le rôle du commutateur ou de la borne Wi-Fi ?",
+   "choices": [
+    "Demandeur",
+    "Authentificateur, qui relaie la demande au serveur d'authentification",
+    "Serveur d'authentification",
+    "Autorité de certification"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le demandeur est le poste ; l'authentificateur est le commutateur ou la borne ; le serveur d'authentification est généralement RADIUS.",
+   "whyNot": {
+    "0": "Le demandeur (supplicant) est le poste.",
+    "2": "Le serveur d'authentification est le serveur RADIUS.",
+    "3": "Une autorité de certification peut émettre des certificats, mais n'est pas un rôle 802.1X."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c2-q17",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "Positionnement IPS",
+   "prompt": "Quel risque est propre à un IPS par rapport à un IDS ?",
+   "choices": [
+    "Il ne voit pas le trafic",
+    "Un faux positif peut bloquer une activité légitime, et une panne peut couper le trafic",
+    "Il ne produit jamais d'alerte",
+    "Il ne peut pas utiliser de signatures"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "En coupure, l'IPS agit sur le trafic réel : ses erreurs et ses pannes ont un effet direct.",
+   "whyNot": {
+    "0": "Il voit tout le trafic puisqu'il est en coupure.",
+    "2": "Il alerte aussi.",
+    "3": "Les IPS utilisent largement les signatures."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c2-q18",
+   "domain": "network-security",
+   "level": "advanced",
+   "concept": "Réglage de l'IDS",
+   "prompt": "Un IDS produit 5 000 alertes par jour, presque toutes des faux positifs, et les analystes ne les lisent plus. Quelle est la meilleure réponse ?",
+   "choices": [
+    "Désactiver l'IDS",
+    "Ajuster les règles à l'environnement, supprimer celles qui ne s'appliquent pas et prioriser les alertes",
+    "Ignorer les alertes la nuit",
+    "Ajouter un second IDS identique"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le réglage (tuning) réduit le bruit sans perdre la détection ; la fatigue d'alerte crée des faux négatifs « humains ».",
+   "whyNot": {
+    "0": "On perd toute détection.",
+    "2": "Les attaques ont aussi lieu la nuit.",
+    "3": "On doublerait le bruit."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c2-q19",
+   "domain": "network-security",
+   "level": "advanced",
+   "concept": "NAC",
+   "prompt": "Un portable sans correctifs récents se connecte au réseau filaire. Que peut faire une solution NAC ?",
+   "choices": [
+    "Rien, le NAC ne regarde que l'adresse IP",
+    "Vérifier l'état du poste et le placer dans un VLAN de quarantaine jusqu'à sa mise en conformité",
+    "Supprimer le système d'exploitation",
+    "Désactiver le pare-feu du poste"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le NAC contrôle l'identité et la conformité de l'appareil avant de lui ouvrir le réseau, et peut le mettre en quarantaine.",
+   "whyNot": {
+    "0": "Le NAC contrôle justement l'identité et l'état.",
+    "2": "Aucune action destructrice de ce genre.",
+    "3": "Ce serait l'inverse de l'objectif."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c2-q20",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "Méthodes de détection",
+   "prompt": "Quelles affirmations sur la détection d'anomalies sont exactes ? (plusieurs réponses)",
+   "choices": [
+    "Elle compare le trafic à une base de référence du comportement normal",
+    "Elle peut repérer une attaque encore inconnue",
+    "Elle ne produit jamais de faux positifs",
+    "Elle exige une période d'apprentissage du comportement normal"
+   ],
+   "correct": [
+    0,
+    1,
+    3
+   ],
+   "explanation": "La détection d'anomalies apprend le normal puis signale les écarts : elle repère l'inconnu, au prix de faux positifs.",
+   "whyNot": {
+    "2": "Elle en produit souvent davantage que les signatures."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c2-q21",
+   "domain": "network-security",
+   "level": "beginner",
+   "concept": "VPN",
+   "prompt": "Quel VPN relie en permanence deux bureaux de l'entreprise ?",
+   "choices": [
+    "Un VPN site à site",
+    "Un VPN d'accès distant",
+    "Un portail web sans client",
+    "Un pot de miel"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le VPN site à site relie deux passerelles, souvent en IPsec mode tunnel.",
+   "whyNot": {
+    "1": "L'accès distant concerne un utilisateur isolé.",
+    "2": "Le portail sans client sert à quelques applications web.",
+    "3": "Un pot de miel est un leurre."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c2-q22",
+   "domain": "network-security",
+   "level": "beginner",
+   "concept": "Wi-Fi",
+   "prompt": "Quel protocole Wi-Fi est cassé et ne doit plus être utilisé ?",
+   "choices": [
+    "WPA3",
+    "WPA2 avec AES",
+    "WEP",
+    "802.1X"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "WEP, basé sur RC4, se casse en quelques minutes.",
+   "whyNot": {
+    "0": "WPA3 est le standard le plus récent.",
+    "1": "WPA2 avec AES-CCMP reste acceptable.",
+    "3": "802.1X est une méthode d'authentification, pas un chiffrement cassé."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c2-q23",
+   "domain": "network-security",
+   "level": "beginner",
+   "concept": "Segmentation",
+   "prompt": "Quel est le principal intérêt de segmenter un réseau ?",
+   "choices": [
+    "Limiter les déplacements d'un attaquant et l'étendue d'un incident",
+    "Supprimer le besoin de mots de passe",
+    "Accélérer les sauvegardes",
+    "Rendre Internet plus rapide"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Un attaquant qui compromet une zone ne voit pas tout le reste : la compromission est contenue.",
+   "whyNot": {
+    "1": "La segmentation ne remplace pas l'authentification.",
+    "2": "Ce n'est pas son objectif.",
+    "3": "Ce n'est pas son objectif."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c2-q24",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "Split tunneling",
+   "prompt": "Pourquoi le split tunneling est-il un risque ?",
+   "choices": [
+    "Il chiffre deux fois le trafic",
+    "Le poste est relié au réseau interne tout en accédant directement à Internet, sans les protections de l'entreprise",
+    "Il empêche l'accès aux applications internes",
+    "Il désactive l'authentification multifacteur"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le poste devient un pont possible entre Internet et le réseau interne.",
+   "whyNot": {
+    "0": "Il ne chiffre pas deux fois.",
+    "2": "Les applications internes restent accessibles via le tunnel.",
+    "3": "Il n'a pas de lien avec la MFA."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c2-q25",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "Wi-Fi Entreprise",
+   "prompt": "Pourquoi préférer le mode Entreprise (802.1X) au mode Personnel pour le Wi-Fi d'une entreprise ?",
+   "choices": [
+    "Il est plus simple à installer",
+    "Chaque utilisateur a ses propres identifiants : révocation individuelle et traçabilité",
+    "Il n'utilise aucun chiffrement",
+    "Il évite d'avoir un serveur RADIUS"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Avec une phrase secrète partagée, le départ d'un salarié oblige à la changer partout ; en Entreprise, on révoque un seul compte.",
+   "whyNot": {
+    "0": "Il est plus complexe, mais plus sûr.",
+    "2": "Il chiffre le trafic.",
+    "3": "Il repose au contraire sur un serveur RADIUS."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c2-q26",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "Jumeau maléfique",
+   "prompt": "Une fausse borne diffuse le même nom de réseau que le Wi-Fi de l'entreprise. Quelle mesure empêche le mieux les postes de s'y connecter ?",
+   "choices": [
+    "Masquer le SSID",
+    "802.1X avec vérification du certificat du serveur d'authentification",
+    "Filtrer les adresses MAC",
+    "Augmenter la puissance des bornes"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le poste refuse un serveur dont le certificat n'est pas celui attendu : la fausse borne ne peut pas se faire passer pour le réseau.",
+   "whyNot": {
+    "0": "Le SSID masqué se découvre facilement dans le trafic.",
+    "2": "Une adresse MAC se copie.",
+    "3": "La fausse borne peut être plus proche et plus forte."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c2-q27",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "WPA3",
+   "prompt": "Qu'apporte SAE dans WPA3-Personnel ?",
+   "choices": [
+    "Il supprime le chiffrement",
+    "Il résiste aux attaques par dictionnaire hors ligne sur une poignée de main capturée",
+    "Il remplace 802.1X en mode Entreprise",
+    "Il désactive les trames de gestion protégées"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Avec SAE, capturer l'échange ne suffit plus pour tester des mots de passe hors ligne.",
+   "whyNot": {
+    "0": "WPA3 chiffre le trafic.",
+    "2": "SAE concerne le mode Personnel.",
+    "3": "WPA3 rend au contraire les trames de gestion protégées obligatoires."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c2-q28",
+   "domain": "network-security",
+   "level": "advanced",
+   "concept": "VLAN",
+   "prompt": "Les postes invités et les serveurs sont dans deux VLAN différents, mais le routeur route librement entre eux. Qu'en conclure ?",
+   "choices": [
+    "La séparation est suffisante",
+    "La séparation est inefficace tant que le routage entre VLAN n'est pas filtré",
+    "Il faut supprimer les VLAN",
+    "Le problème vient du Wi-Fi"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Un VLAN sépare le trafic en couche 2 ; sans filtrage au routage, les invités joignent les serveurs.",
+   "whyNot": {
+    "0": "Le routage libre annule la séparation.",
+    "2": "Les VLAN sont utiles ; il faut les compléter par un filtrage.",
+    "3": "Le problème est le routage, pas le support."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c2-q29",
+   "domain": "network-security",
+   "level": "advanced",
+   "concept": "Microsegmentation",
+   "prompt": "Dans un centre de données virtualisé, on veut que le serveur web ne puisse parler qu'à sa base de données. Quelle approche convient le mieux ?",
+   "choices": [
+    "Un seul grand VLAN pour tous les serveurs",
+    "La microsegmentation, avec des règles propres à chaque charge de travail",
+    "Le masquage du SSID",
+    "Le split tunneling"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La microsegmentation applique des règles au plus près de chaque serveur, même dans un même sous-réseau.",
+   "whyNot": {
+    "0": "Tous les serveurs se verraient entre eux.",
+    "2": "Le SSID concerne le Wi-Fi.",
+    "3": "Le split tunneling concerne les VPN."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c2-q30",
+   "domain": "network-security",
+   "level": "advanced",
+   "concept": "Accès distant",
+   "prompt": "Quelles mesures renforcent un VPN d'accès distant ? (plusieurs réponses)",
+   "choices": [
+    "Authentification multifacteur",
+    "Correctifs rapides sur la passerelle VPN",
+    "Accès limité aux applications nécessaires",
+    "Un compte partagé par tous les télétravailleurs"
+   ],
+   "correct": [
+    0,
+    1,
+    2
+   ],
+   "explanation": "MFA, correctifs de la passerelle exposée et moindre privilège réduisent fortement le risque.",
+   "whyNot": {
+    "3": "Un compte partagé supprime la traçabilité et la révocation individuelle."
+   },
+   "kind": "general"
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "m3c2-f01",
+   "front": "Refus par défaut",
+   "back": "Dernière règle : refuser tout. Ce qui n'est pas permis est interdit.",
+   "concept": "Refus par défaut"
+  },
+  {
+   "id": "m3c2-f02",
+   "front": "Ordre des règles",
+   "back": "Lues de haut en bas ; la première qui correspond s'applique. Le précis en haut.",
+   "concept": "Ordre des règles"
+  },
+  {
+   "id": "m3c2-f03",
+   "front": "Pare-feu à états",
+   "back": "Suit les connexions (couches 3-4) ; ne lit pas le contenu applicatif.",
+   "concept": "Pare-feu à états"
+  },
+  {
+   "id": "m3c2-f04",
+   "front": "WAF",
+   "back": "Pare-feu applicatif web (couche 7) : injection SQL, XSS.",
+   "concept": "WAF"
+  },
+  {
+   "id": "m3c2-f05",
+   "front": "NGFW",
+   "back": "Pare-feu nouvelle génération : applications, utilisateurs, IPS, inspection TLS.",
+   "concept": "NGFW"
+  },
+  {
+   "id": "m3c2-f06",
+   "front": "DMZ",
+   "back": "Zone des serveurs exposés, entre Internet et l'interne.",
+   "concept": "DMZ"
+  },
+  {
+   "id": "m3c2-f07",
+   "front": "NAT",
+   "back": "Traduit les adresses ; ce n'est pas un contrôle de sécurité.",
+   "concept": "NAT"
+  },
+  {
+   "id": "m3c2-f08",
+   "front": "Filtrage en sortie",
+   "back": "Limite l'exfiltration et le contrôle à distance des logiciels malveillants.",
+   "concept": "Filtrage en sortie"
+  },
+  {
+   "id": "m3c2-f09",
+   "front": "IDS / IPS",
+   "back": "IDS : hors ligne, alerte. IPS : en ligne, bloque.",
+   "concept": "IPS"
+  },
+  {
+   "id": "m3c2-f10",
+   "front": "NIDS / HIDS",
+   "back": "Réseau : un segment. Hôte : le poste, y compris le trafic déchiffré.",
+   "concept": "HIDS"
+  },
+  {
+   "id": "m3c2-f11",
+   "front": "Signatures / anomalies",
+   "back": "Connu et précis / inconnu mais plus de faux positifs.",
+   "concept": "Détection d'anomalies"
+  },
+  {
+   "id": "m3c2-f12",
+   "front": "Pot de miel",
+   "back": "Leurre isolé : toute connexion est suspecte.",
+   "concept": "Pot de miel"
+  },
+  {
+   "id": "m3c2-f13",
+   "front": "802.1X",
+   "back": "Demandeur (poste), authentificateur (switch, borne), serveur RADIUS.",
+   "concept": "802.1X"
+  },
+  {
+   "id": "m3c2-f14",
+   "front": "NAC",
+   "back": "Vérifie l'identité et l'état de l'appareil ; quarantaine si non conforme.",
+   "concept": "NAC"
+  },
+  {
+   "id": "m3c2-f15",
+   "front": "VPN site à site / accès distant",
+   "back": "Deux bureaux (IPsec tunnel) / un utilisateur (TLS ou IPsec).",
+   "concept": "VPN"
+  },
+  {
+   "id": "m3c2-f16",
+   "front": "Split tunneling",
+   "back": "Trafic Internet hors du VPN : le poste fait pont entre Internet et l'interne.",
+   "concept": "Split tunneling"
+  },
+  {
+   "id": "m3c2-f17",
+   "front": "VLAN",
+   "back": "Séparation logique en couche 2 ; filtrer le routage entre VLAN.",
+   "concept": "VLAN"
+  },
+  {
+   "id": "m3c2-f18",
+   "front": "Microsegmentation",
+   "back": "Règles au niveau de chaque serveur ou conteneur.",
+   "concept": "Microsegmentation"
+  },
+  {
+   "id": "m3c2-f19",
+   "front": "WEP / WPA / WPA2 / WPA3",
+   "back": "Cassé / retiré (TKIP) / AES-CCMP / SAE.",
+   "concept": "WPA3"
+  },
+  {
+   "id": "m3c2-f20",
+   "front": "Jumeau maléfique",
+   "back": "Fausse borne au même nom. Parade : 802.1X avec certificat serveur vérifié.",
+   "concept": "Jumeau maléfique"
+  }
+ ],
+ "revisionSheet": [
+  "# Fiche de révision : pare-feu, IDS/IPS, VPN, segmentation et sans-fil",
+  "Pare-feu : sans état (paquets, 3-4), à états (connexions), proxy applicatif (7), NGFW (applications, utilisateurs, IPS), WAF (web, 7).",
+  "Règles : refus par défaut ; lues de haut en bas ; la première qui correspond s'applique ; règles précises en haut ; propriétaire et revue.",
+  "Filtrer aussi en sortie ; refuser en entrée les adresses source internes venant d'Internet ; journaliser les refus.",
+  "NAT : masque les adresses internes, n'est pas un contrôle de sécurité.",
+  "DMZ : serveurs exposés isolés ; un pare-feu à trois pattes ou deux pare-feu (deux fabricants) ; hôte bastion ; pas de flux DMZ vers interne sauf flux précis.",
+  "IDS : hors ligne, alerte. IPS : en ligne, bloque (risque : faux positif bloquant, panne). NIDS : segment ; HIDS : hôte.",
+  "Signatures : précises, aveugles au zero-day. Anomalies : repèrent l'inconnu, plus de faux positifs, apprentissage nécessaire.",
+  "Faux positif : alerte sans attaque (fatigue). Faux négatif : attaque sans alerte (le plus grave). Régler l'IDS.",
+  "Pot de miel / honeynet : leurres isolés, toute connexion est suspecte.",
+  "802.1X : demandeur (poste), authentificateur (switch, borne), serveur d'authentification (RADIUS), avec EAP. NAC : conformité, quarantaine.",
+  "VPN : site à site (IPsec tunnel) ; accès distant (TLS ou IPsec) avec MFA ; éviter le split tunneling ; passerelle VPN à corriger en priorité.",
+  "Segmentation : VLAN (filtrer le routage entre VLAN, éviter le saut de VLAN), sous-réseaux filtrés, microsegmentation, isolement physique.",
+  "Wi-Fi : WEP cassé, WPA (TKIP) retiré, WPA2 (AES-CCMP), WPA3 (SAE, trames de gestion protégées). Entreprise = 802.1X ; Personnel = phrase secrète.",
+  "Attaques sans fil : point d'accès pirate, jumeau maléfique (parade : certificat serveur vérifié), désauthentification, wardriving, bluejacking, bluesnarfing.",
+  "Faux amis : masquer le SSID, filtrer les MAC, NAT : pas de vraie protection."
+ ],
+ "mindMap": {
+  "label": "Pare-feu, IDS/IPS, VPN, segmentation et sans-fil",
+  "en": "Network Defenses",
+  "emoji": "🧱",
+  "children": [
+   {
+    "label": "Pare-feu",
+    "en": "Firewalls",
+    "emoji": "🧱",
+    "tone": "blue",
+    "children": [
+     {
+      "label": "Types",
+      "children": [
+       {
+        "label": "Sans état",
+        "detail": "Paquet par paquet, couches 3-4."
+       },
+       {
+        "label": "À états",
+        "detail": "Suit les connexions."
+       },
+       {
+        "label": "Proxy applicatif",
+        "detail": "Couche 7."
+       },
+       {
+        "label": "NGFW",
+        "detail": "Applications, utilisateurs, IPS."
+       },
+       {
+        "label": "WAF",
+        "detail": "Web, couche 7."
+       }
+      ]
+     },
+     {
+      "label": "Règles",
+      "children": [
+       {
+        "label": "Refus par défaut"
+       },
+       {
+        "label": "Première correspondance",
+        "detail": "Le précis en haut."
+       },
+       {
+        "label": "Filtrage en sortie"
+       }
+      ]
+     },
+     {
+      "label": "NAT",
+      "detail": "Pas un contrôle de sécurité."
+     }
+    ]
+   },
+   {
+    "label": "DMZ",
+    "en": "Screened Subnet",
+    "emoji": "🏰",
+    "tone": "orange",
+    "children": [
+     {
+      "label": "Serveurs exposés",
+      "detail": "Web, messagerie, DNS public."
+     },
+     {
+      "label": "Architectures",
+      "children": [
+       {
+        "label": "Trois pattes",
+        "detail": "Un pare-feu, trois interfaces."
+       },
+       {
+        "label": "Deux pare-feu",
+        "detail": "Deux fabricants si possible."
+       },
+       {
+        "label": "Hôte bastion",
+        "detail": "Serveur durci."
+       }
+      ]
+     },
+     {
+      "label": "DMZ → interne",
+      "detail": "Interdit sauf flux précis."
+     }
+    ]
+   },
+   {
+    "label": "Détection",
+    "en": "Intrusion Detection and Prevention",
+    "emoji": "📹",
+    "tone": "violet",
+    "children": [
+     {
+      "label": "IDS / IPS",
+      "children": [
+       {
+        "label": "IDS",
+        "detail": "Hors ligne, alerte."
+       },
+       {
+        "label": "IPS",
+        "detail": "En ligne, bloque."
+       }
+      ]
+     },
+     {
+      "label": "NIDS / HIDS",
+      "detail": "Segment réseau / hôte."
+     },
+     {
+      "label": "Méthodes",
+      "children": [
+       {
+        "label": "Signatures",
+        "detail": "Aveugle au zero-day."
+       },
+       {
+        "label": "Anomalies",
+        "detail": "Plus de faux positifs."
+       }
+      ]
+     },
+     {
+      "label": "Pots de miel",
+      "detail": "Leurres isolés."
+     }
+    ]
+   },
+   {
+    "label": "Accès au réseau",
+    "en": "Network Access Control",
+    "emoji": "🚪",
+    "tone": "turquoise",
+    "children": [
+     {
+      "label": "802.1X",
+      "children": [
+       {
+        "label": "Demandeur",
+        "detail": "Le poste."
+       },
+       {
+        "label": "Authentificateur",
+        "detail": "Switch ou borne."
+       },
+       {
+        "label": "Serveur RADIUS"
+       }
+      ]
+     },
+     {
+      "label": "NAC",
+      "detail": "Conformité, quarantaine."
+     }
+    ]
+   },
+   {
+    "label": "VPN et segmentation",
+    "en": "VPN and Segmentation",
+    "emoji": "🚇",
+    "tone": "green",
+    "children": [
+     {
+      "label": "VPN",
+      "children": [
+       {
+        "label": "Site à site",
+        "detail": "IPsec tunnel."
+       },
+       {
+        "label": "Accès distant",
+        "detail": "TLS ou IPsec, MFA."
+       },
+       {
+        "label": "Split tunneling",
+        "detail": "Risque de pont."
+       }
+      ]
+     },
+     {
+      "label": "Segmentation",
+      "children": [
+       {
+        "label": "VLAN",
+        "detail": "Filtrer le routage."
+       },
+       {
+        "label": "Microsegmentation"
+       },
+       {
+        "label": "Isolement physique"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "label": "Sans-fil",
+    "en": "Wireless Security",
+    "emoji": "📶",
+    "tone": "red",
+    "children": [
+     {
+      "label": "Protocoles",
+      "children": [
+       {
+        "label": "WEP",
+        "detail": "Cassé."
+       },
+       {
+        "label": "WPA (TKIP)",
+        "detail": "Retiré."
+       },
+       {
+        "label": "WPA2",
+        "detail": "AES-CCMP."
+       },
+       {
+        "label": "WPA3",
+        "detail": "SAE, trames de gestion protégées."
+       }
+      ]
+     },
+     {
+      "label": "Modes",
+      "detail": "Personnel (phrase secrète) / Entreprise (802.1X)."
+     },
+     {
+      "label": "Attaques",
+      "children": [
+       {
+        "label": "Point d'accès pirate"
+       },
+       {
+        "label": "Jumeau maléfique"
+       },
+       {
+        "label": "Désauthentification"
+       },
+       {
+        "label": "Bluetooth",
+        "detail": "Bluejacking, bluesnarfing."
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}

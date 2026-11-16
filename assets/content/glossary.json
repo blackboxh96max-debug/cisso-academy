@@ -1323,5 +1323,187 @@
   "definition": "Politique publiée dans le DNS qui exige l'alignement SPF ou DKIM et indique quoi faire en cas d'échec.",
   "example": "Politique DMARC « reject ».",
   "kind": "general"
+ },
+ {
+  "id": "stateful-firewall",
+  "en": "Stateful firewall",
+  "fr": "Pare-feu à états",
+  "definition": "Pare-feu qui suit l'état des connexions et n'accepte que les réponses attendues.",
+  "example": "Le pare-feu à états accepte la réponse d'un site web consulté.",
+  "kind": "general"
+ },
+ {
+  "id": "ngfw",
+  "en": "Next-Generation Firewall",
+  "fr": "Pare-feu nouvelle génération",
+  "acronym": "NGFW",
+  "definition": "Pare-feu qui identifie applications et utilisateurs, intègre un IPS et peut inspecter le trafic TLS.",
+  "example": "Le NGFW bloque une application de partage de fichiers non autorisée.",
+  "kind": "general"
+ },
+ {
+  "id": "waf",
+  "en": "Web Application Firewall",
+  "fr": "Pare-feu applicatif web",
+  "acronym": "WAF",
+  "definition": "Pare-feu de couche 7 qui filtre les requêtes HTTP vers une application web.",
+  "example": "Le WAF bloque une injection SQL.",
+  "kind": "general"
+ },
+ {
+  "id": "dmz",
+  "en": "Demilitarized zone (screened subnet)",
+  "fr": "Zone démilitarisée",
+  "acronym": "DMZ",
+  "definition": "Sous-réseau isolé où sont placés les serveurs joignables depuis Internet.",
+  "example": "Le serveur web public est en DMZ.",
+  "kind": "general"
+ },
+ {
+  "id": "nat",
+  "en": "Network Address Translation",
+  "fr": "Traduction d'adresses réseau",
+  "acronym": "NAT",
+  "definition": "Traduction des adresses internes en adresse publique ; ce n'est pas un contrôle de sécurité.",
+  "example": "Cent postes sortent avec une seule adresse publique.",
+  "kind": "general"
+ },
+ {
+  "id": "bastion-host",
+  "en": "Bastion host",
+  "fr": "Hôte bastion",
+  "definition": "Serveur durci et surveillé, seul point de passage exposé pour un service.",
+  "example": "Un bastion SSH pour l'administration.",
+  "kind": "general"
+ },
+ {
+  "id": "ids",
+  "en": "Intrusion Detection System",
+  "fr": "Système de détection d'intrusion",
+  "acronym": "IDS",
+  "definition": "Outil qui analyse une copie du trafic ou l'activité d'un hôte et alerte en cas d'attaque.",
+  "example": "Le NIDS alerte sur un scan de ports.",
+  "kind": "general"
+ },
+ {
+  "id": "ips",
+  "en": "Intrusion Prevention System",
+  "fr": "Système de prévention d'intrusion",
+  "acronym": "IPS",
+  "definition": "Outil placé en coupure qui détecte et bloque les attaques.",
+  "example": "L'IPS bloque une tentative d'exploitation.",
+  "kind": "general"
+ },
+ {
+  "id": "hids",
+  "en": "Host-based Intrusion Detection System",
+  "fr": "Système de détection d'intrusion sur l'hôte",
+  "acronym": "HIDS",
+  "definition": "Détection d'intrusion installée sur un poste ou un serveur.",
+  "example": "Le HIDS signale la modification d'un fichier système.",
+  "kind": "general"
+ },
+ {
+  "id": "anomaly-detection",
+  "en": "Anomaly-based detection",
+  "fr": "Détection d'anomalies",
+  "definition": "Détection des écarts par rapport à une base de référence du comportement normal.",
+  "example": "Un volume sortant inhabituel la nuit.",
+  "kind": "general"
+ },
+ {
+  "id": "honeypot",
+  "en": "Honeypot",
+  "fr": "Pot de miel",
+  "definition": "Système leurre isolé, sans usage légitime, destiné à attirer et révéler les attaquants.",
+  "example": "Connexion SMB vers le pot de miel.",
+  "kind": "general"
+ },
+ {
+  "id": "802-1x",
+  "en": "IEEE 802.1X port-based network access control",
+  "fr": "Contrôle d'accès au réseau par port",
+  "acronym": "802.1X",
+  "definition": "Norme qui exige l'authentification d'un appareil (EAP, RADIUS) avant d'ouvrir le port ou l'accès Wi-Fi.",
+  "example": "Le port reste fermé tant que le poste n'est pas authentifié.",
+  "kind": "general"
+ },
+ {
+  "id": "nac",
+  "en": "Network Access Control",
+  "fr": "Contrôle d'accès au réseau",
+  "acronym": "NAC",
+  "definition": "Solution qui vérifie l'identité et la conformité d'un appareil avant de l'admettre sur le réseau.",
+  "example": "Poste non conforme placé en quarantaine.",
+  "kind": "general"
+ },
+ {
+  "id": "radius",
+  "en": "Remote Authentication Dial-In User Service",
+  "fr": "Service d'authentification à distance",
+  "acronym": "RADIUS",
+  "definition": "Protocole et serveur d'authentification centralisée, utilisé par 802.1X et les VPN.",
+  "example": "La borne Wi-Fi interroge le serveur RADIUS.",
+  "kind": "general"
+ },
+ {
+  "id": "vpn",
+  "en": "Virtual Private Network",
+  "fr": "Réseau privé virtuel",
+  "acronym": "VPN",
+  "definition": "Tunnel chiffré et authentifié à travers un réseau non fiable.",
+  "example": "VPN d'accès distant avec MFA.",
+  "kind": "general"
+ },
+ {
+  "id": "split-tunneling",
+  "en": "Split tunneling",
+  "fr": "Tunnel partagé",
+  "definition": "Configuration VPN où seul le trafic vers l'entreprise passe dans le tunnel.",
+  "example": "Le poste navigue sur Internet hors du VPN.",
+  "kind": "general"
+ },
+ {
+  "id": "vlan",
+  "en": "Virtual Local Area Network",
+  "fr": "Réseau local virtuel",
+  "acronym": "VLAN",
+  "definition": "Réseau logique séparé sur une même infrastructure de commutateurs.",
+  "example": "VLAN invités séparé des serveurs.",
+  "kind": "general"
+ },
+ {
+  "id": "microsegmentation",
+  "en": "Microsegmentation",
+  "fr": "Microsegmentation",
+  "definition": "Filtrage au niveau de chaque charge de travail, même au sein d'un sous-réseau.",
+  "example": "Le serveur web ne parle qu'à sa base.",
+  "kind": "general"
+ },
+ {
+  "id": "wpa3",
+  "en": "Wi-Fi Protected Access 3",
+  "fr": "Accès Wi-Fi protégé, version 3",
+  "acronym": "WPA3",
+  "definition": "Sécurité Wi-Fi qui utilise SAE en mode Personnel et rend obligatoires les trames de gestion protégées.",
+  "example": "Réseau d'entreprise en WPA3-Entreprise.",
+  "kind": "general"
+ },
+ {
+  "id": "evil-twin",
+  "en": "Evil twin",
+  "fr": "Jumeau maléfique",
+  "definition": "Fausse borne Wi-Fi qui imite le nom d'un réseau légitime.",
+  "example": "Faux « Wi-Fi-Invités » dans le hall.",
+  "kind": "general"
+ },
+ {
+  "id": "rogue-ap",
+  "en": "Rogue access point",
+  "fr": "Point d'accès pirate",
+  "acronym": "Rogue AP",
+  "definition": "Borne sans fil non autorisée connectée au réseau de l'entreprise.",
+  "example": "Borne personnelle branchée sous un bureau.",
+  "kind": "general"
  }
 ]

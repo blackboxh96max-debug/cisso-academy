@@ -39,6 +39,7 @@ void main() {
         'm2c2',
         'm2c3',
         'm3c1',
+        'm3c2',
       ]),
     );
     for (final ch in chapters) {
