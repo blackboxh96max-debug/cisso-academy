@@ -7,7 +7,7 @@ Dernière mise à jour : 2026-11-16. Règle : une fonctionnalité n'est marquée
 | Étape | Contenu | État |
 |---|---|---|
 | 1 | Socle multiplateforme + chapitre pilote | Fait (PR #1) |
-| 2 | Base pédagogique complète, ≥ 500 questions originales relues | **En cours** : 12 chapitres sur 17, 354 questions |
+| 2 | Base pédagogique complète, ≥ 500 questions originales relues | **En cours** : 13 chapitres sur 17, 384 questions |
 | 3 | Tuteur : version sans IA, puis modèle local optionnel | À faire |
 | 4 | Simulateur SOC, sauvegarde chiffrée, import/export, installateurs, documentation finale | À faire |
 
@@ -27,7 +27,8 @@ Dernière mise à jour : 2026-11-16. Règle : une fonctionnalité n'est marquée
 | M3 ch. 3 · Architecture sécurisée, défense en profondeur et Zero Trust (format cahier, carte mentale) | 3 | 30 | 20 | Fait, à relire |
 | M4 ch. 1 · Développement sécurisé et OWASP (format cahier, carte mentale) | 3 | 30 | 20 | Fait, à relire |
 | M4 ch. 2 · Bases de données et protection des données (format cahier, carte mentale) | 3 | 30 | 20 | Fait, à relire |
-| 5 autres chapitres | – | – | – | À faire, dans l'ordre de la formation |
+| M4 ch. 3 · Malwares, rançongiciels et analyse (format cahier, carte mentale) | 3 | 30 | 20 | Fait, à relire |
+| 4 autres chapitres | – | – | – | À faire, dans l'ordre de la formation |
 
 Glossaire : 243 termes.
 
