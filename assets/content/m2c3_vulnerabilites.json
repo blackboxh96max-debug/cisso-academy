@@ -1,0 +1,1851 @@
+{
+ "lessons": [
+  {
+   "id": "m2c3-l1",
+   "title": "Identifier et noter les vulnérabilités",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m2c3_l1_loupe.svg",
+   "illustrationAlt": "Dessin d'une loupe posée sur un mur de briques ; une brique fissurée est entourée en rouge avec une étiquette « CVE ».",
+   "objectives": [
+    "Distinguer vulnérabilité, menace, exploit et faiblesse (CVE et CWE).",
+    "Lire un score CVSS et connaître ses limites.",
+    "Utiliser les sources publiques : NVD, catalogue KEV, score EPSS, avis des éditeurs.",
+    "Choisir un type de scan adapté et l'encadrer par une autorisation."
+   ],
+   "references": [
+    {
+     "title": "FIRST, Common Vulnerability Scoring System (CVSS) v3.1 et v4.0",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-115, Technical Guide to Information Security Testing and Assessment",
+     "kind": "general"
+    },
+    {
+     "title": "ISO/IEC 27002:2022, mesure 8.8 (gestion des vulnérabilités techniques)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "De quoi parle-t-on ?"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Terme",
+       "Définition",
+       "Exemple"
+      ],
+      [
+       "Vulnérabilité",
+       "Faiblesse exploitable dans un système, un logiciel ou un processus",
+       "Une version de VPN qui accepte une requête mal formée"
+      ],
+      [
+       "Menace",
+       "Ce qui peut exploiter la vulnérabilité",
+       "Un groupe criminel qui cible les VPN"
+      ],
+      [
+       "Exploit",
+       "Code ou technique qui exploite concrètement la vulnérabilité",
+       "Un script public qui donne un accès sans mot de passe"
+      ],
+      [
+       "Risque",
+       "Vraisemblance × impact de l'exploitation",
+       "Intrusion dans le réseau interne"
+      ]
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "CVE (Common Vulnerabilities and Exposures)",
+     "text": "Identifiant unique et public d'une vulnérabilité précise, de la forme CVE-année-numéro. Il permet à tous (éditeurs, scanners, SOC) de parler de la même faille.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "CWE (Common Weakness Enumeration)",
+     "text": "Catalogue des TYPES de faiblesses (injection SQL, débordement de tampon…). Une CVE est un cas concret ; la CWE est la famille à laquelle elle appartient.",
+     "kind": "general"
+    },
+    {
+     "type": "memo",
+     "text": "« CVE = le cas, CWE = la famille, CVSS = la gravité. »"
+    },
+    {
+     "type": "heading",
+     "text": "Noter la gravité : CVSS"
+    },
+    {
+     "type": "text",
+     "text": "Le CVSS, publié par le FIRST, attribue un score de 0 à 10 à partir de critères techniques : vecteur d'attaque (réseau, local, physique), complexité, privilèges requis, interaction de l'utilisateur et impact sur la confidentialité, l'intégrité et la disponibilité."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Score CVSS",
+       "Gravité"
+      ],
+      [
+       "0.0",
+       "Aucune"
+      ],
+      [
+       "0.1 à 3.9",
+       "Faible"
+      ],
+      [
+       "4.0 à 6.9",
+       "Moyenne"
+      ],
+      [
+       "7.0 à 8.9",
+       "Élevée"
+      ],
+      [
+       "9.0 à 10.0",
+       "Critique"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Le CVSS mesure la gravité, pas le risque",
+     "text": "Le score de base ne connaît ni votre actif, ni son exposition, ni l'existence d'attaques réelles. Une faille à 9,8 sur un poste isolé de test peut être moins urgente qu'une faille à 7,5 sur un serveur exposé à Internet et activement exploitée."
+    },
+    {
+     "type": "heading",
+     "text": "Les sources à surveiller"
+    },
+    {
+     "type": "diagram",
+     "title": "Du signalement à l'alerte du scanner",
+     "alt": "Schéma en cinq étapes : un chercheur ou un éditeur découvre la faille, un identifiant CVE est attribué, la base NVD l'enrichit avec un score CVSS, l'éditeur publie un avis et un correctif, puis les scanners ajoutent un test de détection.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🔬",
+        "label": "Découverte",
+        "detail": "chercheur, éditeur",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🏷️",
+        "label": "CVE",
+        "detail": "identifiant attribué",
+        "tone": "violet"
+       },
+       {
+        "emoji": "📊",
+        "label": "NVD",
+        "detail": "score CVSS, références",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "📢",
+        "label": "Avis éditeur",
+        "detail": "correctif ou contournement",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🛰️",
+        "label": "Scanner",
+        "detail": "nouveau test de détection",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Source",
+       "Ce qu'elle apporte"
+      ],
+      [
+       "NVD (NIST)",
+       "Base publique des CVE enrichies : score CVSS, produits touchés, références"
+      ],
+      [
+       "Catalogue KEV (CISA)",
+       "Liste des vulnérabilités dont l'exploitation réelle est confirmée"
+      ],
+      [
+       "EPSS (FIRST)",
+       "Probabilité estimée qu'une CVE soit exploitée dans les 30 prochains jours"
+      ],
+      [
+       "Avis des éditeurs et CERT",
+       "Correctifs, contournements, versions concernées"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Scanner ses systèmes"
+    },
+    {
+     "type": "diagram",
+     "title": "Quatre façons de scanner",
+     "alt": "Grille deux par deux. Scan non authentifié : la vue d'un attaquant depuis le réseau, plus de faux positifs. Scan authentifié : se connecte au système et voit les versions installées, plus précis. Agent installé : idéal pour les postes nomades. Analyse passive : écoute le trafic sans rien envoyer, utile pour les équipements fragiles.",
+     "diagram": {
+      "type": "quadrant",
+      "xLabel": "Précision",
+      "yLabel": "Intrusivité",
+      "cells": [
+       {
+        "emoji": "🕵️",
+        "label": "Non authentifié",
+        "detail": "vue de l'attaquant",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🔑",
+        "label": "Authentifié",
+        "detail": "versions réelles, précis",
+        "tone": "green"
+       },
+       {
+        "emoji": "👂",
+        "label": "Passif",
+        "detail": "écoute, sans envoi",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🤖",
+        "label": "Agent",
+        "detail": "postes nomades",
+        "tone": "violet"
+       }
+      ]
+     }
+    },
+    {
+     "type": "risk",
+     "title": "Scanner sans autorisation",
+     "text": "Un scan, même sur le réseau de son employeur, doit être autorisé par écrit, avec un périmètre et des horaires définis. Scanner un système qui ne vous appartient pas peut constituer une infraction. Certains équipements fragiles (automates industriels, matériel médical) peuvent tomber en panne sous un scan actif."
+    },
+    {
+     "type": "trainerNote",
+     "text": "Un scanner trouve des vulnérabilités CONNUES. Il ne remplace ni un test d'intrusion, qui cherche à les enchaîner comme le ferait un attaquant, ni une revue de configuration. Et il produit des faux positifs : un analyste doit valider avant d'alerter les équipes."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : le VPN dans le catalogue KEV",
+     "kind": "example",
+     "text": "Le lundi matin, la veille du SOC repère qu'une CVE touchant le modèle de VPN de l'entreprise vient d'entrer dans le catalogue KEV. Le scan authentifié autorisé confirme que deux passerelles exposées à Internet ont la version vulnérable. Le SOC ouvre un ticket prioritaire, cherche dans le SIEM des traces d'exploitation sur les 30 derniers jours (requêtes inhabituelles, nouveaux comptes) et prévient l'équipe réseau pour un correctif d'urgence."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : je veux un inventaire complet ; une vulnérabilité sur un actif inconnu ne sera jamais corrigée.",
+      "Responsable SOC : la veille sur KEV et les avis éditeurs alimente directement mes recherches de compromission.",
+      "Auditeur : je vérifie la couverture des scans, leur fréquence et l'autorisation écrite.",
+      "Risk manager : je traduis une vulnérabilité en risque en ajoutant l'exposition et la criticité de l'actif."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "CVE = identifiant d'une faille précise ; CWE = type de faiblesse ; CVSS = score de gravité.",
+      "Le CVSS de base n'est pas un niveau de risque : il ignore le contexte de l'entreprise.",
+      "Scan authentifié = plus précis, moins de faux positifs ; non authentifié = vue de l'attaquant.",
+      "Un scan de vulnérabilités n'est pas un test d'intrusion.",
+      "Toujours une autorisation écrite et un périmètre avant de scanner."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Vulnérabilité, menace, exploit, risque : quatre notions distinctes.",
+      "CVE, CWE et CVSS (0 à 10 ; 7 à 8,9 élevé ; 9 à 10 critique).",
+      "Sources : NVD, KEV (exploitation confirmée), EPSS (probabilité), avis éditeurs.",
+      "Scans authentifiés, non authentifiés, par agent ou passifs, toujours autorisés."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m2c3-q02",
+      "m2c3-q05"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m2c3-l2",
+   "title": "Prioriser et traiter les vulnérabilités",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m2c3_l2_tri.svg",
+   "illustrationAlt": "Dessin de trois bacs de tri marqués « maintenant », « bientôt » et « plus tard », avec des fiches de vulnérabilités rouges, orange et vertes.",
+   "objectives": [
+    "Décrire le cycle de gestion des vulnérabilités.",
+    "Prioriser selon le risque : gravité, exploitation, exposition et criticité de l'actif.",
+    "Choisir entre corriger, atténuer, accepter par exception.",
+    "Piloter le programme avec des délais (SLA) et des indicateurs."
+   ],
+   "references": [
+    {
+     "title": "ISO/IEC 27002:2022, mesure 8.8 (gestion des vulnérabilités techniques)",
+     "kind": "general"
+    },
+    {
+     "title": "FIRST, Exploit Prediction Scoring System (EPSS)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Un cycle, pas un scan"
+    },
+    {
+     "type": "diagram",
+     "title": "Le cycle de gestion des vulnérabilités",
+     "alt": "Cycle en six étapes autour de l'inventaire des actifs : découvrir par scan et veille, évaluer en validant et en écartant les faux positifs, prioriser selon le risque, traiter par correctif ou atténuation, vérifier par un nouveau scan, rendre compte avec des indicateurs.",
+     "diagram": {
+      "type": "cycle",
+      "center": "📋 Inventaire\ndes actifs",
+      "nodes": [
+       {
+        "emoji": "🔍",
+        "label": "Découvrir",
+        "detail": "scans et veille",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🧪",
+        "label": "Évaluer",
+        "detail": "valider, écarter les faux positifs",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🎯",
+        "label": "Prioriser",
+        "detail": "selon le risque",
+        "tone": "red"
+       },
+       {
+        "emoji": "🛠️",
+        "label": "Traiter",
+        "detail": "corriger ou atténuer",
+        "tone": "green"
+       },
+       {
+        "emoji": "✅",
+        "label": "Vérifier",
+        "detail": "nouveau scan",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "📈",
+        "label": "Rendre compte",
+        "detail": "indicateurs, tendances",
+        "tone": "orange"
+       }
+      ]
+     },
+     "kind": "practice"
+    },
+    {
+     "type": "heading",
+     "text": "Prioriser selon le risque"
+    },
+    {
+     "type": "text",
+     "text": "Une grande entreprise découvre des milliers de vulnérabilités chaque mois. Tout corriger tout de suite est impossible. On combine donc plusieurs critères pour traiter d'abord ce qui compte vraiment."
+    },
+    {
+     "type": "practice",
+     "title": "Les quatre questions de priorisation",
+     "kind": "practice",
+     "items": [
+      "Gravité : quel est le score CVSS ?",
+      "Exploitation : est-elle déjà exploitée (KEV) ou probable (EPSS élevé, exploit public) ?",
+      "Exposition : l'actif est-il accessible depuis Internet ou depuis un segment peu protégé ?",
+      "Criticité : l'actif porte-t-il des données sensibles ou un processus vital ?"
+     ]
+    },
+    {
+     "type": "diagram",
+     "title": "Où placer quatre vulnérabilités ?",
+     "alt": "Matrice avec la gravité technique en abscisse et la probabilité d'exploitation en ordonnée. Le VPN exposé et listé KEV est en haut à droite : à traiter immédiatement. Le serveur web interne est au milieu. La faille critique sur un poste de test isolé est à droite mais en bas. L'imprimante avec une faille faible est en bas à gauche.",
+     "diagram": {
+      "type": "matrix",
+      "xLabel": "Gravité (CVSS)",
+      "yLabel": "Probabilité d'exploitation",
+      "points": [
+       {
+        "label": "VPN exposé (KEV)",
+        "emoji": "🚨",
+        "x": 5,
+        "y": 5
+       },
+       {
+        "label": "Web interne",
+        "emoji": "🌐",
+        "x": 3,
+        "y": 3
+       },
+       {
+        "label": "Poste de test isolé",
+        "emoji": "🧪",
+        "x": 5,
+        "y": 1
+       },
+       {
+        "label": "Imprimante",
+        "emoji": "🖨️",
+        "x": 1,
+        "y": 2
+       }
+      ]
+     }
+    },
+    {
+     "type": "heading",
+     "text": "Les options de traitement"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Option",
+       "Quand",
+       "Exemple"
+      ],
+      [
+       "Corriger (remédier)",
+       "Un correctif ou une nouvelle version existe",
+       "Installer la mise à jour du VPN"
+      ],
+      [
+       "Atténuer",
+       "Pas de correctif ou délai nécessaire",
+       "Désactiver la fonction vulnérable, filtrer le port, règle de pare-feu applicatif (patch virtuel)"
+      ],
+      [
+       "Accepter par exception",
+       "Correction impossible à court terme, risque assumé",
+       "Machine industrielle certifiée, isolée, revue tous les 6 mois"
+      ],
+      [
+       "Retirer",
+       "Système inutile ou en fin de vie",
+       "Éteindre un ancien serveur oublié"
+      ]
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "Patch virtuel",
+     "text": "Mesure placée devant le système vulnérable (pare-feu applicatif, IPS, filtre) qui bloque l'exploitation sans modifier le système lui-même. C'est une mesure compensatoire temporaire, pas une correction.",
+     "kind": "practice"
+    },
+    {
+     "type": "important",
+     "title": "Une exception se gère comme un risque",
+     "text": "Toute exception est écrite, justifiée, approuvée par le propriétaire du risque, accompagnée de mesures compensatoires et limitée dans le temps. Sans date de revue, une exception devient un oubli."
+    },
+    {
+     "type": "heading",
+     "text": "Piloter le programme"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Indicateur",
+       "Ce qu'il montre"
+      ],
+      [
+       "Délai moyen de correction par gravité",
+       "Le respect des délais fixés (SLA)"
+      ],
+      [
+       "Part des vulnérabilités critiques hors délai",
+       "Le retard réellement dangereux"
+      ],
+      [
+       "Couverture des scans",
+       "Les actifs qu'on ne voit pas"
+      ],
+      [
+       "Nombre d'exceptions actives et échues",
+       "Le risque accepté et oublié"
+      ],
+      [
+       "Taux de réouverture",
+       "Les corrections mal faites ou incomplètes"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "« Gravité, Exploitation, Exposition, Enjeu » : les 4 critères qui transforment un score en priorité."
+    },
+    {
+     "type": "trainerNote",
+     "text": "Les délais de correction sont fixés par la politique de l'entreprise, souvent plus courts pour les failles critiques ou exploitées. Il n'existe pas de délai universel imposé par l'examen : retenez la logique (plus le risque est élevé, plus le délai est court) plutôt qu'un chiffre."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : l'exception oubliée",
+     "kind": "example",
+     "text": "En préparant le rapport mensuel, l'analyste N2 remarque une vulnérabilité critique ouverte depuis 14 mois sur un serveur de supervision. Une exception avait été accordée pour 3 mois, le temps d'une migration qui n'a jamais eu lieu. Le SOC prévient le RSSI ; le propriétaire du risque doit choisir : corriger, renouveler l'exception avec de nouvelles mesures compensatoires, ou retirer le serveur. En attendant, le SOC ajoute une règle de détection spécifique sur ce serveur."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : je ne demande pas zéro vulnérabilité ; je demande que les critiques exposées soient traitées dans les délais.",
+      "Exploitation : un correctif urgent mal testé peut provoquer une panne ; je veux un délai réaliste et un retour arrière.",
+      "Auditeur : je vérifie que chaque exception a un propriétaire, une justification et une date d'échéance.",
+      "Analyste SOC : une vulnérabilité non corrigée sur un actif exposé mérite une surveillance renforcée."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Prioriser selon le risque, pas uniquement selon le score CVSS.",
+      "Le patch virtuel est une mesure compensatoire, temporaire, pas une correction.",
+      "Une exception est approuvée par le propriétaire du risque, pas par l'analyste ni l'administrateur.",
+      "Après correction, on VÉRIFIE par un nouveau scan.",
+      "Le cycle s'appuie sur l'inventaire des actifs."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Cycle : découvrir, évaluer, prioriser, traiter, vérifier, rendre compte.",
+      "Priorité = gravité + exploitation (KEV, EPSS) + exposition + criticité de l'actif.",
+      "Traiter : corriger, atténuer (patch virtuel), accepter par exception limitée, retirer.",
+      "Indicateurs : délais par gravité, critiques hors délai, couverture, exceptions."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m2c3-q12",
+      "m2c3-q15"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m2c3-l3",
+   "title": "Gestion des correctifs et tests de sécurité",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m2c3_l3_pansement.svg",
+   "illustrationAlt": "Dessin d'un écran d'ordinateur avec un grand pansement en croix et une flèche circulaire de mise à jour.",
+   "objectives": [
+    "Appliquer un processus de gestion des correctifs, du test au déploiement par vagues.",
+    "Réagir à une vulnérabilité zero-day et gérer les systèmes en fin de vie.",
+    "Distinguer scan de vulnérabilités, test d'intrusion, audit et exercice Red Team."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-40 Rev. 4, Guide to Enterprise Patch Management Planning",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-115, Technical Guide to Information Security Testing and Assessment",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Le processus de correction"
+    },
+    {
+     "type": "diagram",
+     "title": "Du correctif publié au correctif vérifié",
+     "alt": "Schéma en six étapes : veille sur les correctifs publiés, évaluation de leur pertinence et de leur urgence, test sur un environnement représentatif, déploiement par vagues avec un plan de retour arrière, vérification de l'installation, mise à jour de l'inventaire et clôture.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "📡",
+        "label": "Veille",
+        "detail": "avis éditeurs",
+        "tone": "blue"
+       },
+       {
+        "emoji": "⚖️",
+        "label": "Évaluation",
+        "detail": "pertinence, urgence",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🧪",
+        "label": "Test",
+        "detail": "environnement représentatif",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "🌊",
+        "label": "Vagues",
+        "detail": "avec retour arrière",
+        "tone": "orange"
+       },
+       {
+        "emoji": "✅",
+        "label": "Vérification",
+        "detail": "scan, conformité",
+        "tone": "green"
+       },
+       {
+        "emoji": "📚",
+        "label": "Clôture",
+        "detail": "inventaire à jour",
+        "tone": "pink"
+       }
+      ]
+     }
+    },
+    {
+     "type": "text",
+     "text": "La gestion des correctifs fait partie de la gestion des changements : un correctif est un changement, avec analyse d'impact, approbation et plan de retour arrière. Les correctifs de routine peuvent être pré-approuvés (changement standard) ; un correctif urgent suit la procédure de changement d'urgence."
+    },
+    {
+     "type": "diagram",
+     "title": "Déployer par vagues (part du parc)",
+     "alt": "Diagramme en barres : la vague pilote couvre 5 % du parc avec des utilisateurs volontaires et l'informatique, la première vague 20 %, la vague générale 75 %. On passe à la vague suivante seulement si la précédente n'a pas posé de problème.",
+     "diagram": {
+      "type": "bars",
+      "unit": "%",
+      "bars": [
+       {
+        "label": "Pilote",
+        "value": 5,
+        "tone": "blue"
+       },
+       {
+        "label": "Vague 1",
+        "value": 20,
+        "tone": "orange"
+       },
+       {
+        "label": "Vague générale",
+        "value": 75,
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "practice",
+     "title": "Bonnes pratiques",
+     "kind": "practice",
+     "items": [
+      "Tenir un inventaire logiciel complet, y compris les micrologiciels (firmware), les bibliothèques et les applications tierces.",
+      "Télécharger les correctifs uniquement depuis les sources officielles et vérifier leur signature.",
+      "Prévoir un plan de retour arrière et une sauvegarde avant les mises à jour importantes.",
+      "Vérifier après déploiement : un correctif « distribué » n'est pas forcément « installé » (redémarrage manquant, échec silencieux)."
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Les cas difficiles"
+    },
+    {
+     "type": "definition",
+     "title": "Vulnérabilité zero-day",
+     "text": "Vulnérabilité exploitée ou connue avant qu'un correctif existe. On ne peut qu'atténuer : désactiver la fonction, filtrer, isoler, renforcer la détection, puis appliquer le correctif dès sa publication.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Système en fin de vie (EOL)",
+     "text": "Système dont l'éditeur ne publie plus de correctifs de sécurité. Chaque nouvelle faille y restera ouverte : il faut le remplacer, ou l'isoler avec des mesures compensatoires et une exception formelle en attendant.",
+     "kind": "general"
+    },
+    {
+     "type": "risk",
+     "title": "Le correctif qui casse la production",
+     "text": "Un correctif appliqué partout d'un coup, sans test, peut arrêter un service critique. À l'inverse, trop attendre laisse la porte ouverte. Le déploiement par vagues et le retour arrière permettent d'aller vite sans tout risquer."
+    },
+    {
+     "type": "heading",
+     "text": "Tester la sécurité : quatre approches"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Approche",
+       "Objectif",
+       "Caractéristiques"
+      ],
+      [
+       "Scan de vulnérabilités",
+       "Lister les failles connues",
+       "Automatisé, fréquent, large, peu profond"
+      ],
+      [
+       "Test d'intrusion",
+       "Prouver qu'on peut exploiter et aller plus loin",
+       "Manuel, périmètre et règles d'engagement signés, ponctuel"
+      ],
+      [
+       "Audit",
+       "Vérifier la conformité à un référentiel",
+       "Preuves, échantillons, écarts"
+      ],
+      [
+       "Exercice Red Team",
+       "Tester la détection et la réponse face à un scénario réaliste",
+       "Discret, sur la durée, avec l'équipe défense (Blue Team) mise à l'épreuve"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Règles d'engagement",
+     "text": "Un test d'intrusion n'est légal et sûr que s'il est autorisé par écrit par le propriétaire des systèmes : périmètre, dates, techniques permises et interdites, contacts d'urgence, traitement des données découvertes. Sans ce document, c'est une attaque."
+    },
+    {
+     "type": "memo",
+     "text": "« Le scan liste, le pentest prouve, l'audit compare, la Red Team met la défense à l'épreuve. »"
+    },
+    {
+     "type": "trainerNote",
+     "text": "Boîte noire, grise ou blanche : ce qui change, c'est l'information donnée au testeur. En boîte noire il ne sait rien (comme un attaquant externe), en boîte blanche il a tout (code, schémas, comptes), en boîte grise une partie, souvent un compte utilisateur."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : le zero-day du vendredi soir",
+     "kind": "example",
+     "text": "Un éditeur annonce une faille exploitée activement sur son serveur de messagerie, sans correctif disponible avant plusieurs jours, mais avec un contournement. Le SOC déclenche le playbook « zero-day » : application du contournement en changement d'urgence, filtrage de l'accès externe, recherche des indicateurs de compromission publiés dans les journaux, surveillance renforcée. Le correctif, publié le mardi, est testé puis déployé en deux vagues ; un scan authentifié confirme l'installation."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : un système en fin de vie est un risque qui grandit chaque mois ; je veux un plan de remplacement daté.",
+      "Exploitation : je pré-approuve les correctifs de routine pour garder le circuit urgent pour les vraies urgences.",
+      "Auditeur : je compare la date de publication des correctifs critiques et leur date d'installation.",
+      "Responsable SOC : pendant un zero-day, la détection compense l'absence de correctif."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Un correctif est un changement : il passe par la gestion des changements.",
+      "Zero-day = pas de correctif : on atténue et on surveille.",
+      "Scan ≠ test d'intrusion ≠ audit ≠ Red Team.",
+      "Un test d'intrusion exige une autorisation écrite et des règles d'engagement.",
+      "Vérifier l'installation : distribué ne veut pas dire installé."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Correctifs : veille, évaluation, test, déploiement par vagues avec retour arrière, vérification.",
+      "Zero-day : atténuer, isoler, détecter ; EOL : remplacer ou isoler avec exception.",
+      "Scan (liste), test d'intrusion (preuve), audit (conformité), Red Team (détection et réponse).",
+      "Toujours une autorisation écrite et des règles d'engagement."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m2c3-q22",
+      "m2c3-q25"
+     ]
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "id": "m2c3-q01",
+   "domain": "operations-security",
+   "level": "beginner",
+   "concept": "Vulnérabilité",
+   "prompt": "Qu'est-ce qu'une vulnérabilité ?",
+   "choices": [
+    "Une personne malveillante",
+    "Une faiblesse exploitable dans un système ou un processus",
+    "Le montant d'une perte annuelle",
+    "Un correctif publié par l'éditeur"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La vulnérabilité est la faiblesse ; la menace est ce qui peut l'exploiter.",
+   "whyNot": {
+    "0": "Une personne malveillante est une source de menace.",
+    "2": "C'est une mesure financière du risque (ALE).",
+    "3": "Le correctif sert à supprimer la vulnérabilité."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c3-q02",
+   "domain": "operations-security",
+   "level": "beginner",
+   "concept": "CVE",
+   "prompt": "À quoi sert un identifiant CVE ?",
+   "choices": [
+    "À noter la gravité d'une faille",
+    "À désigner de façon unique une vulnérabilité précise",
+    "À classer les types de faiblesses",
+    "À chiffrer les rapports de scan"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Un CVE (CVE-année-numéro) permet à tous de parler de la même vulnérabilité.",
+   "whyNot": {
+    "0": "La gravité est donnée par le CVSS.",
+    "2": "Les types de faiblesses sont classés par la CWE.",
+    "3": "Le CVE n'a aucun rôle de chiffrement."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c3-q03",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "CWE",
+   "prompt": "« Injection SQL » correspond à quelle notion ?",
+   "choices": [
+    "Un identifiant CVE",
+    "Un type de faiblesse référencé dans la CWE",
+    "Un score CVSS",
+    "Une entrée du catalogue KEV"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La CWE classe les familles de faiblesses ; une CVE est un cas concret dans un produit donné.",
+   "whyNot": {
+    "0": "Une CVE désigne une faille précise dans un produit, pas une famille.",
+    "2": "Le CVSS est un score numérique.",
+    "3": "Le KEV liste des CVE exploitées, pas des types de faiblesses."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c3-q04",
+   "domain": "operations-security",
+   "level": "beginner",
+   "concept": "CVSS",
+   "prompt": "Avec le CVSS v3.1, quelle gravité correspond à un score de 9,1 ?",
+   "choices": [
+    "Moyenne",
+    "Élevée",
+    "Critique",
+    "Faible"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "9,0 à 10,0 = critique ; 7,0 à 8,9 = élevée ; 4,0 à 6,9 = moyenne ; 0,1 à 3,9 = faible.",
+   "whyNot": {
+    "0": "Moyenne va de 4,0 à 6,9.",
+    "1": "Élevée va de 7,0 à 8,9.",
+    "3": "Faible va de 0,1 à 3,9."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c3-q05",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "CVSS",
+   "prompt": "Pourquoi le score CVSS de base ne suffit-il pas à prioriser une correction ?",
+   "choices": [
+    "Il est secret",
+    "Il ne tient compte ni de l'exposition, ni de la criticité de l'actif, ni d'une exploitation réelle",
+    "Il ne s'applique qu'aux mots de passe",
+    "Il change chaque jour"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le CVSS de base mesure la gravité technique ; la priorité dépend aussi du contexte de l'entreprise et de la menace réelle.",
+   "whyNot": {
+    "0": "Les scores CVSS sont publics.",
+    "2": "Le CVSS s'applique à tout type de vulnérabilité logicielle.",
+    "3": "Le score de base est stable ; ce n'est pas le problème."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c3-q06",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "KEV",
+   "prompt": "Que contient le catalogue KEV publié par la CISA ?",
+   "choices": [
+    "Toutes les vulnérabilités connues",
+    "Les vulnérabilités dont l'exploitation réelle est confirmée",
+    "Les correctifs Microsoft",
+    "Les mots de passe par défaut"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "KEV = Known Exploited Vulnerabilities : des failles déjà exploitées, donc prioritaires.",
+   "whyNot": {
+    "0": "Ce serait la NVD ; le KEV n'en retient qu'une petite partie.",
+    "2": "Le KEV couvre tous les éditeurs et ne distribue pas de correctifs.",
+    "3": "Ce n'est pas une liste de mots de passe."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c3-q07",
+   "domain": "operations-security",
+   "level": "advanced",
+   "concept": "EPSS",
+   "prompt": "Que mesure le score EPSS ?",
+   "choices": [
+    "La gravité technique d'une faille",
+    "La probabilité estimée qu'une CVE soit exploitée dans les 30 prochains jours",
+    "Le temps moyen de correction",
+    "Le nombre d'actifs concernés"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "L'EPSS, publié par le FIRST, complète le CVSS par une estimation de la probabilité d'exploitation.",
+   "whyNot": {
+    "0": "La gravité technique est mesurée par le CVSS.",
+    "2": "Le délai de correction est un indicateur interne.",
+    "3": "L'EPSS ne connaît pas votre parc."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c3-q08",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "Types de scans",
+   "prompt": "Quel est l'avantage principal d'un scan authentifié ?",
+   "choices": [
+    "Il voit les versions réellement installées et produit moins de faux positifs",
+    "Il ne demande aucune autorisation",
+    "Il est invisible pour le SOC",
+    "Il remplace le test d'intrusion"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Connecté au système, le scanner lit les versions et configurations au lieu de les deviner depuis le réseau.",
+   "whyNot": {
+    "1": "Tout scan doit être autorisé.",
+    "2": "Un scan doit être connu du SOC, pas caché.",
+    "3": "Il liste les failles mais ne les exploite pas."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c3-q09",
+   "domain": "operations-security",
+   "level": "advanced",
+   "concept": "Cadre légal des scans",
+   "prompt": "Avant de lancer un scan de vulnérabilités, quels éléments sont indispensables ? (2 réponses)",
+   "choices": [
+    "Une autorisation écrite du propriétaire des systèmes",
+    "Un périmètre et des horaires définis",
+    "L'accord de l'éditeur du scanner",
+    "La désactivation du SIEM pendant le scan"
+   ],
+   "correct": [
+    0,
+    1
+   ],
+   "explanation": "Le scan est autorisé, borné et planifié ; le SOC est prévenu pour ne pas confondre le scan avec une attaque.",
+   "whyNot": {
+    "2": "L'éditeur du scanner n'a pas à autoriser vos scans.",
+    "3": "On prévient le SOC, on ne désactive pas la surveillance."
+   },
+   "kind": "practice"
+  },
+  {
+   "id": "m2c3-q10",
+   "domain": "operations-security",
+   "level": "beginner",
+   "concept": "Scan et test d'intrusion",
+   "prompt": "Quelle est la différence principale entre un scan de vulnérabilités et un test d'intrusion ?",
+   "choices": [
+    "Le scan liste les failles connues ; le test d'intrusion tente de les exploiter pour prouver l'impact",
+    "Il n'y a aucune différence",
+    "Le scan est toujours manuel",
+    "Le test d'intrusion ne nécessite pas d'autorisation"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le scan est automatisé et large ; le test d'intrusion est manuel, ciblé et démontre l'exploitation.",
+   "whyNot": {
+    "1": "Les objectifs et méthodes diffèrent.",
+    "2": "Le scan est généralement automatisé.",
+    "3": "Le test d'intrusion exige une autorisation écrite."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c3-q11",
+   "domain": "operations-security",
+   "level": "beginner",
+   "concept": "Cycle de gestion",
+   "prompt": "Quelle étape suit la correction dans le cycle de gestion des vulnérabilités ?",
+   "choices": [
+    "La découverte",
+    "La vérification par un nouveau scan",
+    "L'achat d'un nouveau scanner",
+    "La suppression des journaux"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "On vérifie que la correction est effective avant de clôturer.",
+   "whyNot": {
+    "0": "La découverte ouvre le cycle.",
+    "2": "Changer d'outil n'est pas une étape du cycle.",
+    "3": "Les journaux sont conservés."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c3-q12",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "Priorisation",
+   "prompt": "Quelle vulnérabilité traiter EN PREMIER ?",
+   "choices": [
+    "CVSS 9,8 sur un poste de test isolé, sans exploit connu",
+    "CVSS 8,1 sur une passerelle VPN exposée à Internet, listée dans le KEV",
+    "CVSS 5,0 sur une imprimante interne",
+    "CVSS 3,1 sur un serveur de développement"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Une faille exploitée activement sur un actif exposé présente le risque le plus élevé, même si son score est un peu plus bas.",
+   "whyNot": {
+    "0": "Score élevé, mais actif isolé et pas d'exploitation : risque plus faible.",
+    "2": "Gravité moyenne sur un actif interne peu critique.",
+    "3": "Gravité faible."
+   },
+   "kind": "example"
+  },
+  {
+   "id": "m2c3-q13",
+   "domain": "operations-security",
+   "level": "advanced",
+   "concept": "Priorisation",
+   "prompt": "Quels critères, en plus du CVSS, entrent dans une priorisation fondée sur le risque ? (2 réponses)",
+   "choices": [
+    "L'exposition de l'actif (Internet, segment peu protégé)",
+    "La preuve ou la probabilité d'exploitation (KEV, EPSS)",
+    "La couleur de l'interface du scanner",
+    "Le nombre de lettres du nom du serveur"
+   ],
+   "correct": [
+    0,
+    1
+   ],
+   "explanation": "Exposition, exploitation et criticité de l'actif transforment un score technique en priorité.",
+   "whyNot": {
+    "2": "L'interface n'a aucun lien avec le risque.",
+    "3": "Le nom d'un serveur n'a aucun lien avec le risque."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c3-q14",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "Patch virtuel",
+   "prompt": "Qu'est-ce qu'un patch virtuel ?",
+   "choices": [
+    "Un correctif téléchargé depuis un site non officiel",
+    "Une règle placée devant le système (WAF, IPS) qui bloque l'exploitation sans modifier le système",
+    "Un correctif installé dans une machine virtuelle",
+    "Une exception accordée sans date"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le patch virtuel est une mesure compensatoire temporaire en attendant la vraie correction.",
+   "whyNot": {
+    "0": "C'est un risque, pas une mesure de sécurité.",
+    "2": "Le mot « virtuel » ne désigne pas la virtualisation ici.",
+    "3": "Une exception sans date est une mauvaise pratique."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c3-q15",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "Exception",
+   "prompt": "Qui doit approuver une exception de correction pour une vulnérabilité critique ?",
+   "choices": [
+    "L'analyste qui a trouvé la faille",
+    "Le propriétaire du risque (métier) avec l'avis de la sécurité",
+    "Le fournisseur du scanner",
+    "N'importe quel administrateur système"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Accepter un risque relève de la personne qui en porte la responsabilité, informée par la sécurité.",
+   "whyNot": {
+    "0": "L'analyste signale, il ne décide pas d'accepter le risque.",
+    "2": "Le fournisseur n'a aucune autorité sur vos risques.",
+    "3": "L'administrateur applique, il ne porte pas le risque métier."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c3-q16",
+   "domain": "operations-security",
+   "level": "advanced",
+   "concept": "Exception",
+   "prompt": "Quels éléments une exception de correction bien gérée doit-elle comporter ? (2 réponses)",
+   "choices": [
+    "Des mesures compensatoires",
+    "Une date d'échéance ou de revue",
+    "La suppression de l'actif de l'inventaire",
+    "L'arrêt des scans sur cet actif"
+   ],
+   "correct": [
+    0,
+    1
+   ],
+   "explanation": "L'exception est justifiée, compensée et limitée dans le temps.",
+   "whyNot": {
+    "2": "Retirer l'actif de l'inventaire le rendrait invisible.",
+    "3": "On continue de scanner pour suivre le risque."
+   },
+   "kind": "practice"
+  },
+  {
+   "id": "m2c3-q17",
+   "domain": "operations-security",
+   "level": "beginner",
+   "concept": "Options de traitement",
+   "prompt": "Un ancien serveur oublié n'a plus aucun usage et porte des vulnérabilités critiques. Quelle est la meilleure option ?",
+   "choices": [
+    "L'accepter",
+    "Le retirer du service",
+    "Le cacher dans un autre réseau sans le dire",
+    "Augmenter son score CVSS"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Un système inutile se retire : c'est la façon la plus sûre et la moins coûteuse de supprimer le risque.",
+   "whyNot": {
+    "0": "Accepter un risque inutile n'a pas de sens.",
+    "2": "Un système caché et non géré reste un risque.",
+    "3": "Le score ne change rien au risque."
+   },
+   "kind": "practice"
+  },
+  {
+   "id": "m2c3-q18",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "Indicateurs",
+   "prompt": "Quel indicateur révèle le mieux un retard dangereux dans la correction ?",
+   "choices": [
+    "Le nombre total de vulnérabilités trouvées",
+    "La part des vulnérabilités critiques non corrigées dans le délai fixé",
+    "Le nombre de scanners achetés",
+    "La taille des rapports de scan"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le dépassement des délais sur les failles critiques mesure le risque réellement laissé ouvert.",
+   "whyNot": {
+    "0": "Le total dépend surtout de la taille du parc et de la couverture.",
+    "2": "Le nombre d'outils n'est pas un résultat.",
+    "3": "La taille d'un rapport n'est pas un indicateur de risque."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c3-q19",
+   "domain": "operations-security",
+   "level": "advanced",
+   "concept": "Faux positifs",
+   "prompt": "Le scanner signale une faille critique sur un serveur, mais l'équipe affirme avoir appliqué un correctif rétroporté par l'éditeur sans changer le numéro de version. Que faire ?",
+   "choices": [
+    "Clôturer sans vérifier",
+    "Vérifier la présence du correctif (scan authentifié, version du paquet, avis éditeur) avant de marquer un faux positif",
+    "Supprimer la règle du scanner pour tous les serveurs",
+    "Réinstaller le serveur immédiatement"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Un faux positif se démontre avec des preuves ; on documente puis on ajuste.",
+   "whyNot": {
+    "0": "Clôturer sans preuve peut laisser une vraie faille ouverte.",
+    "2": "Supprimer la règle partout masquerait de vrais cas.",
+    "3": "Réinstaller est disproportionné avant d'avoir vérifié."
+   },
+   "kind": "example"
+  },
+  {
+   "id": "m2c3-q20",
+   "domain": "operations-security",
+   "level": "beginner",
+   "concept": "Inventaire",
+   "prompt": "Sur quoi repose tout programme de gestion des vulnérabilités ?",
+   "choices": [
+    "Sur un inventaire à jour des actifs",
+    "Sur un seul scan annuel",
+    "Sur l'achat d'un pare-feu",
+    "Sur la confiance envers les éditeurs"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "On ne peut ni scanner ni corriger un actif qu'on ne connaît pas.",
+   "whyNot": {
+    "1": "Un scan annuel laisse des mois de failles invisibles.",
+    "2": "Un pare-feu ne remplace pas la gestion des vulnérabilités.",
+    "3": "La confiance ne remplace pas la vérification."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c3-q21",
+   "domain": "operations-security",
+   "level": "beginner",
+   "concept": "Gestion des correctifs",
+   "prompt": "Pourquoi tester un correctif avant de le déployer sur tout le parc ?",
+   "choices": [
+    "Pour vérifier qu'il ne casse pas un service critique",
+    "Parce que les correctifs sont toujours malveillants",
+    "Pour retarder la correction le plus possible",
+    "Parce que la loi interdit les correctifs"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le test limite le risque de panne ; il doit rester proportionné à l'urgence.",
+   "whyNot": {
+    "1": "Les correctifs officiels ne sont pas malveillants, mais il faut vérifier leur source.",
+    "2": "Le test ne doit pas servir de prétexte au retard.",
+    "3": "Aucune loi n'interdit les correctifs."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c3-q22",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "Zero-day",
+   "prompt": "Une faille zero-day est exploitée et aucun correctif n'existe. Quelle réponse est la plus adaptée ?",
+   "choices": [
+    "Attendre le correctif sans rien faire",
+    "Appliquer un contournement, filtrer ou isoler, et renforcer la détection",
+    "Désinstaller tous les antivirus",
+    "Publier la faille sur les réseaux sociaux"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Sans correctif, on réduit l'exposition et on surveille jusqu'à la publication du correctif.",
+   "whyNot": {
+    "0": "Ne rien faire laisse la porte ouverte.",
+    "2": "Cela réduirait la protection.",
+    "3": "Ce n'est pas une mesure de protection."
+   },
+   "kind": "example"
+  },
+  {
+   "id": "m2c3-q23",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "Fin de vie",
+   "prompt": "Un système d'exploitation n'est plus maintenu par son éditeur (fin de vie). Quel est le risque principal ?",
+   "choices": [
+    "Il devient plus rapide",
+    "Les nouvelles failles ne seront plus corrigées",
+    "Il perd sa licence d'usage du clavier",
+    "Il ne peut plus être sauvegardé"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Sans correctifs, chaque nouvelle faille reste ouverte : remplacement ou isolement avec mesures compensatoires.",
+   "whyNot": {
+    "0": "La fin de vie n'a pas d'effet sur la vitesse.",
+    "2": "Ce n'est pas un effet réel.",
+    "3": "La sauvegarde reste possible."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c3-q24",
+   "domain": "operations-security",
+   "level": "advanced",
+   "concept": "Déploiement",
+   "prompt": "Quels éléments réduisent le risque d'un déploiement de correctifs ? (2 réponses)",
+   "choices": [
+    "Un déploiement par vagues, en commençant par un groupe pilote",
+    "Un plan de retour arrière testé",
+    "Le déploiement sur tout le parc d'un seul coup sans test",
+    "La suppression des sauvegardes pour gagner de la place"
+   ],
+   "correct": [
+    0,
+    1
+   ],
+   "explanation": "Vagues et retour arrière permettent d'aller vite sans tout risquer.",
+   "whyNot": {
+    "2": "Un problème toucherait tout le parc à la fois.",
+    "3": "Les sauvegardes sont la dernière sécurité en cas d'échec."
+   },
+   "kind": "practice"
+  },
+  {
+   "id": "m2c3-q25",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "Gestion des changements",
+   "prompt": "Comment un correctif urgent doit-il être traité vis-à-vis de la gestion des changements ?",
+   "choices": [
+    "Il échappe totalement au processus",
+    "Il suit la procédure de changement d'urgence : approuvé, tracé, puis revu après coup",
+    "Il attend le prochain comité mensuel",
+    "Il est appliqué par n'importe qui, sans trace"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Un correctif est un changement ; l'urgence accélère le circuit sans le supprimer.",
+   "whyNot": {
+    "0": "Aucun changement n'échappe au processus.",
+    "2": "Attendre un mois serait trop long pour une urgence.",
+    "3": "L'absence de trace empêche le contrôle et l'enquête."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c3-q26",
+   "domain": "operations-security",
+   "level": "beginner",
+   "concept": "Vérification",
+   "prompt": "Après le déploiement d'un correctif, que faut-il faire ?",
+   "choices": [
+    "Vérifier qu'il est réellement installé et que la vulnérabilité a disparu",
+    "Supprimer le ticket sans vérifier",
+    "Désactiver les mises à jour automatiques",
+    "Effacer les journaux d'installation"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Un correctif distribué n'est pas forcément installé (échec, redémarrage manquant).",
+   "whyNot": {
+    "1": "Sans vérification, la faille peut rester ouverte.",
+    "2": "Cela empêcherait les prochaines corrections.",
+    "3": "Les journaux servent de preuve."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c3-q27",
+   "domain": "operations-security",
+   "level": "advanced",
+   "concept": "Tests de sécurité",
+   "prompt": "Quel exercice vise avant tout à mettre à l'épreuve la capacité de détection et de réponse de l'équipe de défense ?",
+   "choices": [
+    "Un scan de vulnérabilités",
+    "Un audit de conformité",
+    "Un exercice Red Team",
+    "Une revue de politique"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "La Red Team simule un adversaire réaliste et discret pour tester la Blue Team.",
+   "whyNot": {
+    "0": "Le scan liste des failles connues.",
+    "1": "L'audit compare à un référentiel.",
+    "3": "Une revue de politique est documentaire."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c3-q28",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "Boîte noire, grise, blanche",
+   "prompt": "Un testeur reçoit le code source, les schémas réseau et des comptes. De quel type de test s'agit-il ?",
+   "choices": [
+    "Boîte noire",
+    "Boîte grise",
+    "Boîte blanche",
+    "Test aveugle"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "En boîte blanche, le testeur dispose de toute l'information.",
+   "whyNot": {
+    "0": "En boîte noire, il ne sait rien.",
+    "1": "En boîte grise, il dispose d'une partie (souvent un compte).",
+    "3": "Un test aveugle donne peu ou pas d'information."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c3-q29",
+   "domain": "operations-security",
+   "level": "advanced",
+   "concept": "Règles d'engagement",
+   "prompt": "Quels éléments doivent figurer dans les règles d'engagement d'un test d'intrusion ? (2 réponses)",
+   "choices": [
+    "Le périmètre et les dates autorisés",
+    "Les contacts d'urgence et les techniques interdites",
+    "Le mot de passe personnel du directeur",
+    "L'autorisation de tester les clients de l'entreprise sans leur accord"
+   ],
+   "correct": [
+    0,
+    1
+   ],
+   "explanation": "Les règles d'engagement bornent le test : quoi, quand, comment, et qui appeler en cas de problème.",
+   "whyNot": {
+    "2": "On ne transmet jamais de secret personnel.",
+    "3": "Les systèmes de tiers ne peuvent être testés qu'avec leur propre autorisation."
+   },
+   "kind": "practice"
+  },
+  {
+   "id": "m2c3-q30",
+   "domain": "operations-security",
+   "level": "beginner",
+   "concept": "Sources des correctifs",
+   "prompt": "D'où faut-il télécharger les correctifs ?",
+   "choices": [
+    "Des sources officielles de l'éditeur, en vérifiant leur signature",
+    "D'un forum anonyme qui propose une version plus rapide",
+    "D'une pièce jointe reçue par courriel",
+    "D'une clé USB trouvée sur le parking"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Un faux correctif est un vecteur classique de logiciel malveillant.",
+   "whyNot": {
+    "1": "Une source anonyme peut distribuer un fichier piégé.",
+    "2": "Une pièce jointe est un vecteur d'hameçonnage.",
+    "3": "Une clé trouvée est un vecteur d'attaque classique."
+   },
+   "kind": "general"
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "m2c3-f01",
+   "front": "Vulnérabilité",
+   "back": "Faiblesse exploitable. La menace l'exploite ; l'exploit est le moyen concret.",
+   "concept": "Vulnérabilité"
+  },
+  {
+   "id": "m2c3-f02",
+   "front": "CVE",
+   "back": "Identifiant unique d'une faille précise : CVE-année-numéro.",
+   "concept": "CVE"
+  },
+  {
+   "id": "m2c3-f03",
+   "front": "CWE",
+   "back": "Catalogue des types de faiblesses (injection SQL, débordement de tampon…).",
+   "concept": "CWE"
+  },
+  {
+   "id": "m2c3-f04",
+   "front": "CVSS",
+   "back": "Score de gravité de 0 à 10. 7 à 8,9 élevé ; 9 à 10 critique.",
+   "concept": "CVSS"
+  },
+  {
+   "id": "m2c3-f05",
+   "front": "Limite du CVSS",
+   "back": "Gravité technique, pas risque : ignore exposition, criticité et exploitation réelle.",
+   "concept": "CVSS"
+  },
+  {
+   "id": "m2c3-f06",
+   "front": "NVD",
+   "back": "Base du NIST qui enrichit les CVE (score, produits, références).",
+   "concept": "Sources"
+  },
+  {
+   "id": "m2c3-f07",
+   "front": "KEV",
+   "back": "Catalogue CISA des vulnérabilités dont l'exploitation est confirmée.",
+   "concept": "KEV"
+  },
+  {
+   "id": "m2c3-f08",
+   "front": "EPSS",
+   "back": "Probabilité d'exploitation d'une CVE dans les 30 jours (FIRST).",
+   "concept": "EPSS"
+  },
+  {
+   "id": "m2c3-f09",
+   "front": "Scan authentifié",
+   "back": "Lit les versions installées : plus précis, moins de faux positifs.",
+   "concept": "Types de scans"
+  },
+  {
+   "id": "m2c3-f10",
+   "front": "Scan non authentifié",
+   "back": "Vue de l'attaquant depuis le réseau.",
+   "concept": "Types de scans"
+  },
+  {
+   "id": "m2c3-f11",
+   "front": "Cycle",
+   "back": "Découvrir, évaluer, prioriser, traiter, vérifier, rendre compte.",
+   "concept": "Cycle de gestion"
+  },
+  {
+   "id": "m2c3-f12",
+   "front": "Priorité",
+   "back": "Gravité + exploitation + exposition + criticité de l'actif.",
+   "concept": "Priorisation"
+  },
+  {
+   "id": "m2c3-f13",
+   "front": "Patch virtuel",
+   "back": "WAF ou IPS qui bloque l'exploitation : compensatoire et temporaire.",
+   "concept": "Patch virtuel"
+  },
+  {
+   "id": "m2c3-f14",
+   "front": "Exception",
+   "back": "Écrite, approuvée par le propriétaire du risque, compensée, datée.",
+   "concept": "Exception"
+  },
+  {
+   "id": "m2c3-f15",
+   "front": "Correctif = changement",
+   "back": "Passe par la gestion des changements ; urgence = circuit accéléré mais tracé.",
+   "concept": "Gestion des changements"
+  },
+  {
+   "id": "m2c3-f16",
+   "front": "Vagues",
+   "back": "Pilote, puis vagues successives, avec retour arrière.",
+   "concept": "Déploiement"
+  },
+  {
+   "id": "m2c3-f17",
+   "front": "Zero-day",
+   "back": "Pas de correctif : contourner, filtrer, isoler, surveiller.",
+   "concept": "Zero-day"
+  },
+  {
+   "id": "m2c3-f18",
+   "front": "Fin de vie (EOL)",
+   "back": "Plus de correctifs : remplacer ou isoler avec exception.",
+   "concept": "Fin de vie"
+  },
+  {
+   "id": "m2c3-f19",
+   "front": "Scan / pentest / audit / Red Team",
+   "back": "Liste / prouve / compare / met la défense à l'épreuve.",
+   "concept": "Tests de sécurité"
+  },
+  {
+   "id": "m2c3-f20",
+   "front": "Boîtes",
+   "back": "Noire : rien. Grise : un peu (un compte). Blanche : tout (code, schémas).",
+   "concept": "Boîte noire, grise, blanche"
+  }
+ ],
+ "revisionSheet": [
+  "# Fiche de révision : gestion des vulnérabilités et des correctifs",
+  "Vulnérabilité = faiblesse ; menace = ce qui l'exploite ; exploit = moyen concret ; risque = vraisemblance × impact.",
+  "CVE = identifiant d'une faille précise ; CWE = type de faiblesse ; CVSS = gravité de 0 à 10.",
+  "CVSS v3.1 : faible 0,1-3,9 ; moyenne 4,0-6,9 ; élevée 7,0-8,9 ; critique 9,0-10,0. Gravité technique, pas risque.",
+  "Sources : NVD (NIST), KEV (CISA, exploitation confirmée), EPSS (FIRST, probabilité à 30 jours), avis éditeurs et CERT.",
+  "Scans : authentifié (précis), non authentifié (vue de l'attaquant), agent (nomades), passif (équipements fragiles). Autorisation écrite, périmètre, horaires.",
+  "Cycle : découvrir → évaluer → prioriser → traiter → vérifier → rendre compte, appuyé sur l'inventaire des actifs.",
+  "Priorité = gravité + exploitation (KEV, EPSS) + exposition + criticité de l'actif.",
+  "Traitement : corriger, atténuer (patch virtuel = compensatoire, temporaire), accepter par exception, retirer.",
+  "Exception : écrite, justifiée, approuvée par le propriétaire du risque, mesures compensatoires, date de revue.",
+  "Indicateurs : critiques hors délai, délais par gravité, couverture, exceptions échues, réouvertures.",
+  "Correctifs : veille, évaluation, test, déploiement par vagues avec retour arrière, vérification de l'installation, inventaire à jour.",
+  "Un correctif est un changement ; correctif urgent = changement d'urgence tracé et revu.",
+  "Zero-day : pas de correctif → contourner, filtrer, isoler, détecter. Fin de vie : remplacer ou isoler avec exception.",
+  "Scan (liste), test d'intrusion (prouve), audit (compare), Red Team (teste détection et réponse). Boîte noire, grise, blanche.",
+  "Paires à ne pas confondre : CVE/CWE ; CVSS/EPSS ; scan/pentest ; patch virtuel/correctif ; distribué/installé."
+ ],
+ "mindMap": {
+  "label": "Vulnérabilités et correctifs",
+  "en": "Vulnerability Management",
+  "emoji": "🩹",
+  "children": [
+   {
+    "label": "Identifier",
+    "en": "Identification",
+    "emoji": "🔍",
+    "tone": "blue",
+    "children": [
+     {
+      "label": "Vocabulaire",
+      "children": [
+       {
+        "label": "Vulnérabilité, menace, exploit, risque"
+       },
+       {
+        "label": "CVE",
+        "detail": "Une faille précise."
+       },
+       {
+        "label": "CWE",
+        "detail": "Un type de faiblesse."
+       }
+      ]
+     },
+     {
+      "label": "Sources",
+      "children": [
+       {
+        "label": "NVD",
+        "detail": "CVE enrichies (NIST)."
+       },
+       {
+        "label": "KEV",
+        "detail": "Exploitation confirmée (CISA)."
+       },
+       {
+        "label": "Avis éditeurs, CERT"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "label": "Noter",
+    "en": "Scoring",
+    "emoji": "📊",
+    "tone": "violet",
+    "children": [
+     {
+      "label": "CVSS",
+      "detail": "0 à 10 ; élevé 7 à 8,9 ; critique 9 à 10.",
+      "children": [
+       {
+        "label": "Gravité, pas risque",
+        "detail": "Ignore le contexte."
+       }
+      ]
+     },
+     {
+      "label": "EPSS",
+      "detail": "Probabilité d'exploitation à 30 jours.",
+      "children": [
+       {
+        "label": "Complète le CVSS"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "label": "Scanner",
+    "en": "Scanning",
+    "emoji": "🛰️",
+    "tone": "turquoise",
+    "children": [
+     {
+      "label": "Types",
+      "children": [
+       {
+        "label": "Authentifié",
+        "detail": "Précis."
+       },
+       {
+        "label": "Non authentifié",
+        "detail": "Vue de l'attaquant."
+       },
+       {
+        "label": "Agent, passif",
+        "detail": "Nomades, équipements fragiles."
+       }
+      ]
+     },
+     {
+      "label": "Cadre",
+      "detail": "Autorisation écrite, périmètre, horaires, SOC prévenu.",
+      "children": [
+       {
+        "label": "Valider les faux positifs"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "label": "Prioriser et traiter",
+    "en": "Remediation",
+    "emoji": "🎯",
+    "tone": "red",
+    "children": [
+     {
+      "label": "Cycle",
+      "detail": "Découvrir, évaluer, prioriser, traiter, vérifier, rendre compte.",
+      "children": [
+       {
+        "label": "Appuyé sur l'inventaire"
+       }
+      ]
+     },
+     {
+      "label": "Priorité",
+      "detail": "Gravité, exploitation, exposition, enjeu.",
+      "children": [
+       {
+        "label": "Délais (SLA) selon le risque"
+       }
+      ]
+     },
+     {
+      "label": "Options",
+      "children": [
+       {
+        "label": "Corriger"
+       },
+       {
+        "label": "Atténuer",
+        "detail": "Patch virtuel : compensatoire."
+       },
+       {
+        "label": "Exception",
+        "detail": "Propriétaire du risque, datée."
+       },
+       {
+        "label": "Retirer"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "label": "Gérer les correctifs",
+    "en": "Patch Management",
+    "emoji": "🩹",
+    "tone": "green",
+    "children": [
+     {
+      "label": "Processus",
+      "detail": "Veille, évaluation, test, vagues, vérification, clôture.",
+      "children": [
+       {
+        "label": "Correctif = changement"
+       },
+       {
+        "label": "Retour arrière prévu"
+       }
+      ]
+     },
+     {
+      "label": "Cas difficiles",
+      "children": [
+       {
+        "label": "Zero-day",
+        "detail": "Contourner, isoler, surveiller."
+       },
+       {
+        "label": "Fin de vie",
+        "detail": "Remplacer ou isoler."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "label": "Tester la sécurité",
+    "en": "Security Testing",
+    "emoji": "🧪",
+    "tone": "orange",
+    "children": [
+     {
+      "label": "Quatre approches",
+      "children": [
+       {
+        "label": "Scan",
+        "detail": "Liste."
+       },
+       {
+        "label": "Test d'intrusion",
+        "detail": "Prouve."
+       },
+       {
+        "label": "Audit",
+        "detail": "Compare."
+       },
+       {
+        "label": "Red Team",
+        "detail": "Met la défense à l'épreuve."
+       }
+      ]
+     },
+     {
+      "label": "Règles d'engagement",
+      "detail": "Autorisation écrite, périmètre, dates, contacts.",
+      "children": [
+       {
+        "label": "Boîte noire, grise, blanche"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "label": "Piloter",
+    "en": "Metrics",
+    "emoji": "📈",
+    "tone": "pink",
+    "children": [
+     {
+      "label": "Indicateurs",
+      "children": [
+       {
+        "label": "Critiques hors délai"
+       },
+       {
+        "label": "Couverture des scans"
+       },
+       {
+        "label": "Exceptions échues"
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}

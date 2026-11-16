@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <g stroke="#26324A" stroke-width="2" stroke-linejoin="round" fill="#FFE4D1">
+    <path d="M14 40 L70 40 L70 66 L14 66 Z" /><path d="M72 40 L128 40 L128 66 L72 66 Z" /><path d="M130 40 L186 40 L186 66 L130 66 Z" />
+    <path d="M14 68 L42 68 L42 94 L14 94 Z" /><path d="M44 68 L100 68 L100 94 L44 94 Z" /><path d="M102 68 L158 68 L158 94 L102 94 Z" />
+    <path d="M14 96 L70 96 L70 122 L14 122 Z" /><path d="M72 96 L128 96 L128 122 L72 122 Z" /><path d="M130 96 L186 96 L186 122 L130 122 Z" />
+  </g>
+  <path d="M60 70 L68 78 L62 84 L72 92" fill="none" stroke="#26324A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+  <ellipse cx="70" cy="81" rx="34" ry="20" fill="none" stroke="#EF4444" stroke-width="3" />
+  <path d="M84 104 L96 124" stroke="#EF4444" stroke-width="2" />
+  <path d="M80 124 L118 122 L120 140 L82 142 Z" fill="#FFFBF2" stroke="#EF4444" stroke-width="2.2" stroke-linejoin="round" />
+  <text x="87" y="137" font-family="Caveat, cursive" font-size="15" fill="#EF4444">CVE</text>
+  <circle cx="180" cy="120" r="30" fill="#D9F6FB" fill-opacity="0.6" stroke="#26324A" stroke-width="5" />
+  <path d="M202 142 L230 170" stroke="#7A3BE6" stroke-width="10" stroke-linecap="round" />
+  <path d="M168 104 C172 100 180 98 186 100" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" />
+</svg>

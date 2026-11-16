@@ -18,7 +18,7 @@ Elle fonctionne **entièrement hors ligne** sur Android, Windows, macOS et Linux
 | Flashcards à répétition espacée (SM-2) | ✅ |
 | Glossaire bilingue anglais / français avec recherche hors ligne | ✅ |
 | Suivi des erreurs par notion et par domaine officiel | ✅ |
-| Contenu : module 1 complet et 2 premiers chapitres du module 2 (174 questions) | ✅ (étape 2 en cours) |
+| Contenu : modules 1 et 2 complets (204 questions) | ✅ (étape 2 en cours) |
 
 Le détail de ce qui est fait, testé et prévu se trouve dans [PROJECT_STATUS.md](PROJECT_STATUS.md).
 

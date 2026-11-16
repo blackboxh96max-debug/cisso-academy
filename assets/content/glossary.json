@@ -1021,5 +1021,141 @@
   "definition": "Protocole qui chiffre et authentifie les communications réseau, à la base de HTTPS.",
   "example": "TLS 1.3 entre le navigateur et le serveur.",
   "kind": "general"
+ },
+ {
+  "id": "cve",
+  "en": "Common Vulnerabilities and Exposures",
+  "fr": "Vulnérabilités et expositions communes",
+  "acronym": "CVE",
+  "definition": "Identifiant public et unique d'une vulnérabilité précise.",
+  "example": "CVE-2021-44228 (Log4Shell).",
+  "kind": "general"
+ },
+ {
+  "id": "cwe",
+  "en": "Common Weakness Enumeration",
+  "fr": "Énumération des faiblesses communes",
+  "acronym": "CWE",
+  "definition": "Catalogue des types de faiblesses logicielles et matérielles.",
+  "example": "CWE-89 : injection SQL.",
+  "kind": "general"
+ },
+ {
+  "id": "cvss",
+  "en": "Common Vulnerability Scoring System",
+  "fr": "Système commun de notation des vulnérabilités",
+  "acronym": "CVSS",
+  "definition": "Méthode publiée par le FIRST qui note la gravité technique d'une vulnérabilité de 0 à 10.",
+  "example": "Score de base 9,8 : critique.",
+  "kind": "general"
+ },
+ {
+  "id": "nvd",
+  "en": "National Vulnerability Database",
+  "fr": "Base nationale des vulnérabilités (NIST)",
+  "acronym": "NVD",
+  "definition": "Base publique du NIST qui enrichit les CVE avec des scores et des références.",
+  "example": "Consulter la NVD pour connaître les produits touchés.",
+  "kind": "general"
+ },
+ {
+  "id": "kev",
+  "en": "Known Exploited Vulnerabilities catalog",
+  "fr": "Catalogue des vulnérabilités exploitées",
+  "acronym": "KEV",
+  "definition": "Catalogue de la CISA listant les vulnérabilités dont l'exploitation réelle est confirmée.",
+  "example": "Une CVE ajoutée au KEV devient prioritaire.",
+  "kind": "general"
+ },
+ {
+  "id": "epss",
+  "en": "Exploit Prediction Scoring System",
+  "fr": "Système de prédiction d'exploitation",
+  "acronym": "EPSS",
+  "definition": "Score du FIRST estimant la probabilité qu'une CVE soit exploitée dans les 30 jours.",
+  "example": "EPSS de 0,9 : exploitation très probable.",
+  "kind": "general"
+ },
+ {
+  "id": "vulnerability-scan",
+  "en": "Vulnerability scan",
+  "fr": "Scan de vulnérabilités",
+  "definition": "Analyse automatisée qui recherche des vulnérabilités connues sur des systèmes autorisés.",
+  "example": "Scan authentifié hebdomadaire des serveurs.",
+  "kind": "general"
+ },
+ {
+  "id": "patch-management",
+  "en": "Patch management",
+  "fr": "Gestion des correctifs",
+  "definition": "Processus de veille, test, déploiement et vérification des correctifs.",
+  "example": "Déploiement mensuel par vagues.",
+  "kind": "general"
+ },
+ {
+  "id": "virtual-patching",
+  "en": "Virtual patching",
+  "fr": "Patch virtuel",
+  "definition": "Mesure placée devant un système vulnérable pour bloquer l'exploitation sans le modifier.",
+  "example": "Règle de WAF bloquant une requête malveillante.",
+  "kind": "general"
+ },
+ {
+  "id": "zero-day",
+  "en": "Zero-day vulnerability",
+  "fr": "Vulnérabilité zero-day",
+  "definition": "Vulnérabilité connue ou exploitée avant qu'un correctif soit disponible.",
+  "example": "Faille exploitée annoncée sans correctif.",
+  "kind": "general"
+ },
+ {
+  "id": "eol",
+  "en": "End of life",
+  "fr": "Fin de vie",
+  "acronym": "EOL",
+  "definition": "Statut d'un produit qui ne reçoit plus de correctifs de sécurité de son éditeur.",
+  "example": "Ancien système d'exploitation non maintenu.",
+  "kind": "general"
+ },
+ {
+  "id": "exploit",
+  "en": "Exploit",
+  "fr": "Exploit",
+  "definition": "Code ou technique qui tire parti d'une vulnérabilité.",
+  "example": "Script public donnant un accès à distance.",
+  "kind": "general"
+ },
+ {
+  "id": "penetration-test",
+  "en": "Penetration test",
+  "fr": "Test d'intrusion",
+  "definition": "Test autorisé qui tente d'exploiter des vulnérabilités pour démontrer leur impact.",
+  "example": "Test d'intrusion annuel du site web.",
+  "kind": "general"
+ },
+ {
+  "id": "rules-of-engagement",
+  "en": "Rules of engagement",
+  "fr": "Règles d'engagement",
+  "acronym": "RoE",
+  "definition": "Document qui fixe le périmètre, les dates, les techniques et les contacts d'un test de sécurité.",
+  "example": "Interdiction des tests de déni de service.",
+  "kind": "general"
+ },
+ {
+  "id": "red-team",
+  "en": "Red Team",
+  "fr": "Équipe rouge",
+  "definition": "Équipe qui simule un adversaire réaliste pour tester la détection et la réponse de la défense.",
+  "example": "Exercice de trois semaines contre le SOC.",
+  "kind": "general"
+ },
+ {
+  "id": "blue-team",
+  "en": "Blue Team",
+  "fr": "Équipe bleue",
+  "definition": "Équipe de défense chargée de détecter et de répondre aux attaques.",
+  "example": "Le SOC est la Blue Team.",
+  "kind": "general"
  }
 ]
