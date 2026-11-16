@@ -7,7 +7,7 @@ Dernière mise à jour : 2026-11-16. Règle : une fonctionnalité n'est marquée
 | Étape | Contenu | État |
 |---|---|---|
 | 1 | Socle multiplateforme + chapitre pilote | Fait (PR #1) |
-| 2 | Base pédagogique complète, ≥ 500 questions originales relues | **En cours** : 9 chapitres sur 17, 264 questions |
+| 2 | Base pédagogique complète, ≥ 500 questions originales relues | **En cours** : 10 chapitres sur 17, 294 questions |
 | 3 | Tuteur : version sans IA, puis modèle local optionnel | À faire |
 | 4 | Simulateur SOC, sauvegarde chiffrée, import/export, installateurs, documentation finale | À faire |
 
@@ -24,9 +24,10 @@ Dernière mise à jour : 2026-11-16. Règle : une fonctionnalité n'est marquée
 | M2 ch. 3 · Gestion des vulnérabilités et des correctifs (format cahier, carte mentale) | 3 | 30 | 20 | Fait, à relire |
 | M3 ch. 1 · Modèles OSI, TCP/IP et protocoles sécurisés (format cahier, carte mentale) | 3 | 30 | 20 | Fait, à relire |
 | M3 ch. 2 · Pare-feu, IDS/IPS, VPN, segmentation et sans-fil (format cahier, carte mentale) | 3 | 30 | 20 | Fait, à relire |
-| 8 autres chapitres | – | – | – | À faire, dans l'ordre de la formation |
+| M3 ch. 3 · Architecture sécurisée, défense en profondeur et Zero Trust (format cahier, carte mentale) | 3 | 30 | 20 | Fait, à relire |
+| 7 autres chapitres | – | – | – | À faire, dans l'ordre de la formation |
 
-Glossaire : 176 termes.
+Glossaire : 198 termes.
 
 ## Étape 1 : détail
 

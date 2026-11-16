@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <g stroke="#26324A" stroke-width="2.2" stroke-linejoin="round">
+    <rect x="70" y="20" width="100" height="44" fill="#FECACA" />
+    <rect x="70" y="64" width="100" height="44" fill="#FDE68A" />
+    <rect x="70" y="108" width="100" height="44" fill="#BBF7D0" />
+  </g>
+  <g font-family="Caveat, cursive" font-size="16" text-anchor="middle">
+    <text x="120" y="48" fill="#B91C1C">secret</text>
+    <text x="120" y="92" fill="#A16207">confidentiel</text>
+    <text x="120" y="136" fill="#15803D">public</text>
+  </g>
+  <g fill="none" stroke-width="3" stroke-linecap="round">
+    <path d="M40 120 L40 40 M32 50 L40 40 L48 50" stroke="#2563EB" />
+    <path d="M200 40 L200 120 M192 110 L200 120 L208 110" stroke="#7C3AED" />
+  </g>
+  <g stroke="#DC2626" stroke-width="3" stroke-linecap="round">
+    <path d="M30 70 L50 90 M50 70 L30 90" /><path d="M190 70 L210 90 M210 70 L190 90" />
+  </g>
+  <g font-family="Caveat, cursive" font-size="14" text-anchor="middle">
+    <text x="40" y="168" fill="#1D4ED8">pas de lecture</text>
+    <text x="200" y="168" fill="#6D28D9">pas d'écriture</text>
+  </g>
+</svg>

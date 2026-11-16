@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <path d="M6 140 L234 140" stroke="#26324A" stroke-width="2" />
+  <g stroke="#26324A" stroke-width="2.2" stroke-linejoin="round">
+    <rect x="96" y="50" width="40" height="90" fill="#DBEAFE" />
+    <rect x="186" y="50" width="40" height="90" fill="#DCFCE7" />
+    <rect x="80" y="66" width="10" height="74" fill="#FDBA8C" />
+    <rect x="170" y="66" width="10" height="74" fill="#FDBA8C" />
+    <circle cx="85" cy="60" r="7" fill="#22C55E" />
+    <circle cx="175" cy="60" r="7" fill="#F59E0B" />
+  </g>
+  <g stroke="#26324A" stroke-width="2.2" stroke-linecap="round" fill="none">
+    <circle cx="40" cy="78" r="10" fill="#FFE4C7" />
+    <path d="M40 88 L40 118 M40 118 L30 138 M40 118 L50 138 M40 96 L58 102" />
+  </g>
+  <rect x="56" y="96" width="16" height="11" rx="2" fill="#EDE4FF" stroke="#26324A" stroke-width="2" />
+  <g font-family="Caveat, cursive" font-size="15" text-anchor="middle">
+    <text x="62" y="160" fill="#1D4ED8">qui ? quel appareil ?</text>
+    <text x="116" y="40" fill="#1D4ED8">appli A</text>
+    <text x="206" y="40" fill="#15803D">appli B</text>
+    <text x="186" y="160" fill="#C2410C">on revérifie</text>
+  </g>
+</svg>
