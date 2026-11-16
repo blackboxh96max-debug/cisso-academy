@@ -34,22 +34,57 @@ class NoteBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final c = toneColors(tone, Theme.of(context).brightness);
+    final brightness = Theme.of(context).brightness;
+    final c = toneColors(tone, brightness);
+    final dark = brightness == Brightness.dark;
+    final pillText = dark ? const Color(0xFF15171C) : Colors.white;
     Widget box = HandBox(
       fill: c.fill,
-      stroke: c.ink.withValues(alpha: 0.85),
+      stroke: dark ? c.ink : toneBright(tone),
+      strokeWidth: 2.4,
       seed: seed,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
+          Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 8,
+            runSpacing: 6,
             children: [
-              Text(emoji ?? tone.emoji, style: const TextStyle(fontSize: 18)),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  label.toUpperCase(),
-                  style: Hand.boxLabel(context, tone),
+              // Étiquette vive : pastille pleine de la couleur du bloc.
+              Container(
+                padding: const EdgeInsets.fromLTRB(8, 3, 12, 3),
+                decoration: BoxDecoration(
+                  color: c.ink,
+                  borderRadius: BorderRadius.circular(999),
+                  boxShadow: [
+                    BoxShadow(
+                      color: toneBright(tone).withValues(alpha: 0.35),
+                      blurRadius: 6,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      emoji ?? tone.emoji,
+                      style: const TextStyle(fontSize: 15),
+                    ),
+                    const SizedBox(width: 6),
+                    Flexible(
+                      child: Text(
+                        label.toUpperCase(),
+                        overflow: TextOverflow.ellipsis,
+                        style: Hand.boxLabel(
+                          context,
+                          tone,
+                        ).copyWith(color: pillText),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               ?trailing,

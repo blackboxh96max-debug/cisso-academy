@@ -44,43 +44,43 @@ ToneColors toneColors(Tone tone, Brightness brightness) {
   final dark = brightness == Brightness.dark;
   final (Color ink, Color fill, Color darkInk) = switch (tone) {
     Tone.blue => (
-      const Color(0xFF2F64C8),
-      const Color(0xFFE7F0FF),
+      const Color(0xFF1F5FE0),
+      const Color(0xFFDCE9FF),
       const Color(0xFF8DB4FF),
     ),
     Tone.violet => (
-      const Color(0xFF7446C9),
-      const Color(0xFFF1EAFF),
+      const Color(0xFF7A3BE6),
+      const Color(0xFFEDE1FF),
       const Color(0xFFC3A6FF),
     ),
     Tone.green => (
-      const Color(0xFF237F4C),
-      const Color(0xFFE4F5EA),
+      const Color(0xFF14935A),
+      const Color(0xFFD5F7E3),
       const Color(0xFF86D9A6),
     ),
     Tone.orange => (
-      const Color(0xFFC0620F),
-      const Color(0xFFFFEEDC),
+      const Color(0xFFE5670A),
+      const Color(0xFFFFE7CC),
       const Color(0xFFFFB878),
     ),
     Tone.red => (
-      const Color(0xFFC23A33),
-      const Color(0xFFFDE7E5),
+      const Color(0xFFE0322B),
+      const Color(0xFFFFDEDB),
       const Color(0xFFFF9B93),
     ),
     Tone.yellow => (
-      const Color(0xFF8A6A00),
-      const Color(0xFFFFF4BF),
+      const Color(0xFF9A6F00),
+      const Color(0xFFFFF0A8),
       const Color(0xFFF2D35B),
     ),
     Tone.turquoise => (
-      const Color(0xFF0E7C7B),
-      const Color(0xFFDDF4F2),
+      const Color(0xFF07928F),
+      const Color(0xFFCDF5F1),
       const Color(0xFF6ED8D2),
     ),
     Tone.pink => (
-      const Color(0xFFB8336F),
-      const Color(0xFFFDE5F0),
+      const Color(0xFFE0287A),
+      const Color(0xFFFFDCEC),
       const Color(0xFFFF97C4),
     ),
   };
@@ -89,6 +89,25 @@ ToneColors toneColors(Tone tone, Brightness brightness) {
   }
   return ToneColors(ink, fill);
 }
+
+/// Couleur vive et pleine de chaque ton (bandeaux, badges, dégradés).
+Color toneBright(Tone tone) => switch (tone) {
+  Tone.blue => const Color(0xFF3B82F6),
+  Tone.violet => const Color(0xFF8B5CF6),
+  Tone.green => const Color(0xFF10B981),
+  Tone.orange => const Color(0xFFF97316),
+  Tone.red => const Color(0xFFEF4444),
+  Tone.yellow => const Color(0xFFF5B800),
+  Tone.turquoise => const Color(0xFF06B6D4),
+  Tone.pink => const Color(0xFFEC4899),
+};
+
+/// Dégradé lumineux entre deux tons (cartes motivantes).
+LinearGradient toneGradient(Tone a, Tone b) => LinearGradient(
+  begin: Alignment.topLeft,
+  end: Alignment.bottomRight,
+  colors: [toneBright(a), toneBright(b)],
+);
 
 /// Couleurs du « papier » et de l'encre.
 class Paper {

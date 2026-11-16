@@ -72,3 +72,37 @@ List<Achievement> computeAchievements(ProgressStats s) {
     ),
   ];
 }
+
+/// Message d'encouragement adapté à la progression.
+String encouragement(ProgressStats s) {
+  final today = s.answersToday;
+  if (s.totalAnswers == 0) {
+    return 'Premier pas aujourd\'hui : une leçon de 20 minutes suffit pour démarrer !';
+  }
+  if (today >= dailyAnswerGoal) {
+    return 'Objectif du jour atteint, bravo ! Chaque réponse vous rapproche du CISSO.';
+  }
+  if (s.streakDays >= 3) {
+    return '${s.streakDays} jours d\'affilée : votre régularité fait la différence, continuez !';
+  }
+  if (today > 0) {
+    return 'Encore ${dailyAnswerGoal - today} réponses pour l\'objectif du jour, vous y êtes presque !';
+  }
+  return 'Bon retour ! Quelques questions aujourd\'hui et votre série repart.';
+}
+
+/// Petites phrases de motivation (rédigées pour l'application), une par jour.
+const motivationQuotes = [
+  'Un petit pas chaque jour vaut mieux qu\'un marathon la veille.',
+  'Comprendre le risque, c\'est déjà le réduire.',
+  'Chaque erreur corrigée aujourd\'hui est un point gagné à l\'examen.',
+  'La sécurité est un processus, votre préparation aussi.',
+  'Révisez malin : un peu, souvent, et à voix haute.',
+  'Vous apprenez déjà ce qu\'un RSSI applique tous les jours.',
+  'Le doute d\'aujourd\'hui devient le réflexe de demain.',
+];
+
+String quoteOfTheDay(DateTime now) {
+  final day = now.difference(DateTime(now.year)).inDays;
+  return motivationQuotes[day % motivationQuotes.length];
+}

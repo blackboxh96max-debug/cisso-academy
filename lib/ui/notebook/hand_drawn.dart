@@ -100,6 +100,7 @@ class HandBox extends StatelessWidget {
     required this.child,
     this.fill,
     this.stroke,
+    this.gradient,
     this.padding = const EdgeInsets.fromLTRB(18, 16, 18, 18),
     this.seed = 7,
     this.strokeWidth = 1.8,
@@ -110,6 +111,9 @@ class HandBox extends StatelessWidget {
   final Widget child;
   final Color? fill;
   final Color? stroke;
+
+  /// Remplissage en dégradé (prioritaire sur [fill]).
+  final Gradient? gradient;
   final EdgeInsets padding;
   final int seed;
   final double strokeWidth;
@@ -123,6 +127,7 @@ class HandBox extends StatelessWidget {
       painter: _HandBoxPainter(
         fill: fill ?? paper.card,
         stroke: stroke ?? paper.inkSoft,
+        gradient: gradient,
         seed: seed,
         strokeWidth: strokeWidth,
         shadow: shadow,
@@ -137,6 +142,7 @@ class _HandBoxPainter extends CustomPainter {
   _HandBoxPainter({
     required this.fill,
     required this.stroke,
+    required this.gradient,
     required this.seed,
     required this.strokeWidth,
     required this.shadow,
@@ -145,6 +151,7 @@ class _HandBoxPainter extends CustomPainter {
 
   final Color fill;
   final Color stroke;
+  final Gradient? gradient;
   final int seed;
   final double strokeWidth;
   final bool shadow;
@@ -162,7 +169,9 @@ class _HandBoxPainter extends CustomPainter {
           ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 3),
       );
     }
-    canvas.drawPath(path, Paint()..color = fill);
+    final fillPaint = Paint()..color = fill;
+    if (gradient != null) fillPaint.shader = gradient!.createShader(rect);
+    canvas.drawPath(path, fillPaint);
     canvas.drawPath(
       path,
       Paint()
@@ -176,7 +185,10 @@ class _HandBoxPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_HandBoxPainter old) =>
-      old.fill != fill || old.stroke != stroke || old.seed != seed;
+      old.fill != fill ||
+      old.stroke != stroke ||
+      old.seed != seed ||
+      old.gradient != gradient;
 }
 
 /// Soulignement manuscrit sous un titre.

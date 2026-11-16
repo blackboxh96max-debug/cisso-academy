@@ -264,8 +264,10 @@ class _Panel extends StatelessWidget {
     this.emoji,
     this.seed = 9,
     this.trailing,
+    this.tone = Tone.blue,
   });
 
+  final Tone tone;
   final String title;
   final String? emoji;
   final Widget child;
@@ -275,10 +277,13 @@ class _Panel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final paper = Paper.of(context);
+    final c = toneColors(tone, Theme.of(context).brightness);
     return Padding(
       padding: const EdgeInsets.only(top: 18),
       child: HandBox(
         fill: paper.page,
+        stroke: toneBright(tone),
+        strokeWidth: 2.4,
         seed: seed,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -290,13 +295,20 @@ class _Panel extends StatelessWidget {
                   const SizedBox(width: 8),
                 ],
                 Expanded(
-                  child: Text(
-                    title,
-                    style: TextStyle(
-                      fontFamily: Hand.title,
-                      fontSize: 28,
-                      fontWeight: FontWeight.w700,
-                      color: paper.ink,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: HandUnderline(
+                      color: toneBright(tone),
+                      seed: seed,
+                      child: Text(
+                        title,
+                        style: TextStyle(
+                          fontFamily: Hand.title,
+                          fontSize: 28,
+                          fontWeight: FontWeight.w700,
+                          color: c.ink,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -320,26 +332,33 @@ class _WelcomeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
-    final blue = toneColors(Tone.blue, brightness);
     final paper = Paper.of(context);
     final r = stats.recommendation;
+    const onGradient = Colors.white;
     final ring = _ProgressRing(value: stats.overallProgress);
     final art = Semantics(
       label: 'Illustration : un cahier ouvert, un crayon et un bouclier de sécurité.',
       image: true,
-      child: SvgPicture.asset(
-        'assets/illustrations/welcome.svg',
-        height: 130,
-        excludeFromSemantics: true,
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: Colors.white.withValues(alpha: 0.9),
+          shape: BoxShape.circle,
+        ),
+        child: SvgPicture.asset(
+          'assets/illustrations/welcome.svg',
+          height: 110,
+          excludeFromSemantics: true,
+        ),
       ),
     );
     final recommendation = InkWell(
       onTap: onOpen,
       borderRadius: BorderRadius.circular(14),
       child: HandBox(
-        fill: toneColors(Tone.yellow, brightness).fill,
-        stroke: toneColors(Tone.yellow, brightness).ink,
+        fill: const Color(0xFFFFF3B0),
+        stroke: toneBright(Tone.yellow),
+        strokeWidth: 2.4,
         seed: 21,
         padding: const EdgeInsets.fromLTRB(14, 10, 10, 12),
         child: Row(
@@ -373,8 +392,13 @@ class _WelcomeCard extends StatelessWidget {
       ),
     );
     return HandBox(
-      fill: blue.fill,
-      stroke: blue.ink,
+      gradient: const LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [Color(0xFF2563EB), Color(0xFF7C3AED), Color(0xFFDB2777)],
+      ),
+      stroke: const Color(0xFF4C1D95),
+      strokeWidth: 2.4,
       seed: 17,
       child: LayoutBuilder(
         builder: (context, c) {
@@ -383,18 +407,27 @@ class _WelcomeCard extends StatelessWidget {
             children: [
               Text(
                 'Bonjour et bonne révision !',
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: Hand.title,
-                  fontSize: 36,
+                  fontSize: 38,
                   fontWeight: FontWeight.w700,
-                  color: blue.ink,
+                  color: onGradient,
                   height: 1,
                 ),
               ),
               const SizedBox(height: 4),
               Text(
-                'Votre cahier de préparation au CISSO de MILE2, entièrement hors ligne.',
-                style: Hand.bodyText(context).copyWith(fontSize: 18),
+                encouragement(stats),
+                style: Hand.bodyText(context)
+                    .copyWith(fontSize: 19, color: onGradient),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                '✨ ${quoteOfTheDay(AppScope.of(context).now())}',
+                style: Hand.noteText(context).copyWith(
+                  fontSize: 16,
+                  color: onGradient.withValues(alpha: 0.92),
+                ),
               ),
               const SizedBox(height: 10),
               recommendation,
@@ -438,8 +471,6 @@ class _ProgressRing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
-    final paper = Paper.of(context);
     Widget ring(double v) => SizedBox(
       width: 112,
       height: 112,
@@ -451,8 +482,8 @@ class _ProgressRing extends StatelessWidget {
               value: v,
               strokeWidth: 11,
               strokeCap: StrokeCap.round,
-              backgroundColor: paper.rule,
-              color: toneColors(Tone.green, brightness).ink,
+              backgroundColor: Colors.white.withValues(alpha: 0.25),
+              color: const Color(0xFFFDE047),
             ),
           ),
           Column(
@@ -460,18 +491,21 @@ class _ProgressRing extends StatelessWidget {
             children: [
               Text(
                 '${(v * 100).round()} %',
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: Hand.title,
-                  fontSize: 32,
+                  fontSize: 34,
                   fontWeight: FontWeight.w700,
-                  color: paper.ink,
+                  color: Colors.white,
                   height: 1,
                 ),
               ),
               Text(
                 'Progression globale',
                 textAlign: TextAlign.center,
-                style: Hand.sansText(context, size: 10.5),
+                style: Hand.sansText(
+                  context,
+                  size: 10.5,
+                ).copyWith(color: Colors.white),
               ),
             ],
           ),
@@ -498,8 +532,8 @@ class _ModuleCards extends StatelessWidget {
   Widget build(BuildContext context) {
     final library = AppScope.of(context).library;
     final brightness = Theme.of(context).brightness;
-    final paper = Paper.of(context);
     return _Panel(
+      tone: Tone.violet,
       title: 'Mes 5 modules',
       emoji: '🗂️',
       seed: 23,
@@ -526,8 +560,16 @@ class _ModuleCards extends StatelessWidget {
                         onTap: onOpen,
                         borderRadius: BorderRadius.circular(14),
                         child: HandBox(
-                          fill: colors.fill,
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              colors.ink,
+                              Color.lerp(toneBright(tone), Colors.white, 0.1)!,
+                            ],
+                          ),
                           stroke: colors.ink,
+                          strokeWidth: 2.2,
                           seed: 30 + m.number,
                           padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
                           child: Column(
@@ -542,11 +584,11 @@ class _ModuleCards extends StatelessWidget {
                                   const SizedBox(width: 6),
                                   Text(
                                     'Module ${m.number}',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontFamily: Hand.title,
-                                      fontSize: 24,
+                                      fontSize: 26,
                                       fontWeight: FontWeight.w700,
-                                      color: colors.ink,
+                                      color: Colors.white,
                                     ),
                                   ),
                                 ],
@@ -555,7 +597,11 @@ class _ModuleCards extends StatelessWidget {
                                 m.title,
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
-                                style: Hand.sansText(context, size: 13),
+                                style: Hand.sansText(context, size: 13)
+                                    .copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w700,
+                                    ),
                               ),
                               const SizedBox(height: 8),
                               ClipRRect(
@@ -563,14 +609,19 @@ class _ModuleCards extends StatelessWidget {
                                 child: LinearProgressIndicator(
                                   value: progress,
                                   minHeight: 8,
-                                  color: colors.ink,
-                                  backgroundColor: paper.page,
+                                  color: const Color(0xFFFDE047),
+                                  backgroundColor: Colors.white.withValues(
+                                    alpha: 0.3,
+                                  ),
                                 ),
                               ),
                               const SizedBox(height: 4),
                               Text(
                                 '${(progress * 100).round()} % · $available/${m.chapters.length} chapitre(s) disponible(s)',
-                                style: Hand.sansText(context, size: 11.5),
+                                style: Hand.sansText(
+                                  context,
+                                  size: 11.5,
+                                ).copyWith(color: Colors.white),
                               ),
                             ],
                           ),
@@ -660,6 +711,7 @@ class _QuickAccess extends StatelessWidget {
     }
 
     return _Panel(
+      tone: Tone.pink,
       title: 'Accès rapide',
       emoji: '⚡',
       seed: 25,
@@ -787,6 +839,7 @@ class _ScoreChart extends StatelessWidget {
       );
     }
     return _Panel(
+      tone: Tone.blue,
       title: 'Évolution de mes scores',
       emoji: '📈',
       seed: 27,
@@ -828,6 +881,7 @@ class _DomainRadar extends StatelessWidget {
     }
 
     return _Panel(
+      tone: Tone.violet,
       title: 'Radar des compétences',
       emoji: '🕸️',
       seed: 29,
@@ -924,6 +978,7 @@ class _AnswersPie extends StatelessWidget {
     final red = toneColors(Tone.red, brightness);
     final paper = Paper.of(context);
     return _Panel(
+      tone: Tone.green,
       title: 'Justes ou fausses ?',
       emoji: '🥧',
       seed: 31,
@@ -1009,6 +1064,7 @@ class _ChapterMastery extends StatelessWidget {
     final brightness = Theme.of(context).brightness;
     final paper = Paper.of(context);
     return _Panel(
+      tone: Tone.turquoise,
       title: 'Maîtrise des chapitres',
       emoji: '📊',
       seed: 33,
@@ -1092,6 +1148,7 @@ class _Badges extends StatelessWidget {
     final paper = Paper.of(context);
     final earned = achievements.where((a) => a.earned).length;
     return _Panel(
+      tone: Tone.orange,
       title: 'Mes badges',
       emoji: '🏅',
       seed: 35,
@@ -1168,6 +1225,7 @@ class _WeakSpots extends StatelessWidget {
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
     return _Panel(
+      tone: Tone.red,
       title: 'Suivi des erreurs',
       emoji: '🎯',
       seed: 37,
@@ -1239,6 +1297,7 @@ class _History extends StatelessWidget {
     if (stats.sessions.isEmpty) return const SizedBox.shrink();
     final scheme = Theme.of(context).colorScheme;
     return _Panel(
+      tone: Tone.blue,
       title: 'Historique',
       emoji: '🕘',
       seed: 39,
