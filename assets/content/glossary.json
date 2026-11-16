@@ -2066,5 +2066,176 @@
   "definition": "Effacement d'un support magnétique par un champ magnétique puissant ; inefficace sur SSD.",
   "example": "Bandes de sauvegarde démagnétisées.",
   "kind": "general"
+ },
+ {
+  "id": "malware",
+  "en": "Malware",
+  "fr": "Logiciel malveillant",
+  "definition": "Programme conçu pour nuire : voler, espionner, détruire, chiffrer ou prendre le contrôle.",
+  "example": "Malware arrivé par une pièce jointe.",
+  "kind": "general"
+ },
+ {
+  "id": "virus",
+  "en": "Computer virus",
+  "fr": "Virus informatique",
+  "definition": "Code malveillant qui s'attache à un fichier hôte et se propage quand celui-ci est ouvert ou exécuté.",
+  "example": "Virus de macro dans un document.",
+  "kind": "general"
+ },
+ {
+  "id": "worm",
+  "en": "Worm",
+  "fr": "Ver",
+  "definition": "Programme malveillant qui se propage seul par le réseau en exploitant des failles.",
+  "example": "Ver exploitant une faille de partage de fichiers.",
+  "kind": "general"
+ },
+ {
+  "id": "trojan",
+  "en": "Trojan horse",
+  "fr": "Cheval de Troie",
+  "definition": "Programme malveillant qui se fait passer pour un logiciel utile.",
+  "example": "Faux générateur de licence.",
+  "kind": "general"
+ },
+ {
+  "id": "rat",
+  "en": "Remote Access Trojan",
+  "fr": "Cheval de Troie d'accès à distance",
+  "acronym": "RAT",
+  "definition": "Cheval de Troie qui donne à l'attaquant le contrôle complet d'une machine.",
+  "example": "Webcam activée à distance.",
+  "kind": "general"
+ },
+ {
+  "id": "rootkit",
+  "en": "Rootkit",
+  "fr": "Rootkit",
+  "definition": "Outils installés au niveau privilégié du système pour cacher la présence d'un attaquant.",
+  "example": "Processus invisibles pour les outils du système.",
+  "kind": "general"
+ },
+ {
+  "id": "logic-bomb",
+  "en": "Logic bomb",
+  "fr": "Bombe logique",
+  "definition": "Code malveillant qui s'active quand une condition est remplie.",
+  "example": "Effacement déclenché par la suppression d'un compte.",
+  "kind": "general"
+ },
+ {
+  "id": "keylogger",
+  "en": "Keylogger",
+  "fr": "Enregistreur de frappe",
+  "definition": "Logiciel ou matériel qui enregistre les frappes au clavier.",
+  "example": "Vol de mots de passe saisis.",
+  "kind": "general"
+ },
+ {
+  "id": "botnet",
+  "en": "Botnet",
+  "fr": "Réseau de machines zombies",
+  "definition": "Ensemble de machines infectées pilotées par un serveur de commande et de contrôle.",
+  "example": "Botnet utilisé pour un DDoS.",
+  "kind": "general"
+ },
+ {
+  "id": "c2",
+  "en": "Command and control",
+  "fr": "Commande et contrôle",
+  "acronym": "C2",
+  "definition": "Infrastructure par laquelle l'attaquant envoie des ordres aux machines infectées.",
+  "example": "Balises régulières vers un domaine C2.",
+  "kind": "general"
+ },
+ {
+  "id": "polymorphic-malware",
+  "en": "Polymorphic malware",
+  "fr": "Malware polymorphe",
+  "definition": "Malware qui change d'apparence (et d'empreinte) à chaque copie.",
+  "example": "Signature inefficace.",
+  "kind": "general"
+ },
+ {
+  "id": "fileless-malware",
+  "en": "Fileless malware",
+  "fr": "Malware sans fichier",
+  "definition": "Malware qui s'exécute en mémoire en utilisant les outils légitimes du système.",
+  "example": "Commandes malveillantes lancées par un script en mémoire.",
+  "kind": "general"
+ },
+ {
+  "id": "ransomware",
+  "en": "Ransomware",
+  "fr": "Rançongiciel",
+  "definition": "Malware qui chiffre les données et exige une rançon, souvent avec menace de publication.",
+  "example": "Note de rançon sur les serveurs.",
+  "kind": "general"
+ },
+ {
+  "id": "double-extortion",
+  "en": "Double extortion",
+  "fr": "Double extorsion",
+  "definition": "Vol des données avant leur chiffrement, avec menace de publication.",
+  "example": "Données clients mises en ligne.",
+  "kind": "general"
+ },
+ {
+  "id": "backup-3-2-1",
+  "en": "3-2-1 backup rule",
+  "fr": "Règle de sauvegarde 3-2-1",
+  "definition": "Trois copies, sur deux supports, dont une hors site ; aujourd'hui avec une copie hors ligne ou immuable.",
+  "example": "Copie immuable intacte après l'attaque.",
+  "kind": "general"
+ },
+ {
+  "id": "immutable-backup",
+  "en": "Immutable backup",
+  "fr": "Sauvegarde immuable",
+  "definition": "Sauvegarde qui ne peut être ni modifiée ni supprimée pendant sa durée de rétention.",
+  "example": "Le rançongiciel ne peut pas l'effacer.",
+  "kind": "general"
+ },
+ {
+  "id": "sandbox",
+  "en": "Sandbox",
+  "fr": "Bac à sable",
+  "definition": "Environnement isolé où l'on exécute un programme suspect pour l'observer sans risque.",
+  "example": "Analyse dynamique d'une macro.",
+  "kind": "general"
+ },
+ {
+  "id": "static-analysis",
+  "en": "Static analysis",
+  "fr": "Analyse statique",
+  "definition": "Examen d'un fichier suspect sans l'exécuter.",
+  "example": "Lecture des chaînes et fonctions importées.",
+  "kind": "general"
+ },
+ {
+  "id": "dynamic-analysis",
+  "en": "Dynamic analysis",
+  "fr": "Analyse dynamique",
+  "definition": "Exécution contrôlée d'un fichier suspect pour observer son comportement.",
+  "example": "Connexions observées dans la sandbox.",
+  "kind": "general"
+ },
+ {
+  "id": "xdr",
+  "en": "Extended Detection and Response",
+  "fr": "Détection et réponse étendues",
+  "acronym": "XDR",
+  "definition": "Corrélation de la détection sur plusieurs sources : terminaux, messagerie, réseau, identités, cloud.",
+  "example": "Alerte XDR reliant courriel et poste.",
+  "kind": "general"
+ },
+ {
+  "id": "yara",
+  "en": "YARA rule",
+  "fr": "Règle YARA",
+  "definition": "Description de motifs permettant de reconnaître une famille de malwares dans des fichiers.",
+  "example": "Règle YARA ajoutée après analyse.",
+  "kind": "general"
  }
 ]
