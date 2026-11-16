@@ -5,6 +5,7 @@ import 'package:cisso_academy/data/progress_store.dart';
 import 'package:cisso_academy/main.dart';
 import 'package:cisso_academy/models/content.dart';
 import 'package:cisso_academy/ui/chapter_page.dart';
+import 'package:cisso_academy/ui/courses_page.dart';
 import 'package:cisso_academy/ui/quiz_page.dart';
 import 'package:cisso_academy/ui/quiz_result_page.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -258,8 +259,18 @@ void main() {
     );
     await tester.pumpAndSettle();
     expect(find.text('Module 1'), findsOneWidget);
-    expect(find.text('🔒 Bientôt disponible'), findsWidgets);
     expect(find.text('📖 3 leçons'), findsWidgets);
+    final list = find
+        .descendant(
+          of: find.byType(CoursesPage),
+          matching: find.byType(Scrollable),
+        )
+        .first;
+    await tester.drag(list, const Offset(0, -1500));
+    await tester.pumpAndSettle();
+    expect(find.text('🔒 Bientôt disponible'), findsWidgets);
+    await tester.drag(list, const Offset(0, 3000));
+    await tester.pumpAndSettle();
 
     await tester.tap(find.text('Gestion, analyse et traitement des risques'));
     await tester.pumpAndSettle();

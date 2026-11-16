@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <!-- anneau du trousseau -->
+  <circle cx="120" cy="34" r="18" fill="none" stroke="#26324A" stroke-width="3" />
+  <g stroke="#26324A" stroke-width="2.4" stroke-linecap="round" fill="none">
+    <path d="M108 48 L60 82" /><path d="M120 52 L120 86" /><path d="M132 48 L180 82" />
+  </g>
+  <!-- bulle mot de passe : ce que je sais -->
+  <g stroke="#26324A" stroke-width="2.6" stroke-linejoin="round">
+    <path d="M22 86 C40 80 82 80 98 86 C102 104 100 122 96 132 C80 136 40 136 24 132 C18 118 18 100 22 86 Z" fill="#DCE9FF" />
+  </g>
+  <text x="34" y="116" font-family="Caveat, cursive" font-size="26" font-weight="700" fill="#1F5FE0">****</text>
+  <!-- téléphone : ce que j'ai -->
+  <g stroke="#26324A" stroke-width="2.6" stroke-linejoin="round">
+    <path d="M104 88 L136 87 L138 156 L105 157 Z" fill="#EDE4FF" />
+    <path d="M110 98 L132 97 L133 140 L111 141 Z" fill="#FFFBF2" />
+  </g>
+  <path d="M114 120 L120 127 L130 110" fill="none" stroke="#10B981" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" />
+  <!-- empreinte : ce que je suis -->
+  <g fill="none" stroke-linecap="round">
+    <ellipse cx="190" cy="118" rx="30" ry="36" fill="#FFE4F1" stroke="#26324A" stroke-width="2.6" />
+    <g stroke="#EC4899" stroke-width="2.4">
+      <path d="M176 132 C172 112 178 96 190 96 C202 96 208 110 204 132" />
+      <path d="M183 136 C180 118 184 106 190 106 C196 106 199 118 197 136" />
+      <path d="M190 116 L190 140" />
+    </g>
+  </g>
+  <text x="26" y="168" font-family="Caveat, cursive" font-size="17" fill="#1F5FE0">je sais</text>
+  <text x="102" y="174" font-family="Caveat, cursive" font-size="17" fill="#7A3BE6">j'ai</text>
+  <text x="172" y="172" font-family="Caveat, cursive" font-size="17" fill="#C0267A">je suis</text>
+</svg>

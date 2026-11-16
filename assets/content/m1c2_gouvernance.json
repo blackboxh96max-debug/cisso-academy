@@ -1,0 +1,1510 @@
+{
+ "lessons": [
+  {
+   "id": "m1c2-l1",
+   "title": "Gouvernance de la sécurité et rôles",
+   "minutes": 25,
+   "objectives": [
+    "Distinguer gouvernance et management de la sécurité.",
+    "Situer les rôles : conseil d'administration, direction, comité sécurité, RSSI, SOC, auditeur.",
+    "Distinguer responsabilité finale (accountability) et responsabilité d'exécution (responsibility).",
+    "Expliquer due diligence et due care."
+   ],
+   "references": [
+    {
+     "title": "ISO/IEC 27014:2020, Information security, cybersecurity and privacy protection — Governance of information security",
+     "kind": "general"
+    },
+    {
+     "title": "COBIT (ISACA), référentiel de gouvernance et de management du SI",
+     "kind": "general"
+    },
+    {
+     "title": "NIST Cybersecurity Framework 2.0, fonction « Govern »",
+     "url": "https://www.nist.gov/cyberframework",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Gouverner ou manager ?"
+    },
+    {
+     "type": "text",
+     "text": "La gouvernance fixe la direction : elle décide des objectifs de sécurité, de l'appétence au risque et des moyens, puis contrôle que l'organisation s'y tient. Le management exécute : il planifie, met en œuvre et pilote au quotidien les mesures qui atteignent ces objectifs. Autrement dit, la gouvernance répond à « faisons-nous les bonnes choses ? » et le management à « les faisons-nous bien ? »."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "",
+       "Gouvernance",
+       "Management"
+      ],
+      [
+       "Qui",
+       "Conseil d'administration, direction générale",
+       "RSSI, DSI, responsables opérationnels"
+      ],
+      [
+       "Quoi",
+       "Orientations, appétence au risque, budget, contrôle",
+       "Plans, projets, mesures, indicateurs"
+      ],
+      [
+       "Horizon",
+       "Stratégique (pluriannuel)",
+       "Tactique et opérationnel"
+      ],
+      [
+       "Exemple",
+       "Approuver la politique de sécurité et le budget du SOC",
+       "Déployer le SIEM et organiser les astreintes"
+      ]
+     ]
+    },
+    {
+     "type": "text",
+     "text": "ISO/IEC 27014 décrit la gouvernance de la sécurité de l'information autour de processus comme évaluer, diriger, superviser, communiquer. Le NIST Cybersecurity Framework 2.0 a ajouté une fonction « Govern » à ses fonctions historiques (Identify, Protect, Detect, Respond, Recover).",
+     "kind": "general"
+    },
+    {
+     "type": "diagram",
+     "title": "NIST CSF 2.0 : « Govern » au centre",
+     "alt": "Cycle des cinq fonctions historiques du NIST Cybersecurity Framework, Identify, Protect, Detect, Respond et Recover, autour de la fonction Govern ajoutée dans la version 2.0.",
+     "diagram": {
+      "type": "cycle",
+      "center": "🏛️ Govern\n(gouverner)",
+      "nodes": [
+       {
+        "emoji": "🔎",
+        "label": "Identify",
+        "detail": "identifier",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🛡️",
+        "label": "Protect",
+        "detail": "protéger",
+        "tone": "green"
+       },
+       {
+        "emoji": "📡",
+        "label": "Detect",
+        "detail": "détecter",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🚒",
+        "label": "Respond",
+        "detail": "répondre",
+        "tone": "red"
+       },
+       {
+        "emoji": "🔄",
+        "label": "Recover",
+        "detail": "rétablir",
+        "tone": "turquoise"
+       }
+      ]
+     },
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Qui fait quoi ?"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Rôle",
+       "Responsabilités principales"
+      ],
+      [
+       "Conseil d'administration / direction générale",
+       "Responsabilité finale de la sécurité ; fixe l'appétence au risque ; approuve politique et budget"
+      ],
+      [
+       "Comité de pilotage sécurité",
+       "Arbitre les priorités entre métiers, suit le plan d'action et les risques majeurs"
+      ],
+      [
+       "RSSI (CISO)",
+       "Pilote le programme de sécurité, conseille la direction, rend compte des risques"
+      ],
+      [
+       "Propriétaires métier",
+       "Propriétaires des risques et des données de leur activité"
+      ],
+      [
+       "DSI et équipes techniques",
+       "Mettent en œuvre et exploitent les mesures techniques"
+      ],
+      [
+       "SOC",
+       "Surveille, détecte, qualifie et répond aux incidents"
+      ],
+      [
+       "Audit interne",
+       "Vérifie de façon indépendante que les contrôles existent et fonctionnent"
+      ]
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "Accountability (responsabilité finale)",
+     "text": "Obligation de rendre des comptes sur un résultat. Elle ne se délègue pas : la direction reste redevable de la sécurité même si elle confie des tâches au RSSI ou à un prestataire.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Responsibility (responsabilité d'exécution)",
+     "text": "Charge de réaliser une tâche. Elle peut être déléguée : l'administrateur est chargé d'appliquer les correctifs, le SOC de traiter les alertes.",
+     "kind": "general"
+    },
+    {
+     "type": "important",
+     "title": "Point clé",
+     "text": "On peut déléguer l'exécution (responsibility), jamais la responsabilité finale (accountability). Si un prestataire applique mal les correctifs, la direction reste comptable du résultat."
+    },
+    {
+     "type": "text",
+     "text": "Le RSSI doit idéalement rendre compte à un niveau qui lui garantit l'indépendance nécessaire (direction générale, direction des risques). S'il dépend du DSI qu'il doit parfois contredire, un conflit d'intérêts peut apparaître.",
+     "kind": "practice"
+    },
+    {
+     "type": "heading",
+     "text": "Due diligence et due care"
+    },
+    {
+     "type": "definition",
+     "title": "Due diligence (diligence raisonnable)",
+     "text": "Effort pour connaître et comprendre les risques : s'informer, évaluer, auditer, vérifier un fournisseur avant de signer.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Due care (prudence raisonnable)",
+     "text": "Agir comme le ferait une personne prudente et compétente : mettre en place et maintenir les mesures raisonnables face aux risques connus.",
+     "kind": "general"
+    },
+    {
+     "type": "memo",
+     "title": "Due diligence ou due care ?",
+     "text": "Moyen mnémotechnique souvent utilisé en préparation : la due diligence consiste à « savoir », la due care à « faire ». Une organisation qui a identifié une faille critique (diligence) mais ne la corrige pas (manque de care) peut être jugée négligente."
+    },
+    {
+     "type": "trainerNote",
+     "text": "À l'examen, cherchez qui « décide » et qui « fait ». La direction décide et répond devant la loi, le RSSI conseille et pilote, les équipes exécutent, l'audit vérifie. Placer chaque acteur dans la bonne case suffit souvent à trouver la réponse."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : qui décide de couper ?",
+     "text": "À 2 h du matin, le SOC détecte un chiffrement en cours sur le serveur de production d'une usine. Couper le serveur arrête la production. La procédure, approuvée par la direction (gouvernance), autorise le responsable d'astreinte à isoler un serveur en cas de rançongiciel confirmé. Le SOC applique la procédure (management), informe le RSSI, qui prévient le directeur d'usine, propriétaire du risque.",
+     "kind": "example"
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : je traduis les risques en enjeux métier pour que la direction décide en connaissance de cause.",
+      "Responsable SOC : j'ai besoin de procédures approuvées pour agir vite sans attendre une validation la nuit.",
+      "Auditeur : je vérifie que les rôles sont écrits, attribués et que la direction suit réellement les risques.",
+      "Risk manager : je m'assure que l'appétence au risque fixée par la direction est traduite en seuils concrets."
+     ]
+    },
+    {
+     "type": "practice",
+     "title": "Bonnes pratiques",
+     "kind": "practice",
+     "items": [
+      "Faire approuver la politique de sécurité par la direction générale, pas seulement par la DSI.",
+      "Rattacher le RSSI à un niveau qui garantit son indépendance vis-à-vis des équipes qu'il contrôle.",
+      "Écrire à l'avance qui peut décider d'isoler un système critique pendant un incident."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "La responsabilité finale de la sécurité appartient à la direction générale, pas au RSSI.",
+      "Accountability ne se délègue pas ; responsibility se délègue.",
+      "Gouvernance = diriger et contrôler ; management = planifier et exécuter.",
+      "Due diligence = s'informer, évaluer ; due care = agir et maintenir."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "La gouvernance oriente et contrôle, le management exécute.",
+      "La direction porte la responsabilité finale ; le RSSI pilote et conseille.",
+      "Due diligence (savoir) et due care (faire) fondent la notion de négligence."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m1c2-q02",
+      "m1c2-q05"
+     ]
+    }
+   ],
+   "illustration": "assets/illustrations/m1c2_l1_gouvernail.svg",
+   "illustrationAlt": "Dessin d'une barre de navire (gouvernail) à côté d'une boussole : la gouvernance donne le cap."
+  },
+  {
+   "id": "m1c2-l2",
+   "title": "Classification de l'information et rôles sur les données",
+   "minutes": 25,
+   "objectives": [
+    "Expliquer le but d'une classification de l'information.",
+    "Comparer schémas de classification gouvernementaux et commerciaux.",
+    "Distinguer propriétaire, dépositaire et utilisateur des données.",
+    "Appliquer moindre privilège et besoin d'en connaître."
+   ],
+   "references": [
+    {
+     "title": "ISO/IEC 27002:2022, mesures 5.12 (classification) et 5.13 (marquage de l'information)",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-60, Guide for Mapping Types of Information and Information Systems to Security Categories",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Pourquoi classifier ?"
+    },
+    {
+     "type": "text",
+     "text": "Toutes les informations ne méritent pas la même protection. La classification range l'information en quelques niveaux selon l'impact de sa divulgation, de son altération ou de sa perte. Chaque niveau est associé à des règles : qui peut y accéder, comment la stocker, la transmettre, l'étiqueter et la détruire. On protège ainsi fortement ce qui compte, sans alourdir le reste."
+    },
+    {
+     "type": "steps",
+     "title": "Mettre en place une classification",
+     "items": [
+      "Définir les niveaux et leurs critères (la direction les approuve).",
+      "Désigner les propriétaires des informations.",
+      "Le propriétaire classe ses informations.",
+      "Associer à chaque niveau des règles de manipulation (marquage, chiffrement, partage, destruction).",
+      "Former les utilisateurs et contrôler l'application.",
+      "Réviser périodiquement : une information peut être déclassée ou reclassée."
+     ]
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Schéma",
+       "Niveaux typiques (du plus au moins sensible)"
+      ],
+      [
+       "Gouvernemental (modèle américain souvent cité)",
+       "Top Secret, Secret, Confidential, Sensitive But Unclassified, Unclassified"
+      ],
+      [
+       "Commercial (exemple courant)",
+       "Confidentiel (ou Restreint), Privé, Sensible / Interne, Public"
+      ],
+      [
+       "France, secret de la défense nationale (depuis 2021)",
+       "Très Secret, Secret"
+      ]
+     ]
+    },
+    {
+     "type": "text",
+     "text": "Les noms des niveaux commerciaux varient d'une organisation à l'autre : ce qui compte est que chaque niveau soit défini et associé à des règles. À l'examen, retenez surtout la logique et l'ordre des niveaux.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Les rôles sur les données"
+    },
+    {
+     "type": "definition",
+     "title": "Propriétaire des données (data owner)",
+     "text": "Responsable métier, généralement un cadre dirigeant, redevable de la protection d'un ensemble d'informations. Il en fixe la classification, décide qui peut y accéder et valide les mesures.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Dépositaire (data custodian)",
+     "text": "Souvent l'équipe informatique : il applique au quotidien les décisions du propriétaire (sauvegardes, droits d'accès, chiffrement, restauration).",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Utilisateur (user)",
+     "text": "Personne qui utilise les données dans le cadre de son travail, en respectant les règles de manipulation.",
+     "kind": "general"
+    },
+    {
+     "type": "diagram",
+     "title": "Qui fait quoi sur une donnée ?",
+     "alt": "Schéma en trois étapes : le propriétaire classe la donnée et fixe les règles, le dépositaire applique les protections techniques, l'utilisateur respecte les règles au quotidien.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "👔",
+        "label": "Propriétaire",
+        "detail": "classe et décide",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🛠️",
+        "label": "Dépositaire",
+        "detail": "sauvegarde, chiffre, applique",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🧑‍💻",
+        "label": "Utilisateur",
+        "detail": "respecte les règles",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "memo",
+     "text": "Le propriétaire Décide, le dépositaire Applique, l'utilisateur Respecte : « D.A.R. ». Le propriétaire est presque toujours un responsable métier, pas l'informatique."
+    },
+    {
+     "type": "text",
+     "text": "Deux principes complètent ces rôles. Le moindre privilège (least privilege) : chacun reçoit seulement les droits nécessaires à sa mission. Le besoin d'en connaître (need to know) : même avec le niveau d'habilitation suffisant, on n'accède à une information que si sa mission l'exige.",
+     "kind": "general"
+    },
+    {
+     "type": "risk",
+     "title": "Deux erreurs fréquentes",
+     "items": [
+      "Sur-classifier : tout devient « confidentiel », les règles deviennent impossibles à suivre et sont contournées.",
+      "Sous-classifier : une donnée sensible circule sans chiffrement ni contrôle de partage."
+     ]
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : export massif",
+     "text": "Le SIEM alerte : un commercial a exporté 40 000 fiches clients depuis le CRM un vendredi soir. Les fiches sont classées « Confidentiel ». L'analyste vérifie les droits : le commercial a bien accès au CRM, mais l'export complet n'est pas nécessaire à sa mission. Le SOC escalade au propriétaire des données (directeur commercial), qui décide de restreindre l'export ; le dépositaire (équipe CRM) applique la modification.",
+     "kind": "example"
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : sans classification, je ne peux pas dimensionner les mesures ni prioriser les alertes.",
+      "Responsable SOC : le niveau de classification d'une donnée touchée fixe la gravité de l'incident.",
+      "Auditeur : je vérifie que chaque ensemble de données a un propriétaire et une classification à jour.",
+      "Risk manager : la classification me donne directement l'impact à utiliser dans l'analyse de risque."
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "Côté SOC, la classification sert tous les jours : une alerte d'exfiltration sur un dossier « Public » et la même alerte sur un dossier « Confidentiel » n'ont pas la même priorité."
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "C'est le propriétaire qui classifie, pas le dépositaire ni le RSSI.",
+      "Le dépositaire applique ; il ne décide pas des accès.",
+      "Moindre privilège porte sur les droits ; besoin d'en connaître porte sur l'accès à une information précise.",
+      "Une habilitation élevée ne donne pas accès à tout : le besoin d'en connaître s'ajoute."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Classifier pour protéger chaque information à la hauteur de son impact.",
+      "Propriétaire : décide et classe ; dépositaire : applique ; utilisateur : respecte les règles.",
+      "Moindre privilège et besoin d'en connaître limitent les accès."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m1c2-q11",
+      "m1c2-q12"
+     ]
+    }
+   ],
+   "illustration": "assets/illustrations/m1c2_l2_classement.svg",
+   "illustrationAlt": "Dessin de trois dossiers avec des étiquettes de couleur, du vert (public) au rouge (confidentiel), et un tampon."
+  },
+  {
+   "id": "m1c2-l3",
+   "title": "Sécurité liée au personnel, sensibilisation et pilotage",
+   "minutes": 25,
+   "objectives": [
+    "Citer les mesures de sécurité avant, pendant et après l'emploi.",
+    "Expliquer séparation des tâches, rotation des postes et congés obligatoires.",
+    "Distinguer sensibilisation, formation et éducation.",
+    "Choisir des indicateurs de pilotage (KPI, KRI)."
+   ],
+   "references": [
+    {
+     "title": "ISO/IEC 27002:2022, mesures liées aux personnes (thème 6)",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-50 Rev. 1, Building a Cybersecurity and Privacy Learning Program",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-55, Measurement Guide for Information Security",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Le cycle de vie du salarié"
+    },
+    {
+     "type": "diagram",
+     "title": "Le cycle de vie du salarié",
+     "alt": "Schéma en cinq étapes : avant l'embauche, arrivée, pendant l'emploi, changement de poste, départ.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🔍",
+        "label": "Avant",
+        "detail": "vérifications",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🤝",
+        "label": "Arrivée",
+        "detail": "NDA, charte, comptes",
+        "tone": "green"
+       },
+       {
+        "emoji": "📚",
+        "label": "Pendant",
+        "detail": "revues, formation",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🔀",
+        "label": "Mobilité",
+        "detail": "retirer l'inutile",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🚪",
+        "label": "Départ",
+        "detail": "désactiver tout de suite",
+        "tone": "red"
+       }
+      ]
+     }
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Moment",
+       "Mesures typiques"
+      ],
+      [
+       "Avant l'embauche",
+       "Vérification des antécédents proportionnée au poste et conforme au droit local, description de poste incluant la sécurité"
+      ],
+      [
+       "À l'arrivée",
+       "Clauses de confidentialité (NDA), charte d'utilisation, création des comptes selon le besoin, sensibilisation"
+      ],
+      [
+       "Pendant l'emploi",
+       "Revue périodique des droits, formation continue, processus disciplinaire connu"
+      ],
+      [
+       "Changement de poste",
+       "Retrait des droits devenus inutiles (éviter l'accumulation de privilèges)"
+      ],
+      [
+       "Départ",
+       "Désactivation immédiate des comptes, restitution du matériel, rappel des obligations de confidentialité"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Limiter la fraude et les abus"
+    },
+    {
+     "type": "definition",
+     "title": "Séparation des tâches (separation of duties)",
+     "text": "Une tâche sensible est répartie entre plusieurs personnes, pour qu'aucune ne puisse la réaliser seule. Une fraude demande alors une collusion.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Rotation des postes (job rotation)",
+     "text": "Les personnes changent périodiquement de fonction. Cela réduit la dépendance à une seule personne et permet à un successeur de détecter des irrégularités.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Congés obligatoires (mandatory vacation)",
+     "text": "Imposer une absence de plusieurs jours consécutifs : pendant ce temps, un remplaçant fait le travail et une fraude en cours risque d'apparaître. C'est d'abord un contrôle détectif.",
+     "kind": "general"
+    },
+    {
+     "type": "trainerNote",
+     "text": "Les congés obligatoires et la rotation ont le même ressort : quelqu'un d'autre reprend le poste et voit ce qui était caché. Ce sont des contrôles de détection autant que de dissuasion."
+    },
+    {
+     "type": "text",
+     "text": "Ces mesures se combinent avec le moindre privilège et la double validation (principe des quatre yeux). Exemple : celui qui crée un fournisseur dans l'ERP ne peut pas valider son paiement.",
+     "kind": "practice"
+    },
+    {
+     "type": "heading",
+     "text": "Sensibiliser, former, éduquer"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "",
+       "Sensibilisation (awareness)",
+       "Formation (training)",
+       "Éducation (education)"
+      ],
+      [
+       "But",
+       "Changer les comportements, attirer l'attention",
+       "Donner une compétence pour un poste",
+       "Approfondir la compréhension, le « pourquoi »"
+      ],
+      [
+       "Public",
+       "Tout le personnel",
+       "Rôles spécifiques (administrateurs, analystes)",
+       "Spécialistes, futurs experts"
+      ],
+      [
+       "Exemple",
+       "Campagne d'hameçonnage simulé, affiches",
+       "Atelier sur l'utilisation du SIEM",
+       "Cursus universitaire, certification"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Piloter avec des indicateurs"
+    },
+    {
+     "type": "definition",
+     "title": "KPI, Key Performance Indicator",
+     "text": "Mesure la performance d'un processus ou d'un contrôle. Exemple : délai moyen de traitement d'une alerte critique (MTTR).",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "KRI, Key Risk Indicator",
+     "text": "Signale l'augmentation d'un risque, avant qu'il se matérialise. Exemple : nombre de serveurs exposés sans correctif critique depuis plus de 30 jours.",
+     "kind": "general"
+    },
+    {
+     "type": "memo",
+     "text": "KPI = Performance : « fait-on bien le travail ? » (délai moyen de traitement d'une alerte). KRI = Risque : « le danger augmente-t-il ? » (serveurs exposés sans correctif critique)."
+    },
+    {
+     "type": "text",
+     "text": "Un bon indicateur est mesurable, utile à une décision et présenté au bon public : la direction veut des tendances et des risques, l'équipe SOC des délais et des volumes.",
+     "kind": "practice"
+    },
+    {
+     "type": "risk",
+     "title": "Le compte orphelin",
+     "text": "Un compte resté actif après un départ est une porte ouverte : personne ne surveille son usage, et une connexion malveillante passe pour une activité normale."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : le compte orphelin",
+     "text": "Le SOC repère une connexion VPN avec le compte d'un salarié parti il y a trois semaines. Le compte n'a jamais été désactivé : le processus de départ n'était pas relié à l'annuaire. Mesures : désactivation immédiate et investigation (SOC), correction du processus RH-informatique (management), ajout d'un KRI « comptes actifs de personnes parties » suivi chaque mois par le comité sécurité (gouvernance).",
+     "kind": "example"
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : l'humain est à la fois la première faiblesse et la première ligne de détection.",
+      "Responsable SOC : un salarié sensibilisé qui signale un courriel suspect vaut une règle de détection.",
+      "Auditeur : je compare la liste des départs RH et la liste des comptes actifs.",
+      "Risk manager : les KRI me permettent d'alerter la direction avant l'incident."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Congés obligatoires : objectif principal = détecter une fraude, pas le bien-être.",
+      "Séparation des tâches : prévient la fraude d'une personne seule ; elle est contournée par collusion.",
+      "Sensibilisation ≠ formation : la sensibilisation vise tout le monde et les comportements.",
+      "KPI mesure la performance ; KRI mesure l'évolution d'un risque."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Sécurité du personnel avant, pendant et après l'emploi, avec retrait des droits au départ.",
+      "Séparation des tâches, rotation et congés obligatoires luttent contre la fraude.",
+      "Sensibilisation (tous), formation (rôles), éducation (experts).",
+      "KPI pour la performance, KRI pour le risque."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m1c2-q24",
+      "m1c2-q21"
+     ]
+    }
+   ],
+   "illustration": "assets/illustrations/m1c2_l3_badge.svg",
+   "illustrationAlt": "Dessin d'un badge d'employé avec une photo stylisée, relié à une clé et à une porte de sortie."
+  }
+ ],
+ "questions": [
+  {
+   "id": "m1c2-q01",
+   "domain": "security-management",
+   "level": "beginner",
+   "concept": "Gouvernance et management",
+   "prompt": "Le conseil d'administration fixe l'appétence au risque et approuve le budget de sécurité. Cette activité relève :",
+   "choices": [
+    "Du management opérationnel",
+    "De la gouvernance",
+    "De l'exploitation du SOC",
+    "De l'audit externe"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Fixer les orientations, l'appétence au risque et les moyens, puis contrôler, c'est le rôle de la gouvernance.",
+   "whyNot": {
+    "0": "Le management met en œuvre les orientations ; il ne les fixe pas.",
+    "2": "Le SOC exploite des mesures de détection et de réponse, il ne fixe pas la stratégie.",
+    "3": "L'audit externe vérifie de façon indépendante ; il ne dirige pas l'organisation."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c2-q02",
+   "domain": "security-management",
+   "level": "beginner",
+   "concept": "Responsabilité finale",
+   "prompt": "Qui porte la responsabilité finale de la sécurité de l'information dans une entreprise ?",
+   "choices": [
+    "Le RSSI",
+    "Le DSI",
+    "La direction générale",
+    "Le responsable du SOC"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "La responsabilité finale (accountability) appartient à la direction générale, qui fixe les objectifs et alloue les moyens. Le RSSI pilote et conseille.",
+   "whyNot": {
+    "0": "Le RSSI pilote le programme et rend compte, mais il n'est pas le responsable final.",
+    "1": "Le DSI met en œuvre le SI ; il n'est pas responsable final de la sécurité de l'organisation.",
+    "3": "Le responsable SOC est chargé de la détection et de la réponse, pas de la responsabilité globale."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c2-q03",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "Accountability et responsibility",
+   "prompt": "Une entreprise confie l'application des correctifs à un infogérant. Que reste-t-il à l'entreprise ?",
+   "choices": [
+    "Rien : la responsabilité est transférée par le contrat",
+    "La responsabilité finale (accountability) du résultat",
+    "Uniquement la responsabilité juridique, pas la responsabilité opérationnelle",
+    "La responsabilité d'exécution (responsibility) des correctifs"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La tâche (responsibility) est déléguée à l'infogérant, mais l'entreprise reste redevable du résultat (accountability).",
+   "whyNot": {
+    "0": "La responsabilité finale ne se transfère pas par contrat.",
+    "2": "Cette séparation n'a pas de sens ici : l'entreprise reste redevable du résultat global, y compris opérationnel vis-à-vis de ses clients.",
+    "3": "C'est justement l'exécution qui a été déléguée à l'infogérant."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c2-q04",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "Due diligence et due care",
+   "prompt": "Avant de choisir un hébergeur, une entreprise examine ses certifications, ses rapports d'audit et ses incidents passés. Elle fait preuve de :",
+   "choices": [
+    "Due care",
+    "Due diligence",
+    "Séparation des tâches",
+    "Acceptation du risque"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "S'informer et évaluer avant de décider, c'est la due diligence.",
+   "whyNot": {
+    "0": "La due care consiste à agir et à maintenir des mesures raisonnables, pas à enquêter.",
+    "2": "La séparation des tâches répartit une tâche sensible entre plusieurs personnes.",
+    "3": "Aucun risque n'est accepté ici : l'entreprise s'informe."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c2-q05",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "Due diligence et due care",
+   "prompt": "Une société sait depuis six mois qu'un serveur exposé présente une faille critique, mais ne fait rien. Un incident survient. Quel principe a-t-elle surtout manqué ?",
+   "choices": [
+    "Due care",
+    "Due diligence",
+    "Besoin d'en connaître",
+    "Rotation des postes"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Elle connaissait le risque (la diligence a eu lieu) mais n'a pas agi de façon raisonnable : c'est un manque de due care, assimilable à de la négligence.",
+   "whyNot": {
+    "1": "La faille était connue : l'effort de connaissance a été fait.",
+    "2": "Le besoin d'en connaître limite l'accès à l'information ; il n'est pas en cause.",
+    "3": "La rotation des postes est une mesure antifraude sans rapport avec ce cas."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c2-q06",
+   "domain": "security-management",
+   "level": "advanced",
+   "concept": "Indépendance du RSSI",
+   "prompt": "Pourquoi recommande-t-on souvent que le RSSI ne soit pas rattaché au DSI ?",
+   "choices": [
+    "Pour lui donner accès aux mots de passe administrateur",
+    "Pour éviter un conflit d'intérêts lorsqu'il doit signaler des écarts de la DSI",
+    "Parce que la loi interdit ce rattachement dans tous les pays",
+    "Pour qu'il puisse gérer lui-même le budget informatique"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le RSSI contrôle et conteste parfois les choix de la DSI (délais, correctifs, exceptions). Un rattachement indépendant protège sa liberté de signaler les risques.",
+   "whyNot": {
+    "0": "Le rattachement hiérarchique n'a rien à voir avec l'accès aux comptes ; le RSSI n'a d'ailleurs pas besoin de ces mots de passe.",
+    "2": "Il n'existe pas d'interdiction légale générale : c'est une bonne pratique d'organisation.",
+    "3": "Gérer le budget informatique n'est pas le but ; le budget sécurité peut d'ailleurs rester distinct."
+   },
+   "kind": "practice"
+  },
+  {
+   "id": "m1c2-q07",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "Rôles",
+   "prompt": "Quel acteur vérifie de façon indépendante que les contrôles de sécurité existent et fonctionnent ?",
+   "choices": [
+    "Le dépositaire des données",
+    "Le SOC",
+    "L'audit interne",
+    "Le propriétaire du risque"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "L'audit interne apporte une assurance indépendante à la direction sur l'efficacité des contrôles.",
+   "whyNot": {
+    "0": "Le dépositaire applique les mesures ; il ne peut pas s'auditer lui-même.",
+    "1": "Le SOC exploite des contrôles détectifs ; il n'est pas indépendant de leur fonctionnement.",
+    "3": "Le propriétaire décide du traitement de ses risques ; il n'est pas l'instance de vérification indépendante."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c2-q08",
+   "domain": "security-management",
+   "level": "advanced",
+   "concept": "Gouvernance et management",
+   "prompt": "Parmi ces activités, lesquelles relèvent de la gouvernance de la sécurité ? (2 réponses)",
+   "choices": [
+    "Approuver la politique de sécurité de l'information",
+    "Configurer les règles de corrélation du SIEM",
+    "Suivre en comité de direction les risques majeurs et l'avancement du plan sécurité",
+    "Appliquer les correctifs mensuels sur les serveurs"
+   ],
+   "correct": [
+    0,
+    2
+   ],
+   "explanation": "Approuver la politique et superviser les risques et le plan d'action sont des activités de direction et de contrôle : de la gouvernance.",
+   "whyNot": {
+    "1": "Configurer le SIEM est une activité opérationnelle (management, exploitation).",
+    "3": "Appliquer les correctifs est une tâche d'exploitation."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c2-q09",
+   "domain": "security-management",
+   "level": "beginner",
+   "concept": "Référentiels de gouvernance",
+   "prompt": "Quelle norme ISO traite spécifiquement de la gouvernance de la sécurité de l'information ?",
+   "choices": [
+    "ISO/IEC 27014",
+    "ISO/IEC 27005",
+    "ISO 22301",
+    "ISO/IEC 27035"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "ISO/IEC 27014 donne les principes et processus de gouvernance de la sécurité de l'information.",
+   "whyNot": {
+    "1": "ISO/IEC 27005 porte sur la gestion des risques de sécurité de l'information.",
+    "2": "ISO 22301 porte sur la continuité d'activité.",
+    "3": "ISO/IEC 27035 porte sur la gestion des incidents de sécurité."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c2-q10",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "Procédures approuvées",
+   "prompt": "La nuit, le SOC confirme un rançongiciel actif sur un serveur critique. Qu'est-ce qui permet à l'analyste d'astreinte d'isoler le serveur sans attendre la direction ?",
+   "choices": [
+    "Son niveau d'expertise technique",
+    "Une procédure de réponse approuvée à l'avance par la direction",
+    "L'accord oral d'un collègue",
+    "Le contrat de maintenance du serveur"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La gouvernance délègue à l'avance, dans une procédure approuvée, le pouvoir d'agir dans des cas définis. L'analyste peut ainsi agir vite et légitimement.",
+   "whyNot": {
+    "0": "L'expertise ne donne pas l'autorité d'arrêter une activité métier.",
+    "2": "Un accord oral entre pairs ne constitue pas une délégation d'autorité.",
+    "3": "Le contrat de maintenance ne donne aucun pouvoir de décision sur l'activité."
+   },
+   "kind": "example"
+  },
+  {
+   "id": "m1c2-q11",
+   "domain": "security-management",
+   "level": "beginner",
+   "concept": "Rôles sur les données",
+   "prompt": "Qui décide du niveau de classification d'un fichier de paie ?",
+   "choices": [
+    "L'administrateur du serveur de fichiers",
+    "Le propriétaire des données (par exemple le DRH)",
+    "Le RSSI",
+    "Chaque utilisateur qui l'ouvre"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le propriétaire des données, responsable métier, fixe la classification et décide des accès.",
+   "whyNot": {
+    "0": "L'administrateur est dépositaire : il applique les décisions du propriétaire.",
+    "2": "Le RSSI définit le cadre de classification et conseille, mais ne classe pas chaque information à la place du métier.",
+    "3": "Les utilisateurs respectent la classification ; ils ne la fixent pas."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c2-q12",
+   "domain": "security-management",
+   "level": "beginner",
+   "concept": "Rôles sur les données",
+   "prompt": "L'équipe informatique sauvegarde et restaure la base clients selon les règles fixées par le directeur commercial. Quel est son rôle ?",
+   "choices": [
+    "Propriétaire",
+    "Dépositaire (custodian)",
+    "Utilisateur",
+    "Auditeur"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le dépositaire applique au quotidien les mesures décidées par le propriétaire : sauvegardes, droits, chiffrement.",
+   "whyNot": {
+    "0": "Le propriétaire est le directeur commercial, qui fixe les règles.",
+    "2": "L'utilisateur se sert des données pour son travail ; il ne les administre pas.",
+    "3": "L'auditeur vérifie de façon indépendante ; il n'opère pas les sauvegardes."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c2-q13",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "Classification",
+   "prompt": "Quel est le but principal d'une classification de l'information ?",
+   "choices": [
+    "Ranger les fichiers par date de création",
+    "Appliquer à chaque information une protection proportionnée à son impact",
+    "Chiffrer toutes les données de l'entreprise",
+    "Réduire le nombre de serveurs"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La classification permet de protéger fortement ce qui est sensible sans alourdir inutilement le reste.",
+   "whyNot": {
+    "0": "La classification de sécurité ne porte pas sur l'organisation documentaire par date.",
+    "2": "Tout chiffrer n'est ni le but ni toujours pertinent ; le niveau détermine les mesures.",
+    "3": "La classification n'a pas pour objectif la réduction du parc."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c2-q14",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "Classification",
+   "prompt": "Dans le schéma gouvernemental américain souvent cité à l'examen, quel est le niveau le plus élevé ?",
+   "choices": [
+    "Confidential",
+    "Secret",
+    "Top Secret",
+    "Sensitive But Unclassified"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "L'ordre est : Top Secret, Secret, Confidential, puis Sensitive But Unclassified et Unclassified.",
+   "whyNot": {
+    "0": "Confidential est le troisième niveau classifié.",
+    "1": "Secret est sous Top Secret.",
+    "3": "SBU est une information sensible mais non classifiée."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c2-q15",
+   "domain": "security-management",
+   "level": "advanced",
+   "concept": "Besoin d'en connaître",
+   "prompt": "Un analyste habilité au niveau « Confidentiel » demande à lire le dossier d'enquête interne d'un collègue, classé « Confidentiel », par curiosité. Quel principe justifie un refus ?",
+   "choices": [
+    "La séparation des tâches",
+    "Le besoin d'en connaître (need to know)",
+    "La rotation des postes",
+    "La due diligence"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le niveau d'habilitation suffit, mais l'accès doit aussi être nécessaire à la mission : c'est le besoin d'en connaître.",
+   "whyNot": {
+    "0": "La séparation des tâches répartit une opération sensible entre plusieurs personnes.",
+    "2": "La rotation des postes concerne les changements de fonction.",
+    "3": "La due diligence concerne l'effort de connaissance des risques par l'organisation."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c2-q16",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "Moindre privilège",
+   "prompt": "Un stagiaire en marketing reçoit des droits d'administrateur sur son poste « pour gagner du temps ». Quel principe est violé ?",
+   "choices": [
+    "Le moindre privilège",
+    "La due care",
+    "La classification",
+    "La rotation des postes"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le moindre privilège exige de n'accorder que les droits nécessaires à la mission. Un stagiaire marketing n'a pas besoin des droits d'administrateur.",
+   "whyNot": {
+    "1": "La due care est un principe général de prudence de l'organisation ; le principe précis violé ici est le moindre privilège.",
+    "2": "La classification porte sur l'information, pas sur les droits d'un poste.",
+    "3": "La rotation des postes n'a aucun lien avec ce cas."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c2-q17",
+   "domain": "security-management",
+   "level": "advanced",
+   "concept": "Rôles sur les données",
+   "prompt": "Quelles sont les responsabilités du propriétaire des données ? (2 réponses)",
+   "choices": [
+    "Fixer la classification des informations",
+    "Effectuer les sauvegardes quotidiennes",
+    "Approuver les demandes d'accès aux informations",
+    "Configurer les ACL sur le serveur de fichiers"
+   ],
+   "correct": [
+    0,
+    2
+   ],
+   "explanation": "Le propriétaire décide : classification et accès. Le dépositaire exécute : sauvegardes et configuration technique.",
+   "whyNot": {
+    "1": "Les sauvegardes sont une tâche du dépositaire.",
+    "3": "La configuration des ACL est une tâche du dépositaire, selon les décisions du propriétaire."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c2-q18",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "Classification",
+   "prompt": "Une information classée « Confidentiel » il y a 5 ans concerne un produit lancé publiquement depuis. Que faut-il faire ?",
+   "choices": [
+    "La laisser « Confidentiel » : une classification est définitive",
+    "Demander au propriétaire de la reclasser à un niveau inférieur",
+    "La supprimer immédiatement",
+    "La reclasser au niveau supérieur par prudence"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La classification doit être revue périodiquement. Le propriétaire peut déclasser une information devenue publique, ce qui évite des protections coûteuses et inutiles.",
+   "whyNot": {
+    "0": "Une classification n'est pas définitive : elle suit la valeur de l'information.",
+    "2": "La suppression dépend des règles de conservation, pas du déclassement.",
+    "3": "Surclasser sans raison alourdit les coûts et banalise les niveaux élevés."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c2-q19",
+   "domain": "security-management",
+   "level": "beginner",
+   "concept": "Classification et SOC",
+   "prompt": "Pour un SOC, à quoi sert la classification des données touchées par un incident ?",
+   "choices": [
+    "À choisir l'outil d'investigation",
+    "À évaluer la gravité de l'incident et les obligations de notification",
+    "À désigner l'analyste qui traitera le ticket",
+    "À calculer la durée de rétention des journaux"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Plus les données touchées sont sensibles, plus l'impact est fort ; la classification aide à fixer la gravité et à savoir s'il faut alerter la direction, le DPO ou une autorité.",
+   "whyNot": {
+    "0": "Le choix de l'outil dépend de la nature technique de l'incident, pas de la classification.",
+    "2": "L'affectation d'un analyste dépend surtout de la gravité et de la disponibilité ; la classification alimente la gravité mais ne désigne personne.",
+    "3": "La rétention des journaux est fixée par une politique distincte."
+   },
+   "kind": "example"
+  },
+  {
+   "id": "m1c2-q20",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "Classification",
+   "prompt": "Depuis la réforme de 2021, combien de niveaux compte la classification du secret de la défense nationale en France ?",
+   "choices": [
+    "Un",
+    "Deux : Secret et Très Secret",
+    "Trois : Confidentiel défense, Secret, Très Secret",
+    "Quatre"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Depuis le 1er juillet 2021, le niveau « Confidentiel défense » a été supprimé ; il reste Secret et Très Secret.",
+   "whyNot": {
+    "0": "Il existe deux niveaux, pas un seul.",
+    "2": "C'était l'organisation antérieure à la réforme de 2021.",
+    "3": "La France n'a jamais compté quatre niveaux de secret de la défense nationale dans ce régime."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c2-q21",
+   "domain": "security-management",
+   "level": "beginner",
+   "concept": "Séparation des tâches",
+   "prompt": "Dans un ERP, la personne qui crée un nouveau fournisseur ne peut pas valider son premier paiement. Quel principe est appliqué ?",
+   "choices": [
+    "La rotation des postes",
+    "La séparation des tâches",
+    "Les congés obligatoires",
+    "Le besoin d'en connaître"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Répartir une opération sensible entre deux personnes empêche une fraude par une personne seule : c'est la séparation des tâches.",
+   "whyNot": {
+    "0": "La rotation fait changer les personnes de poste dans le temps.",
+    "2": "Les congés obligatoires imposent une absence pour détecter une fraude.",
+    "3": "Le besoin d'en connaître limite l'accès à une information."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c2-q22",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "Congés obligatoires",
+   "prompt": "Quel est l'objectif principal, du point de vue de la sécurité, d'imposer deux semaines de congés consécutifs aux comptables ?",
+   "choices": [
+    "Améliorer leur productivité",
+    "Permettre à un remplaçant de découvrir une éventuelle fraude",
+    "Réduire les coûts salariaux",
+    "Respecter la séparation des tâches"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Pendant l'absence, un remplaçant traite les dossiers : une fraude qui nécessitait une intervention quotidienne risque d'apparaître. C'est un contrôle détectif.",
+   "whyNot": {
+    "0": "Le bien-être est un bénéfice annexe, pas l'objectif de sécurité.",
+    "2": "Ce n'est pas une mesure de réduction de coûts.",
+    "3": "La séparation des tâches est un principe différent : elle répartit une opération entre plusieurs personnes."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c2-q23",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "Séparation des tâches",
+   "prompt": "Quelle situation permet de contourner la séparation des tâches ?",
+   "choices": [
+    "La rotation des postes",
+    "La collusion entre deux personnes",
+    "Le chiffrement des données",
+    "Une campagne de sensibilisation"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Si les deux personnes qui doivent intervenir s'entendent, la séparation des tâches ne protège plus : c'est la collusion.",
+   "whyNot": {
+    "0": "La rotation aide plutôt à détecter une collusion durable.",
+    "2": "Le chiffrement n'a pas d'effet sur la séparation des tâches.",
+    "3": "La sensibilisation ne contourne pas la mesure."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c2-q24",
+   "domain": "security-management",
+   "level": "beginner",
+   "concept": "Cycle de vie du salarié",
+   "prompt": "Un salarié quitte l'entreprise vendredi. Quelle mesure est la plus urgente ?",
+   "choices": [
+    "Lui faire remplir une enquête de satisfaction",
+    "Désactiver ses comptes et accès dès son départ",
+    "Archiver ses courriels dans six mois",
+    "Lui envoyer la politique de sécurité"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Un compte resté actif après un départ (compte orphelin) est une porte d'entrée classique. La désactivation doit être immédiate.",
+   "whyNot": {
+    "0": "Une enquête RH n'a pas d'effet sur le risque d'accès.",
+    "2": "L'archivage relève de la conservation, pas de la protection contre l'accès.",
+    "3": "La politique doit être connue avant, pendant l'emploi ; au départ, on rappelle plutôt les obligations de confidentialité."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c2-q25",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "Sensibilisation, formation, éducation",
+   "prompt": "Une campagne d'hameçonnage simulé envoyée à tout le personnel est un exemple de :",
+   "choices": [
+    "Formation (training)",
+    "Sensibilisation (awareness)",
+    "Éducation (education)",
+    "Contrôle correctif"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Elle vise tout le personnel et cherche à changer des comportements : c'est de la sensibilisation.",
+   "whyNot": {
+    "0": "La formation donne une compétence liée à un poste, par exemple un atelier SIEM pour les analystes.",
+    "2": "L'éducation approfondit la compréhension sur la durée, par exemple un cursus diplômant.",
+    "3": "Ce n'est pas une mesure qui répare un incident."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c2-q26",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "Indicateurs",
+   "prompt": "« Nombre de serveurs exposés sur Internet avec un correctif critique manquant depuis plus de 30 jours ». De quel type d'indicateur s'agit-il ?",
+   "choices": [
+    "KPI",
+    "KRI",
+    "SLA",
+    "RTO"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Cet indicateur signale l'augmentation d'une exposition, avant l'incident : c'est un indicateur de risque (KRI).",
+   "whyNot": {
+    "0": "Un KPI mesure la performance d'un processus, par exemple le délai moyen de correction.",
+    "2": "Un SLA est un engagement de niveau de service contractuel.",
+    "3": "Le RTO est la durée maximale d'interruption admissible, en continuité d'activité."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c2-q27",
+   "domain": "security-management",
+   "level": "advanced",
+   "concept": "Indicateurs",
+   "prompt": "Quels indicateurs mesurent la performance du SOC (KPI) ? (2 réponses)",
+   "choices": [
+    "Délai moyen de détection d'un incident (MTTD)",
+    "Nombre de comptes à privilèges sans MFA",
+    "Délai moyen de résolution d'un incident (MTTR)",
+    "Nombre de fournisseurs critiques non évalués"
+   ],
+   "correct": [
+    0,
+    2
+   ],
+   "explanation": "MTTD et MTTR mesurent l'efficacité du processus de détection et de réponse : ce sont des KPI du SOC.",
+   "whyNot": {
+    "1": "Ce nombre signale une exposition au risque : c'est plutôt un KRI.",
+    "3": "Ce nombre mesure une exposition liée aux tiers : c'est plutôt un KRI."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c2-q28",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "Rotation des postes",
+   "prompt": "En plus de la détection de fraudes, quel bénéfice apporte la rotation des postes ?",
+   "choices": [
+    "Elle supprime le besoin de journalisation",
+    "Elle réduit la dépendance à une seule personne pour une tâche critique",
+    "Elle remplace la séparation des tâches",
+    "Elle permet de réduire les habilitations à zéro"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Plusieurs personnes savent faire une tâche critique : l'organisation dépend moins d'un seul expert.",
+   "whyNot": {
+    "0": "La journalisation reste nécessaire pour tracer les actions.",
+    "2": "La rotation complète la séparation des tâches ; elle ne la remplace pas.",
+    "3": "Les personnes gardent les habilitations nécessaires à leur poste du moment."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c2-q29",
+   "domain": "security-management",
+   "level": "advanced",
+   "concept": "Cycle de vie du salarié",
+   "prompt": "Un salarié a changé trois fois de service en cinq ans et a gardé tous ses anciens droits. Comment appelle-t-on ce phénomène et quelle mesure le prévient ?",
+   "choices": [
+    "Collusion ; congés obligatoires",
+    "Accumulation de privilèges (privilege creep) ; revue périodique des droits et retrait à chaque mobilité",
+    "Escalade de privilèges ; antivirus",
+    "Usurpation d'identité ; MFA"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Les droits s'accumulent au fil des mobilités. On le prévient en retirant les droits inutiles à chaque changement de poste et en revoyant les droits régulièrement.",
+   "whyNot": {
+    "0": "La collusion est une entente entre personnes ; ce n'est pas le cas ici.",
+    "2": "L'escalade de privilèges est une technique d'attaque ; ici les droits ont été accordés légitimement puis jamais retirés.",
+    "3": "Il n'y a pas d'usurpation : c'est bien le salarié qui détient les droits."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m1c2-q30",
+   "domain": "security-management",
+   "level": "beginner",
+   "concept": "Cycle de vie du salarié",
+   "prompt": "À quel moment fait-on signer une clause de confidentialité (NDA) à un nouveau salarié ?",
+   "choices": [
+    "Après son premier incident",
+    "À son arrivée, avant l'accès aux informations sensibles",
+    "Uniquement à son départ",
+    "Seulement s'il travaille au SOC"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "L'engagement de confidentialité se signe à l'arrivée, avant que la personne n'accède à des informations sensibles.",
+   "whyNot": {
+    "0": "Attendre un incident, c'est trop tard.",
+    "2": "Au départ, on rappelle les obligations ; elles doivent exister avant.",
+    "3": "Toute personne qui accède à des informations sensibles est concernée, pas seulement le SOC."
+   },
+   "kind": "general"
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "m1c2-f01",
+   "front": "Gouvernance vs management",
+   "back": "Gouvernance : orienter et contrôler (faire les bonnes choses). Management : planifier et exécuter (bien les faire).",
+   "concept": "Gouvernance et management"
+  },
+  {
+   "id": "m1c2-f02",
+   "front": "Responsable final de la sécurité",
+   "back": "La direction générale (et le conseil d'administration).",
+   "concept": "Responsabilité finale"
+  },
+  {
+   "id": "m1c2-f03",
+   "front": "Accountability",
+   "back": "Responsabilité finale, obligation de rendre des comptes : ne se délègue pas.",
+   "concept": "Accountability et responsibility"
+  },
+  {
+   "id": "m1c2-f04",
+   "front": "Responsibility",
+   "back": "Charge d'exécuter une tâche : peut être déléguée.",
+   "concept": "Accountability et responsibility"
+  },
+  {
+   "id": "m1c2-f05",
+   "front": "Due diligence",
+   "back": "S'informer, évaluer, vérifier (savoir).",
+   "concept": "Due diligence et due care"
+  },
+  {
+   "id": "m1c2-f06",
+   "front": "Due care",
+   "back": "Agir et maintenir des mesures raisonnables (faire).",
+   "concept": "Due diligence et due care"
+  },
+  {
+   "id": "m1c2-f07",
+   "front": "Norme ISO de la gouvernance de la sécurité de l'information",
+   "back": "ISO/IEC 27014.",
+   "concept": "Référentiels de gouvernance"
+  },
+  {
+   "id": "m1c2-f08",
+   "front": "Qui classifie l'information ?",
+   "back": "Le propriétaire des données.",
+   "concept": "Rôles sur les données"
+  },
+  {
+   "id": "m1c2-f09",
+   "front": "Rôle du dépositaire (custodian)",
+   "back": "Appliquer les décisions du propriétaire : sauvegardes, droits, chiffrement.",
+   "concept": "Rôles sur les données"
+  },
+  {
+   "id": "m1c2-f10",
+   "front": "Niveaux gouvernementaux (modèle US)",
+   "back": "Top Secret > Secret > Confidential > Sensitive But Unclassified > Unclassified.",
+   "concept": "Classification"
+  },
+  {
+   "id": "m1c2-f11",
+   "front": "Secret de la défense nationale (France, depuis 2021)",
+   "back": "Deux niveaux : Très Secret et Secret.",
+   "concept": "Classification"
+  },
+  {
+   "id": "m1c2-f12",
+   "front": "Moindre privilège",
+   "back": "Seulement les droits nécessaires à la mission.",
+   "concept": "Moindre privilège"
+  },
+  {
+   "id": "m1c2-f13",
+   "front": "Besoin d'en connaître",
+   "back": "Accès à une information seulement si la mission l'exige, même avec l'habilitation suffisante.",
+   "concept": "Besoin d'en connaître"
+  },
+  {
+   "id": "m1c2-f14",
+   "front": "Séparation des tâches",
+   "back": "Répartir une opération sensible entre plusieurs personnes ; contournée par collusion.",
+   "concept": "Séparation des tâches"
+  },
+  {
+   "id": "m1c2-f15",
+   "front": "Congés obligatoires",
+   "back": "Contrôle détectif : un remplaçant peut découvrir une fraude.",
+   "concept": "Congés obligatoires"
+  },
+  {
+   "id": "m1c2-f16",
+   "front": "Rotation des postes",
+   "back": "Détecte les irrégularités et réduit la dépendance à une personne.",
+   "concept": "Rotation des postes"
+  },
+  {
+   "id": "m1c2-f17",
+   "front": "Privilege creep",
+   "back": "Accumulation de droits au fil des mobilités ; prévenue par la revue des droits.",
+   "concept": "Cycle de vie du salarié"
+  },
+  {
+   "id": "m1c2-f18",
+   "front": "Sensibilisation / formation / éducation",
+   "back": "Tous et comportements / rôles et compétences / experts et compréhension.",
+   "concept": "Sensibilisation, formation, éducation"
+  },
+  {
+   "id": "m1c2-f19",
+   "front": "KPI",
+   "back": "Indicateur de performance d'un processus (ex. MTTR).",
+   "concept": "Indicateurs"
+  },
+  {
+   "id": "m1c2-f20",
+   "front": "KRI",
+   "back": "Indicateur d'évolution d'un risque, avant l'incident.",
+   "concept": "Indicateurs"
+  }
+ ],
+ "revisionSheet": [
+  "# Fiche de révision : gouvernance et management de la sécurité",
+  "Gouvernance : orienter et contrôler (direction, conseil). Management : planifier et exécuter (RSSI, DSI, équipes).",
+  "La direction générale porte la responsabilité finale ; le RSSI pilote, conseille et rend compte.",
+  "Accountability ne se délègue pas ; responsibility se délègue.",
+  "Due diligence = savoir (s'informer, évaluer) ; due care = faire (agir, maintenir). Savoir sans agir = négligence.",
+  "ISO/IEC 27014 : gouvernance de la sécurité de l'information. NIST CSF 2.0 : fonction Govern.",
+  "Rattacher le RSSI hors de la DSI limite les conflits d'intérêts.",
+  "Classification : protection proportionnée à l'impact ; révisée périodiquement.",
+  "Propriétaire : classe et autorise ; dépositaire : applique ; utilisateur : respecte.",
+  "Moindre privilège (droits) et besoin d'en connaître (information) se cumulent.",
+  "Séparation des tâches (contre la fraude individuelle, contournée par collusion), rotation des postes, congés obligatoires (détectif).",
+  "Départ d'un salarié : désactivation immédiate des comptes. Mobilité : retrait des droits devenus inutiles.",
+  "Sensibilisation (tous), formation (rôles), éducation (experts).",
+  "KPI = performance (MTTD, MTTR) ; KRI = évolution d'un risque.",
+  "Paires à ne pas confondre : gouvernance/management ; accountability/responsibility ; due diligence/due care ; propriétaire/dépositaire ; moindre privilège/besoin d'en connaître ; KPI/KRI."
+ ]
+}

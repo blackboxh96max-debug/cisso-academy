@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <g stroke="#26324A" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M24 60 L60 58 L68 68 L120 68 L118 150 L26 152 Z" fill="#D5F7E3" />
+    <path d="M70 46 L106 44 L114 54 L166 54 L164 136 L72 138 Z" fill="#FFE7CC" />
+    <path d="M116 32 L152 30 L160 40 L212 40 L210 122 L118 124 Z" fill="#FFDEDB" />
+  </g>
+  <g stroke-width="2.4" stroke-linecap="round">
+    <rect x="130" y="60" width="64" height="16" rx="4" fill="#E0322B" stroke="#9B1C1C" />
+    <rect x="84" y="80" width="56" height="14" rx="4" fill="#F97316" stroke="#9A3412" />
+    <rect x="36" y="96" width="50" height="14" rx="4" fill="#10B981" stroke="#065F46" />
+  </g>
+  <!-- tampon -->
+  <g stroke="#7A3BE6" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M176 140 L208 140 L206 152 L178 152 Z" fill="#EDE1FF" />
+    <path d="M186 140 L186 124 C186 116 198 116 198 124 L198 140" fill="#C4B5FD" />
+  </g>
+  <path d="M170 162 C182 158 200 158 214 162" stroke="#E0322B" stroke-width="3" fill="none" stroke-linecap="round" />
+</svg>
