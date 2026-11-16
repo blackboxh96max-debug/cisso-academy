@@ -1505,5 +1505,189 @@
   "definition": "Borne sans fil non autorisée connectée au réseau de l'entreprise.",
   "example": "Borne personnelle branchée sous un bureau.",
   "kind": "general"
+ },
+ {
+  "id": "defense-in-depth",
+  "en": "Defense in depth",
+  "fr": "Défense en profondeur",
+  "definition": "Superposition de contrôles indépendants pour qu'une défaillance soit compensée par les autres.",
+  "example": "MFA, segmentation, EDR et sauvegardes hors ligne.",
+  "kind": "general"
+ },
+ {
+  "id": "secure-by-default",
+  "en": "Secure by default",
+  "fr": "Sécurité par défaut",
+  "definition": "Principe selon lequel la configuration livrée est la plus sûre possible.",
+  "example": "Services fermés à la livraison.",
+  "kind": "general"
+ },
+ {
+  "id": "fail-secure",
+  "en": "Fail secure",
+  "fr": "Défaillance sûre",
+  "definition": "Comportement d'un système qui bloque l'accès en cas de panne.",
+  "example": "Pare-feu en panne qui bloque le trafic.",
+  "kind": "general"
+ },
+ {
+  "id": "fail-safe",
+  "en": "Fail safe",
+  "fr": "Défaillance sans danger",
+  "definition": "Comportement qui protège d'abord les personnes en cas de panne, par exemple en ouvrant les issues.",
+  "example": "Portes de secours ouvertes en cas d'incendie.",
+  "kind": "general"
+ },
+ {
+  "id": "open-design",
+  "en": "Open design",
+  "fr": "Conception ouverte",
+  "definition": "Principe selon lequel la sécurité ne doit pas reposer sur le secret de la conception.",
+  "example": "Algorithme public, clé secrète.",
+  "kind": "general"
+ },
+ {
+  "id": "complete-mediation",
+  "en": "Complete mediation",
+  "fr": "Médiation complète",
+  "definition": "Principe selon lequel chaque accès à chaque objet est vérifié.",
+  "example": "Droits revérifiés à chaque requête.",
+  "kind": "general"
+ },
+ {
+  "id": "attack-surface",
+  "en": "Attack surface",
+  "fr": "Surface d'attaque",
+  "definition": "Ensemble des points par lesquels un attaquant peut tenter d'agir sur un système.",
+  "example": "Fermer les ports inutiles réduit la surface d'attaque.",
+  "kind": "general"
+ },
+ {
+  "id": "spof",
+  "en": "Single point of failure",
+  "fr": "Point unique de défaillance",
+  "acronym": "SPOF",
+  "definition": "Élément dont la panne ou la compromission arrête tout le système.",
+  "example": "Un seul lien Internet.",
+  "kind": "general"
+ },
+ {
+  "id": "tcb",
+  "en": "Trusted Computing Base",
+  "fr": "Base informatique de confiance",
+  "acronym": "TCB",
+  "definition": "Ensemble du matériel, du logiciel et du micrologiciel dont dépend la sécurité d'un système.",
+  "example": "L'hyperviseur fait partie de la TCB.",
+  "kind": "general"
+ },
+ {
+  "id": "reference-monitor",
+  "en": "Reference monitor",
+  "fr": "Moniteur de référence",
+  "definition": "Concept qui contrôle chaque accès d'un sujet à un objet ; toujours invoqué, infalsifiable, vérifiable.",
+  "example": "Le noyau de sécurité met en œuvre le moniteur de référence.",
+  "kind": "general"
+ },
+ {
+  "id": "bell-lapadula",
+  "en": "Bell-LaPadula model",
+  "fr": "Modèle de Bell-LaPadula",
+  "acronym": "BLP",
+  "definition": "Modèle de confidentialité : pas de lecture vers le haut, pas d'écriture vers le bas.",
+  "example": "Un agent « confidentiel » ne lit pas un document « secret ».",
+  "kind": "general"
+ },
+ {
+  "id": "biba",
+  "en": "Biba integrity model",
+  "fr": "Modèle d'intégrité de Biba",
+  "definition": "Modèle d'intégrité : pas de lecture vers le bas, pas d'écriture vers le haut.",
+  "example": "Des données brutes ne modifient pas des résultats validés.",
+  "kind": "general"
+ },
+ {
+  "id": "clark-wilson",
+  "en": "Clark-Wilson model",
+  "fr": "Modèle de Clark-Wilson",
+  "definition": "Modèle d'intégrité commerciale fondé sur des transactions bien formées et la séparation des tâches.",
+  "example": "Écritures comptables par des programmes contrôlés.",
+  "kind": "general"
+ },
+ {
+  "id": "brewer-nash",
+  "en": "Brewer-Nash model (Chinese Wall)",
+  "fr": "Modèle de Brewer-Nash (muraille de Chine)",
+  "definition": "Modèle qui empêche les conflits d'intérêts entre clients concurrents.",
+  "example": "Un consultant ne voit pas le dossier du concurrent de son client.",
+  "kind": "general"
+ },
+ {
+  "id": "tpm",
+  "en": "Trusted Platform Module",
+  "fr": "Module de plateforme de confiance",
+  "acronym": "TPM",
+  "definition": "Puce qui stocke des clés, mesure le démarrage et protège le chiffrement du disque.",
+  "example": "Clé de chiffrement du disque scellée dans le TPM.",
+  "kind": "general"
+ },
+ {
+  "id": "vm-escape",
+  "en": "VM escape",
+  "fr": "Évasion de machine virtuelle",
+  "definition": "Exploitation d'une faille de l'hyperviseur pour sortir d'une VM.",
+  "example": "Correctifs prioritaires sur l'hyperviseur.",
+  "kind": "general"
+ },
+ {
+  "id": "zero-trust",
+  "en": "Zero Trust",
+  "fr": "Confiance zéro",
+  "definition": "Approche où aucun accès n'est accordé sur la seule base de l'emplacement réseau : chaque accès est vérifié explicitement.",
+  "example": "Accès à la paie refusé depuis un appareil non géré.",
+  "kind": "general"
+ },
+ {
+  "id": "pdp",
+  "en": "Policy Decision Point",
+  "fr": "Point de décision de la politique",
+  "acronym": "PDP",
+  "definition": "Composant Zero Trust qui décide d'accorder ou non l'accès à une ressource.",
+  "example": "Le PDP exige une MFA supplémentaire.",
+  "kind": "general"
+ },
+ {
+  "id": "pep",
+  "en": "Policy Enforcement Point",
+  "fr": "Point d'application de la politique",
+  "acronym": "PEP",
+  "definition": "Composant Zero Trust placé devant la ressource, qui applique la décision du PDP.",
+  "example": "Le PEP ferme la session refusée.",
+  "kind": "general"
+ },
+ {
+  "id": "shared-responsibility",
+  "en": "Shared responsibility model",
+  "fr": "Modèle de responsabilité partagée",
+  "definition": "Répartition des responsabilités de sécurité entre fournisseur cloud et client selon le modèle IaaS, PaaS ou SaaS.",
+  "example": "En SaaS, le client gère ses comptes.",
+  "kind": "general"
+ },
+ {
+  "id": "ztna",
+  "en": "Zero Trust Network Access",
+  "fr": "Accès réseau Zero Trust",
+  "acronym": "ZTNA",
+  "definition": "Accès distant limité aux applications autorisées, décidé selon l'identité et le contexte.",
+  "example": "Le ZTNA remplace le VPN pour les prestataires.",
+  "kind": "general"
+ },
+ {
+  "id": "sase",
+  "en": "Secure Access Service Edge",
+  "fr": "Service d'accès sécurisé en périphérie",
+  "acronym": "SASE",
+  "definition": "Regroupement en service cloud des fonctions réseau et sécurité (ZTNA, passerelle web, CASB, pare-feu).",
+  "example": "Les agences passent par le SASE.",
+  "kind": "general"
  }
 ]

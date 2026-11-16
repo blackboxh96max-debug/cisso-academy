@@ -21,7 +21,7 @@ Elle fonctionne **entièrement hors ligne** sur Android, Windows, macOS et Linux
 | Termes clés affichés en français et en anglais dans les cours, fiches, flashcards et cartes | ✅ |
 | Menu Révisions : flashcards, fiches et cartes mentales par chapitre ou par module, export PDF | ✅ |
 | Suivi des erreurs par notion et par domaine officiel | ✅ |
-| Contenu : modules 1 et 2 complets et chapitres 1 et 2 du module 3 (264 questions) | ✅ (étape 2 en cours) |
+| Contenu : modules 1, 2 et 3 complets (294 questions) | ✅ (étape 2 en cours) |
 
 Le détail de ce qui est fait, testé et prévu se trouve dans [PROJECT_STATUS.md](PROJECT_STATUS.md).
 

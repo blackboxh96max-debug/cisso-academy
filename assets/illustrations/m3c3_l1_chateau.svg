@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <ellipse cx="120" cy="104" rx="114" ry="66" fill="#BAE6FD" stroke="#26324A" stroke-width="2.2" />
+  <ellipse cx="120" cy="104" rx="92" ry="50" fill="#FDE68A" stroke="#26324A" stroke-width="2.4" stroke-dasharray="7 4" />
+  <ellipse cx="120" cy="104" rx="66" ry="36" fill="#FED7AA" stroke="#26324A" stroke-width="2.4" stroke-dasharray="7 4" />
+  <g stroke="#26324A" stroke-width="2.2" stroke-linejoin="round">
+    <path d="M100 72 L100 62 L106 62 L106 68 L112 68 L112 62 L118 62 L118 68 L124 68 L124 62 L130 62 L130 68 L136 68 L136 62 L140 62 L140 120 L100 120 Z" fill="#E9D5FF" />
+    <rect x="110" y="98" width="20" height="16" rx="3" fill="#FBCFE8" />
+    <path d="M110 104 L130 104" />
+  </g>
+  <g font-family="Caveat, cursive" font-size="14" text-anchor="middle">
+    <text x="120" y="164" fill="#0369A1">douves : politiques</text>
+    <text x="41" y="108" font-size="12" fill="#A16207">mur 1</text>
+    <text x="82" y="126" font-size="12" fill="#C2410C">mur 2</text>
+    <text x="120" y="26" fill="#7E22CE">donjon : données</text>
+  </g>
+</svg>

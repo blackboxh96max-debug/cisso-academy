@@ -1,0 +1,1707 @@
+{
+ "lessons": [
+  {
+   "id": "m3c3-l1",
+   "title": "Principes d'architecture sécurisée et défense en profondeur",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m3c3_l1_chateau.svg",
+   "illustrationAlt": "Dessin d'un château fort avec plusieurs enceintes : des douves, un premier mur, un second mur et un donjon au centre où se trouve un coffre.",
+   "objectives": [
+    "Expliquer la défense en profondeur et ses trois familles de contrôles.",
+    "Appliquer les grands principes de conception sécurisée (moindre privilège, sécurité par défaut, défaillance sûre…).",
+    "Réduire la surface d'attaque d'un système.",
+    "Reconnaître une conception qui repose sur un point unique de défaillance."
+   ],
+   "references": [
+    {
+     "title": "Saltzer et Schroeder, « The Protection of Information in Computer Systems », 1975 (principes de conception)",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-160 Vol. 1, Engineering Trustworthy Secure Systems",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Penser la sécurité dès la conception"
+    },
+    {
+     "type": "text",
+     "text": "Une architecture sécurisée n'est pas une liste de produits : c'est une façon d'organiser les composants pour qu'une erreur, une faille ou un attaquant ne suffise pas à tout compromettre. Il coûte beaucoup moins cher d'intégrer la sécurité dès la conception (security by design) que de la rajouter après la mise en production."
+    },
+    {
+     "type": "definition",
+     "title": "Défense en profondeur",
+     "text": "Superposition de contrôles indépendants, de natures différentes, pour qu'une défaillance de l'un soit compensée par les autres. On parle aussi de sécurité en couches.",
+     "kind": "general"
+    },
+    {
+     "type": "diagram",
+     "title": "Les couches de défense, de l'extérieur vers les données",
+     "alt": "Schéma en six étapes allant de l'extérieur vers le centre : politiques et sensibilisation, sécurité physique, périmètre réseau, réseau interne, hôte, application, et enfin les données au centre.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "📜",
+        "label": "Politiques",
+        "detail": "règles, sensibilisation",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🏢",
+        "label": "Physique",
+        "detail": "badges, locaux",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🧱",
+        "label": "Périmètre",
+        "detail": "pare-feu, DMZ",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🔀",
+        "label": "Réseau interne",
+        "detail": "segmentation, IDS",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "💻",
+        "label": "Hôte et appli",
+        "detail": "durcissement, EDR, code sûr",
+        "tone": "green"
+       },
+       {
+        "emoji": "💎",
+        "label": "Données",
+        "detail": "chiffrement, sauvegardes",
+        "tone": "pink"
+       }
+      ]
+     }
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Famille de contrôles",
+       "Exemples"
+      ],
+      [
+       "Administratifs (organisationnels)",
+       "Politiques, sensibilisation, séparation des tâches, vérification des antécédents"
+      ],
+      [
+       "Techniques (logiques)",
+       "Pare-feu, chiffrement, authentification multifacteur, EDR"
+      ],
+      [
+       "Physiques",
+       "Badges, serrures, caméras, gardiens"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "Défense en profondeur = château fort : douves, remparts, deuxième enceinte, donjon. L'attaquant doit franchir toutes les couches ; il suffit d'une pour l'arrêter."
+    },
+    {
+     "type": "heading",
+     "text": "Les grands principes de conception"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Principe",
+       "Idée",
+       "Exemple"
+      ],
+      [
+       "Moindre privilège",
+       "Juste les droits nécessaires, juste le temps nécessaire",
+       "Un service web sans droits administrateur"
+      ],
+      [
+       "Sécurité par défaut",
+       "La configuration livrée est la plus sûre",
+       "Ports fermés, comptes par défaut désactivés"
+      ],
+      [
+       "Défaillance sûre (fail secure)",
+       "En cas de panne, le système refuse l'accès plutôt que de l'ouvrir",
+       "Un pare-feu en panne bloque le trafic"
+      ],
+      [
+       "Économie de mécanisme",
+       "Rester simple : ce qui est simple se vérifie",
+       "Peu de règles, bien documentées"
+      ],
+      [
+       "Médiation complète",
+       "Chaque accès est vérifié, à chaque fois",
+       "Pas de droit gardé en cache indéfiniment"
+      ],
+      [
+       "Conception ouverte",
+       "La sécurité ne repose pas sur le secret de la conception",
+       "Principe de Kerckhoffs en cryptographie"
+      ],
+      [
+       "Séparation des privilèges",
+       "Plusieurs conditions pour une action critique",
+       "Deux personnes pour une sortie de fonds"
+      ],
+      [
+       "Réduction de la surface d'attaque",
+       "Retirer ce qui ne sert pas",
+       "Désinstaller les services inutiles"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Fail secure ou fail safe ?",
+     "text": "Pour l'information, on préfère la défaillance sûre (fail secure, fail closed) : en cas de panne, on bloque. Mais la vie humaine passe toujours en premier : une porte d'issue de secours doit s'ouvrir en cas d'incendie (fail safe). À l'examen, la sécurité des personnes l'emporte toujours."
+    },
+    {
+     "type": "risk",
+     "title": "Le point unique de défaillance",
+     "text": "Un seul pare-feu, un seul administrateur qui connaît tout, un seul lien Internet : si cet élément tombe ou est compromis, tout tombe. La redondance et la diversité (deux fabricants, deux personnes formées) réduisent ce risque."
+    },
+    {
+     "type": "practice",
+     "title": "Réduire la surface d'attaque",
+     "items": [
+      "Désactiver les services, ports et comptes inutiles.",
+      "Appliquer des guides de durcissement (par exemple les benchmarks CIS) et suivre les écarts.",
+      "Limiter les interfaces d'administration à un réseau dédié.",
+      "Supprimer les logiciels et les versions obsolètes."
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "Les questions d'architecture demandent souvent « le meilleur principe ». Repérez le mot clé : « juste les droits nécessaires » → moindre privilège ; « plusieurs couches » → défense en profondeur ; « en cas de panne » → fail secure ou fail safe ; « ne dépend pas du secret de l'algorithme » → conception ouverte."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : une seule couche a cédé",
+     "kind": "example",
+     "text": "Un salarié clique sur une pièce jointe piégée : la sensibilisation a échoué. Mais le poste n'a pas de droits administrateur (moindre privilège), l'EDR bloque l'exécution d'un outil de vol d'identifiants, et la segmentation empêche le poste de joindre les serveurs de paie. L'incident reste limité à un poste, réinstallé en une heure : la défense en profondeur a fonctionné."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "Architecte : chaque nouvelle application passe par une revue de sécurité de conception.",
+      "Analyste SOC : plusieurs couches donnent plusieurs occasions de détecter l'attaquant.",
+      "Auditeur : je cherche les points uniques de défaillance et les comptes trop puissants.",
+      "RSSI : la défense en profondeur se justifie par le risque, pas par l'accumulation de produits."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "La sécurité par l'obscurité n'est pas un contrôle suffisant (conception ouverte).",
+      "Fail secure = bloquer en cas de panne ; mais la sécurité des personnes passe avant.",
+      "Défense en profondeur = contrôles différents et indépendants, pas trois pare-feu identiques.",
+      "Moindre privilège s'applique aussi aux comptes de service et aux applications."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Défense en profondeur : couches administratives, techniques et physiques.",
+      "Principes : moindre privilège, sécurité par défaut, fail secure, simplicité, médiation complète, conception ouverte.",
+      "Réduire la surface d'attaque et éviter les points uniques de défaillance.",
+      "La vie humaine passe avant la protection de l'information."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m3c3-q02",
+      "m3c3-q06"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m3c3-l2",
+   "title": "Modèles de sécurité et composants de confiance",
+   "minutes": 35,
+   "illustration": "assets/illustrations/m3c3_l2_modeles.svg",
+   "illustrationAlt": "Dessin d'un immeuble à trois étages marqués secret, confidentiel et public, avec une flèche barrée qui monte (pas de lecture vers le haut) et une flèche barrée qui descend (pas d'écriture vers le bas).",
+   "objectives": [
+    "Expliquer la base informatique de confiance et le moniteur de référence.",
+    "Appliquer les règles de Bell-LaPadula (confidentialité) et de Biba (intégrité).",
+    "Reconnaître les modèles de Clark-Wilson et de Brewer-Nash.",
+    "Situer les composants matériels de confiance : anneaux de protection, TPM, démarrage sécurisé."
+   ],
+   "references": [
+    {
+     "title": "Bell et LaPadula, modèle de confidentialité (1973-1976)",
+     "kind": "general"
+    },
+    {
+     "title": "Biba, modèle d'intégrité (1977)",
+     "kind": "general"
+    },
+    {
+     "title": "ISO/IEC 11889, Trusted Platform Module",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Ce en quoi on a confiance"
+    },
+    {
+     "type": "definition",
+     "title": "Base informatique de confiance (TCB)",
+     "text": "Ensemble du matériel, du logiciel et du micrologiciel dont dépend la sécurité d'un système. Si un élément de la TCB est compromis, la politique de sécurité ne peut plus être garantie. On cherche donc à la garder petite.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Moniteur de référence",
+     "text": "Concept abstrait qui contrôle chaque accès d'un sujet (utilisateur, processus) à un objet (fichier, ressource). Il doit être infalsifiable, toujours invoqué et assez petit pour être vérifié. Le noyau de sécurité (security kernel) en est la mise en œuvre.",
+     "kind": "general"
+    },
+    {
+     "type": "memo",
+     "text": "Moniteur de référence : « toujours appelé, jamais trafiqué, facile à vérifier »."
+    },
+    {
+     "type": "heading",
+     "text": "Les modèles formels"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Modèle",
+       "Protège",
+       "Règles clés"
+      ],
+      [
+       "Bell-LaPadula",
+       "Confidentialité",
+       "Pas de lecture vers le haut (simple security), pas d'écriture vers le bas (propriété étoile *)"
+      ],
+      [
+       "Biba",
+       "Intégrité",
+       "Pas de lecture vers le bas, pas d'écriture vers le haut"
+      ],
+      [
+       "Clark-Wilson",
+       "Intégrité (commerciale)",
+       "Accès aux données uniquement par des transactions bien formées ; séparation des tâches ; journal d'audit"
+      ],
+      [
+       "Brewer-Nash (muraille de Chine)",
+       "Conflits d'intérêts",
+       "Après avoir consulté les données d'un client, on n'accède plus à celles de son concurrent"
+      ]
+     ]
+    },
+    {
+     "type": "diagram",
+     "title": "Bell-LaPadula et Biba : deux miroirs",
+     "alt": "Tableau en quatre cases : Bell-LaPadula interdit de lire vers le haut et d'écrire vers le bas pour protéger la confidentialité ; Biba interdit de lire vers le bas et d'écrire vers le haut pour protéger l'intégrité.",
+     "diagram": {
+      "type": "quadrant",
+      "xLabel": "Modèle",
+      "yLabel": "Règle",
+      "cells": [
+       {
+        "emoji": "🙈",
+        "label": "BLP : pas de lecture en haut",
+        "detail": "no read up",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🧪",
+        "label": "Biba : pas de lecture en bas",
+        "detail": "no read down",
+        "tone": "green"
+       },
+       {
+        "emoji": "✍️",
+        "label": "BLP : pas d'écriture en bas",
+        "detail": "no write down",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🛡️",
+        "label": "Biba : pas d'écriture en haut",
+        "detail": "no write up",
+        "tone": "orange"
+       }
+      ]
+     }
+    },
+    {
+     "type": "important",
+     "title": "Retenir le sens des flèches",
+     "text": "Bell-LaPadula protège les secrets : on ne lit pas plus haut que son niveau, et on n'écrit pas plus bas pour ne pas faire fuir l'information. Biba protège la pureté des données : on ne lit pas une source moins fiable, et on n'écrit pas dans une donnée plus fiable que soi. Biba est l'inverse exact de Bell-LaPadula."
+    },
+    {
+     "type": "memo",
+     "text": "BLP = secrets : « je ne lis pas au-dessus, je ne bavarde pas en dessous ». Biba = intégrité : « je ne bois pas l'eau sale d'en bas, je ne pollue pas la source d'en haut »."
+    },
+    {
+     "type": "heading",
+     "text": "Composants matériels de confiance"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Composant",
+       "Rôle"
+      ],
+      [
+       "Anneaux de protection",
+       "Niveaux de privilège du processeur : anneau 0 pour le noyau, anneau 3 pour les applications"
+      ],
+      [
+       "TPM (module de plateforme de confiance)",
+       "Puce qui stocke des clés, mesure le démarrage et protège le chiffrement du disque"
+      ],
+      [
+       "Démarrage sécurisé (Secure Boot)",
+       "Seuls des chargeurs de démarrage et noyaux signés peuvent s'exécuter"
+      ],
+      [
+       "HSM",
+       "Équipement dédié qui génère et protège des clés cryptographiques"
+      ],
+      [
+       "Isolation des processus et mémoire",
+       "Un processus ne lit pas la mémoire d'un autre"
+      ]
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "Pour la virtualisation, retenez l'évasion de machine virtuelle (VM escape) : une faille de l'hyperviseur permet de sortir d'une VM pour atteindre l'hôte ou les autres VM. L'hyperviseur fait donc partie de la TCB : correctifs prioritaires et administration isolée."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : un cabinet de conseil et ses clients concurrents",
+     "kind": "example",
+     "text": "Dans un cabinet de conseil simulé, un consultant qui travaille pour la banque A tente d'ouvrir le dossier de la banque B, sa concurrente directe. La gestion documentaire applique une règle de type Brewer-Nash : l'accès est refusé et une alerte est créée. L'analyste vérifie qu'il s'agit d'une erreur de manipulation, et le responsable conformité confirme que la règle a joué son rôle."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "Architecte : je garde la TCB la plus petite possible pour pouvoir la vérifier.",
+      "Analyste SOC : une alerte sur l'intégrité du démarrage (TPM, Secure Boot) est toujours prioritaire.",
+      "Auditeur : je vérifie que les données comptables ne sont modifiées que par des transactions contrôlées (Clark-Wilson).",
+      "RSSI : les modèles formels guident le choix des contrôles d'accès des systèmes sensibles."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Bell-LaPadula = confidentialité ; Biba = intégrité ; ne pas inverser.",
+      "Propriété étoile (*) de BLP = pas d'écriture vers le bas.",
+      "Clark-Wilson = transactions bien formées et séparation des tâches.",
+      "Brewer-Nash = muraille de Chine, conflits d'intérêts."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "TCB : tout ce dont dépend la sécurité ; moniteur de référence : toujours invoqué, infalsifiable, vérifiable.",
+      "BLP (confidentialité) : no read up, no write down. Biba (intégrité) : no read down, no write up.",
+      "Clark-Wilson : transactions bien formées ; Brewer-Nash : conflits d'intérêts.",
+      "Anneaux, TPM, Secure Boot, HSM : la confiance commence dans le matériel."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m3c3-q12",
+      "m3c3-q13"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m3c3-l3",
+   "title": "Zero Trust et architectures modernes",
+   "minutes": 35,
+   "illustration": "assets/illustrations/m3c3_l3_zerotrust.svg",
+   "illustrationAlt": "Dessin d'un portique de contrôle devant chaque porte d'un couloir : une personne présente son badge et son ordinateur portable à chaque porte, même à l'intérieur du bâtiment.",
+   "objectives": [
+    "Expliquer pourquoi le modèle du périmètre ne suffit plus.",
+    "Décrire les principes et les composants du Zero Trust (point de décision, point d'application).",
+    "Citer les piliers d'une démarche Zero Trust.",
+    "Appliquer le modèle de responsabilité partagée du cloud."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-207, Zero Trust Architecture (2020)",
+     "kind": "general"
+    },
+    {
+     "title": "CISA, Zero Trust Maturity Model, version 2.0 (2023)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "La fin du château fort ?"
+    },
+    {
+     "type": "text",
+     "text": "Le modèle du périmètre fait confiance à tout ce qui est « à l'intérieur ». Or les utilisateurs travaillent à distance, les applications sont dans le cloud, et un attaquant qui a volé des identifiants est déjà à l'intérieur. Le Zero Trust part de l'idée inverse : aucune confiance implicite liée à l'emplacement réseau."
+    },
+    {
+     "type": "definition",
+     "title": "Zero Trust",
+     "text": "Approche de sécurité où aucun utilisateur, appareil ou flux n'est considéré comme fiable par défaut, même à l'intérieur du réseau. Chaque accès à une ressource est vérifié explicitement, à chaque session, selon l'identité, l'état de l'appareil et le contexte.",
+     "kind": "general"
+    },
+    {
+     "type": "memo",
+     "text": "Zero Trust : « Ne jamais faire confiance, toujours vérifier » et « supposer la compromission »."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Principe",
+       "En pratique"
+      ],
+      [
+       "Vérifier explicitement",
+       "Identité forte (MFA), état de l'appareil, localisation, heure, comportement"
+      ],
+      [
+       "Moindre privilège",
+       "Accès limité à une ressource, pour une session, juste ce qu'il faut"
+      ],
+      [
+       "Supposer la compromission",
+       "Microsegmenter, chiffrer, surveiller en continu, limiter les déplacements"
+      ],
+      [
+       "Accès par ressource",
+       "On accède à une application, pas à tout le réseau"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Les composants (NIST SP 800-207)"
+    },
+    {
+     "type": "diagram",
+     "title": "Chaque demande passe par une décision",
+     "alt": "Schéma en quatre étapes : un sujet (utilisateur et appareil) demande l'accès, le point d'application de la politique intercepte, le point de décision évalue identité, appareil et contexte, puis l'accès à la ressource est accordé pour cette session seulement.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🧑‍💻",
+        "label": "Sujet",
+        "detail": "utilisateur + appareil",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🚧",
+        "label": "PEP",
+        "detail": "point d'application",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🧠",
+        "label": "PDP",
+        "detail": "moteur + administrateur de politique",
+        "tone": "violet"
+       },
+       {
+        "emoji": "📂",
+        "label": "Ressource",
+        "detail": "accès pour la session",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "definition",
+     "title": "PDP et PEP",
+     "text": "Le point de décision de la politique (PDP), composé du moteur de politique et de l'administrateur de politique, décide d'accorder ou non l'accès. Le point d'application de la politique (PEP) se place devant la ressource et ouvre ou ferme la connexion selon cette décision.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Les piliers d'une démarche Zero Trust"
+    },
+    {
+     "type": "text",
+     "text": "Le modèle de maturité de la CISA organise la démarche en cinq piliers : identité, appareils, réseaux, applications et charges de travail, données. Trois capacités les traversent tous : visibilité et analyse, automatisation et orchestration, gouvernance. On progresse pilier par pilier ; le Zero Trust est un chemin, pas un produit."
+    },
+    {
+     "type": "important",
+     "title": "Le Zero Trust ne s'achète pas",
+     "text": "Aucun produit unique ne « fait » du Zero Trust. Il s'agit d'une stratégie qui combine gestion des identités, MFA, gestion des appareils, microsegmentation, chiffrement et surveillance continue. Méfiez-vous d'une réponse d'examen qui présente un seul outil comme la solution."
+    },
+    {
+     "type": "heading",
+     "text": "Architectures modernes : cloud et accès"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Modèle cloud",
+       "Le fournisseur gère",
+       "Le client reste responsable de"
+      ],
+      [
+       "IaaS",
+       "Matériel, réseau physique, virtualisation",
+       "Système d'exploitation, correctifs, applications, données, identités"
+      ],
+      [
+       "PaaS",
+       "Le même + système et plateforme d'exécution",
+       "Applications, données, identités, configuration"
+      ],
+      [
+       "SaaS",
+       "Presque tout, jusqu'à l'application",
+       "Données, comptes, droits d'accès, configuration de partage"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Responsabilité partagée",
+     "text": "Quel que soit le modèle, le client reste responsable de ses données et de la gestion des accès. Une fuite due à un stockage cloud ouvert publiquement par erreur est une faute du client, pas du fournisseur."
+    },
+    {
+     "type": "text",
+     "text": "Le ZTNA (accès réseau Zero Trust) remplace souvent le VPN : l'utilisateur n'accède qu'aux applications autorisées, jamais au réseau entier. Le SASE regroupe dans un service cloud les fonctions réseau et sécurité (ZTNA, passerelle web, CASB, pare-feu en service)."
+    },
+    {
+     "type": "trainerNote",
+     "text": "Faites le lien avec le chapitre précédent : la microsegmentation est la traduction réseau du Zero Trust, et le ZTNA est l'évolution de l'accès distant par VPN. Les questions mélangent volontiers les deux chapitres."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : des identifiants volés ne suffisent plus",
+     "kind": "example",
+     "text": "Dans un exercice simulé, un attaquant utilise le mot de passe volé d'une comptable. Le point de décision constate un appareil inconnu, non géré, et une connexion depuis un pays inhabituel : il exige une MFA, que l'attaquant ne peut pas fournir, et refuse l'accès à l'application de paie. Le SOC reçoit l'alerte, force la réinitialisation du mot de passe et vérifie qu'aucune autre ressource n'a été jointe."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : je présente le Zero Trust comme une feuille de route sur plusieurs années, pilier par pilier.",
+      "Architecte : je commence par l'identité et l'inventaire des appareils, sans quoi aucune décision n'est fiable.",
+      "Analyste SOC : chaque décision du PDP est un journal précieux pour détecter les anomalies.",
+      "Auditeur : en cloud, je vérifie d'abord ce qui reste à la charge du client : données, accès, configuration."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Zero Trust ≠ « aucune confiance dans les utilisateurs » : c'est « aucune confiance implicite ».",
+      "PDP décide, PEP applique.",
+      "Dans tous les modèles cloud, les données et les accès restent à la charge du client.",
+      "Être à l'intérieur du réseau ne donne aucun droit en Zero Trust."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Zero Trust : vérifier explicitement, moindre privilège, supposer la compromission, accès par ressource.",
+      "NIST SP 800-207 : PDP (moteur et administrateur de politique) et PEP.",
+      "CISA : identité, appareils, réseaux, applications et charges de travail, données.",
+      "Cloud : responsabilité partagée ; ZTNA et SASE modernisent l'accès."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m3c3-q22",
+      "m3c3-q25"
+     ]
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "id": "m3c3-q01",
+   "domain": "architecture",
+   "level": "beginner",
+   "concept": "Défense en profondeur",
+   "prompt": "Qu'est-ce que la défense en profondeur ?",
+   "choices": [
+    "Un seul pare-feu très puissant",
+    "La superposition de contrôles indépendants pour qu'une défaillance soit compensée par les autres",
+    "Le chiffrement de tous les disques",
+    "Le stockage des sauvegardes sous terre"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Plusieurs couches de natures différentes : si l'une cède, les autres arrêtent ou détectent l'attaquant.",
+   "whyNot": {
+    "0": "Un seul contrôle est un point unique de défaillance.",
+    "2": "Le chiffrement n'est qu'une couche parmi d'autres.",
+    "3": "Jeu de mots sans rapport."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c3-q02",
+   "domain": "architecture",
+   "level": "beginner",
+   "concept": "Moindre privilège",
+   "prompt": "Un compte de service n'a besoin que de lire une table. Quel principe impose de ne lui donner que ce droit ?",
+   "choices": [
+    "Conception ouverte",
+    "Moindre privilège",
+    "Économie de mécanisme",
+    "Fail safe"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le moindre privilège donne juste les droits nécessaires, juste le temps nécessaire.",
+   "whyNot": {
+    "0": "La conception ouverte concerne le secret de la conception.",
+    "2": "L'économie de mécanisme demande de rester simple.",
+    "3": "Fail safe concerne le comportement en cas de panne."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c3-q03",
+   "domain": "architecture",
+   "level": "beginner",
+   "concept": "Familles de contrôles",
+   "prompt": "La sensibilisation des salariés est un contrôle de quelle famille ?",
+   "choices": [
+    "Technique",
+    "Physique",
+    "Administratif",
+    "Cryptographique"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Politiques, sensibilisation et procédures sont des contrôles administratifs.",
+   "whyNot": {
+    "0": "Les contrôles techniques sont mis en œuvre par la technologie.",
+    "1": "Les contrôles physiques protègent les lieux et le matériel.",
+    "3": "Ce n'est pas une famille de contrôles de ce classement."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c3-q04",
+   "domain": "architecture",
+   "level": "intermediate",
+   "concept": "Fail safe",
+   "prompt": "En cas d'incendie, les portes à badge d'une salle s'ouvrent automatiquement. Quel principe s'applique ?",
+   "choices": [
+    "Fail secure, car on protège l'information",
+    "Fail safe, car la sécurité des personnes passe avant tout",
+    "Médiation complète",
+    "Moindre privilège"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La vie humaine l'emporte toujours : les issues doivent s'ouvrir en cas d'urgence.",
+   "whyNot": {
+    "0": "Fail secure garderait les portes fermées : inacceptable pour des personnes.",
+    "2": "La médiation complète concerne la vérification de chaque accès.",
+    "3": "Le moindre privilège concerne les droits."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c3-q05",
+   "domain": "architecture",
+   "level": "intermediate",
+   "concept": "Conception ouverte",
+   "prompt": "Un éditeur affirme que son produit est sûr « parce que personne ne connaît son algorithme ». Quel principe est violé ?",
+   "choices": [
+    "Conception ouverte : la sécurité ne doit pas reposer sur le secret de la conception",
+    "Moindre privilège",
+    "Séparation des privilèges",
+    "Sécurité par défaut"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "La sécurité par l'obscurité ne tient pas : seule la clé doit rester secrète (Kerckhoffs).",
+   "whyNot": {
+    "1": "Le moindre privilège concerne les droits.",
+    "2": "La séparation des privilèges exige plusieurs conditions.",
+    "3": "La sécurité par défaut concerne la configuration livrée."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c3-q06",
+   "domain": "architecture",
+   "level": "intermediate",
+   "concept": "Fail secure",
+   "prompt": "Un pare-feu tombe en panne. Pour protéger l'information, quel comportement est préférable ?",
+   "choices": [
+    "Laisser passer tout le trafic",
+    "Bloquer le trafic (fail secure)",
+    "Redémarrer en mode de test",
+    "Désactiver la journalisation"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La défaillance sûre bloque l'accès plutôt que de l'ouvrir en cas de panne.",
+   "whyNot": {
+    "0": "C'est un fail open : la protection disparaît.",
+    "2": "Un mode de test n'est pas un comportement de défaillance sûr.",
+    "3": "Les journaux sont précieux pendant un incident."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c3-q07",
+   "domain": "architecture",
+   "level": "intermediate",
+   "concept": "Surface d'attaque",
+   "prompt": "Quelle action réduit le plus directement la surface d'attaque d'un serveur ?",
+   "choices": [
+    "Ajouter un écran de connexion coloré",
+    "Désinstaller les services et fermer les ports inutiles",
+    "Augmenter la mémoire vive",
+    "Changer le nom du serveur"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Moins de services exposés, moins de failles possibles.",
+   "whyNot": {
+    "0": "Aucun effet sur la sécurité.",
+    "2": "Aucun effet sur l'exposition.",
+    "3": "C'est de l'obscurité, pas une réduction réelle."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c3-q08",
+   "domain": "architecture",
+   "level": "advanced",
+   "concept": "Point unique de défaillance",
+   "prompt": "Un seul administrateur connaît les mots de passe de tous les équipements réseau. Quels risques en découlent ? (plusieurs réponses)",
+   "choices": [
+    "Point unique de défaillance si cette personne est absente",
+    "Absence de séparation des tâches et de contrôle mutuel",
+    "Meilleure traçabilité des actions",
+    "Risque accru en cas de malveillance de cette personne"
+   ],
+   "correct": [
+    0,
+    1,
+    3
+   ],
+   "explanation": "Une seule personne indispensable et toute-puissante cumule risques de disponibilité, de fraude et de perte de connaissance.",
+   "whyNot": {
+    "2": "La traçabilité n'est pas améliorée ; elle dépend des journaux, pas du nombre de personnes."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c3-q09",
+   "domain": "architecture",
+   "level": "advanced",
+   "concept": "Défense en profondeur",
+   "prompt": "Quelle proposition illustre le mieux une véritable défense en profondeur ?",
+   "choices": [
+    "Trois pare-feu identiques en série",
+    "MFA, segmentation réseau, EDR sur les postes et sauvegardes hors ligne",
+    "Un antivirus sur chaque poste",
+    "Une politique de mots de passe longue"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Des contrôles différents, à des couches différentes, qui ne partagent pas les mêmes faiblesses.",
+   "whyNot": {
+    "0": "Trois produits identiques partagent la même faille.",
+    "2": "Une seule couche, même répétée.",
+    "3": "Une seule couche administrative."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c3-q10",
+   "domain": "architecture",
+   "level": "beginner",
+   "concept": "Sécurité par défaut",
+   "prompt": "Un nouvel équipement est livré avec tous les services activés et un mot de passe administrateur connu. Quel principe n'est pas respecté ?",
+   "choices": [
+    "Sécurité par défaut",
+    "Conception ouverte",
+    "Médiation complète",
+    "Brewer-Nash"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "La configuration livrée devrait être la plus sûre : services fermés, mot de passe unique à changer.",
+   "whyNot": {
+    "1": "La conception ouverte concerne le secret de la conception.",
+    "2": "La médiation complète concerne la vérification de chaque accès.",
+    "3": "Brewer-Nash concerne les conflits d'intérêts."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c3-q11",
+   "domain": "architecture",
+   "level": "beginner",
+   "concept": "TCB",
+   "prompt": "Que désigne la base informatique de confiance (TCB) ?",
+   "choices": [
+    "La liste des utilisateurs de confiance",
+    "L'ensemble du matériel, du logiciel et du micrologiciel dont dépend la sécurité du système",
+    "Le réseau interne",
+    "Le contrat avec le fournisseur cloud"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Si un élément de la TCB est compromis, la politique de sécurité n'est plus garantie.",
+   "whyNot": {
+    "0": "La TCB est technique, pas une liste de personnes.",
+    "2": "Le réseau interne n'est pas en soi de confiance.",
+    "3": "Un contrat n'est pas un composant technique."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c3-q12",
+   "domain": "architecture",
+   "level": "intermediate",
+   "concept": "Bell-LaPadula",
+   "prompt": "Selon Bell-LaPadula, un utilisateur habilité « confidentiel » peut-il lire un document « secret » ?",
+   "choices": [
+    "Oui, s'il est pressé",
+    "Non : pas de lecture vers le haut",
+    "Oui, mais il ne peut pas l'imprimer",
+    "Non, car Biba l'interdit"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La règle de simple sécurité de Bell-LaPadula interdit de lire au-dessus de son niveau d'habilitation.",
+   "whyNot": {
+    "0": "L'urgence ne change pas la règle.",
+    "2": "La lecture elle-même est interdite.",
+    "3": "La règle vient de Bell-LaPadula, qui protège la confidentialité."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c3-q13",
+   "domain": "architecture",
+   "level": "intermediate",
+   "concept": "Biba",
+   "prompt": "Quel modèle interdit d'écrire dans une donnée de niveau d'intégrité supérieur ?",
+   "choices": [
+    "Bell-LaPadula",
+    "Biba",
+    "Brewer-Nash",
+    "Le modèle OSI"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Biba protège l'intégrité : pas de lecture vers le bas, pas d'écriture vers le haut.",
+   "whyNot": {
+    "0": "Bell-LaPadula protège la confidentialité.",
+    "2": "Brewer-Nash traite les conflits d'intérêts.",
+    "3": "Le modèle OSI décrit les réseaux."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c3-q14",
+   "domain": "architecture",
+   "level": "intermediate",
+   "concept": "Propriété étoile",
+   "prompt": "Que signifie la propriété étoile (*) de Bell-LaPadula ?",
+   "choices": [
+    "Pas de lecture vers le haut",
+    "Pas d'écriture vers le bas",
+    "Pas d'écriture vers le haut",
+    "Pas d'accès sans MFA"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Interdire d'écrire vers le bas empêche de recopier un secret dans un document moins protégé.",
+   "whyNot": {
+    "0": "C'est la règle de simple sécurité.",
+    "2": "C'est une règle de Biba.",
+    "3": "La MFA n'appartient pas au modèle."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c3-q15",
+   "domain": "architecture",
+   "level": "intermediate",
+   "concept": "Clark-Wilson",
+   "prompt": "Quel modèle impose que les données comptables ne soient modifiées que par des transactions bien formées, avec séparation des tâches ?",
+   "choices": [
+    "Clark-Wilson",
+    "Bell-LaPadula",
+    "Brewer-Nash",
+    "Take-Grant"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Clark-Wilson protège l'intégrité commerciale par des programmes de transformation contrôlés et la séparation des tâches.",
+   "whyNot": {
+    "1": "Bell-LaPadula concerne la confidentialité.",
+    "2": "Brewer-Nash concerne les conflits d'intérêts.",
+    "3": "Take-Grant décrit la transmission de droits, pas les transactions bien formées."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c3-q16",
+   "domain": "architecture",
+   "level": "beginner",
+   "concept": "Brewer-Nash",
+   "prompt": "Quel modèle est aussi appelé « muraille de Chine » ?",
+   "choices": [
+    "Biba",
+    "Brewer-Nash",
+    "Clark-Wilson",
+    "Bell-LaPadula"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Brewer-Nash empêche d'accéder aux données d'entreprises concurrentes après avoir consulté celles d'un client.",
+   "whyNot": {
+    "0": "Biba concerne l'intégrité.",
+    "2": "Clark-Wilson concerne les transactions bien formées.",
+    "3": "Bell-LaPadula concerne la confidentialité."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c3-q17",
+   "domain": "architecture",
+   "level": "intermediate",
+   "concept": "Moniteur de référence",
+   "prompt": "Quelles sont les propriétés exigées d'un moniteur de référence ?",
+   "choices": [
+    "Rapide, gratuit et open source",
+    "Toujours invoqué, infalsifiable et assez petit pour être vérifié",
+    "Installé sur chaque poste et désactivable",
+    "Hébergé dans le cloud"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Il contrôle chaque accès, ne peut pas être modifié et doit pouvoir être analysé complètement.",
+   "whyNot": {
+    "0": "Ce ne sont pas des propriétés de sécurité.",
+    "2": "Il ne doit justement pas pouvoir être contourné.",
+    "3": "Son emplacement n'est pas une propriété du concept."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c3-q18",
+   "domain": "architecture",
+   "level": "advanced",
+   "concept": "TPM et démarrage",
+   "prompt": "Quel composant mesure le démarrage et protège les clés de chiffrement du disque dans la machine ?",
+   "choices": [
+    "Le TPM",
+    "Le pare-feu",
+    "Le serveur DNS",
+    "Le WAF"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le TPM stocke des clés et enregistre les mesures du démarrage pour détecter une modification.",
+   "whyNot": {
+    "1": "Le pare-feu filtre le trafic réseau.",
+    "2": "Le DNS résout des noms.",
+    "3": "Le WAF protège les applications web."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c3-q19",
+   "domain": "architecture",
+   "level": "advanced",
+   "concept": "Virtualisation",
+   "prompt": "Qu'est-ce qu'une évasion de machine virtuelle (VM escape) ?",
+   "choices": [
+    "La migration d'une VM vers un autre hôte",
+    "L'exploitation d'une faille de l'hyperviseur pour sortir d'une VM et atteindre l'hôte ou d'autres VM",
+    "La suppression d'une VM inutile",
+    "La sauvegarde d'une VM"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "L'hyperviseur fait partie de la TCB : une faille compromet l'isolation entre toutes les VM.",
+   "whyNot": {
+    "0": "La migration est une opération normale.",
+    "2": "C'est de l'administration courante.",
+    "3": "C'est de la sauvegarde."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c3-q20",
+   "domain": "architecture",
+   "level": "advanced",
+   "concept": "Choix du modèle",
+   "prompt": "Un laboratoire veut empêcher que des résultats d'expérience validés soient modifiés à partir de données brutes non vérifiées. Quel modèle correspond le mieux ?",
+   "choices": [
+    "Bell-LaPadula",
+    "Biba",
+    "Brewer-Nash",
+    "Aucun, c'est un problème de disponibilité"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Il s'agit d'intégrité : on ne laisse pas une source moins fiable contaminer une donnée plus fiable.",
+   "whyNot": {
+    "0": "Bell-LaPadula protège la confidentialité, pas l'intégrité.",
+    "2": "Il n'y a pas de conflit d'intérêts.",
+    "3": "C'est un problème d'intégrité."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c3-q21",
+   "domain": "architecture",
+   "level": "beginner",
+   "concept": "Zero Trust",
+   "prompt": "Quelle phrase résume le Zero Trust ?",
+   "choices": [
+    "Faire confiance à tout ce qui est dans le réseau interne",
+    "Ne jamais faire confiance, toujours vérifier",
+    "Supprimer tous les mots de passe",
+    "Bloquer Internet"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Aucune confiance implicite : chaque accès est vérifié explicitement.",
+   "whyNot": {
+    "0": "C'est le modèle du périmètre que le Zero Trust remet en cause.",
+    "2": "Le Zero Trust renforce l'authentification, il ne la supprime pas.",
+    "3": "Le Zero Trust contrôle les accès, il ne coupe pas tout."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c3-q22",
+   "domain": "architecture",
+   "level": "intermediate",
+   "concept": "PDP et PEP",
+   "prompt": "Dans l'architecture Zero Trust du NIST, quel composant décide d'accorder l'accès ?",
+   "choices": [
+    "Le point d'application de la politique (PEP)",
+    "Le point de décision de la politique (PDP)",
+    "Le commutateur d'accès",
+    "Le serveur DNS"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le PDP (moteur et administrateur de politique) décide ; le PEP applique la décision devant la ressource.",
+   "whyNot": {
+    "0": "Le PEP applique la décision, il ne la prend pas.",
+    "2": "Le commutateur n'évalue pas la politique Zero Trust.",
+    "3": "Le DNS ne prend pas de décision d'accès."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c3-q23",
+   "domain": "architecture",
+   "level": "beginner",
+   "concept": "Responsabilité partagée",
+   "prompt": "Dans un service SaaS, qui reste responsable de la gestion des comptes et des droits d'accès ?",
+   "choices": [
+    "Le fournisseur",
+    "Le client",
+    "Personne",
+    "L'éditeur du navigateur"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Dans tous les modèles cloud, les données et les accès restent à la charge du client.",
+   "whyNot": {
+    "0": "Le fournisseur gère l'application, pas qui y accède chez le client.",
+    "2": "La responsabilité ne disparaît jamais.",
+    "3": "Le navigateur n'a pas de rôle de gestion des accès."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c3-q24",
+   "domain": "architecture",
+   "level": "intermediate",
+   "concept": "Modèle du périmètre",
+   "prompt": "Pourquoi le modèle de sécurité du périmètre ne suffit-il plus ?",
+   "choices": [
+    "Parce que les pare-feu n'existent plus",
+    "Parce que les utilisateurs, applications et attaquants sont aussi hors du réseau, ou déjà à l'intérieur avec des identifiants volés",
+    "Parce que le chiffrement est interdit",
+    "Parce qu'Internet est trop lent"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Télétravail, cloud et vol d'identifiants rendent l'emplacement réseau peu fiable comme critère de confiance.",
+   "whyNot": {
+    "0": "Les pare-feu restent utiles.",
+    "2": "Faux.",
+    "3": "Sans rapport."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c3-q25",
+   "domain": "architecture",
+   "level": "intermediate",
+   "concept": "Piliers",
+   "prompt": "Quels éléments font partie des piliers du modèle de maturité Zero Trust de la CISA ? (plusieurs réponses)",
+   "choices": [
+    "Identité",
+    "Appareils",
+    "Données",
+    "Imprimantes"
+   ],
+   "correct": [
+    0,
+    1,
+    2
+   ],
+   "explanation": "Les cinq piliers sont : identité, appareils, réseaux, applications et charges de travail, données.",
+   "whyNot": {
+    "3": "Les imprimantes sont des appareils, mais ne forment pas un pilier à part."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c3-q26",
+   "domain": "architecture",
+   "level": "intermediate",
+   "concept": "IaaS",
+   "prompt": "Dans un modèle IaaS, qui applique les correctifs du système d'exploitation des machines virtuelles ?",
+   "choices": [
+    "Le fournisseur cloud",
+    "Le client",
+    "Le fabricant du processeur",
+    "Personne, c'est automatique"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "En IaaS, le fournisseur gère le matériel et la virtualisation ; le système invité est à la charge du client.",
+   "whyNot": {
+    "0": "Il gère l'infrastructure sous l'hyperviseur.",
+    "2": "Il ne gère pas les systèmes du client.",
+    "3": "Rien n'est automatique sans configuration du client."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c3-q27",
+   "domain": "architecture",
+   "level": "advanced",
+   "concept": "ZTNA",
+   "prompt": "Qu'apporte un ZTNA par rapport à un VPN d'accès distant classique ?",
+   "choices": [
+    "L'utilisateur accède à tout le réseau interne",
+    "L'utilisateur n'accède qu'aux applications autorisées, après vérification de l'identité et de l'appareil",
+    "Il supprime l'authentification",
+    "Il remplace le chiffrement par du NAT"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le ZTNA donne un accès par application, décidé selon l'identité et le contexte, au lieu d'un accès réseau large.",
+   "whyNot": {
+    "0": "C'est le défaut classique du VPN.",
+    "2": "Il la renforce.",
+    "3": "Le NAT ne remplace pas le chiffrement."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c3-q28",
+   "domain": "architecture",
+   "level": "advanced",
+   "concept": "Supposer la compromission",
+   "prompt": "Quelle mesure applique le plus directement le principe « supposer la compromission » ?",
+   "choices": [
+    "Faire confiance aux postes du siège",
+    "Microsegmenter et surveiller en continu pour limiter et détecter les déplacements d'un attaquant déjà présent",
+    "Ouvrir les flux internes pour simplifier",
+    "Supprimer la journalisation interne"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Si l'attaquant est déjà là, on limite ce qu'il peut atteindre et on le détecte vite.",
+   "whyNot": {
+    "0": "C'est une confiance implicite.",
+    "2": "Cela facilite les déplacements latéraux.",
+    "3": "On perdrait la détection."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c3-q29",
+   "domain": "architecture",
+   "level": "advanced",
+   "concept": "Zero Trust",
+   "prompt": "Un fournisseur promet « le Zero Trust en un seul boîtier ». Quelle est la meilleure réaction ?",
+   "choices": [
+    "Acheter immédiatement",
+    "Rappeler que le Zero Trust est une stratégie qui combine identité, appareils, réseau, applications et données, et évaluer ce que le produit couvre réellement",
+    "Refuser toute solution du marché",
+    "Remplacer le SOC par ce boîtier"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Aucun produit unique ne réalise le Zero Trust ; on évalue chaque solution par rapport aux piliers.",
+   "whyNot": {
+    "0": "C'est confondre un outil et une stratégie.",
+    "2": "Des produits aident, sans suffire seuls.",
+    "3": "La surveillance humaine reste indispensable."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c3-q30",
+   "domain": "architecture",
+   "level": "intermediate",
+   "concept": "Erreur de configuration cloud",
+   "prompt": "Un stockage cloud contenant des données clients est laissé ouvert au public par erreur. Qui est responsable ?",
+   "choices": [
+    "Le fournisseur cloud",
+    "Le client, qui gère la configuration et l'accès à ses données",
+    "Personne, c'est une panne",
+    "Le fournisseur d'accès Internet"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La configuration des accès aux données relève toujours du client dans le modèle de responsabilité partagée.",
+   "whyNot": {
+    "0": "Le fournisseur fournit les réglages ; il ne décide pas de rendre les données publiques.",
+    "2": "C'est une erreur humaine, pas une panne.",
+    "3": "Le FAI n'a aucun rôle ici."
+   },
+   "kind": "general"
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "m3c3-f01",
+   "front": "Défense en profondeur",
+   "back": "Contrôles indépendants en couches : administratifs, techniques, physiques.",
+   "concept": "Défense en profondeur"
+  },
+  {
+   "id": "m3c3-f02",
+   "front": "Moindre privilège",
+   "back": "Juste les droits nécessaires, juste le temps nécessaire.",
+   "concept": "Moindre privilège"
+  },
+  {
+   "id": "m3c3-f03",
+   "front": "Sécurité par défaut",
+   "back": "La configuration livrée est la plus sûre.",
+   "concept": "Sécurité par défaut"
+  },
+  {
+   "id": "m3c3-f04",
+   "front": "Fail secure / fail safe",
+   "back": "Bloquer en cas de panne / ouvrir pour protéger les personnes. Les personnes d'abord.",
+   "concept": "Défaillance sûre"
+  },
+  {
+   "id": "m3c3-f05",
+   "front": "Conception ouverte",
+   "back": "La sécurité ne repose pas sur le secret de la conception.",
+   "concept": "Conception ouverte"
+  },
+  {
+   "id": "m3c3-f06",
+   "front": "Médiation complète",
+   "back": "Chaque accès est vérifié, à chaque fois.",
+   "concept": "Médiation complète"
+  },
+  {
+   "id": "m3c3-f07",
+   "front": "Surface d'attaque",
+   "back": "Tout ce qui est exposé ; la réduire = retirer l'inutile.",
+   "concept": "Surface d'attaque"
+  },
+  {
+   "id": "m3c3-f08",
+   "front": "Point unique de défaillance",
+   "back": "Un élément dont la panne fait tout tomber. Parade : redondance.",
+   "concept": "Point unique de défaillance"
+  },
+  {
+   "id": "m3c3-f09",
+   "front": "TCB",
+   "back": "Tout ce dont dépend la sécurité ; la garder petite.",
+   "concept": "TCB"
+  },
+  {
+   "id": "m3c3-f10",
+   "front": "Moniteur de référence",
+   "back": "Toujours invoqué, infalsifiable, vérifiable.",
+   "concept": "Moniteur de référence"
+  },
+  {
+   "id": "m3c3-f11",
+   "front": "Bell-LaPadula",
+   "back": "Confidentialité : pas de lecture en haut, pas d'écriture en bas.",
+   "concept": "Bell-LaPadula"
+  },
+  {
+   "id": "m3c3-f12",
+   "front": "Biba",
+   "back": "Intégrité : pas de lecture en bas, pas d'écriture en haut.",
+   "concept": "Biba"
+  },
+  {
+   "id": "m3c3-f13",
+   "front": "Clark-Wilson",
+   "back": "Transactions bien formées, séparation des tâches, audit.",
+   "concept": "Clark-Wilson"
+  },
+  {
+   "id": "m3c3-f14",
+   "front": "Brewer-Nash",
+   "back": "Muraille de Chine : conflits d'intérêts.",
+   "concept": "Brewer-Nash"
+  },
+  {
+   "id": "m3c3-f15",
+   "front": "TPM",
+   "back": "Puce : clés, mesure du démarrage, chiffrement du disque.",
+   "concept": "TPM"
+  },
+  {
+   "id": "m3c3-f16",
+   "front": "Zero Trust",
+   "back": "Ne jamais faire confiance, toujours vérifier ; supposer la compromission.",
+   "concept": "Zero Trust"
+  },
+  {
+   "id": "m3c3-f17",
+   "front": "PDP / PEP",
+   "back": "Point de décision / point d'application de la politique.",
+   "concept": "PDP"
+  },
+  {
+   "id": "m3c3-f18",
+   "front": "Piliers CISA",
+   "back": "Identité, appareils, réseaux, applications et charges de travail, données.",
+   "concept": "Zero Trust"
+  },
+  {
+   "id": "m3c3-f19",
+   "front": "Responsabilité partagée",
+   "back": "IaaS, PaaS, SaaS : données et accès toujours au client.",
+   "concept": "Responsabilité partagée"
+  },
+  {
+   "id": "m3c3-f20",
+   "front": "ZTNA / SASE",
+   "back": "Accès par application / réseau et sécurité en service cloud.",
+   "concept": "ZTNA"
+  }
+ ],
+ "revisionSheet": [
+  "# Fiche de révision : architecture sécurisée, défense en profondeur et Zero Trust",
+  "Défense en profondeur : contrôles indépendants et différents, en couches ; familles administratives, techniques, physiques.",
+  "Principes : moindre privilège, sécurité par défaut, fail secure, économie de mécanisme, médiation complète, conception ouverte, séparation des privilèges, surface d'attaque réduite.",
+  "Fail secure (bloquer en cas de panne) pour l'information ; fail safe (ouvrir) quand des vies sont en jeu : les personnes d'abord.",
+  "Éviter les points uniques de défaillance : redondance, diversité des fabricants, plusieurs personnes formées.",
+  "TCB : matériel, logiciel et micrologiciel dont dépend la sécurité ; la garder petite.",
+  "Moniteur de référence : toujours invoqué, infalsifiable, vérifiable ; mis en œuvre par le noyau de sécurité.",
+  "Bell-LaPadula (confidentialité) : pas de lecture vers le haut, pas d'écriture vers le bas (propriété *).",
+  "Biba (intégrité) : pas de lecture vers le bas, pas d'écriture vers le haut.",
+  "Clark-Wilson : transactions bien formées, séparation des tâches, audit. Brewer-Nash : muraille de Chine, conflits d'intérêts.",
+  "Matériel de confiance : anneaux de protection (0 noyau, 3 applications), TPM, Secure Boot, HSM. Évasion de VM : l'hyperviseur est dans la TCB.",
+  "Zero Trust : aucune confiance implicite liée au réseau ; vérifier explicitement, moindre privilège par session, supposer la compromission.",
+  "NIST SP 800-207 : PDP (moteur et administrateur de politique) décide, PEP applique.",
+  "CISA : piliers identité, appareils, réseaux, applications et charges de travail, données ; transverses : visibilité, automatisation, gouvernance.",
+  "Cloud : responsabilité partagée ; en IaaS, PaaS ou SaaS, le client reste responsable de ses données et des accès.",
+  "ZTNA : accès par application (évolution du VPN). SASE : fonctions réseau et sécurité en service cloud.",
+  "Paires à ne pas confondre : BLP/Biba ; PDP/PEP ; fail secure/fail safe ; IaaS/PaaS/SaaS ; VPN/ZTNA."
+ ],
+ "mindMap": {
+  "label": "Architecture sécurisée, défense en profondeur et Zero Trust",
+  "en": "Secure Architecture",
+  "emoji": "🏛️",
+  "children": [
+   {
+    "label": "Défense en profondeur",
+    "en": "Defense in Depth",
+    "emoji": "🏰",
+    "tone": "blue",
+    "children": [
+     {
+      "label": "Familles",
+      "children": [
+       {
+        "label": "Administratifs",
+        "detail": "Politiques, sensibilisation."
+       },
+       {
+        "label": "Techniques",
+        "detail": "Pare-feu, MFA, EDR."
+       },
+       {
+        "label": "Physiques",
+        "detail": "Badges, serrures."
+       }
+      ]
+     },
+     {
+      "label": "Couches",
+      "detail": "Politiques → physique → périmètre → réseau → hôte → données."
+     },
+     {
+      "label": "Point unique de défaillance",
+      "detail": "Redondance, diversité."
+     }
+    ]
+   },
+   {
+    "label": "Principes",
+    "en": "Secure Design Principles",
+    "emoji": "📐",
+    "tone": "violet",
+    "children": [
+     {
+      "label": "Moindre privilège"
+     },
+     {
+      "label": "Sécurité par défaut"
+     },
+     {
+      "label": "Défaillance",
+      "children": [
+       {
+        "label": "Fail secure",
+        "detail": "Bloquer en cas de panne."
+       },
+       {
+        "label": "Fail safe",
+        "detail": "Les personnes d'abord."
+       }
+      ]
+     },
+     {
+      "label": "Conception ouverte",
+      "detail": "Pas de sécurité par l'obscurité."
+     },
+     {
+      "label": "Médiation complète"
+     },
+     {
+      "label": "Surface d'attaque réduite"
+     }
+    ]
+   },
+   {
+    "label": "Composants de confiance",
+    "en": "Trusted Components",
+    "emoji": "🔩",
+    "tone": "turquoise",
+    "children": [
+     {
+      "label": "TCB",
+      "detail": "La garder petite."
+     },
+     {
+      "label": "Moniteur de référence",
+      "detail": "Toujours invoqué, infalsifiable, vérifiable."
+     },
+     {
+      "label": "Matériel",
+      "children": [
+       {
+        "label": "Anneaux",
+        "detail": "0 noyau, 3 applications."
+       },
+       {
+        "label": "TPM et Secure Boot"
+       },
+       {
+        "label": "HSM"
+       }
+      ]
+     },
+     {
+      "label": "Évasion de VM",
+      "detail": "Hyperviseur dans la TCB."
+     }
+    ]
+   },
+   {
+    "label": "Modèles formels",
+    "en": "Security Models",
+    "emoji": "📚",
+    "tone": "orange",
+    "children": [
+     {
+      "label": "Bell-LaPadula",
+      "detail": "Confidentialité.",
+      "children": [
+       {
+        "label": "No read up"
+       },
+       {
+        "label": "No write down (*)"
+       }
+      ]
+     },
+     {
+      "label": "Biba",
+      "detail": "Intégrité.",
+      "children": [
+       {
+        "label": "No read down"
+       },
+       {
+        "label": "No write up"
+       }
+      ]
+     },
+     {
+      "label": "Clark-Wilson",
+      "detail": "Transactions bien formées."
+     },
+     {
+      "label": "Brewer-Nash",
+      "detail": "Muraille de Chine."
+     }
+    ]
+   },
+   {
+    "label": "Zero Trust",
+    "en": "Zero Trust Architecture",
+    "emoji": "🚦",
+    "tone": "green",
+    "children": [
+     {
+      "label": "Principes",
+      "children": [
+       {
+        "label": "Vérifier explicitement"
+       },
+       {
+        "label": "Moindre privilège par session"
+       },
+       {
+        "label": "Supposer la compromission"
+       }
+      ]
+     },
+     {
+      "label": "Composants",
+      "children": [
+       {
+        "label": "PDP",
+        "detail": "Décide."
+       },
+       {
+        "label": "PEP",
+        "detail": "Applique."
+       }
+      ]
+     },
+     {
+      "label": "Piliers CISA",
+      "detail": "Identité, appareils, réseaux, applications, données."
+     }
+    ]
+   },
+   {
+    "label": "Cloud et accès",
+    "en": "Cloud and Modern Access",
+    "emoji": "☁️",
+    "tone": "pink",
+    "children": [
+     {
+      "label": "Responsabilité partagée",
+      "children": [
+       {
+        "label": "IaaS",
+        "detail": "Client : OS, applis, données."
+       },
+       {
+        "label": "PaaS",
+        "detail": "Client : applis, données."
+       },
+       {
+        "label": "SaaS",
+        "detail": "Client : données, accès."
+       }
+      ]
+     },
+     {
+      "label": "ZTNA",
+      "detail": "Accès par application."
+     },
+     {
+      "label": "SASE",
+      "detail": "Réseau et sécurité en service."
+     }
+    ]
+   }
+  ]
+ }
+}
