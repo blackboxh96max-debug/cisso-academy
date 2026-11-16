@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <g stroke="#26324A" stroke-width="2" stroke-linejoin="round">
+    <path d="M30 14 L56 12 L58 34 L32 36 Z" fill="#DCE9FF" transform="rotate(-8 44 24)" />
+    <path d="M70 8 L96 8 L96 30 L70 30 Z" fill="#EDE4FF" />
+    <path d="M110 12 L136 10 L138 32 L112 34 Z" fill="#D9F6FB" transform="rotate(6 124 22)" />
+    <path d="M150 6 L176 8 L174 30 L148 28 Z" fill="#FFE4D1" />
+    <path d="M186 14 L212 12 L214 34 L188 36 Z" fill="#FFE4F1" transform="rotate(10 200 24)" />
+  </g>
+  <g stroke="#9DB4D8" stroke-width="1.6" stroke-linecap="round">
+    <path d="M75 15 L91 15 M75 21 L88 21" /><path d="M155 14 L170 14 M155 20 L167 20" />
+  </g>
+  <path d="M26 48 C80 44 160 44 214 48 L138 104 L136 134 L104 134 L102 104 Z" fill="#FFFBF2" stroke="#26324A" stroke-width="2.8" stroke-linejoin="round" />
+  <g stroke="#3B82F6" stroke-width="2" fill="none" stroke-dasharray="4 4"><path d="M60 58 L104 96" /><path d="M120 56 L120 98" /><path d="M180 58 L136 96" /></g>
+  <text x="58" y="78" font-family="Caveat, cursive" font-size="15" fill="#7A3BE6">corréler</text>
+  <g stroke="#26324A" stroke-width="2.6" stroke-linejoin="round">
+    <path d="M106 168 C106 150 112 142 120 142 C128 142 134 150 134 168 Z" fill="#EF4444" />
+    <path d="M100 168 L140 168" />
+  </g>
+  <g stroke="#F97316" stroke-width="2.6" stroke-linecap="round" fill="none">
+    <path d="M90 150 L80 144" /><path d="M150 150 L160 144" /><path d="M92 162 L80 162" /><path d="M148 162 L160 162" />
+  </g>
+</svg>

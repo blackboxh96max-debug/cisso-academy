@@ -1,0 +1,1487 @@
+{
+ "lessons": [
+  {
+   "id": "m2c1-l1",
+   "title": "Les principes des opérations de sécurité",
+   "minutes": 25,
+   "illustration": "assets/illustrations/m2c1_l1_engrenages.svg",
+   "illustrationAlt": "Dessin de deux engrenages qui tournent ensemble, l'un marqué d'un cadenas, l'autre d'une clé à molette : la sécurité au quotidien.",
+   "objectives": [
+    "Appliquer séparation des tâches, rotation des postes, congés obligatoires et double contrôle.",
+    "Décrire un processus de gestion des changements, y compris en urgence.",
+    "Expliquer le rôle des configurations de référence et de l'inventaire des actifs."
+   ],
+   "references": [
+    {
+     "title": "ISO/IEC 27002:2022, mesures 5.3 (séparation des tâches), 5.9 (inventaire des actifs), 8.9 (gestion de la configuration) et 8.32 (gestion des changements)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "La sécurité au quotidien"
+    },
+    {
+     "type": "text",
+     "text": "Les opérations de sécurité regroupent tout ce qui fait tourner la sécurité chaque jour : contrôler les personnes qui agissent sur les systèmes, encadrer les changements, connaître ses actifs et ses configurations, surveiller et réagir. Une politique parfaite ne sert à rien si ces gestes quotidiens ne sont pas faits."
+    },
+    {
+     "type": "heading",
+     "text": "Les contrôles sur les personnes"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Contrôle",
+       "Principe",
+       "Ce qu'il empêche ou révèle"
+      ],
+      [
+       "Séparation des tâches",
+       "Une tâche sensible est répartie entre plusieurs personnes",
+       "Une fraude menée seul (créer un fournisseur ET le payer)"
+      ],
+      [
+       "Double contrôle (deux personnes)",
+       "Deux personnes doivent agir ensemble, au même moment",
+       "L'action isolée sur un bien critique (clé maîtresse, coffre)"
+      ],
+      [
+       "Rotation des postes",
+       "Les personnes changent régulièrement de fonction",
+       "Une fraude durable et les dépendances à une seule personne"
+      ],
+      [
+       "Congés obligatoires",
+       "Absence imposée de plusieurs jours consécutifs",
+       "Une fraude qui exige une présence quotidienne pour rester cachée"
+      ],
+      [
+       "Moindre privilège",
+       "Juste les droits nécessaires",
+       "Les dégâts d'un compte compromis ou d'une erreur"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Point clé",
+     "text": "La séparation des tâches oblige à une collusion pour frauder : deux personnes doivent s'entendre. La rotation des postes et les congés obligatoires, eux, servent surtout à DÉTECTER une fraude déjà en place."
+    },
+    {
+     "type": "memo",
+     "text": "« Séparer pour prévenir, faire tourner pour découvrir. » Séparation des tâches et double contrôle = préventifs ; rotation et congés obligatoires = détectifs."
+    },
+    {
+     "type": "heading",
+     "text": "La gestion des changements"
+    },
+    {
+     "type": "diagram",
+     "title": "Le circuit d'un changement",
+     "alt": "Schéma en six étapes : demande de changement, analyse d'impact et de risque, approbation par le comité des changements, test et plan de retour arrière, mise en œuvre pendant une fenêtre prévue, revue et mise à jour de la documentation.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "📝",
+        "label": "Demande",
+        "detail": "qui, quoi, pourquoi",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🔍",
+        "label": "Analyse",
+        "detail": "impact et risque",
+        "tone": "violet"
+       },
+       {
+        "emoji": "✅",
+        "label": "Approbation",
+        "detail": "comité des changements",
+        "tone": "green"
+       },
+       {
+        "emoji": "🧪",
+        "label": "Test",
+        "detail": "et plan de retour arrière",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "🚀",
+        "label": "Mise en œuvre",
+        "detail": "fenêtre prévue",
+        "tone": "orange"
+       },
+       {
+        "emoji": "📚",
+        "label": "Revue",
+        "detail": "documentation à jour",
+        "tone": "pink"
+       }
+      ]
+     },
+     "kind": "practice"
+    },
+    {
+     "type": "definition",
+     "title": "Changement d'urgence",
+     "text": "Changement appliqué sans attendre le circuit normal, par exemple pour corriger une faille exploitée. Il reste tracé, approuvé par une personne habilitée, puis régularisé et revu après coup.",
+     "kind": "practice"
+    },
+    {
+     "type": "trainerNote",
+     "text": "Au SOC, un changement non déclaré ressemble souvent à une attaque : un nouveau port ouvert, un compte de service créé, une règle de pare-feu modifiée. Le calendrier des changements est l'un des premiers documents à consulter pendant un triage."
+    },
+    {
+     "type": "heading",
+     "text": "Configurations et actifs"
+    },
+    {
+     "type": "definition",
+     "title": "Configuration de référence (baseline)",
+     "text": "État de configuration approuvé et documenté d'un système, qui sert de point de comparaison. Tout écart (dérive) doit être expliqué par un changement approuvé.",
+     "kind": "practice"
+    },
+    {
+     "type": "definition",
+     "title": "Inventaire des actifs",
+     "text": "Liste à jour du matériel, des logiciels, des données et des services, avec leur propriétaire et leur criticité. On ne protège pas ce qu'on ne connaît pas.",
+     "kind": "practice"
+    },
+    {
+     "type": "practice",
+     "title": "Bonnes pratiques",
+     "kind": "practice",
+     "items": [
+      "Durcir les systèmes à partir d'un guide reconnu, puis figer cette configuration comme référence.",
+      "Détecter automatiquement les dérives de configuration et les rapprocher des changements approuvés.",
+      "Rapprocher l'inventaire des actifs avec ce que voient le réseau, l'EDR et le SIEM : un poste inconnu est une alerte.",
+      "Prévoir un plan de retour arrière pour chaque changement important."
+     ]
+    },
+    {
+     "type": "risk",
+     "title": "Informatique de l'ombre (shadow IT)",
+     "text": "Un serveur ou un service cloud installé hors des circuits officiels n'est ni inventorié, ni corrigé, ni surveillé. C'est une porte d'entrée classique pour un attaquant."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : le port qui s'ouvre la nuit",
+     "kind": "example",
+     "text": "À 2 h 10, l'analyste N1 voit un serveur exposer un nouveau port d'administration. Il consulte le calendrier des changements : aucun changement prévu. Il escalade en N2, qui découvre qu'un prestataire a modifié la configuration sans demande. Ce n'était pas une attaque, mais l'écart est traité comme un incident : retour à la configuration de référence, rappel du processus au prestataire, et ajout d'une règle de détection des dérives."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : la gestion des changements est mon premier filet de sécurité contre les erreurs et les portes dérobées.",
+      "Responsable SOC : sans calendrier des changements, mes analystes perdent des heures sur de fausses alertes.",
+      "Auditeur : je prends un échantillon de changements et je vérifie demande, approbation, test et revue.",
+      "Risk manager : un actif absent de l'inventaire est un risque qu'on n'a jamais évalué."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Séparation des tâches (deux personnes pour deux étapes) ≠ double contrôle (deux personnes en même temps pour une action).",
+      "Rotation des postes et congés obligatoires sont surtout des contrôles DÉTECTIFS.",
+      "Un changement d'urgence n'échappe pas au processus : il est régularisé après coup.",
+      "La collusion est le point faible de la séparation des tâches."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Contrôles sur les personnes : séparation des tâches, double contrôle, rotation, congés obligatoires, moindre privilège.",
+      "Gestion des changements : demande, analyse, approbation, test, mise en œuvre, revue.",
+      "Configuration de référence et inventaire des actifs : connaître pour protéger et détecter les écarts."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m2c1-q02",
+      "m2c1-q05"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m2c1-l2",
+   "title": "Journalisation et SIEM",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m2c1_l2_entonnoir.svg",
+   "illustrationAlt": "Dessin d'un entonnoir : en haut, beaucoup de petites feuilles de journaux ; en bas, une seule cloche d'alerte.",
+   "objectives": [
+    "Choisir quoi journaliser et protéger les journaux (horloge, intégrité, rétention).",
+    "Décrire le fonctionnement d'un SIEM, de la collecte à l'alerte.",
+    "Distinguer vrais et faux positifs, vrais et faux négatifs.",
+    "Situer UEBA et SOAR par rapport au SIEM."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-92, Guide to Computer Security Log Management",
+     "kind": "general"
+    },
+    {
+     "title": "ISO/IEC 27002:2022, mesures 8.15 (journalisation), 8.16 (activités de surveillance) et 8.17 (synchronisation des horloges)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Bien journaliser"
+    },
+    {
+     "type": "text",
+     "text": "Un journal (log) est la trace d'un événement : une connexion, une commande, une modification de droits, un fichier bloqué. Sans journaux, pas d'enquête, pas de détection et pas de preuve. Mais journaliser tout, sans tri, noie l'information utile et coûte cher."
+    },
+    {
+     "type": "practice",
+     "title": "Ce qu'il faut journaliser en priorité",
+     "kind": "practice",
+     "items": [
+      "Authentifications réussies et échouées, surtout sur les comptes à privilèges et les accès distants.",
+      "Créations, suppressions et modifications de comptes, de groupes et de droits.",
+      "Changements de configuration et arrêts des services de sécurité (antivirus, EDR, journalisation elle-même).",
+      "Accès aux données sensibles et exports volumineux.",
+      "Trafic réseau aux frontières : pare-feu, proxy, DNS, VPN."
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Trois conditions pour qu'un journal serve",
+     "text": "1. Les horloges sont synchronisées (NTP), sinon impossible de reconstituer une chronologie. 2. Les journaux sont protégés contre la modification (envoi centralisé, stockage non réinscriptible, empreintes). 3. La durée de conservation est définie, selon les besoins d'enquête et les obligations légales."
+    },
+    {
+     "type": "memo",
+     "text": "« Heure, Intégrité, Durée » : un journal sans la bonne heure, modifiable ou effacé trop tôt ne prouve rien."
+    },
+    {
+     "type": "heading",
+     "text": "Le SIEM, de la collecte à l'alerte"
+    },
+    {
+     "type": "diagram",
+     "title": "Le parcours d'un événement dans un SIEM",
+     "alt": "Schéma en cinq étapes : collecte des journaux, normalisation dans un format commun, enrichissement avec le contexte, corrélation selon des règles, alerte envoyée au SOC pour le triage.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "📥",
+        "label": "Collecte",
+        "detail": "agents, syslog, API",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🧹",
+        "label": "Normalisation",
+        "detail": "un format commun",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🏷️",
+        "label": "Enrichissement",
+        "detail": "actif, utilisateur, réputation",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "🔗",
+        "label": "Corrélation",
+        "detail": "règles et scénarios",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🚨",
+        "label": "Alerte",
+        "detail": "triage par le SOC",
+        "tone": "red"
+       }
+      ]
+     }
+    },
+    {
+     "type": "definition",
+     "title": "SIEM (Security Information and Event Management)",
+     "text": "Plateforme qui centralise les journaux, les normalise, les corrèle et produit des alertes. Elle sert aussi à rechercher dans l'historique et à conserver les traces pour les enquêtes.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Corrélation",
+     "text": "Rapprochement de plusieurs événements, parfois de sources différentes, pour reconnaître un scénario. Exemple : dix échecs puis une réussite sur le même compte, suivie d'une connexion VPN depuis un nouveau pays.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Bonne alerte ou fausse alerte ?"
+    },
+    {
+     "type": "diagram",
+     "title": "Les quatre cas d'une détection",
+     "alt": "Grille deux par deux. Attaque réelle sans alerte : faux négatif, le plus dangereux. Attaque réelle avec alerte : vrai positif. Pas d'attaque et pas d'alerte : vrai négatif. Pas d'attaque mais une alerte : faux positif, qui fatigue les analystes.",
+     "diagram": {
+      "type": "quadrant",
+      "xLabel": "Alerte levée",
+      "yLabel": "Attaque réelle",
+      "cells": [
+       {
+        "emoji": "🙈",
+        "label": "Faux négatif",
+        "detail": "attaque manquée : le pire",
+        "tone": "red"
+       },
+       {
+        "emoji": "🎯",
+        "label": "Vrai positif",
+        "detail": "bonne détection",
+        "tone": "green"
+       },
+       {
+        "emoji": "😴",
+        "label": "Vrai négatif",
+        "detail": "rien à signaler",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🔔",
+        "label": "Faux positif",
+        "detail": "bruit, fatigue d'alerte",
+        "tone": "orange"
+       }
+      ]
+     }
+    },
+    {
+     "type": "trainerNote",
+     "text": "Un SOC qui reçoit des milliers de faux positifs finit par ignorer les vrais. Ajuster une règle (tuning) n'est pas une faiblesse : c'est ce qui rend les alertes crédibles. Mais attention, un réglage trop strict crée des faux négatifs."
+    },
+    {
+     "type": "heading",
+     "text": "Autour du SIEM"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Outil",
+       "Rôle",
+       "Exemple"
+      ],
+      [
+       "UEBA",
+       "Analyse du comportement des utilisateurs et des machines, détection des écarts par rapport à l'habitude",
+       "Un comptable qui télécharge soudain 10 Go à 3 h du matin"
+      ],
+      [
+       "SOAR",
+       "Orchestration et automatisation de la réponse, à l'aide de playbooks",
+       "Isoler un poste et bloquer une adresse dès qu'une alerte est confirmée"
+      ],
+      [
+       "EDR / XDR",
+       "Détection et réponse sur les postes (EDR), étendues à plusieurs sources (XDR)",
+       "Arrêter un processus de chiffrement suspect sur un poste"
+      ]
+     ]
+    },
+    {
+     "type": "risk",
+     "title": "Journaux effacés",
+     "text": "Un attaquant qui obtient des droits d'administration cherche souvent à effacer les journaux locaux pour cacher ses traces. L'envoi en temps réel vers un SIEM centralisé, et une alerte sur l'effacement des journaux, déjouent cette technique."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : l'horloge en retard",
+     "kind": "example",
+     "text": "Pendant une enquête, l'équipe reconstitue la chronologie d'une intrusion. Les journaux du pare-feu situent la connexion suspecte à 14 h 02, ceux du serveur à 13 h 55 : le serveur n'était plus synchronisé. Il faut des heures pour recaler les événements. Mesures prises : NTP obligatoire sur tous les systèmes, alerte en cas de dérive d'horloge, et vérification de l'heure de chaque source au moment de son raccordement au SIEM."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : je finance le SIEM pour détecter vite, pas pour stocker des téraoctets que personne ne lit.",
+      "Responsable SOC : chaque règle doit avoir un objectif, une procédure de traitement et un taux de faux positifs suivi.",
+      "Auditeur : je vérifie la durée de conservation, la protection des journaux et la synchronisation des horloges.",
+      "Risk manager : un faux négatif sur un scénario critique est un risque résiduel à documenter."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Faux positif = alerte sans attaque ; faux négatif = attaque sans alerte (le plus dangereux).",
+      "Le SIEM détecte et corrèle ; le SOAR automatise la réponse.",
+      "Sans synchronisation des horloges, la corrélation et la chronologie sont faussées.",
+      "Les journaux doivent être protégés en intégrité : un journal modifiable n'a pas de valeur de preuve."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Journaliser l'utile : authentifications, droits, configuration, données sensibles, frontières réseau.",
+      "Heure synchronisée, intégrité protégée, conservation définie.",
+      "SIEM : collecte, normalisation, enrichissement, corrélation, alerte.",
+      "Vrai/faux positif, vrai/faux négatif ; UEBA, SOAR, EDR/XDR autour du SIEM."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m2c1-q12",
+      "m2c1-q14"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m2c1-l3",
+   "title": "Le SOC : organisation, triage, chasse et indicateurs",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m2c1_l3_soc.svg",
+   "illustrationAlt": "Dessin d'un poste de surveillance avec trois écrans : une courbe, une carte et une alerte rouge, et un casque posé devant.",
+   "objectives": [
+    "Décrire l'organisation d'un SOC (niveaux 1, 2 et 3) et ses rôles.",
+    "Conduire le triage d'une alerte avec un playbook.",
+    "Distinguer IOC et IOA, et situer la chasse aux menaces et MITRE ATT&CK.",
+    "Suivre un SOC avec des indicateurs comme MTTD et MTTR."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-61 Rev. 3, Incident Response Recommendations and Considerations for Cybersecurity Risk Management",
+     "kind": "general"
+    },
+    {
+     "title": "MITRE ATT&CK, base de connaissances des tactiques et techniques d'attaque",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "L'organisation d'un SOC"
+    },
+    {
+     "type": "diagram",
+     "title": "Le chemin d'une alerte",
+     "alt": "Schéma en quatre étapes : l'alerte arrive, l'analyste de niveau 1 la trie et la qualifie, l'analyste de niveau 2 enquête et contient, le niveau 3 traite les cas complexes, la chasse et l'ingénierie de détection.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🚨",
+        "label": "Alerte",
+        "detail": "SIEM, EDR, utilisateur",
+        "tone": "red"
+       },
+       {
+        "emoji": "🧑‍💻",
+        "label": "Niveau 1",
+        "detail": "trier et qualifier",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🕵️",
+        "label": "Niveau 2",
+        "detail": "enquêter, contenir",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🧠",
+        "label": "Niveau 3",
+        "detail": "cas complexes, chasse",
+        "tone": "green"
+       }
+      ]
+     },
+     "text": "Autour d'eux : l'ingénieur de détection (règles), l'analyste de renseignement sur la menace (CTI) et le responsable du SOC."
+    },
+    {
+     "type": "definition",
+     "title": "Triage",
+     "text": "Première analyse d'une alerte : est-elle fondée, quelle est sa gravité, faut-il escalader ? Le triage s'appuie sur le contexte (actif, utilisateur, historique) et sur un playbook.",
+     "kind": "practice"
+    },
+    {
+     "type": "definition",
+     "title": "Playbook (ou runbook)",
+     "text": "Procédure écrite qui décrit pas à pas le traitement d'un type d'alerte : vérifications, décisions, actions de confinement, personnes à prévenir. Il rend le traitement rapide et homogène.",
+     "kind": "practice"
+    },
+    {
+     "type": "memo",
+     "text": "Les 3 questions du triage : « Est-ce vrai ? Est-ce grave ? À qui je passe la main ? »"
+    },
+    {
+     "type": "heading",
+     "text": "Détecter mieux : indicateurs et chasse"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Notion",
+       "Ce que c'est",
+       "Exemple"
+      ],
+      [
+       "IOC (indicateur de compromission)",
+       "Trace d'une attaque déjà connue",
+       "Empreinte d'un fichier malveillant, adresse IP d'un serveur de commande"
+      ],
+      [
+       "IOA (indicateur d'attaque)",
+       "Comportement qui révèle une attaque en cours, quel que soit l'outil",
+       "Un traitement de texte qui lance un interpréteur de commandes"
+      ],
+      [
+       "Chasse aux menaces (threat hunting)",
+       "Recherche proactive, à partir d'une hypothèse, d'attaques que les alertes n'ont pas vues",
+       "« Un attaquant utilise-t-il des tâches planifiées pour persister ? »"
+      ],
+      [
+       "MITRE ATT&CK",
+       "Base publique de tactiques et techniques observées chez les attaquants",
+       "Mesurer quelles techniques nos règles couvrent"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Point clé",
+     "text": "Un IOC (adresse, empreinte) se change facilement : l'attaquant change d'adresse en quelques minutes. Un comportement (IOA, technique ATT&CK) est beaucoup plus difficile à modifier pour lui. Détecter les comportements gêne davantage l'attaquant."
+    },
+    {
+     "type": "trainerNote",
+     "text": "La chasse commence par une hypothèse, pas par une alerte. Si la chasse trouve quelque chose, on en tire une nouvelle règle de détection : c'est ainsi que le SOC progresse."
+    },
+    {
+     "type": "heading",
+     "text": "Piloter un SOC"
+    },
+    {
+     "type": "diagram",
+     "title": "Temps moyens d'un SOC (exemple)",
+     "alt": "Graphique en barres avec des chiffres d'exemple : temps moyen de détection 6 heures, temps moyen pour qualifier 1 heure, temps moyen de réponse 4 heures.",
+     "diagram": {
+      "type": "bars",
+      "unit": " h",
+      "bars": [
+       {
+        "label": "MTTD",
+        "value": 6,
+        "tone": "orange"
+       },
+       {
+        "label": "Qualification",
+        "value": 1,
+        "tone": "blue"
+       },
+       {
+        "label": "MTTR",
+        "value": 4,
+        "tone": "green"
+       }
+      ]
+     },
+     "text": "Chiffres d'exemple. MTTD : temps moyen entre le début d'un incident et sa détection. MTTR : temps moyen pour y répondre (contenir et remédier). Plus ils baissent, mieux c'est."
+    },
+    {
+     "type": "practice",
+     "title": "Autres indicateurs utiles",
+     "kind": "practice",
+     "items": [
+      "Taux de faux positifs par règle, pour savoir quoi ajuster.",
+      "Couverture des techniques ATT&CK prioritaires par au moins une règle testée.",
+      "Part des sources critiques raccordées au SIEM et sans interruption de collecte.",
+      "Nombre d'alertes en attente et délai de prise en charge."
+     ]
+    },
+    {
+     "type": "risk",
+     "title": "Fatigue d'alerte",
+     "text": "Trop d'alertes peu fiables épuisent les analystes : ils traitent vite, sautent des étapes, et une vraie attaque passe inaperçue. Réglages, automatisation et rotation des tâches sont les remèdes."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : la macro qui lance PowerShell",
+     "kind": "example",
+     "text": "L'EDR signale qu'un document de traitement de texte a lancé PowerShell sur le poste d'une assistante. Le N1 applique le playbook « exécution depuis un document » : il vérifie l'expéditeur du courriel, l'empreinte du fichier et les connexions sortantes. La connexion vers une adresse inconnue confirme l'alerte. Il isole le poste via l'EDR et escalade en N2, qui retrouve le même courriel dans 12 autres boîtes, le supprime partout et bloque le domaine. Le N3 transforme le cas en règle de chasse sur la technique ATT&CK correspondante."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : je suis le MTTD et le MTTR chaque mois et je compare aux objectifs fixés avec la direction.",
+      "Responsable SOC : mes playbooks sont revus après chaque incident important.",
+      "Auditeur : je vérifie que chaque alerte critique a été traitée, avec horodatage et décision.",
+      "Risk manager : le SOC réduit la durée des incidents, donc leur impact ; c'est un contrôle détectif et correctif."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "IOC = trace connue (adresse, empreinte) ; IOA = comportement d'attaque.",
+      "La chasse aux menaces est proactive et part d'une hypothèse ; le triage réagit à une alerte.",
+      "MTTD mesure la détection, MTTR la réponse.",
+      "Le SOC est surtout un contrôle détectif, avec une part corrective (confinement)."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "N1 trie, N2 enquête et contient, N3 traite le complexe, chasse et améliore la détection.",
+      "Playbooks pour un traitement rapide et homogène.",
+      "IOC, IOA, chasse aux menaces, MITRE ATT&CK.",
+      "Indicateurs : MTTD, MTTR, faux positifs, couverture, sources raccordées."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m2c1-q21",
+      "m2c1-q24"
+     ]
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "id": "m2c1-q01",
+   "domain": "operations-security",
+   "level": "beginner",
+   "concept": "Séparation des tâches",
+   "prompt": "Dans une entreprise, la même personne peut créer un fournisseur et valider son paiement. Quel principe n'est pas respecté ?",
+   "choices": [
+    "La rotation des postes",
+    "La séparation des tâches",
+    "Le besoin d'en connaître",
+    "La défense en profondeur"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Répartir les étapes sensibles entre plusieurs personnes empêche une fraude menée seul : c'est la séparation des tâches.",
+   "whyNot": {
+    "0": "La rotation fait changer les personnes de poste ; elle ne sépare pas les étapes.",
+    "2": "Le besoin d'en connaître concerne l'accès à l'information.",
+    "3": "La défense en profondeur empile des couches de protection techniques et organisationnelles."
+   },
+   "kind": "practice"
+  },
+  {
+   "id": "m2c1-q02",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "Contrôles sur les personnes",
+   "prompt": "Quel contrôle sert surtout à DÉTECTER une fraude qui exige la présence quotidienne de son auteur ?",
+   "choices": [
+    "La séparation des tâches",
+    "Les congés obligatoires",
+    "Le double contrôle",
+    "Le moindre privilège"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Pendant les congés imposés, un remplaçant reprend le poste et peut découvrir les anomalies.",
+   "whyNot": {
+    "0": "La séparation des tâches est surtout préventive.",
+    "2": "Le double contrôle est préventif : deux personnes agissent ensemble.",
+    "3": "Le moindre privilège limite les droits ; il ne révèle pas la fraude."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c1-q03",
+   "domain": "operations-security",
+   "level": "beginner",
+   "concept": "Double contrôle",
+   "prompt": "L'ouverture du coffre des clés de chiffrement exige deux personnes présentes en même temps, chacune avec son code. Comment s'appelle ce contrôle ?",
+   "choices": [
+    "Séparation des tâches",
+    "Double contrôle (contrôle à deux personnes)",
+    "Rotation des postes",
+    "Besoin d'en connaître"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Deux personnes doivent agir ensemble, au même moment, pour une même action : c'est le double contrôle.",
+   "whyNot": {
+    "0": "La séparation des tâches répartit des étapes différentes entre des personnes différentes.",
+    "2": "La rotation change les personnes de poste dans le temps.",
+    "3": "Le besoin d'en connaître limite l'accès à l'information."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c1-q04",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "Séparation des tâches",
+   "prompt": "Quelle est la principale faiblesse de la séparation des tâches ?",
+   "choices": [
+    "Elle est interdite par ISO/IEC 27001",
+    "La collusion entre plusieurs personnes",
+    "Elle empêche toute délégation",
+    "Elle impose des congés"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Si les personnes concernées s'entendent, elles peuvent contourner le contrôle : c'est la collusion.",
+   "whyNot": {
+    "0": "La séparation des tâches est au contraire une mesure recommandée.",
+    "2": "Elle encadre la délégation sans l'interdire.",
+    "3": "Les congés obligatoires sont une autre mesure."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c1-q05",
+   "domain": "operations-security",
+   "level": "beginner",
+   "concept": "Gestion des changements",
+   "prompt": "Quelle étape doit précéder la mise en œuvre d'un changement important en production ?",
+   "choices": [
+    "La suppression des journaux",
+    "L'analyse d'impact, l'approbation et un plan de retour arrière",
+    "La désactivation de l'antivirus",
+    "L'information des clients après coup"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Un changement maîtrisé est analysé, approuvé et testé, avec un moyen de revenir en arrière.",
+   "whyNot": {
+    "0": "Supprimer les journaux détruit la traçabilité.",
+    "2": "Désactiver l'antivirus affaiblit la sécurité.",
+    "3": "Informer après coup ne remplace pas l'approbation préalable."
+   },
+   "kind": "practice"
+  },
+  {
+   "id": "m2c1-q06",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "Gestion des changements",
+   "prompt": "Une faille exploitée activement impose une correction immédiate, sans attendre le prochain comité. Que faut-il faire ?",
+   "choices": [
+    "Corriger sans laisser de trace pour aller plus vite",
+    "Appliquer un changement d'urgence approuvé par une personne habilitée, tracé, puis revu après coup",
+    "Attendre le comité malgré l'exploitation",
+    "Laisser chaque administrateur décider seul"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le changement d'urgence est accéléré mais reste approuvé, tracé et régularisé.",
+   "whyNot": {
+    "0": "Un changement sans trace casse la gestion des changements et complique les enquêtes.",
+    "2": "Attendre laisse l'exploitation se poursuivre.",
+    "3": "Une décision isolée et non encadrée crée un risque d'erreur et de malveillance."
+   },
+   "kind": "practice"
+  },
+  {
+   "id": "m2c1-q07",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "Configuration de référence",
+   "prompt": "Un outil compare chaque nuit la configuration des serveurs à leur état approuvé et signale les écarts. Quelle notion est utilisée ?",
+   "choices": [
+    "Une configuration de référence (baseline) et la détection des dérives",
+    "Un plan de continuité",
+    "Une analyse de risque quantitative",
+    "Un test d'intrusion"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "La configuration de référence est l'état approuvé ; tout écart (dérive) doit correspondre à un changement autorisé.",
+   "whyNot": {
+    "1": "Le plan de continuité vise la reprise d'activité.",
+    "2": "L'analyse quantitative chiffre les risques.",
+    "3": "Le test d'intrusion simule une attaque ponctuelle."
+   },
+   "kind": "practice"
+  },
+  {
+   "id": "m2c1-q08",
+   "domain": "operations-security",
+   "level": "beginner",
+   "concept": "Inventaire des actifs",
+   "prompt": "Pourquoi l'inventaire des actifs est-il un prérequis des opérations de sécurité ?",
+   "choices": [
+    "Parce qu'on ne peut pas protéger ni surveiller ce qu'on ne connaît pas",
+    "Parce qu'il remplace le pare-feu",
+    "Parce qu'il chiffre les données",
+    "Parce qu'il supprime les vulnérabilités"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Sans inventaire, des systèmes restent sans correctifs, sans surveillance et sans propriétaire.",
+   "whyNot": {
+    "1": "L'inventaire ne filtre aucun trafic.",
+    "2": "L'inventaire ne chiffre rien.",
+    "3": "L'inventaire aide à trouver les vulnérabilités, il ne les supprime pas."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c1-q09",
+   "domain": "operations-security",
+   "level": "advanced",
+   "concept": "Contrôles sur les personnes",
+   "prompt": "Parmi ces contrôles, lesquels sont principalement DÉTECTIFS ? (2 réponses)",
+   "choices": [
+    "La rotation des postes",
+    "Les congés obligatoires",
+    "La séparation des tâches",
+    "Le double contrôle"
+   ],
+   "correct": [
+    0,
+    1
+   ],
+   "explanation": "Rotation et congés obligatoires font intervenir une autre personne sur le poste, qui peut découvrir une fraude.",
+   "whyNot": {
+    "2": "La séparation des tâches empêche la fraude seule : elle est préventive.",
+    "3": "Le double contrôle empêche l'action isolée : il est préventif."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c1-q10",
+   "domain": "operations-security",
+   "level": "advanced",
+   "concept": "Informatique de l'ombre",
+   "prompt": "Le SOC découvre un serveur inconnu, installé par une équipe métier, exposé sur Internet. Quelles actions sont prioritaires ? (2 réponses)",
+   "choices": [
+    "L'identifier et l'intégrer à l'inventaire avec un propriétaire",
+    "Vérifier son exposition et ses vulnérabilités, puis le raccorder à la surveillance",
+    "L'ignorer puisqu'il n'est pas officiel",
+    "Supprimer immédiatement toutes ses données sans prévenir personne"
+   ],
+   "correct": [
+    0,
+    1
+   ],
+   "explanation": "Un actif de l'ombre doit être connu, évalué et surveillé ; la décision de le garder ou de le retirer se prend ensuite avec son propriétaire.",
+   "whyNot": {
+    "2": "L'ignorer laisse une porte ouverte.",
+    "3": "Une suppression brutale peut détruire des données métier et des preuves."
+   },
+   "kind": "example"
+  },
+  {
+   "id": "m2c1-q11",
+   "domain": "operations-security",
+   "level": "beginner",
+   "concept": "Journalisation",
+   "prompt": "Pourquoi faut-il synchroniser les horloges (NTP) de tous les systèmes qui produisent des journaux ?",
+   "choices": [
+    "Pour accélérer le réseau",
+    "Pour pouvoir corréler les événements et reconstituer une chronologie fiable",
+    "Pour chiffrer les journaux",
+    "Pour réduire le volume des journaux"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Des horloges décalées faussent la corrélation et la chronologie d'une enquête.",
+   "whyNot": {
+    "0": "La synchronisation n'accélère pas le réseau.",
+    "2": "Le chiffrement est une autre mesure.",
+    "3": "Le volume ne dépend pas de l'heure."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c1-q12",
+   "domain": "operations-security",
+   "level": "beginner",
+   "concept": "Détection",
+   "prompt": "Une attaque réelle a lieu, mais aucune alerte n'est levée. De quoi s'agit-il ?",
+   "choices": [
+    "Un faux positif",
+    "Un faux négatif",
+    "Un vrai positif",
+    "Un vrai négatif"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Une attaque non détectée est un faux négatif : c'est le cas le plus dangereux.",
+   "whyNot": {
+    "0": "Un faux positif est une alerte sans attaque.",
+    "2": "Un vrai positif est une attaque correctement détectée.",
+    "3": "Un vrai négatif est l'absence d'alerte quand il n'y a pas d'attaque."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c1-q13",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "Détection",
+   "prompt": "Une règle génère 300 alertes par jour, dont 299 concernent un outil de sauvegarde légitime. Quel est le problème et la bonne réaction ?",
+   "choices": [
+    "Faux négatifs ; supprimer la règle",
+    "Faux positifs ; ajuster la règle (exclusion documentée de l'outil) et suivre son efficacité",
+    "Vrais positifs ; isoler le serveur de sauvegarde",
+    "Vrais négatifs ; ne rien faire"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Des alertes sans attaque sont des faux positifs ; on ajuste la règle de façon documentée, sans la supprimer.",
+   "whyNot": {
+    "0": "Il s'agit d'alertes en trop, pas d'attaques manquées ; supprimer la règle créerait des faux négatifs.",
+    "2": "L'outil est légitime : isoler le serveur serait une erreur.",
+    "3": "Des alertes inutiles fatiguent les analystes : il faut agir."
+   },
+   "kind": "example"
+  },
+  {
+   "id": "m2c1-q14",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "SIEM",
+   "prompt": "Dans un SIEM, quelle étape transforme des journaux de formats différents en un format commun ?",
+   "choices": [
+    "La corrélation",
+    "La normalisation",
+    "L'archivage",
+    "Le chiffrement"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La normalisation met les champs (date, utilisateur, adresse) dans un format commun pour permettre la recherche et la corrélation.",
+   "whyNot": {
+    "0": "La corrélation rapproche des événements déjà normalisés.",
+    "2": "L'archivage conserve les journaux.",
+    "3": "Le chiffrement protège la confidentialité."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c1-q15",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "Intégrité des journaux",
+   "prompt": "Quelle mesure protège le mieux les journaux contre un administrateur malveillant qui voudrait effacer ses traces ?",
+   "choices": [
+    "Conserver les journaux uniquement sur le serveur local",
+    "Les envoyer en temps réel vers un SIEM centralisé, sur un stockage non modifiable, géré par une autre équipe",
+    "Les compresser chaque nuit",
+    "Réduire la durée de conservation à 24 heures"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La centralisation immédiate, la séparation des tâches et un stockage non réinscriptible préservent l'intégrité des journaux.",
+   "whyNot": {
+    "0": "Un administrateur local peut effacer les journaux locaux.",
+    "2": "La compression ne protège pas contre la modification.",
+    "3": "Une conservation courte détruit des preuves utiles."
+   },
+   "kind": "practice"
+  },
+  {
+   "id": "m2c1-q16",
+   "domain": "operations-security",
+   "level": "advanced",
+   "concept": "SOAR",
+   "prompt": "Quelles affirmations sur le SOAR sont exactes ? (2 réponses)",
+   "choices": [
+    "Il automatise des actions de réponse à l'aide de playbooks",
+    "Il orchestre plusieurs outils (EDR, pare-feu, messagerie)",
+    "Il remplace la journalisation",
+    "Il rend inutiles les analystes"
+   ],
+   "correct": [
+    0,
+    1
+   ],
+   "explanation": "Le SOAR orchestre les outils et automatise les tâches répétitives de réponse ; les analystes gardent la décision sur les cas complexes.",
+   "whyNot": {
+    "2": "Le SOAR s'appuie sur les alertes et journaux, il ne les remplace pas.",
+    "3": "Il soulage les analystes mais ne les remplace pas."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c1-q17",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "UEBA",
+   "prompt": "Un outil signale qu'un comptable télécharge pour la première fois 10 Go de données à 3 h du matin. Quel type d'analyse a produit cette alerte ?",
+   "choices": [
+    "Une analyse de signature antivirale",
+    "Une analyse comportementale des utilisateurs et des entités (UEBA)",
+    "Un scan de vulnérabilités",
+    "Un test de restauration"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "L'UEBA apprend le comportement habituel et signale les écarts significatifs.",
+   "whyNot": {
+    "0": "Une signature reconnaît un fichier connu, pas un comportement inhabituel.",
+    "2": "Un scan de vulnérabilités recherche des failles.",
+    "3": "Un test de restauration vérifie les sauvegardes."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c1-q18",
+   "domain": "operations-security",
+   "level": "beginner",
+   "concept": "Journalisation",
+   "prompt": "Quel événement est le PLUS important à journaliser et à surveiller ?",
+   "choices": [
+    "L'ouverture du menu Démarrer",
+    "L'ajout d'un compte dans le groupe des administrateurs du domaine",
+    "Le changement de fond d'écran",
+    "L'impression d'une page de test"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Les modifications de comptes et de groupes à privilèges sont des événements critiques pour la sécurité.",
+   "whyNot": {
+    "0": "Cet événement n'a pas d'intérêt de sécurité.",
+    "2": "Le fond d'écran n'a pas d'intérêt de sécurité.",
+    "3": "Une page de test n'est pas un événement critique."
+   },
+   "kind": "practice"
+  },
+  {
+   "id": "m2c1-q19",
+   "domain": "operations-security",
+   "level": "advanced",
+   "concept": "Journalisation",
+   "prompt": "Quelles conditions donnent à un journal une valeur de preuve lors d'une enquête ? (2 réponses)",
+   "choices": [
+    "Un horodatage fiable, issu d'horloges synchronisées",
+    "Une protection de l'intégrité (stockage non modifiable, empreintes)",
+    "Un format de fichier propriétaire",
+    "Une couleur différente pour chaque source"
+   ],
+   "correct": [
+    0,
+    1
+   ],
+   "explanation": "Un journal fiable doit être correctement daté et ne pas avoir pu être modifié.",
+   "whyNot": {
+    "2": "Le format n'apporte pas de garantie d'intégrité.",
+    "3": "L'affichage n'a aucun effet sur la valeur de preuve."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c1-q20",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "SIEM",
+   "prompt": "Quelle règle de corrélation est la plus pertinente pour détecter un compte compromis ?",
+   "choices": [
+    "Une alerte à chaque connexion réussie",
+    "Plusieurs échecs puis une réussite sur le même compte, suivie d'une connexion depuis un pays inhabituel",
+    "Une alerte à chaque impression",
+    "Une alerte à chaque redémarrage planifié"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La corrélation combine plusieurs signaux faibles pour reconnaître un scénario crédible.",
+   "whyNot": {
+    "0": "Une alerte par connexion produirait un flot de faux positifs.",
+    "2": "Les impressions ne signalent pas une compromission de compte.",
+    "3": "Un redémarrage planifié est attendu."
+   },
+   "kind": "example"
+  },
+  {
+   "id": "m2c1-q21",
+   "domain": "operations-security",
+   "level": "beginner",
+   "concept": "Organisation du SOC",
+   "prompt": "Quel est le rôle principal d'un analyste SOC de niveau 1 ?",
+   "choices": [
+    "Écrire la politique de sécurité",
+    "Trier et qualifier les alertes, puis escalader si nécessaire",
+    "Négocier les contrats d'assurance",
+    "Développer les applications métier"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le niveau 1 reçoit les alertes, vérifie si elles sont fondées, évalue leur gravité et escalade.",
+   "whyNot": {
+    "0": "La politique relève de la gouvernance (RSSI, direction).",
+    "2": "L'assurance relève de la gestion des risques.",
+    "3": "Le développement n'est pas une mission du SOC."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c1-q22",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "Indicateurs",
+   "prompt": "Que mesure le MTTD ?",
+   "choices": [
+    "Le temps moyen entre le début d'un incident et sa détection",
+    "Le temps moyen de restauration d'une sauvegarde",
+    "Le nombre de règles du SIEM",
+    "La durée de conservation des journaux"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "MTTD (Mean Time To Detect) : temps moyen pour détecter un incident.",
+   "whyNot": {
+    "1": "La restauration relève de la continuité ; le temps de réponse est le MTTR.",
+    "2": "Le nombre de règles n'est pas un temps.",
+    "3": "La conservation est une durée de stockage, pas un temps de détection."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c1-q23",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "IOC et IOA",
+   "prompt": "Lequel de ces éléments est un indicateur d'attaque (IOA) plutôt qu'un indicateur de compromission (IOC) ?",
+   "choices": [
+    "L'empreinte SHA-256 d'un fichier malveillant connu",
+    "L'adresse IP d'un serveur de commande connu",
+    "Un traitement de texte qui lance un interpréteur de commandes",
+    "Un nom de domaine malveillant listé par un fournisseur"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Un IOA décrit un comportement d'attaque, indépendant de l'outil utilisé ; les autres sont des traces connues (IOC).",
+   "whyNot": {
+    "0": "Une empreinte connue est un IOC.",
+    "1": "Une adresse connue est un IOC.",
+    "3": "Un domaine listé est un IOC."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c1-q24",
+   "domain": "operations-security",
+   "level": "beginner",
+   "concept": "Chasse aux menaces",
+   "prompt": "Qu'est-ce qui caractérise la chasse aux menaces (threat hunting) ?",
+   "choices": [
+    "Une recherche proactive, à partir d'une hypothèse, d'attaques non détectées",
+    "Le traitement des alertes dans l'ordre d'arrivée",
+    "Un audit de conformité annuel",
+    "L'achat de listes d'adresses malveillantes"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "La chasse part d'une hypothèse et cherche activement ce que les alertes n'ont pas vu.",
+   "whyNot": {
+    "1": "Traiter les alertes est le triage, une activité réactive.",
+    "2": "L'audit vérifie la conformité, il ne cherche pas d'attaquant.",
+    "3": "Les listes d'indicateurs alimentent la détection, ce n'est pas la chasse."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c1-q25",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "MITRE ATT&CK",
+   "prompt": "Comment un SOC utilise-t-il le plus souvent MITRE ATT&CK ?",
+   "choices": [
+    "Pour certifier ses analystes",
+    "Pour mesurer quelles tactiques et techniques d'attaque ses règles détectent",
+    "Pour chiffrer ses journaux",
+    "Pour calculer l'ALE"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "ATT&CK décrit les tactiques et techniques des attaquants ; le SOC s'en sert pour cartographier sa couverture de détection et orienter la chasse.",
+   "whyNot": {
+    "0": "ATT&CK n'est pas un programme de certification.",
+    "2": "ATT&CK n'a pas de rôle de chiffrement.",
+    "3": "L'ALE relève de l'analyse quantitative des risques."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c1-q26",
+   "domain": "operations-security",
+   "level": "advanced",
+   "concept": "Indicateurs",
+   "prompt": "Quels indicateurs aident à piloter un SOC ? (2 réponses)",
+   "choices": [
+    "Le MTTR (temps moyen de réponse)",
+    "Le taux de faux positifs par règle",
+    "Le nombre de pages de la politique de sécurité",
+    "Le nombre de fonds d'écran déployés"
+   ],
+   "correct": [
+    0,
+    1
+   ],
+   "explanation": "Les temps de détection et de réponse, et la qualité des règles, mesurent l'efficacité du SOC.",
+   "whyNot": {
+    "2": "La longueur d'une politique ne mesure pas l'efficacité opérationnelle.",
+    "3": "Cet indicateur n'a pas de lien avec la sécurité."
+   },
+   "kind": "practice"
+  },
+  {
+   "id": "m2c1-q27",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "Playbook",
+   "prompt": "Quel est le principal intérêt d'un playbook pour un SOC ?",
+   "choices": [
+    "Remplacer le SIEM",
+    "Rendre le traitement d'un type d'alerte rapide, complet et homogène",
+    "Supprimer le besoin de journaux",
+    "Éviter toute escalade"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le playbook décrit les vérifications et actions à mener : chaque analyste traite le cas de la même façon, sans oublier d'étape.",
+   "whyNot": {
+    "0": "Le playbook s'appuie sur le SIEM, il ne le remplace pas.",
+    "2": "Les journaux restent indispensables à l'analyse.",
+    "3": "Le playbook prévoit justement quand escalader."
+   },
+   "kind": "practice"
+  },
+  {
+   "id": "m2c1-q28",
+   "domain": "operations-security",
+   "level": "advanced",
+   "concept": "Triage",
+   "prompt": "L'EDR signale qu'un document a lancé PowerShell, qui contacte une adresse inconnue. Quelles actions immédiates sont appropriées ? (2 réponses)",
+   "choices": [
+    "Isoler le poste du réseau via l'EDR",
+    "Rechercher le même courriel ou fichier sur les autres postes et boîtes de messagerie",
+    "Redémarrer le poste pour effacer la mémoire",
+    "Clôturer l'alerte car l'utilisateur dit n'avoir rien fait"
+   ],
+   "correct": [
+    0,
+    1
+   ],
+   "explanation": "On contient en isolant le poste, puis on mesure l'étendue en cherchant les mêmes indicateurs ailleurs.",
+   "whyNot": {
+    "2": "Redémarrer efface des preuves utiles en mémoire.",
+    "3": "L'utilisateur ne voit généralement pas l'exécution malveillante : son avis ne suffit pas."
+   },
+   "kind": "example"
+  },
+  {
+   "id": "m2c1-q29",
+   "domain": "operations-security",
+   "level": "beginner",
+   "concept": "Fatigue d'alerte",
+   "prompt": "Quel est le principal danger de la fatigue d'alerte ?",
+   "choices": [
+    "Une hausse du coût des licences",
+    "Une vraie attaque noyée dans le bruit et traitée trop vite",
+    "Des journaux trop petits",
+    "Un pare-feu trop strict"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Submergés, les analystes sautent des étapes et finissent par manquer une alerte réelle.",
+   "whyNot": {
+    "0": "Le coût n'est pas le principal danger.",
+    "2": "La taille des journaux n'est pas en cause.",
+    "3": "La fatigue d'alerte concerne les analystes, pas le pare-feu."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c1-q30",
+   "domain": "operations-security",
+   "level": "intermediate",
+   "concept": "Nature du SOC",
+   "prompt": "Dans la classification des contrôles, comment qualifier principalement un SOC ?",
+   "choices": [
+    "Un contrôle dissuasif uniquement",
+    "Un contrôle détectif, avec une part corrective lors du confinement",
+    "Un contrôle compensatoire uniquement",
+    "Un contrôle physique"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le SOC détecte les incidents et contribue à les corriger en les contenant rapidement.",
+   "whyNot": {
+    "0": "Sa présence peut dissuader, mais ce n'est pas son rôle principal.",
+    "2": "Il peut compenser une faiblesse, mais sa fonction première est la détection.",
+    "3": "Le SOC est un contrôle technique et organisationnel, pas physique."
+   },
+   "kind": "general"
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "m2c1-f01",
+   "front": "Séparation des tâches",
+   "back": "Répartir une tâche sensible entre plusieurs personnes. Préventif. Faiblesse : la collusion.",
+   "concept": "Séparation des tâches"
+  },
+  {
+   "id": "m2c1-f02",
+   "front": "Double contrôle",
+   "back": "Deux personnes doivent agir ensemble, au même moment (coffre, clé maîtresse).",
+   "concept": "Double contrôle"
+  },
+  {
+   "id": "m2c1-f03",
+   "front": "Rotation et congés obligatoires",
+   "back": "Contrôles surtout détectifs : un remplaçant découvre la fraude.",
+   "concept": "Contrôles sur les personnes"
+  },
+  {
+   "id": "m2c1-f04",
+   "front": "Gestion des changements",
+   "back": "Demande, analyse, approbation, test et retour arrière, mise en œuvre, revue.",
+   "concept": "Gestion des changements"
+  },
+  {
+   "id": "m2c1-f05",
+   "front": "Changement d'urgence",
+   "back": "Accéléré mais approuvé, tracé, puis régularisé et revu.",
+   "concept": "Gestion des changements"
+  },
+  {
+   "id": "m2c1-f06",
+   "front": "Baseline",
+   "back": "Configuration de référence approuvée ; tout écart est une dérive à expliquer.",
+   "concept": "Configuration de référence"
+  },
+  {
+   "id": "m2c1-f07",
+   "front": "Inventaire des actifs",
+   "back": "On ne protège pas ce qu'on ne connaît pas.",
+   "concept": "Inventaire des actifs"
+  },
+  {
+   "id": "m2c1-f08",
+   "front": "Journal utile",
+   "back": "Heure synchronisée (NTP), intégrité protégée, durée de conservation définie.",
+   "concept": "Journalisation"
+  },
+  {
+   "id": "m2c1-f09",
+   "front": "SIEM",
+   "back": "Collecte, normalisation, enrichissement, corrélation, alerte.",
+   "concept": "SIEM"
+  },
+  {
+   "id": "m2c1-f10",
+   "front": "Faux positif",
+   "back": "Alerte sans attaque réelle. Source de fatigue d'alerte.",
+   "concept": "Détection"
+  },
+  {
+   "id": "m2c1-f11",
+   "front": "Faux négatif",
+   "back": "Attaque réelle sans alerte. Le cas le plus dangereux.",
+   "concept": "Détection"
+  },
+  {
+   "id": "m2c1-f12",
+   "front": "UEBA",
+   "back": "Détecte les écarts au comportement habituel des utilisateurs et machines.",
+   "concept": "UEBA"
+  },
+  {
+   "id": "m2c1-f13",
+   "front": "SOAR",
+   "back": "Orchestre les outils et automatise la réponse via des playbooks.",
+   "concept": "SOAR"
+  },
+  {
+   "id": "m2c1-f14",
+   "front": "N1 / N2 / N3",
+   "back": "N1 trie ; N2 enquête et contient ; N3 cas complexes, chasse, détection.",
+   "concept": "Organisation du SOC"
+  },
+  {
+   "id": "m2c1-f15",
+   "front": "Playbook",
+   "back": "Procédure pas à pas pour traiter un type d'alerte.",
+   "concept": "Playbook"
+  },
+  {
+   "id": "m2c1-f16",
+   "front": "IOC",
+   "back": "Trace connue : empreinte, adresse IP, domaine.",
+   "concept": "IOC et IOA"
+  },
+  {
+   "id": "m2c1-f17",
+   "front": "IOA",
+   "back": "Comportement d'attaque, indépendant de l'outil.",
+   "concept": "IOC et IOA"
+  },
+  {
+   "id": "m2c1-f18",
+   "front": "Threat hunting",
+   "back": "Recherche proactive, à partir d'une hypothèse, d'attaques non détectées.",
+   "concept": "Chasse aux menaces"
+  },
+  {
+   "id": "m2c1-f19",
+   "front": "MITRE ATT&CK",
+   "back": "Base de tactiques et techniques d'attaque ; sert à mesurer la couverture de détection.",
+   "concept": "MITRE ATT&CK"
+  },
+  {
+   "id": "m2c1-f20",
+   "front": "MTTD / MTTR",
+   "back": "Temps moyen de détection / de réponse.",
+   "concept": "Indicateurs"
+  }
+ ],
+ "revisionSheet": [
+  "# Fiche de révision : opérations de sécurité, journalisation, SIEM et SOC",
+  "Contrôles sur les personnes : séparation des tâches et double contrôle (préventifs), rotation et congés obligatoires (détectifs), moindre privilège.",
+  "Séparation des tâches : faiblesse = collusion. Double contrôle : deux personnes en même temps pour une même action.",
+  "Gestion des changements : demande → analyse d'impact → approbation → test et retour arrière → mise en œuvre → revue. Urgence : tracée et régularisée.",
+  "Configuration de référence (baseline) et détection des dérives ; inventaire des actifs avec propriétaire ; attention à l'informatique de l'ombre.",
+  "Journaliser : authentifications, comptes et droits, configuration, arrêt des outils de sécurité, données sensibles, frontières réseau.",
+  "Journal utile : heure synchronisée (NTP), intégrité (centralisation, stockage non modifiable), conservation définie.",
+  "SIEM : collecte → normalisation → enrichissement → corrélation → alerte.",
+  "Faux positif = alerte sans attaque ; faux négatif = attaque sans alerte (le pire). Ajuster les règles sans créer de faux négatifs.",
+  "UEBA : comportement ; SOAR : automatisation de la réponse ; EDR/XDR : détection et réponse sur postes et sources multiples.",
+  "SOC : N1 trie, N2 enquête et contient, N3 cas complexes, chasse et ingénierie de détection. Playbooks pour homogénéiser.",
+  "IOC = trace connue ; IOA = comportement. Chasse = proactive, part d'une hypothèse. MITRE ATT&CK = carte des techniques.",
+  "Indicateurs : MTTD (détection), MTTR (réponse), taux de faux positifs, couverture ATT&CK, sources raccordées.",
+  "Le SOC est surtout un contrôle détectif, avec une part corrective (confinement).",
+  "Paires à ne pas confondre : séparation des tâches/double contrôle ; faux positif/faux négatif ; SIEM/SOAR ; IOC/IOA ; triage/chasse ; MTTD/MTTR."
+ ]
+}

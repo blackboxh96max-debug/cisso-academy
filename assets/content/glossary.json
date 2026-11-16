@@ -738,5 +738,107 @@
   "definition": "Processus de gestion du cycle de vie des identités et des droits.",
   "example": "Le départ RH déclenche la désactivation automatique du compte.",
   "kind": "general"
+ },
+ {
+  "id": "separation-of-duties",
+  "en": "Separation of duties",
+  "fr": "Séparation des tâches",
+  "acronym": "SoD",
+  "definition": "Répartition d'une tâche sensible entre plusieurs personnes pour empêcher une fraude menée seul.",
+  "example": "La personne qui crée un fournisseur ne peut pas valider son paiement.",
+  "kind": "general"
+ },
+ {
+  "id": "two-person-control",
+  "en": "Two-person control",
+  "fr": "Double contrôle",
+  "definition": "Exigence que deux personnes agissent ensemble, au même moment, pour une action critique.",
+  "example": "Ouverture du coffre des clés avec deux codes.",
+  "kind": "general"
+ },
+ {
+  "id": "change-management",
+  "en": "Change management",
+  "fr": "Gestion des changements",
+  "definition": "Processus de demande, d'analyse, d'approbation, de test, de mise en œuvre et de revue des modifications.",
+  "example": "Comité des changements hebdomadaire.",
+  "kind": "general"
+ },
+ {
+  "id": "soar",
+  "en": "Security Orchestration, Automation and Response",
+  "fr": "Orchestration, automatisation et réponse de sécurité",
+  "acronym": "SOAR",
+  "definition": "Plateforme qui orchestre les outils de sécurité et automatise la réponse à l'aide de playbooks.",
+  "example": "Isolement automatique d'un poste après une alerte confirmée.",
+  "kind": "general"
+ },
+ {
+  "id": "ueba",
+  "en": "User and Entity Behavior Analytics",
+  "fr": "Analyse du comportement des utilisateurs et des entités",
+  "acronym": "UEBA",
+  "definition": "Analyse qui apprend le comportement habituel et signale les écarts.",
+  "example": "Téléchargement massif inhabituel en pleine nuit.",
+  "kind": "general"
+ },
+ {
+  "id": "false-positive",
+  "en": "False positive",
+  "fr": "Faux positif",
+  "definition": "Alerte levée alors qu'il n'y a pas d'attaque.",
+  "example": "Une sauvegarde légitime déclenche une alerte d'exfiltration.",
+  "kind": "general"
+ },
+ {
+  "id": "false-negative",
+  "en": "False negative",
+  "fr": "Faux négatif",
+  "definition": "Attaque réelle qui ne déclenche aucune alerte.",
+  "example": "Une intrusion découverte des mois plus tard.",
+  "kind": "general"
+ },
+ {
+  "id": "ioc",
+  "en": "Indicator of Compromise",
+  "fr": "Indicateur de compromission",
+  "acronym": "IOC",
+  "definition": "Trace technique d'une attaque connue (empreinte, adresse, domaine).",
+  "example": "Adresse IP d'un serveur de commande.",
+  "kind": "general"
+ },
+ {
+  "id": "ioa",
+  "en": "Indicator of Attack",
+  "fr": "Indicateur d'attaque",
+  "acronym": "IOA",
+  "definition": "Comportement révélant une attaque en cours, indépendamment de l'outil utilisé.",
+  "example": "Un document qui lance un interpréteur de commandes.",
+  "kind": "general"
+ },
+ {
+  "id": "threat-hunting",
+  "en": "Threat hunting",
+  "fr": "Chasse aux menaces",
+  "definition": "Recherche proactive, fondée sur une hypothèse, d'attaques non détectées.",
+  "example": "Rechercher des tâches planifiées suspectes sur tout le parc.",
+  "kind": "general"
+ },
+ {
+  "id": "ntp",
+  "en": "Network Time Protocol",
+  "fr": "Protocole de synchronisation de l'heure",
+  "acronym": "NTP",
+  "definition": "Protocole qui synchronise les horloges des systèmes sur une source de temps de référence.",
+  "example": "Tous les serveurs se synchronisent sur deux serveurs NTP internes.",
+  "kind": "general"
+ },
+ {
+  "id": "mitre-attack",
+  "en": "MITRE ATT&CK",
+  "fr": "MITRE ATT&CK",
+  "definition": "Base de connaissances publique des tactiques et techniques observées chez les attaquants.",
+  "example": "Carte de couverture des règles du SOC.",
+  "kind": "general"
  }
 ]
