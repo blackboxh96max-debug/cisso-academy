@@ -37,6 +37,22 @@ Glossaire : 50 termes.
 | Glossaire : 32 termes | Fait, **à relire** | `assets/content/glossary.json` |
 | Compilation Android, Linux, Windows, macOS | Configurée, **à confirmer par la première exécution GitHub Actions** | `.github/workflows/build.yml` |
 
+## Design « cahier manuscrit » : phase 1 (tableau de bord et chapitre modèle)
+
+| Élément | État | Preuve |
+|---|---|---|
+| Polices manuscrites embarquées hors ligne (Caveat, Patrick Hand, Kalam) + Nunito et JetBrains Mono, licences OFL incluses | Fait | `assets/fonts/`, `pubspec.yaml` |
+| Code couleur fixe (bleu définitions, violet important, vert bonnes pratiques, orange à retenir, rouge risques, jaune notes, turquoise exemples, rose pièges) | Fait | `lib/ui/notebook/palette.dart` |
+| Papier crème ligné, encadrés à contour dessiné à la main, post-it pour notes et mémos | Fait | `lib/ui/notebook/` + captures |
+| Nouveaux blocs de leçon : note du formateur, mémorisation, important, bonne pratique, risque, schéma, illustration, petit test | Fait | `test/content_test.dart`, `test/widget_test.dart` |
+| Schémas interactifs : chaîne, cycle, matrice 5×5, barres, grille 2×2 ; description accessible obligatoire | Fait | `lib/ui/notebook/diagrams.dart`, validation dans `content_loader.dart` |
+| Chapitre modèle « Gestion des risques » enrichi : 3 illustrations, 5 schémas, notes, mémos, petits tests | Fait, **à valider** | `assets/content/m1c1_risques.json`, `assets/illustrations/` |
+| Tableau de bord : illustration d'accueil, anneau de progression, 5 modules colorés, courbe des scores, radar des 11 domaines, camembert, maîtrise des chapitres, 8 badges, objectif du jour (20 réponses), série de jours, accès rapide ; 2 colonnes sur grand écran | Fait, **à valider** | `lib/ui/dashboard_page.dart`, `test/stats_test.dart` |
+| Flashcards façon fiche bristol : retournement 3D, couleur du module, difficulté, animation « carte maîtrisée » | Fait | `lib/ui/flashcards_page.dart`, `test/widget_test.dart` |
+| Animations légères désactivables (Réglages) et respect du réglage système « réduire les animations » | Fait | `test/widget_test.dart`, migration SQLite v2 testée dans `test/sqlite_store_test.dart` |
+| Application du design aux autres chapitres, schémas par chapitre (OSI, PDCA, SOC, IR, PKI, PCA/PRA, RTO/RPO, Zero Trust…) | À faire, après validation | |
+| Essai sur un vrai téléphone Android et sur ordinateur (hors aperçu web) | À faire | |
+
 ## Écarts connus et décisions
 
 - **5 modules / 11 domaines** : l'application affiche les 5 modules du cahier des charges ; chaque chapitre et chaque question est rattaché à l'un des 11 domaines officiels du blueprint MILE2 (poids vérifiés le 2026-11-16). La sécurité physique n'a pas de domaine propre dans le blueprint.
@@ -44,6 +60,7 @@ Glossaire : 50 termes.
 - **Fiches de révision** : consultables et copiables ; l'export en fichier arrivera avec l'import/export (étape 4).
 - **Examen blanc** : limité à la banque disponible (54 questions) jusqu'à la fin de l'étape 2.
 - **Ressources vidéo** : pas encore de bibliothèque ; aucune vidéo ne sera listée sans vérification.
+- **Emoji des encadrés** : affichés par la police emoji du système (Android, Windows, macOS en ont une). Sur Linux, il faut le paquet Noto Color Emoji ; sinon des carrés vides peuvent apparaître.
 - **Signature** : APK signé avec la clé de débogage ; applications ordinateur non signées.
 
 ## Comment lancer les tests

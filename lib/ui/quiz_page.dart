@@ -444,9 +444,21 @@ class QuestionCorrection extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(
-                  ok ? Icons.check_circle : Icons.cancel,
-                  color: successColor(ok, scheme),
+                // Petit effet de réussite (désactivable dans les réglages).
+                TweenAnimationBuilder<double>(
+                  tween: Tween(
+                    begin: ok && animationsOn(context) ? 0.3 : 1,
+                    end: 1,
+                  ),
+                  duration: const Duration(milliseconds: 600),
+                  curve: Curves.elasticOut,
+                  builder: (_, v, child) =>
+                      Transform.scale(scale: v, child: child),
+                  child: Icon(
+                    ok ? Icons.check_circle : Icons.cancel,
+                    color: successColor(ok, scheme),
+                    size: ok ? 30 : 24,
+                  ),
                 ),
                 const SizedBox(width: 8),
                 Expanded(

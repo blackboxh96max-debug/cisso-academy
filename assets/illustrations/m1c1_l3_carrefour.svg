@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <g stroke="#26324A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M120 22 C121 70 119 120 120 166" fill="none" />
+    <path d="M92 168 C110 165 132 165 150 169" fill="none" />
+    <path d="M124 30 L196 28 L214 40 L196 52 L124 52 Z" fill="#C9F0D5" />
+    <path d="M116 60 L50 58 L32 70 L50 82 L116 82 Z" fill="#E9DDFB" />
+    <path d="M124 90 L192 92 L210 104 L192 116 L124 114 Z" fill="#FFD0D0" />
+    <path d="M116 122 L54 120 L36 132 L54 144 L116 144 Z" fill="#DCEBFF" />
+  </g>
+  <g font-family="Caveat, cursive" font-size="17" font-weight="700" fill="#26324A">
+    <text x="136" y="46">Réduire</text>
+    <text x="54" y="76">Transférer</text>
+    <text x="140" y="109">Éviter</text>
+    <text x="58" y="138">Accepter</text>
+  </g>
+  <path d="M60 20 C70 12 82 14 86 22" stroke="#E08A00" stroke-width="2.4" fill="none" stroke-linecap="round" />
+  <circle cx="54" cy="24" r="4" fill="#E08A00" />
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 180" width="260" height="180">
+  <!-- cahier ouvert -->
+  <g stroke="#26324A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 46 C60 36 100 38 130 54 C160 38 200 36 240 46 L238 150 C200 140 160 142 130 158 C100 142 60 140 22 150 Z" fill="#FFFBF2" />
+    <path d="M130 54 L130 158" fill="none" />
+  </g>
+  <g stroke="#9DB4D8" stroke-width="1.6" stroke-linecap="round">
+    <path d="M36 70 C60 66 90 68 116 76" /><path d="M36 86 C60 82 90 84 116 92" /><path d="M36 102 C60 98 90 100 116 108" /><path d="M36 118 C60 114 90 116 116 124" />
+  </g>
+  <!-- bouclier -->
+  <g stroke="#2D5BA8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M186 64 C196 70 208 70 216 66 C218 96 210 116 186 128 C162 116 154 96 156 66 C164 70 176 70 186 64 Z" fill="#BFD7FF" />
+    <path d="M172 96 L183 107 L202 84" fill="none" stroke="#1E8C5A" stroke-width="4" />
+  </g>
+  <!-- crayon -->
+  <g stroke="#26324A" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M60 150 L150 20 L164 30 L74 160 Z" fill="#FFE08A" />
+    <path d="M60 150 L56 170 L74 160" fill="#F2C9A0" />
+    <path d="M150 20 L156 12 L170 22 L164 30" fill="#FF9DB8" />
+  </g>
+  <g fill="#E08A00"><circle cx="230" cy="24" r="3" /><circle cx="214" cy="14" r="2" /><circle cx="244" cy="36" r="2" /></g>
+</svg>

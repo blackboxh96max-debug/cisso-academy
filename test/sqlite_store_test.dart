@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cisso_academy/data/progress_store.dart';
 import 'package:cisso_academy/data/sqlite_store.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:sqlite3/sqlite3.dart';
 
 void main() {
   final t = DateTime(2026, 11, 16, 10, 30);
@@ -114,6 +115,50 @@ void main() {
         expect(await store.cards(), isEmpty);
         expect(await store.readLessons(), isEmpty);
         await store.close();
+      } finally {
+        await dir.delete(recursive: true);
+      }
+    },
+  );
+
+  test('réglages : lecture, écriture et remplacement', () async {
+    for (final store in [
+      MemoryProgressStore(),
+      SqliteProgressStore.open(':memory:'),
+    ]) {
+      expect(await store.setting('animations'), isNull);
+      await store.setSetting('animations', '0');
+      await store.setSetting('animations', '1');
+      expect(await store.setting('animations'), '1');
+    }
+  });
+
+  test(
+    'migration : une base en version 1 passe en version 2 sans perte',
+    () async {
+      final dir = await Directory.systemTemp.createTemp('cisso_mig');
+      final path = '${dir.path}/v1.db';
+      try {
+        final old = sqlite3.open(path);
+        old.execute('''
+        CREATE TABLE lessons_read (lesson_id TEXT PRIMARY KEY, read_at INTEGER NOT NULL);
+        INSERT INTO lessons_read VALUES ('m1c1-l1', 0);
+        PRAGMA user_version = 1;
+      ''');
+        old.close();
+
+        final store = SqliteProgressStore.open(path);
+        expect(await store.readLessons(), {'m1c1-l1'});
+        await store.setSetting('animations', '0');
+        expect(await store.setting('animations'), '0');
+        await store.close();
+
+        final check = sqlite3.open(path);
+        expect(
+          check.select('PRAGMA user_version').first.values.first,
+          SqliteProgressStore.schemaVersion,
+        );
+        check.close();
       } finally {
         await dir.delete(recursive: true);
       }
