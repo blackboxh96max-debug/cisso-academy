@@ -1,11 +1,19 @@
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:material_ui/material_ui.dart';
 
 import '../app_state.dart';
+import '../logic/quiz_engine.dart';
 import '../models/content.dart';
-import 'widgets.dart';
+import 'notebook/diagrams.dart';
+import 'notebook/hand_drawn.dart';
+import 'notebook/note_box.dart';
+import 'notebook/palette.dart';
+import 'notebook/typography.dart';
 
-/// Lecture d'une leçon. Elle est marquée comme lue quand l'apprenant
-/// atteint la fin ou appuie sur « J'ai terminé ».
+/// Leçon présentée comme une page de cahier manuscrit.
+///
+/// Sur grand écran, un sommaire et les objectifs s'affichent dans une colonne
+/// à gauche de la page.
 class LessonPage extends StatelessWidget {
   const LessonPage({super.key, required this.lesson});
 
@@ -15,222 +23,492 @@ class LessonPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = AppScope.of(context);
     final read = state.readLessons.contains(lesson.id);
-    final text = Theme.of(context).textTheme;
-    return Scaffold(
-      appBar: AppBar(title: Text(lesson.title)),
-      body: ReadingList(
-        children: [
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Objectifs', style: text.titleSmall),
-                  const SizedBox(height: 8),
-                  for (final o in lesson.objectives) _Bullet(o),
-                ],
-              ),
+    final chapter = state.library.chapters.firstWhere(
+      (c) => c.lessons.any((l) => l.id == lesson.id),
+    );
+    final module = state.library.module(chapter.moduleId);
+    final (moduleTone, moduleEmoji) = moduleStyle(module.number);
+    final lessonNumber = chapter.lessons.indexOf(lesson) + 1;
+    final width = MediaQuery.sizeOf(context).width;
+    final wide = width >= 1100;
+    final paper = Paper.of(context);
+
+    final page = NotebookPaper(
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(
+          width < 600 ? 22 : 64,
+          20,
+          width < 600 ? 16 : 36,
+          40,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Wrap(
+              spacing: 8,
+              runSpacing: 6,
+              children: [
+                Sticker(
+                  text: '$moduleEmoji Module ${module.number}',
+                  tone: moduleTone,
+                ),
+                Sticker(
+                  text: 'Leçon $lessonNumber/${chapter.lessons.length}',
+                  tone: Tone.yellow,
+                ),
+                Sticker(text: '⏱ ${lesson.minutes} min', tone: Tone.green),
+              ],
             ),
+            const SizedBox(height: 12),
+            _LessonHeader(lesson: lesson, tone: moduleTone),
+            if (!wide) _Objectives(lesson: lesson),
+            for (final (i, block) in lesson.blocks.indexed)
+              NotebookBlock(block, seed: i + 3),
+            if (lesson.references.isNotEmpty) _References(lesson.references),
+            const SizedBox(height: 28),
+            Center(
+              child: read
+                  ? const Sticker(text: '✔ Leçon terminée', tone: Tone.green)
+                  : FilledButton.icon(
+                      onPressed: () async {
+                        await AppScope.read(context).markLessonRead(lesson.id);
+                        if (context.mounted) Navigator.of(context).pop();
+                      },
+                      icon: const Icon(Icons.check),
+                      label: const Text('J\'ai terminé cette leçon'),
+                    ),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    final shadowedPage = Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(6),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.10),
+            blurRadius: 18,
+            offset: const Offset(0, 6),
           ),
-          for (final block in lesson.blocks) LessonBlockView(block),
-          if (lesson.references.isNotEmpty) ...[
-            const SectionTitle('Ressources'),
-            for (final r in lesson.references)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+        ],
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: page,
+    );
+
+    return Scaffold(
+      backgroundColor: paper.background,
+      appBar: AppBar(
+        title: Text(chapter.title, overflow: TextOverflow.ellipsis),
+      ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(
+          horizontal: width < 600 ? 0 : 20,
+          vertical: width < 600 ? 0 : 16,
+        ),
+        child: Center(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: wide ? 1240 : 880),
+            child: wide
+                ? Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(width: 300, child: _SidePanel(lesson: lesson)),
+                      const SizedBox(width: 24),
+                      Expanded(child: shadowedPage),
+                    ],
+                  )
+                : shadowedPage,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _LessonHeader extends StatelessWidget {
+  const _LessonHeader({required this.lesson, required this.tone});
+
+  final Lesson lesson;
+  final Tone tone;
+
+  @override
+  Widget build(BuildContext context) {
+    final title = HandUnderline(
+      color: toneColors(Tone.orange, Theme.of(context).brightness).ink,
+      child: Text(
+        lesson.title,
+        style: Hand.chapterTitle(
+          context,
+          color: toneColors(tone, Theme.of(context).brightness).ink,
+        ),
+      ),
+    );
+    if (lesson.illustration == null) return title;
+    final art = Semantics(
+      label: lesson.illustrationAlt,
+      image: true,
+      child: SvgPicture.asset(
+        lesson.illustration!,
+        height: 150,
+        excludeFromSemantics: true,
+      ),
+    );
+    return LayoutBuilder(
+      builder: (context, c) => c.maxWidth >= 560
+          ? Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(child: title),
+                const SizedBox(width: 16),
+                art,
+              ],
+            )
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(child: art),
+                const SizedBox(height: 8),
+                title,
+              ],
+            ),
+    );
+  }
+}
+
+class _Objectives extends StatelessWidget {
+  const _Objectives({required this.lesson});
+
+  final Lesson lesson;
+
+  @override
+  Widget build(BuildContext context) {
+    return NoteBox(
+      tone: Tone.blue,
+      emoji: '🎯',
+      label: 'Objectifs de la leçon',
+      seed: 2,
+      child: HandBullets(lesson.objectives, bullet: '☐'),
+    );
+  }
+}
+
+/// Colonne latérale (grand écran) : objectifs et sommaire.
+class _SidePanel extends StatelessWidget {
+  const _SidePanel({required this.lesson});
+
+  final Lesson lesson;
+
+  @override
+  Widget build(BuildContext context) {
+    final headings = lesson.blocks
+        .where((b) => b.type == BlockType.heading)
+        .map((b) => b.text ?? '')
+        .toList();
+    final paper = Paper.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _Objectives(lesson: lesson),
+        const SizedBox(height: 12),
+        NoteBox(
+          tone: Tone.yellow,
+          emoji: '🗂️',
+          label: 'Sommaire',
+          sticky: true,
+          seed: 4,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              for (final (i, h) in headings.indexed)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 4),
+                  child: Text(
+                    '${i + 1}. $h',
+                    style: TextStyle(
+                      fontFamily: Hand.body,
+                      fontSize: 18,
+                      color: paper.ink,
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _References extends StatelessWidget {
+  const _References(this.references);
+
+  final List<Reference> references;
+
+  @override
+  Widget build(BuildContext context) {
+    final paper = Paper.of(context);
+    return Padding(
+      padding: const EdgeInsets.only(top: 28),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '📚 Ressources',
+            style: Hand.subtitle(context, Tone.blue).copyWith(fontSize: 26),
+          ),
+          const SizedBox(height: 6),
+          for (final r in references)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 6),
+              child: SelectableText.rich(
+                TextSpan(
                   children: [
-                    SelectableText(r.title),
+                    TextSpan(
+                      text: r.title,
+                      style: Hand.sansText(context, size: 14),
+                    ),
                     if (r.url != null)
-                      SelectableText(
-                        '${r.url} (en ligne)',
-                        style: text.bodySmall,
+                      TextSpan(
+                        text: '\n${r.url} (en ligne)',
+                        style: Hand.sansText(
+                          context,
+                          size: 12.5,
+                        ).copyWith(color: paper.inkSoft),
                       ),
                   ],
                 ),
               ),
-          ],
-          const SizedBox(height: 24),
-          Center(
-            child: read
-                ? const Chip(
-                    avatar: Icon(Icons.check),
-                    label: Text('Leçon lue'),
-                  )
-                : FilledButton.icon(
-                    onPressed: () async {
-                      await AppScope.read(context).markLessonRead(lesson.id);
-                      if (context.mounted) Navigator.of(context).pop();
-                    },
-                    icon: const Icon(Icons.check),
-                    label: const Text('J\'ai terminé cette leçon'),
-                  ),
-          ),
+            ),
         ],
       ),
     );
   }
 }
 
-class _Bullet extends StatelessWidget {
-  const _Bullet(this.text);
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 4),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('•  '),
-          Expanded(child: Text(text)),
-        ],
-      ),
-    );
-  }
-}
-
-/// Affiche un bloc de leçon selon son type.
-class LessonBlockView extends StatelessWidget {
-  const LessonBlockView(this.block, {super.key});
+/// Un bloc de leçon dans le style cahier.
+class NotebookBlock extends StatelessWidget {
+  const NotebookBlock(this.block, {super.key, this.seed = 7});
 
   final LessonBlock block;
+  final int seed;
 
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    final text = Theme.of(context).textTheme;
-    final badge = block.kind == null ? null : SourceBadge(block.kind!);
-
-    Widget boxed(Widget child, {Color? color, IconData? icon, String? title}) {
-      return Padding(
-        padding: const EdgeInsets.only(top: 12),
-        child: Card(
-          color: color,
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (title != null || badge != null)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Row(
-                      children: [
-                        if (icon != null) ...[
-                          Icon(icon, size: 20),
-                          const SizedBox(width: 8),
-                        ],
-                        if (title != null)
-                          Expanded(child: Text(title, style: text.titleSmall))
-                        else
-                          const Spacer(),
-                        ?badge,
-                      ],
-                    ),
-                  ),
-                child,
-              ],
-            ),
-          ),
-        ),
-      );
-    }
+    final brightness = Theme.of(context).brightness;
+    final source = block.kind == null
+        ? null
+        : Sticker(text: block.kind!.label, tone: _sourceTone(block.kind!));
+    final body = Hand.bodyText(context);
 
     switch (block.type) {
       case BlockType.heading:
         return Padding(
-          padding: const EdgeInsets.only(top: 28, bottom: 4),
-          child: Text(block.text ?? '', style: text.titleLarge),
+          padding: const EdgeInsets.only(top: 30),
+          child: HandUnderline(
+            color: toneColors(Tone.yellow, brightness).ink,
+            seed: seed,
+            child: Text(
+              block.text ?? '',
+              style: Hand.subtitle(context, Tone.blue),
+            ),
+          ),
         );
       case BlockType.text:
         return Padding(
-          padding: const EdgeInsets.only(top: 12),
+          padding: const EdgeInsets.only(top: 14),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SelectableText(block.text ?? '', style: text.bodyLarge),
-              if (badge != null) ...[const SizedBox(height: 6), badge],
+              SelectableText(block.text ?? '', style: body),
+              if (source != null) ...[const SizedBox(height: 6), source],
             ],
           ),
         );
       case BlockType.bullets:
         return Padding(
           padding: const EdgeInsets.only(top: 12),
-          child: Column(children: [for (final i in block.items) _Bullet(i)]),
+          child: HandBullets(block.items),
         );
       case BlockType.definition:
-        return boxed(
-          SelectableText(block.text ?? ''),
+        return NoteBox(
+          tone: Tone.blue,
+          label: 'Définition',
           title: block.title,
-          icon: Icons.bookmark_outline,
+          trailing: source,
+          seed: seed,
+          child: SelectableText(
+            block.text ?? '',
+            style: Hand.definition(context),
+          ),
         );
       case BlockType.socCase:
-        return boxed(
-          SelectableText(block.text ?? ''),
-          title: block.title ?? 'Cas SOC',
-          icon: Icons.security,
-          color: scheme.secondaryContainer.withValues(alpha: 0.5),
+        return NoteBox(
+          tone: Tone.turquoise,
+          label: 'Exemple professionnel',
+          title: block.title,
+          trailing: source,
+          seed: seed,
+          child: SelectableText(
+            block.text ?? '',
+            style: body.copyWith(fontSize: 19),
+          ),
         );
       case BlockType.viewpoints:
-        return boxed(
-          Column(
+        return NoteBox(
+          tone: Tone.violet,
+          emoji: '👥',
+          label: block.title ?? 'Points de vue',
+          seed: seed,
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [for (final item in block.items) _Viewpoint(item)],
           ),
-          title: block.title ?? 'Points de vue',
-          icon: Icons.groups_outlined,
         );
       case BlockType.table:
         return Padding(
-          padding: const EdgeInsets.only(top: 12),
-          child: _LessonTable(rows: block.rows),
+          padding: const EdgeInsets.only(top: 18),
+          child: HandBox(
+            padding: const EdgeInsets.all(10),
+            seed: seed,
+            child: _HandTable(rows: block.rows),
+          ),
         );
       case BlockType.steps:
-        return boxed(
-          Column(
+        return NoteBox(
+          tone: Tone.blue,
+          emoji: '🖼️',
+          label: 'Schéma explicatif',
+          title: block.title,
+          seed: seed,
+          child: _StepsDiagram(block.items),
+        );
+      case BlockType.pitfalls:
+        return NoteBox(
+          tone: Tone.pink,
+          label: 'Attention à l\'examen',
+          seed: seed,
+          child: HandBullets(block.items, bullet: '✗'),
+        );
+      case BlockType.summary:
+        return NoteBox(
+          tone: Tone.orange,
+          label: block.title ?? 'À retenir',
+          seed: seed,
+          child: HandBullets(block.items, bullet: '★'),
+        );
+      case BlockType.trainerNote:
+        return NoteBox(
+          tone: Tone.yellow,
+          emoji: '✏️',
+          label: block.title ?? 'Note du formateur',
+          sticky: true,
+          seed: seed,
+          child: Text(block.text ?? '', style: Hand.noteText(context)),
+        );
+      case BlockType.memo:
+        return NoteBox(
+          tone: Tone.yellow,
+          label: block.title ?? 'Mémorisation',
+          sticky: true,
+          seed: seed,
+          child: Text(
+            block.text ?? '',
+            style: Hand.noteText(context).copyWith(fontSize: 19),
+          ),
+        );
+      case BlockType.important:
+        return NoteBox(
+          tone: Tone.violet,
+          label: block.title ?? 'Important',
+          trailing: source,
+          seed: seed,
+          child: SelectableText(block.text ?? '', style: body),
+        );
+      case BlockType.practice:
+        return NoteBox(
+          tone: Tone.green,
+          label: block.title ?? 'Bonne pratique',
+          trailing: source,
+          seed: seed,
+          child: block.items.isNotEmpty
+              ? HandBullets(block.items, bullet: '✓')
+              : SelectableText(block.text ?? '', style: body),
+        );
+      case BlockType.risk:
+        return NoteBox(
+          tone: Tone.red,
+          label: block.title ?? 'Risque',
+          seed: seed,
+          child: block.items.isNotEmpty
+              ? HandBullets(block.items, bullet: '!')
+              : SelectableText(block.text ?? '', style: body),
+        );
+      case BlockType.diagram:
+        return NoteBox(
+          tone: Tone.blue,
+          emoji: '🖼️',
+          label: 'Schéma explicatif',
+          title: block.title,
+          seed: seed,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              for (final (i, step) in block.items.indexed)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 6),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CircleAvatar(
-                        radius: 12,
-                        child: Text('${i + 1}', style: text.labelSmall),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(child: Text(step)),
-                    ],
-                  ),
+              const SizedBox(height: 6),
+              DiagramView(data: block.diagram!, alt: block.alt ?? ''),
+              if (block.text != null) ...[
+                const SizedBox(height: 10),
+                Text(
+                  block.text!,
+                  style: Hand.noteText(context).copyWith(fontSize: 16),
+                ),
+              ],
+            ],
+          ),
+        );
+      case BlockType.illustration:
+        return Padding(
+          padding: const EdgeInsets.only(top: 18),
+          child: Column(
+            children: [
+              Semantics(
+                label: block.alt,
+                image: true,
+                child: SvgPicture.asset(
+                  block.asset!,
+                  height: 200,
+                  excludeFromSemantics: true,
+                ),
+              ),
+              if (block.text != null)
+                Text(
+                  block.text!,
+                  textAlign: TextAlign.center,
+                  style: Hand.noteText(context).copyWith(fontSize: 16),
                 ),
             ],
           ),
-          title: block.title,
-          icon: Icons.account_tree_outlined,
         );
-      case BlockType.pitfalls:
-        return boxed(
-          Column(children: [for (final i in block.items) _Bullet(i)]),
-          title: block.title ?? 'Pièges à éviter',
-          icon: Icons.warning_amber_outlined,
-          color: scheme.errorContainer.withValues(alpha: 0.4),
-        );
-      case BlockType.summary:
-        return boxed(
-          Column(children: [for (final i in block.items) _Bullet(i)]),
-          title: block.title ?? 'À retenir',
-          icon: Icons.lightbulb_outline,
-          color: scheme.primaryContainer.withValues(alpha: 0.5),
+      case BlockType.miniQuiz:
+        return NoteBox(
+          tone: Tone.pink,
+          emoji: '📝',
+          label: block.title ?? 'Petit test',
+          seed: seed,
+          child: _MiniQuiz(block.questionIds),
         );
     }
   }
 }
+
+Tone _sourceTone(SourceKind kind) => switch (kind) {
+  SourceKind.official => Tone.violet,
+  SourceKind.general => Tone.blue,
+  SourceKind.practice => Tone.green,
+  SourceKind.example => Tone.turquoise,
+};
 
 class _Viewpoint extends StatelessWidget {
   const _Viewpoint(this.item);
@@ -240,51 +518,155 @@ class _Viewpoint extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final i = item.indexOf(':');
-    if (i < 0) return _Bullet(item);
+    final body = Hand.bodyText(context).copyWith(fontSize: 19);
+    if (i < 0) return Text(item, style: body);
+    final emoji = switch (item.substring(0, i).trim().toLowerCase()) {
+      final r when r.contains('rssi') => '🧭',
+      final r when r.contains('soc') => '🖥️',
+      final r when r.contains('audit') => '🔎',
+      final r when r.contains('risk') || r.contains('risque') => '⚖️',
+      _ => '💬',
+    };
     return Padding(
-      padding: const EdgeInsets.only(bottom: 6),
+      padding: const EdgeInsets.only(bottom: 8),
       child: Text.rich(
         TextSpan(
           children: [
+            TextSpan(text: '$emoji  '),
             TextSpan(
               text: item.substring(0, i).trim(),
-              style: const TextStyle(fontWeight: FontWeight.bold),
+              style: body.copyWith(
+                fontWeight: FontWeight.w700,
+                color: toneColors(
+                  Tone.violet,
+                  Theme.of(context).brightness,
+                ).ink,
+              ),
             ),
             TextSpan(text: ' : ${item.substring(i + 1).trim()}'),
           ],
+          style: body,
         ),
       ),
     );
   }
 }
 
-/// Tableau pédagogique : défilement horizontal sur petit écran.
-class _LessonTable extends StatelessWidget {
-  const _LessonTable({required this.rows});
+/// Étapes numérotées reliées par des flèches manuscrites.
+class _StepsDiagram extends StatelessWidget {
+  const _StepsDiagram(this.items);
+
+  final List<String> items;
+
+  @override
+  Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    const tones = [
+      Tone.blue,
+      Tone.violet,
+      Tone.turquoise,
+      Tone.green,
+      Tone.orange,
+      Tone.pink,
+    ];
+    return Column(
+      children: [
+        for (final (i, step) in items.indexed) ...[
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 34,
+                height: 34,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: toneColors(tones[i % tones.length], brightness).fill,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: toneColors(tones[i % tones.length], brightness).ink,
+                    width: 2,
+                  ),
+                ),
+                child: Text(
+                  '${i + 1}',
+                  style: TextStyle(
+                    fontFamily: Hand.title,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w700,
+                    color: toneColors(tones[i % tones.length], brightness).ink,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 3),
+                  child: Text(
+                    step.replaceFirst(RegExp(r'^\d+\.\s*'), ''),
+                    style: Hand.bodyText(context).copyWith(fontSize: 19),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          if (i < items.length - 1)
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: Text(
+                  '↓',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Paper.of(context).inkSoft,
+                  ),
+                ),
+              ),
+            ),
+        ],
+      ],
+    );
+  }
+}
+
+/// Tableau du cahier : police sans-serif pour la lisibilité.
+class _HandTable extends StatelessWidget {
+  const _HandTable({required this.rows});
 
   final List<List<String>> rows;
 
   @override
   Widget build(BuildContext context) {
     if (rows.isEmpty) return const SizedBox.shrink();
-    final scheme = Theme.of(context).colorScheme;
+    final paper = Paper.of(context);
+    final head = toneColors(Tone.blue, Theme.of(context).brightness);
     final header = rows.first;
     return LayoutBuilder(
       builder: (context, constraints) {
-        final minWidth = header.length * 180.0;
+        final minWidth = header.length * 170.0;
         final table = Table(
-          border: TableBorder.all(color: scheme.outlineVariant),
+          border: TableBorder.symmetric(
+            inside: BorderSide(color: paper.rule, width: 1.2),
+          ),
           defaultVerticalAlignment: TableCellVerticalAlignment.top,
           children: [
             TableRow(
-              decoration: BoxDecoration(color: scheme.surfaceContainerHighest),
+              decoration: BoxDecoration(
+                color: head.fill,
+                borderRadius: BorderRadius.circular(8),
+              ),
               children: [
                 for (final h in header)
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: Text(
                       h,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontFamily: Hand.title,
+                        fontSize: 22,
+                        fontWeight: FontWeight.w700,
+                        color: head.ink,
+                      ),
                     ),
                   ),
               ],
@@ -292,10 +674,18 @@ class _LessonTable extends StatelessWidget {
             for (final r in rows.skip(1))
               TableRow(
                 children: [
-                  for (final cell in r)
+                  for (final (i, cell) in r.indexed)
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(cell),
+                      child: Text(
+                        cell,
+                        style: i == 0
+                            ? Hand.sansText(
+                                context,
+                                size: 14,
+                              ).copyWith(fontWeight: FontWeight.w700)
+                            : Hand.sansText(context, size: 14),
+                      ),
                     ),
                 ],
               ),
@@ -307,6 +697,174 @@ class _LessonTable extends StatelessWidget {
           child: SizedBox(width: minWidth, child: table),
         );
       },
+    );
+  }
+}
+
+/// Petit test de fin de leçon : correction immédiate, sans effet sur les
+/// statistiques (c'est une autoévaluation).
+class _MiniQuiz extends StatefulWidget {
+  const _MiniQuiz(this.questionIds);
+
+  final List<String> questionIds;
+
+  @override
+  State<_MiniQuiz> createState() => _MiniQuizState();
+}
+
+class _MiniQuizState extends State<_MiniQuiz> {
+  final Map<String, Set<int>> _chosen = {};
+  final Set<String> _checked = {};
+
+  @override
+  Widget build(BuildContext context) {
+    final library = AppScope.of(context).library;
+    final brightness = Theme.of(context).brightness;
+    final body = Hand.bodyText(context).copyWith(fontSize: 19);
+    final animate = animationsOn(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        for (final (n, id) in widget.questionIds.indexed) ...[
+          Builder(
+            builder: (context) {
+              final q = library.question(id);
+              final chosen = _chosen[id] ?? <int>{};
+              final checked = _checked.contains(id);
+              final ok = isAnswerCorrect(q, chosen);
+              return Padding(
+                padding: const EdgeInsets.only(top: 6, bottom: 14),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${n + 1}. ${q.prompt}',
+                      style: body.copyWith(fontWeight: FontWeight.w700),
+                    ),
+                    if (q.isMultiple)
+                      Text(
+                        '(${q.correct.length} réponses)',
+                        style: Hand.sansText(context, size: 12.5),
+                      ),
+                    const SizedBox(height: 6),
+                    for (final (i, choice) in q.choices.indexed)
+                      _MiniChoice(
+                        text: choice,
+                        selected: chosen.contains(i),
+                        result: !checked
+                            ? null
+                            : q.correct.contains(i)
+                            ? true
+                            : chosen.contains(i)
+                            ? false
+                            : null,
+                        onTap: checked
+                            ? null
+                            : () => setState(() {
+                                final set = _chosen.putIfAbsent(
+                                  id,
+                                  () => <int>{},
+                                );
+                                if (q.isMultiple) {
+                                  set.contains(i) ? set.remove(i) : set.add(i);
+                                } else {
+                                  set
+                                    ..clear()
+                                    ..add(i);
+                                }
+                              }),
+                      ),
+                    if (!checked)
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: TextButton(
+                          onPressed: chosen.isEmpty
+                              ? null
+                              : () => setState(() => _checked.add(id)),
+                          child: const Text('Vérifier'),
+                        ),
+                      )
+                    else
+                      AnimatedSize(
+                        duration: animate
+                            ? const Duration(milliseconds: 300)
+                            : Duration.zero,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 6),
+                          child: Text(
+                            '${ok ? '🎉 Bravo ! ' : '🤔 Pas tout à fait. '}${q.explanation}',
+                            style: Hand.noteText(context).copyWith(
+                              fontSize: 17,
+                              color: ok
+                                  ? toneColors(Tone.green, brightness).ink
+                                  : toneColors(Tone.red, brightness).ink,
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+class _MiniChoice extends StatelessWidget {
+  const _MiniChoice({
+    required this.text,
+    required this.selected,
+    required this.result,
+    required this.onTap,
+  });
+
+  final String text;
+  final bool selected;
+
+  /// null : pas encore corrigé (ou choix neutre), true : bonne réponse, false : erreur.
+  final bool? result;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final paper = Paper.of(context);
+    final color = switch (result) {
+      true => toneColors(Tone.green, brightness).ink,
+      false => toneColors(Tone.red, brightness).ink,
+      null => selected ? toneColors(Tone.blue, brightness).ink : paper.inkSoft,
+    };
+    final mark = switch (result) {
+      true => '✔',
+      false => '✘',
+      null => selected ? '●' : '○',
+    };
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(10),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: 26,
+              child: Text(mark, style: TextStyle(fontSize: 18, color: color)),
+            ),
+            Expanded(
+              child: Text(
+                text,
+                style: Hand.bodyText(
+                  context,
+                ).copyWith(fontSize: 18, color: result == null ? null : color),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

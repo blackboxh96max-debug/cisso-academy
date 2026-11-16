@@ -118,31 +118,60 @@ class Reference {
 }
 
 /// Types de blocs d'une leçon.
+/// Types de blocs d'une leçon. Chaque type a une couleur pédagogique fixe
+/// (voir `lib/ui/notebook/palette.dart`).
 enum BlockType {
   heading,
   text,
   bullets,
+
+  /// 📘 Définition (bleu).
   definition,
+
+  /// 🌍 Exemple professionnel / cas SOC (turquoise).
   socCase,
+
+  /// 👥 Points de vue des métiers (violet).
   viewpoints,
   table,
-  steps,
-  pitfalls,
-  summary;
 
-  static BlockType parse(String value) => switch (value) {
-    'heading' => BlockType.heading,
-    'text' => BlockType.text,
-    'bullets' => BlockType.bullets,
-    'definition' => BlockType.definition,
-    'socCase' => BlockType.socCase,
-    'viewpoints' => BlockType.viewpoints,
-    'table' => BlockType.table,
-    'steps' => BlockType.steps,
-    'pitfalls' => BlockType.pitfalls,
-    'summary' => BlockType.summary,
-    _ => throw FormatException('type de bloc inconnu : $value'),
-  };
+  /// Étapes : affichées comme un schéma en flèches.
+  steps,
+
+  /// ⚠️ Pièges d'examen (rose).
+  pitfalls,
+
+  /// 💡 À retenir (orange).
+  summary,
+
+  /// ✏️ Note du formateur (jaune, manuscrit).
+  trainerNote,
+
+  /// 🧠 Astuce de mémorisation (jaune).
+  memo,
+
+  /// ⭐ Notion importante, approfondissement (violet).
+  important,
+
+  /// ✅ Bonne pratique (vert).
+  practice,
+
+  /// 🚨 Risque, erreur, alerte (rouge).
+  risk,
+
+  /// 🖼️ Schéma explicatif dessiné par l'application.
+  diagram,
+
+  /// 🖼️ Illustration (image vectorielle embarquée).
+  illustration,
+
+  /// 📝 Petit test : quelques questions de la banque.
+  miniQuiz;
+
+  static BlockType parse(String value) => BlockType.values.firstWhere(
+    (t) => t.name == value,
+    orElse: () => throw FormatException('type de bloc inconnu : $value'),
+  );
 }
 
 class LessonBlock {
@@ -153,6 +182,10 @@ class LessonBlock {
     this.items = const [],
     this.rows = const [],
     this.kind,
+    this.diagram,
+    this.asset,
+    this.alt,
+    this.questionIds = const [],
   });
 
   final BlockType type;
@@ -165,6 +198,18 @@ class LessonBlock {
   /// Tableau : la première ligne est l'en-tête.
   final List<List<String>> rows;
   final SourceKind? kind;
+
+  /// Description d'un schéma (`type` + données), pour [BlockType.diagram].
+  final Map<String, dynamic>? diagram;
+
+  /// Chemin d'une illustration embarquée, pour [BlockType.illustration].
+  final String? asset;
+
+  /// Description accessible d'un schéma ou d'une illustration.
+  final String? alt;
+
+  /// Questions du « petit test », pour [BlockType.miniQuiz].
+  final List<String> questionIds;
 
   factory LessonBlock.fromJson(Map<String, dynamic> json) => LessonBlock(
     type: BlockType.parse(json['type'] as String),
@@ -179,6 +224,10 @@ class LessonBlock {
     kind: json['kind'] == null
         ? null
         : SourceKind.parse(json['kind'] as String),
+    diagram: json['diagram'] as Map<String, dynamic>?,
+    asset: json['asset'] as String?,
+    alt: json['alt'] as String?,
+    questionIds: (json['questions'] as List?)?.cast<String>() ?? const [],
   );
 }
 
@@ -190,10 +239,16 @@ class Lesson {
     required this.blocks,
     required this.references,
     required this.minutes,
+    this.illustration,
+    this.illustrationAlt,
   });
 
   final String id;
   final String title;
+
+  /// Illustration en tête de leçon (chemin d'asset SVG) et sa description.
+  final String? illustration;
+  final String? illustrationAlt;
   final List<String> objectives;
   final List<LessonBlock> blocks;
   final List<Reference> references;
@@ -210,6 +265,8 @@ class Lesson {
         .map((r) => Reference.fromJson(r as Map<String, dynamic>))
         .toList(),
     minutes: json['minutes'] as int? ?? 20,
+    illustration: json['illustration'] as String?,
+    illustrationAlt: json['illustrationAlt'] as String?,
   );
 }
 

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <!-- calculatrice -->
+  <g stroke="#26324A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M30 30 C50 28 78 28 96 31 C98 70 98 120 95 156 C74 158 50 158 31 155 C28 120 28 70 30 30 Z" fill="#E9DDFB" />
+    <path d="M40 42 C56 41 72 41 86 43 L85 64 C70 65 55 65 41 64 Z" fill="#FFFBF2" stroke-width="2.2" />
+  </g>
+  <g fill="#6B3FA0">
+    <rect x="42" y="76" width="12" height="10" rx="3" /><rect x="58" y="76" width="12" height="10" rx="3" /><rect x="74" y="76" width="12" height="10" rx="3" />
+    <rect x="42" y="94" width="12" height="10" rx="3" /><rect x="58" y="94" width="12" height="10" rx="3" /><rect x="74" y="94" width="12" height="10" rx="3" />
+    <rect x="42" y="112" width="12" height="10" rx="3" /><rect x="58" y="112" width="12" height="10" rx="3" /><rect x="74" y="112" width="12" height="28" rx="3" fill="#E08A00" />
+    <rect x="42" y="130" width="28" height="10" rx="3" />
+  </g>
+  <path d="M50 54 L58 54 M64 54 L70 50 L70 58 M76 54 L80 54" stroke="#26324A" stroke-width="2" stroke-linecap="round" fill="none" />
+  <!-- barres qui descendent -->
+  <g stroke="#26324A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M118 150 C150 149 190 149 224 151" fill="none" />
+    <path d="M126 150 L126 62 C133 61 140 61 146 62 L146 150" fill="#FFD0D0" />
+    <path d="M160 150 L160 104 C167 103 174 103 180 104 L180 150" fill="#C9F0D5" />
+    <path d="M194 150 L194 118 C201 117 208 117 214 118 L214 150" fill="#FFE2B8" />
+    <path d="M132 44 C160 52 180 70 198 92" fill="none" stroke="#1E8C5A" />
+    <path d="M188 90 L199 94 L198 82" fill="none" stroke="#1E8C5A" />
+  </g>
+  <!-- pièces -->
+  <g stroke="#B07800" stroke-width="2" fill="#FFE08A">
+    <ellipse cx="208" cy="40" rx="14" ry="5" /><ellipse cx="208" cy="34" rx="14" ry="5" /><ellipse cx="208" cy="28" rx="14" ry="5" />
+  </g>
+</svg>

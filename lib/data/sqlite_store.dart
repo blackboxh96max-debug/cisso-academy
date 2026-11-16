@@ -19,7 +19,7 @@ class SqliteProgressStore implements ProgressStore {
 
   final Database _db;
 
-  static const schemaVersion = 1;
+  static const schemaVersion = 2;
 
   void _migrate() {
     final version = _db.select('PRAGMA user_version').first.values.first as int;
@@ -59,7 +59,16 @@ class SqliteProgressStore implements ProgressStore {
           lesson_id TEXT PRIMARY KEY,
           read_at INTEGER NOT NULL
         );
-        PRAGMA user_version = $schemaVersion;
+        PRAGMA user_version = 1;
+      ''');
+    }
+    if (version < 2) {
+      _db.execute('''
+        CREATE TABLE IF NOT EXISTS settings (
+          key TEXT PRIMARY KEY,
+          value TEXT NOT NULL
+        );
+        PRAGMA user_version = 2;
       ''');
     }
   }
@@ -209,6 +218,21 @@ class SqliteProgressStore implements ProgressStore {
       .select('SELECT lesson_id FROM lessons_read')
       .map((r) => r['lesson_id'] as String)
       .toSet();
+
+  @override
+  Future<String?> setting(String key) async {
+    final rows = _db.select('SELECT value FROM settings WHERE key = ?', [key]);
+    return rows.isEmpty ? null : rows.first['value'] as String;
+  }
+
+  @override
+  Future<void> setSetting(String key, String value) async {
+    _db.execute(
+      'INSERT INTO settings (key, value) VALUES (?, ?) '
+      'ON CONFLICT(key) DO UPDATE SET value = excluded.value',
+      [key, value],
+    );
+  }
 
   @override
   Future<void> clear() async {

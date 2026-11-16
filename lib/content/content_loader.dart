@@ -114,6 +114,13 @@ class ContentLoader {
       }
       for (final lesson in chapter.lessons) {
         unique(lesson.id);
+        if (lesson.illustration != null &&
+            (lesson.illustrationAlt ?? '').trim().isEmpty) {
+          throw FormatException('${lesson.id} : illustration sans description');
+        }
+        for (final block in lesson.blocks) {
+          _validateBlock(lesson.id, block, library);
+        }
       }
       for (final q in chapter.questions) {
         unique(q.id);
@@ -151,6 +158,44 @@ class ContentLoader {
       throw FormatException(
         'Les poids des domaines totalisent $total, pas 100',
       );
+    }
+  }
+
+  /// Types de schémas que l'application sait dessiner.
+  static const diagramTypes = {'flow', 'cycle', 'matrix', 'bars', 'quadrant'};
+
+  static void _validateBlock(
+    String lessonId,
+    LessonBlock block,
+    ContentLibrary library,
+  ) {
+    switch (block.type) {
+      case BlockType.diagram:
+        final type = block.diagram?['type'];
+        if (!diagramTypes.contains(type)) {
+          throw FormatException('$lessonId : schéma de type inconnu ($type)');
+        }
+        if ((block.alt ?? '').trim().isEmpty) {
+          throw FormatException(
+            '$lessonId : schéma sans description accessible',
+          );
+        }
+      case BlockType.illustration:
+        if (block.asset == null || (block.alt ?? '').trim().isEmpty) {
+          throw FormatException('$lessonId : illustration incomplète');
+        }
+      case BlockType.miniQuiz:
+        final ids = library.questions.map((q) => q.id).toSet();
+        if (block.questionIds.isEmpty) {
+          throw FormatException('$lessonId : petit test vide');
+        }
+        for (final id in block.questionIds) {
+          if (!ids.contains(id)) {
+            throw FormatException('$lessonId : question inconnue $id');
+          }
+        }
+      default:
+        break;
     }
   }
 }
