@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <path d="M96 78 L96 56 C96 38 106 28 120 28 C134 28 144 38 144 56 L144 78" fill="none" stroke="#26324A" stroke-width="7" stroke-linecap="round" />
+  <path d="M80 78 C110 75 132 75 162 79 L160 146 C130 149 108 149 82 146 Z" fill="#FFD84D" stroke="#26324A" stroke-width="2.8" stroke-linejoin="round" />
+  <circle cx="121" cy="104" r="8" fill="#26324A" />
+  <path d="M118 108 L116 126 L126 126 L124 108 Z" fill="#26324A" />
+  <g stroke="#26324A" stroke-width="2.2" stroke-linejoin="round">
+    <circle cx="30" cy="56" r="12" fill="#3B82F6" />
+    <path d="M42 56 L70 56 L70 64 M62 56 L62 62" fill="none" stroke-linecap="round" />
+    <circle cx="30" cy="120" r="12" fill="#3B82F6" />
+    <path d="M42 120 L70 120 L70 128 M62 120 L62 126" fill="none" stroke-linecap="round" />
+    <circle cx="210" cy="56" r="12" fill="#22C55E" />
+    <path d="M198 56 L170 56 L170 64 M178 56 L178 62" fill="none" stroke-linecap="round" />
+    <circle cx="210" cy="120" r="12" fill="#F97316" />
+    <path d="M198 120 L170 120 L170 128 M178 120 L178 126" fill="none" stroke-linecap="round" />
+  </g>
+  <circle cx="30" cy="56" r="4" fill="#FFFBF2" /><circle cx="30" cy="120" r="4" fill="#FFFBF2" />
+  <circle cx="210" cy="56" r="4" fill="#FFFBF2" /><circle cx="210" cy="120" r="4" fill="#FFFBF2" />
+  <text x="14" y="164" font-family="Caveat, cursive" font-size="16" fill="#3B82F6">même clé</text>
+  <text x="172" y="164" font-family="Caveat, cursive" font-size="16" fill="#7A3BE6">paire</text>
+  <text x="182" y="94" font-family="Caveat, cursive" font-size="13" fill="#15803D">publique</text>
+  <text x="186" y="146" font-family="Caveat, cursive" font-size="13" fill="#C2410C">privée</text>
+</svg>
