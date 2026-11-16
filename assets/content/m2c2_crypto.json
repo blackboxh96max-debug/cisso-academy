@@ -1,0 +1,1948 @@
+{
+ "lessons": [
+  {
+   "id": "m2c2-l1",
+   "title": "Chiffrer : symétrique, asymétrique et hybride",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m2c2_l1_cadenas.svg",
+   "illustrationAlt": "Dessin d'un cadenas fermé entouré de deux clés : une clé bleue identique des deux côtés pour le symétrique, une paire de clés verte et orange pour l'asymétrique.",
+   "objectives": [
+    "Relier chaque mécanisme cryptographique au service de sécurité qu'il apporte.",
+    "Comparer chiffrement symétrique et asymétrique (vitesse, nombre de clés, usages).",
+    "Choisir un mode de chiffrement adapté et éviter ECB.",
+    "Expliquer pourquoi les protocoles réels utilisent un chiffrement hybride."
+   ],
+   "references": [
+    {
+     "title": "NIST FIPS 197, Advanced Encryption Standard (AES)",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-38A (modes de chiffrement par bloc) et SP 800-38D (mode GCM)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "À quoi sert la cryptographie ?"
+    },
+    {
+     "type": "text",
+     "text": "La cryptographie transforme des données pour qu'elles ne soient lisibles, modifiables sans détection, ou attribuables qu'aux bonnes personnes. Elle ne protège pas tout : elle ne garantit pas la disponibilité et elle ne vaut que ce que vaut la protection de ses clés."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Service",
+       "Question posée",
+       "Mécanisme typique"
+      ],
+      [
+       "Confidentialité",
+       "Qui peut lire ?",
+       "Chiffrement (AES, RSA pour une petite donnée)"
+      ],
+      [
+       "Intégrité",
+       "Le contenu a-t-il changé ?",
+       "Hachage, MAC, signature"
+      ],
+      [
+       "Authentification",
+       "Qui l'a envoyé ?",
+       "MAC, signature, certificat"
+      ],
+      [
+       "Non-répudiation",
+       "L'émetteur peut-il nier ?",
+       "Signature numérique (clé privée détenue par lui seul)"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Principe de Kerckhoffs",
+     "text": "Un système cryptographique doit rester sûr même si tout est public sauf la clé. On utilise donc des algorithmes publics et éprouvés, jamais un algorithme « maison » gardé secret."
+    },
+    {
+     "type": "heading",
+     "text": "Le chiffrement symétrique"
+    },
+    {
+     "type": "definition",
+     "title": "Chiffrement symétrique",
+     "text": "La même clé secrète sert à chiffrer et à déchiffrer. C'est rapide, adapté aux gros volumes, mais il faut transmettre la clé de façon sûre. Pour n personnes qui veulent toutes communiquer deux à deux, il faut n(n-1)/2 clés.",
+     "kind": "general"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Algorithme",
+       "Statut",
+       "À retenir"
+      ],
+      [
+       "AES",
+       "Standard actuel",
+       "Blocs de 128 bits, clés de 128, 192 ou 256 bits"
+      ],
+      [
+       "ChaCha20",
+       "Recommandé",
+       "Chiffrement par flot, rapide sur mobile, utilisé dans TLS 1.3"
+      ],
+      [
+       "3DES",
+       "Retiré",
+       "Ancien, lent, petits blocs de 64 bits"
+      ],
+      [
+       "DES",
+       "Cassé",
+       "Clé de 56 bits, trouvable par force brute"
+      ],
+      [
+       "RC4",
+       "Cassé",
+       "Biais statistiques, interdit dans TLS"
+      ]
+     ]
+    },
+    {
+     "type": "diagram",
+     "title": "Modes de chiffrement par bloc",
+     "alt": "Grille deux par deux. ECB : chaque bloc chiffré seul, les motifs restent visibles, à éviter. CBC : chaque bloc dépend du précédent, a besoin d'un vecteur d'initialisation imprévisible. CTR : transforme le bloc en flot, le compteur ne doit jamais se répéter. GCM : chiffre et authentifie, recommandé.",
+     "diagram": {
+      "type": "quadrant",
+      "xLabel": "Sécurité",
+      "yLabel": "Usage moderne",
+      "cells": [
+       {
+        "emoji": "🧩",
+        "label": "CBC",
+        "detail": "chaînage, IV imprévisible",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🏆",
+        "label": "GCM",
+        "detail": "chiffre ET authentifie",
+        "tone": "green"
+       },
+       {
+        "emoji": "🚫",
+        "label": "ECB",
+        "detail": "motifs visibles : à éviter",
+        "tone": "red"
+       },
+       {
+        "emoji": "🔢",
+        "label": "CTR",
+        "detail": "compteur jamais réutilisé",
+        "tone": "orange"
+       }
+      ]
+     }
+    },
+    {
+     "type": "risk",
+     "title": "Le piège d'ECB",
+     "text": "En mode ECB, deux blocs identiques donnent deux blocs chiffrés identiques. Une image chiffrée en ECB laisse encore deviner sa forme. Un auditeur qui voit « AES-ECB » dans une configuration doit le signaler."
+    },
+    {
+     "type": "heading",
+     "text": "Le chiffrement asymétrique"
+    },
+    {
+     "type": "definition",
+     "title": "Chiffrement asymétrique",
+     "text": "Chaque personne possède une paire de clés liées mathématiquement : une clé publique, diffusée à tous, et une clé privée, gardée secrète. Ce qui est chiffré avec la clé publique ne se déchiffre qu'avec la clé privée correspondante. Il faut 2 clés par personne, soit 2n clés, mais c'est beaucoup plus lent que le symétrique.",
+     "kind": "general"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Algorithme",
+       "Fondé sur",
+       "Usage"
+      ],
+      [
+       "RSA",
+       "Difficulté de factoriser un grand nombre",
+       "Chiffrement de petites données, signature"
+      ],
+      [
+       "Diffie-Hellman (DH, ECDH)",
+       "Logarithme discret",
+       "Se mettre d'accord sur un secret partagé, sans le transmettre"
+      ],
+      [
+       "Courbes elliptiques (ECC)",
+       "Logarithme discret sur courbe",
+       "Même sécurité que RSA avec des clés bien plus courtes"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "« Pour cacher, j'utilise la clé PUBLIQUE du destinataire. Pour signer, j'utilise MA clé PRIVÉE. » La clé privée ne quitte jamais son propriétaire."
+    },
+    {
+     "type": "heading",
+     "text": "Le meilleur des deux : le chiffrement hybride"
+    },
+    {
+     "type": "diagram",
+     "title": "Chiffrement hybride (principe de TLS et de la messagerie chiffrée)",
+     "alt": "Schéma en quatre étapes : l'expéditeur génère une clé de session symétrique aléatoire, chiffre le message avec cette clé en AES, protège la clé de session grâce à la clé publique du destinataire ou à un échange Diffie-Hellman, puis le destinataire récupère la clé de session avec sa clé privée et déchiffre le message.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🎲",
+        "label": "Clé de session",
+        "detail": "aléatoire, symétrique",
+        "tone": "blue"
+       },
+       {
+        "emoji": "📦",
+        "label": "Message chiffré",
+        "detail": "en AES : rapide",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🔐",
+        "label": "Clé protégée",
+        "detail": "clé publique ou DH",
+        "tone": "green"
+       },
+       {
+        "emoji": "🔓",
+        "label": "Destinataire",
+        "detail": "récupère la clé, déchiffre",
+        "tone": "orange"
+       }
+      ]
+     },
+     "kind": "practice"
+    },
+    {
+     "type": "trainerNote",
+     "text": "Retenez la logique plutôt que les noms : l'asymétrique résout le problème de la distribution des clés, le symétrique résout le problème de la vitesse. Les deux sont combinés partout : HTTPS, VPN, messageries chiffrées."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : le scan qui trouve des suites faibles",
+     "kind": "example",
+     "text": "Le scan de configuration hebdomadaire signale qu'un serveur interne accepte encore des connexions TLS avec 3DES et RC4. L'analyste N1 ouvre un ticket de vulnérabilité, l'équipe système désactive ces suites et garde AES-GCM et ChaCha20. Le SOC ajoute une règle qui alerte si un équipement négocie à nouveau une suite retirée. Le scan est fait sur le parc de l'entreprise, avec son accord, dans le cadre du programme de gestion des vulnérabilités."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : je fixe une politique cryptographique (algorithmes et tailles de clés autorisés) et je la fais réviser régulièrement.",
+      "Architecte : je ne développe jamais mon propre algorithme ; j'utilise des bibliothèques reconnues et maintenues.",
+      "Auditeur : je vérifie l'inventaire des usages cryptographiques et l'absence d'algorithmes retirés.",
+      "Analyste SOC : le chiffrement cache aussi le trafic des attaquants ; je m'appuie sur les métadonnées et les journaux des postes."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Le chiffrement apporte la confidentialité, pas la disponibilité ni, seul, la non-répudiation.",
+      "Symétrique : n(n-1)/2 clés. Asymétrique : 2n clés. 10 personnes = 45 clés symétriques, 20 clés asymétriques.",
+      "Pour envoyer un secret à Bob : clé PUBLIQUE de Bob. Jamais la clé privée de l'expéditeur.",
+      "Diffie-Hellman établit un secret partagé mais n'authentifie personne : sans authentification, il est exposé à l'homme du milieu.",
+      "ECB est à éviter ; GCM chiffre et authentifie."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Services : confidentialité, intégrité, authentification, non-répudiation.",
+      "Symétrique (AES, ChaCha20) : rapide, une clé partagée, n(n-1)/2 clés.",
+      "Asymétrique (RSA, ECC, DH) : paire de clés, lent, 2n clés, résout la distribution.",
+      "Hybride : l'asymétrique transporte une clé de session, le symétrique chiffre les données."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m2c2-q03",
+      "m2c2-q04"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m2c2-l2",
+   "title": "Hachage, MAC et signature numérique",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m2c2_l2_empreinte.svg",
+   "illustrationAlt": "Dessin d'une feuille de texte qui passe dans une moulinette et ressort sous forme d'une empreinte digitale, à côté d'un tampon de signature.",
+   "objectives": [
+    "Citer les propriétés d'une fonction de hachage et reconnaître les algorithmes obsolètes.",
+    "Stocker correctement un mot de passe (sel et fonction lente).",
+    "Distinguer hachage, MAC et signature selon les services apportés.",
+    "Décrire la création et la vérification d'une signature numérique."
+   ],
+   "references": [
+    {
+     "title": "NIST FIPS 180-4 (SHA-2) et FIPS 202 (SHA-3)",
+     "kind": "general"
+    },
+    {
+     "title": "NIST FIPS 186-5, Digital Signature Standard",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-63B, Digital Identity Guidelines : stockage des secrets mémorisés",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "L'empreinte d'un message"
+    },
+    {
+     "type": "definition",
+     "title": "Fonction de hachage",
+     "text": "Fonction qui transforme un message de n'importe quelle taille en une empreinte (condensat) de taille fixe. Elle est sans clé et ne se déchiffre pas : ce n'est pas un chiffrement.",
+     "kind": "general"
+    },
+    {
+     "type": "practice",
+     "title": "Les propriétés attendues",
+     "kind": "general",
+     "items": [
+      "Sens unique : impossible de retrouver le message à partir de l'empreinte.",
+      "Résistance à la seconde préimage : impossible de trouver un autre message ayant la même empreinte qu'un message donné.",
+      "Résistance aux collisions : impossible de trouver deux messages quelconques ayant la même empreinte.",
+      "Effet avalanche : changer un seul caractère change complètement l'empreinte."
+     ]
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Algorithme",
+       "Taille",
+       "Statut"
+      ],
+      [
+       "MD5",
+       "128 bits",
+       "Collisions faciles : à bannir pour la sécurité"
+      ],
+      [
+       "SHA-1",
+       "160 bits",
+       "Collisions démontrées : retiré pour les signatures"
+      ],
+      [
+       "SHA-256 / SHA-512 (famille SHA-2)",
+       "256 / 512 bits",
+       "Recommandé"
+      ],
+      [
+       "SHA-3",
+       "224 à 512 bits",
+       "Recommandé, construction différente de SHA-2"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "L'attaque des anniversaires",
+     "text": "Trouver une collision est bien plus facile que trouver une préimage : pour une empreinte de n bits, il suffit d'environ 2 puissance n/2 essais. C'est pourquoi une empreinte de 128 bits n'offre qu'environ 64 bits de sécurité contre les collisions."
+    },
+    {
+     "type": "heading",
+     "text": "Stocker les mots de passe"
+    },
+    {
+     "type": "practice",
+     "title": "La bonne recette",
+     "kind": "practice",
+     "items": [
+      "Ne jamais stocker un mot de passe en clair, ni chiffré de façon réversible.",
+      "Ajouter un sel aléatoire et unique par compte : deux mots de passe identiques donnent deux empreintes différentes et les tables précalculées (rainbow tables) deviennent inutiles.",
+      "Utiliser une fonction volontairement lente et paramétrable : Argon2, scrypt, bcrypt ou PBKDF2.",
+      "Le sel n'est pas secret : il est stocké à côté de l'empreinte."
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "MAC : l'intégrité avec une clé"
+    },
+    {
+     "type": "definition",
+     "title": "MAC et HMAC",
+     "text": "Un code d'authentification de message (MAC) est calculé avec une clé secrète partagée. HMAC combine une fonction de hachage et cette clé. Le destinataire, qui a la même clé, vérifie que le message n'a pas changé et qu'il vient bien de quelqu'un qui possède la clé.",
+     "kind": "general"
+    },
+    {
+     "type": "risk",
+     "title": "Pourquoi un MAC ne suffit pas comme preuve",
+     "text": "Les deux parties ont la même clé : chacune aurait pu calculer le MAC. Un MAC ne permet donc pas de prouver à un tiers qui est l'auteur. Il n'apporte pas la non-répudiation."
+    },
+    {
+     "type": "heading",
+     "text": "La signature numérique"
+    },
+    {
+     "type": "diagram",
+     "title": "Signer puis vérifier",
+     "alt": "Schéma en cinq étapes : l'émetteur calcule l'empreinte du document, chiffre cette empreinte avec sa clé privée ce qui forme la signature, envoie le document et la signature, le destinataire recalcule l'empreinte et vérifie la signature avec la clé publique de l'émetteur ; si les deux empreintes sont égales, la signature est valide.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "📄",
+        "label": "Empreinte",
+        "detail": "SHA-256 du document",
+        "tone": "blue"
+       },
+       {
+        "emoji": "✍️",
+        "label": "Signature",
+        "detail": "avec la clé PRIVÉE de l'émetteur",
+        "tone": "violet"
+       },
+       {
+        "emoji": "📨",
+        "label": "Envoi",
+        "detail": "document + signature",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "🔎",
+        "label": "Vérification",
+        "detail": "avec la clé PUBLIQUE de l'émetteur",
+        "tone": "orange"
+       },
+       {
+        "emoji": "✅",
+        "label": "Comparaison",
+        "detail": "empreintes égales = valide",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Mécanisme",
+       "Intégrité",
+       "Authentification",
+       "Non-répudiation",
+       "Confidentialité"
+      ],
+      [
+       "Hachage seul",
+       "Oui (si l'empreinte est protégée)",
+       "Non",
+       "Non",
+       "Non"
+      ],
+      [
+       "MAC / HMAC",
+       "Oui",
+       "Oui (détenteur de la clé)",
+       "Non",
+       "Non"
+      ],
+      [
+       "Signature numérique",
+       "Oui",
+       "Oui",
+       "Oui",
+       "Non"
+      ],
+      [
+       "Chiffrement",
+       "Non, sauf mode authentifié",
+       "Non",
+       "Non",
+       "Oui"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "« Hachage = empreinte, MAC = empreinte + secret partagé, signature = empreinte + clé privée. » Seule la signature empêche l'émetteur de nier."
+    },
+    {
+     "type": "trainerNote",
+     "text": "Une signature ne cache rien : le document signé reste lisible. Si on veut confidentialité ET non-répudiation, on signe avec sa clé privée, puis on chiffre pour le destinataire."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : le binaire qui ne correspond plus",
+     "kind": "example",
+     "text": "L'EDR signale qu'un utilitaire d'administration a été mis à jour sur trois serveurs, mais sa signature numérique n'est plus valide et son empreinte SHA-256 ne correspond pas à celle publiée par l'éditeur. L'analyste N2 bloque l'empreinte dans l'EDR, isole les serveurs et recherche la même empreinte sur tout le parc. L'enquête montre que le fichier venait d'un miroir de téléchargement non officiel."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "Développeur : je ne stocke que des empreintes salées produites par Argon2 ou bcrypt.",
+      "Juriste : seule une signature liée à une personne identifiée peut servir de preuve d'engagement.",
+      "Analyste SOC : l'empreinte d'un fichier est l'indicateur de compromission le plus simple à partager.",
+      "Auditeur : MD5 et SHA-1 dans une application de signature sont une non-conformité."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Le hachage n'est pas un chiffrement : il ne se « déchiffre » pas.",
+      "On signe avec sa clé PRIVÉE ; on vérifie avec la clé PUBLIQUE de l'émetteur.",
+      "Un MAC n'apporte pas la non-répudiation, une signature si.",
+      "Le sel n'est pas secret ; il empêche les tables précalculées et cache les mots de passe identiques.",
+      "Collision : deux messages différents, même empreinte. L'attaque des anniversaires la rend plus facile."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Hachage : taille fixe, sens unique, résistant aux collisions. SHA-2 ou SHA-3, pas MD5 ni SHA-1.",
+      "Mots de passe : sel unique + fonction lente (Argon2, scrypt, bcrypt, PBKDF2).",
+      "MAC : intégrité + authentification par clé partagée, sans non-répudiation.",
+      "Signature : empreinte signée avec la clé privée ; intégrité, authentification, non-répudiation."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m2c2-q15",
+      "m2c2-q17"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m2c2-l3",
+   "title": "Certificats, PKI et gestion des clés",
+   "minutes": 35,
+   "illustration": "assets/illustrations/m2c2_l3_chaine.svg",
+   "illustrationAlt": "Dessin de trois certificats reliés par une chaîne : un certificat racine avec une couronne en haut, un certificat intermédiaire au milieu, le certificat d'un site web en bas.",
+   "objectives": [
+    "Décrire le contenu d'un certificat X.509 et la chaîne de confiance.",
+    "Distinguer les rôles de l'autorité de certification et de l'autorité d'enregistrement.",
+    "Choisir entre CRL et OCSP pour vérifier une révocation.",
+    "Appliquer le cycle de vie des clés et reconnaître les principales attaques."
+   ],
+   "references": [
+    {
+     "title": "IETF RFC 5280, profil des certificats X.509 et des CRL",
+     "kind": "general"
+    },
+    {
+     "title": "IETF RFC 6960 (OCSP) et RFC 8446 (TLS 1.3)",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-57 Part 1, Recommendation for Key Management",
+     "kind": "general"
+    },
+    {
+     "title": "NIST FIPS 203, 204 et 205 : premiers standards de cryptographie post-quantique (2024)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Le certificat : une carte d'identité pour une clé publique"
+    },
+    {
+     "type": "text",
+     "text": "Une clé publique seule ne dit pas à qui elle appartient. Un attaquant pourrait publier sa propre clé en se faisant passer pour une banque. Le certificat règle ce problème : une autorité de confiance atteste, par sa signature, qu'une clé publique appartient bien à une identité."
+    },
+    {
+     "type": "practice",
+     "title": "Ce que contient un certificat X.509",
+     "kind": "general",
+     "items": [
+      "Le sujet (nom de domaine, personne, organisation) et sa clé publique.",
+      "L'émetteur : l'autorité de certification qui l'a signé.",
+      "La période de validité (début et fin) et un numéro de série.",
+      "Les usages autorisés (signature, chiffrement, authentification de serveur…).",
+      "La signature de l'autorité de certification sur l'ensemble."
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Ce qu'un certificat ne contient jamais",
+     "text": "La clé privée. Elle reste chez son propriétaire, idéalement dans un module matériel. Un certificat est public par nature."
+    },
+    {
+     "type": "heading",
+     "text": "L'infrastructure à clés publiques (PKI)"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Composant",
+       "Rôle"
+      ],
+      [
+       "Autorité de certification (CA)",
+       "Signe les certificats ; sa clé privée est le bien le plus précieux de la PKI"
+      ],
+      [
+       "Autorité d'enregistrement (RA)",
+       "Vérifie l'identité du demandeur avant que la CA signe ; elle ne signe pas elle-même"
+      ],
+      [
+       "CA racine",
+       "Sommet de la confiance, auto-signée, gardée hors ligne"
+      ],
+      [
+       "CA intermédiaire",
+       "Signe les certificats au quotidien ; peut être révoquée sans toucher à la racine"
+      ],
+      [
+       "Liste de révocation (CRL)",
+       "Liste signée et périodique des certificats révoqués"
+      ],
+      [
+       "OCSP",
+       "Interrogation en ligne de l'état d'un seul certificat, en quasi temps réel"
+      ]
+     ]
+    },
+    {
+     "type": "diagram",
+     "title": "La chaîne de confiance",
+     "alt": "Schéma en quatre étapes : la CA racine, présente dans le magasin de confiance du navigateur, signe la CA intermédiaire ; la CA intermédiaire signe le certificat du site ; le navigateur reçoit le certificat du site et remonte la chaîne en vérifiant chaque signature, la validité et la révocation jusqu'à la racine.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "👑",
+        "label": "CA racine",
+        "detail": "hors ligne, magasin de confiance",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🏢",
+        "label": "CA intermédiaire",
+        "detail": "signée par la racine",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🌐",
+        "label": "Certificat du site",
+        "detail": "signé par l'intermédiaire",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "🧭",
+        "label": "Navigateur",
+        "detail": "vérifie signatures, dates, révocation, nom",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "memo",
+     "text": "« La RA contrôle, la CA signe, la CRL liste, l'OCSP répond. »"
+    },
+    {
+     "type": "heading",
+     "text": "Le cycle de vie des clés"
+    },
+    {
+     "type": "diagram",
+     "title": "Cycle de vie d'une clé",
+     "alt": "Cycle en six étapes autour de la mention protection et traçabilité : génération avec un bon aléa, distribution sûre, stockage protégé par exemple dans un HSM, utilisation pour l'usage prévu, rotation à échéance, puis révocation ou destruction.",
+     "diagram": {
+      "type": "cycle",
+      "center": "🛡️ Protection\net traçabilité",
+      "nodes": [
+       {
+        "emoji": "🎲",
+        "label": "Génération",
+        "detail": "bon aléa, bonne taille",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🚚",
+        "label": "Distribution",
+        "detail": "canal sûr",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🗄️",
+        "label": "Stockage",
+        "detail": "HSM, coffre de clés",
+        "tone": "green"
+       },
+       {
+        "emoji": "⚙️",
+        "label": "Utilisation",
+        "detail": "un usage par clé",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "🔄",
+        "label": "Rotation",
+        "detail": "à échéance ou sur incident",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🗑️",
+        "label": "Révocation, destruction",
+        "detail": "effacement sûr",
+        "tone": "red"
+       }
+      ]
+     },
+     "kind": "practice"
+    },
+    {
+     "type": "definition",
+     "title": "HSM (Hardware Security Module)",
+     "text": "Équipement matériel durci qui génère, stocke et utilise des clés sans jamais les exposer en clair. Les opérations sont faites à l'intérieur ; la clé privée ne sort pas.",
+     "kind": "practice"
+    },
+    {
+     "type": "definition",
+     "title": "Séquestre et recouvrement de clés",
+     "text": "Conserver une copie protégée d'une clé de CHIFFREMENT permet de récupérer les données si la clé est perdue. On ne séquestre jamais une clé privée de SIGNATURE : si quelqu'un d'autre en détient une copie, la non-répudiation disparaît.",
+     "kind": "practice"
+    },
+    {
+     "type": "definition",
+     "title": "Confidentialité persistante (forward secrecy)",
+     "text": "Chaque session utilise une clé éphémère, obtenue par un échange Diffie-Hellman éphémère (DHE ou ECDHE). Si la clé privée du serveur est volée plus tard, les sessions passées enregistrées restent illisibles. TLS 1.3 l'impose.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Les attaques à connaître"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Attaque",
+       "Principe",
+       "Parade"
+      ],
+      [
+       "Force brute",
+       "Essayer toutes les clés",
+       "Clés assez longues (AES-128 au minimum)"
+      ],
+      [
+       "Homme du milieu",
+       "S'intercaler et présenter sa propre clé",
+       "Certificats vérifiés, authentification de l'échange"
+      ],
+      [
+       "Rétrogradation (downgrade)",
+       "Forcer une version ou une suite faible",
+       "Désactiver les anciennes versions et suites"
+      ],
+      [
+       "Canal auxiliaire",
+       "Mesurer temps, consommation, rayonnement",
+       "Implémentations à temps constant, HSM"
+      ],
+      [
+       "Collision / anniversaires",
+       "Deux documents, même empreinte",
+       "SHA-2 ou SHA-3"
+      ],
+      [
+       "Ordinateur quantique (futur)",
+       "L'algorithme de Shor casserait RSA et ECC",
+       "Migrer vers la cryptographie post-quantique (ML-KEM, ML-DSA)"
+      ]
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "Le risque quantique concerne surtout l'asymétrique. Pour le symétrique, l'effet attendu est de réduire la sécurité de moitié en bits : AES-256 reste considéré comme solide. Le danger immédiat est « récolter maintenant, déchiffrer plus tard » pour les données qui doivent rester secrètes longtemps."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : l'alerte de certificat dans le laboratoire",
+     "kind": "example",
+     "text": "Exercice simulé dans le laboratoire de formation : un poste de test reçoit, sur un portail interne fictif, un certificat signé par une autorité inconnue. Le proxy de laboratoire journalise l'événement et le SIEM lève une alerte « certificat non approuvé ». L'analyste compare l'empreinte du certificat présenté avec celle attendue, constate qu'un équipement d'interception a été placé dans le segment de test, et applique le playbook : isolement du segment, preuve conservée, et rappel aux utilisateurs de ne jamais ignorer un avertissement de certificat."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : la clé privée d'une CA est un bien critique ; sa compromission invaliderait tous les certificats qu'elle a signés.",
+      "Exploitation : un certificat expiré est l'une des causes de panne les plus courantes ; je tiens un inventaire avec alertes d'échéance.",
+      "Auditeur : je vérifie la cérémonie de génération des clés racines, le double contrôle et la traçabilité.",
+      "Risk manager : les données à protéger plus de dix ans doivent entrer dans le plan de migration post-quantique."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "La RA vérifie l'identité, mais c'est la CA qui signe.",
+      "CRL = liste périodique ; OCSP = réponse en ligne pour un certificat.",
+      "La CA racine reste hors ligne ; les intermédiaires signent au quotidien.",
+      "On séquestre une clé de chiffrement, jamais une clé de signature.",
+      "Clé privée compromise : révoquer le certificat ET générer une nouvelle paire de clés."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Certificat X.509 : lie une identité à une clé publique, signé par une CA.",
+      "PKI : CA racine hors ligne, CA intermédiaires, RA, CRL et OCSP.",
+      "Cycle de vie des clés : génération, distribution, stockage (HSM), utilisation, rotation, révocation et destruction.",
+      "Attaques : force brute, homme du milieu, rétrogradation, canaux auxiliaires, collisions ; préparer le post-quantique."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m2c2-q22",
+      "m2c2-q27"
+     ]
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "id": "m2c2-q01",
+   "domain": "cryptography",
+   "level": "beginner",
+   "concept": "Services cryptographiques",
+   "prompt": "Quel service de sécurité le chiffrement apporte-t-il en premier lieu ?",
+   "choices": [
+    "La disponibilité",
+    "La confidentialité",
+    "La non-répudiation",
+    "La traçabilité"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Chiffrer rend les données illisibles pour qui n'a pas la clé : c'est la confidentialité.",
+   "whyNot": {
+    "0": "Le chiffrement ne garantit pas la disponibilité ; une clé perdue peut même la réduire.",
+    "2": "La non-répudiation vient de la signature numérique.",
+    "3": "La traçabilité vient de la journalisation."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c2-q02",
+   "domain": "cryptography",
+   "level": "beginner",
+   "concept": "Chiffrement symétrique",
+   "prompt": "Qu'est-ce qui caractérise le chiffrement symétrique ?",
+   "choices": [
+    "Une paire de clés publique et privée",
+    "La même clé secrète pour chiffrer et déchiffrer",
+    "L'absence de clé",
+    "Une clé différente pour chaque bloc, publiée"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "En symétrique, émetteur et destinataire partagent la même clé secrète.",
+   "whyNot": {
+    "0": "La paire de clés caractérise l'asymétrique.",
+    "2": "Sans clé, il s'agit d'un hachage, pas d'un chiffrement.",
+    "3": "Les clés de chiffrement ne sont pas publiées."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c2-q03",
+   "domain": "cryptography",
+   "level": "intermediate",
+   "concept": "Nombre de clés",
+   "prompt": "Dix personnes veulent toutes communiquer deux à deux en chiffrement symétrique. Combien de clés faut-il ?",
+   "choices": [
+    "10",
+    "20",
+    "45",
+    "100"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Formule n(n-1)/2 : 10 × 9 / 2 = 45 clés.",
+   "whyNot": {
+    "0": "10 ne couvre pas toutes les paires.",
+    "1": "20 est le nombre de clés en asymétrique (2n).",
+    "3": "100 compterait chaque personne avec elle-même et chaque paire deux fois."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c2-q04",
+   "domain": "cryptography",
+   "level": "intermediate",
+   "concept": "Chiffrement asymétrique",
+   "prompt": "Alice veut envoyer un document confidentiel à Bob en chiffrement asymétrique. Quelle clé utilise-t-elle pour chiffrer ?",
+   "choices": [
+    "La clé privée d'Alice",
+    "La clé publique d'Alice",
+    "La clé publique de Bob",
+    "La clé privée de Bob"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Seule la clé privée de Bob pourra déchiffrer ce qui est chiffré avec la clé publique de Bob.",
+   "whyNot": {
+    "0": "Chiffrer avec sa clé privée revient à signer : tout le monde peut déchiffrer avec la clé publique d'Alice.",
+    "1": "Bob ne possède pas la clé privée d'Alice et ne pourrait pas déchiffrer.",
+    "3": "Alice ne possède pas la clé privée de Bob, qui ne doit jamais être partagée."
+   },
+   "kind": "example"
+  },
+  {
+   "id": "m2c2-q05",
+   "domain": "cryptography",
+   "level": "advanced",
+   "concept": "Modes de chiffrement",
+   "prompt": "Pourquoi le mode ECB est-il déconseillé ?",
+   "choices": [
+    "Il est trop lent",
+    "Deux blocs identiques en clair donnent deux blocs chiffrés identiques",
+    "Il exige une clé de 512 bits",
+    "Il ne fonctionne qu'avec RSA"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "ECB chiffre chaque bloc indépendamment : les motifs du message restent visibles.",
+   "whyNot": {
+    "0": "ECB est rapide ; son problème est la fuite de motifs.",
+    "2": "ECB fonctionne avec les tailles de clés habituelles de l'algorithme.",
+    "3": "ECB est un mode des chiffrements par bloc symétriques comme AES."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c2-q06",
+   "domain": "cryptography",
+   "level": "intermediate",
+   "concept": "Chiffrement hybride",
+   "prompt": "Pourquoi TLS combine-t-il chiffrement asymétrique et symétrique ?",
+   "choices": [
+    "Parce que le symétrique ne peut pas chiffrer de texte",
+    "L'asymétrique sert à établir une clé de session, le symétrique chiffre les données rapidement",
+    "Pour doubler la taille des clés",
+    "Parce que l'asymétrique est plus rapide"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le chiffrement hybride combine la distribution facile des clés de l'asymétrique et la vitesse du symétrique.",
+   "whyNot": {
+    "0": "Le symétrique chiffre tout type de donnée.",
+    "2": "Le but n'est pas la taille des clés.",
+    "3": "L'asymétrique est beaucoup plus lent."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c2-q07",
+   "domain": "cryptography",
+   "level": "beginner",
+   "concept": "Principe de Kerckhoffs",
+   "prompt": "Selon le principe de Kerckhoffs, sur quoi doit reposer la sécurité d'un système de chiffrement ?",
+   "choices": [
+    "Sur le secret de l'algorithme",
+    "Sur le secret de la clé uniquement",
+    "Sur le nombre de serveurs",
+    "Sur un mot de passe partagé par tous"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "L'algorithme peut être public ; seule la clé doit rester secrète.",
+   "whyNot": {
+    "0": "Un algorithme secret n'est pas éprouvé et finit souvent par être découvert.",
+    "2": "Le nombre de serveurs n'a pas de lien avec la robustesse cryptographique.",
+    "3": "Un secret partagé par tous n'est plus un secret."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c2-q08",
+   "domain": "cryptography",
+   "level": "advanced",
+   "concept": "Algorithmes recommandés",
+   "prompt": "Quels algorithmes de chiffrement sont recommandés aujourd'hui ? (2 réponses)",
+   "choices": [
+    "AES-256 en mode GCM",
+    "ChaCha20",
+    "DES",
+    "RC4"
+   ],
+   "correct": [
+    0,
+    1
+   ],
+   "explanation": "AES (en mode authentifié) et ChaCha20 sont les choix actuels, notamment dans TLS 1.3.",
+   "whyNot": {
+    "2": "DES a une clé de 56 bits, trouvable par force brute.",
+    "3": "RC4 présente des biais exploitables et est interdit dans TLS."
+   },
+   "kind": "practice"
+  },
+  {
+   "id": "m2c2-q09",
+   "domain": "cryptography",
+   "level": "intermediate",
+   "concept": "Diffie-Hellman",
+   "prompt": "Quelle est la faiblesse d'un échange Diffie-Hellman qui n'est pas authentifié ?",
+   "choices": [
+    "Il ne produit aucun secret",
+    "Il est exposé à une attaque de l'homme du milieu",
+    "Il révèle la clé privée",
+    "Il ne fonctionne qu'en mode ECB"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Diffie-Hellman établit un secret partagé mais ne prouve pas l'identité de l'interlocuteur ; un attaquant peut s'intercaler. On l'authentifie avec des certificats ou des signatures.",
+   "whyNot": {
+    "0": "L'échange produit bien un secret partagé.",
+    "2": "L'échange ne révèle pas les valeurs secrètes.",
+    "3": "Diffie-Hellman n'est pas un mode de chiffrement par bloc."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c2-q10",
+   "domain": "cryptography",
+   "level": "advanced",
+   "concept": "Courbes elliptiques",
+   "prompt": "Quel est l'avantage principal de la cryptographie sur courbes elliptiques (ECC) par rapport à RSA ?",
+   "choices": [
+    "Elle n'a pas besoin de clé privée",
+    "Une sécurité équivalente avec des clés beaucoup plus courtes",
+    "Elle est symétrique",
+    "Elle est insensible aux ordinateurs quantiques"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "ECC offre une sécurité comparable avec des clés plus petites, donc des calculs et des échanges plus légers.",
+   "whyNot": {
+    "0": "ECC est asymétrique : elle utilise une paire de clés.",
+    "2": "ECC est asymétrique.",
+    "3": "L'algorithme de Shor menacerait aussi ECC."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c2-q11",
+   "domain": "cryptography",
+   "level": "beginner",
+   "concept": "Hachage",
+   "prompt": "Quelle propriété décrit une fonction de hachage ?",
+   "choices": [
+    "Elle produit une empreinte de taille fixe et ne peut pas être inversée",
+    "Elle se déchiffre avec une clé publique",
+    "Sa sortie a la même taille que l'entrée",
+    "Elle garantit la confidentialité du message"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Une fonction de hachage produit une empreinte de taille fixe, à sens unique.",
+   "whyNot": {
+    "1": "Une empreinte ne se déchiffre pas.",
+    "2": "La sortie a toujours la même taille, quelle que soit l'entrée.",
+    "3": "Le message reste lisible : le hachage ne cache rien."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c2-q12",
+   "domain": "cryptography",
+   "level": "intermediate",
+   "concept": "Collision",
+   "prompt": "Qu'appelle-t-on une collision pour une fonction de hachage ?",
+   "choices": [
+    "Deux messages différents qui ont la même empreinte",
+    "Deux empreintes différentes pour le même message",
+    "Une empreinte trop longue",
+    "Une clé utilisée deux fois"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Une collision, ce sont deux entrées différentes qui produisent la même empreinte.",
+   "whyNot": {
+    "1": "Une fonction de hachage est déterministe : un même message donne toujours la même empreinte.",
+    "2": "La longueur n'est pas une collision.",
+    "3": "La réutilisation de clé est un autre problème."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c2-q13",
+   "domain": "cryptography",
+   "level": "intermediate",
+   "concept": "Stockage des mots de passe",
+   "prompt": "Quelle est la meilleure façon de stocker les mots de passe d'une application ?",
+   "choices": [
+    "En clair dans une base protégée par un pare-feu",
+    "Chiffrés en AES avec une clé stockée sur le même serveur",
+    "Hachés avec un sel unique et une fonction lente comme Argon2 ou bcrypt",
+    "Hachés en MD5 sans sel"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Sel unique et fonction volontairement lente rendent les attaques par dictionnaire et par tables précalculées très coûteuses.",
+   "whyNot": {
+    "0": "Une fuite de la base exposerait tous les mots de passe.",
+    "1": "Un chiffrement réversible avec la clé à côté ne protège pas en cas de compromission du serveur.",
+    "3": "MD5 est rapide et, sans sel, vulnérable aux tables précalculées."
+   },
+   "kind": "practice"
+  },
+  {
+   "id": "m2c2-q14",
+   "domain": "cryptography",
+   "level": "advanced",
+   "concept": "Sel",
+   "prompt": "Quels sont les effets d'un sel unique par compte ? (2 réponses)",
+   "choices": [
+    "Les tables précalculées (rainbow tables) deviennent inutiles",
+    "Deux utilisateurs ayant le même mot de passe ont des empreintes différentes",
+    "Le mot de passe devient déchiffrable par l'administrateur",
+    "Le sel doit rester secret pour être efficace"
+   ],
+   "correct": [
+    0,
+    1
+   ],
+   "explanation": "Le sel rend chaque empreinte unique : les tables précalculées ne servent plus et les mots de passe identiques ne se voient pas.",
+   "whyNot": {
+    "2": "Le hachage reste à sens unique ; rien ne devient déchiffrable.",
+    "3": "Le sel n'est pas secret : il est stocké avec l'empreinte."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c2-q15",
+   "domain": "cryptography",
+   "level": "beginner",
+   "concept": "Signature numérique",
+   "prompt": "Avec quelle clé un émetteur signe-t-il un document ?",
+   "choices": [
+    "Sa clé privée",
+    "Sa clé publique",
+    "La clé publique du destinataire",
+    "Une clé de session partagée"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "On signe avec sa propre clé privée ; tout le monde vérifie avec la clé publique correspondante.",
+   "whyNot": {
+    "1": "La clé publique sert à vérifier, pas à signer.",
+    "2": "La clé publique du destinataire sert à chiffrer pour lui.",
+    "3": "Une clé partagée donnerait un MAC, sans non-répudiation."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c2-q16",
+   "domain": "cryptography",
+   "level": "intermediate",
+   "concept": "Signature numérique",
+   "prompt": "Quels services une signature numérique apporte-t-elle ? (2 réponses)",
+   "choices": [
+    "L'intégrité du document",
+    "La non-répudiation",
+    "La confidentialité du document",
+    "La disponibilité du document"
+   ],
+   "correct": [
+    0,
+    1
+   ],
+   "explanation": "La signature garantit que le document n'a pas changé et que l'émetteur ne peut pas nier l'avoir signé (ainsi que l'authentification de l'origine).",
+   "whyNot": {
+    "2": "Le document signé reste lisible ; il faut le chiffrer en plus.",
+    "3": "La signature n'a aucun effet sur la disponibilité."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c2-q17",
+   "domain": "cryptography",
+   "level": "intermediate",
+   "concept": "MAC",
+   "prompt": "Pourquoi un HMAC n'apporte-t-il pas la non-répudiation ?",
+   "choices": [
+    "Parce qu'il n'utilise pas de fonction de hachage",
+    "Parce que la clé est partagée : les deux parties peuvent calculer le même code",
+    "Parce qu'il chiffre le message",
+    "Parce qu'il est plus lent qu'une signature"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Avec une clé partagée, rien ne prouve à un tiers lequel des détenteurs a produit le code.",
+   "whyNot": {
+    "0": "HMAC repose justement sur une fonction de hachage.",
+    "2": "Un HMAC ne chiffre pas le message.",
+    "3": "La vitesse n'a pas de lien avec la non-répudiation ; HMAC est d'ailleurs rapide."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c2-q18",
+   "domain": "cryptography",
+   "level": "advanced",
+   "concept": "Algorithmes obsolètes",
+   "prompt": "Pourquoi MD5 et SHA-1 ne doivent-ils plus être utilisés pour les signatures numériques ?",
+   "choices": [
+    "Leurs empreintes sont trop longues",
+    "Des collisions pratiques ont été démontrées",
+    "Ils exigent une clé secrète",
+    "Ils ne fonctionnent pas sur les fichiers binaires"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Des collisions réalisables permettent de fabriquer deux documents de même empreinte, et donc de transférer une signature de l'un à l'autre.",
+   "whyNot": {
+    "0": "Leurs empreintes sont au contraire courtes (128 et 160 bits).",
+    "2": "Ce sont des fonctions de hachage sans clé.",
+    "3": "Ils traitent tout type de donnée."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c2-q19",
+   "domain": "cryptography",
+   "level": "advanced",
+   "concept": "Attaque des anniversaires",
+   "prompt": "Pour une empreinte de 128 bits, combien d'essais faut-il environ pour trouver une collision par l'attaque des anniversaires ?",
+   "choices": [
+    "2 puissance 16",
+    "2 puissance 64",
+    "2 puissance 128",
+    "2 puissance 256"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Une collision demande environ 2 puissance n/2 essais : pour 128 bits, environ 2 puissance 64.",
+   "whyNot": {
+    "0": "Ce serait beaucoup trop peu.",
+    "2": "2 puissance 128 correspond à la recherche d'une préimage, pas d'une collision.",
+    "3": "Ce chiffre dépasse la taille de l'empreinte."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c2-q20",
+   "domain": "cryptography",
+   "level": "beginner",
+   "concept": "Vérification d'intégrité",
+   "prompt": "Vous téléchargez un logiciel d'administration. Comment vérifier qu'il n'a pas été modifié ?",
+   "choices": [
+    "Regarder la taille du fichier",
+    "Comparer son empreinte SHA-256 avec celle publiée par l'éditeur sur un canal de confiance, ou vérifier sa signature",
+    "Renommer le fichier",
+    "L'ouvrir pour voir s'il fonctionne"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Une empreinte ou une signature vérifiée garantit que le fichier est celui publié par l'éditeur.",
+   "whyNot": {
+    "0": "Un fichier modifié peut garder la même taille.",
+    "2": "Le nom ne prouve rien.",
+    "3": "Un fichier piégé fonctionne souvent normalement."
+   },
+   "kind": "practice"
+  },
+  {
+   "id": "m2c2-q21",
+   "domain": "cryptography",
+   "level": "beginner",
+   "concept": "Certificat",
+   "prompt": "Que garantit un certificat X.509 valide ?",
+   "choices": [
+    "Qu'une clé publique appartient bien à une identité, attesté par la signature d'une CA",
+    "Que le site est exempt de failles",
+    "Que la clé privée est publiée",
+    "Que les données sont sauvegardées"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le certificat lie une identité à une clé publique ; la CA l'atteste par sa signature.",
+   "whyNot": {
+    "1": "Un certificat ne dit rien de la sécurité du site lui-même.",
+    "2": "La clé privée ne figure jamais dans un certificat.",
+    "3": "Le certificat n'a aucun lien avec la sauvegarde."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c2-q22",
+   "domain": "cryptography",
+   "level": "intermediate",
+   "concept": "Révocation",
+   "prompt": "Quel mécanisme permet de vérifier en ligne et en quasi temps réel si un certificat précis est révoqué ?",
+   "choices": [
+    "CRL",
+    "OCSP",
+    "CSR",
+    "HSM"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "OCSP interroge un serveur sur l'état d'un certificat donné.",
+   "whyNot": {
+    "0": "La CRL est une liste complète publiée périodiquement.",
+    "2": "Une CSR est une demande de certificat.",
+    "3": "Un HSM protège des clés ; il ne publie pas l'état des certificats."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c2-q23",
+   "domain": "cryptography",
+   "level": "intermediate",
+   "concept": "Autorité d'enregistrement",
+   "prompt": "Quel est le rôle d'une autorité d'enregistrement (RA) ?",
+   "choices": [
+    "Signer les certificats",
+    "Vérifier l'identité du demandeur avant l'émission du certificat",
+    "Stocker les clés privées des utilisateurs",
+    "Chiffrer le trafic web"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La RA contrôle l'identité ; la CA signe.",
+   "whyNot": {
+    "0": "La signature est le rôle de la CA.",
+    "2": "Les clés privées restent chez leurs propriétaires.",
+    "3": "Le chiffrement du trafic est fait par TLS, pas par la RA."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c2-q24",
+   "domain": "cryptography",
+   "level": "advanced",
+   "concept": "Architecture de PKI",
+   "prompt": "Pourquoi garde-t-on la CA racine hors ligne et confie-t-on la signature quotidienne à des CA intermédiaires ?",
+   "choices": [
+    "Pour accélérer les navigateurs",
+    "Pour limiter l'exposition de la clé racine et pouvoir révoquer une intermédiaire sans reconstruire toute la PKI",
+    "Parce que la racine ne peut pas signer",
+    "Pour éviter d'utiliser des certificats"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La clé racine est le sommet de la confiance : la garder hors ligne réduit le risque, et une intermédiaire compromise peut être révoquée.",
+   "whyNot": {
+    "0": "La performance n'est pas la raison.",
+    "2": "La racine signe les intermédiaires.",
+    "3": "Les intermédiaires signent justement des certificats."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c2-q25",
+   "domain": "cryptography",
+   "level": "beginner",
+   "concept": "HSM",
+   "prompt": "Qu'est-ce qu'un HSM ?",
+   "choices": [
+    "Un logiciel de messagerie chiffrée",
+    "Un module matériel qui génère, stocke et utilise des clés sans les exposer",
+    "Une liste de certificats révoqués",
+    "Un algorithme de hachage"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le HSM protège physiquement et logiquement les clés ; les opérations ont lieu à l'intérieur.",
+   "whyNot": {
+    "0": "Ce n'est pas une messagerie.",
+    "2": "Ceci décrit une CRL.",
+    "3": "Ce n'est pas un algorithme."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c2-q26",
+   "domain": "cryptography",
+   "level": "advanced",
+   "concept": "Compromission de clé",
+   "prompt": "La clé privée d'un serveur web a été volée. Quelles actions sont nécessaires ? (2 réponses)",
+   "choices": [
+    "Faire révoquer le certificat associé",
+    "Générer une nouvelle paire de clés et obtenir un nouveau certificat",
+    "Prolonger la validité du certificat actuel",
+    "Changer seulement le nom du serveur"
+   ],
+   "correct": [
+    0,
+    1
+   ],
+   "explanation": "Le certificat compromis doit être révoqué et remplacé par un certificat lié à une nouvelle paire de clés.",
+   "whyNot": {
+    "2": "Prolonger un certificat compromis prolonge le risque.",
+    "3": "Le nom ne change rien à la clé volée."
+   },
+   "kind": "practice"
+  },
+  {
+   "id": "m2c2-q27",
+   "domain": "cryptography",
+   "level": "advanced",
+   "concept": "Séquestre de clés",
+   "prompt": "Quelle clé ne doit jamais être placée en séquestre ?",
+   "choices": [
+    "Une clé de chiffrement de données",
+    "La clé privée de signature d'une personne",
+    "Une clé de session expirée",
+    "Une clé publique"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Si un tiers détient une copie de la clé de signature, la personne peut nier avoir signé : la non-répudiation disparaît.",
+   "whyNot": {
+    "0": "Le séquestre des clés de chiffrement permet justement de récupérer les données.",
+    "2": "Une clé de session expirée n'a pas à être conservée.",
+    "3": "Une clé publique est publique : la question du séquestre ne se pose pas."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c2-q28",
+   "domain": "cryptography",
+   "level": "intermediate",
+   "concept": "Confidentialité persistante",
+   "prompt": "Que garantit la confidentialité persistante (forward secrecy) ?",
+   "choices": [
+    "Que les certificats n'expirent jamais",
+    "Que le vol futur de la clé privée du serveur ne permet pas de déchiffrer les sessions passées",
+    "Que les mots de passe sont salés",
+    "Que les journaux sont conservés"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Avec des clés éphémères (DHE, ECDHE), chaque session a sa propre clé, indépendante de la clé privée à long terme.",
+   "whyNot": {
+    "0": "Les certificats expirent toujours.",
+    "2": "Le salage concerne le stockage des mots de passe.",
+    "3": "La conservation des journaux est un autre sujet."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c2-q29",
+   "domain": "cryptography",
+   "level": "intermediate",
+   "concept": "Homme du milieu",
+   "prompt": "Lors d'un exercice simulé, un poste de test affiche un avertissement « certificat non approuvé » sur un portail interne. Quelle est la meilleure réaction ?",
+   "choices": [
+    "Cliquer sur « continuer » pour ne pas bloquer le travail",
+    "Ne pas poursuivre, signaler au SOC et vérifier l'empreinte du certificat présenté",
+    "Désactiver la vérification des certificats dans le navigateur",
+    "Supprimer le magasin de certificats"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Un certificat non approuvé peut révéler une interception. On s'arrête, on signale et on vérifie.",
+   "whyNot": {
+    "0": "Ignorer l'avertissement expose à une interception.",
+    "2": "Désactiver la vérification supprime la protection.",
+    "3": "Supprimer le magasin casserait toutes les connexions sans résoudre le problème."
+   },
+   "kind": "example"
+  },
+  {
+   "id": "m2c2-q30",
+   "domain": "cryptography",
+   "level": "advanced",
+   "concept": "Cryptographie post-quantique",
+   "prompt": "Quels algorithmes un ordinateur quantique suffisamment puissant menacerait-il le plus directement ?",
+   "choices": [
+    "AES-256",
+    "RSA et les courbes elliptiques",
+    "SHA-3",
+    "Les fonctions de dérivation de mots de passe"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "L'algorithme de Shor casserait les problèmes de factorisation et de logarithme discret sur lesquels reposent RSA et ECC. Le NIST a publié en 2024 les premiers standards post-quantiques (FIPS 203, 204 et 205).",
+   "whyNot": {
+    "0": "Pour le symétrique, l'effet attendu (algorithme de Grover) réduit la sécurité de moitié en bits : AES-256 reste solide.",
+    "2": "Les fonctions de hachage sont beaucoup moins touchées.",
+    "3": "Elles reposent sur le hachage, beaucoup moins touché."
+   },
+   "kind": "general"
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "m2c2-f01",
+   "front": "Quatre services",
+   "back": "Confidentialité, intégrité, authentification, non-répudiation.",
+   "concept": "Services cryptographiques"
+  },
+  {
+   "id": "m2c2-f02",
+   "front": "Kerckhoffs",
+   "back": "Tout peut être public sauf la clé.",
+   "concept": "Principe de Kerckhoffs"
+  },
+  {
+   "id": "m2c2-f03",
+   "front": "Symétrique",
+   "back": "Une seule clé partagée, rapide. n(n-1)/2 clés. AES, ChaCha20.",
+   "concept": "Chiffrement symétrique"
+  },
+  {
+   "id": "m2c2-f04",
+   "front": "Asymétrique",
+   "back": "Paire publique/privée, lent. 2n clés. RSA, ECC, DH.",
+   "concept": "Chiffrement asymétrique"
+  },
+  {
+   "id": "m2c2-f05",
+   "front": "Confidentialité vers Bob",
+   "back": "Chiffrer avec la clé PUBLIQUE de Bob.",
+   "concept": "Chiffrement asymétrique"
+  },
+  {
+   "id": "m2c2-f06",
+   "front": "Hybride",
+   "back": "L'asymétrique transporte la clé de session, le symétrique chiffre les données.",
+   "concept": "Chiffrement hybride"
+  },
+  {
+   "id": "m2c2-f07",
+   "front": "ECB",
+   "back": "Blocs identiques = chiffrés identiques. À éviter.",
+   "concept": "Modes de chiffrement"
+  },
+  {
+   "id": "m2c2-f08",
+   "front": "GCM",
+   "back": "Mode qui chiffre ET authentifie.",
+   "concept": "Modes de chiffrement"
+  },
+  {
+   "id": "m2c2-f09",
+   "front": "Diffie-Hellman",
+   "back": "Établit un secret partagé ; sans authentification, homme du milieu.",
+   "concept": "Diffie-Hellman"
+  },
+  {
+   "id": "m2c2-f10",
+   "front": "Hachage",
+   "back": "Empreinte de taille fixe, sens unique, résistante aux collisions.",
+   "concept": "Hachage"
+  },
+  {
+   "id": "m2c2-f11",
+   "front": "MD5 / SHA-1",
+   "back": "Collisions démontrées : à bannir pour la sécurité. Utiliser SHA-2 ou SHA-3.",
+   "concept": "Algorithmes obsolètes"
+  },
+  {
+   "id": "m2c2-f12",
+   "front": "Anniversaires",
+   "back": "Collision en environ 2 puissance n/2 essais.",
+   "concept": "Attaque des anniversaires"
+  },
+  {
+   "id": "m2c2-f13",
+   "front": "Mot de passe",
+   "back": "Sel unique + fonction lente : Argon2, scrypt, bcrypt, PBKDF2.",
+   "concept": "Stockage des mots de passe"
+  },
+  {
+   "id": "m2c2-f14",
+   "front": "HMAC",
+   "back": "Intégrité + authentification par clé partagée. Pas de non-répudiation.",
+   "concept": "MAC"
+  },
+  {
+   "id": "m2c2-f15",
+   "front": "Signature",
+   "back": "Empreinte signée avec la clé PRIVÉE, vérifiée avec la clé PUBLIQUE de l'émetteur.",
+   "concept": "Signature numérique"
+  },
+  {
+   "id": "m2c2-f16",
+   "front": "CA / RA",
+   "back": "La RA vérifie l'identité ; la CA signe le certificat.",
+   "concept": "PKI"
+  },
+  {
+   "id": "m2c2-f17",
+   "front": "CRL / OCSP",
+   "back": "Liste périodique de révocation / réponse en ligne pour un certificat.",
+   "concept": "Révocation"
+  },
+  {
+   "id": "m2c2-f18",
+   "front": "HSM",
+   "back": "Module matériel qui garde et utilise les clés sans les exposer.",
+   "concept": "HSM"
+  },
+  {
+   "id": "m2c2-f19",
+   "front": "Séquestre",
+   "back": "Oui pour une clé de chiffrement, jamais pour une clé de signature.",
+   "concept": "Séquestre de clés"
+  },
+  {
+   "id": "m2c2-f20",
+   "front": "Forward secrecy",
+   "back": "Clés éphémères (ECDHE) : le vol futur de la clé serveur ne déchiffre pas le passé.",
+   "concept": "Confidentialité persistante"
+  }
+ ],
+ "revisionSheet": [
+  "# Fiche de révision : cryptographie, signatures, certificats et PKI",
+  "Services : confidentialité (chiffrement), intégrité (hachage, MAC, signature), authentification (MAC, signature, certificat), non-répudiation (signature seule).",
+  "Kerckhoffs : algorithme public, seule la clé est secrète. Jamais d'algorithme maison.",
+  "Symétrique : une clé partagée, rapide, n(n-1)/2 clés. AES (blocs de 128 bits, clés 128/192/256), ChaCha20. DES, 3DES et RC4 sont cassés ou retirés.",
+  "Modes : ECB à éviter (motifs visibles) ; CBC (IV imprévisible) ; CTR (compteur unique) ; GCM (chiffre et authentifie).",
+  "Asymétrique : paire de clés, lent, 2n clés. RSA (factorisation), ECC (clés courtes), Diffie-Hellman (secret partagé, à authentifier).",
+  "Chiffrer pour Bob : clé publique de Bob. Signer : ma clé privée. Vérifier : clé publique de l'émetteur.",
+  "Hybride : asymétrique pour la clé de session, symétrique pour les données (TLS, messageries).",
+  "Hachage : taille fixe, sens unique, résistant aux collisions. SHA-2/SHA-3 oui ; MD5/SHA-1 non. Collision en 2 puissance n/2 essais (anniversaires).",
+  "Mots de passe : sel unique (non secret) + fonction lente (Argon2, scrypt, bcrypt, PBKDF2).",
+  "HMAC : intégrité + authentification, pas de non-répudiation. Signature : intégrité + authentification + non-répudiation, pas de confidentialité.",
+  "Certificat X.509 : identité + clé publique + validité + usages, signés par la CA. Jamais de clé privée.",
+  "PKI : CA racine hors ligne, CA intermédiaires, RA (vérifie, ne signe pas), CRL (liste périodique), OCSP (en ligne).",
+  "Cycle de vie des clés : génération, distribution, stockage (HSM), utilisation, rotation, révocation, destruction. Séquestre : chiffrement oui, signature jamais.",
+  "Clé privée volée : révoquer le certificat ET générer une nouvelle paire. Forward secrecy : clés éphémères (ECDHE), TLS 1.3.",
+  "Attaques : force brute, homme du milieu, rétrogradation, canaux auxiliaires, collisions. Quantique : Shor menace RSA/ECC, AES-256 reste solide ; standards NIST FIPS 203/204/205 (2024).",
+  "Paires à ne pas confondre : symétrique/asymétrique ; hachage/chiffrement ; MAC/signature ; CA/RA ; CRL/OCSP ; clé publique/clé privée."
+ ],
+ "mindMap": {
+  "label": "Cryptographie et PKI",
+  "en": "Cryptography",
+  "emoji": "🔐",
+  "children": [
+   {
+    "label": "Fondamentaux",
+    "en": "Fundamentals",
+    "emoji": "🧭",
+    "tone": "blue",
+    "children": [
+     {
+      "label": "Quatre services",
+      "detail": "Confidentialité, intégrité, authentification, non-répudiation.",
+      "children": [
+       {
+        "label": "Pas la disponibilité",
+        "detail": "Une clé perdue peut même rendre les données inaccessibles."
+       }
+      ]
+     },
+     {
+      "label": "Principe de Kerckhoffs",
+      "detail": "Algorithme public, seule la clé est secrète.",
+      "children": [
+       {
+        "label": "Jamais d'algorithme « maison »"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "label": "Chiffrement symétrique",
+    "en": "Symmetric",
+    "emoji": "🔑",
+    "tone": "violet",
+    "children": [
+     {
+      "label": "Une clé partagée",
+      "detail": "Rapide, gros volumes ; n(n-1)/2 clés.",
+      "children": [
+       {
+        "label": "AES, ChaCha20",
+        "detail": "Recommandés."
+       },
+       {
+        "label": "DES, 3DES, RC4",
+        "detail": "Cassés ou retirés."
+       }
+      ]
+     },
+     {
+      "label": "Modes",
+      "en": "Modes of operation",
+      "children": [
+       {
+        "label": "ECB",
+        "detail": "Motifs visibles : à éviter."
+       },
+       {
+        "label": "CBC, CTR",
+        "detail": "IV imprévisible, compteur jamais réutilisé."
+       },
+       {
+        "label": "GCM",
+        "detail": "Chiffre et authentifie."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "label": "Chiffrement asymétrique",
+    "en": "Asymmetric",
+    "emoji": "🗝️",
+    "tone": "green",
+    "children": [
+     {
+      "label": "Paire de clés",
+      "detail": "Publique diffusée, privée gardée ; 2n clés ; lent.",
+      "children": [
+       {
+        "label": "Chiffrer : clé publique du destinataire"
+       },
+       {
+        "label": "Signer : clé privée de l'émetteur"
+       }
+      ]
+     },
+     {
+      "label": "Algorithmes",
+      "children": [
+       {
+        "label": "RSA",
+        "detail": "Factorisation."
+       },
+       {
+        "label": "ECC",
+        "detail": "Clés plus courtes à sécurité égale."
+       },
+       {
+        "label": "Diffie-Hellman",
+        "detail": "Secret partagé ; à authentifier contre l'homme du milieu."
+       }
+      ]
+     },
+     {
+      "label": "Hybride",
+      "en": "Hybrid",
+      "detail": "Asymétrique pour la clé de session, symétrique pour les données (TLS)."
+     }
+    ]
+   },
+   {
+    "label": "Hachage et mots de passe",
+    "en": "Hashing",
+    "emoji": "🧬",
+    "tone": "turquoise",
+    "children": [
+     {
+      "label": "Propriétés",
+      "detail": "Taille fixe, sens unique, seconde préimage, collisions, avalanche.",
+      "children": [
+       {
+        "label": "Anniversaires",
+        "detail": "Collision en 2 puissance n/2 essais."
+       }
+      ]
+     },
+     {
+      "label": "Algorithmes",
+      "children": [
+       {
+        "label": "SHA-2, SHA-3",
+        "detail": "Recommandés."
+       },
+       {
+        "label": "MD5, SHA-1",
+        "detail": "Collisions : à bannir."
+       }
+      ]
+     },
+     {
+      "label": "Mots de passe",
+      "detail": "Sel unique non secret + Argon2, scrypt, bcrypt, PBKDF2."
+     }
+    ]
+   },
+   {
+    "label": "MAC et signatures",
+    "en": "Digital Signatures",
+    "emoji": "✍️",
+    "tone": "orange",
+    "children": [
+     {
+      "label": "HMAC",
+      "detail": "Clé partagée : intégrité et authentification.",
+      "children": [
+       {
+        "label": "Pas de non-répudiation"
+       }
+      ]
+     },
+     {
+      "label": "Signature numérique",
+      "detail": "Empreinte signée avec la clé privée.",
+      "children": [
+       {
+        "label": "Intégrité, authentification, non-répudiation"
+       },
+       {
+        "label": "Pas de confidentialité",
+        "detail": "Signer puis chiffrer si besoin."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "label": "PKI et certificats",
+    "en": "PKI",
+    "emoji": "🏛️",
+    "tone": "pink",
+    "children": [
+     {
+      "label": "Certificat X.509",
+      "detail": "Identité + clé publique + validité, signés par une CA.",
+      "children": [
+       {
+        "label": "Jamais la clé privée"
+       }
+      ]
+     },
+     {
+      "label": "Acteurs",
+      "children": [
+       {
+        "label": "CA racine",
+        "detail": "Hors ligne."
+       },
+       {
+        "label": "CA intermédiaire",
+        "detail": "Signe au quotidien."
+       },
+       {
+        "label": "RA",
+        "detail": "Vérifie l'identité, ne signe pas."
+       }
+      ]
+     },
+     {
+      "label": "Révocation",
+      "children": [
+       {
+        "label": "CRL",
+        "detail": "Liste périodique."
+       },
+       {
+        "label": "OCSP",
+        "detail": "Réponse en ligne."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "label": "Gestion des clés",
+    "en": "Key Management",
+    "emoji": "🗄️",
+    "tone": "yellow",
+    "children": [
+     {
+      "label": "Cycle de vie",
+      "detail": "Génération, distribution, stockage, utilisation, rotation, révocation, destruction.",
+      "children": [
+       {
+        "label": "HSM",
+        "detail": "La clé ne sort jamais en clair."
+       }
+      ]
+     },
+     {
+      "label": "Séquestre",
+      "detail": "Clé de chiffrement oui, clé de signature jamais."
+     },
+     {
+      "label": "Forward secrecy",
+      "detail": "Clés éphémères (ECDHE), imposées par TLS 1.3."
+     }
+    ]
+   },
+   {
+    "label": "Attaques et avenir",
+    "en": "Cryptanalysis",
+    "emoji": "⚠️",
+    "tone": "red",
+    "children": [
+     {
+      "label": "Classiques",
+      "children": [
+       {
+        "label": "Force brute"
+       },
+       {
+        "label": "Homme du milieu"
+       },
+       {
+        "label": "Rétrogradation"
+       },
+       {
+        "label": "Canaux auxiliaires"
+       }
+      ]
+     },
+     {
+      "label": "Post-quantique",
+      "detail": "Shor menace RSA et ECC ; FIPS 203, 204, 205 (2024).",
+      "children": [
+       {
+        "label": "AES-256 reste solide"
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}

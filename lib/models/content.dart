@@ -414,6 +414,7 @@ class Chapter {
     this.questions = const [],
     this.flashcards = const [],
     this.revisionSheet = const [],
+    this.mindMap,
   });
 
   final String id;
@@ -429,6 +430,49 @@ class Chapter {
 
   /// Fiche de révision du chapitre (lignes de texte).
   final List<String> revisionSheet;
+
+  /// Carte mentale du chapitre (racine = titre du chapitre).
+  final MindNode? mindMap;
+}
+
+/// Nœud d'une carte mentale : libellé, terme anglais, détail, sous-nœuds.
+class MindNode {
+  const MindNode({
+    required this.label,
+    this.en,
+    this.emoji,
+    this.detail,
+    this.tone,
+    this.children = const [],
+  });
+
+  factory MindNode.fromJson(Map<String, dynamic> json) => MindNode(
+    label: json['label'] as String,
+    en: json['en'] as String?,
+    emoji: json['emoji'] as String?,
+    detail: json['detail'] as String?,
+    tone: json['tone'] as String?,
+    children: (json['children'] as List? ?? const [])
+        .map((c) => MindNode.fromJson(c as Map<String, dynamic>))
+        .toList(),
+  );
+
+  final String label;
+
+  /// Terme anglais de l'examen, quand il diffère du libellé.
+  final String? en;
+  final String? emoji;
+  final String? detail;
+
+  /// Couleur imposée (nom d'un ton du cahier), sinon couleur de la branche.
+  final String? tone;
+  final List<MindNode> children;
+
+  /// Nombre total de nœuds, racine comprise.
+  int get size => 1 + children.fold(0, (n, c) => n + c.size);
+
+  /// Profondeur maximale (1 pour un nœud sans enfant).
+  int get depth => 1 + children.fold(0, (d, c) => c.depth > d ? c.depth : d);
 }
 
 class Module {

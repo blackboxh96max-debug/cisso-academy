@@ -5,6 +5,7 @@ import '../app_state.dart';
 import '../models/content.dart';
 import 'flashcards_page.dart';
 import 'lesson_page.dart';
+import 'mind_map_page.dart';
 import 'notebook/hand_drawn.dart';
 import 'notebook/page_kit.dart';
 import 'notebook/palette.dart';
@@ -136,6 +137,20 @@ class ChapterPage extends StatelessWidget {
                 onPressed: () => Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (_) => RevisionSheetPage(chapter: chapter),
+                  ),
+                ),
+              ),
+              GradientButton(
+                emoji: '🧠',
+                label: 'Carte mentale',
+                from: Tone.violet,
+                to: Tone.blue,
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => MindMapPage(
+                      title: 'Carte mentale',
+                      root: chapterMindMap(chapter),
+                    ),
                   ),
                 ),
               ),

@@ -1562,5 +1562,136 @@
   "Kerberos : KDC = AS + TGS ; TGT puis ticket de service ; horloges synchronisées ; risques pass-the-ticket et Kerberoasting.",
   "PAM : comptes séparés, coffre-fort, rotation, juste-à-temps, sessions enregistrées.",
   "Paires à ne pas confondre : identification/authentification ; FAR/FRR ; DAC/MAC ; rule-based/role-based ; Bell-LaPadula/Biba ; OAuth/OIDC ; AS/TGS."
- ]
+ ],
+ "mindMap": {
+  "label": "IAM : identités et accès",
+  "en": "Identity and Access Management",
+  "emoji": "🔑",
+  "children": [
+   {
+    "label": "IAAA",
+    "emoji": "🙋",
+    "children": [
+     {
+      "label": "Identification",
+      "detail": "Déclarer une identité (identifiant)."
+     },
+     {
+      "label": "Authentification",
+      "detail": "La prouver avec un ou plusieurs facteurs."
+     },
+     {
+      "label": "Autorisation",
+      "detail": "Décider des droits."
+     },
+     {
+      "label": "Traçabilité",
+      "en": "Accountability",
+      "detail": "Journaux et identités uniques : pas de comptes partagés."
+     }
+    ]
+   },
+   {
+    "label": "Authentification",
+    "en": "Authentication",
+    "emoji": "🔐",
+    "children": [
+     {
+      "label": "3 facteurs",
+      "detail": "Ce que je sais, ce que j'ai, ce que je suis.",
+      "children": [
+       {
+        "label": "MFA = au moins 2 catégories DIFFÉRENTES"
+       }
+      ]
+     },
+     {
+      "label": "Biométrie",
+      "detail": "FRR = type I (refus à tort) ; FAR = type II (imposteur accepté).",
+      "children": [
+       {
+        "label": "CER/EER bas = système plus précis"
+       }
+      ]
+     },
+     {
+      "label": "Mots de passe",
+      "detail": "Longueur, refus des mots de passe compromis, pas de rotation forcée sans raison."
+     },
+     {
+      "label": "MFA résistante à l'hameçonnage",
+      "detail": "FIDO2, passkeys (WebAuthn)."
+     },
+     {
+      "label": "Attaques",
+      "detail": "Spraying, stuffing, fatigue MFA, relais en temps réel."
+     }
+    ]
+   },
+   {
+    "label": "Contrôle d'accès",
+    "en": "Access Control Models",
+    "emoji": "🚪",
+    "children": [
+     {
+      "label": "DAC",
+      "detail": "Le propriétaire décide."
+     },
+     {
+      "label": "MAC",
+      "detail": "Le système décide selon étiquettes et habilitations."
+     },
+     {
+      "label": "RBAC",
+      "detail": "Droits attribués aux rôles."
+     },
+     {
+      "label": "Par règles",
+      "en": "Rule-based",
+      "detail": "Règles globales (pare-feu, horaires)."
+     },
+     {
+      "label": "ABAC",
+      "detail": "Attributs du sujet, de la ressource, de l'action et du contexte (PDP/PEP)."
+     },
+     {
+      "label": "Principes",
+      "detail": "Moindre privilège, besoin d'en connaître, refus par défaut."
+     },
+     {
+      "label": "Modèles formels",
+      "detail": "Bell-LaPadula (confidentialité) : no read up, no write down. Biba (intégrité) : l'inverse."
+     }
+    ]
+   },
+   {
+    "label": "Cycle de vie et fédération",
+    "en": "Identity Lifecycle and Federation",
+    "emoji": "🔄",
+    "children": [
+     {
+      "label": "Arrivée, mobilité, départ",
+      "en": "Joiner-Mover-Leaver",
+      "detail": "Plus la revue périodique des accès."
+     },
+     {
+      "label": "SSO et fédération",
+      "detail": "Une authentification, plusieurs applications ; IdP ↔ SP."
+     },
+     {
+      "label": "SAML / OAuth 2.0 / OIDC",
+      "detail": "Assertions XML / autorisation déléguée / identité (jeton JWT)."
+     },
+     {
+      "label": "Kerberos",
+      "detail": "KDC = AS + TGS ; TGT puis ticket de service ; horloges synchronisées."
+     },
+     {
+      "label": "PAM",
+      "detail": "Comptes séparés, coffre, juste-à-temps, sessions enregistrées."
+     }
+    ]
+   }
+  ]
+ }
 }

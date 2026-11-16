@@ -840,5 +840,186 @@
   "definition": "Base de connaissances publique des tactiques et techniques observées chez les attaquants.",
   "example": "Carte de couverture des règles du SOC.",
   "kind": "general"
+ },
+ {
+  "id": "symmetric-encryption",
+  "en": "Symmetric encryption",
+  "fr": "Chiffrement symétrique",
+  "definition": "Chiffrement où la même clé secrète sert à chiffrer et à déchiffrer.",
+  "example": "AES protège un disque dur.",
+  "kind": "general"
+ },
+ {
+  "id": "asymmetric-encryption",
+  "en": "Asymmetric encryption",
+  "fr": "Chiffrement asymétrique",
+  "definition": "Chiffrement utilisant une paire de clés : une publique, une privée, liées mathématiquement.",
+  "example": "RSA, courbes elliptiques.",
+  "kind": "general"
+ },
+ {
+  "id": "aes",
+  "en": "Advanced Encryption Standard",
+  "fr": "Standard de chiffrement avancé",
+  "acronym": "AES",
+  "definition": "Algorithme de chiffrement symétrique par blocs de 128 bits, avec des clés de 128, 192 ou 256 bits.",
+  "example": "AES-256-GCM dans TLS.",
+  "kind": "general"
+ },
+ {
+  "id": "rsa",
+  "en": "Rivest-Shamir-Adleman",
+  "fr": "RSA",
+  "acronym": "RSA",
+  "definition": "Algorithme asymétrique fondé sur la difficulté de factoriser de grands nombres, utilisé pour le chiffrement et la signature.",
+  "example": "Clé RSA de 3072 bits.",
+  "kind": "general"
+ },
+ {
+  "id": "ecc",
+  "en": "Elliptic Curve Cryptography",
+  "fr": "Cryptographie sur courbes elliptiques",
+  "acronym": "ECC",
+  "definition": "Cryptographie asymétrique offrant une sécurité comparable à RSA avec des clés plus courtes.",
+  "example": "Signature ECDSA d'un certificat.",
+  "kind": "general"
+ },
+ {
+  "id": "diffie-hellman",
+  "en": "Diffie-Hellman key exchange",
+  "fr": "Échange de clés Diffie-Hellman",
+  "acronym": "DH",
+  "definition": "Protocole qui permet à deux parties d'établir un secret partagé sur un canal non sûr, sans le transmettre.",
+  "example": "ECDHE dans TLS 1.3.",
+  "kind": "general"
+ },
+ {
+  "id": "hash-function",
+  "en": "Hash function",
+  "fr": "Fonction de hachage",
+  "definition": "Fonction sans clé qui produit une empreinte de taille fixe, à sens unique et résistante aux collisions.",
+  "example": "SHA-256 d'un fichier téléchargé.",
+  "kind": "general"
+ },
+ {
+  "id": "salt",
+  "en": "Salt",
+  "fr": "Sel",
+  "definition": "Valeur aléatoire unique, non secrète, ajoutée au mot de passe avant hachage.",
+  "example": "Un sel de 16 octets par compte.",
+  "kind": "general"
+ },
+ {
+  "id": "hmac",
+  "en": "Hash-based Message Authentication Code",
+  "fr": "Code d'authentification de message à base de hachage",
+  "acronym": "HMAC",
+  "definition": "Code calculé avec une fonction de hachage et une clé secrète partagée, qui garantit intégrité et authentification de l'origine.",
+  "example": "HMAC-SHA256 sur une requête d'API.",
+  "kind": "general"
+ },
+ {
+  "id": "digital-signature",
+  "en": "Digital signature",
+  "fr": "Signature numérique",
+  "definition": "Empreinte d'un document signée avec la clé privée de l'émetteur ; apporte intégrité, authentification et non-répudiation.",
+  "example": "Signature d'un contrat électronique.",
+  "kind": "general"
+ },
+ {
+  "id": "non-repudiation",
+  "en": "Non-repudiation",
+  "fr": "Non-répudiation",
+  "definition": "Impossibilité pour l'auteur d'une action de nier l'avoir accomplie.",
+  "example": "Une signature numérique engage son signataire.",
+  "kind": "general"
+ },
+ {
+  "id": "certificate",
+  "en": "X.509 certificate",
+  "fr": "Certificat X.509",
+  "definition": "Document électronique signé par une autorité de certification, qui lie une identité à une clé publique.",
+  "example": "Certificat d'un site HTTPS.",
+  "kind": "general"
+ },
+ {
+  "id": "pki",
+  "en": "Public Key Infrastructure",
+  "fr": "Infrastructure à clés publiques",
+  "acronym": "PKI",
+  "definition": "Ensemble des autorités, règles et outils qui émettent, gèrent et révoquent les certificats.",
+  "example": "PKI interne pour les postes de travail.",
+  "kind": "general"
+ },
+ {
+  "id": "ca",
+  "en": "Certificate Authority",
+  "fr": "Autorité de certification",
+  "acronym": "CA",
+  "definition": "Entité qui signe les certificats et atteste ainsi le lien entre identité et clé publique.",
+  "example": "CA intermédiaire d'entreprise.",
+  "kind": "general"
+ },
+ {
+  "id": "ra",
+  "en": "Registration Authority",
+  "fr": "Autorité d'enregistrement",
+  "acronym": "RA",
+  "definition": "Entité qui vérifie l'identité des demandeurs avant l'émission d'un certificat.",
+  "example": "Le service RH valide l'identité d'un nouvel employé.",
+  "kind": "general"
+ },
+ {
+  "id": "crl",
+  "en": "Certificate Revocation List",
+  "fr": "Liste de révocation de certificats",
+  "acronym": "CRL",
+  "definition": "Liste signée, publiée périodiquement, des certificats révoqués avant leur échéance.",
+  "example": "CRL mise à jour toutes les 24 heures.",
+  "kind": "general"
+ },
+ {
+  "id": "ocsp",
+  "en": "Online Certificate Status Protocol",
+  "fr": "Protocole de vérification en ligne de l'état d'un certificat",
+  "acronym": "OCSP",
+  "definition": "Protocole permettant d'interroger en ligne l'état de révocation d'un certificat précis.",
+  "example": "Le navigateur interroge le répondeur OCSP.",
+  "kind": "general"
+ },
+ {
+  "id": "hsm",
+  "en": "Hardware Security Module",
+  "fr": "Module matériel de sécurité",
+  "acronym": "HSM",
+  "definition": "Équipement matériel durci qui génère, stocke et utilise des clés sans les exposer en clair.",
+  "example": "Clé racine de la PKI dans un HSM.",
+  "kind": "general"
+ },
+ {
+  "id": "key-escrow",
+  "en": "Key escrow",
+  "fr": "Séquestre de clés",
+  "definition": "Conservation protégée d'une copie de clé de chiffrement pour pouvoir récupérer les données.",
+  "example": "Clé de recouvrement du chiffrement de disque.",
+  "kind": "general"
+ },
+ {
+  "id": "forward-secrecy",
+  "en": "Perfect forward secrecy",
+  "fr": "Confidentialité persistante",
+  "acronym": "PFS",
+  "definition": "Propriété selon laquelle la compromission d'une clé à long terme ne permet pas de déchiffrer les sessions passées.",
+  "example": "ECDHE éphémère dans TLS 1.3.",
+  "kind": "general"
+ },
+ {
+  "id": "tls",
+  "en": "Transport Layer Security",
+  "fr": "Sécurité de la couche transport",
+  "acronym": "TLS",
+  "definition": "Protocole qui chiffre et authentifie les communications réseau, à la base de HTTPS.",
+  "example": "TLS 1.3 entre le navigateur et le serveur.",
+  "kind": "general"
  }
 ]

@@ -1506,5 +1506,137 @@
   "Sensibilisation (tous), formation (rôles), éducation (experts).",
   "KPI = performance (MTTD, MTTR) ; KRI = évolution d'un risque.",
   "Paires à ne pas confondre : gouvernance/management ; accountability/responsibility ; due diligence/due care ; propriétaire/dépositaire ; moindre privilège/besoin d'en connaître ; KPI/KRI."
- ]
+ ],
+ "mindMap": {
+  "label": "Gouvernance et management de la sécurité",
+  "en": "Security Governance",
+  "emoji": "🧭",
+  "children": [
+   {
+    "label": "Gouverner ou manager ?",
+    "en": "Governance vs Management",
+    "emoji": "🏛️",
+    "children": [
+     {
+      "label": "Gouvernance",
+      "detail": "Orienter et contrôler : direction générale, conseil."
+     },
+     {
+      "label": "Management",
+      "detail": "Planifier et exécuter : RSSI, DSI, équipes."
+     },
+     {
+      "label": "NIST CSF 2.0",
+      "detail": "Govern au centre de Identify, Protect, Detect, Respond, Recover."
+     },
+     {
+      "label": "ISO/IEC 27014",
+      "detail": "Gouvernance de la sécurité de l'information."
+     }
+    ]
+   },
+   {
+    "label": "Rôles et responsabilités",
+    "en": "Roles and Responsibilities",
+    "emoji": "👥",
+    "children": [
+     {
+      "label": "Accountability",
+      "detail": "Responsabilité finale : ne se délègue pas (direction)."
+     },
+     {
+      "label": "Responsibility",
+      "detail": "Responsabilité d'exécution : se délègue."
+     },
+     {
+      "label": "RSSI",
+      "en": "CISO",
+      "detail": "Pilote, conseille, rend compte ; idéalement hors de la DSI."
+     },
+     {
+      "label": "Due diligence / due care",
+      "detail": "Savoir (s'informer, évaluer) / faire (agir, maintenir).",
+      "children": [
+       {
+        "label": "Savoir sans agir = négligence"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "label": "Classification et données",
+    "en": "Data Classification",
+    "emoji": "🏷️",
+    "children": [
+     {
+      "label": "Classifier",
+      "detail": "Protection proportionnée à l'impact ; revue périodique."
+     },
+     {
+      "label": "Propriétaire",
+      "en": "Data owner",
+      "detail": "Décide : classe et autorise les accès."
+     },
+     {
+      "label": "Dépositaire",
+      "en": "Data custodian",
+      "detail": "Applique : sauvegardes, droits, chiffrement."
+     },
+     {
+      "label": "Utilisateur",
+      "en": "User",
+      "detail": "Respecte les règles.",
+      "children": [
+       {
+        "label": "Mémo « D.A.R. »"
+       }
+      ]
+     },
+     {
+      "label": "Moindre privilège + besoin d'en connaître",
+      "detail": "Les deux se cumulent."
+     }
+    ]
+   },
+   {
+    "label": "Personnel et sensibilisation",
+    "en": "Personnel Security",
+    "emoji": "🧑‍💼",
+    "children": [
+     {
+      "label": "Cycle de vie du salarié",
+      "detail": "Recrutement, arrivée, mobilité, départ (désactivation immédiate)."
+     },
+     {
+      "label": "Contre la fraude",
+      "detail": "Séparation des tâches, rotation des postes, congés obligatoires."
+     },
+     {
+      "label": "Sensibiliser, former, éduquer",
+      "detail": "Tous / selon le rôle / les experts."
+     }
+    ]
+   },
+   {
+    "label": "Piloter",
+    "en": "Metrics",
+    "emoji": "📊",
+    "children": [
+     {
+      "label": "KPI",
+      "detail": "Performance : « fait-on bien le travail ? » (MTTD, MTTR)."
+     },
+     {
+      "label": "KRI",
+      "detail": "Risque : « le danger augmente-t-il ? »"
+     },
+     {
+      "label": "Rendre compte",
+      "detail": "Tableaux de bord pour la direction."
+     }
+    ]
+   }
+  ]
+ }
 }
