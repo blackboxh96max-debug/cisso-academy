@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <g stroke="#26324A" stroke-width="2.2" stroke-linejoin="round">
+    <rect x="8" y="118" width="190" height="14" rx="7" fill="#E2E8F0" />
+    <rect x="14" y="96" width="22" height="22" fill="#FED7AA" />
+    <rect x="200" y="78" width="32" height="54" rx="3" fill="#DCFCE7" />
+    <path d="M58 132 L58 66 L82 66 L82 132" fill="none" />
+    <path d="M108 132 L108 66 L132 66 L132 132" fill="none" />
+    <path d="M158 132 L158 66 L182 66 L182 132" fill="none" />
+    <rect x="62" y="98" width="16" height="16" fill="#EDE4FF" />
+    <rect x="112" y="98" width="16" height="16" fill="#CCFBF1" />
+    <rect x="162" y="98" width="16" height="16" fill="#DBEAFE" />
+  </g>
+  <g stroke="#26324A" stroke-width="1.6"><path d="M206 92 L226 92 M206 104 L226 104 M206 116 L226 116" /></g>
+  <g font-family="Caveat, cursive" font-size="14" text-anchor="middle">
+    <text x="70" y="58" fill="#6D28D9">analyse</text>
+    <text x="120" y="58" fill="#0F766E">tests</text>
+    <text x="170" y="58" fill="#1D4ED8">signature</text>
+    <text x="25" y="150" fill="#C2410C">code</text>
+    <text x="216" y="150" fill="#15803D">serveur</text>
+  </g>
+</svg>

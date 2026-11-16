@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <g stroke="#26324A" stroke-width="2.2" stroke-linejoin="round">
+    <path d="M120 90 L120 22 A68 68 0 0 1 179 56 Z" fill="#DBEAFE" />
+    <path d="M120 90 L179 56 A68 68 0 0 1 179 124 Z" fill="#EDE4FF" />
+    <path d="M120 90 L179 124 A68 68 0 0 1 120 158 Z" fill="#CCFBF1" />
+    <path d="M120 90 L120 158 A68 68 0 0 1 61 124 Z" fill="#FED7AA" />
+    <path d="M120 90 L61 124 A68 68 0 0 1 61 56 Z" fill="#DCFCE7" />
+    <path d="M120 90 L61 56 A68 68 0 0 1 120 22 Z" fill="#FBCFE8" />
+    <path d="M108 78 L120 72 L132 78 L132 92 C132 102 120 108 120 108 C120 108 108 102 108 92 Z" fill="#FFFFFF" />
+  </g>
+  <path d="M200 40 C214 56 214 70 206 84" fill="none" stroke="#26324A" stroke-width="2.4" stroke-linecap="round" />
+  <path d="M200 78 L206 86 L214 80" fill="none" stroke="#26324A" stroke-width="2.4" stroke-linecap="round" />
+  <g font-family="Caveat, cursive" font-size="13" text-anchor="middle">
+    <text x="145" y="52" fill="#1D4ED8">besoins</text>
+    <text x="158" y="94" fill="#6D28D9">conception</text>
+    <text x="145" y="136" fill="#0F766E">code</text>
+    <text x="96" y="136" fill="#C2410C">tests</text>
+    <text x="80" y="94" fill="#15803D">déployer</text>
+    <text x="96" y="52" fill="#BE185D">suivi</text>
+  </g>
+</svg>

@@ -1689,5 +1689,193 @@
   "definition": "Regroupement en service cloud des fonctions réseau et sécurité (ZTNA, passerelle web, CASB, pare-feu).",
   "example": "Les agences passent par le SASE.",
   "kind": "general"
+ },
+ {
+  "id": "secure-sdlc",
+  "en": "Secure Software Development Life Cycle",
+  "fr": "Cycle de développement logiciel sécurisé",
+  "acronym": "SDLC",
+  "definition": "Intégration de la sécurité à chaque étape du développement, des exigences à la maintenance.",
+  "example": "Exigences de sécurité validées avant le codage.",
+  "kind": "general"
+ },
+ {
+  "id": "shift-left",
+  "en": "Shift left",
+  "fr": "Décalage à gauche",
+  "definition": "Pratique qui traite la sécurité le plus tôt possible dans le cycle de développement.",
+  "example": "Analyse statique dès la demande de fusion.",
+  "kind": "general"
+ },
+ {
+  "id": "devsecops",
+  "en": "DevSecOps",
+  "fr": "DevSecOps",
+  "definition": "Intégration de la sécurité, automatisée, dans les pratiques de développement et d'exploitation.",
+  "example": "Contrôles de sécurité dans le pipeline CI/CD.",
+  "kind": "general"
+ },
+ {
+  "id": "threat-modeling",
+  "en": "Threat modeling",
+  "fr": "Modélisation des menaces",
+  "definition": "Analyse, en conception, de ce qui peut mal tourner dans un système et des contrôles à prévoir.",
+  "example": "Atelier STRIDE sur le nouveau portail.",
+  "kind": "general"
+ },
+ {
+  "id": "stride",
+  "en": "STRIDE",
+  "fr": "STRIDE",
+  "definition": "Méthode de classement des menaces : usurpation, altération, répudiation, divulgation, déni de service, élévation de privilèges.",
+  "example": "Menace « R » : un utilisateur nie une action.",
+  "kind": "general"
+ },
+ {
+  "id": "owasp",
+  "en": "Open Worldwide Application Security Project",
+  "fr": "Projet ouvert mondial pour la sécurité des applications",
+  "acronym": "OWASP",
+  "definition": "Communauté ouverte qui publie guides, outils et le Top 10 des risques applicatifs.",
+  "example": "Exigences basées sur l'OWASP Top 10.",
+  "kind": "general"
+ },
+ {
+  "id": "sql-injection",
+  "en": "SQL injection",
+  "fr": "Injection SQL",
+  "acronym": "SQLi",
+  "definition": "Attaque où une saisie est interprétée comme une partie d'une requête SQL.",
+  "example": "« ' OR 1=1 -- » dans un champ de recherche.",
+  "kind": "general"
+ },
+ {
+  "id": "xss",
+  "en": "Cross-site scripting",
+  "fr": "Script intersite",
+  "acronym": "XSS",
+  "definition": "Injection de script exécuté dans le navigateur des utilisateurs d'un site.",
+  "example": "Script caché dans un commentaire.",
+  "kind": "general"
+ },
+ {
+  "id": "csrf",
+  "en": "Cross-site request forgery",
+  "fr": "Falsification de requête intersite",
+  "acronym": "CSRF",
+  "definition": "Attaque qui fait envoyer une requête par le navigateur d'un utilisateur connecté, à son insu.",
+  "example": "Virement déclenché depuis un site piégé.",
+  "kind": "general"
+ },
+ {
+  "id": "idor",
+  "en": "Insecure Direct Object Reference",
+  "fr": "Référence directe non sécurisée à un objet",
+  "acronym": "IDOR",
+  "definition": "Accès aux données d'un autre en modifiant un identifiant, faute de contrôle d'autorisation.",
+  "example": "facture=1002 au lieu de 1001.",
+  "kind": "general"
+ },
+ {
+  "id": "ssrf",
+  "en": "Server-Side Request Forgery",
+  "fr": "Falsification de requête côté serveur",
+  "acronym": "SSRF",
+  "definition": "Attaque qui amène le serveur à appeler une adresse choisie par l'attaquant.",
+  "example": "Appel d'un service interne via « importer depuis une URL ».",
+  "kind": "general"
+ },
+ {
+  "id": "parameterized-query",
+  "en": "Parameterized query (prepared statement)",
+  "fr": "Requête paramétrée",
+  "definition": "Requête où les données sont transmises séparément du code SQL et ne peuvent pas le modifier.",
+  "example": "Parade principale à l'injection SQL.",
+  "kind": "general"
+ },
+ {
+  "id": "output-encoding",
+  "en": "Output encoding",
+  "fr": "Encodage en sortie",
+  "definition": "Transformation des données selon le contexte d'affichage pour qu'elles ne soient pas interprétées comme du code.",
+  "example": "Parade principale au XSS.",
+  "kind": "general"
+ },
+ {
+  "id": "buffer-overflow",
+  "en": "Buffer overflow",
+  "fr": "Débordement de tampon",
+  "definition": "Écriture de données au-delà de la zone mémoire prévue, pouvant mener à l'exécution de code.",
+  "example": "Copie sans contrôle de longueur.",
+  "kind": "general"
+ },
+ {
+  "id": "toctou",
+  "en": "Time-of-check to time-of-use",
+  "fr": "Du moment de la vérification au moment de l'utilisation",
+  "acronym": "TOCTOU",
+  "definition": "Situation de concurrence où l'état change entre la vérification et l'utilisation.",
+  "example": "Fichier remplacé entre le contrôle et l'ouverture.",
+  "kind": "general"
+ },
+ {
+  "id": "sast",
+  "en": "Static Application Security Testing",
+  "fr": "Test statique de sécurité des applications",
+  "acronym": "SAST",
+  "definition": "Analyse du code source sans exécuter l'application.",
+  "example": "Le SAST signale une concaténation SQL.",
+  "kind": "general"
+ },
+ {
+  "id": "dast",
+  "en": "Dynamic Application Security Testing",
+  "fr": "Test dynamique de sécurité des applications",
+  "acronym": "DAST",
+  "definition": "Test de l'application en fonctionnement, depuis l'extérieur.",
+  "example": "Le DAST trouve un en-tête de sécurité manquant.",
+  "kind": "general"
+ },
+ {
+  "id": "sca",
+  "en": "Software Composition Analysis",
+  "fr": "Analyse de composition logicielle",
+  "acronym": "SCA",
+  "definition": "Inventaire des composants tiers et de leurs vulnérabilités et licences connues.",
+  "example": "La SCA signale une bibliothèque vulnérable.",
+  "kind": "general"
+ },
+ {
+  "id": "fuzzing",
+  "en": "Fuzzing",
+  "fr": "Test à données aléatoires",
+  "definition": "Envoi massif de données aléatoires ou malformées pour provoquer des plantages révélateurs.",
+  "example": "Le fuzzing fait planter l'analyseur de fichiers.",
+  "kind": "general"
+ },
+ {
+  "id": "sbom",
+  "en": "Software Bill of Materials",
+  "fr": "Nomenclature logicielle",
+  "acronym": "SBOM",
+  "definition": "Liste structurée des composants d'un logiciel et de leurs versions.",
+  "example": "Recherche d'une bibliothèque vulnérable dans les SBOM.",
+  "kind": "general"
+ },
+ {
+  "id": "code-signing",
+  "en": "Code signing",
+  "fr": "Signature du code",
+  "definition": "Signature numérique d'un logiciel qui prouve son origine et son intégrité.",
+  "example": "Mise à jour refusée car non signée.",
+  "kind": "general"
+ },
+ {
+  "id": "secrets-management",
+  "en": "Secrets management",
+  "fr": "Gestion des secrets",
+  "definition": "Stockage, distribution et rotation des mots de passe, clés et jetons dans un coffre-fort dédié.",
+  "example": "Mot de passe de base lu depuis le coffre-fort.",
+  "kind": "general"
  }
 ]
