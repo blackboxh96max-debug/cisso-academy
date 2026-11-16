@@ -2537,5 +2537,172 @@
   "definition": "Directive (UE) 2022/2555 sur la cybersécurité des entités essentielles et importantes, avec obligations de notification des incidents importants.",
   "example": "Alerte précoce sous 24 h.",
   "kind": "general"
+ },
+ {
+  "id": "common-law",
+  "en": "Common law",
+  "fr": "Droit jurisprudentiel (common law)",
+  "definition": "Système juridique fondé sur les décisions des juges et les précédents.",
+  "example": "Royaume-Uni, États-Unis.",
+  "kind": "general"
+ },
+ {
+  "id": "civil-law",
+  "en": "Civil law (codified)",
+  "fr": "Droit civil codifié",
+  "definition": "Système juridique fondé sur des codes écrits votés par le législateur.",
+  "example": "France, Allemagne.",
+  "kind": "general"
+ },
+ {
+  "id": "criminal-law",
+  "en": "Criminal law",
+  "fr": "Droit pénal",
+  "definition": "Branche du droit qui sanctionne les infractions contre la société, jusqu'à la prison.",
+  "example": "Poursuites pour intrusion.",
+  "kind": "general"
+ },
+ {
+  "id": "cfaa",
+  "en": "Computer Fraud and Abuse Act",
+  "fr": "Loi américaine sur la fraude et les abus informatiques",
+  "acronym": "CFAA",
+  "definition": "Loi américaine de 1986 réprimant l'accès non autorisé aux ordinateurs protégés.",
+  "example": "Poursuite d'un intrus aux États-Unis.",
+  "kind": "general"
+ },
+ {
+  "id": "ecpa",
+  "en": "Electronic Communications Privacy Act",
+  "fr": "Loi américaine sur la confidentialité des communications électroniques",
+  "acronym": "ECPA",
+  "definition": "Loi américaine de 1986 encadrant l'interception des communications en transit et l'accès aux communications stockées.",
+  "example": "Interception illégale d'un flux de messagerie.",
+  "kind": "general"
+ },
+ {
+  "id": "dmca",
+  "en": "Digital Millennium Copyright Act",
+  "fr": "Loi américaine sur le droit d'auteur numérique",
+  "acronym": "DMCA",
+  "definition": "Loi américaine de 1998 sur le droit d'auteur numérique et le contournement des protections techniques.",
+  "example": "Retrait d'un contenu piraté.",
+  "kind": "general"
+ },
+ {
+  "id": "hipaa",
+  "en": "Health Insurance Portability and Accountability Act",
+  "fr": "Loi américaine sur les données de santé",
+  "acronym": "HIPAA",
+  "definition": "Loi américaine de 1996 qui protège notamment les informations de santé.",
+  "example": "Chiffrement des dossiers patients.",
+  "kind": "general"
+ },
+ {
+  "id": "sox",
+  "en": "Sarbanes-Oxley Act",
+  "fr": "Loi Sarbanes-Oxley",
+  "acronym": "SOX",
+  "definition": "Loi américaine de 2002 sur la fiabilité de l'information financière et les contrôles internes des sociétés cotées.",
+  "example": "Audit des contrôles d'accès aux applications comptables.",
+  "kind": "general"
+ },
+ {
+  "id": "glba",
+  "en": "Gramm-Leach-Bliley Act",
+  "fr": "Loi Gramm-Leach-Bliley",
+  "acronym": "GLBA",
+  "definition": "Loi américaine de 1999 sur la protection des données des clients des institutions financières.",
+  "example": "Programme de sécurité d'une banque.",
+  "kind": "general"
+ },
+ {
+  "id": "fisma",
+  "en": "Federal Information Security Modernization Act",
+  "fr": "Loi sur la sécurité des systèmes d'information fédéraux",
+  "acronym": "FISMA",
+  "definition": "Loi américaine (2002, modernisée en 2014) sur la sécurité des systèmes des agences fédérales.",
+  "example": "Autorisation d'un système fédéral.",
+  "kind": "general"
+ },
+ {
+  "id": "can-spam",
+  "en": "CAN-SPAM Act",
+  "fr": "Loi CAN-SPAM",
+  "definition": "Loi américaine de 2003 sur les courriels commerciaux : pas d'objet trompeur, adresse postale, désinscription respectée sous 10 jours ouvrables.",
+  "example": "Lien de désinscription dans chaque courriel.",
+  "kind": "general"
+ },
+ {
+  "id": "godfrain-law",
+  "en": "Godfrain Act (France)",
+  "fr": "Loi Godfrain",
+  "definition": "Loi française de 1988 réprimant l'accès ou le maintien frauduleux dans un système, l'entrave et l'altération de données.",
+  "example": "Plainte pour maintien frauduleux.",
+  "kind": "general"
+ },
+ {
+  "id": "budapest-convention",
+  "en": "Budapest Convention on Cybercrime",
+  "fr": "Convention de Budapest sur la cybercriminalité",
+  "definition": "Traité du Conseil de l'Europe (2001) qui harmonise les infractions informatiques et facilite la coopération.",
+  "example": "Entraide judiciaire entre États signataires.",
+  "kind": "general"
+ },
+ {
+  "id": "patent",
+  "en": "Patent",
+  "fr": "Brevet",
+  "definition": "Titre qui protège une invention pendant environ 20 ans en échange de sa publication.",
+  "example": "Brevet sur un procédé de compression.",
+  "kind": "general"
+ },
+ {
+  "id": "copyright",
+  "en": "Copyright",
+  "fr": "Droit d'auteur",
+  "definition": "Protection de l'expression d'une œuvre (texte, code, image), pas de l'idée.",
+  "example": "Code source protégé.",
+  "kind": "general"
+ },
+ {
+  "id": "trademark",
+  "en": "Trademark",
+  "fr": "Marque",
+  "definition": "Signe qui distingue des produits ou services ; renouvelable sans limite.",
+  "example": "Logo déposé.",
+  "kind": "general"
+ },
+ {
+  "id": "trade-secret",
+  "en": "Trade secret",
+  "fr": "Secret d'affaires",
+  "definition": "Information de valeur protégée tant qu'elle reste secrète.",
+  "example": "Recette protégée par NDA.",
+  "kind": "general"
+ },
+ {
+  "id": "data-minimization",
+  "en": "Data minimization",
+  "fr": "Minimisation des données",
+  "definition": "Principe de ne collecter que les données nécessaires à la finalité.",
+  "example": "Pas de date de naissance pour une newsletter.",
+  "kind": "general"
+ },
+ {
+  "id": "negligence",
+  "en": "Negligence",
+  "fr": "Négligence",
+  "definition": "Fait de ne pas prendre les mesures qu'une personne prudente aurait prises.",
+  "example": "Correctif critique ignoré pendant un an.",
+  "kind": "general"
+ },
+ {
+  "id": "code-of-ethics",
+  "en": "Code of ethics",
+  "fr": "Code de déontologie",
+  "definition": "Règles de conduite professionnelle d'un organisme de certification ou d'une profession.",
+  "example": "Protéger la société d'abord.",
+  "kind": "general"
  }
 ]
