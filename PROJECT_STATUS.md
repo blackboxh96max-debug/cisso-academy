@@ -6,10 +6,20 @@ Dernière mise à jour : 2026-11-16. Règle : une fonctionnalité n'est marquée
 
 | Étape | Contenu | État |
 |---|---|---|
-| 1 | Socle multiplateforme + chapitre pilote | **En revue** (cette pull request) |
-| 2 | Base pédagogique complète, ≥ 500 questions originales relues | À faire |
+| 1 | Socle multiplateforme + chapitre pilote | Fait (PR #1) |
+| 2 | Base pédagogique complète, ≥ 500 questions originales relues | **En cours** : 2 chapitres sur 17, 54 questions |
 | 3 | Tuteur : version sans IA, puis modèle local optionnel | À faire |
 | 4 | Simulateur SOC, sauvegarde chiffrée, import/export, installateurs, documentation finale | À faire |
+
+## Étape 2 : avancement du contenu
+
+| Chapitre | Leçons | Questions | Flashcards | État |
+|---|---|---|---|---|
+| M1 ch. 1 · Gestion, analyse et traitement des risques | 3 | 24 | 20 | Fait, à relire |
+| M1 ch. 2 · Gouvernance et management de la sécurité | 3 | 30 | 20 | Fait, à relire |
+| 15 autres chapitres | – | – | – | À faire, dans l'ordre de la formation |
+
+Glossaire : 50 termes.
 
 ## Étape 1 : détail
 
@@ -32,7 +42,7 @@ Dernière mise à jour : 2026-11-16. Règle : une fonctionnalité n'est marquée
 - **5 modules / 11 domaines** : l'application affiche les 5 modules du cahier des charges ; chaque chapitre et chaque question est rattaché à l'un des 11 domaines officiels du blueprint MILE2 (poids vérifiés le 2026-11-16). La sécurité physique n'a pas de domaine propre dans le blueprint.
 - **Seuil de réussite** : 62/100 selon le blueprint MILE2 consulté ; certaines fiches de formation tierces indiquent 70 %. À revérifier avant l'inscription.
 - **Fiches de révision** : consultables et copiables ; l'export en fichier arrivera avec l'import/export (étape 4).
-- **Examen blanc** : limité à la banque disponible (24 questions) jusqu'à l'étape 2.
+- **Examen blanc** : limité à la banque disponible (54 questions) jusqu'à la fin de l'étape 2.
 - **Ressources vidéo** : pas encore de bibliothèque ; aucune vidéo ne sera listée sans vérification.
 - **Signature** : APK signé avec la clé de débogage ; applications ordinateur non signées.
 

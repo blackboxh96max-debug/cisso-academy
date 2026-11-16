@@ -25,14 +25,23 @@ void main() {
     expect(exam.secondsPerQuestion, 72);
   });
 
-  test('le chapitre pilote est complet', () {
-    final ch = library.chapter('m1c1');
-    expect(ch.available, isTrue);
-    expect(ch.lessons, hasLength(3));
-    expect(ch.questions.length, greaterThanOrEqualTo(20));
-    expect(ch.flashcards.length, greaterThanOrEqualTo(15));
-    expect(ch.revisionSheet, isNotEmpty);
-    for (final lesson in ch.lessons) {
+  test('chaque chapitre disponible respecte le format pédagogique', () {
+    final chapters = library.availableChapters.toList();
+    expect(chapters.map((c) => c.id), containsAll(['m1c1', 'm1c2']));
+    for (final ch in chapters) {
+      expect(ch.lessons.length, greaterThanOrEqualTo(3), reason: ch.id);
+      expect(ch.questions.length, greaterThanOrEqualTo(20), reason: ch.id);
+      expect(ch.flashcards.length, greaterThanOrEqualTo(15), reason: ch.id);
+      expect(ch.revisionSheet, isNotEmpty, reason: ch.id);
+      expect(
+        ch.questions.every((q) => ch.domainIds.contains(q.domainId)),
+        isTrue,
+        reason: '${ch.id} : questions rattachées au domaine du chapitre',
+      );
+      final levels = ch.questions.map((q) => q.level).toSet();
+      expect(levels, containsAll(Level.values), reason: ch.id);
+    }
+    for (final lesson in chapters.expand((c) => c.lessons)) {
       expect(lesson.objectives, isNotEmpty, reason: lesson.id);
       expect(
         lesson.blocks.any((b) => b.type == BlockType.socCase),
@@ -70,19 +79,24 @@ void main() {
     expect(library.questions.where((q) => q.isMultiple), isNotEmpty);
   });
 
-  test('aucune URL inventée : seules des URL https connues sont citées', () {
+  test('aucune URL inventée : seuls des domaines vérifiés sont cités', () {
     final urls = library.chapters
         .expand((c) => c.lessons)
         .expand((l) => l.references)
         .map((r) => r.url)
         .whereType<String>();
     for (final url in urls) {
-      expect(url, startsWith('https://csrc.nist.gov/'), reason: url);
+      expect(
+        url.startsWith('https://csrc.nist.gov/') ||
+            url.startsWith('https://www.nist.gov/'),
+        isTrue,
+        reason: url,
+      );
     }
   });
 
   test('le glossaire est bilingue et la recherche ignore accents et casse', () {
-    expect(library.glossary.length, greaterThanOrEqualTo(30));
+    expect(library.glossary.length, greaterThanOrEqualTo(45));
     final hits = library.glossary.where((t) => t.matches('VULNERABILITE'));
     expect(hits.map((t) => t.id), contains('vulnerability'));
     expect(
