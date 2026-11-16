@@ -1157,5 +1157,171 @@
   "definition": "Équipe de défense chargée de détecter et de répondre aux attaques.",
   "example": "Le SOC est la Blue Team.",
   "kind": "general"
+ },
+ {
+  "id": "osi",
+  "en": "Open Systems Interconnection model",
+  "fr": "Modèle d'interconnexion des systèmes ouverts",
+  "acronym": "OSI",
+  "definition": "Modèle de référence en 7 couches pour décrire les communications réseau.",
+  "example": "Un switch travaille en couche 2 du modèle OSI.",
+  "kind": "general"
+ },
+ {
+  "id": "tcp-ip",
+  "en": "TCP/IP model",
+  "fr": "Modèle TCP/IP",
+  "definition": "Modèle en 4 couches sur lequel repose Internet.",
+  "example": "IP appartient à la couche Internet.",
+  "kind": "general"
+ },
+ {
+  "id": "encapsulation",
+  "en": "Encapsulation",
+  "fr": "Encapsulation",
+  "definition": "Ajout par chaque couche de son en-tête autour des données de la couche supérieure.",
+  "example": "Un segment TCP encapsulé dans un paquet IP.",
+  "kind": "general"
+ },
+ {
+  "id": "tcp",
+  "en": "Transmission Control Protocol",
+  "fr": "Protocole de contrôle de transmission",
+  "acronym": "TCP",
+  "definition": "Protocole de transport fiable et orienté connexion.",
+  "example": "HTTPS utilise TCP 443.",
+  "kind": "general"
+ },
+ {
+  "id": "udp",
+  "en": "User Datagram Protocol",
+  "fr": "Protocole de datagramme utilisateur",
+  "acronym": "UDP",
+  "definition": "Protocole de transport rapide et sans connexion.",
+  "example": "Les requêtes DNS passent en UDP 53.",
+  "kind": "general"
+ },
+ {
+  "id": "three-way-handshake",
+  "en": "Three-way handshake",
+  "fr": "Poignée de main en trois temps",
+  "definition": "Établissement d'une connexion TCP : SYN, SYN-ACK, ACK.",
+  "example": "Une inondation SYN abuse de cette étape.",
+  "kind": "general"
+ },
+ {
+  "id": "arp",
+  "en": "Address Resolution Protocol",
+  "fr": "Protocole de résolution d'adresses",
+  "acronym": "ARP",
+  "definition": "Protocole qui associe une adresse IP à une adresse MAC sur le réseau local.",
+  "example": "Usurpation ARP de la passerelle.",
+  "kind": "general"
+ },
+ {
+  "id": "dns",
+  "en": "Domain Name System",
+  "fr": "Système de noms de domaine",
+  "acronym": "DNS",
+  "definition": "Service qui traduit les noms de domaine en adresses IP.",
+  "example": "Le résolveur interne répond aux postes.",
+  "kind": "general"
+ },
+ {
+  "id": "dnssec",
+  "en": "DNS Security Extensions",
+  "fr": "Extensions de sécurité du DNS",
+  "acronym": "DNSSEC",
+  "definition": "Extensions qui signent les réponses DNS pour garantir leur intégrité et leur authenticité.",
+  "example": "Zone signée avec DNSSEC.",
+  "kind": "general"
+ },
+ {
+  "id": "syn-flood",
+  "en": "SYN flood",
+  "fr": "Inondation SYN",
+  "definition": "Déni de service qui envoie de nombreux SYN sans terminer la poignée de main.",
+  "example": "Parade : cookies SYN.",
+  "kind": "general"
+ },
+ {
+  "id": "arp-spoofing",
+  "en": "ARP spoofing",
+  "fr": "Usurpation ARP",
+  "definition": "Fausses annonces ARP permettant de se placer en homme du milieu sur le réseau local.",
+  "example": "Parade : inspection ARP dynamique.",
+  "kind": "general"
+ },
+ {
+  "id": "ipsec",
+  "en": "Internet Protocol Security",
+  "fr": "Sécurité du protocole IP",
+  "acronym": "IPsec",
+  "definition": "Ensemble de protocoles qui protègent les paquets IP (AH, ESP, IKE).",
+  "example": "VPN site à site en ESP mode tunnel.",
+  "kind": "general"
+ },
+ {
+  "id": "esp",
+  "en": "Encapsulating Security Payload",
+  "fr": "Encapsulation de la charge utile de sécurité",
+  "acronym": "ESP",
+  "definition": "Protocole IPsec qui chiffre et protège l'intégrité des données.",
+  "example": "ESP en mode tunnel entre deux sites.",
+  "kind": "general"
+ },
+ {
+  "id": "ah",
+  "en": "Authentication Header",
+  "fr": "En-tête d'authentification",
+  "acronym": "AH",
+  "definition": "Protocole IPsec qui assure intégrité et authentification, sans chiffrement.",
+  "example": "AH ne traverse pas le NAT.",
+  "kind": "general"
+ },
+ {
+  "id": "ssh",
+  "en": "Secure Shell",
+  "fr": "Shell sécurisé",
+  "acronym": "SSH",
+  "definition": "Protocole d'administration à distance chiffré, port 22.",
+  "example": "Connexion SSH par clé.",
+  "kind": "general"
+ },
+ {
+  "id": "snmp",
+  "en": "Simple Network Management Protocol",
+  "fr": "Protocole simple de gestion de réseau",
+  "acronym": "SNMP",
+  "definition": "Protocole de supervision des équipements ; seule la version 3 est sécurisée.",
+  "example": "Supervision des commutateurs en SNMPv3.",
+  "kind": "general"
+ },
+ {
+  "id": "spf",
+  "en": "Sender Policy Framework",
+  "fr": "Cadre de politique d'expéditeur",
+  "acronym": "SPF",
+  "definition": "Enregistrement DNS listant les serveurs autorisés à envoyer du courrier pour un domaine.",
+  "example": "SPF en échec dans les en-têtes.",
+  "kind": "general"
+ },
+ {
+  "id": "dkim",
+  "en": "DomainKeys Identified Mail",
+  "fr": "Courrier identifié par clés de domaine",
+  "acronym": "DKIM",
+  "definition": "Signature des courriels par le domaine expéditeur, vérifiable avec une clé publiée dans le DNS.",
+  "example": "Signature DKIM valide.",
+  "kind": "general"
+ },
+ {
+  "id": "dmarc",
+  "en": "Domain-based Message Authentication, Reporting and Conformance",
+  "fr": "Authentification, rapports et conformité des messages par domaine",
+  "acronym": "DMARC",
+  "definition": "Politique publiée dans le DNS qui exige l'alignement SPF ou DKIM et indique quoi faire en cas d'échec.",
+  "example": "Politique DMARC « reject ».",
+  "kind": "general"
  }
 ]

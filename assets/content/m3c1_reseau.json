@@ -1,0 +1,1884 @@
+{
+ "lessons": [
+  {
+   "id": "m3c1-l1",
+   "title": "Les modèles OSI et TCP/IP",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m3c1_l1_couches.svg",
+   "illustrationAlt": "Dessin d'un gâteau à sept étages colorés, chaque étage portant le nom d'une couche du modèle OSI, de la couche physique en bas à l'application en haut.",
+   "objectives": [
+    "Citer les 7 couches du modèle OSI et les 4 couches du modèle TCP/IP.",
+    "Associer à chaque couche son unité de données, ses équipements et ses protocoles.",
+    "Expliquer l'encapsulation.",
+    "Situer une attaque ou un contrôle de sécurité à la bonne couche."
+   ],
+   "references": [
+    {
+     "title": "ISO/IEC 7498-1, modèle de référence de base pour l'interconnexion des systèmes ouverts (OSI)",
+     "kind": "general"
+    },
+    {
+     "title": "IETF RFC 1122, exigences pour les hôtes Internet (couches TCP/IP)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Pourquoi des couches ?"
+    },
+    {
+     "type": "text",
+     "text": "Un réseau est trop complexe pour être pensé d'un seul bloc. Les modèles en couches découpent la communication en étapes : chaque couche rend un service à la couche du dessus et s'appuie sur celle du dessous. Pour la sécurité, c'est une carte : on sait où se placent les attaques et les protections."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "N°",
+       "Couche OSI",
+       "Unité de données",
+       "Équipements",
+       "Exemples de protocoles"
+      ],
+      [
+       "7",
+       "Application",
+       "Données",
+       "Proxy, pare-feu applicatif (WAF)",
+       "HTTP, DNS, SMTP, SSH"
+      ],
+      [
+       "6",
+       "Présentation",
+       "Données",
+       "–",
+       "Encodage, compression, chiffrement des données"
+      ],
+      [
+       "5",
+       "Session",
+       "Données",
+       "–",
+       "Ouverture et reprise de sessions (RPC, NetBIOS)"
+      ],
+      [
+       "4",
+       "Transport",
+       "Segment (TCP) / datagramme (UDP)",
+       "Pare-feu à états",
+       "TCP, UDP"
+      ],
+      [
+       "3",
+       "Réseau",
+       "Paquet",
+       "Routeur, pare-feu filtrant",
+       "IP, ICMP, IPsec"
+      ],
+      [
+       "2",
+       "Liaison de données",
+       "Trame",
+       "Commutateur (switch), point d'accès Wi-Fi",
+       "Ethernet, ARP, 802.1X, Wi-Fi"
+      ],
+      [
+       "1",
+       "Physique",
+       "Bits",
+       "Câbles, concentrateur (hub), répéteur",
+       "Signaux électriques, optiques, radio"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "De la couche 1 à la couche 7 : « Pour Le Réseau, Tout Se Passe Automatiquement » (Physique, Liaison, Réseau, Transport, Session, Présentation, Application)."
+    },
+    {
+     "type": "heading",
+     "text": "Le modèle TCP/IP"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Couche TCP/IP",
+       "Couches OSI correspondantes",
+       "Protocoles"
+      ],
+      [
+       "Application",
+       "7, 6 et 5",
+       "HTTP, DNS, SMTP, SSH, TLS"
+      ],
+      [
+       "Transport",
+       "4",
+       "TCP, UDP"
+      ],
+      [
+       "Internet",
+       "3",
+       "IP, ICMP, IPsec"
+      ],
+      [
+       "Accès réseau (liaison)",
+       "2 et 1",
+       "Ethernet, Wi-Fi, ARP"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "OSI pour raisonner, TCP/IP pour fonctionner",
+     "text": "Le modèle OSI est un modèle de référence, utilisé pour expliquer et situer les problèmes. Le modèle TCP/IP est celui que suivent réellement les réseaux et Internet. À l'examen, on vous demandera souvent la couche OSI d'un protocole ou d'un équipement."
+    },
+    {
+     "type": "heading",
+     "text": "L'encapsulation"
+    },
+    {
+     "type": "diagram",
+     "title": "Chaque couche ajoute son en-tête",
+     "alt": "Schéma en cinq étapes : les données de l'application reçoivent un en-tête TCP et deviennent un segment, puis un en-tête IP et deviennent un paquet, puis un en-tête et une fin de trame Ethernet et deviennent une trame, enfin la trame est transmise sous forme de bits sur le support physique.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "📝",
+        "label": "Données",
+        "detail": "couches 7 à 5",
+        "tone": "violet"
+       },
+       {
+        "emoji": "📦",
+        "label": "Segment",
+        "detail": "+ en-tête TCP (ports)",
+        "tone": "blue"
+       },
+       {
+        "emoji": "✉️",
+        "label": "Paquet",
+        "detail": "+ en-tête IP (adresses)",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "🚚",
+        "label": "Trame",
+        "detail": "+ en-tête Ethernet (MAC)",
+        "tone": "green"
+       },
+       {
+        "emoji": "⚡",
+        "label": "Bits",
+        "detail": "sur le câble ou l'air",
+        "tone": "orange"
+       }
+      ]
+     }
+    },
+    {
+     "type": "definition",
+     "title": "Encapsulation et désencapsulation",
+     "text": "À l'envoi, chaque couche ajoute ses informations de contrôle (en-tête) autour des données reçues de la couche supérieure. À la réception, chaque couche retire son en-tête et transmet le reste à la couche du dessus.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Attaques et protections par couche"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Couche",
+       "Attaque typique",
+       "Protection typique"
+      ],
+      [
+       "7 Application",
+       "Injection, hameçonnage, empoisonnement DNS",
+       "WAF, filtrage de contenu, DNSSEC"
+      ],
+      [
+       "4 Transport",
+       "Inondation SYN, scan de ports",
+       "Pare-feu à états, cookies SYN"
+      ],
+      [
+       "3 Réseau",
+       "Usurpation d'adresse IP, attaques ICMP",
+       "Filtrage anti-usurpation, IPsec"
+      ],
+      [
+       "2 Liaison",
+       "Usurpation ARP, saturation de la table MAC, saut de VLAN",
+       "Sécurité des ports, 802.1X, inspection ARP"
+      ],
+      [
+       "1 Physique",
+       "Écoute du câble, brouillage radio, prise réseau libre",
+       "Contrôle d'accès physique, câbles protégés"
+      ]
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "Un pare-feu classique filtre aux couches 3 et 4 (adresses et ports). Il ne voit pas qu'une requête HTTP autorisée contient une injection SQL : il faut un contrôle de couche 7, comme un WAF. C'est un argument fort pour la défense en profondeur."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : trois alertes, trois couches",
+     "kind": "example",
+     "text": "Dans la même heure, l'analyste reçoit trois alertes : le commutateur d'un étage signale qu'une même adresse MAC répond pour la passerelle depuis deux ports (couche 2, possible usurpation ARP) ; le pare-feu voit des milliers de demandes SYN sans suite vers le portail (couche 4) ; le WAF bloque des requêtes contenant des apostrophes et des mots-clés SQL (couche 7). Situer chaque alerte à sa couche lui permet de prévenir la bonne équipe : réseau local, infrastructure, puis développement."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "Architecte : je place des contrôles à plusieurs couches pour qu'une seule défaillance ne suffise pas.",
+      "Analyste SOC : savoir à quelle couche se situe une alerte me dit quels journaux consulter.",
+      "Auditeur : je vérifie que les prises réseau des zones publiques sont désactivées ou protégées par 802.1X.",
+      "RSSI : le modèle OSI est un langage commun entre équipes réseau, systèmes et sécurité."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Commutateur = couche 2 (adresses MAC) ; routeur = couche 3 (adresses IP) ; concentrateur = couche 1.",
+      "Unités : bits (1), trames (2), paquets (3), segments ou datagrammes (4), données (5 à 7).",
+      "ARP fait le lien entre couche 3 (IP) et couche 2 (MAC) ; on le range en couche 2.",
+      "Les couches 5, 6 et 7 de l'OSI sont regroupées dans la couche Application de TCP/IP.",
+      "Un pare-feu filtrant (3-4) ne voit pas une attaque applicative (7)."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "OSI : 7 couches (physique, liaison, réseau, transport, session, présentation, application).",
+      "TCP/IP : 4 couches (accès réseau, Internet, transport, application).",
+      "Encapsulation : données → segment → paquet → trame → bits.",
+      "Chaque couche a ses attaques et ses protections : défense en profondeur."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m3c1-q02",
+      "m3c1-q05"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m3c1-l2",
+   "title": "Protocoles, ports et attaques réseau",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m3c1_l2_poignee.svg",
+   "illustrationAlt": "Dessin de deux ordinateurs qui se serrent la main, avec trois bulles « SYN », « SYN-ACK » et « ACK » entre eux.",
+   "objectives": [
+    "Comparer TCP et UDP et décrire la poignée de main en trois temps.",
+    "Reconnaître les ports courants et les protocoles non chiffrés.",
+    "Expliquer le rôle d'ARP, ICMP, DHCP et DNS.",
+    "Décrire les attaques réseau classiques et leurs parades."
+   ],
+   "references": [
+    {
+     "title": "IETF RFC 9293, Transmission Control Protocol (TCP)",
+     "kind": "general"
+    },
+    {
+     "title": "IETF RFC 768 (UDP) et RFC 791 (IPv4)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "TCP ou UDP ?"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Critère",
+       "TCP",
+       "UDP"
+      ],
+      [
+       "Connexion",
+       "Orienté connexion (poignée de main)",
+       "Sans connexion"
+      ],
+      [
+       "Fiabilité",
+       "Accusés de réception, retransmission, ordre garanti",
+       "Aucune garantie"
+      ],
+      [
+       "Vitesse",
+       "Plus lent, plus d'en-têtes",
+       "Rapide, léger"
+      ],
+      [
+       "Usages",
+       "Web, messagerie, SSH, transfert de fichiers",
+       "DNS, VoIP, vidéo en direct, NTP, SNMP, syslog"
+      ]
+     ]
+    },
+    {
+     "type": "diagram",
+     "title": "La poignée de main TCP en trois temps",
+     "alt": "Schéma en trois étapes : le client envoie SYN pour demander une connexion, le serveur répond SYN-ACK pour accepter, le client confirme par ACK ; la connexion est alors établie.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "👋",
+        "label": "SYN",
+        "detail": "le client demande",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🤝",
+        "label": "SYN-ACK",
+        "detail": "le serveur accepte",
+        "tone": "violet"
+       },
+       {
+        "emoji": "✅",
+        "label": "ACK",
+        "detail": "le client confirme",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "heading",
+     "text": "Les ports à connaître"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Port",
+       "Protocole",
+       "Remarque de sécurité"
+      ],
+      [
+       "20/21",
+       "FTP",
+       "Identifiants en clair → SFTP ou FTPS"
+      ],
+      [
+       "22",
+       "SSH / SFTP",
+       "Administration chiffrée"
+      ],
+      [
+       "23",
+       "Telnet",
+       "Tout en clair → remplacer par SSH"
+      ],
+      [
+       "25",
+       "SMTP",
+       "Envoi de courriel entre serveurs ; 587 pour la soumission authentifiée"
+      ],
+      [
+       "53",
+       "DNS",
+       "UDP surtout ; TCP pour les grosses réponses et transferts de zone"
+      ],
+      [
+       "80 / 443",
+       "HTTP / HTTPS",
+       "443 = HTTP dans TLS"
+      ],
+      [
+       "110 / 143",
+       "POP3 / IMAP",
+       "En clair → 995 (POP3S) / 993 (IMAPS)"
+      ],
+      [
+       "161 / 162",
+       "SNMP / traps SNMP",
+       "v1 et v2c en clair → SNMPv3"
+      ],
+      [
+       "389 / 636",
+       "LDAP / LDAPS",
+       "636 = LDAP dans TLS"
+      ],
+      [
+       "445",
+       "SMB",
+       "Partage de fichiers Windows, à ne jamais exposer sur Internet"
+      ],
+      [
+       "3389",
+       "RDP",
+       "Bureau à distance, cible fréquente : derrière un VPN avec MFA"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "Ports « bien connus » : 0 à 1023. Un service en clair a presque toujours un jumeau sécurisé : Telnet→SSH, HTTP→HTTPS, LDAP→LDAPS, IMAP→IMAPS."
+    },
+    {
+     "type": "heading",
+     "text": "Les protocoles de service"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Protocole",
+       "Rôle",
+       "Abus possible"
+      ],
+      [
+       "ARP",
+       "Trouver l'adresse MAC qui correspond à une adresse IP du réseau local",
+       "Usurpation ARP : se faire passer pour la passerelle"
+      ],
+      [
+       "ICMP",
+       "Messages de contrôle et de diagnostic (ping, traceroute)",
+       "Reconnaissance, inondation, tunnel caché"
+      ],
+      [
+       "DHCP",
+       "Attribuer automatiquement adresse IP, passerelle et DNS",
+       "Faux serveur DHCP qui redirige le trafic"
+      ],
+      [
+       "DNS",
+       "Traduire un nom en adresse IP",
+       "Empoisonnement du cache, exfiltration par requêtes DNS"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Les attaques réseau classiques"
+    },
+    {
+     "type": "diagram",
+     "title": "Quatre attaques à reconnaître",
+     "alt": "Grille deux par deux. Usurpation ARP, couche 2 : l'attaquant annonce sa propre adresse MAC pour l'adresse IP de la passerelle et intercepte le trafic. Inondation SYN, couche 4 : des milliers de SYN sans ACK saturent le serveur. Usurpation IP, couche 3 : fausse adresse source pour masquer l'origine. Empoisonnement DNS, couche 7 : une fausse réponse envoie les utilisateurs vers un faux site.",
+     "diagram": {
+      "type": "quadrant",
+      "xLabel": "Couche",
+      "yLabel": "Effet",
+      "cells": [
+       {
+        "emoji": "🎭",
+        "label": "Usurpation ARP",
+        "detail": "couche 2 : homme du milieu",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🌊",
+        "label": "Inondation SYN",
+        "detail": "couche 4 : déni de service",
+        "tone": "red"
+       },
+       {
+        "emoji": "🪪",
+        "label": "Usurpation IP",
+        "detail": "couche 3 : fausse source",
+        "tone": "orange"
+       },
+       {
+        "emoji": "☠️",
+        "label": "Empoisonnement DNS",
+        "detail": "couche 7 : faux site",
+        "tone": "pink"
+       }
+      ]
+     }
+    },
+    {
+     "type": "practice",
+     "title": "Parades",
+     "kind": "practice",
+     "items": [
+      "Usurpation ARP et faux DHCP : inspection ARP dynamique et surveillance DHCP (DHCP snooping) sur les commutateurs.",
+      "Inondation SYN : cookies SYN, limitation de débit, protection anti-DDoS de l'opérateur.",
+      "Usurpation IP : filtrage en entrée et en sortie (refuser vers l'extérieur une adresse source qui n'est pas la vôtre).",
+      "Empoisonnement DNS : DNSSEC, résolveurs à jour, ports source aléatoires."
+     ]
+    },
+    {
+     "type": "risk",
+     "title": "Le protocole en clair",
+     "text": "Avec Telnet, FTP, HTTP ou SNMPv1, toute personne qui écoute le réseau lit les identifiants. Un analyseur de trafic suffit. Ces protocoles doivent être désactivés ou remplacés par leur version chiffrée."
+    },
+    {
+     "type": "trainerNote",
+     "text": "Les questions de l'examen ne demandent pas de connaître 50 ports par cœur, mais de reconnaître un protocole en clair et son remplaçant sécurisé. Apprenez surtout la colonne « remarque de sécurité »."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : le DNS trop bavard",
+     "kind": "example",
+     "text": "Le SIEM signale un poste qui envoie des milliers de requêtes DNS vers un même domaine inconnu, avec des sous-domaines longs et aléatoires. L'analyste reconnaît un possible tunnel DNS servant à exfiltrer des données. Il isole le poste via l'EDR, bloque le domaine sur le résolveur interne et vérifie qu'aucun autre poste n'interroge ce domaine. Les postes n'ont d'ailleurs pas le droit d'interroger directement des DNS externes : seul le résolveur interne y est autorisé."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "Administrateur réseau : je désactive les ports de commutateur inutilisés et j'active la sécurité des ports.",
+      "Analyste SOC : les journaux DNS sont une mine d'or pour repérer des postes compromis.",
+      "Auditeur : je recherche Telnet, FTP et SNMPv1 dans les inventaires de services.",
+      "RSSI : RDP et SMB exposés sur Internet sont des portes d'entrée classiques des rançongiciels."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Poignée de main TCP : SYN, SYN-ACK, ACK. L'inondation SYN laisse des connexions à moitié ouvertes.",
+      "UDP est sans connexion : DNS, SNMP, syslog, NTP, VoIP.",
+      "DNS = 53 (UDP et TCP) ; SSH = 22 ; Telnet = 23 ; RDP = 3389 ; LDAPS = 636.",
+      "ARP n'a aucune authentification : c'est ce qui rend l'usurpation possible.",
+      "Filtrage en sortie (egress) : empêche vos machines d'envoyer des paquets à adresse source usurpée."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "TCP fiable et orienté connexion ; UDP rapide et sans connexion.",
+      "Ports : savoir reconnaître les protocoles en clair et leurs remplaçants.",
+      "ARP, ICMP, DHCP, DNS : utiles et abusables.",
+      "Attaques : usurpation ARP et IP, inondation SYN, empoisonnement et tunnel DNS."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m3c1-q11",
+      "m3c1-q16"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m3c1-l3",
+   "title": "Les protocoles sécurisés",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m3c1_l3_tunnel.svg",
+   "illustrationAlt": "Dessin d'un tunnel vert qui traverse une montagne marquée « Internet » ; une enveloppe fermée par un cadenas circule à l'intérieur entre deux bâtiments.",
+   "objectives": [
+    "Choisir le protocole sécurisé qui remplace un protocole en clair.",
+    "Distinguer AH et ESP, mode transport et mode tunnel dans IPsec.",
+    "Expliquer ce qu'apportent TLS, SSH, DNSSEC et le DNS chiffré.",
+    "Protéger la messagerie : S/MIME, STARTTLS, SPF, DKIM et DMARC."
+   ],
+   "references": [
+    {
+     "title": "IETF RFC 4301 (architecture IPsec) et NIST SP 800-77 Rev. 1, Guide to IPsec VPNs",
+     "kind": "general"
+    },
+    {
+     "title": "IETF RFC 8446 (TLS 1.3), RFC 4033 (DNSSEC), RFC 7858 (DNS sur TLS) et RFC 8484 (DNS sur HTTPS)",
+     "kind": "general"
+    },
+    {
+     "title": "IETF RFC 7208 (SPF), RFC 6376 (DKIM) et RFC 7489 (DMARC)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Remplacer les protocoles en clair"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "En clair",
+       "Remplaçant sécurisé",
+       "Ce qui protège"
+      ],
+      [
+       "Telnet",
+       "SSH",
+       "Canal chiffré et authentifié"
+      ],
+      [
+       "FTP",
+       "SFTP (dans SSH) ou FTPS (FTP dans TLS)",
+       "SSH ou TLS"
+      ],
+      [
+       "HTTP",
+       "HTTPS",
+       "TLS"
+      ],
+      [
+       "LDAP",
+       "LDAPS ou LDAP avec STARTTLS",
+       "TLS"
+      ],
+      [
+       "SNMPv1 / v2c",
+       "SNMPv3",
+       "Authentification et chiffrement intégrés"
+      ],
+      [
+       "POP3 / IMAP",
+       "POP3S / IMAPS",
+       "TLS"
+      ],
+      [
+       "DNS classique",
+       "DNSSEC (intégrité) ; DNS sur TLS ou HTTPS (confidentialité)",
+       "Signatures ; TLS"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "TLS et SSH"
+    },
+    {
+     "type": "definition",
+     "title": "TLS (Transport Layer Security)",
+     "text": "Protocole qui authentifie le serveur par certificat (et parfois le client), négocie des clés de session et chiffre les échanges. Versions à utiliser : TLS 1.2 et 1.3. SSL et TLS 1.0/1.1 sont obsolètes.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "SSH (Secure Shell)",
+     "text": "Protocole d'administration à distance chiffré (port 22). L'authentification par clé, plutôt que par mot de passe, est recommandée. SSH sert aussi au transfert de fichiers (SFTP, SCP) et aux tunnels.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "IPsec : sécuriser au niveau IP"
+    },
+    {
+     "type": "diagram",
+     "title": "AH ou ESP, transport ou tunnel ?",
+     "alt": "Grille deux par deux. AH : authentifie et protège l'intégrité, sans chiffrer. ESP : chiffre et protège l'intégrité, c'est le choix habituel. Mode transport : protège la charge utile, d'hôte à hôte. Mode tunnel : encapsule le paquet entier dans un nouveau paquet, utilisé entre deux passerelles pour un VPN site à site.",
+     "diagram": {
+      "type": "quadrant",
+      "xLabel": "Mode",
+      "yLabel": "Protocole",
+      "cells": [
+       {
+        "emoji": "🔏",
+        "label": "AH",
+        "detail": "intégrité, sans chiffrement",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🔐",
+        "label": "ESP",
+        "detail": "chiffrement + intégrité",
+        "tone": "green"
+       },
+       {
+        "emoji": "💻",
+        "label": "Transport",
+        "detail": "charge utile, hôte à hôte",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🚇",
+        "label": "Tunnel",
+        "detail": "paquet entier, site à site",
+        "tone": "violet"
+       }
+      ]
+     }
+    },
+    {
+     "type": "practice",
+     "title": "À retenir sur IPsec",
+     "kind": "general",
+     "items": [
+      "IKE négocie les associations de sécurité et les clés (UDP 500, et 4500 en traversée de NAT).",
+      "AH protège aussi l'en-tête IP : il ne supporte pas la traduction d'adresses (NAT).",
+      "Le VPN site à site utilise généralement ESP en mode tunnel.",
+      "IPsec fonctionne en couche 3 : il protège toutes les applications, sans les modifier."
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "« AH Authentifie, ESP Enveloppe (chiffre). Le tunnel cache tout le paquet, le transport seulement le contenu. »"
+    },
+    {
+     "type": "heading",
+     "text": "Sécuriser le DNS"
+    },
+    {
+     "type": "important",
+     "title": "DNSSEC ne chiffre pas",
+     "text": "DNSSEC signe les réponses DNS : le résolveur vérifie qu'elles viennent bien du domaine et n'ont pas été modifiées. Il protège contre l'empoisonnement, mais les requêtes restent lisibles. Pour la confidentialité des requêtes, on utilise le DNS sur TLS (port 853) ou sur HTTPS."
+    },
+    {
+     "type": "heading",
+     "text": "Sécuriser la messagerie"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Mécanisme",
+       "Ce qu'il fait",
+       "Ce qu'il ne fait pas"
+      ],
+      [
+       "STARTTLS",
+       "Chiffre le transport entre serveurs ou avec le client",
+       "Ne protège pas le message stocké"
+      ],
+      [
+       "S/MIME ou OpenPGP",
+       "Chiffre et signe le message de bout en bout",
+       "Exige la gestion de certificats ou de clés"
+      ],
+      [
+       "SPF",
+       "Publie dans le DNS les serveurs autorisés à envoyer pour le domaine",
+       "Ne vérifie pas l'adresse affichée à l'utilisateur"
+      ],
+      [
+       "DKIM",
+       "Le domaine expéditeur signe le message ; le destinataire vérifie avec la clé publiée dans le DNS",
+       "Ne chiffre pas"
+      ],
+      [
+       "DMARC",
+       "Exige l'alignement de SPF ou DKIM avec l'adresse visible et fixe la politique (aucune action, quarantaine, rejet) et les rapports",
+       "Ne bloque rien sans SPF ou DKIM"
+      ]
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "SPF, DKIM et DMARC fonctionnent ensemble contre l'usurpation du nom de domaine dans les courriels. Un domaine sans DMARC en politique « rejet » peut être imité facilement pour de l'hameçonnage."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : la fausse facture du fournisseur",
+     "kind": "example",
+     "text": "Un comptable signale une facture reçue d'un fournisseur habituel, avec un nouveau RIB. L'analyste examine les en-têtes : SPF en échec, aucune signature DKIM valide, et le domaine du fournisseur n'a pas de politique DMARC, d'où la livraison du message. Il bloque l'expéditeur, recherche le même message dans les autres boîtes, prévient le fournisseur et rappelle la procédure de vérification par téléphone de tout changement de coordonnées bancaires."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "Architecte : j'interdis les protocoles en clair sur le réseau d'administration.",
+      "Administrateur messagerie : je publie SPF, DKIM et une politique DMARC, puis je passe progressivement en rejet.",
+      "Auditeur : je vérifie les versions TLS acceptées et l'absence de Telnet ou SNMPv1.",
+      "Analyste SOC : les résultats SPF, DKIM et DMARC dans les en-têtes m'aident à qualifier un hameçonnage."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "AH = intégrité et authentification, PAS de confidentialité ; ESP = confidentialité + intégrité.",
+      "Mode tunnel = paquet entier encapsulé (VPN site à site) ; mode transport = charge utile seulement.",
+      "DNSSEC = intégrité et authenticité des réponses, pas confidentialité.",
+      "SFTP passe par SSH ; FTPS passe par TLS.",
+      "SNMPv3 est la seule version à apporter authentification et chiffrement."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Chaque protocole en clair a un remplaçant sécurisé : SSH, HTTPS, LDAPS, SNMPv3, SFTP.",
+      "TLS 1.2 et 1.3 ; SSH avec authentification par clé.",
+      "IPsec : AH (intégrité), ESP (chiffrement) ; transport ou tunnel ; IKE pour les clés.",
+      "DNSSEC (intégrité), DNS chiffré (confidentialité) ; messagerie : STARTTLS, S/MIME, SPF, DKIM, DMARC."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m3c1-q22",
+      "m3c1-q25"
+     ]
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "id": "m3c1-q01",
+   "domain": "network-security",
+   "level": "beginner",
+   "concept": "Modèle OSI",
+   "prompt": "Combien de couches compte le modèle OSI ?",
+   "choices": [
+    "4",
+    "5",
+    "7",
+    "9"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Physique, liaison, réseau, transport, session, présentation, application : 7 couches.",
+   "whyNot": {
+    "0": "4 couches, c'est le modèle TCP/IP.",
+    "1": "Certains manuels utilisent un modèle hybride à 5 couches, mais l'OSI en compte 7.",
+    "3": "Le modèle OSI n'a pas 9 couches."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c1-q02",
+   "domain": "network-security",
+   "level": "beginner",
+   "concept": "Équipements",
+   "prompt": "À quelle couche OSI travaille principalement un commutateur (switch) classique ?",
+   "choices": [
+    "Couche 1, physique",
+    "Couche 2, liaison de données",
+    "Couche 3, réseau",
+    "Couche 7, application"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le commutateur achemine les trames selon les adresses MAC : couche 2.",
+   "whyNot": {
+    "0": "La couche 1 est celle du concentrateur (hub) et des câbles.",
+    "2": "La couche 3 est celle du routeur (adresses IP).",
+    "3": "La couche 7 est celle des applications et des WAF."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c1-q03",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "Unités de données",
+   "prompt": "Comment appelle-t-on l'unité de données de la couche 3 ?",
+   "choices": [
+    "La trame",
+    "Le paquet",
+    "Le segment",
+    "Le bit"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Couche 3 = paquet ; couche 2 = trame ; couche 4 = segment ; couche 1 = bit.",
+   "whyNot": {
+    "0": "La trame appartient à la couche 2.",
+    "2": "Le segment appartient à la couche 4.",
+    "3": "Le bit appartient à la couche 1."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c1-q04",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "Modèle TCP/IP",
+   "prompt": "Dans le modèle TCP/IP, quelles couches OSI la couche Application regroupe-t-elle ?",
+   "choices": [
+    "Les couches 1 et 2",
+    "Les couches 3 et 4",
+    "Les couches 5, 6 et 7",
+    "Uniquement la couche 7"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Session, présentation et application de l'OSI sont réunies dans la couche Application de TCP/IP.",
+   "whyNot": {
+    "0": "Les couches 1 et 2 forment la couche Accès réseau.",
+    "1": "Les couches 3 et 4 correspondent à Internet et Transport.",
+    "3": "Les couches 5 et 6 y sont aussi incluses."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c1-q05",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "Contrôles par couche",
+   "prompt": "Un pare-feu filtrant autorise le port 443. Une requête HTTPS contient une injection SQL. Pourquoi le pare-feu ne la bloque-t-il pas ?",
+   "choices": [
+    "Parce qu'il travaille aux couches 3 et 4 et n'analyse pas le contenu applicatif",
+    "Parce que le port 443 est toujours sûr",
+    "Parce que l'injection SQL agit en couche 1",
+    "Parce que les pare-feu ne filtrent que l'UDP"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "L'injection est une attaque de couche 7 : il faut un contrôle applicatif comme un WAF, qui inspecte le contenu après déchiffrement.",
+   "whyNot": {
+    "1": "Un port ne garantit rien sur le contenu.",
+    "2": "L'injection SQL est une attaque applicative.",
+    "3": "Les pare-feu filtrent aussi le TCP."
+   },
+   "kind": "example"
+  },
+  {
+   "id": "m3c1-q06",
+   "domain": "network-security",
+   "level": "beginner",
+   "concept": "Encapsulation",
+   "prompt": "Qu'est-ce que l'encapsulation ?",
+   "choices": [
+    "Le chiffrement de toutes les données",
+    "L'ajout, par chaque couche, de son en-tête autour des données de la couche supérieure",
+    "La compression des fichiers",
+    "La suppression des adresses IP"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "À l'envoi, chaque couche ajoute ses informations de contrôle ; à la réception, elle les retire.",
+   "whyNot": {
+    "0": "L'encapsulation n'implique pas de chiffrement.",
+    "2": "La compression est un autre traitement.",
+    "3": "Au contraire, la couche 3 ajoute les adresses IP."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c1-q07",
+   "domain": "network-security",
+   "level": "advanced",
+   "concept": "Attaques par couche",
+   "prompt": "Associez correctement : quelles attaques relèvent de la couche 2 ? (2 réponses)",
+   "choices": [
+    "Usurpation ARP",
+    "Saturation de la table MAC d'un commutateur",
+    "Injection SQL",
+    "Inondation SYN"
+   ],
+   "correct": [
+    0,
+    1
+   ],
+   "explanation": "ARP et les adresses MAC appartiennent à la couche liaison de données.",
+   "whyNot": {
+    "2": "L'injection SQL est une attaque de couche 7.",
+    "3": "L'inondation SYN vise la couche 4 (TCP)."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c1-q08",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "Équipements",
+   "prompt": "Quel équipement prend ses décisions d'acheminement à partir des adresses IP ?",
+   "choices": [
+    "Le concentrateur",
+    "Le commutateur",
+    "Le routeur",
+    "Le répéteur"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Le routeur relie des réseaux différents en couche 3, à partir des adresses IP.",
+   "whyNot": {
+    "0": "Le concentrateur répète les bits sur tous les ports (couche 1).",
+    "1": "Le commutateur utilise les adresses MAC (couche 2).",
+    "3": "Le répéteur amplifie le signal (couche 1)."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c1-q09",
+   "domain": "network-security",
+   "level": "beginner",
+   "concept": "Couche physique",
+   "prompt": "Quelle mesure protège en priorité la couche physique ?",
+   "choices": [
+    "Le chiffrement TLS",
+    "Le contrôle d'accès aux locaux et la désactivation des prises réseau inutilisées",
+    "Un WAF",
+    "DNSSEC"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La couche 1 se protège par des mesures physiques : accès aux locaux, câbles, prises.",
+   "whyNot": {
+    "0": "TLS agit au-dessus de la couche transport.",
+    "2": "Le WAF agit en couche 7.",
+    "3": "DNSSEC agit en couche 7."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c1-q10",
+   "domain": "network-security",
+   "level": "advanced",
+   "concept": "Couche présentation",
+   "prompt": "Quelles fonctions sont traditionnellement associées à la couche 6 (présentation) du modèle OSI ? (2 réponses)",
+   "choices": [
+    "Le format et l'encodage des données",
+    "La compression et le chiffrement des données",
+    "Le routage entre réseaux",
+    "L'adressage MAC"
+   ],
+   "correct": [
+    0,
+    1
+   ],
+   "explanation": "La couche présentation s'occupe de la représentation des données : encodage, compression, chiffrement.",
+   "whyNot": {
+    "2": "Le routage relève de la couche 3.",
+    "3": "L'adressage MAC relève de la couche 2."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c1-q11",
+   "domain": "network-security",
+   "level": "beginner",
+   "concept": "TCP",
+   "prompt": "Quel est l'ordre de la poignée de main TCP ?",
+   "choices": [
+    "ACK, SYN, SYN-ACK",
+    "SYN, SYN-ACK, ACK",
+    "SYN, ACK, FIN",
+    "HELLO, KEY, DONE"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le client envoie SYN, le serveur répond SYN-ACK, le client confirme par ACK.",
+   "whyNot": {
+    "0": "L'ordre est inversé.",
+    "2": "FIN sert à fermer une connexion.",
+    "3": "Ce ne sont pas des drapeaux TCP."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c1-q12",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "UDP",
+   "prompt": "Quel protocole utilise principalement UDP ?",
+   "choices": [
+    "SSH",
+    "HTTPS",
+    "DNS pour les requêtes courantes",
+    "SMTP"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Les requêtes DNS courantes passent en UDP 53 ; le TCP 53 sert aux grosses réponses et transferts de zone.",
+   "whyNot": {
+    "0": "SSH utilise TCP 22.",
+    "1": "HTTPS utilise TCP 443 (et QUIC sur UDP pour HTTP/3, mais le cas classique reste TCP).",
+    "3": "SMTP utilise TCP."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c1-q13",
+   "domain": "network-security",
+   "level": "beginner",
+   "concept": "Ports",
+   "prompt": "Quel port est utilisé par défaut par SSH ?",
+   "choices": [
+    "21",
+    "22",
+    "23",
+    "3389"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "SSH écoute sur le port TCP 22.",
+   "whyNot": {
+    "0": "21 est le port de commande FTP.",
+    "2": "23 est Telnet, en clair.",
+    "3": "3389 est RDP."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c1-q14",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "Protocoles en clair",
+   "prompt": "Lequel de ces protocoles transmet les identifiants en clair ?",
+   "choices": [
+    "SSH",
+    "Telnet",
+    "HTTPS",
+    "SNMPv3"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Telnet ne chiffre rien : un simple analyseur de trafic révèle les identifiants.",
+   "whyNot": {
+    "0": "SSH chiffre la session.",
+    "2": "HTTPS chiffre avec TLS.",
+    "3": "SNMPv3 intègre authentification et chiffrement."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c1-q15",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "ARP",
+   "prompt": "Pourquoi l'usurpation ARP est-elle possible ?",
+   "choices": [
+    "Parce qu'ARP chiffre mal les trames",
+    "Parce qu'ARP n'authentifie pas les réponses : une machine peut annoncer une fausse correspondance IP-MAC",
+    "Parce qu'ARP utilise le port 443",
+    "Parce qu'ARP fonctionne uniquement sur Internet"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "ARP fait confiance aux réponses reçues ; un attaquant annonce son adresse MAC pour l'IP de la passerelle et intercepte le trafic.",
+   "whyNot": {
+    "0": "ARP ne chiffre rien du tout.",
+    "2": "ARP n'utilise pas de port TCP ou UDP.",
+    "3": "ARP fonctionne sur le réseau local."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c1-q16",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "Inondation SYN",
+   "prompt": "Qu'est-ce qui caractérise une inondation SYN ?",
+   "choices": [
+    "Des milliers de SYN sans ACK final, qui laissent des connexions à moitié ouvertes",
+    "Des requêtes DNS falsifiées",
+    "Une fausse annonce ARP",
+    "Un mot de passe deviné"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le serveur garde en mémoire chaque demande en attente ; il sature et ne peut plus accepter de vrais clients.",
+   "whyNot": {
+    "1": "C'est un empoisonnement DNS.",
+    "2": "C'est une usurpation ARP.",
+    "3": "C'est une attaque par force brute ou dictionnaire."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c1-q17",
+   "domain": "network-security",
+   "level": "advanced",
+   "concept": "Parades réseau",
+   "prompt": "Quelles mesures protègent un réseau local contre l'usurpation ARP et les faux serveurs DHCP ? (2 réponses)",
+   "choices": [
+    "L'inspection ARP dynamique sur les commutateurs",
+    "La surveillance DHCP (DHCP snooping)",
+    "L'ouverture du port 23",
+    "La désactivation des journaux du commutateur"
+   ],
+   "correct": [
+    0,
+    1
+   ],
+   "explanation": "Ces fonctions des commutateurs n'acceptent les réponses ARP et DHCP que des sources légitimes.",
+   "whyNot": {
+    "2": "Ouvrir Telnet affaiblit la sécurité.",
+    "3": "Les journaux sont nécessaires à la détection."
+   },
+   "kind": "practice"
+  },
+  {
+   "id": "m3c1-q18",
+   "domain": "network-security",
+   "level": "advanced",
+   "concept": "Filtrage en sortie",
+   "prompt": "À quoi sert le filtrage en sortie (egress filtering) contre l'usurpation IP ?",
+   "choices": [
+    "À empêcher vos machines d'envoyer vers Internet des paquets dont l'adresse source n'appartient pas à votre réseau",
+    "À bloquer toutes les connexions entrantes",
+    "À chiffrer le trafic sortant",
+    "À accélérer le routage"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Refuser en sortie les adresses source étrangères empêche votre réseau de servir à des attaques usurpées.",
+   "whyNot": {
+    "1": "Ce serait un filtrage en entrée, et beaucoup trop large.",
+    "2": "Le filtrage ne chiffre rien.",
+    "3": "Ce n'est pas son objectif."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c1-q19",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "Tunnel DNS",
+   "prompt": "Un poste envoie des milliers de requêtes DNS avec de longs sous-domaines aléatoires vers un même domaine inconnu. Que soupçonner ?",
+   "choices": [
+    "Une mise à jour normale",
+    "Un tunnel DNS servant à exfiltrer des données ou à contrôler le poste",
+    "Une panne d'imprimante",
+    "Un test de vitesse"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Des sous-domaines longs et aléatoires peuvent encoder des données : c'est un signe classique de tunnel DNS.",
+   "whyNot": {
+    "0": "Une mise à jour n'a pas ce profil.",
+    "2": "Une imprimante ne produit pas ce trafic.",
+    "3": "Un test de vitesse ne passe pas par des milliers de requêtes DNS."
+   },
+   "kind": "example"
+  },
+  {
+   "id": "m3c1-q20",
+   "domain": "network-security",
+   "level": "beginner",
+   "concept": "Exposition des services",
+   "prompt": "Quel service ne doit jamais être exposé directement sur Internet ?",
+   "choices": [
+    "Le partage de fichiers SMB (port 445)",
+    "Un site web public en HTTPS",
+    "Un serveur de messagerie entrante",
+    "Un résolveur DNS interne joignable seulement en interne"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "SMB exposé est une porte d'entrée classique pour les vers et rançongiciels.",
+   "whyNot": {
+    "1": "Un site public est fait pour être exposé, en HTTPS.",
+    "2": "Un serveur de messagerie entrante doit être joignable, avec ses protections.",
+    "3": "Un résolveur interne n'est justement pas exposé."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c1-q21",
+   "domain": "network-security",
+   "level": "beginner",
+   "concept": "Protocoles sécurisés",
+   "prompt": "Par quoi remplacer Telnet pour administrer un serveur ?",
+   "choices": [
+    "FTP",
+    "SSH",
+    "HTTP",
+    "SNMPv1"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "SSH offre un canal d'administration chiffré et authentifié.",
+   "whyNot": {
+    "0": "FTP transfère des fichiers en clair.",
+    "2": "HTTP est en clair.",
+    "3": "SNMPv1 est en clair."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c1-q22",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "IPsec",
+   "prompt": "Quel composant d'IPsec apporte la confidentialité ?",
+   "choices": [
+    "AH",
+    "ESP",
+    "IKE seul",
+    "ICMP"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "ESP chiffre la charge utile (et protège son intégrité) ; AH n'apporte que l'intégrité et l'authentification.",
+   "whyNot": {
+    "0": "AH ne chiffre pas.",
+    "2": "IKE négocie les clés mais ne chiffre pas le trafic lui-même.",
+    "3": "ICMP est un protocole de diagnostic."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c1-q23",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "IPsec",
+   "prompt": "Quel mode IPsec utilise-t-on généralement pour un VPN site à site entre deux passerelles ?",
+   "choices": [
+    "Le mode transport",
+    "Le mode tunnel",
+    "Le mode passif",
+    "Le mode diffusion"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "En mode tunnel, le paquet d'origine est entièrement encapsulé dans un nouveau paquet entre les passerelles.",
+   "whyNot": {
+    "0": "Le mode transport protège la charge utile d'hôte à hôte.",
+    "2": "Ce mode n'existe pas dans IPsec.",
+    "3": "Ce mode n'existe pas dans IPsec."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c1-q24",
+   "domain": "network-security",
+   "level": "advanced",
+   "concept": "AH et NAT",
+   "prompt": "Pourquoi AH est-il incompatible avec la traduction d'adresses (NAT) ?",
+   "choices": [
+    "Parce qu'AH chiffre l'adresse IP",
+    "Parce qu'AH protège l'intégrité d'une partie de l'en-tête IP, que le NAT modifie",
+    "Parce qu'AH utilise le port 445",
+    "Parce qu'AH ne fonctionne qu'en IPv6"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le NAT change l'adresse IP ; la vérification d'intégrité d'AH échoue alors.",
+   "whyNot": {
+    "0": "AH ne chiffre rien.",
+    "2": "AH n'utilise pas de port.",
+    "3": "AH existe en IPv4 et en IPv6."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c1-q25",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "DNSSEC",
+   "prompt": "Qu'apporte DNSSEC ?",
+   "choices": [
+    "La confidentialité des requêtes DNS",
+    "L'intégrité et l'authenticité des réponses DNS grâce à des signatures",
+    "La compression des noms de domaine",
+    "La suppression des serveurs DNS"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "DNSSEC signe les réponses ; il protège contre l'empoisonnement mais ne chiffre pas.",
+   "whyNot": {
+    "0": "La confidentialité vient du DNS sur TLS ou HTTPS.",
+    "2": "DNSSEC ne compresse rien.",
+    "3": "Les serveurs DNS restent nécessaires."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c1-q26",
+   "domain": "network-security",
+   "level": "advanced",
+   "concept": "Messagerie",
+   "prompt": "Quels mécanismes aident à empêcher l'usurpation du nom de domaine d'une entreprise dans des courriels ? (2 réponses)",
+   "choices": [
+    "DKIM",
+    "DMARC avec une politique de rejet",
+    "POP3",
+    "Telnet"
+   ],
+   "correct": [
+    0,
+    1
+   ],
+   "explanation": "DKIM signe les messages du domaine ; DMARC impose l'alignement et la politique à appliquer en cas d'échec (avec SPF).",
+   "whyNot": {
+    "2": "POP3 sert à relever le courrier, en clair.",
+    "3": "Telnet n'a pas de lien avec la messagerie sécurisée."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c1-q27",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "SPF",
+   "prompt": "Que publie un enregistrement SPF ?",
+   "choices": [
+    "La clé privée du serveur de messagerie",
+    "La liste des serveurs autorisés à envoyer du courrier pour le domaine",
+    "Le mot de passe des boîtes aux lettres",
+    "La politique de conservation des courriels"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "SPF, publié dans le DNS, liste les sources d'envoi autorisées.",
+   "whyNot": {
+    "0": "Une clé privée n'est jamais publiée.",
+    "2": "Les mots de passe ne sont jamais publiés.",
+    "3": "La conservation relève d'une politique interne."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c1-q28",
+   "domain": "network-security",
+   "level": "beginner",
+   "concept": "Transfert de fichiers",
+   "prompt": "Sur quel protocole repose SFTP ?",
+   "choices": [
+    "TLS",
+    "SSH",
+    "Telnet",
+    "SNMP"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "SFTP fonctionne dans un canal SSH ; FTPS, lui, ajoute TLS à FTP.",
+   "whyNot": {
+    "0": "FTPS repose sur TLS, pas SFTP.",
+    "2": "Telnet est en clair.",
+    "3": "SNMP sert à la supervision."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c1-q29",
+   "domain": "network-security",
+   "level": "advanced",
+   "concept": "Versions de protocoles",
+   "prompt": "Quelles configurations sont aujourd'hui recommandées ? (2 réponses)",
+   "choices": [
+    "TLS 1.2 ou 1.3",
+    "SNMPv3",
+    "SSL 3.0",
+    "TLS 1.0"
+   ],
+   "correct": [
+    0,
+    1
+   ],
+   "explanation": "TLS 1.2 et 1.3 et SNMPv3 sont les versions sûres ; SSL et TLS 1.0/1.1 sont obsolètes.",
+   "whyNot": {
+    "2": "SSL 3.0 est cassé (attaque POODLE).",
+    "3": "TLS 1.0 est obsolète et retiré."
+   },
+   "kind": "practice"
+  },
+  {
+   "id": "m3c1-q30",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "Messagerie",
+   "prompt": "Un message est chiffré par STARTTLS entre les serveurs. Est-il protégé une fois stocké dans la boîte du destinataire ?",
+   "choices": [
+    "Oui, STARTTLS chiffre le message de bout en bout",
+    "Non, STARTTLS ne protège que le transport ; pour le message lui-même, il faut S/MIME ou OpenPGP",
+    "Oui, si le message contient une pièce jointe",
+    "Non, car STARTTLS désactive DKIM"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "STARTTLS chiffre la connexion ; le message est en clair sur chaque serveur. S/MIME ou OpenPGP chiffrent le contenu de bout en bout.",
+   "whyNot": {
+    "0": "STARTTLS protège la connexion, pas le contenu stocké.",
+    "2": "La présence d'une pièce jointe ne change rien.",
+    "3": "STARTTLS et DKIM sont indépendants."
+   },
+   "kind": "general"
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "m3c1-f01",
+   "front": "OSI : 7 couches",
+   "back": "Physique, Liaison, Réseau, Transport, Session, Présentation, Application. « Pour Le Réseau, Tout Se Passe Automatiquement ».",
+   "concept": "Modèle OSI"
+  },
+  {
+   "id": "m3c1-f02",
+   "front": "TCP/IP : 4 couches",
+   "back": "Accès réseau, Internet, Transport, Application.",
+   "concept": "Modèle TCP/IP"
+  },
+  {
+   "id": "m3c1-f03",
+   "front": "Unités",
+   "back": "Bits (1), trame (2), paquet (3), segment ou datagramme (4), données (5-7).",
+   "concept": "Unités de données"
+  },
+  {
+   "id": "m3c1-f04",
+   "front": "Équipements",
+   "back": "Hub = 1, switch = 2, routeur = 3, WAF = 7.",
+   "concept": "Équipements"
+  },
+  {
+   "id": "m3c1-f05",
+   "front": "Encapsulation",
+   "back": "Chaque couche ajoute son en-tête : données → segment → paquet → trame → bits.",
+   "concept": "Encapsulation"
+  },
+  {
+   "id": "m3c1-f06",
+   "front": "Poignée de main TCP",
+   "back": "SYN, SYN-ACK, ACK.",
+   "concept": "TCP"
+  },
+  {
+   "id": "m3c1-f07",
+   "front": "UDP",
+   "back": "Sans connexion, rapide : DNS, SNMP, syslog, NTP, VoIP.",
+   "concept": "UDP"
+  },
+  {
+   "id": "m3c1-f08",
+   "front": "Ports clés",
+   "back": "22 SSH, 23 Telnet, 53 DNS, 443 HTTPS, 445 SMB, 636 LDAPS, 3389 RDP.",
+   "concept": "Ports"
+  },
+  {
+   "id": "m3c1-f09",
+   "front": "En clair → sécurisé",
+   "back": "Telnet→SSH, FTP→SFTP/FTPS, HTTP→HTTPS, LDAP→LDAPS, SNMPv1/2c→SNMPv3.",
+   "concept": "Protocoles sécurisés"
+  },
+  {
+   "id": "m3c1-f10",
+   "front": "ARP",
+   "back": "IP → MAC sur le réseau local, sans authentification : usurpation possible.",
+   "concept": "ARP"
+  },
+  {
+   "id": "m3c1-f11",
+   "front": "Inondation SYN",
+   "back": "SYN sans ACK : connexions à moitié ouvertes. Parade : cookies SYN.",
+   "concept": "Inondation SYN"
+  },
+  {
+   "id": "m3c1-f12",
+   "front": "Tunnel DNS",
+   "back": "Longs sous-domaines aléatoires : exfiltration ou contrôle.",
+   "concept": "Tunnel DNS"
+  },
+  {
+   "id": "m3c1-f13",
+   "front": "Filtrage en sortie",
+   "back": "Refuser les adresses source qui ne sont pas les vôtres.",
+   "concept": "Filtrage en sortie"
+  },
+  {
+   "id": "m3c1-f14",
+   "front": "AH",
+   "back": "Intégrité + authentification, sans chiffrement ; incompatible NAT.",
+   "concept": "IPsec"
+  },
+  {
+   "id": "m3c1-f15",
+   "front": "ESP",
+   "back": "Chiffrement + intégrité. Le choix habituel.",
+   "concept": "IPsec"
+  },
+  {
+   "id": "m3c1-f16",
+   "front": "Tunnel / transport",
+   "back": "Tunnel : paquet entier (site à site). Transport : charge utile (hôte à hôte).",
+   "concept": "IPsec"
+  },
+  {
+   "id": "m3c1-f17",
+   "front": "DNSSEC",
+   "back": "Signe les réponses : intégrité, pas confidentialité.",
+   "concept": "DNSSEC"
+  },
+  {
+   "id": "m3c1-f18",
+   "front": "DoT / DoH",
+   "back": "DNS chiffré : confidentialité des requêtes (853 pour DoT).",
+   "concept": "DNS chiffré"
+  },
+  {
+   "id": "m3c1-f19",
+   "front": "SPF / DKIM / DMARC",
+   "back": "Serveurs autorisés / signature du domaine / alignement et politique.",
+   "concept": "Messagerie"
+  },
+  {
+   "id": "m3c1-f20",
+   "front": "STARTTLS vs S/MIME",
+   "back": "Transport chiffré vs message chiffré et signé de bout en bout.",
+   "concept": "Messagerie"
+  }
+ ],
+ "revisionSheet": [
+  "# Fiche de révision : modèles OSI, TCP/IP et protocoles sécurisés",
+  "OSI (1→7) : Physique, Liaison, Réseau, Transport, Session, Présentation, Application. « Pour Le Réseau, Tout Se Passe Automatiquement ».",
+  "TCP/IP : Accès réseau (OSI 1-2), Internet (3), Transport (4), Application (5-7).",
+  "Unités : bits, trame, paquet, segment/datagramme, données. Équipements : hub 1, switch 2, routeur 3, pare-feu à états 4, WAF 7.",
+  "Encapsulation : chaque couche ajoute son en-tête (ports TCP, adresses IP, adresses MAC).",
+  "TCP : orienté connexion, SYN / SYN-ACK / ACK. UDP : sans connexion (DNS, SNMP, syslog, NTP, VoIP).",
+  "Ports : 21 FTP, 22 SSH, 23 Telnet, 25 SMTP, 53 DNS, 80 HTTP, 443 HTTPS, 161 SNMP, 389 LDAP, 636 LDAPS, 445 SMB, 3389 RDP.",
+  "ARP (IP→MAC, sans authentification), ICMP (diagnostic), DHCP (configuration), DNS (noms) : tous abusables.",
+  "Attaques : usurpation ARP (inspection ARP), faux DHCP (DHCP snooping), usurpation IP (filtrage entrée/sortie), inondation SYN (cookies SYN), empoisonnement DNS (DNSSEC), tunnel DNS (journaux DNS).",
+  "Remplacer : Telnet→SSH, FTP→SFTP (SSH) ou FTPS (TLS), HTTP→HTTPS, LDAP→LDAPS, SNMPv1/2c→SNMPv3, POP3/IMAP→POP3S/IMAPS.",
+  "TLS : 1.2 et 1.3 uniquement. SSH : authentification par clé.",
+  "IPsec : AH = intégrité sans chiffrement (incompatible NAT) ; ESP = chiffrement + intégrité ; tunnel = paquet entier (site à site) ; transport = charge utile ; IKE = clés.",
+  "DNSSEC = intégrité et authenticité ; DNS sur TLS (853) ou HTTPS = confidentialité.",
+  "Messagerie : STARTTLS (transport), S/MIME ou OpenPGP (bout en bout), SPF (serveurs autorisés), DKIM (signature), DMARC (alignement et politique).",
+  "Paires à ne pas confondre : switch/routeur ; TCP/UDP ; AH/ESP ; tunnel/transport ; DNSSEC/DoH ; SFTP/FTPS ; STARTTLS/S/MIME."
+ ],
+ "mindMap": {
+  "label": "OSI, TCP/IP et protocoles sécurisés",
+  "en": "Network Models and Protocols",
+  "emoji": "🌐",
+  "children": [
+   {
+    "label": "Modèle OSI",
+    "en": "OSI Model",
+    "emoji": "🎂",
+    "tone": "blue",
+    "children": [
+     {
+      "label": "7 couches",
+      "detail": "« Pour Le Réseau, Tout Se Passe Automatiquement ».",
+      "children": [
+       {
+        "label": "1 Physique",
+        "detail": "Bits, câbles, hub."
+       },
+       {
+        "label": "2 Liaison",
+        "detail": "Trames, MAC, switch, ARP."
+       },
+       {
+        "label": "3 Réseau",
+        "detail": "Paquets, IP, routeur."
+       },
+       {
+        "label": "4 Transport",
+        "detail": "Segments, TCP, UDP."
+       },
+       {
+        "label": "5-6-7",
+        "detail": "Session, présentation, application."
+       }
+      ]
+     },
+     {
+      "label": "Encapsulation",
+      "detail": "Chaque couche ajoute son en-tête."
+     }
+    ]
+   },
+   {
+    "label": "Modèle TCP/IP",
+    "en": "TCP/IP Model",
+    "emoji": "🧱",
+    "tone": "violet",
+    "children": [
+     {
+      "label": "4 couches",
+      "children": [
+       {
+        "label": "Accès réseau",
+        "detail": "OSI 1 et 2."
+       },
+       {
+        "label": "Internet",
+        "detail": "OSI 3."
+       },
+       {
+        "label": "Transport",
+        "detail": "OSI 4."
+       },
+       {
+        "label": "Application",
+        "detail": "OSI 5, 6, 7."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "label": "Transport et ports",
+    "en": "Ports and Protocols",
+    "emoji": "🔌",
+    "tone": "turquoise",
+    "children": [
+     {
+      "label": "TCP",
+      "detail": "Fiable, orienté connexion.",
+      "children": [
+       {
+        "label": "SYN, SYN-ACK, ACK"
+       }
+      ]
+     },
+     {
+      "label": "UDP",
+      "detail": "Sans connexion : DNS, SNMP, syslog, NTP."
+     },
+     {
+      "label": "Ports clés",
+      "detail": "22, 23, 53, 443, 445, 636, 3389."
+     }
+    ]
+   },
+   {
+    "label": "Attaques réseau",
+    "en": "Network Attacks",
+    "emoji": "⚠️",
+    "tone": "red",
+    "children": [
+     {
+      "label": "Couche 2",
+      "children": [
+       {
+        "label": "Usurpation ARP",
+        "detail": "Parade : inspection ARP."
+       },
+       {
+        "label": "Faux DHCP",
+        "detail": "Parade : DHCP snooping."
+       }
+      ]
+     },
+     {
+      "label": "Couches 3 et 4",
+      "children": [
+       {
+        "label": "Usurpation IP",
+        "detail": "Filtrage entrée et sortie."
+       },
+       {
+        "label": "Inondation SYN",
+        "detail": "Cookies SYN, anti-DDoS."
+       }
+      ]
+     },
+     {
+      "label": "Couche 7",
+      "children": [
+       {
+        "label": "Empoisonnement DNS",
+        "detail": "DNSSEC."
+       },
+       {
+        "label": "Tunnel DNS",
+        "detail": "Journaux DNS, résolveur imposé."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "label": "Protocoles sécurisés",
+    "en": "Secure Protocols",
+    "emoji": "🔐",
+    "tone": "green",
+    "children": [
+     {
+      "label": "Remplaçants",
+      "detail": "Telnet→SSH, FTP→SFTP/FTPS, HTTP→HTTPS, LDAP→LDAPS, SNMPv3.",
+      "children": [
+       {
+        "label": "TLS 1.2 et 1.3 seulement"
+       }
+      ]
+     },
+     {
+      "label": "IPsec",
+      "children": [
+       {
+        "label": "AH",
+        "detail": "Intégrité, pas de chiffrement."
+       },
+       {
+        "label": "ESP",
+        "detail": "Chiffrement + intégrité."
+       },
+       {
+        "label": "Tunnel / transport",
+        "detail": "Site à site / hôte à hôte."
+       },
+       {
+        "label": "IKE",
+        "detail": "Négocie les clés."
+       }
+      ]
+     },
+     {
+      "label": "DNS",
+      "children": [
+       {
+        "label": "DNSSEC",
+        "detail": "Intégrité."
+       },
+       {
+        "label": "DoT / DoH",
+        "detail": "Confidentialité."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "label": "Messagerie",
+    "en": "Email Security",
+    "emoji": "✉️",
+    "tone": "orange",
+    "children": [
+     {
+      "label": "Chiffrement",
+      "children": [
+       {
+        "label": "STARTTLS",
+        "detail": "Transport."
+       },
+       {
+        "label": "S/MIME, OpenPGP",
+        "detail": "Message de bout en bout."
+       }
+      ]
+     },
+     {
+      "label": "Anti-usurpation",
+      "children": [
+       {
+        "label": "SPF",
+        "detail": "Serveurs autorisés."
+       },
+       {
+        "label": "DKIM",
+        "detail": "Signature du domaine."
+       },
+       {
+        "label": "DMARC",
+        "detail": "Alignement et politique."
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}
