@@ -24,7 +24,7 @@ Dernière mise à jour : 2026-11-16. Règle : une fonctionnalité n'est marquée
 | M2 ch. 3 · Gestion des vulnérabilités et des correctifs (format cahier, carte mentale) | 3 | 30 | 20 | Fait, à relire |
 | M3 ch. 1 · Modèles OSI, TCP/IP et protocoles sécurisés (format cahier, carte mentale) | 3 | 30 | 20 | Fait, à relire |
 | M3 ch. 2 · Pare-feu, IDS/IPS, VPN, segmentation et sans-fil (format cahier, carte mentale) | 3 | 30 | 20 | Fait, à relire |
-| 9 autres chapitres | – | – | – | À faire, dans l'ordre de la formation |
+| 8 autres chapitres | – | – | – | À faire, dans l'ordre de la formation |
 
 Glossaire : 176 termes.
 
