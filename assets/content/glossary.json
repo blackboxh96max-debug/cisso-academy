@@ -2399,5 +2399,143 @@
   "definition": "Test qui arrête la production pour basculer réellement sur le site de secours.",
   "example": "Approuvé par la direction, un dimanche.",
   "kind": "general"
+ },
+ {
+  "id": "security-incident",
+  "en": "Security incident",
+  "fr": "Incident de sécurité",
+  "definition": "Violation, ou menace imminente de violation, des politiques de sécurité ou de la confidentialité, de l'intégrité ou de la disponibilité.",
+  "example": "Compte compromis utilisé pour exfiltrer des données.",
+  "kind": "general"
+ },
+ {
+  "id": "security-event",
+  "en": "Security event",
+  "fr": "Événement de sécurité",
+  "definition": "Toute occurrence observable dans un système ou un réseau.",
+  "example": "Connexion réussie journalisée.",
+  "kind": "general"
+ },
+ {
+  "id": "csirt",
+  "en": "Computer Security Incident Response Team",
+  "fr": "Équipe de réponse aux incidents de sécurité",
+  "acronym": "CSIRT",
+  "definition": "Équipe chargée de traiter les incidents de sécurité, avec l'appui du juridique, de la communication et des RH.",
+  "example": "Le CSIRT suspend le compte compromis.",
+  "kind": "general"
+ },
+ {
+  "id": "containment",
+  "en": "Containment",
+  "fr": "Confinement",
+  "definition": "Actions qui limitent la propagation et les dommages d'un incident.",
+  "example": "Isolement du poste via l'EDR.",
+  "kind": "general"
+ },
+ {
+  "id": "eradication",
+  "en": "Eradication",
+  "fr": "Éradication",
+  "definition": "Suppression de la cause de l'incident : malware, persistance, faille, comptes compromis.",
+  "example": "Correction du VPN et réinitialisation des mots de passe.",
+  "kind": "general"
+ },
+ {
+  "id": "lessons-learned",
+  "en": "Lessons learned",
+  "fr": "Retour d'expérience",
+  "definition": "Analyse après incident pour comprendre et améliorer, sans chercher de coupable.",
+  "example": "Nouvelle règle SIEM après l'incident.",
+  "kind": "general"
+ },
+ {
+  "id": "digital-forensics",
+  "en": "Digital forensics",
+  "fr": "Investigation numérique",
+  "definition": "Collecte, préservation et analyse de traces numériques selon des méthodes acceptables en justice.",
+  "example": "Analyse de l'image d'un disque.",
+  "kind": "general"
+ },
+ {
+  "id": "order-of-volatility",
+  "en": "Order of volatility",
+  "fr": "Ordre de volatilité",
+  "definition": "Ordre de collecte des traces, de la plus éphémère (mémoire) à la plus durable (archives).",
+  "example": "Capture de la mémoire avant l'image disque.",
+  "kind": "general"
+ },
+ {
+  "id": "chain-of-custody",
+  "en": "Chain of custody",
+  "fr": "Chaîne de possession",
+  "definition": "Registre retraçant qui a collecté et détenu une preuve, quand, où, comment et pourquoi.",
+  "example": "Signature à chaque remise du disque.",
+  "kind": "general"
+ },
+ {
+  "id": "write-blocker",
+  "en": "Write blocker",
+  "fr": "Bloqueur d'écriture",
+  "definition": "Dispositif qui permet de lire un support sans pouvoir le modifier.",
+  "example": "Disque suspect branché derrière un bloqueur.",
+  "kind": "general"
+ },
+ {
+  "id": "forensic-image",
+  "en": "Forensic image",
+  "fr": "Image forensique",
+  "definition": "Copie bit à bit d'un support, accompagnée de son empreinte pour prouver son intégrité.",
+  "example": "Image SHA-256 identique avant et après analyse.",
+  "kind": "general"
+ },
+ {
+  "id": "best-evidence",
+  "en": "Best evidence rule",
+  "fr": "Règle de la meilleure preuve",
+  "definition": "Principe selon lequel l'original est préféré à une copie lorsqu'il est disponible.",
+  "example": "Contrat original produit au tribunal.",
+  "kind": "general"
+ },
+ {
+  "id": "hearsay",
+  "en": "Hearsay evidence",
+  "fr": "Preuve par ouï-dire",
+  "definition": "Rapport de seconde main, souvent écarté, avec des exceptions comme les journaux tenus dans le cours normal de l'activité.",
+  "example": "Récit rapporté par un collègue.",
+  "kind": "general"
+ },
+ {
+  "id": "entrapment",
+  "en": "Entrapment",
+  "fr": "Provocation",
+  "definition": "Fait de pousser quelqu'un à commettre une infraction qu'il n'aurait pas commise ; généralement illégal.",
+  "example": "Preuve écartée pour provocation.",
+  "kind": "general"
+ },
+ {
+  "id": "enticement",
+  "en": "Enticement",
+  "fr": "Incitation",
+  "definition": "Fait de laisser une cible attrayante, comme un pot de miel, sans pousser à l'infraction ; généralement légal.",
+  "example": "Pot de miel observé par le SOC.",
+  "kind": "general"
+ },
+ {
+  "id": "locard-principle",
+  "en": "Locard's exchange principle",
+  "fr": "Principe d'échange de Locard",
+  "definition": "Tout contact laisse une trace ; l'auteur laisse des traces et en emporte.",
+  "example": "Traces de l'attaquant dans les journaux.",
+  "kind": "general"
+ },
+ {
+  "id": "nis2",
+  "en": "NIS 2 Directive",
+  "fr": "Directive NIS 2",
+  "acronym": "NIS 2",
+  "definition": "Directive (UE) 2022/2555 sur la cybersécurité des entités essentielles et importantes, avec obligations de notification des incidents importants.",
+  "example": "Alerte précoce sous 24 h.",
+  "kind": "general"
  }
 ]

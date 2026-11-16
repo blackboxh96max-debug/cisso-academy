@@ -1,0 +1,1629 @@
+{
+ "lessons": [
+  {
+   "id": "m5c2-l1",
+   "title": "Le cycle de réponse aux incidents",
+   "minutes": 35,
+   "illustration": "assets/illustrations/m5c2_l1_pompiers.svg",
+   "illustrationAlt": "Dessin d'un tableau de bord avec une alarme rouge allumée, et à côté une petite équipe représentée par trois casques de pompier alignés.",
+   "objectives": [
+    "Distinguer événement, alerte et incident de sécurité.",
+    "Décrire les phases du cycle de réponse aux incidents.",
+    "Organiser une équipe de réponse (CSIRT) et ses escalades.",
+    "Classer un incident par gravité et décider qui prévenir."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-61 Rev. 2, Computer Security Incident Handling Guide (cycle en quatre phases, largement repris dans les formations)",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-61 Rev. 3, Incident Response Recommendations and Considerations for Cybersecurity Risk Management (alignée sur le NIST CSF 2.0)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Événement, alerte, incident"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Terme",
+       "Définition",
+       "Exemple"
+      ],
+      [
+       "Événement",
+       "Toute occurrence observable dans un système ou un réseau",
+       "Une connexion réussie, un fichier ouvert"
+      ],
+      [
+       "Alerte",
+       "Notification produite par un outil quand un événement semble suspect",
+       "Le SIEM signale 50 échecs de connexion"
+      ],
+      [
+       "Incident",
+       "Violation, ou menace imminente de violation, des politiques de sécurité ou de la confidentialité, de l'intégrité ou de la disponibilité",
+       "Un compte compromis utilisé pour exfiltrer des données"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "Tout incident commence par des événements, mais très peu d'événements deviennent des incidents. Le triage fait le tri."
+    },
+    {
+     "type": "heading",
+     "text": "Les phases de la réponse"
+    },
+    {
+     "type": "diagram",
+     "title": "Le cycle de réponse aux incidents",
+     "alt": "Cycle en quatre phases : préparation ; détection et analyse ; confinement, éradication et rétablissement ; activités après l'incident, qui reviennent nourrir la préparation.",
+     "diagram": {
+      "type": "cycle",
+      "center": "🔁 Amélioration\ncontinue",
+      "nodes": [
+       {
+        "emoji": "🧰",
+        "label": "Préparation",
+        "detail": "équipe, outils, playbooks",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🔎",
+        "label": "Détection et analyse",
+        "detail": "triage, gravité, preuves",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🧯",
+        "label": "Confinement, éradication, rétablissement",
+        "detail": "limiter, nettoyer, remettre en service",
+        "tone": "red"
+       },
+       {
+        "emoji": "📝",
+        "label": "Après l'incident",
+        "detail": "retour d'expérience",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Modèle",
+       "Étapes"
+      ],
+      [
+       "NIST SP 800-61 Rev. 2",
+       "Préparation ; détection et analyse ; confinement, éradication et rétablissement ; activités post-incident"
+      ],
+      [
+       "Variante en six étapes souvent enseignée",
+       "Préparation, identification, confinement, éradication, rétablissement, leçons apprises"
+      ],
+      [
+       "NIST SP 800-61 Rev. 3",
+       "Réorganise les recommandations autour des fonctions du NIST CSF 2.0 (gouverner, identifier, protéger, détecter, répondre, rétablir)"
+      ]
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "Quel que soit le modèle, l'ordre reste le même : préparer, détecter, contenir, éradiquer, rétablir, tirer les leçons. À l'examen, on ne nettoie pas avant d'avoir contenu, et on ne remet pas en service avant d'avoir éradiqué la cause."
+    },
+    {
+     "type": "heading",
+     "text": "L'équipe et la préparation"
+    },
+    {
+     "type": "definition",
+     "title": "CSIRT",
+     "text": "Équipe de réponse aux incidents de sécurité informatique (Computer Security Incident Response Team). Elle réunit des compétences techniques et s'appuie sur la direction, le juridique, la communication, les ressources humaines et parfois des prestataires externes.",
+     "kind": "general"
+    },
+    {
+     "type": "practice",
+     "title": "Préparer avant l'incident",
+     "items": [
+      "Une politique de réponse aux incidents approuvée par la direction, avec les rôles et l'autorité pour agir.",
+      "Des playbooks par type d'incident : hameçonnage, rançongiciel, fuite de données, compte compromis.",
+      "Des contacts à jour : astreintes, juridique, assureur, autorités, prestataires.",
+      "Des journaux centralisés, horodatés sur une source de temps commune (NTP).",
+      "Un kit de réponse : outils, supports de copie, formulaires de chaîne de possession.",
+      "Des exercices réguliers pour s'entraîner."
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Trier et escalader"
+    },
+    {
+     "type": "diagram",
+     "title": "Gravité et urgence",
+     "alt": "Matrice : en abscisse l'impact sur l'activité, en ordonnée l'urgence. Un rançongiciel sur les serveurs est en haut à droite (critique), un compte de messagerie compromis au milieu, un scan de ports isolé en bas à gauche.",
+     "diagram": {
+      "type": "matrix",
+      "xLabel": "Impact",
+      "yLabel": "Urgence",
+      "points": [
+       {
+        "label": "Rançongiciel sur les serveurs",
+        "emoji": "🔒",
+        "x": 5,
+        "y": 5
+       },
+       {
+        "label": "Messagerie compromise",
+        "emoji": "📧",
+        "x": 3,
+        "y": 4
+       },
+       {
+        "label": "Scan de ports isolé",
+        "emoji": "📡",
+        "x": 1,
+        "y": 1
+       }
+      ]
+     }
+    },
+    {
+     "type": "important",
+     "title": "Escalader selon des critères écrits",
+     "text": "La gravité dépend de l'impact (données sensibles, nombre de systèmes, activité arrêtée) et de l'urgence (propagation en cours, exfiltration active). Les critères d'escalade vers la direction, le juridique ou les autorités sont définis à l'avance, pas improvisés pendant la crise."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas : de l'alerte à l'incident",
+     "kind": "example",
+     "text": "Dans une entreprise fictive, le SIEM alerte sur une connexion VPN réussie depuis un pays inhabituel, suivie de téléchargements massifs sur un partage RH. L'analyste de niveau 1 confirme qu'il ne s'agit pas d'un déplacement prévu, qualifie l'événement d'incident de gravité haute et escalade au CSIRT, qui suspend le compte et prévient le juridique, car des données personnelles sont en jeu."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "Analyste : je documente tout dès la première minute, avec l'heure exacte de chaque action.",
+      "Responsable du CSIRT : je coordonne, je décide du confinement et je tiens la direction informée.",
+      "Juriste : j'évalue les obligations de notification et la préservation des preuves.",
+      "Communication : je prépare les messages internes et externes, validés par la direction."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Événement ≠ incident : il faut une atteinte ou une menace réelle.",
+      "La préparation est une phase à part entière, la première.",
+      "Ordre : contenir, puis éradiquer, puis rétablir.",
+      "Le retour d'expérience ferme la boucle et améliore la préparation."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Événement, alerte, incident.",
+      "Préparation ; détection et analyse ; confinement, éradication, rétablissement ; après l'incident.",
+      "CSIRT pluridisciplinaire, playbooks, contacts, journaux horodatés.",
+      "Gravité = impact × urgence ; escalade selon des critères écrits."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c2-q01",
+      "m5c2-q04"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m5c2-l2",
+   "title": "Investigation numérique et preuves",
+   "minutes": 35,
+   "illustration": "assets/illustrations/m5c2_l2_scelle.svg",
+   "illustrationAlt": "Dessin d'un disque dur glissé dans un sachet de preuve scellé, avec une étiquette de chaîne de possession et une loupe posée à côté.",
+   "objectives": [
+    "Appliquer l'ordre de volatilité lors de la collecte.",
+    "Préserver l'intégrité des preuves : copie bit à bit, bloqueur d'écriture, empreintes.",
+    "Tenir une chaîne de possession.",
+    "Reconnaître les types de preuves et les conditions de leur recevabilité."
+   ],
+   "references": [
+    {
+     "title": "RFC 3227, Guidelines for Evidence Collection and Archiving",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-86, Guide to Integrating Forensic Techniques into Incident Response",
+     "kind": "general"
+    },
+    {
+     "title": "ISO/IEC 27037, Lignes directrices pour l'identification, la collecte, l'acquisition et la préservation des preuves numériques",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Collecter dans le bon ordre"
+    },
+    {
+     "type": "text",
+     "text": "Certaines traces disparaissent en quelques secondes, d'autres restent des années. On collecte donc d'abord ce qui est le plus volatil."
+    },
+    {
+     "type": "diagram",
+     "title": "L'ordre de volatilité (d'après la RFC 3227)",
+     "alt": "Schéma de la trace la plus volatile à la moins volatile : registres et cache du processeur, mémoire vive avec processus et connexions réseau, fichiers temporaires, disque, journaux distants, supports d'archive.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "⚡",
+        "label": "Registres, cache",
+        "detail": "nanosecondes",
+        "tone": "red"
+       },
+       {
+        "emoji": "🧠",
+        "label": "Mémoire vive",
+        "detail": "processus, connexions, table ARP",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🗂️",
+        "label": "Fichiers temporaires",
+        "detail": "swap, /tmp",
+        "tone": "pink"
+       },
+       {
+        "emoji": "💽",
+        "label": "Disque",
+        "detail": "image bit à bit",
+        "tone": "violet"
+       },
+       {
+        "emoji": "📜",
+        "label": "Journaux distants",
+        "detail": "SIEM, serveurs",
+        "tone": "blue"
+       },
+       {
+        "emoji": "📦",
+        "label": "Archives",
+        "detail": "sauvegardes, bandes",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "important",
+     "title": "Ne pas éteindre trop vite",
+     "text": "Éteindre une machine efface la mémoire vive : processus malveillants, connexions, clés de chiffrement en mémoire. Quand c'est possible et sans danger, on isole la machine du réseau et on capture la mémoire avant de l'arrêter."
+    },
+    {
+     "type": "heading",
+     "text": "Préserver l'intégrité"
+    },
+    {
+     "type": "practice",
+     "title": "Règles de manipulation",
+     "items": [
+      "Utiliser un bloqueur d'écriture pour ne jamais modifier le support original.",
+      "Réaliser une copie bit à bit (image forensique) et calculer son empreinte (SHA-256) avant et après.",
+      "Travailler uniquement sur une copie ; conserver l'original scellé.",
+      "Photographier et décrire la scène : écrans, câbles, étiquettes.",
+      "Noter chaque action avec l'heure, l'outil et la personne."
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "Chaîne de possession (chain of custody)",
+     "text": "Registre qui retrace, pour chaque preuve, qui l'a collectée, quand, où, comment, qui l'a eue en main ensuite et pourquoi. Une rupture dans la chaîne permet de contester la preuve devant un tribunal.",
+     "kind": "general"
+    },
+    {
+     "type": "memo",
+     "text": "Bloqueur, image, empreinte, copie de travail, registre : sans ces cinq gestes, la preuve vaut peu."
+    },
+    {
+     "type": "heading",
+     "text": "Les preuves devant la justice"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Type de preuve",
+       "Signification"
+      ],
+      [
+       "Meilleure preuve (best evidence)",
+       "L'original, préféré à une copie quand il est disponible"
+      ],
+      [
+       "Preuve secondaire",
+       "Copie ou description de l'original (une image forensique bien documentée est acceptée)"
+      ],
+      [
+       "Preuve directe",
+       "Prouve un fait sans déduction (témoin oculaire)"
+      ],
+      [
+       "Preuve circonstancielle",
+       "Permet de déduire un fait à partir d'autres faits"
+      ],
+      [
+       "Preuve corroborante",
+       "Vient appuyer une autre preuve"
+      ],
+      [
+       "Ouï-dire (hearsay)",
+       "Rapport de seconde main ; souvent écarté, avec des exceptions comme les journaux tenus dans le cours normal de l'activité"
+      ]
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "Pour être retenue, une preuve doit être pertinente, authentique et fiable (intégrité prouvée par les empreintes et la chaîne de possession), obtenue légalement, et complète. Les journaux produits automatiquement dans le cours normal de l'activité sont plus solides que des notes rédigées après coup."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Notion",
+       "À retenir"
+      ],
+      [
+       "Principe d'échange de Locard",
+       "Tout contact laisse une trace : l'attaquant laisse des traces et en emporte"
+      ],
+      [
+       "Mobile, opportunité, moyens (MOM)",
+       "Trois éléments examinés pour identifier un suspect"
+      ],
+      [
+       "Incitation (enticement)",
+       "Laisser une cible attrayante, comme un pot de miel : légal"
+      ],
+      [
+       "Provocation (entrapment)",
+       "Pousser quelqu'un à commettre une infraction qu'il n'aurait pas commise : généralement illégal et rend la preuve irrecevable"
+      ]
+     ]
+    },
+    {
+     "type": "risk",
+     "title": "Enquêter sans franchir la ligne",
+     "text": "Une enquête interne respecte la loi, le contrat de travail et la vie privée : accès aux postes et aux messageries encadré par la charte et le juridique, pas de « contre-attaque » contre un système externe. Quand une poursuite pénale est envisagée, on associe tôt le juridique et, si besoin, les forces de l'ordre."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas : le portable du départ",
+     "kind": "example",
+     "text": "Dans une enquête interne simulée, un collaborateur sur le départ est soupçonné d'avoir copié des plans. Avec l'accord du juridique, l'enquêteur photographie le portable, branche le disque derrière un bloqueur d'écriture, réalise une image, calcule son empreinte SHA-256 et remplit la chaîne de possession. L'analyse de la copie montre le branchement d'une clé USB et la copie du dossier la veille du départ. Les empreintes identiques avant et après analyse prouvent que rien n'a été modifié."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "Enquêteur : je travaille sur la copie, jamais sur l'original.",
+      "Juriste : une preuve mal collectée peut faire perdre le procès.",
+      "Responsable RH : j'interviens après les faits établis, dans le respect des procédures.",
+      "Auditeur : je vérifie que la chaîne de possession est continue et signée."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Ordre de volatilité : mémoire avant disque, disque avant archives.",
+      "Toujours une copie bit à bit avec empreinte, et un bloqueur d'écriture.",
+      "Chaîne de possession = qui, quand, où, comment, pourquoi.",
+      "Incitation légale, provocation non.",
+      "Meilleure preuve = l'original."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Collecte selon l'ordre de volatilité.",
+      "Intégrité : bloqueur, image, empreintes, copie de travail.",
+      "Chaîne de possession continue.",
+      "Types de preuves et recevabilité ; Locard, MOM, incitation et provocation."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c2-q11",
+      "m5c2-q13"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m5c2-l3",
+   "title": "Contenir, rétablir et tirer les leçons",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m5c2_l3_digue.svg",
+   "illustrationAlt": "Dessin d'une digue de sacs de sable qui retient une vague rouge, avec derrière elle un petit réseau d'ordinateurs à l'abri, et un carnet ouvert intitulé « leçons apprises ».",
+   "objectives": [
+    "Choisir une stratégie de confinement adaptée.",
+    "Mener l'éradication et le rétablissement sans réinfection.",
+    "Animer un retour d'expérience utile.",
+    "Respecter les délais de notification aux autorités."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-61 Rev. 2, Computer Security Incident Handling Guide",
+     "kind": "general"
+    },
+    {
+     "title": "Règlement (UE) 2016/679 (RGPD), articles 33 et 34",
+     "kind": "general"
+    },
+    {
+     "title": "Directive (UE) 2022/2555 (NIS 2), article 23",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Contenir"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Confinement",
+       "Exemples",
+       "Attention"
+      ],
+      [
+       "Court terme",
+       "Isoler le poste via l'EDR, bloquer une adresse IP, désactiver un compte",
+       "Rapide, mais peut prévenir l'attaquant"
+      ],
+      [
+       "Long terme",
+       "Segmenter, reconstruire des systèmes propres en parallèle, renforcer la surveillance",
+       "Permet de maintenir l'activité pendant l'éradication"
+      ],
+      [
+       "Surveillance contrôlée",
+       "Laisser l'attaquant agir sous observation pour comprendre l'attaque",
+       "Décision de direction et du juridique, risque élevé"
+      ]
+     ]
+    },
+    {
+     "type": "practice",
+     "title": "Choisir la stratégie",
+     "items": [
+      "Risque de propagation et de dommages supplémentaires.",
+      "Besoin de préserver des preuves.",
+      "Disponibilité du service pour l'activité.",
+      "Temps et ressources nécessaires.",
+      "Efficacité : confinement partiel ou complet."
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Éradiquer et rétablir"
+    },
+    {
+     "type": "diagram",
+     "title": "Du confinement au retour à la normale",
+     "alt": "Schéma en cinq étapes : contenir, identifier la cause racine et toutes les machines touchées, éradiquer (supprimer le malware, corriger la faille, changer les mots de passe), rétablir depuis des sources saines, surveiller renforcée.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🧱",
+        "label": "Contenir",
+        "detail": "stopper la propagation",
+        "tone": "red"
+       },
+       {
+        "emoji": "🔍",
+        "label": "Cause racine",
+        "detail": "porte d'entrée, périmètre",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🧹",
+        "label": "Éradiquer",
+        "detail": "malware, faille, comptes",
+        "tone": "orange"
+       },
+       {
+        "emoji": "♻️",
+        "label": "Rétablir",
+        "detail": "sources saines, tests",
+        "tone": "blue"
+       },
+       {
+        "emoji": "👀",
+        "label": "Surveiller",
+        "detail": "renforcé quelques semaines",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "important",
+     "title": "Éviter la réinfection",
+     "text": "Avant de remettre en service : identifier la porte d'entrée et la fermer, chercher les autres machines touchées et les mécanismes de persistance, réinitialiser les identifiants compromis, puis restaurer depuis des sauvegardes antérieures à la compromission ou réinstaller depuis des sources sûres."
+    },
+    {
+     "type": "heading",
+     "text": "Après l'incident"
+    },
+    {
+     "type": "practice",
+     "title": "Le retour d'expérience (lessons learned)",
+     "items": [
+      "Le tenir rapidement, en général dans les deux semaines.",
+      "Reconstituer une chronologie factuelle, sans chercher de coupable.",
+      "Que s'est-il passé ? Qu'est-ce qui a bien marché ? Qu'aurait-on dû faire autrement ?",
+      "Mesurer : délai de détection (MTTD), délai de réponse, coût, données touchées.",
+      "Décider des actions correctives, avec un responsable et une échéance.",
+      "Mettre à jour les playbooks, les règles de détection et la formation."
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Notifier dans les délais"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Texte",
+       "Qui notifier",
+       "Délai"
+      ],
+      [
+       "RGPD, art. 33",
+       "Autorité de contrôle (CNIL en France) en cas de violation de données personnelles présentant un risque",
+       "72 heures au plus tard après en avoir pris connaissance"
+      ],
+      [
+       "RGPD, art. 34",
+       "Personnes concernées si le risque est élevé",
+       "Dans les meilleurs délais"
+      ],
+      [
+       "NIS 2, art. 23 (entités essentielles et importantes)",
+       "CSIRT national ou autorité compétente pour un incident important",
+       "Alerte précoce sous 24 h, notification sous 72 h, rapport final sous un mois"
+      ]
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "Les délais courent à partir du moment où l'organisation a connaissance de l'incident, pas de sa résolution. On peut notifier par étapes : on n'attend pas d'avoir toutes les réponses pour prévenir l'autorité."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas : le retour d'expérience",
+     "kind": "example",
+     "text": "Après un incident simulé de messagerie compromise, le retour d'expérience établit la chronologie : hameçonnage à 9 h 02, connexion de l'attaquant à 9 h 40, règle de transfert créée, détection à 15 h par un collègue intrigué. Actions décidées : alerte SIEM sur la création de règles de transfert vers l'extérieur, MFA résistante à l'hameçonnage pour les comptes financiers, et exercice de sensibilisation ciblé. Le MTTD passe de six heures à vingt minutes lors de l'exercice suivant."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "Responsable du CSIRT : un retour d'expérience sans actions suivies ne sert à rien.",
+      "Délégué à la protection des données : je décide avec le juridique de la notification sous 72 h.",
+      "Direction : je veux savoir ce qui a coûté le plus et ce qui l'aurait évité.",
+      "Analyste : je transforme chaque incident en nouvelle règle de détection."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Contenir avant d'éradiquer ; éradiquer avant de rétablir.",
+      "Restaurer depuis une sauvegarde antérieure à la compromission.",
+      "Retour d'expérience sans recherche de coupable, avec actions suivies.",
+      "RGPD : 72 h vers l'autorité ; NIS 2 : 24 h, 72 h, un mois."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Confinement court terme, long terme, surveillance contrôlée.",
+      "Cause racine, éradication, rétablissement sain, surveillance renforcée.",
+      "Retour d'expérience : chronologie, mesures, actions, mises à jour.",
+      "Notifications : RGPD et NIS 2."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c2-q21",
+      "m5c2-q27"
+     ]
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "id": "m5c2-q01",
+   "domain": "bcp-dr-ir-law",
+   "level": "beginner",
+   "concept": "Événement et incident",
+   "prompt": "Lequel de ces cas est un incident de sécurité, et pas un simple événement ?",
+   "choices": [
+    "Un compte compromis utilisé pour télécharger des données clients",
+    "Un utilisateur qui se connecte normalement le matin",
+    "Une mise à jour d'antivirus",
+    "L'ouverture d'un fichier par son propriétaire"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Un incident porte atteinte, ou menace de porter atteinte, à la sécurité ; les autres cas sont des événements normaux.",
+   "whyNot": {
+    "1": "Événement normal.",
+    "2": "Événement normal.",
+    "3": "Événement normal."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c2-q02",
+   "domain": "bcp-dr-ir-law",
+   "level": "beginner",
+   "concept": "Cycle",
+   "prompt": "Quelle est la première phase du cycle de réponse aux incidents ?",
+   "choices": [
+    "La préparation",
+    "Le confinement",
+    "L'éradication",
+    "Le retour d'expérience"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "On prépare l'équipe, les outils et les procédures avant tout incident.",
+   "whyNot": {
+    "1": "Il vient après la détection.",
+    "2": "Il vient après le confinement.",
+    "3": "C'est la dernière phase."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c2-q03",
+   "domain": "bcp-dr-ir-law",
+   "level": "beginner",
+   "concept": "CSIRT",
+   "prompt": "Qu'est-ce qu'un CSIRT ?",
+   "choices": [
+    "L'équipe chargée de répondre aux incidents de sécurité",
+    "Un type de pare-feu",
+    "Un protocole de chiffrement",
+    "Un format de journal"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Computer Security Incident Response Team : équipe pluridisciplinaire de réponse.",
+   "whyNot": {
+    "1": "Sans rapport.",
+    "2": "Sans rapport.",
+    "3": "Sans rapport."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c2-q04",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Ordre des phases",
+   "prompt": "Dans quel ordre mène-t-on ces actions ?",
+   "choices": [
+    "Contenir, éradiquer, rétablir",
+    "Rétablir, contenir, éradiquer",
+    "Éradiquer, rétablir, contenir",
+    "Rétablir, éradiquer, contenir"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "On limite d'abord les dégâts, on supprime la cause, puis on remet en service.",
+   "whyNot": {
+    "1": "Rétablir d'abord expose à la réinfection.",
+    "2": "Éradiquer sans contenir laisse l'attaque se propager.",
+    "3": "Ordre inversé."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c2-q05",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Préparation",
+   "prompt": "Quels éléments relèvent de la phase de préparation ? (plusieurs réponses)",
+   "choices": [
+    "Rédiger des playbooks par type d'incident",
+    "Tenir à jour les contacts d'astreinte et des autorités",
+    "Synchroniser l'heure des journaux (NTP)",
+    "Restaurer le serveur infecté"
+   ],
+   "correct": [
+    0,
+    1,
+    2
+   ],
+   "explanation": "Tout ce qui permet de réagir vite et bien se prépare avant l'incident.",
+   "whyNot": {
+    "3": "C'est du rétablissement, pendant l'incident."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c2-q06",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Horodatage",
+   "prompt": "Pourquoi synchroniser l'heure de tous les systèmes sur une même source ?",
+   "choices": [
+    "Pour reconstituer une chronologie fiable en corrélant les journaux",
+    "Pour accélérer le réseau",
+    "Pour chiffrer les journaux",
+    "Pour économiser de l'espace disque"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Sans heure commune, on ne peut pas ordonner les événements de plusieurs sources.",
+   "whyNot": {
+    "1": "Sans rapport.",
+    "2": "Sans rapport.",
+    "3": "Sans rapport."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c2-q07",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "Gravité",
+   "prompt": "Quels critères déterminent la gravité d'un incident ? (plusieurs réponses)",
+   "choices": [
+    "La sensibilité des données touchées",
+    "La propagation en cours",
+    "L'impact sur l'activité",
+    "La marque des ordinateurs"
+   ],
+   "correct": [
+    0,
+    1,
+    2
+   ],
+   "explanation": "Impact (données, activité, nombre de systèmes) et urgence (propagation, exfiltration).",
+   "whyNot": {
+    "3": "Sans rapport."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c2-q08",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Escalade",
+   "prompt": "Quand décide-t-on des critères d'escalade vers la direction et le juridique ?",
+   "choices": [
+    "À l'avance, dans la politique et les playbooks",
+    "Pendant l'incident, au cas par cas",
+    "Après l'incident seulement",
+    "Jamais, l'équipe technique gère seule"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Des critères écrits évitent les hésitations et les oublis en pleine crise.",
+   "whyNot": {
+    "1": "Source d'erreurs et de retards.",
+    "2": "Trop tard.",
+    "3": "La direction et le juridique doivent être associés."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c2-q09",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "Documentation",
+   "prompt": "Pourquoi l'analyste doit-il noter chaque action avec l'heure exacte dès le début ?",
+   "choices": [
+    "Pour la chronologie, la preuve et le retour d'expérience",
+    "Pour remplir un quota",
+    "Pour ralentir l'attaquant",
+    "Ce n'est pas utile"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Les notes servent à l'enquête, aux obligations légales et à l'amélioration.",
+   "whyNot": {
+    "1": "Sans rapport.",
+    "2": "Sans rapport.",
+    "3": "C'est indispensable."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c2-q10",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "NIST 800-61",
+   "prompt": "Selon NIST SP 800-61 Rev. 2, quelle phase regroupe confinement, éradication et rétablissement ?",
+   "choices": [
+    "Une seule phase : confinement, éradication et rétablissement",
+    "La préparation",
+    "La détection et l'analyse",
+    "Les activités post-incident"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le modèle en quatre phases réunit ces trois actions dans la troisième phase.",
+   "whyNot": {
+    "1": "Première phase.",
+    "2": "Deuxième phase.",
+    "3": "Quatrième phase."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c2-q11",
+   "domain": "bcp-dr-ir-law",
+   "level": "beginner",
+   "concept": "Ordre de volatilité",
+   "prompt": "Que faut-il collecter en premier sur une machine allumée ?",
+   "choices": [
+    "La mémoire vive",
+    "Le disque dur",
+    "Les sauvegardes sur bande",
+    "Les documents papier"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "La mémoire vive disparaît à l'extinction ; elle est plus volatile que le disque.",
+   "whyNot": {
+    "1": "Moins volatil que la mémoire.",
+    "2": "Les moins volatiles.",
+    "3": "Non volatils."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c2-q12",
+   "domain": "bcp-dr-ir-law",
+   "level": "beginner",
+   "concept": "Bloqueur d'écriture",
+   "prompt": "À quoi sert un bloqueur d'écriture ?",
+   "choices": [
+    "À lire un support sans pouvoir le modifier",
+    "À effacer un disque",
+    "À chiffrer une image",
+    "À accélérer la copie"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Il garantit que l'original n'est pas altéré pendant l'acquisition.",
+   "whyNot": {
+    "1": "C'est l'inverse.",
+    "2": "Sans rapport.",
+    "3": "Sans rapport."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c2-q13",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Chaîne de possession",
+   "prompt": "Que doit indiquer la chaîne de possession d'une preuve ?",
+   "choices": [
+    "Qui l'a collectée et détenue, quand, où, comment et pourquoi",
+    "Seulement le prix du matériel",
+    "Le nom de l'attaquant",
+    "La liste des logiciels installés"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Elle prouve que la preuve n'a pas pu être altérée entre la collecte et le tribunal.",
+   "whyNot": {
+    "1": "Sans rapport.",
+    "2": "Pas forcément connu.",
+    "3": "Ce n'est pas son rôle."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c2-q14",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Empreinte",
+   "prompt": "Pourquoi calculer l'empreinte SHA-256 de l'image d'un disque ?",
+   "choices": [
+    "Pour prouver plus tard que l'image n'a pas été modifiée",
+    "Pour compresser l'image",
+    "Pour chiffrer l'image",
+    "Pour accélérer l'analyse"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Une empreinte identique avant et après analyse démontre l'intégrité.",
+   "whyNot": {
+    "1": "Un hachage ne compresse pas.",
+    "2": "Un hachage ne chiffre pas.",
+    "3": "Sans rapport."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c2-q15",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Copie de travail",
+   "prompt": "Sur quoi l'enquêteur mène-t-il son analyse ?",
+   "choices": [
+    "Sur une copie bit à bit, l'original restant scellé",
+    "Directement sur le disque original",
+    "Sur le poste de l'utilisateur en production",
+    "Sur une capture d'écran"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "L'original est préservé ; on peut refaire une copie si besoin.",
+   "whyNot": {
+    "1": "Risque de modifier la preuve.",
+    "2": "Risque d'altération.",
+    "3": "Insuffisant."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c2-q16",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Types de preuves",
+   "prompt": "Qu'appelle-t-on la « meilleure preuve » (best evidence) ?",
+   "choices": [
+    "L'original d'un document ou d'un support",
+    "Le témoignage le plus long",
+    "La preuve la plus récente",
+    "Une copie certifiée"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "On préfère l'original à une copie lorsqu'il est disponible.",
+   "whyNot": {
+    "1": "Sans rapport.",
+    "2": "Sans rapport.",
+    "3": "C'est une preuve secondaire."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c2-q17",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "Incitation et provocation",
+   "prompt": "Un pot de miel attire des attaquants qui s'y connectent d'eux-mêmes. De quoi s'agit-il juridiquement ?",
+   "choices": [
+    "D'incitation (enticement), généralement légale",
+    "De provocation (entrapment), illégale",
+    "De hacking offensif",
+    "D'une contre-attaque"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Laisser une cible attrayante n'oblige personne à commettre une infraction.",
+   "whyNot": {
+    "1": "La provocation pousse quelqu'un à commettre une infraction qu'il n'aurait pas commise.",
+    "2": "Rien n'attaque l'adversaire.",
+    "3": "Aucune action vers l'attaquant."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c2-q18",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "Recevabilité",
+   "prompt": "Quelles qualités une preuve doit-elle avoir pour être recevable ? (plusieurs réponses)",
+   "choices": [
+    "Pertinente",
+    "Authentique et fiable",
+    "Obtenue légalement",
+    "Rédigée en anglais"
+   ],
+   "correct": [
+    0,
+    1,
+    2
+   ],
+   "explanation": "Pertinence, authenticité, fiabilité, légalité et complétude.",
+   "whyNot": {
+    "3": "La langue ne conditionne pas la recevabilité."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c2-q19",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "Locard",
+   "prompt": "Que dit le principe d'échange de Locard appliqué au numérique ?",
+   "choices": [
+    "Tout contact laisse une trace : l'attaquant laisse des traces dans le système et en emporte",
+    "Les preuves numériques ne s'altèrent jamais",
+    "Seul l'original est recevable",
+    "Il faut toujours éteindre la machine"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "C'est pourquoi on cherche des traces même quand l'attaquant croit les avoir effacées.",
+   "whyNot": {
+    "1": "Elles s'altèrent facilement.",
+    "2": "C'est la règle de la meilleure preuve.",
+    "3": "Éteindre efface la mémoire."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c2-q20",
+   "domain": "bcp-dr-ir-law",
+   "level": "beginner",
+   "concept": "Extinction",
+   "prompt": "Pourquoi éviter d'éteindre immédiatement une machine compromise ?",
+   "choices": [
+    "Parce que la mémoire vive, avec processus et connexions, serait perdue",
+    "Parce que le disque serait effacé",
+    "Parce que c'est interdit par la loi",
+    "Parce que l'attaquant serait averti par courriel"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "On isole du réseau et on capture la mémoire quand c'est possible.",
+   "whyNot": {
+    "1": "Le disque reste.",
+    "2": "Ce n'est pas une règle légale.",
+    "3": "Sans rapport."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c2-q21",
+   "domain": "bcp-dr-ir-law",
+   "level": "beginner",
+   "concept": "Confinement",
+   "prompt": "Quelle action est un confinement à court terme ?",
+   "choices": [
+    "Isoler un poste infecté du réseau via l'EDR",
+    "Rédiger le retour d'expérience",
+    "Former les utilisateurs l'année suivante",
+    "Acheter un nouveau SIEM"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Il stoppe la propagation immédiatement.",
+   "whyNot": {
+    "1": "Après l'incident.",
+    "2": "Amélioration à long terme.",
+    "3": "Ce n'est pas une action de confinement."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c2-q22",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Réinfection",
+   "prompt": "Que faut-il faire avant de remettre en service un serveur nettoyé ?",
+   "choices": [
+    "Fermer la porte d'entrée et réinitialiser les identifiants compromis",
+    "Supprimer les journaux",
+    "Payer la rançon",
+    "Rien, le nettoyage suffit"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Sinon l'attaquant revient par le même chemin ou avec les mêmes identifiants.",
+   "whyNot": {
+    "1": "Ce sont des preuves.",
+    "2": "Sans rapport et déconseillé.",
+    "3": "Risque de réinfection."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c2-q23",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Restauration",
+   "prompt": "Depuis quelle sauvegarde restaurer après une compromission ?",
+   "choices": [
+    "Une sauvegarde antérieure à la compromission, vérifiée",
+    "La plus récente, quelle qu'elle soit",
+    "Celle du serveur infecté",
+    "Aucune, on garde l'état actuel"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "La sauvegarde la plus récente peut contenir la porte dérobée.",
+   "whyNot": {
+    "1": "Risque de restaurer la compromission.",
+    "2": "Peut être infectée.",
+    "3": "L'état actuel est compromis."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c2-q24",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Retour d'expérience",
+   "prompt": "Quel est l'esprit d'un bon retour d'expérience ?",
+   "choices": [
+    "Comprendre et améliorer, sans chercher de coupable",
+    "Désigner un responsable à sanctionner",
+    "Clore le dossier au plus vite",
+    "Rédiger un rapport pour la presse"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Une approche sans reproche encourage la transparence et les vraies corrections.",
+   "whyNot": {
+    "1": "Décourage la transparence.",
+    "2": "On perd les enseignements.",
+    "3": "Ce n'est pas son but."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c2-q25",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "Surveillance contrôlée",
+   "prompt": "Laisser un attaquant agir sous observation pour comprendre l'attaque exige quoi ?",
+   "choices": [
+    "Une décision de la direction et du juridique, car le risque est élevé",
+    "Rien de particulier",
+    "L'accord de l'attaquant",
+    "L'arrêt de tous les systèmes"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Les dommages peuvent s'aggraver pendant l'observation.",
+   "whyNot": {
+    "1": "Décision lourde.",
+    "2": "Absurde.",
+    "3": "Ce serait l'inverse de l'observation."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c2-q26",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "Après l'incident",
+   "prompt": "Quelles actions suivent normalement un retour d'expérience ? (plusieurs réponses)",
+   "choices": [
+    "Mettre à jour les playbooks",
+    "Créer de nouvelles règles de détection",
+    "Attribuer chaque action à un responsable avec une échéance",
+    "Supprimer la chronologie"
+   ],
+   "correct": [
+    0,
+    1,
+    2
+   ],
+   "explanation": "Les enseignements doivent se traduire en actions suivies.",
+   "whyNot": {
+    "3": "La chronologie est utile pour l'audit et la suite."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c2-q27",
+   "domain": "bcp-dr-ir-law",
+   "level": "beginner",
+   "concept": "RGPD",
+   "prompt": "Dans quel délai notifier l'autorité de contrôle d'une violation de données personnelles présentant un risque ?",
+   "choices": [
+    "72 heures au plus tard après en avoir eu connaissance",
+    "Un mois",
+    "Une semaine après la résolution",
+    "Aucun délai"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "RGPD, article 33 ; la notification peut être complétée par étapes.",
+   "whyNot": {
+    "1": "Trop tard.",
+    "2": "Le délai court dès la connaissance, pas la résolution.",
+    "3": "Le délai est fixé par le règlement."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c2-q28",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "NIS 2",
+   "prompt": "Pour un incident important, quels délais NIS 2 fixe-t-il aux entités concernées ?",
+   "choices": [
+    "Alerte précoce sous 24 h, notification sous 72 h, rapport final sous un mois",
+    "Notification sous 7 jours",
+    "Rapport annuel uniquement",
+    "Aucun, c'est facultatif"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Directive (UE) 2022/2555, article 23.",
+   "whyNot": {
+    "1": "Inexact.",
+    "2": "Inexact.",
+    "3": "C'est une obligation."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c2-q29",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Indicateurs",
+   "prompt": "Quel indicateur mesure le temps entre le début d'un incident et sa détection ?",
+   "choices": [
+    "Le MTTD",
+    "Le RPO",
+    "Le MTBF",
+    "Le RTO"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Mean Time To Detect : délai moyen de détection.",
+   "whyNot": {
+    "1": "Perte de données acceptable.",
+    "2": "Fiabilité d'un composant.",
+    "3": "Délai de remise en service."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c2-q30",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "Confinement",
+   "prompt": "Quels facteurs guident le choix d'une stratégie de confinement ? (plusieurs réponses)",
+   "choices": [
+    "Le risque de propagation",
+    "Le besoin de préserver les preuves",
+    "La disponibilité du service pour l'activité",
+    "La couleur du logo de l'attaquant"
+   ],
+   "correct": [
+    0,
+    1,
+    2
+   ],
+   "explanation": "On pèse dommages, preuves, continuité, ressources et efficacité.",
+   "whyNot": {
+    "3": "Sans rapport."
+   },
+   "kind": "general"
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "m5c2-f01",
+   "front": "Événement / incident",
+   "back": "Occurrence observable / atteinte ou menace réelle à la sécurité.",
+   "concept": "Incident de sécurité"
+  },
+  {
+   "id": "m5c2-f02",
+   "front": "Cycle NIST (Rev. 2)",
+   "back": "Préparation ; détection et analyse ; confinement, éradication, rétablissement ; après l'incident.",
+   "concept": "Réponse aux incidents"
+  },
+  {
+   "id": "m5c2-f03",
+   "front": "Six étapes",
+   "back": "Préparation, identification, confinement, éradication, rétablissement, leçons apprises.",
+   "concept": "Réponse aux incidents"
+  },
+  {
+   "id": "m5c2-f04",
+   "front": "CSIRT",
+   "back": "Équipe de réponse pluridisciplinaire, avec juridique, communication, RH.",
+   "concept": "CSIRT"
+  },
+  {
+   "id": "m5c2-f05",
+   "front": "Préparation",
+   "back": "Politique, playbooks, contacts, journaux horodatés (NTP), kit, exercices.",
+   "concept": "Réponse aux incidents"
+  },
+  {
+   "id": "m5c2-f06",
+   "front": "Gravité",
+   "back": "Impact × urgence ; escalade selon des critères écrits.",
+   "concept": "Triage"
+  },
+  {
+   "id": "m5c2-f07",
+   "front": "Ordre de volatilité",
+   "back": "Registres, mémoire, fichiers temporaires, disque, journaux distants, archives.",
+   "concept": "Ordre de volatilité"
+  },
+  {
+   "id": "m5c2-f08",
+   "front": "Ne pas éteindre",
+   "back": "Isoler du réseau, capturer la mémoire d'abord.",
+   "concept": "Ordre de volatilité"
+  },
+  {
+   "id": "m5c2-f09",
+   "front": "Bloqueur d'écriture",
+   "back": "Lire sans modifier l'original.",
+   "concept": "Bloqueur d'écriture"
+  },
+  {
+   "id": "m5c2-f10",
+   "front": "Image forensique",
+   "back": "Copie bit à bit + empreinte avant/après ; analyser la copie.",
+   "concept": "Image forensique"
+  },
+  {
+   "id": "m5c2-f11",
+   "front": "Chaîne de possession",
+   "back": "Qui, quand, où, comment, pourquoi, pour chaque preuve.",
+   "concept": "Chaîne de possession"
+  },
+  {
+   "id": "m5c2-f12",
+   "front": "Meilleure preuve",
+   "back": "L'original plutôt qu'une copie.",
+   "concept": "Recevabilité des preuves"
+  },
+  {
+   "id": "m5c2-f13",
+   "front": "Ouï-dire",
+   "back": "Seconde main, souvent écarté ; exception : journaux tenus dans le cours normal de l'activité.",
+   "concept": "Recevabilité des preuves"
+  },
+  {
+   "id": "m5c2-f14",
+   "front": "Recevabilité",
+   "back": "Pertinente, authentique, fiable, légale, complète.",
+   "concept": "Recevabilité des preuves"
+  },
+  {
+   "id": "m5c2-f15",
+   "front": "Incitation / provocation",
+   "back": "Pot de miel légal / pousser à l'infraction, illégal.",
+   "concept": "Provocation"
+  },
+  {
+   "id": "m5c2-f16",
+   "front": "Locard",
+   "back": "Tout contact laisse une trace.",
+   "concept": "Principe d'échange de Locard"
+  },
+  {
+   "id": "m5c2-f17",
+   "front": "Confinement",
+   "back": "Court terme (isoler), long terme (segmenter, reconstruire), surveillance contrôlée.",
+   "concept": "Confinement"
+  },
+  {
+   "id": "m5c2-f18",
+   "front": "Avant de rétablir",
+   "back": "Cause racine, porte fermée, identifiants réinitialisés, sauvegarde antérieure.",
+   "concept": "Éradication"
+  },
+  {
+   "id": "m5c2-f19",
+   "front": "Retour d'expérience",
+   "back": "Chronologie, sans coupable, actions suivies, mises à jour.",
+   "concept": "Retour d'expérience"
+  },
+  {
+   "id": "m5c2-f20",
+   "front": "Notifications",
+   "back": "RGPD : 72 h ; NIS 2 : 24 h, 72 h, un mois.",
+   "concept": "Notification"
+  }
+ ],
+ "revisionSheet": [
+  "# Fiche de révision : incidents, investigation et réponse",
+  "Événement (occurrence observable), alerte (notification d'un outil), incident (atteinte ou menace réelle à la sécurité).",
+  "Cycle NIST SP 800-61 Rev. 2 : préparation ; détection et analyse ; confinement, éradication et rétablissement ; activités post-incident. Variante en six étapes : préparation, identification, confinement, éradication, rétablissement, leçons apprises. Rev. 3 : alignement sur le NIST CSF 2.0.",
+  "Préparation : politique approuvée, CSIRT pluridisciplinaire, playbooks, contacts à jour, journaux centralisés et horodatés (NTP), kit de réponse, exercices.",
+  "Triage : gravité = impact × urgence ; escalade vers la direction, le juridique, les autorités selon des critères écrits à l'avance ; tout documenter avec l'heure.",
+  "Ordre de volatilité (RFC 3227) : registres et cache, mémoire vive, fichiers temporaires, disque, journaux distants, archives. Isoler et capturer la mémoire avant d'éteindre.",
+  "Intégrité : bloqueur d'écriture, image bit à bit, empreinte SHA-256 avant et après, analyse sur copie, original scellé, photos.",
+  "Chaîne de possession : qui, quand, où, comment, pourquoi ; toute rupture fragilise la preuve.",
+  "Preuves : meilleure (original), secondaire (copie), directe, circonstancielle, corroborante, ouï-dire (exception : journaux tenus dans le cours normal de l'activité). Recevable si pertinente, authentique, fiable, légale, complète.",
+  "Locard : tout contact laisse une trace. MOM : mobile, opportunité, moyens. Incitation (pot de miel) légale ; provocation illégale.",
+  "Confinement : court terme (isoler, bloquer, désactiver), long terme (segmenter, reconstruire), surveillance contrôlée (décision de direction).",
+  "Éradication et rétablissement : cause racine, porte fermée, persistance supprimée, identifiants réinitialisés, sauvegarde antérieure à la compromission, surveillance renforcée.",
+  "Retour d'expérience : rapide, chronologie factuelle, sans coupable, MTTD et coûts, actions avec responsable et échéance, mise à jour des playbooks et détections.",
+  "Notifications : RGPD art. 33, autorité sous 72 h ; art. 34, personnes si risque élevé ; NIS 2 art. 23, alerte 24 h, notification 72 h, rapport final un mois.",
+  "Paires à ne pas confondre : événement/incident ; contenir/éradiquer ; mémoire/disque ; original/copie ; incitation/provocation."
+ ],
+ "mindMap": {
+  "label": "Incidents, investigation et réponse",
+  "en": "Incident Management, Investigation and Response",
+  "emoji": "🚨",
+  "children": [
+   {
+    "label": "Notions",
+    "en": "Key Concepts",
+    "emoji": "📘",
+    "tone": "blue",
+    "children": [
+     {
+      "label": "Événement"
+     },
+     {
+      "label": "Alerte"
+     },
+     {
+      "label": "Incident",
+      "detail": "Atteinte ou menace réelle."
+     }
+    ]
+   },
+   {
+    "label": "Cycle",
+    "en": "Incident Response Lifecycle",
+    "emoji": "🔁",
+    "tone": "violet",
+    "children": [
+     {
+      "label": "Préparation",
+      "detail": "Playbooks, contacts, NTP."
+     },
+     {
+      "label": "Détection et analyse",
+      "detail": "Triage, gravité."
+     },
+     {
+      "label": "Confinement, éradication, rétablissement"
+     },
+     {
+      "label": "Après l'incident",
+      "detail": "Retour d'expérience."
+     }
+    ]
+   },
+   {
+    "label": "Équipe",
+    "en": "CSIRT",
+    "emoji": "👥",
+    "tone": "turquoise",
+    "children": [
+     {
+      "label": "Technique"
+     },
+     {
+      "label": "Juridique, RH, communication"
+     },
+     {
+      "label": "Escalade écrite"
+     }
+    ]
+   },
+   {
+    "label": "Investigation",
+    "en": "Digital Forensics",
+    "emoji": "🔬",
+    "tone": "orange",
+    "children": [
+     {
+      "label": "Ordre de volatilité",
+      "detail": "Mémoire avant disque."
+     },
+     {
+      "label": "Bloqueur, image, empreinte"
+     },
+     {
+      "label": "Chaîne de possession"
+     },
+     {
+      "label": "Locard, MOM"
+     }
+    ]
+   },
+   {
+    "label": "Preuves",
+    "en": "Evidence",
+    "emoji": "⚖️",
+    "tone": "pink",
+    "children": [
+     {
+      "label": "Meilleure, secondaire"
+     },
+     {
+      "label": "Directe, circonstancielle"
+     },
+     {
+      "label": "Ouï-dire"
+     },
+     {
+      "label": "Recevabilité",
+      "detail": "Pertinente, authentique, légale."
+     },
+     {
+      "label": "Incitation ≠ provocation"
+     }
+    ]
+   },
+   {
+    "label": "Rétablir et apprendre",
+    "en": "Recovery and Lessons Learned",
+    "emoji": "🧯",
+    "tone": "green",
+    "children": [
+     {
+      "label": "Confinement court et long terme"
+     },
+     {
+      "label": "Cause racine, éradication"
+     },
+     {
+      "label": "Sauvegarde antérieure"
+     },
+     {
+      "label": "Retour d'expérience sans coupable"
+     },
+     {
+      "label": "RGPD 72 h, NIS 2 24 h / 72 h / 1 mois"
+     }
+    ]
+   }
+  ]
+ }
+}

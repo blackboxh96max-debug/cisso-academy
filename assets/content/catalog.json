@@ -58,7 +58,7 @@
       "id": "m5", "number": 5, "title": "Continuité, incidents, droit et sécurité physique", "titleEn": "Continuity, Incidents, Law and Physical Security",
       "chapters": [
         {"id": "m5c1", "title": "Continuité d'activité et reprise (BCP, DRP, RTO, RPO)", "titleEn": "Business Continuity and Disaster Recovery (BCP, DRP, RTO, RPO)", "domains": ["bcp-dr-ir-law"], "file": "m5c1_continuite.json"},
-        {"id": "m5c2", "title": "Gestion des incidents, investigation et réponse", "titleEn": "Incident Management, Investigation and Response", "domains": ["bcp-dr-ir-law"]},
+        {"id": "m5c2", "title": "Gestion des incidents, investigation et réponse", "titleEn": "Incident Management, Investigation and Response", "domains": ["bcp-dr-ir-law"], "file": "m5c2_incidents.json"},
         {"id": "m5c3", "title": "Lois, réglementation et éthique", "titleEn": "Law, Regulations and Ethics", "domains": ["bcp-dr-ir-law"]},
         {"id": "m5c4", "title": "Sécurité physique et environnementale", "titleEn": "Physical and Environmental Security", "domains": []}
       ]
