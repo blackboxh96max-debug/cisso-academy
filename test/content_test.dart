@@ -256,4 +256,34 @@ void main() {
       expect(l.illustrationAlt, isNotEmpty);
     }
   });
+
+  test('chaque leçon disponible suit le format cahier', () async {
+    final library = await loadRealContent();
+    for (final ch in library.availableChapters) {
+      for (final l in ch.lessons) {
+        final types = l.blocks.map((b) => b.type).toSet();
+        expect(l.illustration, isNotNull, reason: l.id);
+        expect(
+          File(l.illustration!).existsSync(),
+          isTrue,
+          reason: l.illustration,
+        );
+        expect(
+          types,
+          contains(BlockType.diagram),
+          reason: '${l.id} : au moins un schéma',
+        );
+        expect(
+          types,
+          contains(BlockType.miniQuiz),
+          reason: '${l.id} : petit test',
+        );
+        expect(
+          types.intersection({BlockType.trainerNote, BlockType.memo}),
+          isNotEmpty,
+          reason: '${l.id} : note du formateur ou mémo',
+        );
+      }
+    }
+  });
 }
