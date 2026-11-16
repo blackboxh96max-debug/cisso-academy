@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <g stroke="#26324A" stroke-width="2.2" stroke-linejoin="round">
+    <path d="M10 70 L40 46 L70 70 L70 130 L10 130 Z" fill="#FECACA" />
+    <path d="M85 70 L115 46 L145 70 L145 130 L85 130 Z" fill="#FEF3C7" />
+    <path d="M160 70 L190 46 L220 70 L220 130 L160 130 Z" fill="#DBEAFE" />
+  </g>
+  <g stroke="#26324A" stroke-width="1.8">
+    <rect x="20" y="78" width="16" height="44" fill="#64748B" /><rect x="44" y="78" width="16" height="44" fill="#64748B" />
+    <rect x="98" y="96" width="16" height="26" fill="#94A3B8" />
+    <rect x="178" y="108" width="10" height="12" fill="#FFFFFF" /><rect x="194" y="108" width="10" height="12" fill="#FFFFFF" />
+  </g>
+  <g fill="#22C55E"><circle cx="28" cy="86" r="2.5" /><circle cx="52" cy="86" r="2.5" /><circle cx="28" cy="96" r="2.5" /><circle cx="52" cy="96" r="2.5" /><circle cx="106" cy="104" r="2.5" /></g>
+  <path d="M20 40 Q26 30 22 22 M40 34 Q46 24 42 16 M60 40 Q66 30 62 22" fill="none" stroke="#EF4444" stroke-width="2" stroke-linecap="round" />
+  <g stroke="#38BDF8" stroke-width="2" stroke-linecap="round"><path d="M190 22 L190 42 M181 27 L199 37 M181 37 L199 27" /></g>
+  <g font-family="Caveat, cursive" font-size="16" text-anchor="middle">
+    <text x="40" y="152" fill="#B91C1C">chaud</text><text x="40" y="170" fill="#B91C1C" font-size="13">heures</text>
+    <text x="115" y="152" fill="#B45309">tiède</text><text x="115" y="170" fill="#B45309" font-size="13">jours</text>
+    <text x="190" y="152" fill="#1D4ED8">froid</text><text x="190" y="170" fill="#1D4ED8" font-size="13">semaines</text>
+  </g>
+</svg>

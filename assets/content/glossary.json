@@ -2237,5 +2237,167 @@
   "definition": "Description de motifs permettant de reconnaître une famille de malwares dans des fichiers.",
   "example": "Règle YARA ajoutée après analyse.",
   "kind": "general"
+ },
+ {
+  "id": "bcp",
+  "en": "Business Continuity Plan",
+  "fr": "Plan de continuité d'activité",
+  "acronym": "BCP",
+  "definition": "Plan qui permet à l'organisation de poursuivre ses activités essentielles pendant et après une crise (PCA).",
+  "example": "Activation du PCA après l'incendie d'un site.",
+  "kind": "general"
+ },
+ {
+  "id": "drp",
+  "en": "Disaster Recovery Plan",
+  "fr": "Plan de reprise d'activité",
+  "acronym": "DRP",
+  "definition": "Plan de remise en service des systèmes informatiques et des données après un sinistre (PRA).",
+  "example": "Bascule des serveurs sur le site de secours.",
+  "kind": "general"
+ },
+ {
+  "id": "bia",
+  "en": "Business Impact Analysis",
+  "fr": "Bilan d'impact sur l'activité",
+  "acronym": "BIA",
+  "definition": "Étude des processus critiques, de leurs dépendances et de l'impact de leur interruption dans le temps.",
+  "example": "Le BIA fixe la MTD de la paie à 72 h.",
+  "kind": "general"
+ },
+ {
+  "id": "mtd",
+  "en": "Maximum Tolerable Downtime",
+  "fr": "Durée maximale d'interruption tolérable",
+  "acronym": "MTD",
+  "definition": "Durée au-delà de laquelle l'interruption d'un processus cause un dommage inacceptable.",
+  "example": "MTD de 8 h pour la prise de commandes.",
+  "kind": "general"
+ },
+ {
+  "id": "rto",
+  "en": "Recovery Time Objective",
+  "fr": "Objectif de délai de reprise",
+  "acronym": "RTO",
+  "definition": "Délai visé pour remettre un système en service après une interruption.",
+  "example": "RTO de 4 h pour le site marchand.",
+  "kind": "general"
+ },
+ {
+  "id": "rpo",
+  "en": "Recovery Point Objective",
+  "fr": "Objectif de point de reprise",
+  "acronym": "RPO",
+  "definition": "Perte de données maximale acceptable, mesurée en temps avant l'incident.",
+  "example": "RPO de 15 min : réplication continue.",
+  "kind": "general"
+ },
+ {
+  "id": "wrt",
+  "en": "Work Recovery Time",
+  "fr": "Temps de reprise du travail",
+  "acronym": "WRT",
+  "definition": "Temps nécessaire, après la remise en service, pour vérifier les données et reprendre le travail normal.",
+  "example": "Contrôle des écritures : 12 h.",
+  "kind": "general"
+ },
+ {
+  "id": "hot-site",
+  "en": "Hot site",
+  "fr": "Site chaud",
+  "definition": "Site de secours équipé et prêt, opérationnel en quelques heures.",
+  "example": "Bascule en 3 h sur le site chaud.",
+  "kind": "general"
+ },
+ {
+  "id": "warm-site",
+  "en": "Warm site",
+  "fr": "Site tiède",
+  "definition": "Site de secours partiellement équipé, opérationnel en quelques jours.",
+  "example": "Serveurs livrés en 2 jours.",
+  "kind": "general"
+ },
+ {
+  "id": "cold-site",
+  "en": "Cold site",
+  "fr": "Site froid",
+  "definition": "Site de secours avec locaux et énergie mais sans matériel, opérationnel en semaines.",
+  "example": "Archives reprises en 3 semaines.",
+  "kind": "general"
+ },
+ {
+  "id": "reciprocal-agreement",
+  "en": "Reciprocal agreement",
+  "fr": "Accord réciproque",
+  "definition": "Accord par lequel deux organisations s'hébergent mutuellement en cas de sinistre.",
+  "example": "Accord peu fiable faute de capacité.",
+  "kind": "general"
+ },
+ {
+  "id": "incremental-backup",
+  "en": "Incremental backup",
+  "fr": "Sauvegarde incrémentale",
+  "definition": "Sauvegarde des changements depuis la dernière sauvegarde, quelle qu'elle soit.",
+  "example": "Restauration : complète + toutes les incrémentales.",
+  "kind": "general"
+ },
+ {
+  "id": "differential-backup",
+  "en": "Differential backup",
+  "fr": "Sauvegarde différentielle",
+  "definition": "Sauvegarde des changements depuis la dernière sauvegarde complète.",
+  "example": "Restauration : complète + dernière différentielle.",
+  "kind": "general"
+ },
+ {
+  "id": "raid",
+  "en": "Redundant Array of Independent Disks",
+  "fr": "Grappe de disques redondante",
+  "acronym": "RAID",
+  "definition": "Regroupement de disques pour la performance ou la tolérance aux pannes (niveaux 0, 1, 5, 6, 10).",
+  "example": "RAID 5 sur trois disques.",
+  "kind": "general"
+ },
+ {
+  "id": "mtbf",
+  "en": "Mean Time Between Failures",
+  "fr": "Temps moyen entre pannes",
+  "acronym": "MTBF",
+  "definition": "Durée moyenne de fonctionnement d'un composant entre deux pannes.",
+  "example": "MTBF de 100 000 h pour un disque.",
+  "kind": "general"
+ },
+ {
+  "id": "ups",
+  "en": "Uninterruptible Power Supply",
+  "fr": "Onduleur",
+  "acronym": "UPS",
+  "definition": "Équipement qui alimente les systèmes pendant une coupure courte.",
+  "example": "L'onduleur tient jusqu'au démarrage du groupe.",
+  "kind": "general"
+ },
+ {
+  "id": "tabletop-exercise",
+  "en": "Tabletop exercise",
+  "fr": "Exercice sur table",
+  "definition": "Exercice où les équipes déroulent ensemble un scénario de crise, sans toucher aux systèmes.",
+  "example": "Scénario d'inondation de la salle serveurs.",
+  "kind": "general"
+ },
+ {
+  "id": "parallel-test",
+  "en": "Parallel test",
+  "fr": "Test en parallèle",
+  "definition": "Test qui démarre les systèmes au site de secours sans interrompre la production.",
+  "example": "Traitement de la paie en double.",
+  "kind": "general"
+ },
+ {
+  "id": "full-interruption-test",
+  "en": "Full interruption test",
+  "fr": "Test d'interruption complète",
+  "definition": "Test qui arrête la production pour basculer réellement sur le site de secours.",
+  "example": "Approuvé par la direction, un dimanche.",
+  "kind": "general"
  }
 ]
