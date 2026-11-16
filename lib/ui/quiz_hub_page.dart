@@ -8,6 +8,7 @@ import 'notebook/hand_drawn.dart';
 import 'notebook/page_kit.dart';
 import 'notebook/palette.dart';
 import 'notebook/typography.dart';
+import 'exam_prep_page.dart';
 import 'quiz_page.dart';
 import 'widgets.dart';
 
@@ -135,6 +136,51 @@ class _QuizHubPageState extends State<QuizHubPage> {
     return NotebookPage(
       title: 'QCM et examens',
       children: [
+        if (library.examPrep.lots.isNotEmpty) ...[
+          const SizedBox(height: 8),
+          GestureDetector(
+            onTap: () => openExamPrep(context),
+            child: GradientBanner(
+              tone: Tone.pink,
+              toTone: Tone.orange,
+              seed: 99,
+              child: Row(
+                children: [
+                  const Text('🎓', style: TextStyle(fontSize: 34)),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Préparation examen',
+                          style: TextStyle(
+                            fontFamily: Hand.title,
+                            fontSize: 28,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Text(
+                          'Les questions de ta formation en anglais et en '
+                          'français : ${library.examPrep.lots.length} séance(s), '
+                          '${library.examPrep.questions.length} questions',
+                          style: const TextStyle(
+                            fontFamily: Hand.sans,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Icon(Icons.chevron_right, color: Colors.white),
+                ],
+              ),
+            ),
+          ),
+        ],
         NotePanel(
           title: 'Entraînement par chapitre',
           emoji: '🎯',

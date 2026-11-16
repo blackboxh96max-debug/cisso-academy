@@ -20,6 +20,7 @@ Elle fonctionne **entièrement hors ligne** sur Android et Windows : cours, QCM,
 | Recherche globale (termes, chapitres, leçons, flashcards, cartes mentales), en français ou en anglais | ✅ |
 | Termes clés affichés en français et en anglais dans les cours, fiches, flashcards et cartes | ✅ |
 | Menu Révisions : flashcards, fiches et cartes mentales par chapitre ou par module, export PDF | ✅ |
+| Préparation examen : les questions de ta formation, par séance ou par chapitre, en anglais et en français (entraînement, fiche, PDF), gardées à part des statistiques | ✅ |
 | Suivi des erreurs par notion et par domaine officiel | ✅ |
 | Contenu : modules 1, 2 et 3 complets et chapitres 1 et 2 du module 4 (354 questions) | ✅ (étape 2 en cours) |
 

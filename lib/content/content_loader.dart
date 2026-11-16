@@ -55,6 +55,12 @@ class ContentLoader {
       domains: domains,
       glossary: glossary,
       examInfo: ExamInfo.fromJson(catalog['exam'] as Map<String, dynamic>),
+      examPrep: catalog['examPrep'] == null
+          ? ExamPrep.empty
+          : ExamPrep.fromJson(
+              jsonDecode(await read('$root/${catalog['examPrep']}'))
+                  as Map<String, dynamic>,
+            ),
     );
     validate(library);
     return library;
@@ -162,11 +168,41 @@ class ContentLoader {
     for (final g in library.glossary) {
       unique(g.id);
     }
+    _validateExamPrep(library);
     final total = library.domains.fold<int>(0, (s, d) => s + d.weight);
     if (total != 100) {
       throw FormatException(
         'Les poids des domaines totalisent $total, pas 100',
       );
+    }
+  }
+
+  /// Lots de préparation : identifiants uniques, chapitre existant, bonne
+  /// réponse dans la liste, textes anglais et français non vides.
+  static void _validateExamPrep(ContentLibrary library) {
+    final chapterIds = library.chapters.map((c) => c.id).toSet();
+    final seen = <String>{};
+    bool blank(Bi t) => t.en.trim().isEmpty || t.fr.trim().isEmpty;
+    for (final lot in library.examPrep.lots) {
+      if (!seen.add(lot.id)) {
+        throw FormatException('Lot de préparation en double : ${lot.id}');
+      }
+      for (final q in lot.questions) {
+        if (!seen.add(q.id)) {
+          throw FormatException('Question de préparation en double : ${q.id}');
+        }
+        if (!chapterIds.contains(q.chapterId)) {
+          throw FormatException('${q.id} : chapitre inconnu ${q.chapterId}');
+        }
+        if (q.choices.length < 2 ||
+            q.correct < 0 ||
+            q.correct >= q.choices.length) {
+          throw FormatException('${q.id} : choix ou bonne réponse invalides');
+        }
+        if (blank(q.prompt) || blank(q.explanation) || q.choices.any(blank)) {
+          throw FormatException('${q.id} : texte anglais ou français manquant');
+        }
+      }
     }
   }
 

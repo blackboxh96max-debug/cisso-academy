@@ -1,0 +1,453 @@
+{
+ "lots": [
+  {
+   "id": "prep-2026-11-16",
+   "date": "2026-11-16",
+   "title": {
+    "en": "Risk Management & Compliance",
+    "fr": "Gestion des risques et conformité"
+   },
+   "source": "Questions de la formation de l'apprenant",
+   "parts": [
+    {
+     "title": {
+      "en": "Risk Management",
+      "fr": "Gestion des risques"
+     },
+     "questions": [
+      {
+       "id": "prep-2026-11-16-q01",
+       "chapterId": "m1c1",
+       "prompt": {
+        "en": "What is a vulnerability?",
+        "fr": "Qu'est-ce qu'une vulnérabilité ?"
+       },
+       "choices": [
+        {
+         "en": "An entity that may damage or abuse an asset.",
+         "fr": "Une entité qui peut endommager ou utiliser abusivement un actif."
+        },
+        {
+         "en": "A weakness that could allow a threat to cause harm.",
+         "fr": "Une faiblesse qui pourrait permettre à une menace de causer des dommages."
+        },
+        {
+         "en": "The amount of damage caused by a successful attack.",
+         "fr": "Le montant des dommages causés par une attaque réussie."
+        },
+        {
+         "en": "The level of risk senior management is willing to accept.",
+         "fr": "Le niveau de risque que la direction est prête à accepter."
+        }
+       ],
+       "correct": 1,
+       "explanation": {
+        "en": "A vulnerability is a weakness in a system that a threat can exploit.",
+        "fr": "Une vulnérabilité est une faiblesse dans un système qu'une menace peut exploiter."
+       }
+      },
+      {
+       "id": "prep-2026-11-16-q02",
+       "chapterId": "m1c1",
+       "prompt": {
+        "en": "Which statement best describes risk appetite?",
+        "fr": "Quelle affirmation décrit le mieux l'appétence au risque ?"
+       },
+       "choices": [
+        {
+         "en": "The level of risk the organization is willing to accept.",
+         "fr": "Le niveau de risque que l'organisation est prête à accepter."
+        },
+        {
+         "en": "The exact amount of money lost in a single incident.",
+         "fr": "Le montant exact d'argent perdu lors d'un incident."
+        },
+        {
+         "en": "The technical weakness that exposes an asset.",
+         "fr": "La faiblesse technique qui expose un actif."
+        },
+        {
+         "en": "The frequency with which a threat occurs.",
+         "fr": "La fréquence à laquelle une menace se produit."
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "Risk appetite is the amount of risk an organization is willing to take to achieve its objectives.",
+        "fr": "L'appétence au risque (risk appetite) représente le niveau de risque qu'une organisation accepte de prendre pour atteindre ses objectifs."
+       }
+      },
+      {
+       "id": "prep-2026-11-16-q03",
+       "chapterId": "m1c1",
+       "prompt": {
+        "en": "A company estimates an asset is worth $100,000 and a single incident would cause a 40% loss. What is the Single Loss Expectancy?",
+        "fr": "Une entreprise estime qu'un actif vaut 100 000 $ et qu'un incident provoquerait une perte de 40 %. Quel est le SLE ?"
+       },
+       "choices": [
+        {
+         "en": "$25,000",
+         "fr": "25 000 $"
+        },
+        {
+         "en": "$60,000",
+         "fr": "60 000 $"
+        },
+        {
+         "en": "$140,000",
+         "fr": "140 000 $"
+        },
+        {
+         "en": "$40,000",
+         "fr": "40 000 $"
+        }
+       ],
+       "correct": 3,
+       "explanation": {
+        "en": "SLE calculates how much money an organization could lose from one incident.",
+        "fr": "Le SLE calcule combien d'argent une organisation pourrait perdre lors d'un seul incident."
+       },
+       "formula": "SLE = Asset Value × Exposure Factor = 100,000 × 40% = $40,000"
+      },
+      {
+       "id": "prep-2026-11-16-q04",
+       "chapterId": "m1c1",
+       "prompt": {
+        "en": "Which risk response involves purchasing insurance or using another party to absorb part of the loss?",
+        "fr": "Quelle réponse au risque consiste à acheter une assurance ou à faire supporter une partie des pertes par un tiers ?"
+       },
+       "choices": [
+        {
+         "en": "Avoidance",
+         "fr": "Évitement"
+        },
+        {
+         "en": "Acceptance",
+         "fr": "Acceptation"
+        },
+        {
+         "en": "Transfer",
+         "fr": "Transfert"
+        },
+        {
+         "en": "Reduction",
+         "fr": "Réduction"
+        }
+       ],
+       "correct": 2,
+       "explanation": {
+        "en": "Risk transfer means shifting some financial consequences of a risk to another party, such as an insurance company.",
+        "fr": "Le transfert du risque consiste à faire supporter une partie des conséquences financières à un tiers, comme une compagnie d'assurance."
+       }
+      },
+      {
+       "id": "prep-2026-11-16-q05",
+       "chapterId": "m1c1",
+       "prompt": {
+        "en": "A security officer must select a safeguard for a $3,000 server. One control costs $4,000 per year and does not address legal or safety requirements. What principle is being violated?",
+        "fr": "Un responsable de sécurité doit choisir une protection pour un serveur de 3 000 $. Une mesure coûte 4 000 $ par an et ne répond à aucune obligation légale ou de sécurité. Quel principe est violé ?"
+       },
+       "choices": [
+        {
+         "en": "Clipping level selection",
+         "fr": "Sélection du seuil de déclenchement"
+        },
+        {
+         "en": "Cost-benefit analysis",
+         "fr": "Analyse coûts-bénéfices"
+        },
+        {
+         "en": "Need-to-know",
+         "fr": "Besoin d'en connaître"
+        },
+        {
+         "en": "Fault tree analysis",
+         "fr": "Analyse par arbre de défaillances"
+        }
+       ],
+       "correct": 1,
+       "explanation": {
+        "en": "The security control costs more than the asset it protects, without any legal or safety justification.",
+        "fr": "La mesure de sécurité coûte plus cher que l'actif qu'elle protège, sans justification légale ou liée à la sécurité."
+       }
+      }
+     ]
+    },
+    {
+     "title": {
+      "en": "Legal Concepts",
+      "fr": "Concepts juridiques"
+     },
+     "questions": [
+      {
+       "id": "prep-2026-11-16-q06",
+       "chapterId": "m5c3",
+       "prompt": {
+        "en": "Which legal concept is most associated with judge interpretation and precedent?",
+        "fr": "Quel concept juridique est principalement associé à l'interprétation des juges et aux précédents judiciaires ?"
+       },
+       "choices": [
+        {
+         "en": "Common law",
+         "fr": "Droit jurisprudentiel"
+        },
+        {
+         "en": "Customary law",
+         "fr": "Droit coutumier"
+        },
+        {
+         "en": "Civil law only",
+         "fr": "Droit civil uniquement"
+        },
+        {
+         "en": "Administrative law",
+         "fr": "Droit administratif"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "Common Law is based on judicial decisions, judge interpretation and legal precedents.",
+        "fr": "La common law repose sur les décisions judiciaires, l'interprétation des juges et les précédents juridiques."
+       }
+      },
+      {
+       "id": "prep-2026-11-16-q07",
+       "chapterId": "m5c3",
+       "prompt": {
+        "en": "Which U.S. law is focused on intentional interception of electronic communications in transit?",
+        "fr": "Quelle loi américaine concerne l'interception intentionnelle des communications électroniques pendant leur transmission ?"
+       },
+       "choices": [
+        {
+         "en": "Stored Communications Act",
+         "fr": "Loi sur les communications stockées"
+        },
+        {
+         "en": "Defend Trade Secrets Act",
+         "fr": "Loi sur la protection des secrets commerciaux"
+        },
+        {
+         "en": "Digital Millennium Copyright Act",
+         "fr": "Loi sur les droits d'auteur numériques"
+        },
+        {
+         "en": "Electronic Communications Privacy Act",
+         "fr": "Loi sur la confidentialité des communications électroniques"
+        }
+       ],
+       "correct": 3,
+       "explanation": {
+        "en": "The ECPA protects the privacy of electronic communications and regulates their interception.",
+        "fr": "L'ECPA protège la confidentialité des communications électroniques et encadre leur interception."
+       }
+      }
+     ]
+    },
+    {
+     "title": {
+      "en": "Compliance",
+      "fr": "Conformité"
+     },
+     "questions": [
+      {
+       "id": "prep-2026-11-16-q08",
+       "chapterId": "m1c3",
+       "prompt": {
+        "en": "Which element is essential for an effective compliance program?",
+        "fr": "Quel élément est essentiel pour un programme de conformité efficace ?"
+       },
+       "choices": [
+        {
+         "en": "Removing disciplinary guidelines to encourage reporting.",
+         "fr": "Supprimer les règles disciplinaires pour encourager les signalements."
+        },
+        {
+         "en": "Allowing each department to define legal obligations independently.",
+         "fr": "Permettre à chaque département de définir indépendamment ses obligations légales."
+        },
+        {
+         "en": "Assigning a designated compliance officer.",
+         "fr": "Désigner un responsable de la conformité."
+        },
+        {
+         "en": "Avoiding internal audits to reduce liability.",
+         "fr": "Éviter les audits internes pour réduire la responsabilité juridique."
+        }
+       ],
+       "correct": 2,
+       "explanation": {
+        "en": "A compliance officer supervises and ensures that the organization follows laws, regulations and internal policies.",
+        "fr": "Un responsable de la conformité supervise et veille au respect des lois, des règlements et des politiques internes."
+       }
+      },
+      {
+       "id": "prep-2026-11-16-q09",
+       "chapterId": "m1c3",
+       "prompt": {
+        "en": "What is the main purpose of an Information Security Management System (ISMS)?",
+        "fr": "Quel est l'objectif principal d'un système de management de la sécurité de l'information ?"
+       },
+       "choices": [
+        {
+         "en": "To replace technical controls with legal contracts.",
+         "fr": "Remplacer les contrôles techniques par des contrats juridiques."
+        },
+        {
+         "en": "To provide a structured management approach for protecting information assets.",
+         "fr": "Fournir une approche structurée de gestion pour protéger les actifs informationnels."
+        },
+        {
+         "en": "To eliminate the need for employee security training.",
+         "fr": "Supprimer le besoin de formation des employés en sécurité."
+        },
+        {
+         "en": "To focus only on physical protection of facilities.",
+         "fr": "Se concentrer uniquement sur la protection physique des installations."
+        }
+       ],
+       "correct": 1,
+       "explanation": {
+        "en": "An ISMS helps organizations identify risks and protect the confidentiality, integrity and availability of information.",
+        "fr": "Un ISMS (SMSI) aide les organisations à identifier les risques et à protéger la confidentialité, l'intégrité et la disponibilité des informations."
+       }
+      },
+      {
+       "id": "prep-2026-11-16-q10",
+       "chapterId": "m5c3",
+       "prompt": {
+        "en": "A company sends commercial marketing email and wants to comply with CAN-SPAM requirements. Which practice is required?",
+        "fr": "Une entreprise envoie des emails commerciaux et souhaite respecter les exigences de CAN-SPAM. Quelle pratique est obligatoire ?"
+       },
+       "choices": [
+        {
+         "en": "Honoring opt-out requests within the required period.",
+         "fr": "Respecter les demandes de désinscription dans le délai prévu."
+        },
+        {
+         "en": "Using deceptive subject lines when the message is promotional.",
+         "fr": "Utiliser des objets trompeurs lorsque le message est publicitaire."
+        },
+        {
+         "en": "Removing the sender's physical postal address.",
+         "fr": "Supprimer l'adresse postale physique de l'expéditeur."
+        },
+        {
+         "en": "Preventing recipients from unsubscribing for 90 days.",
+         "fr": "Empêcher les destinataires de se désinscrire pendant 90 jours."
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "CAN-SPAM requires businesses to provide an unsubscribe option and honor opt-out requests within 10 business days.",
+        "fr": "La loi CAN-SPAM oblige les entreprises à proposer une option de désinscription et à respecter les demandes dans les 10 jours ouvrables."
+       }
+      }
+     ]
+    }
+   ],
+   "tables": [
+    {
+     "title": {
+      "en": "The 4 risk responses",
+      "fr": "Les 4 types de réponses au risque"
+     },
+     "rows": [
+      [
+       "Avoidance",
+       "Évitement"
+      ],
+      [
+       "Acceptance",
+       "Acceptation"
+      ],
+      [
+       "Transfer",
+       "Transfert"
+      ],
+      [
+       "Reduction",
+       "Réduction"
+      ]
+     ]
+    },
+    {
+     "title": {
+      "en": "U.S. laws to remember",
+      "fr": "Lois américaines à retenir"
+     },
+     "rows": [
+      [
+       "ECPA",
+       "Confidentialité des communications électroniques"
+      ],
+      [
+       "Stored Communications Act",
+       "Protection des communications stockées"
+      ],
+      [
+       "DMCA",
+       "Protection des droits d'auteur numériques"
+      ],
+      [
+       "Defend Trade Secrets Act",
+       "Protection des secrets commerciaux"
+      ]
+     ]
+    },
+    {
+     "title": {
+      "en": "The 3 core principles",
+      "fr": "Les 3 principes essentiels"
+     },
+     "rows": [
+      [
+       "Confidentiality",
+       "Confidentialité"
+      ],
+      [
+       "Integrity",
+       "Intégrité"
+      ],
+      [
+       "Availability",
+       "Disponibilité"
+      ]
+     ]
+    }
+   ],
+   "keywords": [
+    {
+     "term": "Vulnerability",
+     "en": "Weakness",
+     "fr": "Faiblesse"
+    },
+    {
+     "term": "Risk Appetite",
+     "en": "Accept",
+     "fr": "Accepter"
+    },
+    {
+     "term": "Transfer",
+     "en": "Insurance",
+     "fr": "Assurance"
+    },
+    {
+     "term": "Common Law",
+     "en": "Judge",
+     "fr": "Juge"
+    },
+    {
+     "term": "ISMS",
+     "en": "Protect",
+     "fr": "Protéger"
+    },
+    {
+     "term": "CAN-SPAM",
+     "en": "Unsubscribe",
+     "fr": "Désinscription"
+    }
+   ],
+   "advice": "Révise les réponses anglaises en premier, puis utilise les traductions françaises pour vérifier que tu as bien compris. C'est la meilleure façon de te préparer à des questions d'examen formulées différemment."
+  }
+ ]
+}
