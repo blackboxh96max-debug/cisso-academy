@@ -267,5 +267,154 @@
   "definition": "Responsable du pilotage de la sécurité de l'information et de la gestion des risques associés.",
   "example": "Le RSSI présente le registre des risques au comité de direction.",
   "kind": "general"
+ },
+ {
+  "id": "governance",
+  "en": "Information security governance",
+  "fr": "Gouvernance de la sécurité de l'information",
+  "definition": "Système par lequel la direction oriente et contrôle les activités de sécurité de l'information.",
+  "example": "Le conseil d'administration approuve la politique de sécurité et suit les risques majeurs.",
+  "kind": "general"
+ },
+ {
+  "id": "accountability",
+  "en": "Accountability",
+  "fr": "Responsabilité finale (redevabilité)",
+  "definition": "Obligation de rendre des comptes sur un résultat ; ne se délègue pas.",
+  "example": "La direction reste redevable d'une fuite de données même si l'hébergement est externalisé.",
+  "kind": "general"
+ },
+ {
+  "id": "due-diligence",
+  "en": "Due diligence",
+  "fr": "Diligence raisonnable",
+  "definition": "Effort pour connaître et évaluer les risques avant et pendant une activité.",
+  "example": "Évaluer la sécurité d'un fournisseur avant de signer.",
+  "kind": "general"
+ },
+ {
+  "id": "due-care",
+  "en": "Due care",
+  "fr": "Prudence raisonnable",
+  "definition": "Mise en place et maintien des mesures qu'une personne prudente prendrait face aux risques connus.",
+  "example": "Corriger rapidement une faille critique identifiée.",
+  "kind": "general"
+ },
+ {
+  "id": "data-owner",
+  "en": "Data owner",
+  "fr": "Propriétaire des données",
+  "definition": "Responsable métier redevable d'un ensemble d'informations ; fixe la classification et approuve les accès.",
+  "example": "Le DRH est propriétaire des données de paie.",
+  "kind": "general"
+ },
+ {
+  "id": "data-custodian",
+  "en": "Data custodian",
+  "fr": "Dépositaire des données",
+  "definition": "Applique les décisions du propriétaire : sauvegardes, droits d'accès, chiffrement.",
+  "example": "L'équipe système sauvegarde la base RH chaque nuit.",
+  "kind": "general"
+ },
+ {
+  "id": "classification",
+  "en": "Information classification",
+  "fr": "Classification de l'information",
+  "definition": "Rangement de l'information en niveaux de sensibilité associés à des règles de protection.",
+  "example": "Les fichiers clients sont classés « Confidentiel ».",
+  "kind": "general"
+ },
+ {
+  "id": "least-privilege",
+  "en": "Least privilege",
+  "fr": "Moindre privilège",
+  "definition": "Principe qui consiste à n'accorder que les droits nécessaires à la mission.",
+  "example": "Un comptable n'a pas de droits d'administration sur son poste.",
+  "kind": "general"
+ },
+ {
+  "id": "need-to-know",
+  "en": "Need to know",
+  "fr": "Besoin d'en connaître",
+  "definition": "Accès à une information accordé seulement si la mission l'exige.",
+  "example": "Un analyste habilité ne consulte pas une enquête RH qui ne le concerne pas.",
+  "kind": "general"
+ },
+ {
+  "id": "sod",
+  "en": "Separation of duties",
+  "fr": "Séparation des tâches",
+  "acronym": "SoD",
+  "definition": "Répartition d'une opération sensible entre plusieurs personnes pour empêcher la fraude individuelle.",
+  "example": "Créer un fournisseur et valider son paiement sont deux rôles distincts.",
+  "kind": "general"
+ },
+ {
+  "id": "job-rotation",
+  "en": "Job rotation",
+  "fr": "Rotation des postes",
+  "definition": "Changement périodique de fonction pour détecter les irrégularités et réduire la dépendance à une personne.",
+  "example": "Les analystes SOC alternent entre tri des alertes et investigation.",
+  "kind": "general"
+ },
+ {
+  "id": "mandatory-vacation",
+  "en": "Mandatory vacation",
+  "fr": "Congés obligatoires",
+  "definition": "Absence imposée de plusieurs jours consécutifs pour permettre de détecter une fraude.",
+  "example": "Deux semaines consécutives par an pour les trésoriers.",
+  "kind": "general"
+ },
+ {
+  "id": "collusion",
+  "en": "Collusion",
+  "fr": "Collusion",
+  "definition": "Entente entre plusieurs personnes pour contourner un contrôle, notamment la séparation des tâches.",
+  "example": "Un acheteur et un comptable s'entendent pour payer de fausses factures.",
+  "kind": "general"
+ },
+ {
+  "id": "privilege-creep",
+  "en": "Privilege creep",
+  "fr": "Accumulation de privilèges",
+  "definition": "Accumulation de droits au fil des changements de poste, faute de retrait.",
+  "example": "Un salarié garde l'accès à la paie après avoir quitté les RH.",
+  "kind": "general"
+ },
+ {
+  "id": "nda",
+  "en": "Non-Disclosure Agreement",
+  "fr": "Accord de confidentialité",
+  "acronym": "NDA",
+  "definition": "Engagement écrit de ne pas divulguer des informations confidentielles.",
+  "example": "Signé à l'arrivée par tout prestataire du SOC.",
+  "kind": "general"
+ },
+ {
+  "id": "kpi",
+  "en": "Key Performance Indicator",
+  "fr": "Indicateur clé de performance",
+  "acronym": "KPI",
+  "definition": "Mesure de la performance d'un processus ou d'un contrôle.",
+  "example": "Délai moyen de traitement des alertes critiques.",
+  "kind": "general"
+ },
+ {
+  "id": "mttd",
+  "en": "Mean Time To Detect",
+  "fr": "Délai moyen de détection",
+  "acronym": "MTTD",
+  "definition": "Temps moyen entre le début d'un incident et sa détection.",
+  "example": "MTTD de 4 heures sur les compromissions de poste.",
+  "kind": "general"
+ },
+ {
+  "id": "mttr",
+  "en": "Mean Time To Respond / Resolve",
+  "fr": "Délai moyen de réponse ou de résolution",
+  "acronym": "MTTR",
+  "definition": "Temps moyen entre la détection d'un incident et sa résolution (selon la définition retenue).",
+  "example": "MTTR de 2 jours pour les incidents de gravité élevée.",
+  "kind": "general"
  }
 ]

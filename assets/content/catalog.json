@@ -24,7 +24,7 @@
       "id": "m1", "number": 1, "title": "Management des risques et sécurité",
       "chapters": [
         {"id": "m1c1", "title": "Gestion, analyse et traitement des risques", "domains": ["risk-management"], "file": "m1c1_risques.json"},
-        {"id": "m1c2", "title": "Gouvernance et management de la sécurité", "domains": ["security-management"]},
+        {"id": "m1c2", "title": "Gouvernance et management de la sécurité", "domains": ["security-management"], "file": "m1c2_gouvernance.json"},
         {"id": "m1c3", "title": "Politiques, normes, procédures et famille ISO 27000", "domains": ["security-management"]},
         {"id": "m1c4", "title": "IAM, authentification et contrôle d'accès", "domains": ["iaaa"]}
       ]
