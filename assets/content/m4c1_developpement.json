@@ -225,7 +225,7 @@
    ],
    "references": [
     {
-     "title": "OWASP Top 10, édition 2021 (vérifier sur owasp.org si une édition plus récente est en vigueur)",
+     "title": "OWASP Top 10:2025 (top10.owasp.org/2025), avec correspondance vers l'édition 2021",
      "kind": "general"
     },
     {
@@ -240,67 +240,83 @@
     },
     {
      "type": "text",
-     "text": "L'OWASP (Open Worldwide Application Security Project) est une communauté ouverte qui publie régulièrement une liste des dix catégories de risques les plus critiques pour les applications web. Voici l'édition 2021."
+     "text": "L'OWASP (Open Worldwide Application Security Project) est une communauté ouverte qui publie régulièrement une liste des dix catégories de risques les plus critiques pour les applications web. Voici l'édition 2025, avec la correspondance vers l'édition 2021, encore très citée dans les supports de formation."
     },
     {
      "type": "table",
      "rows": [
       [
-       "Rang",
-       "Catégorie (2021)",
+       "Rang 2025",
+       "Catégorie (2025)",
+       "Correspondance 2021",
        "Exemple"
       ],
       [
        "A01",
        "Contrôle d'accès défaillant",
+       "A01, et absorbe A10 SSRF",
        "Changer l'identifiant dans l'URL pour voir le compte d'un autre"
       ],
       [
        "A02",
-       "Défaillances cryptographiques",
-       "Données sensibles en clair, algorithmes faibles"
-      ],
-      [
-       "A03",
-       "Injection (dont XSS)",
-       "Injection SQL, injection de commandes"
-      ],
-      [
-       "A04",
-       "Conception non sécurisée",
-       "Pas de limite au nombre d'essais de réinitialisation"
-      ],
-      [
-       "A05",
        "Mauvaise configuration de sécurité",
+       "A05 (monte au 2e rang)",
        "Pages d'erreur détaillées, comptes par défaut"
       ],
       [
+       "A03",
+       "Défaillances de la chaîne d'approvisionnement logicielle",
+       "Élargit A06 Composants vulnérables et obsolètes",
+       "Bibliothèque non corrigée, paquet piégé, pipeline compromis"
+      ],
+      [
+       "A04",
+       "Défaillances cryptographiques",
+       "A02",
+       "Données sensibles en clair, algorithmes faibles"
+      ],
+      [
+       "A05",
+       "Injection (dont XSS)",
+       "A03",
+       "Injection SQL, injection de commandes"
+      ],
+      [
        "A06",
-       "Composants vulnérables et obsolètes",
-       "Bibliothèque non corrigée"
+       "Conception non sécurisée",
+       "A04",
+       "Pas de limite au nombre d'essais de réinitialisation"
       ],
       [
        "A07",
-       "Défaillances d'identification et d'authentification",
+       "Défaillances d'authentification",
+       "A07 (renommée)",
        "Pas de MFA, sessions sans expiration"
       ],
       [
        "A08",
-       "Défaillances d'intégrité des logiciels et des données",
+       "Défaillances d'intégrité des logiciels ou des données",
+       "A08",
        "Mise à jour non signée"
       ],
       [
        "A09",
-       "Défaillances de journalisation et de surveillance",
-       "Attaque non détectée faute de journaux"
+       "Défaillances de journalisation et d'alerte",
+       "A09 (renommée : « alerting » au lieu de « monitoring »)",
+       "Attaque non détectée faute de journaux ou d'alertes"
       ],
       [
        "A10",
-       "Falsification de requête côté serveur (SSRF)",
-       "Le serveur appelle une adresse interne choisie par l'attaquant"
+       "Mauvaise gestion des conditions exceptionnelles",
+       "Nouvelle en 2025",
+       "Erreur non traitée qui ouvre l'accès ou révèle des détails internes"
       ]
      ]
+    },
+    {
+     "type": "important",
+     "title": "2021 ou 2025 ?",
+     "text": "Beaucoup de supports de formation citent encore l'édition 2021. Retenez les deux : en 2025, la mauvaise configuration monte au 2e rang, les composants vulnérables deviennent la chaîne d'approvisionnement logicielle (A03), la SSRF rejoint le contrôle d'accès (A01) et une nouvelle catégorie apparaît pour la gestion des erreurs et cas exceptionnels (A10). Lisez toujours l'année indiquée dans la question."
     },
     {
      "type": "heading",
@@ -404,8 +420,8 @@
     },
     {
      "type": "risk",
-     "title": "Les messages d'erreur trop bavards",
-     "text": "Une erreur qui affiche la requête SQL, la version du serveur ou une trace d'exécution donne à l'attaquant la carte de l'application. En production, on affiche un message générique à l'utilisateur et on garde le détail dans les journaux."
+     "title": "Les erreurs mal gérées (A10:2025)",
+     "text": "Une erreur non prévue peut laisser une opération à moitié faite, ouvrir un accès (fail open) ou révéler des détails. Une erreur qui affiche la requête SQL, la version du serveur ou une trace d'exécution donne à l'attaquant la carte de l'application. En production, on affiche un message générique à l'utilisateur et on garde le détail dans les journaux."
     },
     {
      "type": "trainerNote",
@@ -434,13 +450,14 @@
       "Injection SQL → requêtes paramétrées (pas « échapper les apostrophes à la main »).",
       "XSS → encodage en sortie ; la victime est le navigateur de l'utilisateur.",
       "CSRF exploite la session déjà ouverte de la victime.",
-      "Validation côté client = confort, jamais sécurité."
+      "Validation côté client = confort, jamais sécurité.",
+      "Vérifier l'édition citée : A10 = SSRF en 2021, conditions exceptionnelles en 2025."
      ]
     },
     {
      "type": "summary",
      "items": [
-      "OWASP Top 10 (2021) : accès, crypto, injection, conception, configuration, composants, authentification, intégrité, journalisation, SSRF.",
+      "OWASP Top 10:2025 : accès (avec SSRF), configuration, chaîne d'approvisionnement, crypto, injection, conception, authentification, intégrité, journalisation et alerte, conditions exceptionnelles.",
       "Injection SQL : requêtes paramétrées. XSS : encodage en sortie et CSP. CSRF : jeton.",
       "Valider côté serveur avec une liste d'autorisation ; messages d'erreur génériques.",
       "Débordement de tampon, TOCTOU, IDOR, SSRF : savoir les reconnaître."
@@ -950,7 +967,7 @@
    "correct": [
     1
    ],
-   "explanation": "Le Top 10 est un document de sensibilisation, mis à jour régulièrement, qui sert de base minimale.",
+   "explanation": "Le Top 10 est un document de sensibilisation, mis à jour régulièrement (dernière édition : 2025), qui sert de base minimale.",
    "whyNot": {
     "0": "Ce n'est pas un comparatif de produits.",
     "2": "Ce n'est pas une liste de ports.",
@@ -1111,7 +1128,7 @@
    "correct": [
     0
    ],
-   "explanation": "Contre la SSRF, on limite les destinations que le serveur peut joindre et on filtre les adresses internes.",
+   "explanation": "Contre la SSRF, on limite les destinations que le serveur peut joindre et on filtre les adresses internes. Dans l'OWASP Top 10:2025, la SSRF est rattachée à A01 (contrôle d'accès) ; elle était A10 en 2021.",
    "whyNot": {
     "1": "Sans effet sur ce que le serveur appelle.",
     "2": "Le problème est côté serveur.",
@@ -1383,8 +1400,8 @@
   },
   {
    "id": "m4c1-f06",
-   "front": "OWASP Top 10",
-   "back": "Liste des catégories de risques web les plus critiques (édition 2021 : A01 contrôle d'accès).",
+   "front": "OWASP Top 10:2025",
+   "back": "A01 accès (avec SSRF), A02 configuration, A03 chaîne d'approvisionnement, A10 conditions exceptionnelles (nouvelle).",
    "concept": "OWASP"
   },
   {
@@ -1479,7 +1496,8 @@
   "Modélisation des menaces en conception ; STRIDE = usurpation, altération, répudiation, divulgation, déni de service, élévation de privilèges.",
   "Organisation : environnements dev/test/prod séparés, données fictives en test, gestion des changements, revue de code (séparation des tâches).",
   "Avant production : retirer débogage et comptes de test, messages d'erreur génériques, pas de secret dans le code.",
-  "OWASP Top 10 (2021) : A01 contrôle d'accès, A02 crypto, A03 injection, A04 conception, A05 configuration, A06 composants, A07 authentification, A08 intégrité, A09 journalisation, A10 SSRF.",
+  "OWASP Top 10:2025 : A01 contrôle d'accès (absorbe SSRF), A02 configuration, A03 chaîne d'approvisionnement logicielle, A04 crypto, A05 injection, A06 conception, A07 authentification, A08 intégrité, A09 journalisation et alerte, A10 conditions exceptionnelles.",
+  "Édition 2021 (encore citée) : A01 accès, A02 crypto, A03 injection, A04 conception, A05 configuration, A06 composants, A07 identification et authentification, A08 intégrité, A09 journalisation et surveillance, A10 SSRF.",
   "Injection SQL → requêtes paramétrées. XSS (stocké, réfléchi, DOM) → encodage en sortie + CSP. CSRF → jeton anti-CSRF, SameSite.",
   "IDOR → autorisation côté serveur pour chaque objet. SSRF → liste d'autorisation des destinations.",
   "Valider en entrée côté serveur (liste d'autorisation), encoder en sortie ; la validation côté client n'est qu'un confort.",
@@ -1626,11 +1644,19 @@
      },
      {
       "label": "SSRF",
-      "detail": "Liste d'autorisation."
+      "detail": "Dans A01 en 2025. Liste d'autorisation."
      },
      {
       "label": "Mauvaise configuration",
-      "detail": "Erreurs bavardes, comptes par défaut."
+      "detail": "A02:2025. Comptes par défaut."
+     },
+     {
+      "label": "Chaîne d'approvisionnement",
+      "detail": "A03:2025."
+     },
+     {
+      "label": "Conditions exceptionnelles",
+      "detail": "A10:2025, nouvelle."
      }
     ]
    },
