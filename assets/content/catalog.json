@@ -6,6 +6,7 @@
     "source": "mile2.com, CISSO exam blueprint (CISSO-A, révision 2026.04.23)",
     "verifiedOn": "2026-11-16"
   },
+  "examPrep": "exam_prep.json",
   "domains": [
     {"id": "operations-security", "nameEn": "Operations Security", "nameFr": "Sécurité des opérations", "weight": 14},
     {"id": "network-security", "nameEn": "Network Security", "nameFr": "Sécurité des réseaux", "weight": 13},

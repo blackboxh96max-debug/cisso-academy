@@ -4,6 +4,10 @@
 /// localement : aucune connexion n'est nécessaire.
 library;
 
+import 'exam_prep.dart';
+
+export 'exam_prep.dart';
+
 /// Nature d'une information, à afficher systématiquement (cahier des charges §8).
 enum SourceKind {
   /// Exigence ou information officielle de la certification (MILE2), vérifiée.
@@ -502,12 +506,16 @@ class ContentLibrary {
     required this.domains,
     required this.glossary,
     required this.examInfo,
+    this.examPrep = ExamPrep.empty,
   });
 
   final List<Module> modules;
   final List<ExamDomain> domains;
   final List<GlossaryTerm> glossary;
   final ExamInfo examInfo;
+
+  /// Questions de préparation fournies par l'apprenant (hors statistiques).
+  final ExamPrep examPrep;
 
   Iterable<Chapter> get chapters => modules.expand((m) => m.chapters);
 

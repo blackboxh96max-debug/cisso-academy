@@ -503,3 +503,179 @@ Future<Uint8List> mindMapPdf({
   );
   return doc.save();
 }
+
+/// Fiche de préparation à l'examen (questions de la formation de
+/// l'apprenant) : énoncés, choix, bonne réponse et explication en anglais et
+/// en français, tableaux à retenir, récapitulatif et mots-clés.
+Future<Uint8List> examPrepPdf({
+  required String title,
+  String? subtitle,
+  PrepLot? lot,
+  required List<PrepQuestion> questions,
+}) async {
+  final f = await _fonts();
+  final doc = pw.Document(title: stripEmoji(title), author: 'CISSO Academy');
+  const green = PdfColor.fromInt(0xFF15803D);
+  final small = pw.TextStyle(font: f.body, fontSize: 10, color: _ink);
+  final en = pw.TextStyle(font: f.body, fontSize: 10.5, color: _blue);
+
+  pw.Widget bi(Bi t, {double size = 10.5, bool bold = false}) => pw.Column(
+    crossAxisAlignment: pw.CrossAxisAlignment.start,
+    children: [
+      pw.Text(
+        'EN  ${stripEmoji(t.en)}',
+        style: pw.TextStyle(
+          font: bold ? f.handBold : f.body,
+          fontSize: size,
+          color: _blue,
+        ),
+      ),
+      pw.Text(
+        'FR  ${stripEmoji(t.fr)}',
+        style: pw.TextStyle(font: f.hand, fontSize: size, color: _ink),
+      ),
+    ],
+  );
+
+  pw.Widget question(PrepQuestion q) => pw.Container(
+    margin: const pw.EdgeInsets.only(bottom: 10),
+    padding: const pw.EdgeInsets.all(8),
+    decoration: pw.BoxDecoration(
+      color: PdfColors.white,
+      border: pw.Border.all(color: _rainbow[0], width: 1),
+      borderRadius: const pw.BorderRadius.all(pw.Radius.circular(6)),
+    ),
+    child: pw.Column(
+      crossAxisAlignment: pw.CrossAxisAlignment.start,
+      children: [
+        pw.Text(
+          'Question ${q.number}',
+          style: pw.TextStyle(font: f.handBold, fontSize: 13, color: _ink),
+        ),
+        bi(q.prompt, size: 11, bold: true),
+        pw.SizedBox(height: 4),
+        for (final (i, c) in q.choices.indexed)
+          pw.Text(
+            '${PrepQuestion.letter(i)}. ${stripEmoji(c.en)}  ·  ${stripEmoji(c.fr)}',
+            style: small.copyWith(
+              color: i == q.correct ? green : _ink,
+              font: i == q.correct ? f.handBold : f.body,
+            ),
+          ),
+        pw.SizedBox(height: 4),
+        pw.Text(
+          'Bonne réponse : ${q.correctLetter}',
+          style: pw.TextStyle(font: f.handBold, fontSize: 11, color: green),
+        ),
+        if (q.formula != null)
+          pw.Text(
+            'Formula / Formule : ${q.formula}',
+            style: pw.TextStyle(font: f.symbols, fontSize: 9.5, color: _ink),
+          ),
+        pw.Text(
+          'Explication',
+          style: pw.TextStyle(font: f.handBold, fontSize: 10.5, color: _ink),
+        ),
+        bi(q.explanation, size: 10),
+      ],
+    ),
+  );
+
+  pw.Widget table(
+    String heading,
+    List<String> header,
+    List<List<String>> rows,
+  ) => pw.Column(
+    crossAxisAlignment: pw.CrossAxisAlignment.start,
+    children: [
+      pw.SizedBox(height: 6),
+      pw.Text(
+        stripEmoji(heading),
+        style: pw.TextStyle(font: f.handBold, fontSize: 13, color: _ink),
+      ),
+      pw.SizedBox(height: 4),
+      pw.TableHelper.fromTextArray(
+        headers: header,
+        data: [
+          for (final r in rows) [for (final c in r) stripEmoji(c)],
+        ],
+        headerStyle: pw.TextStyle(font: f.handBold, fontSize: 10),
+        cellStyle: small,
+        headerDecoration: const pw.BoxDecoration(color: _rule),
+        cellAlignment: pw.Alignment.centerLeft,
+        border: pw.TableBorder.all(color: _rule, width: 0.6),
+      ),
+      pw.SizedBox(height: 8),
+    ],
+  );
+
+  final List<(Bi?, List<PrepQuestion>)> parts =
+      lot?.parts.map((p) => (p.title, p.questions)).toList() ??
+      [(null, questions)];
+
+  doc.addPage(
+    pw.MultiPage(
+      pageTheme: _a4(f),
+      footer: (ctx) => _footer(ctx, f),
+      build: (ctx) => [
+        _titleBlock(f, title, lot?.title.en, subtitle),
+        pw.Text(
+          lot?.source ?? 'Questions de la formation de l\'apprenant',
+          style: pw.TextStyle(font: f.body, fontSize: 9, color: _soft),
+        ),
+        pw.SizedBox(height: 8),
+        for (final (partTitle, qs) in parts) ...[
+          if (partTitle != null) ...[
+            pw.Text(
+              stripEmoji(partTitle.fr),
+              style: pw.TextStyle(font: f.handBold, fontSize: 16, color: _ink),
+            ),
+            pw.Text('EN  ${partTitle.en}', style: en),
+            pw.SizedBox(height: 6),
+          ],
+          for (final q in qs) question(q),
+        ],
+        if (lot != null)
+          for (final t in lot.tables)
+            table(
+              '${t.title.fr} (${t.title.en})',
+              ['English', 'Français'],
+              [
+                for (final r in t.rows) [r.$1, r.$2],
+              ],
+            ),
+        table(
+          'Les bonnes réponses à mémoriser',
+          ['N°', 'English', 'Français'],
+          [
+            for (final q in questions)
+              [
+                '${q.number}',
+                '${q.correctLetter}. ${q.choices[q.correct].en}',
+                q.choices[q.correct].fr,
+              ],
+          ],
+        ),
+        if (lot != null && lot.keywords.isNotEmpty)
+          table(
+            'Mots-clés à retenir',
+            ['Terme', 'English', 'Français'],
+            [
+              for (final k in lot.keywords) [k.term, k.en, k.fr],
+            ],
+          ),
+        if (lot?.advice case final advice?)
+          pw.Container(
+            margin: const pw.EdgeInsets.only(top: 6),
+            padding: const pw.EdgeInsets.all(8),
+            color: const PdfColor.fromInt(0xFFFEF3C7),
+            child: pw.Text(
+              'Conseil : ${stripEmoji(advice)}',
+              style: pw.TextStyle(font: f.hand, fontSize: 11, color: _ink),
+            ),
+          ),
+      ],
+    ),
+  );
+  return doc.save();
+}
