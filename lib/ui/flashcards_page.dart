@@ -7,6 +7,8 @@ import '../data/progress_store.dart';
 import '../logic/spaced_repetition.dart';
 import '../models/content.dart';
 import 'notebook/hand_drawn.dart';
+import 'notebook/note_box.dart';
+import 'notebook/page_kit.dart';
 import 'notebook/palette.dart';
 import 'notebook/typography.dart';
 import 'widgets.dart';
@@ -25,25 +27,49 @@ class FlashcardsPage extends StatelessWidget {
     final seenDue = due.where(state.cards.containsKey).length;
     final fresh = due.length - seenDue;
     final mastered = state.cards.values.where((c) => c.mastered).length;
-    final text = Theme.of(context).textTheme;
+    final brightness = Theme.of(context).brightness;
 
-    return Scaffold(
-      appBar: AppBar(title: const Text('Flashcards')),
-      body: ReadingList(
-        children: [
-          TileGrid(
-            children: [
-              StatTile(label: 'À réviser', value: '$seenDue'),
-              StatTile(label: 'Nouvelles', value: '$fresh'),
-              StatTile(
-                label: 'Maîtrisées',
-                value: '$mastered/${allIds.length}',
-              ),
-              StatTile(label: 'Total', value: '${allIds.length}'),
-            ],
-          ),
-          const SizedBox(height: 16),
-          FilledButton.icon(
+    return NotebookPage(
+      title: 'Flashcards',
+      children: [
+        TileGrid(
+          children: [
+            HandStat(
+              emoji: '⏰',
+              label: 'À réviser',
+              value: '$seenDue',
+              tone: Tone.orange,
+              seed: 11,
+            ),
+            HandStat(
+              emoji: '✨',
+              label: 'Nouvelles',
+              value: '$fresh',
+              tone: Tone.blue,
+              seed: 12,
+            ),
+            HandStat(
+              emoji: '🏆',
+              label: 'Maîtrisées',
+              value: '$mastered/${allIds.length}',
+              tone: Tone.green,
+              seed: 13,
+            ),
+            HandStat(
+              emoji: '🃏',
+              label: 'Total',
+              value: '${allIds.length}',
+              tone: Tone.violet,
+              seed: 14,
+            ),
+          ],
+        ),
+        const SizedBox(height: 18),
+        Center(
+          child: GradientButton(
+            emoji: due.isEmpty ? '😌' : '▶️',
+            from: Tone.turquoise,
+            to: Tone.violet,
             onPressed: due.isEmpty
                 ? null
                 : () => Navigator.of(context).push(
@@ -52,49 +78,103 @@ class FlashcardsPage extends StatelessWidget {
                           FlashcardSessionPage(cardIds: due.take(20).toList()),
                     ),
                   ),
-            icon: const Icon(Icons.play_arrow),
-            label: Text(
-              due.isEmpty
-                  ? 'Rien à réviser pour l\'instant'
-                  : 'Réviser ${due.length > 20 ? 20 : due.length} carte(s)',
-            ),
+            label: due.isEmpty
+                ? 'Rien à réviser pour l\'instant'
+                : 'Réviser ${due.length > 20 ? 20 : due.length} carte(s)',
           ),
-          const SizedBox(height: 12),
-          Text(
+        ),
+        const SizedBox(height: 18),
+        NoteBox(
+          tone: Tone.yellow,
+          label: 'Comment ça marche',
+          emoji: '💡',
+          sticky: true,
+          child: Text(
             'Les cartes ratées reviennent dans la même session, puis à intervalles '
             'croissants (1 jour, 6 jours, puis plus). Une carte est maîtrisée '
             'quand son intervalle atteint 21 jours.',
-            style: text.bodySmall,
+            style: Hand.noteText(context),
           ),
-          const SectionTitle('Par chapitre'),
-          for (final ch in library.availableChapters)
-            Card(
-              color: toneColors(
-                moduleStyle(library.module(ch.moduleId).number).$1,
-                Theme.of(context).brightness,
-              ).fill,
-              child: ListTile(
-                leading: Text(
-                  moduleStyle(library.module(ch.moduleId).number).$2,
-                  style: const TextStyle(fontSize: 24),
+        ),
+        NotePanel(
+          title: 'Par chapitre',
+          emoji: '📚',
+          tone: Tone.turquoise,
+          seed: 15,
+          child: Column(
+            children: [
+              for (final ch in library.availableChapters)
+                Builder(
+                  builder: (context) {
+                    final (tone, emoji) = moduleStyle(
+                      library.module(ch.moduleId).number,
+                    );
+                    final c = toneColors(tone, brightness);
+                    final done = ch.flashcards
+                        .where((f) => state.cards[f.id]?.mastered ?? false)
+                        .length;
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 8),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(16),
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => FlashcardSessionPage(
+                              cardIds: ch.flashcards.map((f) => f.id).toList(),
+                            ),
+                          ),
+                        ),
+                        child: HandBox(
+                          fill: c.fill,
+                          stroke: toneBright(tone),
+                          strokeWidth: 2,
+                          seed: ch.id.hashCode,
+                          padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
+                          child: Row(
+                            children: [
+                              Text(emoji, style: const TextStyle(fontSize: 26)),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      ch.title,
+                                      style: TextStyle(
+                                        fontFamily: Hand.body,
+                                        fontSize: 20,
+                                        height: 1.2,
+                                        color: c.ink,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 6),
+                                    HandProgress(
+                                      value: ch.flashcards.isEmpty
+                                          ? 0
+                                          : done / ch.flashcards.length,
+                                      tone: tone,
+                                      height: 8,
+                                    ),
+                                    const SizedBox(height: 3),
+                                    Text(
+                                      '$done/${ch.flashcards.length} maîtrisées',
+                                      style: Hand.sansText(context, size: 12.5),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Icon(Icons.arrow_forward_rounded, color: c.ink),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
                 ),
-                title: Text(ch.title),
-                subtitle: Text(
-                  '${ch.flashcards.where((f) => state.cards[f.id]?.mastered ?? false).length}'
-                  '/${ch.flashcards.length} maîtrisées',
-                ),
-                trailing: const Icon(Icons.chevron_right),
-                onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => FlashcardSessionPage(
-                      cardIds: ch.flashcards.map((f) => f.id).toList(),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-        ],
-      ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

@@ -3,8 +3,12 @@ import 'package:material_ui/material_ui.dart';
 import '../app_state.dart';
 import '../data/progress_store.dart';
 import '../logic/stats.dart';
+import 'notebook/hand_drawn.dart';
+import 'notebook/note_box.dart';
+import 'notebook/page_kit.dart';
+import 'notebook/palette.dart';
+import 'notebook/typography.dart';
 import 'quiz_page.dart';
-import 'theme.dart';
 import 'widgets.dart';
 
 /// Résultat d'une série : score, analyse des erreurs, recommandations.
@@ -26,8 +30,6 @@ class QuizResultPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = AppScope.of(context);
     final library = state.library;
-    final scheme = Theme.of(context).colorScheme;
-    final text = Theme.of(context).textTheme;
     final isExam = config.mode == SessionMode.exam;
     final threshold = isExam
         ? library.examInfo.passingScore
@@ -48,132 +50,184 @@ class QuizResultPage extends StatelessWidget {
       ..sort((a, b) => b.value.compareTo(a.value));
     final byId = {for (final a in answers) a.questionId: a};
 
-    return Scaffold(
-      appBar: AppBar(title: Text('Résultat · ${config.title}')),
-      body: ReadingList(
-        children: [
-          if (timeUp)
-            Padding(
-              padding: const EdgeInsets.only(bottom: 12),
-              child: Text(
-                'Temps écoulé : la série a été clôturée automatiquement.',
-                style: TextStyle(color: scheme.error),
-              ),
-            ),
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  Text('${session.score}/100', style: text.displaySmall),
-                  const SizedBox(height: 4),
-                  Text(
-                    '${session.correctCount} bonne(s) réponse(s) sur ${session.total} · '
-                    '${formatDuration(Duration(seconds: session.durationSeconds))}',
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    passed
-                        ? (isExam
-                              ? 'Seuil de réussite atteint ($threshold/100).'
-                              : 'Objectif atteint (≥ $threshold %).')
-                        : (isExam
-                              ? 'Seuil de réussite non atteint ($threshold/100).'
-                              : 'Objectif non atteint : il faut $threshold % pour valider.'),
-                    style: text.titleSmall?.copyWith(
-                      color: successColor(passed, scheme),
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
+    final brightness = Theme.of(context).brightness;
+    final white = Hand.sansText(
+      context,
+      size: 14,
+    ).copyWith(color: Colors.white, fontWeight: FontWeight.w700);
+
+    return NotebookPage(
+      title: 'Résultat · ${config.title}',
+      children: [
+        if (timeUp)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: Sticker(
+              text: '⏰ Temps écoulé : la série a été clôturée automatiquement.',
+              tone: Tone.red,
             ),
           ),
-          if (config.feedbackAfterEach &&
-              answers.length < config.questions.length)
-            Padding(
-              padding: const EdgeInsets.only(top: 8),
-              child: Text(
-                '${config.questions.length - answers.length} question(s) non validée(s) '
-                'ne sont pas comptées.',
-                style: text.bodySmall,
+        GradientBanner(
+          tone: passed ? Tone.green : Tone.orange,
+          toTone: passed ? Tone.turquoise : Tone.pink,
+          seed: 111,
+          padding: const EdgeInsets.fromLTRB(18, 18, 18, 20),
+          child: Column(
+            children: [
+              Text(passed ? '🏆' : '💪', style: const TextStyle(fontSize: 44)),
+              Text(
+                '${session.score}/100',
+                style: const TextStyle(
+                  fontFamily: Hand.title,
+                  fontSize: 64,
+                  height: 1,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                ),
               ),
+              const SizedBox(height: 6),
+              Text(
+                '${session.correctCount} bonne(s) réponse(s) sur ${session.total} · '
+                '${formatDuration(Duration(seconds: session.durationSeconds))}',
+                style: white,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                passed
+                    ? (isExam
+                          ? 'Seuil de réussite atteint ($threshold/100), bravo !'
+                          : 'Objectif atteint (≥ $threshold %), bravo !')
+                    : (isExam
+                          ? 'Seuil de réussite non atteint ($threshold/100) : on s\'y remet !'
+                          : 'Objectif non atteint : il faut $threshold % pour valider. On s\'y remet !'),
+                style: white.copyWith(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w800,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+        if (config.feedbackAfterEach &&
+            answers.length < config.questions.length)
+          Padding(
+            padding: const EdgeInsets.only(top: 8),
+            child: Text(
+              '${config.questions.length - answers.length} question(s) non validée(s) '
+              'ne sont pas comptées.',
+              style: Hand.sansText(context, size: 13),
             ),
-          if (domainTotals.length > 1) ...[
-            const SectionTitle('Par domaine officiel'),
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
+          ),
+        if (domainTotals.length > 1)
+          NotePanel(
+            title: 'Par domaine officiel',
+            emoji: '🧭',
+            tone: Tone.blue,
+            seed: 112,
+            child: Column(
+              children: [
+                for (final (i, e) in domainTotals.entries.indexed)
+                  LabeledProgress(
+                    label: library.domain(e.key).nameFr,
+                    value: e.value.$1 / e.value.$2,
+                    tone: rainbowTones[i % rainbowTones.length],
+                  ),
+              ],
+            ),
+          ),
+        NotePanel(
+          title: 'Analyse des erreurs',
+          emoji: '🔍',
+          tone: Tone.red,
+          seed: 113,
+          child: sortedConcepts.isEmpty
+              ? Text(
+                  'Aucune erreur sur cette série. 🎉',
+                  style: Hand.bodyText(context),
+                )
+              : Wrap(
+                  spacing: 6,
+                  runSpacing: 6,
                   children: [
-                    for (final e in domainTotals.entries)
-                      LabeledProgress(
-                        label: library.domain(e.key).nameFr,
-                        value: e.value.$1 / e.value.$2,
+                    for (final e in sortedConcepts)
+                      Sticker(
+                        text: '${e.key} · ${e.value} erreur(s)',
+                        tone: Tone.red,
                       ),
                   ],
                 ),
-              ),
+        ),
+        NotePanel(
+          title: 'Recommandations',
+          emoji: '🌱',
+          tone: Tone.green,
+          seed: 114,
+          child: HandBullets(
+            _recommendations(
+              sortedConcepts.map((e) => e.key).toList(),
+              passed,
+              isExam,
             ),
-          ],
-          const SectionTitle('Analyse des erreurs'),
-          if (sortedConcepts.isEmpty)
-            const Text('Aucune erreur sur cette série.')
-          else
-            Card(
-              child: Column(
-                children: [
-                  for (final e in sortedConcepts)
-                    ListTile(
-                      leading: Icon(Icons.error_outline, color: scheme.error),
-                      title: Text(e.key),
-                      subtitle: Text('${e.value} erreur(s)'),
+            style: Hand.bodyText(context).copyWith(fontSize: 18),
+            bullet: '✓',
+          ),
+        ),
+        NotePanel(
+          title: 'Correction détaillée',
+          emoji: '📝',
+          tone: Tone.violet,
+          seed: 115,
+          child: Theme(
+            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+            child: Column(
+              children: [
+                for (final (i, q) in config.questions.indexed)
+                  if (byId.containsKey(q.id))
+                    ExpansionTile(
+                      tilePadding: EdgeInsets.zero,
+                      leading: Icon(
+                        byId[q.id]!.correct ? Icons.check_circle : Icons.cancel,
+                        color: toneBright(
+                          byId[q.id]!.correct ? Tone.green : Tone.red,
+                        ),
+                      ),
+                      title: Text(
+                        '${i + 1}. ${q.prompt}',
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: Hand.sansText(context, size: 15).copyWith(
+                          color: toneColors(
+                            byId[q.id]!.correct ? Tone.green : Tone.red,
+                            brightness,
+                          ).ink,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      initiallyExpanded: !byId[q.id]!.correct && isExam,
+                      children: [
+                        Text(q.prompt, style: Hand.bodyText(context)),
+                        const SizedBox(height: 8),
+                        QuestionCorrection(
+                          question: q,
+                          chosen: byId[q.id]!.chosen,
+                        ),
+                      ],
                     ),
-                ],
-              ),
-            ),
-          const SectionTitle('Recommandations'),
-          ..._recommendations(
-            sortedConcepts.map((e) => e.key).toList(),
-            passed,
-            isExam,
-          ).map(
-            (r) => Padding(
-              padding: const EdgeInsets.only(bottom: 6),
-              child: Text('•  $r'),
+              ],
             ),
           ),
-          const SectionTitle('Correction détaillée'),
-          for (final (i, q) in config.questions.indexed)
-            if (byId.containsKey(q.id))
-              Padding(
-                padding: const EdgeInsets.only(bottom: 12),
-                child: ExpansionTile(
-                  tilePadding: EdgeInsets.zero,
-                  leading: Icon(
-                    byId[q.id]!.correct ? Icons.check_circle : Icons.cancel,
-                    color: successColor(byId[q.id]!.correct, scheme),
-                  ),
-                  title: Text(
-                    '${i + 1}. ${q.prompt}',
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  initiallyExpanded: !byId[q.id]!.correct && isExam,
-                  children: [
-                    Text(q.prompt),
-                    const SizedBox(height: 8),
-                    QuestionCorrection(question: q, chosen: byId[q.id]!.chosen),
-                  ],
-                ),
-              ),
-          const SizedBox(height: 16),
-          FilledButton(
+        ),
+        const SizedBox(height: 20),
+        Center(
+          child: GradientButton(
+            emoji: '✅',
+            label: 'Terminer',
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Terminer'),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
