@@ -95,6 +95,39 @@ void main() {
     }
   });
 
+  test('la bonne réponse ne se devine ni à sa place ni à sa longueur', () {
+    final single = library.questions.where((q) => !q.isMultiple).toList();
+    // Place : chaque lettre porte la bonne réponse dans au moins 15 % des cas
+    // (l'ordre stocké est celui du mini-quiz des leçons, qui ne mélange pas).
+    final byPosition = List.filled(4, 0);
+    for (final q in single) {
+      byPosition[q.correct.single]++;
+    }
+    for (var i = 0; i < 4; i++) {
+      expect(
+        byPosition[i] / single.length,
+        greaterThanOrEqualTo(0.15),
+        reason: 'position $i : $byPosition',
+      );
+    }
+    // Longueur : la bonne réponse n'est nettement la plus longue (plus de
+    // 30 % de plus que la suivante) que dans moins de 5 % des questions.
+    final tooLong = single.where((q) {
+      final lengths = q.choices.map((c) => c.length).toList();
+      final right = lengths[q.correct.single];
+      final others = [
+        for (var i = 0; i < lengths.length; i++)
+          if (i != q.correct.single) lengths[i],
+      ];
+      return others.every((l) => right > l * 1.3);
+    }).map((q) => q.id).toList();
+    expect(
+      tooLong.length / single.length,
+      lessThan(0.05),
+      reason: tooLong.join(', '),
+    );
+  });
+
   test('la banque couvre les trois niveaux et les questions multiples', () {
     final levels = library.questions.map((q) => q.level).toSet();
     expect(levels, containsAll(Level.values));

@@ -710,18 +710,18 @@
    "prompt": "Quel document exprime les intentions et principes de sécurité de la direction, en termes généraux ?",
    "choices": [
     "La procédure",
-    "La politique",
+    "La baseline",
     "La ligne directrice",
-    "La baseline"
+    "La politique"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "La politique, approuvée par la direction, fixe les principes et donne l'autorité aux autres documents.",
    "whyNot": {
     "0": "La procédure décrit les étapes d'une tâche, le « comment ».",
-    "2": "La ligne directrice est une recommandation non obligatoire.",
-    "3": "La baseline fixe une configuration minimale pour un type de système."
+    "1": "La baseline fixe une configuration minimale pour un type de système.",
+    "2": "La ligne directrice est une recommandation non obligatoire."
    },
    "kind": "general"
   },
@@ -733,18 +733,18 @@
    "prompt": "Lequel de ces documents n'est PAS obligatoire ?",
    "choices": [
     "La politique",
-    "La norme interne (standard)",
     "La ligne directrice (guideline)",
-    "La procédure"
+    "La procédure",
+    "La norme interne (standard)"
    ],
    "correct": [
-    2
+    1
    ],
    "explanation": "La ligne directrice donne des conseils ; elle est recommandée mais non obligatoire.",
    "whyNot": {
     "0": "La politique s'impose à tous.",
-    "1": "La norme interne fixe des exigences obligatoires et mesurables.",
-    "3": "La procédure décrit la manière obligatoire de réaliser une tâche."
+    "2": "La procédure décrit la manière obligatoire de réaliser une tâche.",
+    "3": "La norme interne fixe des exigences obligatoires et mesurables."
    },
    "kind": "general"
   },
@@ -755,19 +755,19 @@
    "concept": "Pyramide documentaire",
    "prompt": "« Les mots de passe des comptes à privilèges comportent au moins 16 caractères. » Ce texte est typiquement :",
    "choices": [
-    "Une politique",
-    "Une norme interne (standard)",
-    "Une ligne directrice",
-    "Une procédure"
+    "Une politique (policy)",
+    "Une ligne directrice (guideline)",
+    "Une procédure (procedure)",
+    "Une norme interne (standard)"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "C'est une exigence précise et mesurable : elle relève d'une norme interne (standard), qui découle de la politique.",
    "whyNot": {
     "0": "Une politique reste générale et évite les détails techniques qui changent souvent.",
-    "2": "Le texte est impératif, pas une recommandation.",
-    "3": "Une procédure décrirait les étapes pour, par exemple, changer un mot de passe."
+    "1": "Le texte est impératif, pas une recommandation.",
+    "2": "Une procédure décrirait les étapes pour, par exemple, changer un mot de passe."
    },
    "kind": "general"
   },
@@ -778,18 +778,18 @@
    "concept": "Pyramide documentaire",
    "prompt": "Une configuration durcie minimale imposée à tous les serveurs Linux de production s'appelle :",
    "choices": [
-    "Une baseline",
-    "Une ligne directrice",
     "Une politique thématique",
+    "Une ligne directrice",
+    "Une baseline",
     "Une exception"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Une baseline fixe le niveau minimal obligatoire de sécurité pour un type de système.",
    "whyNot": {
+    "0": "Une politique thématique traite d'un sujet en termes généraux, pas d'une configuration détaillée.",
     "1": "Une ligne directrice ne serait pas imposée.",
-    "2": "Une politique thématique traite d'un sujet en termes généraux, pas d'une configuration détaillée.",
     "3": "Une exception est un écart autorisé à une exigence, l'inverse d'un minimum imposé."
    },
    "kind": "general"
@@ -801,19 +801,19 @@
    "concept": "Pyramide documentaire",
    "prompt": "Quel document décrit étape par étape comment isoler un poste compromis depuis la console EDR ?",
    "choices": [
-    "Une politique",
+    "Une ligne directrice (guideline)",
+    "Une norme interne (standard)",
     "Une procédure (ou playbook)",
-    "Une norme interne",
-    "Une ligne directrice"
+    "Une politique (policy)"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "La procédure décrit le « comment » : les étapes précises d'une tâche. Au SOC, on parle souvent de playbook.",
    "whyNot": {
-    "0": "La politique donne les principes, pas les étapes.",
-    "2": "La norme interne fixe une exigence, pas le mode opératoire.",
-    "3": "Une ligne directrice conseille, elle ne décrit pas une marche à suivre imposée."
+    "0": "Une ligne directrice conseille, elle ne décrit pas une marche à suivre imposée.",
+    "1": "La norme interne fixe une exigence, pas le mode opératoire.",
+    "3": "La politique donne les principes, pas les étapes."
    },
    "kind": "general"
   },
@@ -825,17 +825,17 @@
    "prompt": "Une politique encadrant l'utilisation des clés USB dans toute l'entreprise est une politique :",
    "choices": [
     "Générale (de programme)",
-    "Thématique (issue-specific)",
     "Propre à un système (system-specific)",
+    "Thématique (issue-specific)",
     "De continuité d'activité"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Elle traite un sujet précis pour toute l'organisation : c'est une politique thématique.",
    "whyNot": {
     "0": "La politique générale définit le programme de sécurité dans son ensemble.",
-    "2": "Une politique propre à un système fixe les règles d'un système donné.",
+    "1": "Une politique propre à un système fixe les règles d'un système donné.",
     "3": "La continuité d'activité est un autre sujet."
    },
    "kind": "general"
@@ -848,18 +848,18 @@
    "prompt": "Quelles conditions doit remplir une exception valable à une norme de sécurité ? (2 réponses)",
    "choices": [
     "Être limitée dans le temps et revue à échéance",
-    "Être accordée oralement par l'équipe technique",
     "Être approuvée par le propriétaire du risque, avec des mesures compensatoires",
-    "Rester confidentielle et hors de tout registre"
+    "Rester confidentielle et hors de tout registre",
+    "Être accordée oralement par l'équipe technique"
    ],
    "correct": [
     0,
-    2
+    1
    ],
    "explanation": "Une exception est justifiée, temporaire, compensée, approuvée par une personne habilitée et suivie dans un registre.",
    "whyNot": {
-    "1": "Une exception orale de l'équipe technique n'a ni trace ni autorité suffisante.",
-    "3": "Une exception cachée empêche le suivi du risque ; elle doit être enregistrée."
+    "2": "Une exception cachée empêche le suivi du risque ; elle doit être enregistrée.",
+    "3": "Une exception orale de l'équipe technique n'a ni trace ni autorité suffisante."
    },
    "kind": "practice"
   },
@@ -870,19 +870,19 @@
    "concept": "Pyramide documentaire",
    "prompt": "Pourquoi évite-t-on d'écrire des paramètres techniques détaillés dans la politique de sécurité ?",
    "choices": [
-    "Parce que la direction ne doit pas les connaître",
+    "Parce qu'une politique n'est pas obligatoire et peut être ignorée",
     "Parce que la politique doit rester stable alors que les paramètres évoluent souvent",
-    "Parce que la loi l'interdit",
-    "Parce qu'une politique n'est pas obligatoire"
+    "Parce que la direction ne doit pas connaître ces paramètres",
+    "Parce que la loi interdit d'y mettre des détails techniques"
    ],
    "correct": [
     1
    ],
    "explanation": "Une politique approuvée par la direction doit durer. Les détails techniques changent souvent ; on les place dans les normes et procédures pour éviter de faire réapprouver la politique à chaque évolution.",
    "whyNot": {
-    "0": "Il ne s'agit pas de cacher quoi que ce soit à la direction.",
-    "2": "Aucune loi n'impose ce découpage : c'est une bonne pratique.",
-    "3": "La politique est obligatoire."
+    "0": "La politique est obligatoire.",
+    "2": "Il ne s'agit pas de cacher quoi que ce soit à la direction.",
+    "3": "Aucune loi n'impose ce découpage : c'est une bonne pratique."
    },
    "kind": "general"
   },
@@ -893,19 +893,19 @@
    "concept": "Approbation",
    "prompt": "Qui approuve la politique de sécurité de l'information ?",
    "choices": [
-    "L'administrateur réseau",
-    "La direction",
     "Le fournisseur du pare-feu",
-    "Chaque salarié"
+    "La direction",
+    "Chaque salarié",
+    "L'administrateur réseau"
    ],
    "correct": [
     1
    ],
    "explanation": "La politique engage l'organisation : elle est approuvée par la direction, ce qui lui donne son autorité.",
    "whyNot": {
-    "0": "L'administrateur applique les mesures ; il n'engage pas l'organisation.",
-    "2": "Un fournisseur externe n'a aucune autorité sur la politique.",
-    "3": "Les salariés en prennent connaissance et la respectent ; ils ne l'approuvent pas."
+    "0": "Un fournisseur externe n'a aucune autorité sur la politique.",
+    "2": "Les salariés en prennent connaissance et la respectent ; ils ne l'approuvent pas.",
+    "3": "L'administrateur applique les mesures ; il n'engage pas l'organisation."
    },
    "kind": "general"
   },
@@ -916,8 +916,8 @@
    "concept": "Pyramide documentaire",
    "prompt": "Un analyste SOC suit la consigne « en cas d'alerte rançongiciel, appeler l'astreinte système, puis isoler le poste, puis ouvrir un incident ». Quel document l'analyste applique-t-il ?",
    "choices": [
-    "Une politique",
     "Une ligne directrice",
+    "Une politique",
     "Une procédure",
     "Une baseline"
    ],
@@ -926,8 +926,8 @@
    ],
    "explanation": "Une suite ordonnée d'étapes à réaliser est une procédure.",
    "whyNot": {
-    "0": "La politique ne détaille pas d'étapes.",
-    "1": "Une ligne directrice ne serait pas une consigne imposée.",
+    "0": "Une ligne directrice ne serait pas une consigne imposée.",
+    "1": "La politique ne détaille pas d'étapes.",
     "3": "Une baseline décrit une configuration minimale, pas une réaction à une alerte."
    },
    "kind": "example"
@@ -939,9 +939,9 @@
    "concept": "Famille ISO 27000",
    "prompt": "Contre quelle norme une organisation obtient-elle une certification de son système de management de la sécurité de l'information ?",
    "choices": [
-    "ISO/IEC 27002",
-    "ISO/IEC 27001",
     "ISO/IEC 27005",
+    "ISO/IEC 27001",
+    "ISO/IEC 27002",
     "ISO/IEC 27000"
    ],
    "correct": [
@@ -949,8 +949,8 @@
    ],
    "explanation": "ISO/IEC 27001 contient les exigences du SMSI : c'est la norme de certification.",
    "whyNot": {
-    "0": "ISO/IEC 27002 est un guide de mise en œuvre des mesures ; on ne s'y certifie pas.",
-    "2": "ISO/IEC 27005 guide la gestion des risques.",
+    "0": "ISO/IEC 27005 guide la gestion des risques.",
+    "2": "ISO/IEC 27002 est un guide de mise en œuvre des mesures ; on ne s'y certifie pas.",
     "3": "ISO/IEC 27000 donne la vue d'ensemble et le vocabulaire."
    },
    "kind": "general"
@@ -962,19 +962,19 @@
    "concept": "Annexe A",
    "prompt": "Combien de mesures compte l'annexe A d'ISO/IEC 27001:2022 ?",
    "choices": [
-    "114",
-    "93",
     "133",
-    "42"
+    "42",
+    "114",
+    "93"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "La version 2022 compte 93 mesures réparties en 4 thèmes.",
    "whyNot": {
-    "0": "114 mesures, c'était la version 2013.",
-    "2": "133 était le nombre de mesures de la version 2005.",
-    "3": "42 est le nombre de mesures du guide d'hygiène de l'ANSSI."
+    "0": "133 était le nombre de mesures de la version 2005.",
+    "1": "42 est le nombre de mesures du guide d'hygiène de l'ANSSI.",
+    "2": "114 mesures, c'était la version 2013."
    },
    "kind": "general"
   },
@@ -985,19 +985,19 @@
    "concept": "Annexe A",
    "prompt": "Quels sont les quatre thèmes de l'annexe A d'ISO/IEC 27001:2022 ?",
    "choices": [
-    "Prévention, détection, réponse, rétablissement",
+    "Gouverner, identifier, protéger, détecter",
     "Organisationnel, personnes, physique, technologique",
     "Confidentialité, intégrité, disponibilité, traçabilité",
-    "Gouverner, identifier, protéger, détecter"
+    "Prévention, détection, réponse, rétablissement"
    ],
    "correct": [
     1
    ],
    "explanation": "Les 93 mesures sont classées en mesures organisationnelles (37), liées aux personnes (8), physiques (14) et technologiques (34).",
    "whyNot": {
-    "0": "Ce sont des fonctions de contrôle, pas les thèmes de l'annexe A.",
+    "0": "Ce sont des fonctions du NIST CSF.",
     "2": "Ce sont des propriétés de sécurité, pas les thèmes de l'annexe A.",
-    "3": "Ce sont des fonctions du NIST CSF."
+    "3": "Ce sont des fonctions de contrôle, pas les thèmes de l'annexe A."
    },
    "kind": "general"
   },
@@ -1008,18 +1008,18 @@
    "concept": "Déclaration d'applicabilité",
    "prompt": "Quel document ISO/IEC 27001 liste les mesures de l'annexe A, indique lesquelles sont appliquées et justifie les exclusions ?",
    "choices": [
-    "Le registre des risques",
+    "Le registre des risques (risk register)",
+    "La politique de sécurité de l'information",
     "La déclaration d'applicabilité (SoA)",
-    "La politique de sécurité",
-    "Le rapport d'audit"
+    "Le rapport d'audit de certification"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "La déclaration d'applicabilité (Statement of Applicability) est obligatoire et justifie l'inclusion ou l'exclusion de chaque mesure.",
    "whyNot": {
     "0": "Le registre des risques recense les risques ; la SoA en découle.",
-    "2": "La politique fixe les principes, pas l'état de chaque mesure.",
+    "1": "La politique fixe les principes, pas l'état de chaque mesure.",
     "3": "Le rapport d'audit constate la conformité ; il ne décide pas des mesures."
    },
    "kind": "general"
@@ -1031,19 +1031,19 @@
    "concept": "Certification",
    "prompt": "Quelle est la durée de validité d'un certificat ISO/IEC 27001, et que se passe-t-il entre-temps ?",
    "choices": [
-    "1 an, sans contrôle intermédiaire",
-    "3 ans, avec des audits de surveillance (en général annuels)",
-    "5 ans, avec un audit à mi-parcours",
-    "Illimitée tant qu'aucun incident ne survient"
+    "Illimitée, tant qu'aucun incident ne survient",
+    "5 ans, avec un seul audit à mi-parcours",
+    "3 ans, avec des audits de surveillance",
+    "1 an, sans aucun contrôle intermédiaire"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Le certificat est valable trois ans ; des audits de surveillance ont lieu pendant cette période, puis un audit de renouvellement.",
    "whyNot": {
-    "0": "La validité est de trois ans, et des audits de surveillance ont lieu.",
-    "2": "La durée standard est de trois ans, pas cinq.",
-    "3": "Le certificat n'est jamais illimité."
+    "0": "Le certificat n'est jamais illimité.",
+    "1": "La durée standard est de trois ans, pas cinq.",
+    "3": "La validité est de trois ans, et des audits de surveillance ont lieu."
    },
    "kind": "general"
   },
@@ -1054,19 +1054,19 @@
    "concept": "Structure ISO 27001",
    "prompt": "Dans ISO/IEC 27001:2022, quels chapitres traitent de la revue de direction et des actions correctives ? (2 réponses)",
    "choices": [
-    "Chapitre 9, Évaluation des performances (revue de direction)",
+    "Chapitre 7, Support",
     "Chapitre 4, Contexte",
-    "Chapitre 10, Amélioration (non-conformités et actions correctives)",
-    "Chapitre 7, Support"
+    "Chapitre 9, Évaluation des performances (revue de direction)",
+    "Chapitre 10, Amélioration (non-conformités et actions correctives)"
    ],
    "correct": [
-    0,
-    2
+    2,
+    3
    ],
    "explanation": "La revue de direction et l'audit interne sont au chapitre 9 ; les non-conformités et actions correctives au chapitre 10.",
    "whyNot": {
-    "1": "Le chapitre 4 traite du contexte, des parties intéressées et du périmètre.",
-    "3": "Le chapitre 7 traite des ressources, compétences, communication et documents."
+    "0": "Le chapitre 7 traite des ressources, compétences, communication et documents.",
+    "1": "Le chapitre 4 traite du contexte, des parties intéressées et du périmètre."
    },
    "kind": "general"
   },
@@ -1100,18 +1100,18 @@
    "concept": "Famille ISO 27000",
    "prompt": "Quelle norme de la famille 27000 porte sur la gestion des incidents de sécurité de l'information ?",
    "choices": [
-    "ISO/IEC 27035",
-    "ISO/IEC 27005",
     "ISO/IEC 27002",
+    "ISO/IEC 27005",
+    "ISO/IEC 27035",
     "ISO/IEC 27701"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "ISO/IEC 27035 décrit la gestion des incidents : préparation, détection, évaluation, réponse, retour d'expérience.",
    "whyNot": {
+    "0": "ISO/IEC 27002 décrit les mesures de sécurité en général.",
     "1": "ISO/IEC 27005 porte sur la gestion des risques.",
-    "2": "ISO/IEC 27002 décrit les mesures de sécurité en général.",
     "3": "ISO/IEC 27701 porte sur la protection de la vie privée."
    },
    "kind": "general"
@@ -1146,19 +1146,19 @@
    "concept": "Version 2022",
    "prompt": "Jusqu'à quelle date les organisations certifiées ISO/IEC 27001:2013 devaient-elles passer à la version 2022 ?",
    "choices": [
-    "31 décembre 2023",
     "31 octobre 2025",
-    "1er janvier 2027",
-    "Aucune date : les deux versions restent valables"
+    "Aucune date : les deux versions restent valables",
+    "31 décembre 2023",
+    "1er janvier 2027"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "La période de transition de trois ans s'est terminée le 31 octobre 2025 ; les certificats 2013 ne sont plus valables après cette date.",
    "whyNot": {
-    "0": "Cette date ne correspond pas à la fin de la transition.",
-    "2": "La transition s'est terminée avant cette date.",
-    "3": "Les certificats selon la version 2013 ont expiré à la fin de la transition."
+    "1": "Les certificats selon la version 2013 ont expiré à la fin de la transition.",
+    "2": "Cette date ne correspond pas à la fin de la transition.",
+    "3": "La transition s'est terminée avant cette date."
    },
    "kind": "general"
   },
@@ -1170,18 +1170,18 @@
    "prompt": "Combien de fonctions compte le NIST Cybersecurity Framework 2.0 ?",
    "choices": [
     "4",
-    "5",
     "6",
-    "7"
+    "7",
+    "5"
    ],
    "correct": [
-    2
+    1
    ],
    "explanation": "Le CSF 2.0 compte six fonctions : Govern, Identify, Protect, Detect, Respond, Recover. Govern a été ajoutée en 2.0.",
    "whyNot": {
     "0": "Quatre fonctions ne correspond à aucune version du CSF.",
-    "1": "Cinq fonctions, c'était la version 1.1, sans Govern.",
-    "3": "Il n'y a pas de septième fonction."
+    "2": "Il n'y a pas de septième fonction.",
+    "3": "Cinq fonctions, c'était la version 1.1, sans Govern."
    },
    "kind": "general"
   },
@@ -1192,19 +1192,19 @@
    "concept": "NIST CSF",
    "prompt": "Dans le NIST CSF 2.0, à quelle fonction appartient l'écriture de règles de corrélation dans le SIEM ?",
    "choices": [
-    "Identify",
-    "Protect",
+    "Recover",
     "Detect",
-    "Recover"
+    "Protect",
+    "Identify"
    ],
    "correct": [
-    2
+    1
    ],
    "explanation": "Les règles de corrélation servent à repérer des événements suspects : fonction Detect.",
    "whyNot": {
-    "0": "Identify concerne l'inventaire des actifs, des risques et du contexte.",
-    "1": "Protect concerne les mesures qui empêchent l'incident.",
-    "3": "Recover concerne le retour à la normale après l'incident."
+    "0": "Recover concerne le retour à la normale après l'incident.",
+    "2": "Protect concerne les mesures qui empêchent l'incident.",
+    "3": "Identify concerne l'inventaire des actifs, des risques et du contexte."
    },
    "kind": "general"
   },
@@ -1215,19 +1215,19 @@
    "concept": "Certification",
    "prompt": "Quelle affirmation sur le NIST Cybersecurity Framework est exacte ?",
    "choices": [
-    "C'est une norme certifiable comme ISO/IEC 27001",
-    "C'est un cadre volontaire pour décrire et améliorer son niveau de cybersécurité",
+    "Il remplace PCI DSS pour les données de cartes",
     "Il est imposé par la loi à toutes les entreprises européennes",
-    "Il remplace PCI DSS pour les données de cartes"
+    "C'est une norme certifiable comme ISO/IEC 27001",
+    "C'est un cadre volontaire pour décrire et améliorer son niveau de cybersécurité"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Le CSF est un cadre volontaire, non certifiable, utilisé pour évaluer un niveau actuel, fixer une cible et prioriser.",
    "whyNot": {
-    "0": "Il n'existe pas de certification officielle CSF.",
-    "2": "Ce n'est pas une obligation légale européenne.",
-    "3": "PCI DSS reste exigé pour les données de cartes."
+    "0": "PCI DSS reste exigé pour les données de cartes.",
+    "1": "Ce n'est pas une obligation légale européenne.",
+    "2": "Il n'existe pas de certification officielle CSF."
    },
    "kind": "general"
   },
@@ -1238,19 +1238,19 @@
    "concept": "PCI DSS",
    "prompt": "Une boutique en ligne stocke des numéros de cartes bancaires. Quel référentiel lui est imposé par les réseaux de cartes ?",
    "choices": [
-    "COBIT",
-    "PCI DSS",
     "ITIL",
-    "ISO/IEC 27014"
+    "PCI DSS",
+    "ISO/IEC 27014",
+    "COBIT"
    ],
    "correct": [
     1
    ],
    "explanation": "PCI DSS s'applique à toute entité qui stocke, traite ou transmet des données de cartes de paiement.",
    "whyNot": {
-    "0": "COBIT est un référentiel de gouvernance du SI, non imposé.",
-    "2": "ITIL décrit des bonnes pratiques de gestion des services.",
-    "3": "ISO/IEC 27014 traite de la gouvernance de la sécurité."
+    "0": "ITIL décrit des bonnes pratiques de gestion des services.",
+    "2": "ISO/IEC 27014 traite de la gouvernance de la sécurité.",
+    "3": "COBIT est un référentiel de gouvernance du SI, non imposé."
    },
    "kind": "general"
   },
@@ -1262,18 +1262,18 @@
    "prompt": "Un client veut savoir si les contrôles de son prestataire cloud ont réellement fonctionné pendant l'année écoulée. Quel document est le plus adapté ?",
    "choices": [
     "Un rapport SOC 2 de type I",
-    "Un rapport SOC 2 de type II",
+    "La plaquette commerciale",
     "La politique de sécurité du prestataire",
-    "La plaquette commerciale"
+    "Un rapport SOC 2 de type II"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Le type II évalue l'efficacité opérationnelle des contrôles sur une période ; le type I ne décrit que leur conception à une date.",
    "whyNot": {
     "0": "Le type I ne couvre pas le fonctionnement sur une période.",
-    "2": "Une politique déclare des intentions ; elle ne prouve pas l'efficacité.",
-    "3": "Un document commercial n'apporte aucune assurance d'audit."
+    "1": "Un document commercial n'apporte aucune assurance d'audit.",
+    "2": "Une politique déclare des intentions ; elle ne prouve pas l'efficacité."
    },
    "kind": "general"
   },
@@ -1284,19 +1284,19 @@
    "concept": "Référentiels",
    "prompt": "Quelles associations référentiel / usage sont correctes ? (2 réponses)",
    "choices": [
-    "ITIL : gestion des services informatiques (incidents, changements)",
-    "COBIT : catalogue de mesures techniques du gouvernement américain",
+    "PCI DSS : loi européenne sur les données personnelles",
     "NIST SP 800-53 : catalogue détaillé de mesures de sécurité et de vie privée",
-    "PCI DSS : loi européenne sur les données personnelles"
+    "ITIL : gestion des services informatiques (incidents, changements)",
+    "COBIT : catalogue de mesures techniques du gouvernement américain"
    ],
    "correct": [
-    0,
+    1,
     2
    ],
    "explanation": "ITIL décrit la gestion des services informatiques ; NIST SP 800-53 est un catalogue détaillé de mesures.",
    "whyNot": {
-    "1": "COBIT est un référentiel de gouvernance et de management du SI, publié par l'ISACA.",
-    "3": "PCI DSS est une norme sectorielle des cartes de paiement ; la loi européenne sur les données personnelles est le RGPD."
+    "0": "PCI DSS est une norme sectorielle des cartes de paiement ; la loi européenne sur les données personnelles est le RGPD.",
+    "3": "COBIT est un référentiel de gouvernance et de management du SI, publié par l'ISACA."
    },
    "kind": "general"
   },
@@ -1307,19 +1307,19 @@
    "concept": "ANSSI",
    "prompt": "Combien de mesures compte le guide d'hygiène informatique de l'ANSSI ?",
    "choices": [
+    "114",
     "10",
     "42",
-    "93",
-    "114"
+    "93"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Le guide d'hygiène informatique de l'ANSSI propose 42 mesures.",
    "whyNot": {
-    "0": "10 ne correspond pas à ce guide.",
-    "2": "93 est le nombre de mesures de l'annexe A d'ISO/IEC 27001:2022.",
-    "3": "114 était le nombre de mesures de l'annexe A en 2013."
+    "0": "114 était le nombre de mesures de l'annexe A en 2013.",
+    "1": "10 ne correspond pas à ce guide.",
+    "3": "93 est le nombre de mesures de l'annexe A d'ISO/IEC 27001:2022."
    },
    "kind": "general"
   },
@@ -1330,19 +1330,19 @@
    "concept": "ANSSI",
    "prompt": "Quelle méthode d'analyse de risques est publiée par l'ANSSI ?",
    "choices": [
-    "OCTAVE",
+    "OCTAVE Allegro",
+    "STRIDE",
     "EBIOS Risk Manager",
-    "FAIR",
-    "STRIDE"
+    "FAIR (Factor Analysis of Information Risk)"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "EBIOS Risk Manager est la méthode d'appréciation et de traitement des risques numériques de l'ANSSI.",
    "whyNot": {
     "0": "OCTAVE a été développée par le Software Engineering Institute (Carnegie Mellon).",
-    "2": "FAIR est une méthode d'analyse quantitative du risque portée par le FAIR Institute.",
-    "3": "STRIDE est une méthode de modélisation des menaces issue de Microsoft."
+    "1": "STRIDE est une méthode de modélisation des menaces issue de Microsoft.",
+    "3": "FAIR est une méthode d'analyse quantitative du risque portée par le FAIR Institute."
    },
    "kind": "general"
   },
@@ -1376,19 +1376,19 @@
    "concept": "SOC 2",
    "prompt": "Dans le contexte des référentiels, que désigne « SOC 2 » ?",
    "choices": [
-    "Un centre opérationnel de sécurité de niveau 2",
-    "Un rapport d'audit sur les contrôles d'une organisation de services (AICPA)",
-    "Une norme ISO sur la supervision",
-    "La deuxième version du NIST CSF"
+    "Un rapport d'audit des contrôles d'un prestataire (AICPA)",
+    "La deuxième version du NIST Cybersecurity Framework",
+    "Un centre opérationnel de sécurité (SOC) de niveau 2",
+    "Une norme ISO consacrée à la supervision de sécurité"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "SOC 2 est un rapport d'audit défini par l'AICPA sur les contrôles d'un prestataire, sans rapport avec un Security Operations Center.",
    "whyNot": {
-    "0": "C'est le piège classique : SOC 2 n'est pas un niveau de SOC.",
-    "2": "Ce n'est pas une norme ISO.",
-    "3": "La version actuelle du NIST CSF est la 2.0 ; ce n'est pas SOC 2."
+    "1": "La version actuelle du NIST CSF est la 2.0 ; ce n'est pas SOC 2.",
+    "2": "C'est le piège classique : SOC 2 n'est pas un niveau de SOC.",
+    "3": "Ce n'est pas une norme ISO."
    },
    "kind": "general"
   }

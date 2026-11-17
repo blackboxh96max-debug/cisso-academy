@@ -671,18 +671,18 @@
    "prompt": "Le service client doit voir le nom des clients mais pas leur IBAN. Quelle fonction de la base de données convient ?",
    "choices": [
     "Une vue qui n'expose que les colonnes nécessaires",
-    "Un accès complet à la table",
-    "Une sauvegarde quotidienne",
-    "Un index"
+    "Un index sur la colonne du nom des clients",
+    "Une sauvegarde quotidienne de la table des clients",
+    "Un accès complet à la table, avec un rappel de confidentialité"
    ],
    "correct": [
     0
    ],
    "explanation": "La vue ne montre qu'une partie des données : c'est le moindre privilège appliqué à la base.",
    "whyNot": {
-    "1": "L'IBAN serait visible.",
+    "1": "Un index accélère les recherches, il ne restreint rien.",
     "2": "La sauvegarde ne limite pas l'accès.",
-    "3": "Un index accélère les recherches, il ne restreint rien."
+    "3": "L'IBAN serait visible."
    },
    "kind": "general"
   },
@@ -693,19 +693,19 @@
    "concept": "Agrégation",
    "prompt": "Un employé rassemble les dates de livraison et les adresses de nombreuses commandes, toutes peu sensibles, et en déduit les déplacements d'une unité militaire. Comment s'appelle ce risque ?",
    "choices": [
+    "La réplication",
     "L'agrégation",
-    "La polyinstanciation",
     "La normalisation",
-    "La réplication"
+    "La polyinstanciation"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "Combiner beaucoup de données anodines pour obtenir une information sensible, c'est l'agrégation.",
    "whyNot": {
-    "1": "La polyinstanciation est une parade.",
+    "0": "La réplication copie la base.",
     "2": "La normalisation organise les tables.",
-    "3": "La réplication copie la base."
+    "3": "La polyinstanciation est une parade."
    },
    "kind": "general"
   },
@@ -716,19 +716,19 @@
    "concept": "ACID",
    "prompt": "Que garantit l'atomicité d'une transaction ?",
    "choices": [
-    "Qu'elle est chiffrée",
-    "Qu'elle est entièrement réalisée ou entièrement annulée",
-    "Qu'elle est rapide",
-    "Qu'elle est anonyme"
+    "Qu'elle est anonyme et ne laisse aucune trace",
+    "Qu'elle est chiffrée de bout en bout",
+    "Qu'elle s'exécute toujours en moins d'une seconde",
+    "Qu'elle est entièrement réalisée ou entièrement annulée"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Tout ou rien : un virement ne peut pas débiter un compte sans créditer l'autre.",
    "whyNot": {
-    "0": "L'atomicité ne concerne pas le chiffrement.",
-    "2": "Elle ne concerne pas la vitesse.",
-    "3": "Sans rapport."
+    "0": "Sans rapport.",
+    "1": "L'atomicité ne concerne pas le chiffrement.",
+    "2": "Elle ne concerne pas la vitesse."
    },
    "kind": "general"
   },
@@ -739,19 +739,19 @@
    "concept": "Inférence",
    "prompt": "Un utilisateur connaît la masse salariale d'un service de deux personnes et le salaire de l'une d'elles. Il en déduit le salaire de l'autre. De quoi s'agit-il ?",
    "choices": [
-    "D'agrégation",
     "D'inférence",
-    "D'injection SQL",
-    "D'escalade de privilèges"
+    "D'agrégation",
+    "D'escalade de privilèges",
+    "D'injection SQL"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "Il déduit une information à laquelle il n'a pas accès à partir de données accessibles : c'est l'inférence.",
    "whyNot": {
-    "0": "Il ne rassemble pas une grande quantité de données ; il raisonne.",
-    "2": "Aucune requête piégée.",
-    "3": "Ses droits ne changent pas."
+    "1": "Il ne rassemble pas une grande quantité de données ; il raisonne.",
+    "2": "Ses droits ne changent pas.",
+    "3": "Aucune requête piégée."
    },
    "kind": "general"
   },
@@ -762,19 +762,19 @@
    "concept": "Polyinstanciation",
    "prompt": "Quel mécanisme montre à un utilisateur non habilité une version anodine d'un enregistrement secret, pour qu'il ne devine pas qu'un secret existe ?",
    "choices": [
-    "La polyinstanciation",
-    "L'agrégation",
     "La sauvegarde différentielle",
-    "Le hachage"
+    "Le hachage",
+    "La polyinstanciation",
+    "L'agrégation"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Plusieurs versions d'un enregistrement selon le niveau d'habilitation : c'est une parade à l'inférence.",
    "whyNot": {
-    "1": "L'agrégation est une menace.",
-    "2": "Sans rapport.",
-    "3": "Le hachage protège l'intégrité."
+    "0": "Sans rapport.",
+    "1": "Le hachage protège l'intégrité.",
+    "3": "L'agrégation est une menace."
    },
    "kind": "general"
   },
@@ -785,18 +785,18 @@
    "concept": "Procédures stockées",
    "prompt": "Pourquoi donner à une application le droit d'exécuter des procédures stockées plutôt qu'un accès direct aux tables ?",
    "choices": [
+    "Pour supprimer les journaux d'accès aux tables",
     "Pour qu'elle ne puisse faire que les opérations prévues",
-    "Pour accélérer les sauvegardes",
-    "Pour supprimer les journaux",
-    "Pour éviter le chiffrement"
+    "Pour éviter de chiffrer les données sensibles",
+    "Pour accélérer les sauvegardes de la base"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "Les procédures limitent les opérations possibles et réduisent l'impact d'une compromission de l'application.",
    "whyNot": {
-    "1": "Sans rapport.",
-    "2": "Les journaux restent nécessaires.",
+    "0": "Les journaux restent nécessaires.",
+    "2": "Sans rapport.",
     "3": "Sans rapport."
    },
    "kind": "general"
@@ -808,17 +808,17 @@
    "concept": "DAM",
    "prompt": "Quel outil alerte quand un compte applicatif lit d'un coup toute la table clients à 3 h du matin ?",
    "choices": [
+    "Le pare-feu à états placé devant le serveur",
     "La surveillance de l'activité de la base (DAM)",
-    "Le pare-feu à états",
-    "Le NAT",
-    "La sauvegarde"
+    "La traduction d'adresses (NAT) du réseau",
+    "La sauvegarde incrémentale de la nuit"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "Le DAM observe les requêtes et repère les comportements inhabituels sur les données.",
    "whyNot": {
-    "1": "Il voit des connexions, pas le contenu des requêtes.",
+    "0": "Il voit des connexions, pas le contenu des requêtes.",
     "2": "Sans rapport.",
     "3": "La sauvegarde ne surveille rien."
    },
@@ -831,19 +831,19 @@
    "concept": "Durcissement",
    "prompt": "Quelles mesures renforcent une base de données de production ? (plusieurs réponses)",
    "choices": [
-    "Supprimer les comptes par défaut",
-    "Séparer comptes d'administration et comptes applicatifs",
     "Exposer le port de la base sur Internet pour le support",
-    "Chiffrer les fichiers et les sauvegardes"
+    "Séparer comptes d'administration et comptes applicatifs",
+    "Chiffrer les fichiers et les sauvegardes",
+    "Supprimer les comptes par défaut"
    ],
    "correct": [
-    0,
     1,
+    2,
     3
    ],
    "explanation": "Comptes par défaut supprimés, séparation des comptes et chiffrement réduisent fortement le risque.",
    "whyNot": {
-    "2": "Une base ne doit jamais être exposée directement sur Internet."
+    "0": "Une base ne doit jamais être exposée directement sur Internet."
    },
    "kind": "general"
   },
@@ -854,18 +854,18 @@
    "concept": "Inférence",
    "prompt": "Quelle mesure réduit le mieux le risque d'inférence dans une base de statistiques sur les salaires ?",
    "choices": [
+    "Augmenter la taille des disques du serveur",
+    "Ajouter des index sur les colonnes de salaires",
     "Refuser les requêtes qui portent sur des groupes trop petits",
-    "Ajouter des index",
-    "Augmenter la taille des disques",
-    "Désactiver les sauvegardes"
+    "Désactiver les sauvegardes de la base de statistiques"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Sur un groupe de une ou deux personnes, une statistique révèle une donnée individuelle : on fixe une taille minimale.",
    "whyNot": {
+    "0": "Sans rapport.",
     "1": "Sans effet sur la confidentialité.",
-    "2": "Sans rapport.",
     "3": "Dangereux et sans rapport."
    },
    "kind": "general"
@@ -878,18 +878,18 @@
    "prompt": "Le compte utilisé par un site web pour lire les commandes doit avoir :",
    "choices": [
     "Les droits d'administrateur de la base",
+    "Aucun mot de passe",
     "Uniquement les droits nécessaires à ses opérations",
-    "Le même mot de passe que l'administrateur",
-    "Aucun mot de passe"
+    "Le même mot de passe que l'administrateur"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Si le site est compromis, l'attaquant n'aura que ces droits limités.",
    "whyNot": {
     "0": "Une compromission du site donnerait toute la base.",
-    "2": "Mot de passe partagé : aucun cloisonnement.",
-    "3": "Inacceptable."
+    "1": "Inacceptable.",
+    "3": "Mot de passe partagé : aucun cloisonnement."
    },
    "kind": "general"
   },
@@ -900,10 +900,10 @@
    "concept": "Propriétaire",
    "prompt": "Qui décide de la classification d'une donnée ?",
    "choices": [
-    "L'administrateur système",
+    "L'administrateur système qui gère le serveur",
     "Le propriétaire de la donnée (responsable métier)",
-    "N'importe quel utilisateur",
-    "Le fournisseur cloud"
+    "Le fournisseur cloud qui héberge la donnée",
+    "N'importe quel utilisateur qui crée la donnée"
    ],
    "correct": [
     1
@@ -911,8 +911,8 @@
    "explanation": "Le propriétaire connaît la valeur de la donnée et en répond ; le dépositaire applique les protections.",
    "whyNot": {
     "0": "C'est le dépositaire : il met en œuvre.",
-    "2": "Les utilisateurs suivent la classification.",
-    "3": "Le fournisseur ne connaît pas la valeur métier."
+    "2": "Le fournisseur ne connaît pas la valeur métier.",
+    "3": "Les utilisateurs suivent la classification."
    },
    "kind": "general"
   },
@@ -923,18 +923,18 @@
    "concept": "États des données",
    "prompt": "Le chiffrement TLS protège les données dans quel état ?",
    "choices": [
+    "En cours d'utilisation",
     "Au repos",
     "En transit",
-    "En cours d'utilisation",
     "Archivées"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "TLS chiffre les données qui circulent sur le réseau.",
    "whyNot": {
-    "0": "Au repos, on chiffre les disques et les bases.",
-    "2": "En mémoire, d'autres mécanismes s'appliquent.",
+    "0": "En mémoire, d'autres mécanismes s'appliquent.",
+    "1": "Au repos, on chiffre les disques et les bases.",
     "3": "Archivées = au repos."
    },
    "kind": "general"
@@ -946,10 +946,10 @@
    "concept": "Dépositaire",
    "prompt": "Quel rôle met en œuvre les sauvegardes, les droits et le chiffrement décidés pour les données ?",
    "choices": [
-    "Le propriétaire",
+    "Le propriétaire (data owner)",
     "Le dépositaire (custodian)",
-    "L'auditeur",
-    "Le DPO"
+    "L'auditeur interne",
+    "Le délégué à la protection des données (DPO)"
    ],
    "correct": [
     1
@@ -969,19 +969,19 @@
    "concept": "Classification",
    "prompt": "Pourquoi classifier les données ?",
    "choices": [
-    "Pour appliquer à chaque information des protections proportionnées à sa sensibilité",
-    "Pour chiffrer tout au même niveau",
-    "Pour supprimer les données anciennes",
-    "Pour accélérer le réseau"
+    "Pour supprimer automatiquement les données les plus anciennes",
+    "Pour chiffrer toutes les données au même niveau, sans exception",
+    "Pour accélérer le réseau en réduisant le volume des échanges",
+    "Pour protéger chaque information selon sa sensibilité"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "La classification évite de surprotéger l'anodin et de sous-protéger le sensible.",
    "whyNot": {
+    "0": "La destruction suit la conservation, pas seulement l'âge.",
     "1": "Tout protéger au maximum est coûteux et gênant.",
-    "2": "La destruction suit la conservation, pas seulement l'âge.",
-    "3": "Sans rapport."
+    "2": "Sans rapport."
    },
    "kind": "general"
   },
@@ -1015,18 +1015,18 @@
    "concept": "Cycle de vie",
    "prompt": "À quel moment faut-il classifier une donnée ?",
    "choices": [
-    "Dès sa création",
-    "Seulement à l'archivage",
     "Seulement en cas d'incident",
+    "Seulement à l'archivage",
+    "Dès sa création",
     "Jamais, c'est inutile"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "La classification guide toutes les étapes suivantes : stockage, partage, conservation, destruction.",
    "whyNot": {
+    "0": "Trop tard.",
     "1": "Trop tard : elle aura circulé sans protection adaptée.",
-    "2": "Trop tard.",
     "3": "Elle est indispensable."
    },
    "kind": "general"
@@ -1038,18 +1038,18 @@
    "concept": "Reclassification",
    "prompt": "Les résultats financiers sont « confidentiels » jusqu'à leur publication officielle. Que faire après la publication ?",
    "choices": [
-    "Les laisser confidentiels pour toujours",
+    "Les détruire immédiatement après la publication",
+    "Les laisser « confidentiels » pour toujours, par prudence",
     "Revoir leur classification, par exemple en « public »",
-    "Les détruire immédiatement",
-    "Les chiffrer deux fois"
+    "Les chiffrer une seconde fois avec une nouvelle clé"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "La classification se revoit : une information perd sa sensibilité quand elle devient publique.",
    "whyNot": {
-    "0": "Surprotéger inutilement coûte et gêne.",
-    "2": "Ils peuvent devoir être conservés.",
+    "0": "Ils peuvent devoir être conservés.",
+    "1": "Surprotéger inutilement coûte et gêne.",
     "3": "Inutile."
    },
    "kind": "general"
@@ -1061,19 +1061,19 @@
    "concept": "Données en cours d'utilisation",
    "prompt": "Quelle protection vise spécifiquement les données en cours d'utilisation, en mémoire ?",
    "choices": [
-    "TLS 1.3",
-    "Les enclaves de calcul confidentiel et l'isolation de la mémoire",
-    "Le chiffrement du disque",
-    "La sauvegarde hors ligne"
+    "La sauvegarde hors ligne des données traitées",
+    "Les enclaves de calcul confidentiel",
+    "TLS 1.3 sur toutes les connexions au serveur",
+    "Le chiffrement complet du disque du serveur"
    ],
    "correct": [
     1
    ],
    "explanation": "Les enclaves protègent les données pendant leur traitement, même vis-à-vis du système hôte.",
    "whyNot": {
-    "0": "TLS protège en transit.",
-    "2": "Au repos.",
-    "3": "Disponibilité, pas usage."
+    "0": "Disponibilité, pas usage.",
+    "2": "TLS protège en transit.",
+    "3": "Au repos."
    },
    "kind": "general"
   },
@@ -1084,19 +1084,19 @@
    "concept": "Rôles",
    "prompt": "Le propriétaire d'une base clients est absent et l'administrateur reçoit une demande d'accès d'un nouveau service. Que doit faire l'administrateur ?",
    "choices": [
-    "Accorder l'accès, il en a la capacité technique",
-    "Obtenir l'accord du propriétaire (ou de son suppléant désigné) avant d'accorder l'accès",
-    "Refuser définitivement",
-    "Copier la base pour le nouveau service"
+    "Accorder l'accès, puisqu'il en a la capacité technique et les droits",
+    "Refuser définitivement toute demande venant d'un nouveau service",
+    "Copier la base dans un nouvel espace réservé au nouveau service",
+    "Obtenir l'accord du propriétaire (ou de son suppléant désigné) avant d'accorder l'accès"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "La décision d'accès revient au propriétaire ; l'administrateur (dépositaire) l'applique.",
    "whyNot": {
     "0": "Capacité technique n'est pas autorisation.",
-    "2": "La demande peut être légitime.",
-    "3": "Copier multiplie les risques."
+    "1": "La demande peut être légitime.",
+    "2": "Copier multiplie les risques."
    },
    "kind": "general"
   },
@@ -1107,19 +1107,19 @@
    "concept": "Trois états",
    "prompt": "Quelles associations entre protection et état des données sont exactes ? (plusieurs réponses)",
    "choices": [
-    "Chiffrement de disque : données au repos",
+    "Isolation de la mémoire : données en cours d'utilisation",
     "VPN : données en transit",
-    "TLS : données au repos",
-    "Isolation de la mémoire : données en cours d'utilisation"
+    "Chiffrement de disque : données au repos",
+    "TLS : données au repos"
    ],
    "correct": [
     0,
     1,
-    3
+    2
    ],
    "explanation": "Repos : disque ; transit : réseau ; usage : mémoire.",
    "whyNot": {
-    "2": "TLS protège les données en transit."
+    "3": "TLS protège les données en transit."
    },
    "kind": "general"
   },
@@ -1130,19 +1130,19 @@
    "concept": "DLP",
    "prompt": "Quel outil peut empêcher l'envoi par courriel d'un fichier contenant des numéros de carte bancaire ?",
    "choices": [
-    "La DLP (prévention des fuites de données)",
-    "Le pare-feu à états",
-    "Le serveur DNS",
-    "Le TPM"
+    "Le serveur DNS interne de l'entreprise",
+    "Le pare-feu à états de la passerelle de messagerie",
+    "Le module TPM du poste de l'expéditeur",
+    "La DLP (prévention des fuites de données)"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "La DLP reconnaît les données sensibles dans le contenu et bloque ou signale leur sortie.",
    "whyNot": {
+    "0": "Sans rapport.",
     "1": "Il ne lit pas le contenu des courriels.",
-    "2": "Sans rapport.",
-    "3": "Le TPM protège des clés sur la machine."
+    "2": "Le TPM protège des clés sur la machine."
    },
    "kind": "general"
   },
@@ -1153,19 +1153,19 @@
    "concept": "Rémanence",
    "prompt": "Un disque est simplement formaté avant d'être donné à une association. Quel risque reste-t-il ?",
    "choices": [
-    "Aucun, le formatage efface tout",
     "Les données peuvent être récupérées : rémanence",
-    "Le disque ne fonctionnera plus",
-    "Le disque sera chiffré"
+    "Le disque ne pourra plus jamais être utilisé",
+    "Le disque sera automatiquement chiffré par le système",
+    "Aucun, car le formatage efface définitivement tout le contenu"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "Le formatage efface les index, pas les données : des outils simples les récupèrent.",
    "whyNot": {
-    "0": "C'est l'erreur classique.",
-    "2": "Il fonctionne très bien.",
-    "3": "Le formatage ne chiffre rien."
+    "1": "Il fonctionne très bien.",
+    "2": "Le formatage ne chiffre rien.",
+    "3": "C'est l'erreur classique."
    },
    "kind": "general"
   },
@@ -1177,18 +1177,18 @@
    "prompt": "Quel principe du RGPD demande de ne collecter que les données nécessaires ?",
    "choices": [
     "La minimisation",
-    "La portabilité",
     "L'agrégation",
-    "La polyinstanciation"
+    "La polyinstanciation",
+    "La portabilité"
    ],
    "correct": [
     0
    ],
    "explanation": "Minimiser réduit l'impact d'une fuite : on ne perd pas ce qu'on n'a pas.",
    "whyNot": {
-    "1": "La portabilité est un droit des personnes.",
-    "2": "L'agrégation est une menace.",
-    "3": "Notion de base de données."
+    "1": "L'agrégation est une menace.",
+    "2": "Notion de base de données.",
+    "3": "La portabilité est un droit des personnes."
    },
    "kind": "general"
   },
@@ -1199,19 +1199,19 @@
    "concept": "Pseudonymisation",
    "prompt": "Des données où le nom est remplacé par un identifiant, avec une table de correspondance conservée à part, sont-elles encore soumises au RGPD ?",
    "choices": [
-    "Non, elles sont anonymes",
-    "Oui, ce sont des données pseudonymisées, donc toujours personnelles",
-    "Non, si la table est chiffrée",
-    "Seulement si elles sont imprimées"
+    "Seulement si elles sont imprimées ou envoyées par courriel",
+    "Non, elles sont devenues anonymes et sortent du RGPD",
+    "Non, à condition que la table de correspondance soit chiffrée",
+    "Oui, ce sont des données pseudonymisées, donc toujours personnelles"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "La réidentification reste possible avec la table : le RGPD s'applique toujours.",
    "whyNot": {
-    "0": "Anonymes signifierait que personne ne peut réidentifier.",
-    "2": "Le chiffrement de la table ne change pas la nature des données.",
-    "3": "Sans rapport."
+    "0": "Sans rapport.",
+    "1": "Anonymes signifierait que personne ne peut réidentifier.",
+    "2": "Le chiffrement de la table ne change pas la nature des données."
    },
    "kind": "general"
   },
@@ -1222,18 +1222,18 @@
    "concept": "Démagnétisation",
    "prompt": "Pourquoi la démagnétisation ne convient-elle pas à un SSD ?",
    "choices": [
-    "Parce qu'un SSD stocke les données dans de la mémoire flash, pas sur un support magnétique",
-    "Parce qu'elle est trop lente",
-    "Parce qu'elle est interdite par le RGPD",
-    "Parce qu'elle chiffre le disque"
+    "Parce qu'elle est interdite par le RGPD pour les données personnelles",
+    "Parce qu'un SSD utilise de la mémoire flash, pas magnétique",
+    "Parce qu'elle est trop lente pour les disques de grande capacité",
+    "Parce qu'elle chiffre le disque au lieu d'effacer les données"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "Pour un SSD : effacement sécurisé du fabricant, effacement cryptographique ou destruction physique.",
    "whyNot": {
-    "1": "La vitesse n'est pas la question.",
-    "2": "Le RGPD n'interdit pas une méthode.",
+    "0": "Le RGPD n'interdit pas une méthode.",
+    "2": "La vitesse n'est pas la question.",
     "3": "Elle ne chiffre rien."
    },
    "kind": "general"
@@ -1245,19 +1245,19 @@
    "concept": "Effacement cryptographique",
    "prompt": "Comment rendre illisibles des données stockées chez un fournisseur cloud dont on ne peut pas détruire les disques ?",
    "choices": [
+    "Renommer les fichiers pour qu'ils ne soient plus reconnus",
     "Détruire la clé de chiffrement de ces données (effacement cryptographique)",
-    "Demander les disques au fournisseur",
-    "Renommer les fichiers",
-    "Désactiver son compte sans rien supprimer"
+    "Désactiver son compte cloud sans rien supprimer",
+    "Demander au fournisseur de lui envoyer les disques physiques"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "Sans la clé, les données chiffrées sont inexploitables : c'est l'effacement cryptographique.",
    "whyNot": {
-    "1": "Rarement possible en cloud mutualisé.",
-    "2": "Renommer ne change pas le contenu.",
-    "3": "Les données resteraient en place."
+    "0": "Renommer ne change pas le contenu.",
+    "2": "Les données resteraient en place.",
+    "3": "Rarement possible en cloud mutualisé."
    },
    "kind": "general"
   },
@@ -1268,19 +1268,19 @@
    "concept": "Tokenisation",
    "prompt": "Qu'est-ce que la tokenisation d'un numéro de carte bancaire ?",
    "choices": [
+    "Le chiffrement complet du disque du serveur qui stocke les numéros",
+    "La suppression définitive du numéro de toutes les bases de l'entreprise",
     "Le remplacement du numéro par un jeton sans valeur, la correspondance étant gardée dans un coffre sécurisé",
-    "L'affichage des quatre derniers chiffres seulement",
-    "La suppression définitive du numéro",
-    "Le chiffrement du disque"
+    "L'affichage des quatre derniers chiffres seulement, les autres étant masqués à l'écran"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Les systèmes qui manipulent le jeton n'ont plus besoin de voir le vrai numéro, ce qui réduit leur exposition.",
    "whyNot": {
-    "1": "C'est le masquage.",
-    "2": "La tokenisation est réversible via le coffre.",
-    "3": "Le chiffrement du disque est autre chose."
+    "0": "Le chiffrement du disque est autre chose.",
+    "1": "La tokenisation est réversible via le coffre.",
+    "3": "C'est le masquage."
    },
    "kind": "general"
   },
@@ -1291,19 +1291,19 @@
    "concept": "Choix de la méthode",
    "prompt": "Des disques durs magnétiques contenant des données « secret » sont réformés et ne seront pas réutilisés. Quelle méthode est la plus appropriée ?",
    "choices": [
-    "Un simple formatage",
     "La destruction physique (broyage), après purge si possible, avec certificat",
-    "La suppression des fichiers",
-    "Le renommage des partitions"
+    "La suppression des fichiers puis le vidage de la corbeille",
+    "Le renommage des partitions et la réinstallation du système",
+    "Un simple formatage rapide de chaque disque"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "Pour un niveau élevé et un support qui ne sera pas réutilisé, la destruction offre la meilleure assurance.",
    "whyNot": {
-    "0": "Rémanence.",
-    "2": "Rémanence.",
-    "3": "Sans effet."
+    "1": "Rémanence.",
+    "2": "Sans effet.",
+    "3": "Rémanence."
    },
    "kind": "general"
   },
@@ -1314,19 +1314,19 @@
    "concept": "Notification RGPD",
    "prompt": "Une base de données clients a été dérobée et présente un risque pour les personnes. Dans quel délai l'autorité de contrôle doit-elle être notifiée selon le RGPD ?",
    "choices": [
+    "Aucune notification à l'autorité n'est prévue par le RGPD",
     "72 heures après en avoir pris connaissance, dans la mesure du possible",
-    "30 jours",
-    "1 an",
-    "Aucune notification n'est prévue"
+    "30 jours après la découverte, une fois l'enquête terminée",
+    "1 an, dans le rapport annuel de l'entreprise"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "L'article 33 prévoit 72 heures ; si le risque est élevé, les personnes concernées doivent aussi être informées (article 34).",
    "whyNot": {
-    "1": "Trop long.",
+    "0": "La notification est obligatoire sauf risque improbable.",
     "2": "Trop long.",
-    "3": "La notification est obligatoire sauf risque improbable."
+    "3": "Trop long."
    },
    "kind": "general"
   },
@@ -1338,18 +1338,18 @@
    "prompt": "Quelles affirmations sur la DLP sont exactes ? (plusieurs réponses)",
    "choices": [
     "Elle peut agir sur le poste, le réseau et le cloud",
-    "Elle s'appuie sur le contenu ou l'étiquette de classification",
     "Elle remplace la classification des données",
+    "Elle s'appuie sur le contenu ou l'étiquette de classification",
     "Elle peut bloquer ou seulement alerter"
    ],
    "correct": [
     0,
-    1,
+    2,
     3
    ],
    "explanation": "La DLP applique des règles fondées sur la classification et le contenu ; elle ne la remplace pas.",
    "whyNot": {
-    "2": "Une bonne classification rend la DLP plus précise ; elle ne la remplace pas."
+    "1": "Une bonne classification rend la DLP plus précise ; elle ne la remplace pas."
    },
    "kind": "general"
   }

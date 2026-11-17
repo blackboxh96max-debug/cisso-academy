@@ -713,19 +713,19 @@
    "concept": "PCA et PRA",
    "prompt": "Quelle est la différence principale entre un PCA et un PRA ?",
    "choices": [
-    "Le PCA vise la continuité de toute l'activité ; le PRA vise la remise en service des systèmes informatiques",
-    "Ce sont des synonymes",
-    "Le PRA couvre toute l'organisation et le PCA seulement l'informatique",
-    "Le PCA ne concerne que les incendies"
+    "Le PRA couvre toute l'organisation, et le PCA seulement l'informatique",
+    "Le PCA ne concerne que les incendies, le PRA toutes les autres crises",
+    "Le PCA couvre toute l'activité ; le PRA, la reprise informatique",
+    "Ce sont deux synonymes qui désignent exactement le même document"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Le PRA est une composante technique du PCA.",
    "whyNot": {
-    "1": "Ils diffèrent par la portée.",
-    "2": "C'est l'inverse.",
-    "3": "Le PCA couvre tous les types de sinistres."
+    "0": "C'est l'inverse.",
+    "1": "Le PCA couvre tous les types de sinistres.",
+    "3": "Ils diffèrent par la portée."
    },
    "kind": "general"
   },
@@ -737,8 +737,8 @@
    "prompt": "Quelle est la priorité absolue dans un plan de continuité ?",
    "choices": [
     "La sécurité des personnes",
-    "La restauration des données",
     "La protection du matériel",
+    "La restauration des données",
     "La communication avec la presse"
    ],
    "correct": [
@@ -746,8 +746,8 @@
    ],
    "explanation": "La vie humaine passe avant les biens, les données et les systèmes.",
    "whyNot": {
-    "1": "Importante, mais après les personnes.",
-    "2": "Après les personnes.",
+    "1": "Après les personnes.",
+    "2": "Importante, mais après les personnes.",
     "3": "Après les personnes."
    },
    "kind": "general"
@@ -783,18 +783,18 @@
    "prompt": "La direction accepte de perdre au maximum 2 heures de saisie. Quel indicateur cela fixe-t-il ?",
    "choices": [
     "Le RPO",
-    "Le RTO",
     "La MTD",
-    "Le MTBF"
+    "Le MTBF",
+    "Le RTO"
    ],
    "correct": [
     0
    ],
    "explanation": "Le RPO est la perte de données acceptable, mesurée en temps ; il impose ici une sauvegarde ou une réplication au moins toutes les 2 heures.",
    "whyNot": {
-    "1": "Le RTO est le délai de remise en service.",
-    "2": "La MTD est la durée d'interruption tolérable.",
-    "3": "Le MTBF mesure la fiabilité."
+    "1": "La MTD est la durée d'interruption tolérable.",
+    "2": "Le MTBF mesure la fiabilité.",
+    "3": "Le RTO est le délai de remise en service."
    },
    "kind": "general"
   },
@@ -805,18 +805,18 @@
    "concept": "MTD",
    "prompt": "Quelle relation doit être respectée entre RTO, WRT et MTD ?",
    "choices": [
+    "RTO = RPO",
     "RTO + WRT ≤ MTD",
     "MTD + WRT ≤ RTO",
-    "RTO = RPO",
     "WRT ≥ MTD"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "Le temps de remise en service plus le temps de reprise du travail ne doit pas dépasser la durée maximale tolérable.",
    "whyNot": {
-    "1": "La MTD est la borne supérieure.",
-    "2": "Ils mesurent des choses différentes.",
+    "0": "Ils mesurent des choses différentes.",
+    "2": "La MTD est la borne supérieure.",
     "3": "Le WRT n'est qu'une partie de la MTD."
    },
    "kind": "general"
@@ -828,19 +828,19 @@
    "concept": "RTO",
    "prompt": "Un processus a un RTO de 2 heures. Quelle décision ce chiffre guide-t-il surtout ?",
    "choices": [
-    "Le type de site et de solution de reprise",
     "La fréquence des sauvegardes",
     "La durée de conservation des journaux",
-    "Le choix de l'antivirus"
+    "Le choix de l'antivirus",
+    "Le type de site et de solution de reprise"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "Le RTO court impose une solution de reprise rapide (site chaud, réplication, bascule).",
    "whyNot": {
-    "1": "C'est le RPO qui dicte la fréquence des sauvegardes.",
-    "2": "Sans rapport.",
-    "3": "Sans rapport."
+    "0": "C'est le RPO qui dicte la fréquence des sauvegardes.",
+    "1": "Sans rapport.",
+    "2": "Sans rapport."
    },
    "kind": "general"
   },
@@ -851,19 +851,19 @@
    "concept": "Direction",
    "prompt": "Quel est le facteur le plus important pour la réussite d'un programme de continuité ?",
    "choices": [
-    "Le soutien et l'engagement de la direction",
     "Le choix du logiciel de sauvegarde",
-    "Le nombre de pages du plan",
-    "La couleur des classeurs"
+    "La couleur des classeurs",
+    "Le soutien et l'engagement de la direction",
+    "Le nombre de pages du plan"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "La direction fixe les priorités, valide les MTD et attribue les moyens.",
    "whyNot": {
-    "1": "Utile mais secondaire.",
-    "2": "Un plan long n'est pas un plan efficace.",
-    "3": "Sans rapport."
+    "0": "Utile mais secondaire.",
+    "1": "Sans rapport.",
+    "3": "Un plan long n'est pas un plan efficace."
    },
    "kind": "general"
   },
@@ -874,19 +874,19 @@
    "concept": "BIA",
    "prompt": "Lors d'un BIA, quels éléments faut-il recenser pour chaque processus critique ? (plusieurs réponses)",
    "choices": [
-    "Les dépendances : applications, personnes, fournisseurs, locaux",
     "L'impact de l'interruption dans le temps",
     "La marque des écrans",
+    "Les dépendances : applications, personnes, fournisseurs, locaux",
     "La durée maximale d'interruption tolérable"
    ],
    "correct": [
     0,
-    1,
+    2,
     3
    ],
    "explanation": "Le BIA relie processus, dépendances, impacts et objectifs de reprise.",
    "whyNot": {
-    "2": "Sans intérêt pour la continuité."
+    "1": "Sans intérêt pour la continuité."
    },
    "kind": "general"
   },
@@ -897,19 +897,19 @@
    "concept": "Indicateurs",
    "prompt": "La MTD de la facturation est de 48 h, le WRT est estimé à 12 h. Quel RTO maximal peut-on fixer ?",
    "choices": [
+    "12 h",
     "36 h",
-    "48 h",
     "60 h",
-    "12 h"
+    "48 h"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "RTO + WRT ≤ MTD, donc RTO ≤ 48 − 12 = 36 h.",
    "whyNot": {
-    "1": "Il faut retirer le WRT.",
+    "0": "Possible mais pas le maximum.",
     "2": "On dépasserait la MTD.",
-    "3": "Possible mais pas le maximum."
+    "3": "Il faut retirer le WRT."
    },
    "kind": "general"
   },
@@ -920,19 +920,19 @@
    "concept": "Plans",
    "prompt": "Une attaque par hameçonnage compromet trois comptes, sans perte de site ni de système. Quel plan s'applique d'abord ?",
    "choices": [
-    "Le plan de réponse aux incidents",
     "Le plan de reprise d'activité sur site de secours",
-    "Le plan d'évacuation",
-    "Aucun plan"
+    "Aucun plan",
+    "Le plan de réponse aux incidents",
+    "Le plan d'évacuation"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Un incident de sécurité sans sinistre relève de la réponse aux incidents ; le PCA peut être activé si l'impact s'aggrave.",
    "whyNot": {
-    "1": "Aucun site n'est perdu.",
-    "2": "Aucun danger physique.",
-    "3": "Un plan est prévu pour ce cas."
+    "0": "Aucun site n'est perdu.",
+    "1": "Un plan est prévu pour ce cas.",
+    "3": "Aucun danger physique."
    },
    "kind": "general"
   },
@@ -943,17 +943,17 @@
    "concept": "Sites",
    "prompt": "Quel site de secours dispose déjà du matériel, du réseau et des logiciels, et peut reprendre en quelques heures ?",
    "choices": [
-    "Le site chaud",
     "Le site froid",
+    "Le site chaud",
     "Le site tiède",
     "Un accord réciproque"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "Le site chaud est prêt ; il manque surtout les dernières données.",
    "whyNot": {
-    "1": "Le site froid n'a que les locaux et l'énergie.",
+    "0": "Le site froid n'a que les locaux et l'énergie.",
     "2": "Le site tiède demande des jours.",
     "3": "Disponibilité incertaine."
    },
@@ -967,18 +967,18 @@
    "prompt": "Quel site est le moins cher mais le plus long à rendre opérationnel ?",
    "choices": [
     "Le site froid",
-    "Le site chaud",
     "Le site miroir",
-    "La reprise dans le cloud"
+    "La reprise dans le cloud",
+    "Le site chaud"
    ],
    "correct": [
     0
    ],
    "explanation": "Il ne fournit que les locaux, l'électricité et la climatisation : il faut tout installer.",
    "whyNot": {
-    "1": "Rapide mais cher.",
-    "2": "Le plus cher.",
-    "3": "Rapide."
+    "1": "Le plus cher.",
+    "2": "Rapide.",
+    "3": "Rapide mais cher."
    },
    "kind": "general"
   },
@@ -989,19 +989,19 @@
    "concept": "Sauvegardes",
    "prompt": "Complète le dimanche, incrémentales du lundi au samedi. Panne le jeudi matin. Que faut-il restaurer ?",
    "choices": [
-    "La complète puis les incrémentales de lundi, mardi et mercredi",
     "La complète puis l'incrémentale de mercredi seulement",
-    "Uniquement l'incrémentale de mercredi",
-    "Uniquement la complète"
+    "Uniquement la complète",
+    "La complète puis les incrémentales de lundi, mardi et mercredi",
+    "Uniquement l'incrémentale de mercredi"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Chaque incrémentale ne contient que les changements depuis la sauvegarde précédente : il faut toute la chaîne.",
    "whyNot": {
-    "1": "Ce serait le cas avec des différentielles.",
-    "2": "Il manquerait la base et les jours précédents.",
-    "3": "On perdrait trois jours."
+    "0": "Ce serait le cas avec des différentielles.",
+    "1": "On perdrait trois jours.",
+    "3": "Il manquerait la base et les jours précédents."
    },
    "kind": "general"
   },
@@ -1013,18 +1013,18 @@
    "prompt": "Complète le dimanche, différentielles chaque jour. Panne le jeudi matin. Que faut-il restaurer ?",
    "choices": [
     "La complète puis la différentielle de mercredi",
-    "La complète puis toutes les différentielles",
+    "Seulement la complète",
     "Seulement la différentielle de mercredi",
-    "Seulement la complète"
+    "La complète puis toutes les différentielles"
    ],
    "correct": [
     0
    ],
    "explanation": "La différentielle contient tous les changements depuis la dernière complète.",
    "whyNot": {
-    "1": "Inutile : la dernière contient les précédentes.",
+    "1": "On perdrait trois jours.",
     "2": "Il manque la base.",
-    "3": "On perdrait trois jours."
+    "3": "Inutile : la dernière contient les précédentes."
    },
    "kind": "general"
   },
@@ -1035,18 +1035,18 @@
    "concept": "RAID",
    "prompt": "Quel niveau RAID n'offre aucune redondance ?",
    "choices": [
-    "RAID 0",
-    "RAID 1",
     "RAID 5",
+    "RAID 1",
+    "RAID 0",
     "RAID 6"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "RAID 0 répartit les données pour la performance : la perte d'un disque fait tout perdre.",
    "whyNot": {
+    "0": "Parité.",
     "1": "Miroir.",
-    "2": "Parité.",
     "3": "Double parité."
    },
    "kind": "general"
@@ -1058,19 +1058,19 @@
    "concept": "RAID",
    "prompt": "Combien de disques peuvent tomber en panne simultanément sans perte de données en RAID 6 ?",
    "choices": [
-    "Deux",
-    "Un",
     "Aucun",
-    "Tous sauf un"
+    "Un",
+    "Tous sauf un",
+    "Deux"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "La double parité tolère la perte de deux disques.",
    "whyNot": {
+    "0": "C'est le RAID 0.",
     "1": "C'est le RAID 5.",
-    "2": "C'est le RAID 0.",
-    "3": "Non."
+    "2": "Non."
    },
    "kind": "general"
   },
@@ -1081,19 +1081,19 @@
    "concept": "RAID et sauvegarde",
    "prompt": "Pourquoi un RAID 1 ne protège-t-il pas contre un rançongiciel ?",
    "choices": [
-    "Parce que le chiffrement malveillant est recopié instantanément sur les deux disques",
-    "Parce que le RAID 1 n'a qu'un disque",
-    "Parce que le RAID 1 est toujours hors ligne",
-    "Parce que le RAID 1 chiffre lui-même les données"
+    "Parce que le RAID 1 chiffre lui-même les données qu'il stocke",
+    "Parce que le RAID 1 est toujours hors ligne, donc jamais à jour",
+    "Parce que le RAID 1 ne comporte en réalité qu'un seul disque",
+    "Parce que le chiffrement est recopié sur les deux disques"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "Le RAID protège contre la panne matérielle, pas contre une modification logique ; il faut des sauvegardes.",
    "whyNot": {
-    "1": "Il a au moins deux disques.",
-    "2": "Il est en ligne.",
-    "3": "Il ne chiffre pas."
+    "0": "Il ne chiffre pas.",
+    "1": "Il est en ligne.",
+    "2": "Il a au moins deux disques."
    },
    "kind": "general"
   },
@@ -1104,19 +1104,19 @@
    "concept": "Accord réciproque",
    "prompt": "Quel est le principal inconvénient d'un accord réciproque entre deux entreprises ?",
    "choices": [
-    "Il est difficile à faire respecter et l'autre site peut manquer de capacité au moment du sinistre",
-    "Il coûte plus cher qu'un site miroir",
-    "Il est interdit par la loi",
-    "Il n'a aucun inconvénient"
+    "Il n'a aucun inconvénient s'il est signé par les deux directions",
+    "Il coûte plus cher qu'un site miroir entièrement dédié",
+    "Il est difficile à faire respecter et la capacité peut manquer",
+    "Il est interdit par la loi entre deux entreprises privées"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Bon marché, mais peu fiable : capacité, confidentialité, sinistre commun.",
    "whyNot": {
+    "0": "Il en a plusieurs.",
     "1": "Il est au contraire peu coûteux.",
-    "2": "Il est autorisé.",
-    "3": "Il en a plusieurs."
+    "3": "Il est autorisé."
    },
    "kind": "general"
   },
@@ -1127,19 +1127,19 @@
    "concept": "Disponibilité",
    "prompt": "Un équipement a un MTBF de 990 heures et un temps moyen de réparation de 10 heures. Quelle est sa disponibilité approximative ?",
    "choices": [
-    "99 %",
-    "90 %",
+    "1 %",
     "99,9 %",
-    "1 %"
+    "99 %",
+    "90 %"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "990 / (990 + 10) = 0,99.",
    "whyNot": {
-    "1": "Erreur de calcul.",
-    "2": "Il faudrait une réparation de 1 heure environ.",
-    "3": "Confusion avec l'indisponibilité."
+    "0": "Confusion avec l'indisponibilité.",
+    "1": "Il faudrait une réparation de 1 heure environ.",
+    "3": "Erreur de calcul."
    },
    "kind": "general"
   },
@@ -1150,17 +1150,17 @@
    "concept": "Énergie",
    "prompt": "Quel équipement assure l'alimentation pendant une coupure courte, le temps de démarrer le groupe électrogène ?",
    "choices": [
+    "Le routeur de secours",
     "L'onduleur (UPS)",
-    "Le routeur",
-    "Le pare-feu",
-    "Le RAID"
+    "Le pare-feu redondé",
+    "La grappe de disques RAID"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "L'onduleur couvre les minutes ; le groupe électrogène couvre les longues coupures.",
    "whyNot": {
-    "1": "Sans rapport.",
+    "0": "Sans rapport.",
     "2": "Sans rapport.",
     "3": "Protège les disques, pas l'énergie."
    },
@@ -1173,19 +1173,19 @@
    "concept": "Tests",
    "prompt": "Quel test est le moins coûteux et le moins risqué ?",
    "choices": [
-    "La revue documentaire (checklist)",
-    "Le test en parallèle",
-    "L'interruption complète",
-    "La simulation"
+    "La simulation d'un sinistre avec les équipes",
+    "L'interruption complète de la production",
+    "Le test en parallèle sur le site de secours",
+    "La revue documentaire (checklist)"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "Chacun relit sa partie du plan, sans mobiliser de systèmes.",
    "whyNot": {
-    "1": "Mobilise le site de secours.",
-    "2": "Le plus risqué.",
-    "3": "Plus lourd qu'une revue."
+    "0": "Plus lourd qu'une revue.",
+    "1": "Le plus risqué.",
+    "2": "Mobilise le site de secours."
    },
    "kind": "general"
   },
@@ -1196,19 +1196,19 @@
    "concept": "Tests",
    "prompt": "Quel test met en route les systèmes au site de secours tout en maintenant la production au site principal ?",
    "choices": [
-    "Le test en parallèle",
+    "L'exercice sur table",
     "L'interruption complète",
-    "La revue documentaire",
-    "L'exercice sur table"
+    "Le test en parallèle",
+    "La revue documentaire"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Il vérifie le site de secours sans couper l'activité.",
    "whyNot": {
+    "0": "Discussion seulement.",
     "1": "La production y est arrêtée.",
-    "2": "Aucun système n'est démarré.",
-    "3": "Discussion seulement."
+    "3": "Aucun système n'est démarré."
    },
    "kind": "general"
   },
@@ -1219,19 +1219,19 @@
    "concept": "Tests",
    "prompt": "Que faut-il obtenir avant un test d'interruption complète ?",
    "choices": [
+    "Rien de particulier, c'est un test",
     "L'approbation de la direction",
-    "L'avis des clients",
-    "Un nouvel antivirus",
-    "Rien de particulier"
+    "L'avis des principaux clients",
+    "Un nouvel antivirus sur le site de secours"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "C'est le test le plus risqué : il peut provoquer une vraie interruption.",
    "whyNot": {
-    "1": "Non requis.",
-    "2": "Sans rapport.",
-    "3": "Un tel test exige une validation formelle."
+    "0": "Un tel test exige une validation formelle.",
+    "2": "Non requis.",
+    "3": "Sans rapport."
    },
    "kind": "general"
   },
@@ -1243,9 +1243,9 @@
    "prompt": "Comment se déroule un exercice sur table (walk-through) ?",
    "choices": [
     "Les équipes se réunissent et déroulent ensemble un scénario étape par étape",
-    "On coupe réellement le courant du centre de données",
-    "On restaure toutes les sauvegardes en production",
-    "Chacun lit seul le plan chez soi"
+    "On coupe réellement le courant du centre de données principal",
+    "On restaure toutes les sauvegardes directement en production",
+    "Chacun lit seul sa partie du plan chez soi, sans réunion"
    ],
    "correct": [
     0
@@ -1265,19 +1265,19 @@
    "concept": "Retour au site",
    "prompt": "Lors du retour au site principal, quelles fonctions bascule-t-on en premier ?",
    "choices": [
-    "Les moins critiques",
     "Les plus critiques",
     "Toutes en même temps",
-    "Aucune, on reste au site de secours"
+    "Aucune, on reste au site de secours",
+    "Les moins critiques"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "On vérifie la stabilité du site principal avec les fonctions les moins sensibles avant d'y ramener les critiques.",
    "whyNot": {
-    "1": "On risquerait les fonctions vitales sur un site non éprouvé.",
-    "2": "Trop risqué.",
-    "3": "Le site de secours n'est pas prévu pour durer."
+    "0": "On risquerait les fonctions vitales sur un site non éprouvé.",
+    "1": "Trop risqué.",
+    "2": "Le site de secours n'est pas prévu pour durer."
    },
    "kind": "general"
   },
@@ -1288,19 +1288,19 @@
    "concept": "Maintenance",
    "prompt": "Quel événement doit déclencher une mise à jour du plan de continuité ?",
    "choices": [
-    "Le déploiement d'une nouvelle application critique",
-    "Un changement de fond d'écran",
     "Une mise à jour mineure du navigateur",
-    "L'arrivée d'un stagiaire sans rôle dans le plan"
+    "L'arrivée d'un stagiaire sans rôle dans le plan",
+    "Le déploiement d'une nouvelle application critique",
+    "Un changement de fond d'écran"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Tout changement majeur du SI, des locaux ou de l'organisation doit être reflété dans le plan.",
    "whyNot": {
-    "1": "Sans rapport.",
-    "2": "Changement mineur.",
-    "3": "Sans effet sur le plan."
+    "0": "Changement mineur.",
+    "1": "Sans effet sur le plan.",
+    "3": "Sans rapport."
    },
    "kind": "general"
   },
@@ -1311,10 +1311,10 @@
    "concept": "Accessibilité du plan",
    "prompt": "Pourquoi conserver des copies du plan hors site et hors du système d'information ?",
    "choices": [
-    "Parce que le sinistre peut rendre inaccessibles les locaux et les systèmes où le plan est stocké",
-    "Pour respecter la charte graphique",
-    "Pour réduire le nombre de pages",
-    "Parce que le plan est confidentiel et doit être détruit"
+    "Parce que le sinistre peut rendre le plan inaccessible",
+    "Pour réduire le nombre de pages du plan conservé sur le serveur",
+    "Pour respecter la charte graphique et l'archivage de l'entreprise",
+    "Parce que le plan est confidentiel et doit être détruit après chaque test"
    ],
    "correct": [
     0
@@ -1334,18 +1334,18 @@
    "concept": "Déclaration",
    "prompt": "Qui doit avoir l'autorité de déclarer un sinistre et d'activer le plan ?",
    "choices": [
-    "Une personne désignée de la direction (et ses suppléants)",
-    "N'importe quel employé",
     "Le fournisseur du site de secours",
-    "Les médias"
+    "Une personne désignée de la direction (et ses suppléants)",
+    "N'importe quel employé témoin du sinistre",
+    "Les médias, une fois le sinistre rendu public"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "L'activation engage des coûts et des décisions : l'autorité et les critères sont définis à l'avance.",
    "whyNot": {
-    "1": "Risque d'activations injustifiées.",
-    "2": "Il exécute le contrat, il ne décide pas.",
+    "0": "Il exécute le contrat, il ne décide pas.",
+    "2": "Risque d'activations injustifiées.",
     "3": "Sans rapport."
    },
    "kind": "general"
@@ -1357,19 +1357,19 @@
    "concept": "Communication",
    "prompt": "Pourquoi désigner un porte-parole unique dans le plan de communication de crise ?",
    "choices": [
-    "Pour éviter les messages contradictoires et maîtriser les informations diffusées",
-    "Pour que personne d'autre ne soit informé",
-    "Pour remplacer la cellule de crise",
-    "Parce que la loi l'interdit"
+    "Pour remplacer la cellule de crise par une seule personne",
+    "Pour éviter les messages contradictoires",
+    "Parce que la loi interdit aux autres salariés de s'exprimer",
+    "Pour que personne d'autre dans l'entreprise ne soit informé"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "Un message cohérent protège l'image et évite les fuites ou les erreurs.",
    "whyNot": {
-    "1": "Le personnel doit être informé.",
-    "2": "Il en fait partie.",
-    "3": "Sans rapport."
+    "0": "Il en fait partie.",
+    "2": "Sans rapport.",
+    "3": "Le personnel doit être informé."
    },
    "kind": "general"
   },
@@ -1380,19 +1380,19 @@
    "concept": "Retour d'expérience",
    "prompt": "Quelles actions suivent un test du plan ? (plusieurs réponses)",
    "choices": [
-    "Rédiger un retour d'expérience",
-    "Corriger le plan selon les écarts constatés",
     "Former les personnes sur les points faibles",
-    "Supprimer les résultats pour éviter l'audit"
+    "Supprimer les résultats pour éviter l'audit",
+    "Rédiger un retour d'expérience",
+    "Corriger le plan selon les écarts constatés"
    ],
    "correct": [
     0,
-    1,
-    2
+    2,
+    3
    ],
    "explanation": "Le test sert à améliorer : retour d'expérience, correction, formation.",
    "whyNot": {
-    "3": "Les résultats sont des preuves utiles à l'audit."
+    "1": "Les résultats sont des preuves utiles à l'audit."
    },
    "kind": "general"
   }

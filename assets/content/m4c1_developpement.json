@@ -706,19 +706,19 @@
    "concept": "STRIDE",
    "prompt": "Dans STRIDE, que signifie la lettre E ?",
    "choices": [
-    "Encryption (chiffrement)",
+    "Exposure (exposition des données)",
     "Elevation of privilege (élévation de privilèges)",
-    "Exfiltration",
-    "Exposure (exposition)"
+    "Encryption bypass (contournement du chiffrement)",
+    "Exfiltration (vol de données)"
    ],
    "correct": [
     1
    ],
    "explanation": "STRIDE : Spoofing, Tampering, Repudiation, Information disclosure, Denial of service, Elevation of privilege.",
    "whyNot": {
-    "0": "Le chiffrement est un contrôle, pas une menace STRIDE.",
-    "2": "L'exfiltration relève de la divulgation (I).",
-    "3": "Ce n'est pas une lettre du modèle."
+    "0": "Ce n'est pas une lettre du modèle.",
+    "2": "Le chiffrement est un contrôle, pas une menace STRIDE.",
+    "3": "L'exfiltration relève de la divulgation (I)."
    },
    "kind": "general"
   },
@@ -729,19 +729,19 @@
    "concept": "Environnements",
    "prompt": "Quelle pratique est recommandée pour les tests d'une application ?",
    "choices": [
-    "Copier la base de production telle quelle",
+    "Donner aux testeurs les mots de passe des clients",
     "Utiliser des données fictives ou anonymisées",
-    "Tester directement en production",
-    "Donner aux testeurs les mots de passe des clients"
+    "Copier la base de production telle quelle",
+    "Tester directement en production"
    ],
    "correct": [
     1
    ],
    "explanation": "Les environnements de test sont moins protégés : on n'y met pas de données réelles.",
    "whyNot": {
-    "0": "Des données réelles en test créent un risque de fuite.",
-    "2": "Tester en production met en danger le service et les données.",
-    "3": "Aucune raison légitime ; c'est une fuite."
+    "0": "Aucune raison légitime ; c'est une fuite.",
+    "2": "Des données réelles en test créent un risque de fuite.",
+    "3": "Tester en production met en danger le service et les données."
    },
    "kind": "general"
   },
@@ -752,19 +752,19 @@
    "concept": "STRIDE",
    "prompt": "Un utilisateur nie avoir validé un virement et aucun journal ne permet de prouver le contraire. Quelle menace STRIDE n'a pas été traitée ?",
    "choices": [
-    "Spoofing",
-    "Repudiation (répudiation)",
-    "Denial of service",
-    "Tampering"
+    "Denial of service (déni de service)",
+    "Tampering (altération)",
+    "Spoofing (usurpation d'identité)",
+    "Repudiation (répudiation)"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "La répudiation se traite par des journaux protégés et des signatures qui prouvent qui a fait quoi.",
    "whyNot": {
-    "0": "L'usurpation concerne l'identité de l'émetteur, pas la preuve de son action.",
-    "2": "Le service n'est pas interrompu.",
-    "3": "Les données ne sont pas modifiées."
+    "0": "Le service n'est pas interrompu.",
+    "1": "Les données ne sont pas modifiées.",
+    "2": "L'usurpation concerne l'identité de l'émetteur, pas la preuve de son action."
    },
    "kind": "general"
   },
@@ -775,19 +775,19 @@
    "concept": "Shift left",
    "prompt": "Que signifie « shift left » en développement sécurisé ?",
    "choices": [
-    "Déplacer les serveurs vers la gauche du schéma réseau",
     "Traiter la sécurité le plus tôt possible dans le cycle de développement",
-    "Retarder les tests de sécurité",
-    "Confier la sécurité à l'équipe d'exploitation"
+    "Retarder les tests de sécurité jusqu'à la fin du projet",
+    "Confier toute la sécurité à l'équipe d'exploitation",
+    "Déplacer les serveurs vers la gauche du schéma d'architecture"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "On avance les activités de sécurité (exigences, conception, codage, tests automatiques) pour trouver les défauts tôt.",
    "whyNot": {
-    "0": "Jeu de mots sans rapport.",
-    "2": "C'est l'inverse.",
-    "3": "La sécurité devient l'affaire de tous, dès le début."
+    "1": "C'est l'inverse.",
+    "2": "La sécurité devient l'affaire de tous, dès le début.",
+    "3": "Jeu de mots sans rapport."
    },
    "kind": "general"
   },
@@ -798,19 +798,19 @@
    "concept": "Séparation des tâches",
    "prompt": "Un développeur peut modifier le code et le déployer seul en production, sans validation. Quel principe est violé ?",
    "choices": [
-    "La séparation des tâches",
+    "La défense en profondeur uniquement",
     "La conception ouverte",
     "Le fail safe",
-    "La défense en profondeur uniquement"
+    "La séparation des tâches"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "Écrire et déployer sans contrôle d'une autre personne permet d'introduire une erreur ou une porte dérobée sans détection.",
    "whyNot": {
+    "0": "Le principe directement violé est la séparation des tâches.",
     "1": "La conception ouverte concerne le secret de la conception.",
-    "2": "Le fail safe concerne les pannes.",
-    "3": "Le principe directement violé est la séparation des tâches."
+    "2": "Le fail safe concerne les pannes."
    },
    "kind": "general"
   },
@@ -821,19 +821,19 @@
    "concept": "Modélisation des menaces",
    "prompt": "Quand la modélisation des menaces est-elle la plus utile ?",
    "choices": [
-    "Pendant la conception",
-    "Après la mise en production",
+    "Lors de la mise au rebut",
     "Pendant l'audit annuel",
-    "Lors de la mise au rebut"
+    "Après la mise en production",
+    "Pendant la conception"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "Elle sert à choisir les contrôles avant d'écrire le code ; on la met à jour quand l'application évolue.",
    "whyNot": {
-    "1": "Elle peut être révisée, mais son intérêt principal est en conception.",
-    "2": "L'audit vérifie ; il ne conçoit pas.",
-    "3": "Trop tard pour influencer la conception."
+    "0": "Trop tard pour influencer la conception.",
+    "1": "L'audit vérifie ; il ne conçoit pas.",
+    "2": "Elle peut être révisée, mais son intérêt principal est en conception."
    },
    "kind": "general"
   },
@@ -844,19 +844,19 @@
    "concept": "Gestion des changements",
    "prompt": "Un correctif urgent doit partir en production le soir même. Quelle démarche est la bonne ?",
    "choices": [
-    "Le déployer sans trace pour aller vite",
-    "Suivre la procédure de changement d'urgence : approbation accélérée, test minimal, retour arrière prévu, régularisation ensuite",
-    "Attendre le prochain comité mensuel quoi qu'il arrive",
-    "Laisser chaque développeur décider"
+    "Suivre la procédure de changement d'urgence, avec retour arrière prévu",
+    "Attendre le prochain comité mensuel des changements, quoi qu'il arrive",
+    "Laisser chaque développeur décider seul s'il faut le déployer ce soir",
+    "Le déployer directement, sans ticket ni trace, pour aller plus vite"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "L'urgence accélère le processus mais ne le supprime pas : traçabilité et retour arrière restent obligatoires.",
    "whyNot": {
-    "0": "Un changement non tracé est un risque majeur.",
-    "2": "Attendre peut laisser une faille exploitable.",
-    "3": "Pas de contrôle, pas de séparation des tâches."
+    "1": "Attendre peut laisser une faille exploitable.",
+    "2": "Pas de contrôle, pas de séparation des tâches.",
+    "3": "Un changement non tracé est un risque majeur."
    },
    "kind": "general"
   },
@@ -868,18 +868,18 @@
    "prompt": "Quelles vérifications faire avant de mettre une application en production ? (plusieurs réponses)",
    "choices": [
     "Retirer les pages et comptes de débogage",
+    "Vérifier que les secrets ne sont pas dans le code",
     "Désactiver les messages d'erreur détaillés pour les utilisateurs",
-    "Laisser les identifiants de test pour le support",
-    "Vérifier que les secrets ne sont pas dans le code"
+    "Laisser les identifiants de test pour le support"
    ],
    "correct": [
     0,
     1,
-    3
+    2
    ],
    "explanation": "Fonctions de débogage, erreurs bavardes et secrets dans le code sont des failles classiques de mise en production.",
    "whyNot": {
-    "2": "Des identifiants de test en production sont une porte d'entrée."
+    "3": "Des identifiants de test en production sont une porte d'entrée."
    },
    "kind": "general"
   },
@@ -890,19 +890,19 @@
    "concept": "Revue de code",
    "prompt": "Quel est l'intérêt principal d'une revue de code par une autre personne ?",
    "choices": [
-    "Ralentir les projets",
-    "Trouver des erreurs et des failles que l'auteur n'a pas vues, et appliquer la séparation des tâches",
-    "Remplacer tous les tests automatiques",
-    "Vérifier l'orthographe des commentaires"
+    "Vérifier l'orthographe et la présentation des commentaires du code",
+    "Trouver des failles que l'auteur n'a pas vues, avec un second regard",
+    "Ralentir les projets pour laisser le temps aux tests de se terminer",
+    "Remplacer tous les tests automatiques par un contrôle humain"
    ],
    "correct": [
     1
    ],
    "explanation": "Un second regard détecte des défauts et rend plus difficile l'introduction volontaire d'un code malveillant.",
    "whyNot": {
-    "0": "Ce n'est pas l'objectif.",
-    "2": "Elle complète les tests, elle ne les remplace pas.",
-    "3": "Ce n'est pas l'objectif principal."
+    "0": "Ce n'est pas l'objectif principal.",
+    "2": "Ce n'est pas l'objectif.",
+    "3": "Elle complète les tests, elle ne les remplace pas."
    },
    "kind": "general"
   },
@@ -913,19 +913,19 @@
    "concept": "Injection SQL",
    "prompt": "Quelle est la meilleure défense contre l'injection SQL ?",
    "choices": [
+    "Le chiffrement du disque",
     "Masquer les messages d'erreur",
     "Les requêtes paramétrées (préparées)",
-    "Un mot de passe long pour la base",
-    "Le chiffrement du disque"
+    "Un mot de passe long pour la base"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Avec une requête paramétrée, la saisie reste une donnée et n'est jamais interprétée comme du SQL.",
    "whyNot": {
-    "0": "Utile, mais l'injection reste possible.",
-    "2": "L'injection passe par l'application, déjà connectée.",
-    "3": "Le chiffrement du disque ne change rien à la requête."
+    "0": "Le chiffrement du disque ne change rien à la requête.",
+    "1": "Utile, mais l'injection reste possible.",
+    "3": "L'injection passe par l'application, déjà connectée."
    },
    "kind": "general"
   },
@@ -936,19 +936,19 @@
    "concept": "XSS",
    "prompt": "Dans une attaque XSS, où le code malveillant s'exécute-t-il ?",
    "choices": [
-    "Sur le serveur de base de données",
+    "Dans le système de sauvegarde, lors de la restauration",
     "Dans le navigateur des utilisateurs qui consultent la page",
-    "Dans le pare-feu",
-    "Dans le système de sauvegarde"
+    "Dans le pare-feu applicatif placé devant le site",
+    "Sur le serveur de base de données qui stocke la page"
    ],
    "correct": [
     1
    ],
    "explanation": "Le script injecté s'exécute dans le navigateur des victimes, par exemple pour voler leur session.",
    "whyNot": {
-    "0": "C'est le cas de l'injection SQL.",
+    "0": "Sans rapport.",
     "2": "Le pare-feu n'exécute pas le script.",
-    "3": "Sans rapport."
+    "3": "C'est le cas de l'injection SQL."
    },
    "kind": "general"
   },
@@ -959,19 +959,19 @@
    "concept": "OWASP",
    "prompt": "Que publie l'OWASP avec son « Top 10 » ?",
    "choices": [
-    "Les dix meilleurs antivirus",
-    "Une liste des catégories de risques les plus critiques pour les applications web",
-    "Les dix ports à fermer",
-    "Une norme de certification obligatoire"
+    "Une norme de certification obligatoire pour les sites web",
+    "Les catégories de risques les plus critiques pour le web",
+    "Les dix ports réseau à fermer en priorité sur un serveur web",
+    "Les dix meilleurs antivirus du marché, testés chaque année"
    ],
    "correct": [
     1
    ],
    "explanation": "Le Top 10 est un document de sensibilisation, mis à jour régulièrement (dernière édition : 2025), qui sert de base minimale.",
    "whyNot": {
-    "0": "Ce n'est pas un comparatif de produits.",
+    "0": "Ce n'est pas une norme obligatoire.",
     "2": "Ce n'est pas une liste de ports.",
-    "3": "Ce n'est pas une norme obligatoire."
+    "3": "Ce n'est pas un comparatif de produits."
    },
    "kind": "general"
   },
@@ -982,19 +982,19 @@
    "concept": "IDOR",
    "prompt": "En changeant « facture=1001 » en « facture=1002 » dans l'URL, un client voit la facture d'un autre. De quelle catégorie s'agit-il ?",
    "choices": [
-    "Contrôle d'accès défaillant",
-    "Déni de service",
     "Défaillance cryptographique",
-    "SSRF"
+    "Déni de service",
+    "SSRF",
+    "Contrôle d'accès défaillant"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "L'application ne vérifie pas que l'objet demandé appartient à l'utilisateur : c'est un IDOR, cas de contrôle d'accès défaillant.",
    "whyNot": {
+    "0": "Le problème n'est pas le chiffrement.",
     "1": "Le service fonctionne.",
-    "2": "Le problème n'est pas le chiffrement.",
-    "3": "Le serveur n'appelle pas une autre adresse."
+    "2": "Le serveur n'appelle pas une autre adresse."
    },
    "kind": "general"
   },
@@ -1005,18 +1005,18 @@
    "concept": "CSRF",
    "prompt": "Un utilisateur connecté à sa banque visite un site piégé qui déclenche un virement à son insu. Quelle parade protège le mieux ?",
    "choices": [
+    "Le chiffrement de la base de données des comptes clients",
     "Un jeton anti-CSRF propre à la session dans chaque formulaire sensible",
-    "Un antivirus sur le serveur",
-    "Le chiffrement de la base",
-    "Un mot de passe plus long"
+    "Un antivirus à jour installé sur le serveur de la banque",
+    "Un mot de passe plus long pour le compte de l'utilisateur"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "Le site piégé ne connaît pas le jeton : la requête forgée est rejetée. Les cookies SameSite renforcent la protection.",
    "whyNot": {
-    "1": "La requête paraît légitime pour le serveur.",
-    "2": "Le chiffrement ne distingue pas une requête forgée.",
+    "0": "Le chiffrement ne distingue pas une requête forgée.",
+    "2": "La requête paraît légitime pour le serveur.",
     "3": "La session est déjà ouverte."
    },
    "kind": "general"
@@ -1028,18 +1028,18 @@
    "concept": "Validation des entrées",
    "prompt": "Pourquoi la validation des saisies côté navigateur ne suffit-elle pas ?",
    "choices": [
-    "Parce qu'elle est trop lente",
-    "Parce qu'un attaquant peut envoyer directement des requêtes au serveur en la contournant",
-    "Parce qu'elle est interdite",
-    "Parce qu'elle chiffre les données"
+    "Parce qu'elle est interdite par les navigateurs modernes",
+    "Parce qu'elle est trop lente pour les formulaires volumineux",
+    "Parce qu'un attaquant peut la contourner et appeler le serveur",
+    "Parce qu'elle chiffre les données, que le serveur ne peut plus lire"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Le client est sous le contrôle de l'utilisateur : la validation de sécurité se fait toujours côté serveur.",
    "whyNot": {
-    "0": "La vitesse n'est pas le problème.",
-    "2": "Elle est autorisée et utile pour le confort.",
+    "0": "Elle est autorisée et utile pour le confort.",
+    "1": "La vitesse n'est pas le problème.",
     "3": "Elle ne chiffre rien."
    },
    "kind": "general"
@@ -1051,19 +1051,19 @@
    "concept": "XSS",
    "prompt": "Quelle parade principale empêche un XSS stocké dans les commentaires d'un site ?",
    "choices": [
+    "Une sauvegarde quotidienne de la base des commentaires",
+    "Le chiffrement TLS de toutes les pages du site",
     "L'encodage des données selon le contexte au moment de l'affichage",
-    "Le NAT",
-    "La sauvegarde quotidienne",
-    "Le chiffrement TLS"
+    "La traduction d'adresses (NAT) devant le serveur web"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Encodé, le script s'affiche comme du texte au lieu de s'exécuter. Une CSP limite en plus les scripts autorisés.",
    "whyNot": {
-    "1": "Sans rapport.",
-    "2": "La sauvegarde conserve aussi le script.",
-    "3": "TLS protège le transport, pas le contenu affiché."
+    "0": "La sauvegarde conserve aussi le script.",
+    "1": "TLS protège le transport, pas le contenu affiché.",
+    "3": "Sans rapport."
    },
    "kind": "general"
   },
@@ -1074,19 +1074,19 @@
    "concept": "Débordement de tampon",
    "prompt": "Quelles mesures réduisent le risque de débordement de tampon ? (plusieurs réponses)",
    "choices": [
-    "Contrôler la longueur des données copiées",
     "Utiliser des langages sûrs pour la mémoire quand c'est possible",
-    "Activer les protections du système comme ASLR et DEP",
-    "Afficher les adresses mémoire dans les erreurs"
+    "Afficher les adresses mémoire dans les erreurs",
+    "Contrôler la longueur des données copiées",
+    "Activer les protections du système comme ASLR et DEP"
    ],
    "correct": [
     0,
-    1,
-    2
+    2,
+    3
    ],
    "explanation": "Contrôle des longueurs, langages sûrs et protections du système rendent l'exploitation beaucoup plus difficile.",
    "whyNot": {
-    "3": "Afficher les adresses aide au contraire l'attaquant."
+    "1": "Afficher les adresses aide au contraire l'attaquant."
    },
    "kind": "general"
   },
@@ -1097,19 +1097,19 @@
    "concept": "TOCTOU",
    "prompt": "Un programme vérifie qu'un fichier appartient à l'utilisateur, puis l'ouvre quelques millisecondes plus tard ; entre-temps, un attaquant le remplace par un lien vers un fichier système. Quel type de faille est-ce ?",
    "choices": [
-    "Injection SQL",
+    "Falsification de requête (CSRF)",
+    "Injection SQL (SQLi)",
     "Situation de concurrence (TOCTOU)",
-    "XSS",
-    "CSRF"
+    "Cross-site scripting (XSS)"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Time of check to time of use : l'état change entre la vérification et l'utilisation. Parade : opérations atomiques et verrous.",
    "whyNot": {
-    "0": "Aucune requête SQL.",
-    "2": "Aucune page web.",
-    "3": "Aucune requête intersite."
+    "0": "Aucune requête intersite.",
+    "1": "Aucune requête SQL.",
+    "3": "Aucune page web."
    },
    "kind": "general"
   },
@@ -1120,19 +1120,19 @@
    "concept": "SSRF",
    "prompt": "Une fonction « importer une image depuis une URL » permet de faire appeler par le serveur l'adresse d'un service interne d'administration. Quelle parade est la plus adaptée ?",
    "choices": [
-    "Une liste d'autorisation des destinations et le blocage des adresses internes",
-    "Un mot de passe plus long pour les utilisateurs",
-    "Un antivirus sur les postes",
-    "Le masquage du SSID"
+    "Un antivirus à jour sur les postes des administrateurs",
+    "Limiter les destinations et bloquer les adresses internes",
+    "Le masquage du SSID du réseau Wi-Fi d'administration",
+    "Un mot de passe plus long pour les comptes des utilisateurs"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "Contre la SSRF, on limite les destinations que le serveur peut joindre et on filtre les adresses internes. Dans l'OWASP Top 10:2025, la SSRF est rattachée à A01 (contrôle d'accès) ; elle était A10 en 2021.",
    "whyNot": {
-    "1": "Sans effet sur ce que le serveur appelle.",
-    "2": "Le problème est côté serveur.",
-    "3": "Sans rapport avec le Wi-Fi."
+    "0": "Le problème est côté serveur.",
+    "2": "Sans rapport avec le Wi-Fi.",
+    "3": "Sans effet sur ce que le serveur appelle."
    },
    "kind": "general"
   },
@@ -1143,19 +1143,19 @@
    "concept": "SAST",
    "prompt": "Quelle méthode analyse le code source sans exécuter l'application ?",
    "choices": [
-    "DAST",
-    "SAST",
     "Test de charge",
-    "Fuzzing"
+    "SAST",
+    "Fuzzing",
+    "DAST"
    ],
    "correct": [
     1
    ],
    "explanation": "L'analyse statique (SAST) lit le code et signale les lignes à risque.",
    "whyNot": {
-    "0": "Le DAST teste l'application en fonctionnement.",
-    "2": "Le test de charge mesure les performances.",
-    "3": "Le fuzzing exécute le programme avec des données malformées."
+    "0": "Le test de charge mesure les performances.",
+    "2": "Le fuzzing exécute le programme avec des données malformées.",
+    "3": "Le DAST teste l'application en fonctionnement."
    },
    "kind": "general"
   },
@@ -1166,18 +1166,18 @@
    "concept": "Signature du code",
    "prompt": "Que prouve la signature numérique d'une mise à jour ?",
    "choices": [
-    "Qu'elle ne contient aucune faille",
     "Son origine et le fait qu'elle n'a pas été modifiée",
     "Qu'elle est gratuite",
+    "Qu'elle ne contient aucune faille",
     "Qu'elle est compatible avec tous les systèmes"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "La signature garantit l'authenticité et l'intégrité, pas la qualité du code.",
    "whyNot": {
-    "0": "Un éditeur peut signer un code vulnérable.",
-    "2": "Sans rapport.",
+    "1": "Sans rapport.",
+    "2": "Un éditeur peut signer un code vulnérable.",
     "3": "Sans rapport."
    },
    "kind": "general"
@@ -1189,18 +1189,18 @@
    "concept": "Secrets",
    "prompt": "Où ranger le mot de passe de la base de données utilisé par une application ?",
    "choices": [
-    "En clair dans le code source",
+    "Dans un commentaire du code, pour les développeurs",
+    "En clair dans le code source, dans une constante",
     "Dans un coffre-fort de secrets, lu au démarrage",
-    "Dans un commentaire du code",
-    "Dans le nom du dépôt"
+    "Dans le nom du dépôt, pour le retrouver facilement"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Le coffre-fort de secrets protège, journalise et permet de faire tourner les secrets sans modifier le code.",
    "whyNot": {
-    "0": "Toute personne qui lit le dépôt voit le secret.",
-    "2": "Même problème.",
+    "0": "Même problème.",
+    "1": "Toute personne qui lit le dépôt voit le secret.",
     "3": "Absurde et visible."
    },
    "kind": "general"
@@ -1213,9 +1213,9 @@
    "prompt": "Une vulnérabilité critique est publiée dans une bibliothèque très répandue. Quel outil permet de savoir rapidement quelles applications l'utilisent ?",
    "choices": [
     "La SBOM (nomenclature logicielle) de chaque application",
-    "Le plan de continuité",
-    "La politique de mots de passe",
-    "Le registre des visiteurs"
+    "Le plan de continuité d'activité de chaque application",
+    "La politique de mots de passe des développeurs",
+    "Le registre des visiteurs du centre de données"
    ],
    "correct": [
     0
@@ -1235,19 +1235,19 @@
    "concept": "DAST",
    "prompt": "Quel avantage le DAST a-t-il sur le SAST ?",
    "choices": [
-    "Il montre la ligne de code fautive",
+    "Il ne produit jamais de faux positifs, car il exploite la faille",
+    "Il montre précisément la ligne de code fautive",
     "Il observe le comportement réel de l'application déployée, avec sa configuration",
-    "Il s'exécute avant l'écriture du code",
-    "Il ne produit jamais de faux positifs"
+    "Il peut s'exécuter avant même l'écriture du code"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Le DAST teste l'application en marche, de l'extérieur : il voit les problèmes de configuration et d'exécution.",
    "whyNot": {
-    "0": "C'est l'avantage du SAST.",
-    "2": "Il faut une application qui fonctionne.",
-    "3": "Aucun outil n'est exempt de faux positifs."
+    "0": "Aucun outil n'est exempt de faux positifs.",
+    "1": "C'est l'avantage du SAST.",
+    "3": "Il faut une application qui fonctionne."
    },
    "kind": "general"
   },
@@ -1258,19 +1258,19 @@
    "concept": "Secret exposé",
    "prompt": "Une clé d'API a été poussée par erreur dans un dépôt partagé. Quelle est la première action ?",
    "choices": [
-    "Supprimer le commit et ne rien faire d'autre",
-    "Révoquer la clé et en émettre une nouvelle, puis vérifier si elle a été utilisée",
-    "Renommer le dépôt",
-    "Attendre de voir si quelqu'un l'utilise"
+    "Supprimer le commit du dépôt et ne rien faire d'autre",
+    "Attendre de voir si quelqu'un utilise la clé avant d'agir",
+    "Renommer le dépôt pour que la clé soit plus difficile à trouver",
+    "Révoquer la clé et en émettre une nouvelle, puis vérifier si elle a été utilisée"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "La clé reste dans l'historique et a pu être copiée : seule la révocation la rend inutilisable.",
    "whyNot": {
     "0": "L'historique et les copies conservent la clé.",
-    "2": "Le nom du dépôt ne change rien.",
-    "3": "Attendre laisse l'attaquant agir."
+    "1": "Attendre laisse l'attaquant agir.",
+    "2": "Le nom du dépôt ne change rien."
    },
    "kind": "general"
   },
@@ -1281,19 +1281,19 @@
    "concept": "SCA",
    "prompt": "Que fait une analyse de composition logicielle (SCA) ?",
    "choices": [
-    "Elle teste la vitesse de l'application",
-    "Elle inventorie les composants tiers et signale leurs vulnérabilités et licences connues",
-    "Elle chiffre le code",
-    "Elle remplace la revue de code"
+    "Elle mesure la vitesse de l'application sous forte charge",
+    "Elle remplace la revue de code par un contrôle automatique",
+    "Elle chiffre le code source avant sa publication",
+    "Elle inventorie les composants tiers et leurs failles connues"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "La SCA s'appuie sur les bases de vulnérabilités connues pour les bibliothèques utilisées.",
    "whyNot": {
     "0": "Sans rapport.",
-    "2": "Elle ne chiffre rien.",
-    "3": "Elle ne regarde pas le code maison."
+    "1": "Elle ne regarde pas le code maison.",
+    "2": "Elle ne chiffre rien."
    },
    "kind": "general"
   },
@@ -1304,19 +1304,19 @@
    "concept": "Chaîne d'approvisionnement",
    "prompt": "Un attaquant compromet le serveur de compilation d'un éditeur et insère du code malveillant dans une mise à jour signée. Quelle leçon en tirer ?",
    "choices": [
-    "La signature suffit toujours",
-    "Le pipeline de construction est un actif critique à protéger (accès, MFA, intégrité, journaux) en plus de la signature",
-    "Il faut arrêter toute mise à jour",
-    "Le problème vient des utilisateurs"
+    "Le pipeline de construction doit être protégé, en plus de la signature",
+    "Le problème vient des utilisateurs, qui auraient dû vérifier le code installé",
+    "La signature suffit toujours : une mise à jour signée est forcément sûre",
+    "Il faut arrêter toute mise à jour logicielle pour éviter ce type d'attaque"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "Si la compromission a lieu avant la signature, celle-ci authentifie un code piégé : il faut protéger toute la chaîne.",
    "whyNot": {
-    "0": "La signature prouve l'origine, pas la propreté du code.",
-    "2": "Ne plus corriger crée d'autres risques.",
-    "3": "Les utilisateurs ne pouvaient pas le détecter."
+    "1": "Les utilisateurs ne pouvaient pas le détecter.",
+    "2": "La signature prouve l'origine, pas la propreté du code.",
+    "3": "Ne plus corriger crée d'autres risques."
    },
    "kind": "general"
   },
@@ -1327,19 +1327,19 @@
    "concept": "Combiner les tests",
    "prompt": "Quel programme de tests couvre le mieux une application web critique ?",
    "choices": [
-    "SAST seul, une fois par an",
-    "SAST et SCA à chaque fusion, DAST en préproduction, test d'intrusion manuel avant les versions majeures",
-    "DAST seul en production",
-    "Aucun test, un WAF suffit"
+    "Aucun test : un pare-feu applicatif (WAF) bien réglé suffit à tout bloquer",
+    "DAST seul, lancé directement sur l'environnement de production",
+    "SAST et SCA en continu, DAST en préproduction, test d'intrusion manuel",
+    "SAST seul, lancé une fois par an avant l'audit de conformité"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Les méthodes se complètent : automatisation continue et regard humain sur la logique métier.",
    "whyNot": {
-    "0": "Trop rare et trop partiel.",
-    "2": "Tardif et partiel.",
-    "3": "Le WAF est une couche, pas un substitut au code sûr."
+    "0": "Le WAF est une couche, pas un substitut au code sûr.",
+    "1": "Tardif et partiel.",
+    "3": "Trop rare et trop partiel."
    },
    "kind": "general"
   },
@@ -1350,19 +1350,19 @@
    "concept": "Sécurité des API",
    "prompt": "Quelles mesures protègent une API exposée sur Internet ? (plusieurs réponses)",
    "choices": [
-    "Authentification et autorisation pour chaque objet demandé",
     "Limitation du nombre de requêtes",
+    "Clé d'API écrite dans l'application mobile publique",
     "Validation des données reçues",
-    "Clé d'API écrite dans l'application mobile publique"
+    "Authentification et autorisation pour chaque objet demandé"
    ],
    "correct": [
     0,
-    1,
-    2
+    2,
+    3
    ],
    "explanation": "Authentifier, autoriser objet par objet, limiter le débit et valider les entrées sont les bases.",
    "whyNot": {
-    "3": "Une clé intégrée à une application publique peut être extraite par n'importe qui."
+    "1": "Une clé intégrée à une application publique peut être extraite par n'importe qui."
    },
    "kind": "general"
   }

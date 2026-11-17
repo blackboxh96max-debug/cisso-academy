@@ -861,19 +861,19 @@
    "concept": "Sécurité des personnes",
    "prompt": "Quelle est la priorité absolue de la sécurité physique ?",
    "choices": [
-    "La sécurité des personnes",
-    "La protection des serveurs",
+    "La réduction des coûts",
     "La confidentialité des données",
-    "La réduction des coûts"
+    "La protection des serveurs",
+    "La sécurité des personnes"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "Quand les deux s'opposent, les personnes passent avant les biens.",
    "whyNot": {
+    "0": "Ce n'est pas une priorité de sécurité.",
     "1": "Important, mais après les personnes.",
-    "2": "Important, mais après les personnes.",
-    "3": "Ce n'est pas une priorité de sécurité."
+    "2": "Important, mais après les personnes."
    },
    "kind": "general"
   },
@@ -884,19 +884,19 @@
    "concept": "Emplacement de la salle",
    "prompt": "Où placer de préférence une salle informatique dans un bâtiment ?",
    "choices": [
+    "Contre la façade vitrée, pour la lumière",
     "Au centre du bâtiment, sans fenêtre",
     "Au sous-sol",
-    "Sous le toit",
-    "Contre la façade vitrée, pour la lumière"
+    "Sous le toit"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "Loin des murs extérieurs, de l'eau et des regards.",
    "whyNot": {
-    "1": "Risque d'inondation.",
-    "2": "Fuites et chaleur.",
-    "3": "Exposée et visible."
+    "0": "Exposée et visible.",
+    "2": "Risque d'inondation.",
+    "3": "Fuites et chaleur."
    },
    "kind": "general"
   },
@@ -907,17 +907,17 @@
    "concept": "Murs",
    "prompt": "Pourquoi les murs d'une salle sensible doivent-ils aller du vrai sol au vrai plafond ?",
    "choices": [
+    "Pour améliorer l'acoustique et l'isolation phonique",
     "Pour qu'on ne puisse pas entrer par le faux plafond ou le faux plancher",
-    "Pour améliorer l'acoustique",
-    "Pour réduire la facture d'électricité",
-    "Pour faciliter le câblage"
+    "Pour réduire la facture d'électricité de la climatisation",
+    "Pour faciliter le passage des câbles entre les salles"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "Une cloison qui s'arrête au faux plafond laisse un passage au-dessus.",
    "whyNot": {
-    "1": "Ce n'est pas l'objectif de sécurité.",
+    "0": "Ce n'est pas l'objectif de sécurité.",
     "2": "Sans rapport.",
     "3": "Sans rapport."
    },
@@ -930,19 +930,19 @@
    "concept": "Barrières",
    "prompt": "Que fait une clôture ou une serrure face à un intrus déterminé ?",
    "choices": [
+    "Elle prévient directement la police dès qu'il la touche",
     "Elle le retarde, d'où la nécessité de détecter et de réagir",
-    "Elle l'arrête à coup sûr",
-    "Elle le détecte automatiquement",
-    "Elle le dénonce à la police"
+    "Elle le détecte automatiquement et déclenche l'alarme",
+    "Elle l'arrête à coup sûr, quels que soient ses moyens"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "Toute barrière finit par céder ; il faut la coupler à la détection et à la réaction.",
    "whyNot": {
-    "1": "Aucune barrière n'est infranchissable.",
+    "0": "Absurde.",
     "2": "C'est le rôle d'un capteur.",
-    "3": "Absurde."
+    "3": "Aucune barrière n'est infranchissable."
    },
    "kind": "general"
   },
@@ -954,9 +954,9 @@
    "prompt": "À quoi servent des plots (bollards) placés devant une entrée ?",
    "choices": [
     "Empêcher un véhicule de foncer sur l'entrée ou la façade",
-    "Contrôler les badges",
-    "Éclairer l'entrée",
-    "Détecter les intrus à pied"
+    "Contrôler les badges des personnes qui entrent",
+    "Éclairer l'entrée et les abords pendant la nuit",
+    "Détecter les intrus à pied qui longent la façade"
    ],
    "correct": [
     0
@@ -976,17 +976,17 @@
    "concept": "CPTED",
    "prompt": "Tailler les haies et éclairer l'entrée pour que chacun voie qui s'en approche relève de quelle stratégie CPTED ?",
    "choices": [
-    "La surveillance naturelle",
     "Le renforcement territorial",
+    "La surveillance naturelle",
     "Le contrôle d'accès logique",
     "La défense active"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "Voir et être vu décourage les comportements malveillants.",
    "whyNot": {
-    "1": "Consiste à marquer l'espace privé.",
+    "0": "Consiste à marquer l'espace privé.",
     "2": "Sans rapport avec l'aménagement.",
     "3": "N'est pas une stratégie CPTED."
    },
@@ -999,8 +999,8 @@
    "concept": "CPTED",
    "prompt": "Lesquels font partie des stratégies de la CPTED ? (plusieurs réponses)",
    "choices": [
-    "Le contrôle naturel des accès",
     "Le renforcement territorial",
+    "Le contrôle naturel des accès",
     "L'entretien des lieux",
     "Le chiffrement des disques"
    ],
@@ -1022,19 +1022,19 @@
    "concept": "Défense en profondeur",
    "prompt": "Un centre de données a une clôture, un accueil avec badges, un sas pour la salle et des baies fermées. Quel principe est appliqué ?",
    "choices": [
-    "La défense en profondeur",
     "Le moindre privilège logique",
+    "La sécurité par l'obscurité",
     "La séparation des tâches",
-    "La sécurité par l'obscurité"
+    "La défense en profondeur"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "Plusieurs couches indépendantes, du périmètre à la baie.",
    "whyNot": {
-    "1": "Concerne les droits d'accès.",
-    "2": "Concerne la répartition des tâches.",
-    "3": "Ne compte que sur le secret."
+    "0": "Concerne les droits d'accès.",
+    "1": "Ne compte que sur le secret.",
+    "2": "Concerne la répartition des tâches."
    },
    "kind": "general"
   },
@@ -1045,9 +1045,9 @@
    "concept": "Choix du site",
    "prompt": "Quels critères comptent dans le choix d'un site pour un centre de données ? (plusieurs réponses)",
    "choices": [
-    "Les risques naturels de la zone",
-    "Plusieurs arrivées électriques et télécoms indépendantes",
     "La proximité des secours",
+    "Plusieurs arrivées électriques et télécoms indépendantes",
+    "Les risques naturels de la zone",
     "Une grande enseigne visible depuis la route"
    ],
    "correct": [
@@ -1068,19 +1068,19 @@
    "concept": "Clôtures",
    "prompt": "Selon les repères souvent cités dans les manuels, quelle clôture vise un intrus déterminé ?",
    "choices": [
+    "Une ligne peinte au sol avec un panneau",
+    "Environ 1 m, sans barbelés",
     "Environ 2,4 m surmontés de barbelés",
-    "Environ 1 m",
-    "Une simple haie",
-    "Une ligne peinte au sol"
+    "Une simple haie bien entretenue"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Environ 1 m dissuade le passant ; environ 2 m est difficile à escalader ; environ 2,4 m avec barbelés vise l'intrus déterminé.",
    "whyNot": {
+    "0": "N'arrête personne.",
     "1": "Dissuade seulement le simple passant.",
-    "2": "Marque un territoire, sans ralentir.",
-    "3": "N'arrête personne."
+    "3": "Marque un territoire, sans ralentir."
    },
    "kind": "general"
   },
@@ -1091,19 +1091,19 @@
    "concept": "Sas",
    "prompt": "Quel dispositif à deux portes, dont une seule s'ouvre à la fois, empêche de suivre une personne autorisée ?",
    "choices": [
-    "Le sas (mantrap)",
-    "Le tourniquet de parking",
     "Le contact magnétique",
-    "La caméra dôme"
+    "La caméra dôme",
+    "Le sas (mantrap)",
+    "Le tourniquet de parking"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Chaque personne doit s'identifier seule pour passer.",
    "whyNot": {
-    "1": "Contrôle des véhicules.",
-    "2": "Détecte une ouverture.",
-    "3": "Observe sans bloquer."
+    "0": "Détecte une ouverture.",
+    "1": "Observe sans bloquer.",
+    "3": "Contrôle des véhicules."
    },
    "kind": "general"
   },
@@ -1114,19 +1114,19 @@
    "concept": "Talonnage",
    "prompt": "Comment appelle-t-on le fait d'entrer derrière une personne autorisée sans qu'elle s'en rende compte ?",
    "choices": [
+    "L'escalade de privilèges",
     "Le talonnage (tailgating)",
     "L'hameçonnage",
-    "La surveillance naturelle",
-    "L'escalade de privilèges"
+    "La surveillance naturelle"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "Le ferroutage (piggybacking) désigne souvent le même passage fait avec l'accord de la personne.",
    "whyNot": {
-    "1": "Attaque par message.",
-    "2": "Stratégie CPTED.",
-    "3": "Attaque logique."
+    "0": "Attaque logique.",
+    "2": "Attaque par message.",
+    "3": "Stratégie CPTED."
    },
    "kind": "general"
   },
@@ -1137,19 +1137,19 @@
    "concept": "Gardien",
    "prompt": "Quelle mesure de sécurité physique est la plus souple face à une situation imprévue ?",
    "choices": [
-    "Le gardien",
-    "La clôture",
     "La serrure à clé",
-    "Le contact magnétique"
+    "Le contact magnétique",
+    "Le gardien",
+    "La clôture"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Le jugement humain lui permet de dissuader, détecter, évaluer et réagir.",
    "whyNot": {
-    "1": "Fixe.",
-    "2": "Fixe.",
-    "3": "Ne fait que détecter."
+    "0": "Fixe.",
+    "1": "Ne fait que détecter.",
+    "3": "Fixe."
    },
    "kind": "general"
   },
@@ -1160,19 +1160,19 @@
    "concept": "Badge",
    "prompt": "Quel avantage un système de badges a-t-il sur des serrures à clé ?",
    "choices": [
+    "Il est gratuit et ne demande aucune maintenance",
+    "Il ne peut jamais être prêté à un collègue",
     "Un journal des passages et une révocation immédiate",
-    "Il fonctionne sans électricité",
-    "Il ne peut jamais être prêté",
-    "Il est gratuit"
+    "Il fonctionne même sans électricité"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "On sait qui est passé, et un badge perdu se désactive tout de suite.",
    "whyNot": {
-    "1": "Il a besoin d'énergie.",
-    "2": "Un badge peut être prêté.",
-    "3": "Il a un coût."
+    "0": "Il a un coût.",
+    "1": "Un badge peut être prêté.",
+    "3": "Il a besoin d'énergie."
    },
    "kind": "general"
   },
@@ -1184,18 +1184,18 @@
    "prompt": "Une porte d'issue de secours est équipée d'une serrure électrique. Que doit-elle faire si le courant est coupé ?",
    "choices": [
     "Se déverrouiller (fail-safe)",
+    "Bloquer toutes les portes du bâtiment",
     "Rester verrouillée (fail-secure)",
-    "Déclencher le sprinkleur",
-    "Bloquer toutes les portes du bâtiment"
+    "Déclencher le sprinkleur"
    ],
    "correct": [
     0
    ],
    "explanation": "Les personnes doivent pouvoir sortir : la vie humaine passe en premier.",
    "whyNot": {
-    "1": "Convient à un coffre, pas à une issue.",
-    "2": "Sans rapport.",
-    "3": "Dangereux."
+    "1": "Dangereux.",
+    "2": "Convient à un coffre, pas à une issue.",
+    "3": "Sans rapport."
    },
    "kind": "general"
   },
@@ -1206,18 +1206,18 @@
    "concept": "Fail-secure",
    "prompt": "Pour quelle porte un mode fail-secure est-il le plus adapté ?",
    "choices": [
-    "La porte d'une baie de serveurs",
-    "L'issue de secours d'un open space",
     "La porte principale d'un hall accueillant du public",
+    "L'issue de secours d'un open space",
+    "La porte d'une baie de serveurs",
     "La porte d'une cage d'escalier"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Personne ne doit la franchir pour évacuer ; elle protège un bien.",
    "whyNot": {
+    "0": "Doit permettre l'évacuation.",
     "1": "Doit être fail-safe.",
-    "2": "Doit permettre l'évacuation.",
     "3": "Voie d'évacuation."
    },
    "kind": "general"
@@ -1229,19 +1229,19 @@
    "concept": "Visiteurs",
    "prompt": "Quelle pratique est attendue pour un visiteur dans une zone sensible ?",
    "choices": [
-    "Il est accompagné du début à la fin de la visite",
     "Il reçoit le même badge que le personnel",
+    "Il est laissé seul en salle serveurs pour gagner du temps",
     "Il circule librement s'il a signé le registre",
-    "Il est laissé seul en salle serveurs pour gagner du temps"
+    "Il est accompagné du début à la fin de la visite"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "Registre, badge visiteur distinct, accompagnement et restitution du badge.",
    "whyNot": {
-    "1": "Le badge doit être distinct.",
-    "2": "Le registre ne suffit pas.",
-    "3": "Contraire à la règle d'accompagnement."
+    "0": "Le badge doit être distinct.",
+    "1": "Contraire à la règle d'accompagnement.",
+    "2": "Le registre ne suffit pas."
    },
    "kind": "general"
   },
@@ -1252,19 +1252,19 @@
    "concept": "Capteurs",
    "prompt": "Quel capteur détecte la chaleur d'une personne qui se déplace dans une pièce ?",
    "choices": [
-    "L'infrarouge passif",
-    "Le contact magnétique",
     "Le détecteur de bris de vitre",
-    "Le lecteur de badge"
+    "Le lecteur de badge",
+    "L'infrarouge passif",
+    "Le contact magnétique"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Il réagit aux variations de rayonnement infrarouge.",
    "whyNot": {
-    "1": "Détecte l'ouverture d'une porte.",
-    "2": "Détecte un choc ou un son.",
-    "3": "Identifie, ne détecte pas."
+    "0": "Détecte un choc ou un son.",
+    "1": "Identifie, ne détecte pas.",
+    "3": "Détecte l'ouverture d'une porte."
    },
    "kind": "general"
   },
@@ -1275,19 +1275,19 @@
    "concept": "CCTV",
    "prompt": "Quelles conditions rendent une vidéosurveillance utile ? (plusieurs réponses)",
    "choices": [
-    "Les images sont regardées ou analysées",
+    "Les caméras sont cachées dans les toilettes",
     "Les enregistrements sont conservés et protégés",
-    "Les personnes filmées sont informées",
-    "Les caméras sont cachées dans les toilettes"
+    "Les images sont regardées ou analysées",
+    "Les personnes filmées sont informées"
    ],
    "correct": [
-    0,
     1,
-    2
+    2,
+    3
    ],
    "explanation": "Elle dissuade, aide à évaluer et fournit des preuves, dans le respect de la vie privée.",
    "whyNot": {
-    "3": "Atteinte grave à la vie privée."
+    "0": "Atteinte grave à la vie privée."
    },
    "kind": "general"
   },
@@ -1321,18 +1321,18 @@
    "concept": "Onduleur",
    "prompt": "Quel équipement fournit l'énergie pendant quelques minutes lors d'une coupure ?",
    "choices": [
-    "L'onduleur (UPS)",
-    "Le parafoudre",
     "Le conditionneur de ligne",
+    "Le parafoudre",
+    "L'onduleur (UPS)",
     "Le détecteur de fumée"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Le temps d'arrêter proprement ou de démarrer le groupe électrogène.",
    "whyNot": {
+    "0": "Lisse la tension.",
     "1": "Absorbe les surtensions.",
-    "2": "Lisse la tension.",
     "3": "Sans rapport."
    },
    "kind": "general"
@@ -1345,8 +1345,8 @@
    "prompt": "Comment appelle-t-on une sous-tension prolongée ?",
    "choices": [
     "Une baisse de tension (brownout)",
-    "Un pic (spike)",
     "Une panne (blackout)",
+    "Un pic (spike)",
     "Un courant d'appel (inrush)"
    ],
    "correct": [
@@ -1354,8 +1354,8 @@
    ],
    "explanation": "Le creux (sag) est une sous-tension brève.",
    "whyNot": {
-    "1": "Surtension brève.",
-    "2": "Perte totale prolongée.",
+    "1": "Perte totale prolongée.",
+    "2": "Surtension brève.",
     "3": "Pic au démarrage."
    },
    "kind": "general"
@@ -1367,19 +1367,19 @@
    "concept": "Anomalies électriques",
    "prompt": "Quelle anomalie correspond à une perte totale d'alimentation de courte durée ?",
    "choices": [
-    "La coupure brève (fault)",
-    "La panne (blackout)",
     "Le creux (sag)",
-    "La surtension prolongée (surge)"
+    "La coupure brève (fault)",
+    "La surtension prolongée (surge)",
+    "La panne (blackout)"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "La panne (blackout) est une perte totale prolongée.",
    "whyNot": {
-    "1": "Prolongée.",
-    "2": "Sous-tension, pas perte totale.",
-    "3": "Surtension."
+    "0": "Sous-tension, pas perte totale.",
+    "2": "Surtension.",
+    "3": "Prolongée."
    },
    "kind": "general"
   },
@@ -1390,19 +1390,19 @@
    "concept": "Humidité",
    "prompt": "Quel risque présente une humidité trop basse dans une salle informatique ?",
    "choices": [
+    "Les inondations sous le faux plancher",
+    "La corrosion des composants",
     "L'électricité statique",
-    "La corrosion",
-    "La condensation",
-    "Les inondations"
+    "La condensation sur les baies"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Trop humide : condensation et corrosion.",
    "whyNot": {
+    "0": "Sans rapport.",
     "1": "Liée à une humidité trop haute.",
-    "2": "Liée à une humidité trop haute.",
-    "3": "Sans rapport."
+    "3": "Liée à une humidité trop haute."
    },
    "kind": "general"
   },
@@ -1414,18 +1414,18 @@
    "prompt": "Pourquoi maintenir une pression d'air positive dans une salle informatique ?",
    "choices": [
     "Quand on ouvre la porte, l'air sort et la poussière ou la fumée n'entrent pas",
-    "Pour refroidir les processeurs plus vite",
-    "Pour éteindre un incendie",
-    "Pour réduire le bruit"
+    "Pour éteindre un début d'incendie en chassant l'oxygène de la salle",
+    "Pour réduire le bruit des ventilateurs dans les bureaux voisins",
+    "Pour refroidir les processeurs plus vite grâce à un débit d'air plus fort"
    ],
    "correct": [
     0
    ],
    "explanation": "Les contaminants sont repoussés vers l'extérieur.",
    "whyNot": {
-    "1": "Ce n'est pas l'objectif.",
-    "2": "Ce n'est pas un moyen d'extinction.",
-    "3": "Sans rapport."
+    "1": "Ce n'est pas un moyen d'extinction.",
+    "2": "Sans rapport.",
+    "3": "Ce n'est pas l'objectif."
    },
    "kind": "general"
   },
@@ -1437,18 +1437,18 @@
    "prompt": "Quel type de sprinkleur est généralement recommandé pour une salle informatique ?",
    "choices": [
     "À préaction",
-    "À déluge",
     "Sous eau sans détection",
-    "Aucun, on laisse brûler"
+    "Aucun, on laisse brûler",
+    "À déluge"
    ],
    "correct": [
     0
    ],
    "explanation": "L'eau n'entre dans les tuyaux qu'après une détection, ce qui limite les déclenchements accidentels.",
    "whyNot": {
-    "1": "Libère beaucoup d'eau partout.",
-    "2": "Plus de risque de dégâts des eaux.",
-    "3": "Absurde."
+    "1": "Plus de risque de dégâts des eaux.",
+    "2": "Absurde.",
+    "3": "Libère beaucoup d'eau partout."
    },
    "kind": "general"
   },
@@ -1482,19 +1482,19 @@
    "concept": "Halon",
    "prompt": "Pourquoi le halon n'est-il plus installé dans les nouvelles salles ?",
    "choices": [
-    "Il détruit la couche d'ozone ; sa production a été arrêtée dans le cadre du Protocole de Montréal",
-    "Il est inefficace contre les feux",
-    "Il conduit l'électricité",
-    "Il est interdit seulement en France"
+    "Il est interdit seulement en France, pas dans le reste du monde",
+    "Il est inefficace contre les feux de matériel électrique",
+    "Il conduit l'électricité et provoque des courts-circuits",
+    "Il détruit la couche d'ozone (Protocole de Montréal)"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "Il est remplacé par le FM-200 ou des gaz inertes comme l'Inergen.",
    "whyNot": {
+    "0": "Accord international.",
     "1": "Il est très efficace.",
-    "2": "Faux.",
-    "3": "Accord international."
+    "2": "Faux."
    },
    "kind": "general"
   },
@@ -1505,19 +1505,19 @@
    "concept": "CO2",
    "prompt": "Quel est le principal danger d'un système d'extinction au CO2 ?",
    "choices": [
-    "Il peut asphyxier les personnes présentes",
-    "Il endommage l'électronique avec de l'eau",
     "Il détruit la couche d'ozone",
-    "Il ne fonctionne pas sur les feux électriques"
+    "Il ne fonctionne pas sur les feux électriques",
+    "Il peut asphyxier les personnes présentes",
+    "Il endommage l'électronique avec de l'eau"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Réservé aux locaux inoccupés ou avec évacuation préalable.",
    "whyNot": {
-    "1": "Ce n'est pas de l'eau.",
-    "2": "C'est le halon.",
-    "3": "Il est adapté aux feux électriques."
+    "0": "C'est le halon.",
+    "1": "Il est adapté aux feux électriques.",
+    "3": "Ce n'est pas de l'eau."
    },
    "kind": "general"
   },
@@ -1529,18 +1529,18 @@
    "prompt": "Quelles mesures améliorent la disponibilité électrique d'un centre de données ? (plusieurs réponses)",
    "choices": [
     "Un onduleur",
+    "Un sprinkleur à déluge",
     "Un groupe électrogène testé régulièrement",
-    "Deux arrivées électriques indépendantes",
-    "Un sprinkleur à déluge"
+    "Deux arrivées électriques indépendantes"
    ],
    "correct": [
     0,
-    1,
-    2
+    2,
+    3
    ],
    "explanation": "L'onduleur couvre les minutes, le groupe les heures, la double arrivée évite le point unique de défaillance.",
    "whyNot": {
-    "3": "Protection incendie, pas électrique."
+    "1": "Protection incendie, pas électrique."
    },
    "kind": "general"
   }

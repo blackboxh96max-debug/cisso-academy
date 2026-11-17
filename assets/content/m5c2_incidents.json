@@ -672,8 +672,8 @@
    "choices": [
     "Un compte compromis utilisé pour télécharger des données clients",
     "Un utilisateur qui se connecte normalement le matin",
-    "Une mise à jour d'antivirus",
-    "L'ouverture d'un fichier par son propriétaire"
+    "L'ouverture d'un fichier par son propriétaire",
+    "Une mise à jour d'antivirus"
    ],
    "correct": [
     0
@@ -693,19 +693,19 @@
    "concept": "Cycle",
    "prompt": "Quelle est la première phase du cycle de réponse aux incidents ?",
    "choices": [
-    "La préparation",
-    "Le confinement",
     "L'éradication",
-    "Le retour d'expérience"
+    "Le retour d'expérience",
+    "Le confinement",
+    "La préparation"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "On prépare l'équipe, les outils et les procédures avant tout incident.",
    "whyNot": {
-    "1": "Il vient après la détection.",
-    "2": "Il vient après le confinement.",
-    "3": "C'est la dernière phase."
+    "0": "Il vient après le confinement.",
+    "1": "C'est la dernière phase.",
+    "2": "Il vient après la détection."
    },
    "kind": "general"
   },
@@ -716,19 +716,19 @@
    "concept": "CSIRT",
    "prompt": "Qu'est-ce qu'un CSIRT ?",
    "choices": [
-    "L'équipe chargée de répondre aux incidents de sécurité",
-    "Un type de pare-feu",
-    "Un protocole de chiffrement",
-    "Un format de journal"
+    "Un format de journal normalisé pour les SIEM",
+    "Un type de pare-feu applicatif pour les sites web",
+    "Un protocole de chiffrement des communications d'urgence",
+    "L'équipe chargée de répondre aux incidents de sécurité"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "Computer Security Incident Response Team : équipe pluridisciplinaire de réponse.",
    "whyNot": {
+    "0": "Sans rapport.",
     "1": "Sans rapport.",
-    "2": "Sans rapport.",
-    "3": "Sans rapport."
+    "2": "Sans rapport."
    },
    "kind": "general"
   },
@@ -740,18 +740,18 @@
    "prompt": "Dans quel ordre mène-t-on ces actions ?",
    "choices": [
     "Contenir, éradiquer, rétablir",
-    "Rétablir, contenir, éradiquer",
+    "Rétablir, éradiquer, contenir",
     "Éradiquer, rétablir, contenir",
-    "Rétablir, éradiquer, contenir"
+    "Rétablir, contenir, éradiquer"
    ],
    "correct": [
     0
    ],
    "explanation": "On limite d'abord les dégâts, on supprime la cause, puis on remet en service.",
    "whyNot": {
-    "1": "Rétablir d'abord expose à la réinfection.",
+    "1": "Ordre inversé.",
     "2": "Éradiquer sans contenir laisse l'attaque se propager.",
-    "3": "Ordre inversé."
+    "3": "Rétablir d'abord expose à la réinfection."
    },
    "kind": "general"
   },
@@ -785,17 +785,17 @@
    "concept": "Horodatage",
    "prompt": "Pourquoi synchroniser l'heure de tous les systèmes sur une même source ?",
    "choices": [
+    "Pour économiser de l'espace disque sur le serveur de journaux",
     "Pour reconstituer une chronologie fiable en corrélant les journaux",
-    "Pour accélérer le réseau",
-    "Pour chiffrer les journaux",
-    "Pour économiser de l'espace disque"
+    "Pour chiffrer les journaux avec une clé fondée sur l'heure",
+    "Pour accélérer les échanges sur le réseau interne"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "Sans heure commune, on ne peut pas ordonner les événements de plusieurs sources.",
    "whyNot": {
-    "1": "Sans rapport.",
+    "0": "Sans rapport.",
     "2": "Sans rapport.",
     "3": "Sans rapport."
    },
@@ -808,19 +808,19 @@
    "concept": "Gravité",
    "prompt": "Quels critères déterminent la gravité d'un incident ? (plusieurs réponses)",
    "choices": [
-    "La sensibilité des données touchées",
+    "La marque des ordinateurs",
     "La propagation en cours",
-    "L'impact sur l'activité",
-    "La marque des ordinateurs"
+    "La sensibilité des données touchées",
+    "L'impact sur l'activité"
    ],
    "correct": [
-    0,
     1,
-    2
+    2,
+    3
    ],
    "explanation": "Impact (données, activité, nombre de systèmes) et urgence (propagation, exfiltration).",
    "whyNot": {
-    "3": "Sans rapport."
+    "0": "Sans rapport."
    },
    "kind": "general"
   },
@@ -831,18 +831,18 @@
    "concept": "Escalade",
    "prompt": "Quand décide-t-on des critères d'escalade vers la direction et le juridique ?",
    "choices": [
-    "À l'avance, dans la politique et les playbooks",
     "Pendant l'incident, au cas par cas",
     "Après l'incident seulement",
+    "À l'avance, dans la politique et les playbooks",
     "Jamais, l'équipe technique gère seule"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Des critères écrits évitent les hésitations et les oublis en pleine crise.",
    "whyNot": {
-    "1": "Source d'erreurs et de retards.",
-    "2": "Trop tard.",
+    "0": "Source d'erreurs et de retards.",
+    "1": "Trop tard.",
     "3": "La direction et le juridique doivent être associés."
    },
    "kind": "general"
@@ -854,19 +854,19 @@
    "concept": "Documentation",
    "prompt": "Pourquoi l'analyste doit-il noter chaque action avec l'heure exacte dès le début ?",
    "choices": [
+    "Ce n'est pas utile tant que l'incident n'est pas clos",
     "Pour la chronologie, la preuve et le retour d'expérience",
-    "Pour remplir un quota",
-    "Pour ralentir l'attaquant",
-    "Ce n'est pas utile"
+    "Pour ralentir l'attaquant, qui voit les notes de l'équipe",
+    "Pour remplir le quota d'actions fixé par le responsable du SOC"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "Les notes servent à l'enquête, aux obligations légales et à l'amélioration.",
    "whyNot": {
-    "1": "Sans rapport.",
+    "0": "C'est indispensable.",
     "2": "Sans rapport.",
-    "3": "C'est indispensable."
+    "3": "Sans rapport."
    },
    "kind": "general"
   },
@@ -878,9 +878,9 @@
    "prompt": "Selon NIST SP 800-61 Rev. 2, quelle phase regroupe confinement, éradication et rétablissement ?",
    "choices": [
     "Une seule phase : confinement, éradication et rétablissement",
-    "La préparation",
-    "La détection et l'analyse",
-    "Les activités post-incident"
+    "La préparation, avant tout incident",
+    "Les activités post-incident (retour d'expérience)",
+    "La détection et l'analyse de l'incident"
    ],
    "correct": [
     0
@@ -888,8 +888,8 @@
    "explanation": "Le modèle en quatre phases réunit ces trois actions dans la troisième phase.",
    "whyNot": {
     "1": "Première phase.",
-    "2": "Deuxième phase.",
-    "3": "Quatrième phase."
+    "2": "Quatrième phase.",
+    "3": "Deuxième phase."
    },
    "kind": "general"
   },
@@ -900,19 +900,19 @@
    "concept": "Ordre de volatilité",
    "prompt": "Que faut-il collecter en premier sur une machine allumée ?",
    "choices": [
-    "La mémoire vive",
+    "Les documents papier",
     "Le disque dur",
-    "Les sauvegardes sur bande",
-    "Les documents papier"
+    "La mémoire vive",
+    "Les sauvegardes sur bande"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "La mémoire vive disparaît à l'extinction ; elle est plus volatile que le disque.",
    "whyNot": {
+    "0": "Non volatils.",
     "1": "Moins volatil que la mémoire.",
-    "2": "Les moins volatiles.",
-    "3": "Non volatils."
+    "3": "Les moins volatiles."
    },
    "kind": "general"
   },
@@ -923,19 +923,19 @@
    "concept": "Bloqueur d'écriture",
    "prompt": "À quoi sert un bloqueur d'écriture ?",
    "choices": [
+    "À accélérer la copie d'un disque volumineux",
+    "À chiffrer une image disque avant son transport",
     "À lire un support sans pouvoir le modifier",
-    "À effacer un disque",
-    "À chiffrer une image",
-    "À accélérer la copie"
+    "À effacer un disque de façon sécurisée"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Il garantit que l'original n'est pas altéré pendant l'acquisition.",
    "whyNot": {
-    "1": "C'est l'inverse.",
-    "2": "Sans rapport.",
-    "3": "Sans rapport."
+    "0": "Sans rapport.",
+    "1": "Sans rapport.",
+    "3": "C'est l'inverse."
    },
    "kind": "general"
   },
@@ -946,19 +946,19 @@
    "concept": "Chaîne de possession",
    "prompt": "Que doit indiquer la chaîne de possession d'une preuve ?",
    "choices": [
+    "La liste des logiciels installés sur le support",
     "Qui l'a collectée et détenue, quand, où, comment et pourquoi",
-    "Seulement le prix du matériel",
-    "Le nom de l'attaquant",
-    "La liste des logiciels installés"
+    "Le nom et l'adresse de l'attaquant présumé",
+    "Seulement le prix et la marque du matériel saisi"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "Elle prouve que la preuve n'a pas pu être altérée entre la collecte et le tribunal.",
    "whyNot": {
-    "1": "Sans rapport.",
+    "0": "Ce n'est pas son rôle.",
     "2": "Pas forcément connu.",
-    "3": "Ce n'est pas son rôle."
+    "3": "Sans rapport."
    },
    "kind": "general"
   },
@@ -970,18 +970,18 @@
    "prompt": "Pourquoi calculer l'empreinte SHA-256 de l'image d'un disque ?",
    "choices": [
     "Pour prouver plus tard que l'image n'a pas été modifiée",
-    "Pour compresser l'image",
-    "Pour chiffrer l'image",
-    "Pour accélérer l'analyse"
+    "Pour accélérer l'analyse dans l'outil d'investigation",
+    "Pour chiffrer l'image avant de la transmettre",
+    "Pour compresser l'image et gagner de la place"
    ],
    "correct": [
     0
    ],
    "explanation": "Une empreinte identique avant et après analyse démontre l'intégrité.",
    "whyNot": {
-    "1": "Un hachage ne compresse pas.",
+    "1": "Sans rapport.",
     "2": "Un hachage ne chiffre pas.",
-    "3": "Sans rapport."
+    "3": "Un hachage ne compresse pas."
    },
    "kind": "general"
   },
@@ -992,19 +992,19 @@
    "concept": "Copie de travail",
    "prompt": "Sur quoi l'enquêteur mène-t-il son analyse ?",
    "choices": [
-    "Sur une copie bit à bit, l'original restant scellé",
-    "Directement sur le disque original",
     "Sur le poste de l'utilisateur en production",
-    "Sur une capture d'écran"
+    "Sur une copie bit à bit, l'original restant scellé",
+    "Sur une capture d'écran",
+    "Directement sur le disque original"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "L'original est préservé ; on peut refaire une copie si besoin.",
    "whyNot": {
-    "1": "Risque de modifier la preuve.",
-    "2": "Risque d'altération.",
-    "3": "Insuffisant."
+    "0": "Risque d'altération.",
+    "2": "Insuffisant.",
+    "3": "Risque de modifier la preuve."
    },
    "kind": "general"
   },
@@ -1015,19 +1015,19 @@
    "concept": "Types de preuves",
    "prompt": "Qu'appelle-t-on la « meilleure preuve » (best evidence) ?",
    "choices": [
-    "L'original d'un document ou d'un support",
-    "Le témoignage le plus long",
-    "La preuve la plus récente",
-    "Une copie certifiée"
+    "La preuve la plus récente collectée sur le système",
+    "Le témoignage le plus long et le plus détaillé",
+    "Une copie certifiée conforme par un huissier",
+    "L'original d'un document ou d'un support"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "On préfère l'original à une copie lorsqu'il est disponible.",
    "whyNot": {
+    "0": "Sans rapport.",
     "1": "Sans rapport.",
-    "2": "Sans rapport.",
-    "3": "C'est une preuve secondaire."
+    "2": "C'est une preuve secondaire."
    },
    "kind": "general"
   },
@@ -1038,18 +1038,18 @@
    "concept": "Incitation et provocation",
    "prompt": "Un pot de miel attire des attaquants qui s'y connectent d'eux-mêmes. De quoi s'agit-il juridiquement ?",
    "choices": [
-    "D'incitation (enticement), généralement légale",
     "De provocation (entrapment), illégale",
     "De hacking offensif",
+    "D'incitation (enticement), généralement légale",
     "D'une contre-attaque"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Laisser une cible attrayante n'oblige personne à commettre une infraction.",
    "whyNot": {
-    "1": "La provocation pousse quelqu'un à commettre une infraction qu'il n'aurait pas commise.",
-    "2": "Rien n'attaque l'adversaire.",
+    "0": "La provocation pousse quelqu'un à commettre une infraction qu'il n'aurait pas commise.",
+    "1": "Rien n'attaque l'adversaire.",
     "3": "Aucune action vers l'attaquant."
    },
    "kind": "general"
@@ -1061,19 +1061,19 @@
    "concept": "Recevabilité",
    "prompt": "Quelles qualités une preuve doit-elle avoir pour être recevable ? (plusieurs réponses)",
    "choices": [
-    "Pertinente",
     "Authentique et fiable",
     "Obtenue légalement",
-    "Rédigée en anglais"
+    "Rédigée en anglais",
+    "Pertinente"
    ],
    "correct": [
     0,
     1,
-    2
+    3
    ],
    "explanation": "Pertinence, authenticité, fiabilité, légalité et complétude.",
    "whyNot": {
-    "3": "La langue ne conditionne pas la recevabilité."
+    "2": "La langue ne conditionne pas la recevabilité."
    },
    "kind": "general"
   },
@@ -1084,19 +1084,19 @@
    "concept": "Locard",
    "prompt": "Que dit le principe d'échange de Locard appliqué au numérique ?",
    "choices": [
+    "Seul l'original d'une preuve est recevable devant un tribunal",
     "Tout contact laisse une trace : l'attaquant laisse des traces dans le système et en emporte",
-    "Les preuves numériques ne s'altèrent jamais",
-    "Seul l'original est recevable",
-    "Il faut toujours éteindre la machine"
+    "Il faut toujours éteindre la machine avant de collecter les traces",
+    "Les preuves numériques ne s'altèrent jamais, contrairement aux preuves physiques"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "C'est pourquoi on cherche des traces même quand l'attaquant croit les avoir effacées.",
    "whyNot": {
-    "1": "Elles s'altèrent facilement.",
-    "2": "C'est la règle de la meilleure preuve.",
-    "3": "Éteindre efface la mémoire."
+    "0": "C'est la règle de la meilleure preuve.",
+    "2": "Éteindre efface la mémoire.",
+    "3": "Elles s'altèrent facilement."
    },
    "kind": "general"
   },
@@ -1107,19 +1107,19 @@
    "concept": "Extinction",
    "prompt": "Pourquoi éviter d'éteindre immédiatement une machine compromise ?",
    "choices": [
+    "Parce que l'attaquant serait averti par courriel de l'arrêt",
+    "Parce que c'est interdit par la loi pendant une enquête",
     "Parce que la mémoire vive, avec processus et connexions, serait perdue",
-    "Parce que le disque serait effacé",
-    "Parce que c'est interdit par la loi",
-    "Parce que l'attaquant serait averti par courriel"
+    "Parce que le disque serait automatiquement effacé à l'arrêt"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "On isole du réseau et on capture la mémoire quand c'est possible.",
    "whyNot": {
-    "1": "Le disque reste.",
-    "2": "Ce n'est pas une règle légale.",
-    "3": "Sans rapport."
+    "0": "Sans rapport.",
+    "1": "Ce n'est pas une règle légale.",
+    "3": "Le disque reste."
    },
    "kind": "general"
   },
@@ -1130,19 +1130,19 @@
    "concept": "Confinement",
    "prompt": "Quelle action est un confinement à court terme ?",
    "choices": [
-    "Isoler un poste infecté du réseau via l'EDR",
+    "Acheter un nouveau SIEM",
     "Rédiger le retour d'expérience",
-    "Former les utilisateurs l'année suivante",
-    "Acheter un nouveau SIEM"
+    "Isoler un poste infecté du réseau via l'EDR",
+    "Former les utilisateurs l'année suivante"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Il stoppe la propagation immédiatement.",
    "whyNot": {
+    "0": "Ce n'est pas une action de confinement.",
     "1": "Après l'incident.",
-    "2": "Amélioration à long terme.",
-    "3": "Ce n'est pas une action de confinement."
+    "3": "Amélioration à long terme."
    },
    "kind": "general"
   },
@@ -1153,18 +1153,18 @@
    "concept": "Réinfection",
    "prompt": "Que faut-il faire avant de remettre en service un serveur nettoyé ?",
    "choices": [
+    "Payer la rançon pour éviter une nouvelle attaque",
     "Fermer la porte d'entrée et réinitialiser les identifiants compromis",
-    "Supprimer les journaux",
-    "Payer la rançon",
-    "Rien, le nettoyage suffit"
+    "Supprimer les journaux pour repartir sur une base propre",
+    "Rien de plus, le nettoyage du serveur suffit"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "Sinon l'attaquant revient par le même chemin ou avec les mêmes identifiants.",
    "whyNot": {
-    "1": "Ce sont des preuves.",
-    "2": "Sans rapport et déconseillé.",
+    "0": "Sans rapport et déconseillé.",
+    "2": "Ce sont des preuves.",
     "3": "Risque de réinfection."
    },
    "kind": "general"
@@ -1176,18 +1176,18 @@
    "concept": "Restauration",
    "prompt": "Depuis quelle sauvegarde restaurer après une compromission ?",
    "choices": [
+    "Celle conservée sur le serveur infecté lui-même",
     "Une sauvegarde antérieure à la compromission, vérifiée",
-    "La plus récente, quelle qu'elle soit",
-    "Celle du serveur infecté",
-    "Aucune, on garde l'état actuel"
+    "La plus récente, quelle qu'elle soit, pour perdre le moins de données",
+    "Aucune : on garde l'état actuel du serveur nettoyé"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "La sauvegarde la plus récente peut contenir la porte dérobée.",
    "whyNot": {
-    "1": "Risque de restaurer la compromission.",
-    "2": "Peut être infectée.",
+    "0": "Peut être infectée.",
+    "2": "Risque de restaurer la compromission.",
     "3": "L'état actuel est compromis."
    },
    "kind": "general"
@@ -1199,19 +1199,19 @@
    "concept": "Retour d'expérience",
    "prompt": "Quel est l'esprit d'un bon retour d'expérience ?",
    "choices": [
-    "Comprendre et améliorer, sans chercher de coupable",
-    "Désigner un responsable à sanctionner",
-    "Clore le dossier au plus vite",
-    "Rédiger un rapport pour la presse"
+    "Désigner un responsable à sanctionner pour l'exemple",
+    "Rédiger un rapport public destiné à la presse",
+    "Clore le dossier au plus vite pour passer à autre chose",
+    "Comprendre et améliorer, sans chercher de coupable"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "Une approche sans reproche encourage la transparence et les vraies corrections.",
    "whyNot": {
-    "1": "Décourage la transparence.",
-    "2": "On perd les enseignements.",
-    "3": "Ce n'est pas son but."
+    "0": "Décourage la transparence.",
+    "1": "Ce n'est pas son but.",
+    "2": "On perd les enseignements."
    },
    "kind": "general"
   },
@@ -1222,19 +1222,19 @@
    "concept": "Surveillance contrôlée",
    "prompt": "Laisser un attaquant agir sous observation pour comprendre l'attaque exige quoi ?",
    "choices": [
-    "Une décision de la direction et du juridique, car le risque est élevé",
-    "Rien de particulier",
-    "L'accord de l'attaquant",
-    "L'arrêt de tous les systèmes"
+    "Rien de particulier, c'est une décision technique du SOC",
+    "L'accord écrit de l'attaquant, pour des raisons juridiques",
+    "L'arrêt préalable de tous les systèmes de production",
+    "Une décision de la direction et du juridique, car le risque est élevé"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "Les dommages peuvent s'aggraver pendant l'observation.",
    "whyNot": {
-    "1": "Décision lourde.",
-    "2": "Absurde.",
-    "3": "Ce serait l'inverse de l'observation."
+    "0": "Décision lourde.",
+    "1": "Absurde.",
+    "2": "Ce serait l'inverse de l'observation."
    },
    "kind": "general"
   },
@@ -1246,18 +1246,18 @@
    "prompt": "Quelles actions suivent normalement un retour d'expérience ? (plusieurs réponses)",
    "choices": [
     "Mettre à jour les playbooks",
-    "Créer de nouvelles règles de détection",
     "Attribuer chaque action à un responsable avec une échéance",
-    "Supprimer la chronologie"
+    "Supprimer la chronologie",
+    "Créer de nouvelles règles de détection"
    ],
    "correct": [
     0,
     1,
-    2
+    3
    ],
    "explanation": "Les enseignements doivent se traduire en actions suivies.",
    "whyNot": {
-    "3": "La chronologie est utile pour l'audit et la suite."
+    "2": "La chronologie est utile pour l'audit et la suite."
    },
    "kind": "general"
   },
@@ -1268,19 +1268,19 @@
    "concept": "RGPD",
    "prompt": "Dans quel délai notifier l'autorité de contrôle d'une violation de données personnelles présentant un risque ?",
    "choices": [
-    "72 heures au plus tard après en avoir eu connaissance",
-    "Un mois",
-    "Une semaine après la résolution",
-    "Aucun délai"
+    "Aucun délai n'est imposé par le règlement",
+    "Un mois après la découverte de la violation",
+    "Une semaine après la résolution complète de l'incident",
+    "72 heures au plus tard après en avoir eu connaissance"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "RGPD, article 33 ; la notification peut être complétée par étapes.",
    "whyNot": {
+    "0": "Le délai est fixé par le règlement.",
     "1": "Trop tard.",
-    "2": "Le délai court dès la connaissance, pas la résolution.",
-    "3": "Le délai est fixé par le règlement."
+    "2": "Le délai court dès la connaissance, pas la résolution."
    },
    "kind": "general"
   },
@@ -1291,10 +1291,10 @@
    "concept": "NIS 2",
    "prompt": "Pour un incident important, quels délais NIS 2 fixe-t-il aux entités concernées ?",
    "choices": [
-    "Alerte précoce sous 24 h, notification sous 72 h, rapport final sous un mois",
-    "Notification sous 7 jours",
-    "Rapport annuel uniquement",
-    "Aucun, c'est facultatif"
+    "Alerte sous 24 h, notification sous 72 h, rapport final sous un mois",
+    "Une seule notification sous 7 jours, sans rapport final",
+    "Aucun délai : la notification reste facultative",
+    "Un rapport annuel de tous les incidents, sans notification"
    ],
    "correct": [
     0
@@ -1302,8 +1302,8 @@
    "explanation": "Directive (UE) 2022/2555, article 23.",
    "whyNot": {
     "1": "Inexact.",
-    "2": "Inexact.",
-    "3": "C'est une obligation."
+    "2": "C'est une obligation.",
+    "3": "Inexact."
    },
    "kind": "general"
   },
@@ -1314,17 +1314,17 @@
    "concept": "Indicateurs",
    "prompt": "Quel indicateur mesure le temps entre le début d'un incident et sa détection ?",
    "choices": [
-    "Le MTTD",
     "Le RPO",
+    "Le MTTD",
     "Le MTBF",
     "Le RTO"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "Mean Time To Detect : délai moyen de détection.",
    "whyNot": {
-    "1": "Perte de données acceptable.",
+    "0": "Perte de données acceptable.",
     "2": "Fiabilité d'un composant.",
     "3": "Délai de remise en service."
    },
@@ -1337,19 +1337,19 @@
    "concept": "Confinement",
    "prompt": "Quels facteurs guident le choix d'une stratégie de confinement ? (plusieurs réponses)",
    "choices": [
-    "Le risque de propagation",
-    "Le besoin de préserver les preuves",
     "La disponibilité du service pour l'activité",
-    "La couleur du logo de l'attaquant"
+    "La couleur du logo de l'attaquant",
+    "Le besoin de préserver les preuves",
+    "Le risque de propagation"
    ],
    "correct": [
     0,
-    1,
-    2
+    2,
+    3
    ],
    "explanation": "On pèse dommages, preuves, continuité, ressources et efficacité.",
    "whyNot": {
-    "3": "Sans rapport."
+    "1": "Sans rapport."
    },
    "kind": "general"
   }

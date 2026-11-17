@@ -661,19 +661,19 @@
    "concept": "Séparation des tâches",
    "prompt": "Dans une entreprise, la même personne peut créer un fournisseur et valider son paiement. Quel principe n'est pas respecté ?",
    "choices": [
-    "La rotation des postes",
-    "La séparation des tâches",
     "Le besoin d'en connaître",
-    "La défense en profondeur"
+    "La défense en profondeur",
+    "La séparation des tâches",
+    "La rotation des postes"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Répartir les étapes sensibles entre plusieurs personnes empêche une fraude menée seul : c'est la séparation des tâches.",
    "whyNot": {
-    "0": "La rotation fait changer les personnes de poste ; elle ne sépare pas les étapes.",
-    "2": "Le besoin d'en connaître concerne l'accès à l'information.",
-    "3": "La défense en profondeur empile des couches de protection techniques et organisationnelles."
+    "0": "Le besoin d'en connaître concerne l'accès à l'information.",
+    "1": "La défense en profondeur empile des couches de protection techniques et organisationnelles.",
+    "3": "La rotation fait changer les personnes de poste ; elle ne sépare pas les étapes."
    },
    "kind": "practice"
   },
@@ -684,19 +684,19 @@
    "concept": "Contrôles sur les personnes",
    "prompt": "Quel contrôle sert surtout à DÉTECTER une fraude qui exige la présence quotidienne de son auteur ?",
    "choices": [
-    "La séparation des tâches",
     "Les congés obligatoires",
-    "Le double contrôle",
-    "Le moindre privilège"
+    "La séparation des tâches",
+    "Le moindre privilège",
+    "Le double contrôle"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "Pendant les congés imposés, un remplaçant reprend le poste et peut découvrir les anomalies.",
    "whyNot": {
-    "0": "La séparation des tâches est surtout préventive.",
-    "2": "Le double contrôle est préventif : deux personnes agissent ensemble.",
-    "3": "Le moindre privilège limite les droits ; il ne révèle pas la fraude."
+    "1": "La séparation des tâches est surtout préventive.",
+    "2": "Le moindre privilège limite les droits ; il ne révèle pas la fraude.",
+    "3": "Le double contrôle est préventif : deux personnes agissent ensemble."
    },
    "kind": "general"
   },
@@ -707,19 +707,19 @@
    "concept": "Double contrôle",
    "prompt": "L'ouverture du coffre des clés de chiffrement exige deux personnes présentes en même temps, chacune avec son code. Comment s'appelle ce contrôle ?",
    "choices": [
-    "Séparation des tâches",
+    "Besoin d'en connaître (need to know)",
     "Double contrôle (contrôle à deux personnes)",
-    "Rotation des postes",
-    "Besoin d'en connaître"
+    "Rotation des postes (job rotation)",
+    "Séparation des tâches (separation of duties)"
    ],
    "correct": [
     1
    ],
    "explanation": "Deux personnes doivent agir ensemble, au même moment, pour une même action : c'est le double contrôle.",
    "whyNot": {
-    "0": "La séparation des tâches répartit des étapes différentes entre des personnes différentes.",
+    "0": "Le besoin d'en connaître limite l'accès à l'information.",
     "2": "La rotation change les personnes de poste dans le temps.",
-    "3": "Le besoin d'en connaître limite l'accès à l'information."
+    "3": "La séparation des tâches répartit des étapes différentes entre des personnes différentes."
    },
    "kind": "general"
   },
@@ -730,19 +730,19 @@
    "concept": "Séparation des tâches",
    "prompt": "Quelle est la principale faiblesse de la séparation des tâches ?",
    "choices": [
-    "Elle est interdite par ISO/IEC 27001",
     "La collusion entre plusieurs personnes",
-    "Elle empêche toute délégation",
-    "Elle impose des congés"
+    "Elle est interdite par ISO/IEC 27001",
+    "Elle impose des congés",
+    "Elle empêche toute délégation"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "Si les personnes concernées s'entendent, elles peuvent contourner le contrôle : c'est la collusion.",
    "whyNot": {
-    "0": "La séparation des tâches est au contraire une mesure recommandée.",
-    "2": "Elle encadre la délégation sans l'interdire.",
-    "3": "Les congés obligatoires sont une autre mesure."
+    "1": "La séparation des tâches est au contraire une mesure recommandée.",
+    "2": "Les congés obligatoires sont une autre mesure.",
+    "3": "Elle encadre la délégation sans l'interdire."
    },
    "kind": "general"
   },
@@ -753,19 +753,19 @@
    "concept": "Gestion des changements",
    "prompt": "Quelle étape doit précéder la mise en œuvre d'un changement important en production ?",
    "choices": [
-    "La suppression des journaux",
-    "L'analyse d'impact, l'approbation et un plan de retour arrière",
-    "La désactivation de l'antivirus",
-    "L'information des clients après coup"
+    "La suppression des anciens journaux du serveur",
+    "La désactivation de l'antivirus pour éviter les blocages",
+    "L'information des clients une fois le changement terminé",
+    "L'analyse d'impact, l'approbation et un plan de retour arrière"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Un changement maîtrisé est analysé, approuvé et testé, avec un moyen de revenir en arrière.",
    "whyNot": {
     "0": "Supprimer les journaux détruit la traçabilité.",
-    "2": "Désactiver l'antivirus affaiblit la sécurité.",
-    "3": "Informer après coup ne remplace pas l'approbation préalable."
+    "1": "Désactiver l'antivirus affaiblit la sécurité.",
+    "2": "Informer après coup ne remplace pas l'approbation préalable."
    },
    "kind": "practice"
   },
@@ -776,19 +776,19 @@
    "concept": "Gestion des changements",
    "prompt": "Une faille exploitée activement impose une correction immédiate, sans attendre le prochain comité. Que faut-il faire ?",
    "choices": [
-    "Corriger sans laisser de trace pour aller plus vite",
-    "Appliquer un changement d'urgence approuvé par une personne habilitée, tracé, puis revu après coup",
-    "Attendre le comité malgré l'exploitation",
-    "Laisser chaque administrateur décider seul"
+    "Corriger directement en production, sans ticket ni trace, pour aller plus vite",
+    "Attendre la prochaine réunion du comité des changements malgré l'exploitation",
+    "Laisser chaque administrateur décider seul, selon sa propre évaluation",
+    "Appliquer un changement d'urgence approuvé par une personne habilitée, tracé, puis revu après coup"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Le changement d'urgence est accéléré mais reste approuvé, tracé et régularisé.",
    "whyNot": {
     "0": "Un changement sans trace casse la gestion des changements et complique les enquêtes.",
-    "2": "Attendre laisse l'exploitation se poursuivre.",
-    "3": "Une décision isolée et non encadrée crée un risque d'erreur et de malveillance."
+    "1": "Attendre laisse l'exploitation se poursuivre.",
+    "2": "Une décision isolée et non encadrée crée un risque d'erreur et de malveillance."
    },
    "kind": "practice"
   },
@@ -799,19 +799,19 @@
    "concept": "Configuration de référence",
    "prompt": "Un outil compare chaque nuit la configuration des serveurs à leur état approuvé et signale les écarts. Quelle notion est utilisée ?",
    "choices": [
-    "Une configuration de référence (baseline) et la détection des dérives",
-    "Un plan de continuité",
-    "Une analyse de risque quantitative",
-    "Un test d'intrusion"
+    "Un test d'intrusion interne mené chaque nuit",
+    "Une analyse de risque quantitative fondée sur l'ALE",
+    "Un plan de continuité d'activité et ses tests de bascule",
+    "Une configuration de référence (baseline) et la détection des dérives"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "La configuration de référence est l'état approuvé ; tout écart (dérive) doit correspondre à un changement autorisé.",
    "whyNot": {
-    "1": "Le plan de continuité vise la reprise d'activité.",
-    "2": "L'analyse quantitative chiffre les risques.",
-    "3": "Le test d'intrusion simule une attaque ponctuelle."
+    "0": "Le test d'intrusion simule une attaque ponctuelle.",
+    "1": "L'analyse quantitative chiffre les risques.",
+    "2": "Le plan de continuité vise la reprise d'activité."
    },
    "kind": "practice"
   },
@@ -823,17 +823,17 @@
    "prompt": "Pourquoi l'inventaire des actifs est-il un prérequis des opérations de sécurité ?",
    "choices": [
     "Parce qu'on ne peut pas protéger ni surveiller ce qu'on ne connaît pas",
-    "Parce qu'il remplace le pare-feu",
-    "Parce qu'il chiffre les données",
-    "Parce qu'il supprime les vulnérabilités"
+    "Parce qu'il chiffre automatiquement les données des actifs",
+    "Parce qu'il remplace le pare-feu pour les actifs recensés",
+    "Parce qu'il supprime les vulnérabilités des systèmes listés"
    ],
    "correct": [
     0
    ],
    "explanation": "Sans inventaire, des systèmes restent sans correctifs, sans surveillance et sans propriétaire.",
    "whyNot": {
-    "1": "L'inventaire ne filtre aucun trafic.",
-    "2": "L'inventaire ne chiffre rien.",
+    "1": "L'inventaire ne chiffre rien.",
+    "2": "L'inventaire ne filtre aucun trafic.",
     "3": "L'inventaire aide à trouver les vulnérabilités, il ne les supprime pas."
    },
    "kind": "general"
@@ -847,8 +847,8 @@
    "choices": [
     "La rotation des postes",
     "Les congés obligatoires",
-    "La séparation des tâches",
-    "Le double contrôle"
+    "Le double contrôle",
+    "La séparation des tâches"
    ],
    "correct": [
     0,
@@ -856,8 +856,8 @@
    ],
    "explanation": "Rotation et congés obligatoires font intervenir une autre personne sur le poste, qui peut découvrir une fraude.",
    "whyNot": {
-    "2": "La séparation des tâches empêche la fraude seule : elle est préventive.",
-    "3": "Le double contrôle empêche l'action isolée : il est préventif."
+    "2": "Le double contrôle empêche l'action isolée : il est préventif.",
+    "3": "La séparation des tâches empêche la fraude seule : elle est préventive."
    },
    "kind": "general"
   },
@@ -868,19 +868,19 @@
    "concept": "Informatique de l'ombre",
    "prompt": "Le SOC découvre un serveur inconnu, installé par une équipe métier, exposé sur Internet. Quelles actions sont prioritaires ? (2 réponses)",
    "choices": [
-    "L'identifier et l'intégrer à l'inventaire avec un propriétaire",
+    "Supprimer immédiatement toutes ses données sans prévenir personne",
     "Vérifier son exposition et ses vulnérabilités, puis le raccorder à la surveillance",
-    "L'ignorer puisqu'il n'est pas officiel",
-    "Supprimer immédiatement toutes ses données sans prévenir personne"
+    "L'identifier et l'intégrer à l'inventaire avec un propriétaire",
+    "L'ignorer puisqu'il n'est pas officiel"
    ],
    "correct": [
-    0,
-    1
+    1,
+    2
    ],
    "explanation": "Un actif de l'ombre doit être connu, évalué et surveillé ; la décision de le garder ou de le retirer se prend ensuite avec son propriétaire.",
    "whyNot": {
-    "2": "L'ignorer laisse une porte ouverte.",
-    "3": "Une suppression brutale peut détruire des données métier et des preuves."
+    "0": "Une suppression brutale peut détruire des données métier et des preuves.",
+    "3": "L'ignorer laisse une porte ouverte."
    },
    "kind": "example"
   },
@@ -891,18 +891,18 @@
    "concept": "Journalisation",
    "prompt": "Pourquoi faut-il synchroniser les horloges (NTP) de tous les systèmes qui produisent des journaux ?",
    "choices": [
-    "Pour accélérer le réseau",
+    "Pour chiffrer les journaux avec une clé fondée sur l'heure",
+    "Pour accélérer les échanges sur le réseau interne",
     "Pour pouvoir corréler les événements et reconstituer une chronologie fiable",
-    "Pour chiffrer les journaux",
-    "Pour réduire le volume des journaux"
+    "Pour réduire le volume des journaux stockés dans le SIEM"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Des horloges décalées faussent la corrélation et la chronologie d'une enquête.",
    "whyNot": {
-    "0": "La synchronisation n'accélère pas le réseau.",
-    "2": "Le chiffrement est une autre mesure.",
+    "0": "Le chiffrement est une autre mesure.",
+    "1": "La synchronisation n'accélère pas le réseau.",
     "3": "Le volume ne dépend pas de l'heure."
    },
    "kind": "general"
@@ -914,19 +914,19 @@
    "concept": "Détection",
    "prompt": "Une attaque réelle a lieu, mais aucune alerte n'est levée. De quoi s'agit-il ?",
    "choices": [
-    "Un faux positif",
     "Un faux négatif",
+    "Un vrai négatif",
     "Un vrai positif",
-    "Un vrai négatif"
+    "Un faux positif"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "Une attaque non détectée est un faux négatif : c'est le cas le plus dangereux.",
    "whyNot": {
-    "0": "Un faux positif est une alerte sans attaque.",
+    "1": "Un vrai négatif est l'absence d'alerte quand il n'y a pas d'attaque.",
     "2": "Un vrai positif est une attaque correctement détectée.",
-    "3": "Un vrai négatif est l'absence d'alerte quand il n'y a pas d'attaque."
+    "3": "Un faux positif est une alerte sans attaque."
    },
    "kind": "general"
   },
@@ -937,19 +937,19 @@
    "concept": "Détection",
    "prompt": "Une règle génère 300 alertes par jour, dont 299 concernent un outil de sauvegarde légitime. Quel est le problème et la bonne réaction ?",
    "choices": [
-    "Faux négatifs ; supprimer la règle",
-    "Faux positifs ; ajuster la règle (exclusion documentée de l'outil) et suivre son efficacité",
-    "Vrais positifs ; isoler le serveur de sauvegarde",
-    "Vrais négatifs ; ne rien faire"
+    "Vrais positifs ; isoler immédiatement le serveur de sauvegarde",
+    "Faux positifs ; ajuster la règle de façon documentée",
+    "Vrais négatifs ; ne rien changer, la règle fonctionne comme prévu",
+    "Faux négatifs ; supprimer la règle pour réduire le bruit"
    ],
    "correct": [
     1
    ],
    "explanation": "Des alertes sans attaque sont des faux positifs ; on ajuste la règle de façon documentée, sans la supprimer.",
    "whyNot": {
-    "0": "Il s'agit d'alertes en trop, pas d'attaques manquées ; supprimer la règle créerait des faux négatifs.",
-    "2": "L'outil est légitime : isoler le serveur serait une erreur.",
-    "3": "Des alertes inutiles fatiguent les analystes : il faut agir."
+    "0": "L'outil est légitime : isoler le serveur serait une erreur.",
+    "2": "Des alertes inutiles fatiguent les analystes : il faut agir.",
+    "3": "Il s'agit d'alertes en trop, pas d'attaques manquées ; supprimer la règle créerait des faux négatifs."
    },
    "kind": "example"
   },
@@ -960,19 +960,19 @@
    "concept": "SIEM",
    "prompt": "Dans un SIEM, quelle étape transforme des journaux de formats différents en un format commun ?",
    "choices": [
+    "Le chiffrement",
     "La corrélation",
-    "La normalisation",
     "L'archivage",
-    "Le chiffrement"
+    "La normalisation"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "La normalisation met les champs (date, utilisateur, adresse) dans un format commun pour permettre la recherche et la corrélation.",
    "whyNot": {
-    "0": "La corrélation rapproche des événements déjà normalisés.",
-    "2": "L'archivage conserve les journaux.",
-    "3": "Le chiffrement protège la confidentialité."
+    "0": "Le chiffrement protège la confidentialité.",
+    "1": "La corrélation rapproche des événements déjà normalisés.",
+    "2": "L'archivage conserve les journaux."
    },
    "kind": "general"
   },
@@ -983,19 +983,19 @@
    "concept": "Intégrité des journaux",
    "prompt": "Quelle mesure protège le mieux les journaux contre un administrateur malveillant qui voudrait effacer ses traces ?",
    "choices": [
-    "Conserver les journaux uniquement sur le serveur local",
-    "Les envoyer en temps réel vers un SIEM centralisé, sur un stockage non modifiable, géré par une autre équipe",
-    "Les compresser chaque nuit",
-    "Réduire la durée de conservation à 24 heures"
+    "Compresser et archiver les journaux chaque nuit sur le même serveur",
+    "Conserver les journaux uniquement sur le serveur local, avec des droits restreints à l'administrateur",
+    "Réduire la durée de conservation à 24 heures pour limiter l'exposition",
+    "Les envoyer en temps réel vers un SIEM centralisé, sur un stockage non modifiable, géré par une autre équipe"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "La centralisation immédiate, la séparation des tâches et un stockage non réinscriptible préservent l'intégrité des journaux.",
    "whyNot": {
-    "0": "Un administrateur local peut effacer les journaux locaux.",
-    "2": "La compression ne protège pas contre la modification.",
-    "3": "Une conservation courte détruit des preuves utiles."
+    "0": "La compression ne protège pas contre la modification.",
+    "1": "Un administrateur local peut effacer les journaux locaux.",
+    "2": "Une conservation courte détruit des preuves utiles."
    },
    "kind": "practice"
   },
@@ -1006,19 +1006,19 @@
    "concept": "SOAR",
    "prompt": "Quelles affirmations sur le SOAR sont exactes ? (2 réponses)",
    "choices": [
-    "Il automatise des actions de réponse à l'aide de playbooks",
     "Il orchestre plusieurs outils (EDR, pare-feu, messagerie)",
-    "Il remplace la journalisation",
-    "Il rend inutiles les analystes"
+    "Il rend inutiles les analystes",
+    "Il automatise des actions de réponse à l'aide de playbooks",
+    "Il remplace la journalisation"
    ],
    "correct": [
     0,
-    1
+    2
    ],
    "explanation": "Le SOAR orchestre les outils et automatise les tâches répétitives de réponse ; les analystes gardent la décision sur les cas complexes.",
    "whyNot": {
-    "2": "Le SOAR s'appuie sur les alertes et journaux, il ne les remplace pas.",
-    "3": "Il soulage les analystes mais ne les remplace pas."
+    "1": "Il soulage les analystes mais ne les remplace pas.",
+    "3": "Le SOAR s'appuie sur les alertes et journaux, il ne les remplace pas."
    },
    "kind": "general"
   },
@@ -1029,10 +1029,10 @@
    "concept": "UEBA",
    "prompt": "Un outil signale qu'un comptable télécharge pour la première fois 10 Go de données à 3 h du matin. Quel type d'analyse a produit cette alerte ?",
    "choices": [
-    "Une analyse de signature antivirale",
+    "Une analyse par signatures antivirales sur le poste",
     "Une analyse comportementale des utilisateurs et des entités (UEBA)",
-    "Un scan de vulnérabilités",
-    "Un test de restauration"
+    "Un test de restauration des sauvegardes de la nuit",
+    "Un scan de vulnérabilités authentifié du poste"
    ],
    "correct": [
     1
@@ -1040,8 +1040,8 @@
    "explanation": "L'UEBA apprend le comportement habituel et signale les écarts significatifs.",
    "whyNot": {
     "0": "Une signature reconnaît un fichier connu, pas un comportement inhabituel.",
-    "2": "Un scan de vulnérabilités recherche des failles.",
-    "3": "Un test de restauration vérifie les sauvegardes."
+    "2": "Un test de restauration vérifie les sauvegardes.",
+    "3": "Un scan de vulnérabilités recherche des failles."
    },
    "kind": "general"
   },
@@ -1052,19 +1052,19 @@
    "concept": "Journalisation",
    "prompt": "Quel événement est le PLUS important à journaliser et à surveiller ?",
    "choices": [
-    "L'ouverture du menu Démarrer",
+    "L'impression d'une page de test sur une imprimante réseau",
     "L'ajout d'un compte dans le groupe des administrateurs du domaine",
-    "Le changement de fond d'écran",
-    "L'impression d'une page de test"
+    "L'ouverture du menu Démarrer sur un poste de travail",
+    "Le changement du fond d'écran d'un utilisateur"
    ],
    "correct": [
     1
    ],
    "explanation": "Les modifications de comptes et de groupes à privilèges sont des événements critiques pour la sécurité.",
    "whyNot": {
-    "0": "Cet événement n'a pas d'intérêt de sécurité.",
-    "2": "Le fond d'écran n'a pas d'intérêt de sécurité.",
-    "3": "Une page de test n'est pas un événement critique."
+    "0": "Une page de test n'est pas un événement critique.",
+    "2": "Cet événement n'a pas d'intérêt de sécurité.",
+    "3": "Le fond d'écran n'a pas d'intérêt de sécurité."
    },
    "kind": "practice"
   },
@@ -1075,8 +1075,8 @@
    "concept": "Journalisation",
    "prompt": "Quelles conditions donnent à un journal une valeur de preuve lors d'une enquête ? (2 réponses)",
    "choices": [
-    "Un horodatage fiable, issu d'horloges synchronisées",
     "Une protection de l'intégrité (stockage non modifiable, empreintes)",
+    "Un horodatage fiable, issu d'horloges synchronisées",
     "Un format de fichier propriétaire",
     "Une couleur différente pour chaque source"
    ],
@@ -1098,19 +1098,19 @@
    "concept": "SIEM",
    "prompt": "Quelle règle de corrélation est la plus pertinente pour détecter un compte compromis ?",
    "choices": [
-    "Une alerte à chaque connexion réussie",
-    "Plusieurs échecs puis une réussite sur le même compte, suivie d'une connexion depuis un pays inhabituel",
-    "Une alerte à chaque impression",
-    "Une alerte à chaque redémarrage planifié"
+    "Une alerte à chaque connexion réussie, quel que soit le compte",
+    "Une alerte à chaque redémarrage planifié d'un serveur de production",
+    "Plusieurs échecs, une réussite, puis une connexion depuis un pays inhabituel",
+    "Une alerte à chaque impression lancée par un utilisateur"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "La corrélation combine plusieurs signaux faibles pour reconnaître un scénario crédible.",
    "whyNot": {
     "0": "Une alerte par connexion produirait un flot de faux positifs.",
-    "2": "Les impressions ne signalent pas une compromission de compte.",
-    "3": "Un redémarrage planifié est attendu."
+    "1": "Un redémarrage planifié est attendu.",
+    "3": "Les impressions ne signalent pas une compromission de compte."
    },
    "kind": "example"
   },
@@ -1121,19 +1121,19 @@
    "concept": "Organisation du SOC",
    "prompt": "Quel est le rôle principal d'un analyste SOC de niveau 1 ?",
    "choices": [
-    "Écrire la politique de sécurité",
+    "Développer et tester les applications métier",
+    "Négocier les contrats de cyber-assurance de l'entreprise",
     "Trier et qualifier les alertes, puis escalader si nécessaire",
-    "Négocier les contrats d'assurance",
-    "Développer les applications métier"
+    "Écrire et faire approuver la politique de sécurité"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Le niveau 1 reçoit les alertes, vérifie si elles sont fondées, évalue leur gravité et escalade.",
    "whyNot": {
-    "0": "La politique relève de la gouvernance (RSSI, direction).",
-    "2": "L'assurance relève de la gestion des risques.",
-    "3": "Le développement n'est pas une mission du SOC."
+    "0": "Le développement n'est pas une mission du SOC.",
+    "1": "L'assurance relève de la gestion des risques.",
+    "3": "La politique relève de la gouvernance (RSSI, direction)."
    },
    "kind": "general"
   },
@@ -1144,19 +1144,19 @@
    "concept": "Indicateurs",
    "prompt": "Que mesure le MTTD ?",
    "choices": [
-    "Le temps moyen entre le début d'un incident et sa détection",
-    "Le temps moyen de restauration d'une sauvegarde",
     "Le nombre de règles du SIEM",
-    "La durée de conservation des journaux"
+    "La durée de conservation des journaux",
+    "Le temps moyen de restauration d'une sauvegarde",
+    "Le temps moyen entre le début d'un incident et sa détection"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "MTTD (Mean Time To Detect) : temps moyen pour détecter un incident.",
    "whyNot": {
-    "1": "La restauration relève de la continuité ; le temps de réponse est le MTTR.",
-    "2": "Le nombre de règles n'est pas un temps.",
-    "3": "La conservation est une durée de stockage, pas un temps de détection."
+    "0": "Le nombre de règles n'est pas un temps.",
+    "1": "La conservation est une durée de stockage, pas un temps de détection.",
+    "2": "La restauration relève de la continuité ; le temps de réponse est le MTTR."
    },
    "kind": "general"
   },
@@ -1167,18 +1167,18 @@
    "concept": "IOC et IOA",
    "prompt": "Lequel de ces éléments est un indicateur d'attaque (IOA) plutôt qu'un indicateur de compromission (IOC) ?",
    "choices": [
-    "L'empreinte SHA-256 d'un fichier malveillant connu",
-    "L'adresse IP d'un serveur de commande connu",
     "Un traitement de texte qui lance un interpréteur de commandes",
+    "L'adresse IP d'un serveur de commande connu",
+    "L'empreinte SHA-256 d'un fichier malveillant connu",
     "Un nom de domaine malveillant listé par un fournisseur"
    ],
    "correct": [
-    2
+    0
    ],
    "explanation": "Un IOA décrit un comportement d'attaque, indépendant de l'outil utilisé ; les autres sont des traces connues (IOC).",
    "whyNot": {
-    "0": "Une empreinte connue est un IOC.",
     "1": "Une adresse connue est un IOC.",
+    "2": "Une empreinte connue est un IOC.",
     "3": "Un domaine listé est un IOC."
    },
    "kind": "general"
@@ -1191,18 +1191,18 @@
    "prompt": "Qu'est-ce qui caractérise la chasse aux menaces (threat hunting) ?",
    "choices": [
     "Une recherche proactive, à partir d'une hypothèse, d'attaques non détectées",
-    "Le traitement des alertes dans l'ordre d'arrivée",
-    "Un audit de conformité annuel",
-    "L'achat de listes d'adresses malveillantes"
+    "Un audit de conformité annuel mené par un cabinet externe",
+    "L'achat de listes d'adresses malveillantes à un fournisseur",
+    "Le traitement des alertes du SIEM dans leur ordre d'arrivée"
    ],
    "correct": [
     0
    ],
    "explanation": "La chasse part d'une hypothèse et cherche activement ce que les alertes n'ont pas vu.",
    "whyNot": {
-    "1": "Traiter les alertes est le triage, une activité réactive.",
-    "2": "L'audit vérifie la conformité, il ne cherche pas d'attaquant.",
-    "3": "Les listes d'indicateurs alimentent la détection, ce n'est pas la chasse."
+    "1": "L'audit vérifie la conformité, il ne cherche pas d'attaquant.",
+    "2": "Les listes d'indicateurs alimentent la détection, ce n'est pas la chasse.",
+    "3": "Traiter les alertes est le triage, une activité réactive."
    },
    "kind": "general"
   },
@@ -1213,19 +1213,19 @@
    "concept": "MITRE ATT&CK",
    "prompt": "Comment un SOC utilise-t-il le plus souvent MITRE ATT&CK ?",
    "choices": [
-    "Pour certifier ses analystes",
-    "Pour mesurer quelles tactiques et techniques d'attaque ses règles détectent",
-    "Pour chiffrer ses journaux",
-    "Pour calculer l'ALE"
+    "Pour calculer l'ALE des scénarios d'attaque",
+    "Pour chiffrer et signer ses journaux avant archivage",
+    "Pour certifier les compétences de ses analystes",
+    "Pour cartographier les techniques que ses règles détectent"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "ATT&CK décrit les tactiques et techniques des attaquants ; le SOC s'en sert pour cartographier sa couverture de détection et orienter la chasse.",
    "whyNot": {
-    "0": "ATT&CK n'est pas un programme de certification.",
-    "2": "ATT&CK n'a pas de rôle de chiffrement.",
-    "3": "L'ALE relève de l'analyse quantitative des risques."
+    "0": "L'ALE relève de l'analyse quantitative des risques.",
+    "1": "ATT&CK n'a pas de rôle de chiffrement.",
+    "2": "ATT&CK n'est pas un programme de certification."
    },
    "kind": "general"
   },
@@ -1236,10 +1236,10 @@
    "concept": "Indicateurs",
    "prompt": "Quels indicateurs aident à piloter un SOC ? (2 réponses)",
    "choices": [
-    "Le MTTR (temps moyen de réponse)",
     "Le taux de faux positifs par règle",
-    "Le nombre de pages de la politique de sécurité",
-    "Le nombre de fonds d'écran déployés"
+    "Le MTTR (temps moyen de réponse)",
+    "Le nombre de fonds d'écran déployés",
+    "Le nombre de pages de la politique de sécurité"
    ],
    "correct": [
     0,
@@ -1247,8 +1247,8 @@
    ],
    "explanation": "Les temps de détection et de réponse, et la qualité des règles, mesurent l'efficacité du SOC.",
    "whyNot": {
-    "2": "La longueur d'une politique ne mesure pas l'efficacité opérationnelle.",
-    "3": "Cet indicateur n'a pas de lien avec la sécurité."
+    "2": "Cet indicateur n'a pas de lien avec la sécurité.",
+    "3": "La longueur d'une politique ne mesure pas l'efficacité opérationnelle."
    },
    "kind": "practice"
   },
@@ -1259,19 +1259,19 @@
    "concept": "Playbook",
    "prompt": "Quel est le principal intérêt d'un playbook pour un SOC ?",
    "choices": [
-    "Remplacer le SIEM",
-    "Rendre le traitement d'un type d'alerte rapide, complet et homogène",
-    "Supprimer le besoin de journaux",
-    "Éviter toute escalade"
+    "Remplacer le SIEM pour la collecte des journaux",
+    "Éviter toute escalade vers les niveaux 2 et 3",
+    "Supprimer le besoin de conserver des journaux",
+    "Traiter chaque type d'alerte de façon rapide et homogène"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Le playbook décrit les vérifications et actions à mener : chaque analyste traite le cas de la même façon, sans oublier d'étape.",
    "whyNot": {
     "0": "Le playbook s'appuie sur le SIEM, il ne le remplace pas.",
-    "2": "Les journaux restent indispensables à l'analyse.",
-    "3": "Le playbook prévoit justement quand escalader."
+    "1": "Le playbook prévoit justement quand escalader.",
+    "2": "Les journaux restent indispensables à l'analyse."
    },
    "kind": "practice"
   },
@@ -1282,19 +1282,19 @@
    "concept": "Triage",
    "prompt": "L'EDR signale qu'un document a lancé PowerShell, qui contacte une adresse inconnue. Quelles actions immédiates sont appropriées ? (2 réponses)",
    "choices": [
-    "Isoler le poste du réseau via l'EDR",
-    "Rechercher le même courriel ou fichier sur les autres postes et boîtes de messagerie",
     "Redémarrer le poste pour effacer la mémoire",
-    "Clôturer l'alerte car l'utilisateur dit n'avoir rien fait"
+    "Isoler le poste du réseau via l'EDR",
+    "Clôturer l'alerte car l'utilisateur dit n'avoir rien fait",
+    "Rechercher le même courriel ou fichier sur les autres postes et boîtes de messagerie"
    ],
    "correct": [
-    0,
-    1
+    1,
+    3
    ],
    "explanation": "On contient en isolant le poste, puis on mesure l'étendue en cherchant les mêmes indicateurs ailleurs.",
    "whyNot": {
-    "2": "Redémarrer efface des preuves utiles en mémoire.",
-    "3": "L'utilisateur ne voit généralement pas l'exécution malveillante : son avis ne suffit pas."
+    "0": "Redémarrer efface des preuves utiles en mémoire.",
+    "2": "L'utilisateur ne voit généralement pas l'exécution malveillante : son avis ne suffit pas."
    },
    "kind": "example"
   },
@@ -1305,19 +1305,19 @@
    "concept": "Fatigue d'alerte",
    "prompt": "Quel est le principal danger de la fatigue d'alerte ?",
    "choices": [
-    "Une hausse du coût des licences",
     "Une vraie attaque noyée dans le bruit et traitée trop vite",
-    "Des journaux trop petits",
-    "Un pare-feu trop strict"
+    "Des journaux trop petits pour être exploités",
+    "Un pare-feu trop strict qui bloque le trafic légitime",
+    "Une hausse du coût des licences du SIEM"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "Submergés, les analystes sautent des étapes et finissent par manquer une alerte réelle.",
    "whyNot": {
-    "0": "Le coût n'est pas le principal danger.",
-    "2": "La taille des journaux n'est pas en cause.",
-    "3": "La fatigue d'alerte concerne les analystes, pas le pare-feu."
+    "1": "La taille des journaux n'est pas en cause.",
+    "2": "La fatigue d'alerte concerne les analystes, pas le pare-feu.",
+    "3": "Le coût n'est pas le principal danger."
    },
    "kind": "general"
   },
@@ -1328,19 +1328,19 @@
    "concept": "Nature du SOC",
    "prompt": "Dans la classification des contrôles, comment qualifier principalement un SOC ?",
    "choices": [
-    "Un contrôle dissuasif uniquement",
-    "Un contrôle détectif, avec une part corrective lors du confinement",
-    "Un contrôle compensatoire uniquement",
-    "Un contrôle physique"
+    "Un contrôle uniquement dissuasif, par sa simple présence",
+    "Un contrôle physique, comme une caméra de surveillance",
+    "Un contrôle uniquement compensatoire, faute de correctifs",
+    "Un contrôle détectif, avec une part corrective lors du confinement"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Le SOC détecte les incidents et contribue à les corriger en les contenant rapidement.",
    "whyNot": {
     "0": "Sa présence peut dissuader, mais ce n'est pas son rôle principal.",
-    "2": "Il peut compenser une faiblesse, mais sa fonction première est la détection.",
-    "3": "Le SOC est un contrôle technique et organisationnel, pas physique."
+    "1": "Le SOC est un contrôle technique et organisationnel, pas physique.",
+    "2": "Il peut compenser une faiblesse, mais sa fonction première est la détection."
    },
    "kind": "general"
   }

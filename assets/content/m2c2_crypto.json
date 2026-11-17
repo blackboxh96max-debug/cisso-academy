@@ -832,19 +832,19 @@
    "concept": "Services cryptographiques",
    "prompt": "Quel service de sécurité le chiffrement apporte-t-il en premier lieu ?",
    "choices": [
-    "La disponibilité",
-    "La confidentialité",
     "La non-répudiation",
-    "La traçabilité"
+    "La disponibilité",
+    "La traçabilité",
+    "La confidentialité"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Chiffrer rend les données illisibles pour qui n'a pas la clé : c'est la confidentialité.",
    "whyNot": {
-    "0": "Le chiffrement ne garantit pas la disponibilité ; une clé perdue peut même la réduire.",
-    "2": "La non-répudiation vient de la signature numérique.",
-    "3": "La traçabilité vient de la journalisation."
+    "0": "La non-répudiation vient de la signature numérique.",
+    "1": "Le chiffrement ne garantit pas la disponibilité ; une clé perdue peut même la réduire.",
+    "2": "La traçabilité vient de la journalisation."
    },
    "kind": "general"
   },
@@ -855,19 +855,19 @@
    "concept": "Chiffrement symétrique",
    "prompt": "Qu'est-ce qui caractérise le chiffrement symétrique ?",
    "choices": [
-    "Une paire de clés publique et privée",
+    "Une clé différente pour chaque bloc, publiée",
     "La même clé secrète pour chiffrer et déchiffrer",
-    "L'absence de clé",
-    "Une clé différente pour chaque bloc, publiée"
+    "Une paire de clés publique et privée",
+    "L'absence de clé"
    ],
    "correct": [
     1
    ],
    "explanation": "En symétrique, émetteur et destinataire partagent la même clé secrète.",
    "whyNot": {
-    "0": "La paire de clés caractérise l'asymétrique.",
-    "2": "Sans clé, il s'agit d'un hachage, pas d'un chiffrement.",
-    "3": "Les clés de chiffrement ne sont pas publiées."
+    "0": "Les clés de chiffrement ne sont pas publiées.",
+    "2": "La paire de clés caractérise l'asymétrique.",
+    "3": "Sans clé, il s'agit d'un hachage, pas d'un chiffrement."
    },
    "kind": "general"
   },
@@ -878,19 +878,19 @@
    "concept": "Nombre de clés",
    "prompt": "Dix personnes veulent toutes communiquer deux à deux en chiffrement symétrique. Combien de clés faut-il ?",
    "choices": [
-    "10",
     "20",
-    "45",
-    "100"
+    "10",
+    "100",
+    "45"
    ],
    "correct": [
-    2
+    3
    ],
    "explanation": "Formule n(n-1)/2 : 10 × 9 / 2 = 45 clés.",
    "whyNot": {
-    "0": "10 ne couvre pas toutes les paires.",
-    "1": "20 est le nombre de clés en asymétrique (2n).",
-    "3": "100 compterait chaque personne avec elle-même et chaque paire deux fois."
+    "0": "20 est le nombre de clés en asymétrique (2n).",
+    "1": "10 ne couvre pas toutes les paires.",
+    "2": "100 compterait chaque personne avec elle-même et chaque paire deux fois."
    },
    "kind": "general"
   },
@@ -901,19 +901,19 @@
    "concept": "Chiffrement asymétrique",
    "prompt": "Alice veut envoyer un document confidentiel à Bob en chiffrement asymétrique. Quelle clé utilise-t-elle pour chiffrer ?",
    "choices": [
-    "La clé privée d'Alice",
+    "La clé privée de Bob",
     "La clé publique d'Alice",
-    "La clé publique de Bob",
-    "La clé privée de Bob"
+    "La clé privée d'Alice",
+    "La clé publique de Bob"
    ],
    "correct": [
-    2
+    3
    ],
    "explanation": "Seule la clé privée de Bob pourra déchiffrer ce qui est chiffré avec la clé publique de Bob.",
    "whyNot": {
-    "0": "Chiffrer avec sa clé privée revient à signer : tout le monde peut déchiffrer avec la clé publique d'Alice.",
+    "0": "Alice ne possède pas la clé privée de Bob, qui ne doit jamais être partagée.",
     "1": "Bob ne possède pas la clé privée d'Alice et ne pourrait pas déchiffrer.",
-    "3": "Alice ne possède pas la clé privée de Bob, qui ne doit jamais être partagée."
+    "2": "Chiffrer avec sa clé privée revient à signer : tout le monde peut déchiffrer avec la clé publique d'Alice."
    },
    "kind": "example"
   },
@@ -924,19 +924,19 @@
    "concept": "Modes de chiffrement",
    "prompt": "Pourquoi le mode ECB est-il déconseillé ?",
    "choices": [
-    "Il est trop lent",
-    "Deux blocs identiques en clair donnent deux blocs chiffrés identiques",
-    "Il exige une clé de 512 bits",
-    "Il ne fonctionne qu'avec RSA"
+    "Il est beaucoup trop lent pour un usage réel",
+    "Il exige obligatoirement une clé de 512 bits",
+    "Il ne fonctionne qu'avec l'algorithme RSA",
+    "Deux blocs clairs identiques donnent deux blocs chiffrés identiques"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "ECB chiffre chaque bloc indépendamment : les motifs du message restent visibles.",
    "whyNot": {
     "0": "ECB est rapide ; son problème est la fuite de motifs.",
-    "2": "ECB fonctionne avec les tailles de clés habituelles de l'algorithme.",
-    "3": "ECB est un mode des chiffrements par bloc symétriques comme AES."
+    "1": "ECB fonctionne avec les tailles de clés habituelles de l'algorithme.",
+    "2": "ECB est un mode des chiffrements par bloc symétriques comme AES."
    },
    "kind": "general"
   },
@@ -947,18 +947,18 @@
    "concept": "Chiffrement hybride",
    "prompt": "Pourquoi TLS combine-t-il chiffrement asymétrique et symétrique ?",
    "choices": [
-    "Parce que le symétrique ne peut pas chiffrer de texte",
+    "Pour doubler la taille effective des clés et renforcer le chiffrement",
+    "Parce que le chiffrement symétrique ne sait pas chiffrer du texte",
     "L'asymétrique sert à établir une clé de session, le symétrique chiffre les données rapidement",
-    "Pour doubler la taille des clés",
-    "Parce que l'asymétrique est plus rapide"
+    "Parce que l'asymétrique est plus rapide pour les gros volumes de données"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Le chiffrement hybride combine la distribution facile des clés de l'asymétrique et la vitesse du symétrique.",
    "whyNot": {
-    "0": "Le symétrique chiffre tout type de donnée.",
-    "2": "Le but n'est pas la taille des clés.",
+    "0": "Le but n'est pas la taille des clés.",
+    "1": "Le symétrique chiffre tout type de donnée.",
     "3": "L'asymétrique est beaucoup plus lent."
    },
    "kind": "general"
@@ -970,17 +970,17 @@
    "concept": "Principe de Kerckhoffs",
    "prompt": "Selon le principe de Kerckhoffs, sur quoi doit reposer la sécurité d'un système de chiffrement ?",
    "choices": [
-    "Sur le secret de l'algorithme",
     "Sur le secret de la clé uniquement",
+    "Sur le secret de l'algorithme",
     "Sur le nombre de serveurs",
     "Sur un mot de passe partagé par tous"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "L'algorithme peut être public ; seule la clé doit rester secrète.",
    "whyNot": {
-    "0": "Un algorithme secret n'est pas éprouvé et finit souvent par être découvert.",
+    "1": "Un algorithme secret n'est pas éprouvé et finit souvent par être découvert.",
     "2": "Le nombre de serveurs n'a pas de lien avec la robustesse cryptographique.",
     "3": "Un secret partagé par tous n'est plus un secret."
    },
@@ -1016,10 +1016,10 @@
    "concept": "Diffie-Hellman",
    "prompt": "Quelle est la faiblesse d'un échange Diffie-Hellman qui n'est pas authentifié ?",
    "choices": [
-    "Il ne produit aucun secret",
+    "Il ne produit aucun secret partagé utilisable",
     "Il est exposé à une attaque de l'homme du milieu",
-    "Il révèle la clé privée",
-    "Il ne fonctionne qu'en mode ECB"
+    "Il révèle la clé privée de chacun des participants",
+    "Il ne fonctionne qu'avec le mode de chiffrement ECB"
    ],
    "correct": [
     1
@@ -1039,19 +1039,19 @@
    "concept": "Courbes elliptiques",
    "prompt": "Quel est l'avantage principal de la cryptographie sur courbes elliptiques (ECC) par rapport à RSA ?",
    "choices": [
-    "Elle n'a pas besoin de clé privée",
+    "C'est un algorithme symétrique, donc plus rapide",
+    "Elle résiste aux futurs ordinateurs quantiques",
     "Une sécurité équivalente avec des clés beaucoup plus courtes",
-    "Elle est symétrique",
-    "Elle est insensible aux ordinateurs quantiques"
+    "Elle fonctionne sans aucune clé privée à protéger"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "ECC offre une sécurité comparable avec des clés plus petites, donc des calculs et des échanges plus légers.",
    "whyNot": {
-    "0": "ECC est asymétrique : elle utilise une paire de clés.",
-    "2": "ECC est asymétrique.",
-    "3": "L'algorithme de Shor menacerait aussi ECC."
+    "0": "ECC est asymétrique.",
+    "1": "L'algorithme de Shor menacerait aussi ECC.",
+    "3": "ECC est asymétrique : elle utilise une paire de clés."
    },
    "kind": "general"
   },
@@ -1062,19 +1062,19 @@
    "concept": "Hachage",
    "prompt": "Quelle propriété décrit une fonction de hachage ?",
    "choices": [
-    "Elle produit une empreinte de taille fixe et ne peut pas être inversée",
-    "Elle se déchiffre avec une clé publique",
-    "Sa sortie a la même taille que l'entrée",
-    "Elle garantit la confidentialité du message"
+    "Elle garantit à elle seule la confidentialité du message",
+    "Sa sortie a toujours la même taille que le message d'entrée",
+    "Elle se déchiffre avec la clé publique de l'émetteur",
+    "Elle produit une empreinte de taille fixe et ne peut pas être inversée"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "Une fonction de hachage produit une empreinte de taille fixe, à sens unique.",
    "whyNot": {
-    "1": "Une empreinte ne se déchiffre pas.",
-    "2": "La sortie a toujours la même taille, quelle que soit l'entrée.",
-    "3": "Le message reste lisible : le hachage ne cache rien."
+    "0": "Le message reste lisible : le hachage ne cache rien.",
+    "1": "La sortie a toujours la même taille, quelle que soit l'entrée.",
+    "2": "Une empreinte ne se déchiffre pas."
    },
    "kind": "general"
   },
@@ -1086,18 +1086,18 @@
    "prompt": "Qu'appelle-t-on une collision pour une fonction de hachage ?",
    "choices": [
     "Deux messages différents qui ont la même empreinte",
+    "Une clé utilisée deux fois",
     "Deux empreintes différentes pour le même message",
-    "Une empreinte trop longue",
-    "Une clé utilisée deux fois"
+    "Une empreinte trop longue"
    ],
    "correct": [
     0
    ],
    "explanation": "Une collision, ce sont deux entrées différentes qui produisent la même empreinte.",
    "whyNot": {
-    "1": "Une fonction de hachage est déterministe : un même message donne toujours la même empreinte.",
-    "2": "La longueur n'est pas une collision.",
-    "3": "La réutilisation de clé est un autre problème."
+    "1": "La réutilisation de clé est un autre problème.",
+    "2": "Une fonction de hachage est déterministe : un même message donne toujours la même empreinte.",
+    "3": "La longueur n'est pas une collision."
    },
    "kind": "general"
   },
@@ -1108,19 +1108,19 @@
    "concept": "Stockage des mots de passe",
    "prompt": "Quelle est la meilleure façon de stocker les mots de passe d'une application ?",
    "choices": [
-    "En clair dans une base protégée par un pare-feu",
-    "Chiffrés en AES avec une clé stockée sur le même serveur",
     "Hachés avec un sel unique et une fonction lente comme Argon2 ou bcrypt",
-    "Hachés en MD5 sans sel"
+    "Hachés en MD5 sans sel",
+    "Chiffrés en AES avec une clé stockée sur le même serveur",
+    "En clair dans une base protégée par un pare-feu"
    ],
    "correct": [
-    2
+    0
    ],
    "explanation": "Sel unique et fonction volontairement lente rendent les attaques par dictionnaire et par tables précalculées très coûteuses.",
    "whyNot": {
-    "0": "Une fuite de la base exposerait tous les mots de passe.",
-    "1": "Un chiffrement réversible avec la clé à côté ne protège pas en cas de compromission du serveur.",
-    "3": "MD5 est rapide et, sans sel, vulnérable aux tables précalculées."
+    "1": "MD5 est rapide et, sans sel, vulnérable aux tables précalculées.",
+    "2": "Un chiffrement réversible avec la clé à côté ne protège pas en cas de compromission du serveur.",
+    "3": "Une fuite de la base exposerait tous les mots de passe."
    },
    "kind": "practice"
   },
@@ -1131,19 +1131,19 @@
    "concept": "Sel",
    "prompt": "Quels sont les effets d'un sel unique par compte ? (2 réponses)",
    "choices": [
-    "Les tables précalculées (rainbow tables) deviennent inutiles",
-    "Deux utilisateurs ayant le même mot de passe ont des empreintes différentes",
+    "Le sel doit rester secret pour être efficace",
     "Le mot de passe devient déchiffrable par l'administrateur",
-    "Le sel doit rester secret pour être efficace"
+    "Deux utilisateurs ayant le même mot de passe ont des empreintes différentes",
+    "Les tables précalculées (rainbow tables) deviennent inutiles"
    ],
    "correct": [
-    0,
-    1
+    2,
+    3
    ],
    "explanation": "Le sel rend chaque empreinte unique : les tables précalculées ne servent plus et les mots de passe identiques ne se voient pas.",
    "whyNot": {
-    "2": "Le hachage reste à sens unique ; rien ne devient déchiffrable.",
-    "3": "Le sel n'est pas secret : il est stocké avec l'empreinte."
+    "0": "Le sel n'est pas secret : il est stocké avec l'empreinte.",
+    "1": "Le hachage reste à sens unique ; rien ne devient déchiffrable."
    },
    "kind": "general"
   },
@@ -1155,18 +1155,18 @@
    "prompt": "Avec quelle clé un émetteur signe-t-il un document ?",
    "choices": [
     "Sa clé privée",
-    "Sa clé publique",
     "La clé publique du destinataire",
-    "Une clé de session partagée"
+    "Une clé de session partagée",
+    "Sa clé publique"
    ],
    "correct": [
     0
    ],
    "explanation": "On signe avec sa propre clé privée ; tout le monde vérifie avec la clé publique correspondante.",
    "whyNot": {
-    "1": "La clé publique sert à vérifier, pas à signer.",
-    "2": "La clé publique du destinataire sert à chiffrer pour lui.",
-    "3": "Une clé partagée donnerait un MAC, sans non-répudiation."
+    "1": "La clé publique du destinataire sert à chiffrer pour lui.",
+    "2": "Une clé partagée donnerait un MAC, sans non-répudiation.",
+    "3": "La clé publique sert à vérifier, pas à signer."
    },
    "kind": "general"
   },
@@ -1200,19 +1200,19 @@
    "concept": "MAC",
    "prompt": "Pourquoi un HMAC n'apporte-t-il pas la non-répudiation ?",
    "choices": [
-    "Parce qu'il n'utilise pas de fonction de hachage",
-    "Parce que la clé est partagée : les deux parties peuvent calculer le même code",
-    "Parce qu'il chiffre le message",
-    "Parce qu'il est plus lent qu'une signature"
+    "Parce que la clé est partagée par les deux parties",
+    "Parce qu'il est plus lent qu'une signature numérique",
+    "Parce qu'il n'utilise aucune fonction de hachage",
+    "Parce qu'il chiffre le message au lieu de le signer"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "Avec une clé partagée, rien ne prouve à un tiers lequel des détenteurs a produit le code.",
    "whyNot": {
-    "0": "HMAC repose justement sur une fonction de hachage.",
-    "2": "Un HMAC ne chiffre pas le message.",
-    "3": "La vitesse n'a pas de lien avec la non-répudiation ; HMAC est d'ailleurs rapide."
+    "1": "La vitesse n'a pas de lien avec la non-répudiation ; HMAC est d'ailleurs rapide.",
+    "2": "HMAC repose justement sur une fonction de hachage.",
+    "3": "Un HMAC ne chiffre pas le message."
    },
    "kind": "general"
   },
@@ -1224,18 +1224,18 @@
    "prompt": "Pourquoi MD5 et SHA-1 ne doivent-ils plus être utilisés pour les signatures numériques ?",
    "choices": [
     "Leurs empreintes sont trop longues",
-    "Des collisions pratiques ont été démontrées",
     "Ils exigent une clé secrète",
-    "Ils ne fonctionnent pas sur les fichiers binaires"
+    "Ils ne fonctionnent pas sur les fichiers binaires",
+    "Des collisions pratiques ont été démontrées"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Des collisions réalisables permettent de fabriquer deux documents de même empreinte, et donc de transférer une signature de l'un à l'autre.",
    "whyNot": {
     "0": "Leurs empreintes sont au contraire courtes (128 et 160 bits).",
-    "2": "Ce sont des fonctions de hachage sans clé.",
-    "3": "Ils traitent tout type de donnée."
+    "1": "Ce sont des fonctions de hachage sans clé.",
+    "2": "Ils traitent tout type de donnée."
    },
    "kind": "general"
   },
@@ -1246,19 +1246,19 @@
    "concept": "Attaque des anniversaires",
    "prompt": "Pour une empreinte de 128 bits, combien d'essais faut-il environ pour trouver une collision par l'attaque des anniversaires ?",
    "choices": [
-    "2 puissance 16",
-    "2 puissance 64",
+    "2 puissance 256",
     "2 puissance 128",
-    "2 puissance 256"
+    "2 puissance 16",
+    "2 puissance 64"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Une collision demande environ 2 puissance n/2 essais : pour 128 bits, environ 2 puissance 64.",
    "whyNot": {
-    "0": "Ce serait beaucoup trop peu.",
-    "2": "2 puissance 128 correspond à la recherche d'une préimage, pas d'une collision.",
-    "3": "Ce chiffre dépasse la taille de l'empreinte."
+    "0": "Ce chiffre dépasse la taille de l'empreinte.",
+    "1": "2 puissance 128 correspond à la recherche d'une préimage, pas d'une collision.",
+    "2": "Ce serait beaucoup trop peu."
    },
    "kind": "general"
   },
@@ -1269,19 +1269,19 @@
    "concept": "Vérification d'intégrité",
    "prompt": "Vous téléchargez un logiciel d'administration. Comment vérifier qu'il n'a pas été modifié ?",
    "choices": [
-    "Regarder la taille du fichier",
-    "Comparer son empreinte SHA-256 avec celle publiée par l'éditeur sur un canal de confiance, ou vérifier sa signature",
-    "Renommer le fichier",
-    "L'ouvrir pour voir s'il fonctionne"
+    "L'ouvrir sur un poste de test pour voir s'il fonctionne normalement",
+    "Renommer le fichier avant de l'exécuter, pour éviter les détections",
+    "Vérifier que la taille du fichier correspond à celle annoncée sur la page de téléchargement",
+    "Comparer son empreinte SHA-256 avec celle publiée par l'éditeur sur un canal de confiance, ou vérifier sa signature"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Une empreinte ou une signature vérifiée garantit que le fichier est celui publié par l'éditeur.",
    "whyNot": {
-    "0": "Un fichier modifié peut garder la même taille.",
-    "2": "Le nom ne prouve rien.",
-    "3": "Un fichier piégé fonctionne souvent normalement."
+    "0": "Un fichier piégé fonctionne souvent normalement.",
+    "1": "Le nom ne prouve rien.",
+    "2": "Un fichier modifié peut garder la même taille."
    },
    "kind": "practice"
   },
@@ -1292,19 +1292,19 @@
    "concept": "Certificat",
    "prompt": "Que garantit un certificat X.509 valide ?",
    "choices": [
-    "Qu'une clé publique appartient bien à une identité, attesté par la signature d'une CA",
-    "Que le site est exempt de failles",
-    "Que la clé privée est publiée",
-    "Que les données sont sauvegardées"
+    "Que les données du site sont chiffrées et sauvegardées",
+    "Que la clé privée correspondante a été publiée",
+    "Qu'une clé publique appartient à une identité, attesté par une CA",
+    "Que le site web qui le présente est exempt de failles"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Le certificat lie une identité à une clé publique ; la CA l'atteste par sa signature.",
    "whyNot": {
-    "1": "Un certificat ne dit rien de la sécurité du site lui-même.",
-    "2": "La clé privée ne figure jamais dans un certificat.",
-    "3": "Le certificat n'a aucun lien avec la sauvegarde."
+    "0": "Le certificat n'a aucun lien avec la sauvegarde.",
+    "1": "La clé privée ne figure jamais dans un certificat.",
+    "3": "Un certificat ne dit rien de la sécurité du site lui-même."
    },
    "kind": "general"
   },
@@ -1315,19 +1315,19 @@
    "concept": "Révocation",
    "prompt": "Quel mécanisme permet de vérifier en ligne et en quasi temps réel si un certificat précis est révoqué ?",
    "choices": [
-    "CRL",
-    "OCSP",
-    "CSR",
-    "HSM"
+    "HSM (module matériel de clés)",
+    "CSR (demande de signature)",
+    "CRL (liste de révocation publiée)",
+    "OCSP (protocole d'état en ligne)"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "OCSP interroge un serveur sur l'état d'un certificat donné.",
    "whyNot": {
-    "0": "La CRL est une liste complète publiée périodiquement.",
-    "2": "Une CSR est une demande de certificat.",
-    "3": "Un HSM protège des clés ; il ne publie pas l'état des certificats."
+    "0": "Un HSM protège des clés ; il ne publie pas l'état des certificats.",
+    "1": "Une CSR est une demande de certificat.",
+    "2": "La CRL est une liste complète publiée périodiquement."
    },
    "kind": "general"
   },
@@ -1338,19 +1338,19 @@
    "concept": "Autorité d'enregistrement",
    "prompt": "Quel est le rôle d'une autorité d'enregistrement (RA) ?",
    "choices": [
-    "Signer les certificats",
+    "Stocker les clés privées des utilisateurs en séquestre",
+    "Chiffrer le trafic web entre les clients et les serveurs",
     "Vérifier l'identité du demandeur avant l'émission du certificat",
-    "Stocker les clés privées des utilisateurs",
-    "Chiffrer le trafic web"
+    "Signer les certificats émis par la PKI"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "La RA contrôle l'identité ; la CA signe.",
    "whyNot": {
-    "0": "La signature est le rôle de la CA.",
-    "2": "Les clés privées restent chez leurs propriétaires.",
-    "3": "Le chiffrement du trafic est fait par TLS, pas par la RA."
+    "0": "Les clés privées restent chez leurs propriétaires.",
+    "1": "Le chiffrement du trafic est fait par TLS, pas par la RA.",
+    "3": "La signature est le rôle de la CA."
    },
    "kind": "general"
   },
@@ -1361,17 +1361,17 @@
    "concept": "Architecture de PKI",
    "prompt": "Pourquoi garde-t-on la CA racine hors ligne et confie-t-on la signature quotidienne à des CA intermédiaires ?",
    "choices": [
-    "Pour accélérer les navigateurs",
-    "Pour limiter l'exposition de la clé racine et pouvoir révoquer une intermédiaire sans reconstruire toute la PKI",
-    "Parce que la racine ne peut pas signer",
-    "Pour éviter d'utiliser des certificats"
+    "Pour protéger la clé racine et pouvoir révoquer une intermédiaire",
+    "Pour accélérer la vérification des certificats dans les navigateurs",
+    "Parce qu'une CA racine n'a techniquement pas le droit de signer de certificats",
+    "Pour éviter de devoir émettre des certificats aux serveurs internes"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "La clé racine est le sommet de la confiance : la garder hors ligne réduit le risque, et une intermédiaire compromise peut être révoquée.",
    "whyNot": {
-    "0": "La performance n'est pas la raison.",
+    "1": "La performance n'est pas la raison.",
     "2": "La racine signe les intermédiaires.",
     "3": "Les intermédiaires signent justement des certificats."
    },
@@ -1384,18 +1384,18 @@
    "concept": "HSM",
    "prompt": "Qu'est-ce qu'un HSM ?",
    "choices": [
-    "Un logiciel de messagerie chiffrée",
-    "Un module matériel qui génère, stocke et utilise des clés sans les exposer",
-    "Une liste de certificats révoqués",
-    "Un algorithme de hachage"
+    "Un module matériel qui protège et utilise des clés",
+    "Une liste des certificats révoqués publiée par la CA",
+    "Un logiciel de messagerie chiffrée de bout en bout",
+    "Un algorithme de hachage conçu pour les mots de passe"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "Le HSM protège physiquement et logiquement les clés ; les opérations ont lieu à l'intérieur.",
    "whyNot": {
-    "0": "Ce n'est pas une messagerie.",
-    "2": "Ceci décrit une CRL.",
+    "1": "Ceci décrit une CRL.",
+    "2": "Ce n'est pas une messagerie.",
     "3": "Ce n'est pas un algorithme."
    },
    "kind": "general"
@@ -1407,19 +1407,19 @@
    "concept": "Compromission de clé",
    "prompt": "La clé privée d'un serveur web a été volée. Quelles actions sont nécessaires ? (2 réponses)",
    "choices": [
-    "Faire révoquer le certificat associé",
-    "Générer une nouvelle paire de clés et obtenir un nouveau certificat",
+    "Changer seulement le nom du serveur",
     "Prolonger la validité du certificat actuel",
-    "Changer seulement le nom du serveur"
+    "Générer une nouvelle paire de clés et obtenir un nouveau certificat",
+    "Faire révoquer le certificat associé"
    ],
    "correct": [
-    0,
-    1
+    2,
+    3
    ],
    "explanation": "Le certificat compromis doit être révoqué et remplacé par un certificat lié à une nouvelle paire de clés.",
    "whyNot": {
-    "2": "Prolonger un certificat compromis prolonge le risque.",
-    "3": "Le nom ne change rien à la clé volée."
+    "0": "Le nom ne change rien à la clé volée.",
+    "1": "Prolonger un certificat compromis prolonge le risque."
    },
    "kind": "practice"
   },
@@ -1430,19 +1430,19 @@
    "concept": "Séquestre de clés",
    "prompt": "Quelle clé ne doit jamais être placée en séquestre ?",
    "choices": [
-    "Une clé de chiffrement de données",
-    "La clé privée de signature d'une personne",
     "Une clé de session expirée",
-    "Une clé publique"
+    "Une clé de chiffrement de données",
+    "Une clé publique",
+    "La clé privée de signature d'une personne"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Si un tiers détient une copie de la clé de signature, la personne peut nier avoir signé : la non-répudiation disparaît.",
    "whyNot": {
-    "0": "Le séquestre des clés de chiffrement permet justement de récupérer les données.",
-    "2": "Une clé de session expirée n'a pas à être conservée.",
-    "3": "Une clé publique est publique : la question du séquestre ne se pose pas."
+    "0": "Une clé de session expirée n'a pas à être conservée.",
+    "1": "Le séquestre des clés de chiffrement permet justement de récupérer les données.",
+    "2": "Une clé publique est publique : la question du séquestre ne se pose pas."
    },
    "kind": "general"
   },
@@ -1453,18 +1453,18 @@
    "concept": "Confidentialité persistante",
    "prompt": "Que garantit la confidentialité persistante (forward secrecy) ?",
    "choices": [
-    "Que les certificats n'expirent jamais",
-    "Que le vol futur de la clé privée du serveur ne permet pas de déchiffrer les sessions passées",
-    "Que les mots de passe sont salés",
-    "Que les journaux sont conservés"
+    "Que les mots de passe stockés sont salés et hachés",
+    "Que le vol futur de la clé privée n'expose pas les sessions passées",
+    "Que les certificats du serveur n'expirent jamais",
+    "Que les journaux de connexion sont conservés et signés"
    ],
    "correct": [
     1
    ],
    "explanation": "Avec des clés éphémères (DHE, ECDHE), chaque session a sa propre clé, indépendante de la clé privée à long terme.",
    "whyNot": {
-    "0": "Les certificats expirent toujours.",
-    "2": "Le salage concerne le stockage des mots de passe.",
+    "0": "Le salage concerne le stockage des mots de passe.",
+    "2": "Les certificats expirent toujours.",
     "3": "La conservation des journaux est un autre sujet."
    },
    "kind": "general"
@@ -1476,18 +1476,18 @@
    "concept": "Homme du milieu",
    "prompt": "Lors d'un exercice simulé, un poste de test affiche un avertissement « certificat non approuvé » sur un portail interne. Quelle est la meilleure réaction ?",
    "choices": [
-    "Cliquer sur « continuer » pour ne pas bloquer le travail",
+    "Désactiver la vérification des certificats dans le navigateur du poste",
+    "Cliquer sur « continuer » pour ne pas bloquer le travail de l'équipe",
     "Ne pas poursuivre, signaler au SOC et vérifier l'empreinte du certificat présenté",
-    "Désactiver la vérification des certificats dans le navigateur",
-    "Supprimer le magasin de certificats"
+    "Supprimer le magasin de certificats du poste et redémarrer"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Un certificat non approuvé peut révéler une interception. On s'arrête, on signale et on vérifie.",
    "whyNot": {
-    "0": "Ignorer l'avertissement expose à une interception.",
-    "2": "Désactiver la vérification supprime la protection.",
+    "0": "Désactiver la vérification supprime la protection.",
+    "1": "Ignorer l'avertissement expose à une interception.",
     "3": "Supprimer le magasin casserait toutes les connexions sans résoudre le problème."
    },
    "kind": "example"
@@ -1501,8 +1501,8 @@
    "choices": [
     "AES-256",
     "RSA et les courbes elliptiques",
-    "SHA-3",
-    "Les fonctions de dérivation de mots de passe"
+    "Les fonctions de dérivation de mots de passe",
+    "SHA-3"
    ],
    "correct": [
     1
@@ -1510,8 +1510,8 @@
    "explanation": "L'algorithme de Shor casserait les problèmes de factorisation et de logarithme discret sur lesquels reposent RSA et ECC. Le NIST a publié en 2024 les premiers standards post-quantiques (FIPS 203, 204 et 205).",
    "whyNot": {
     "0": "Pour le symétrique, l'effet attendu (algorithme de Grover) réduit la sécurité de moitié en bits : AES-256 reste solide.",
-    "2": "Les fonctions de hachage sont beaucoup moins touchées.",
-    "3": "Elles reposent sur le hachage, beaucoup moins touché."
+    "2": "Elles reposent sur le hachage, beaucoup moins touché.",
+    "3": "Les fonctions de hachage sont beaucoup moins touchées."
    },
    "kind": "general"
   }

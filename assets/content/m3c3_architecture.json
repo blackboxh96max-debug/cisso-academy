@@ -655,19 +655,19 @@
    "concept": "Défense en profondeur",
    "prompt": "Qu'est-ce que la défense en profondeur ?",
    "choices": [
-    "Un seul pare-feu très puissant",
-    "La superposition de contrôles indépendants pour qu'une défaillance soit compensée par les autres",
-    "Le chiffrement de tous les disques",
-    "Le stockage des sauvegardes sous terre"
+    "Un seul pare-feu très puissant placé en entrée du réseau",
+    "Le stockage des sauvegardes dans un local souterrain protégé",
+    "Le chiffrement systématique de tous les disques du parc",
+    "Des contrôles indépendants superposés, qui se compensent"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Plusieurs couches de natures différentes : si l'une cède, les autres arrêtent ou détectent l'attaquant.",
    "whyNot": {
     "0": "Un seul contrôle est un point unique de défaillance.",
-    "2": "Le chiffrement n'est qu'une couche parmi d'autres.",
-    "3": "Jeu de mots sans rapport."
+    "1": "Jeu de mots sans rapport.",
+    "2": "Le chiffrement n'est qu'une couche parmi d'autres."
    },
    "kind": "general"
   },
@@ -678,18 +678,18 @@
    "concept": "Moindre privilège",
    "prompt": "Un compte de service n'a besoin que de lire une table. Quel principe impose de ne lui donner que ce droit ?",
    "choices": [
-    "Conception ouverte",
     "Moindre privilège",
     "Économie de mécanisme",
+    "Conception ouverte",
     "Fail safe"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "Le moindre privilège donne juste les droits nécessaires, juste le temps nécessaire.",
    "whyNot": {
-    "0": "La conception ouverte concerne le secret de la conception.",
-    "2": "L'économie de mécanisme demande de rester simple.",
+    "1": "L'économie de mécanisme demande de rester simple.",
+    "2": "La conception ouverte concerne le secret de la conception.",
     "3": "Fail safe concerne le comportement en cas de panne."
    },
    "kind": "general"
@@ -701,19 +701,19 @@
    "concept": "Familles de contrôles",
    "prompt": "La sensibilisation des salariés est un contrôle de quelle famille ?",
    "choices": [
-    "Technique",
     "Physique",
-    "Administratif",
-    "Cryptographique"
+    "Technique",
+    "Cryptographique",
+    "Administratif"
    ],
    "correct": [
-    2
+    3
    ],
    "explanation": "Politiques, sensibilisation et procédures sont des contrôles administratifs.",
    "whyNot": {
-    "0": "Les contrôles techniques sont mis en œuvre par la technologie.",
-    "1": "Les contrôles physiques protègent les lieux et le matériel.",
-    "3": "Ce n'est pas une famille de contrôles de ce classement."
+    "0": "Les contrôles physiques protègent les lieux et le matériel.",
+    "1": "Les contrôles techniques sont mis en œuvre par la technologie.",
+    "2": "Ce n'est pas une famille de contrôles de ce classement."
    },
    "kind": "general"
   },
@@ -724,19 +724,19 @@
    "concept": "Fail safe",
    "prompt": "En cas d'incendie, les portes à badge d'une salle s'ouvrent automatiquement. Quel principe s'applique ?",
    "choices": [
-    "Fail secure, car on protège l'information",
     "Fail safe, car la sécurité des personnes passe avant tout",
-    "Médiation complète",
-    "Moindre privilège"
+    "Moindre privilège, car seuls les badges autorisés sont acceptés",
+    "Médiation complète, car chaque passage est contrôlé",
+    "Fail secure, car on protège d'abord l'information de la salle"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "La vie humaine l'emporte toujours : les issues doivent s'ouvrir en cas d'urgence.",
    "whyNot": {
-    "0": "Fail secure garderait les portes fermées : inacceptable pour des personnes.",
+    "1": "Le moindre privilège concerne les droits.",
     "2": "La médiation complète concerne la vérification de chaque accès.",
-    "3": "Le moindre privilège concerne les droits."
+    "3": "Fail secure garderait les portes fermées : inacceptable pour des personnes."
    },
    "kind": "general"
   },
@@ -747,18 +747,18 @@
    "concept": "Conception ouverte",
    "prompt": "Un éditeur affirme que son produit est sûr « parce que personne ne connaît son algorithme ». Quel principe est violé ?",
    "choices": [
+    "Moindre privilège : chacun ne doit avoir que les droits nécessaires",
+    "Séparation des privilèges : une action sensible exige plusieurs conditions",
     "Conception ouverte : la sécurité ne doit pas reposer sur le secret de la conception",
-    "Moindre privilège",
-    "Séparation des privilèges",
-    "Sécurité par défaut"
+    "Sécurité par défaut : la configuration livrée doit être la plus sûre"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "La sécurité par l'obscurité ne tient pas : seule la clé doit rester secrète (Kerckhoffs).",
    "whyNot": {
-    "1": "Le moindre privilège concerne les droits.",
-    "2": "La séparation des privilèges exige plusieurs conditions.",
+    "0": "Le moindre privilège concerne les droits.",
+    "1": "La séparation des privilèges exige plusieurs conditions.",
     "3": "La sécurité par défaut concerne la configuration livrée."
    },
    "kind": "general"
@@ -771,18 +771,18 @@
    "prompt": "Un pare-feu tombe en panne. Pour protéger l'information, quel comportement est préférable ?",
    "choices": [
     "Laisser passer tout le trafic",
-    "Bloquer le trafic (fail secure)",
     "Redémarrer en mode de test",
-    "Désactiver la journalisation"
+    "Désactiver la journalisation",
+    "Bloquer le trafic (fail secure)"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "La défaillance sûre bloque l'accès plutôt que de l'ouvrir en cas de panne.",
    "whyNot": {
     "0": "C'est un fail open : la protection disparaît.",
-    "2": "Un mode de test n'est pas un comportement de défaillance sûr.",
-    "3": "Les journaux sont précieux pendant un incident."
+    "1": "Un mode de test n'est pas un comportement de défaillance sûr.",
+    "2": "Les journaux sont précieux pendant un incident."
    },
    "kind": "general"
   },
@@ -793,10 +793,10 @@
    "concept": "Surface d'attaque",
    "prompt": "Quelle action réduit le plus directement la surface d'attaque d'un serveur ?",
    "choices": [
-    "Ajouter un écran de connexion coloré",
+    "Ajouter un écran de connexion avec un avertissement légal",
     "Désinstaller les services et fermer les ports inutiles",
-    "Augmenter la mémoire vive",
-    "Changer le nom du serveur"
+    "Changer le nom du serveur pour le rendre moins visible",
+    "Augmenter la mémoire vive pour mieux résister aux attaques"
    ],
    "correct": [
     1
@@ -804,8 +804,8 @@
    "explanation": "Moins de services exposés, moins de failles possibles.",
    "whyNot": {
     "0": "Aucun effet sur la sécurité.",
-    "2": "Aucun effet sur l'exposition.",
-    "3": "C'est de l'obscurité, pas une réduction réelle."
+    "2": "C'est de l'obscurité, pas une réduction réelle.",
+    "3": "Aucun effet sur l'exposition."
    },
    "kind": "general"
   },
@@ -816,19 +816,19 @@
    "concept": "Point unique de défaillance",
    "prompt": "Un seul administrateur connaît les mots de passe de tous les équipements réseau. Quels risques en découlent ? (plusieurs réponses)",
    "choices": [
+    "Meilleure traçabilité des actions",
     "Point unique de défaillance si cette personne est absente",
     "Absence de séparation des tâches et de contrôle mutuel",
-    "Meilleure traçabilité des actions",
     "Risque accru en cas de malveillance de cette personne"
    ],
    "correct": [
-    0,
     1,
+    2,
     3
    ],
    "explanation": "Une seule personne indispensable et toute-puissante cumule risques de disponibilité, de fraude et de perte de connaissance.",
    "whyNot": {
-    "2": "La traçabilité n'est pas améliorée ; elle dépend des journaux, pas du nombre de personnes."
+    "0": "La traçabilité n'est pas améliorée ; elle dépend des journaux, pas du nombre de personnes."
    },
    "kind": "general"
   },
@@ -839,19 +839,19 @@
    "concept": "Défense en profondeur",
    "prompt": "Quelle proposition illustre le mieux une véritable défense en profondeur ?",
    "choices": [
-    "Trois pare-feu identiques en série",
-    "MFA, segmentation réseau, EDR sur les postes et sauvegardes hors ligne",
-    "Un antivirus sur chaque poste",
-    "Une politique de mots de passe longue"
+    "Une politique de mots de passe longs, changés tous les mois",
+    "Un antivirus à jour installé sur chaque poste de travail",
+    "Trois pare-feu identiques du même fabricant, placés en série",
+    "MFA, segmentation réseau, EDR sur les postes et sauvegardes hors ligne"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Des contrôles différents, à des couches différentes, qui ne partagent pas les mêmes faiblesses.",
    "whyNot": {
-    "0": "Trois produits identiques partagent la même faille.",
-    "2": "Une seule couche, même répétée.",
-    "3": "Une seule couche administrative."
+    "0": "Une seule couche administrative.",
+    "1": "Une seule couche, même répétée.",
+    "2": "Trois produits identiques partagent la même faille."
    },
    "kind": "general"
   },
@@ -862,18 +862,18 @@
    "concept": "Sécurité par défaut",
    "prompt": "Un nouvel équipement est livré avec tous les services activés et un mot de passe administrateur connu. Quel principe n'est pas respecté ?",
    "choices": [
-    "Sécurité par défaut",
     "Conception ouverte",
     "Médiation complète",
+    "Sécurité par défaut",
     "Brewer-Nash"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "La configuration livrée devrait être la plus sûre : services fermés, mot de passe unique à changer.",
    "whyNot": {
-    "1": "La conception ouverte concerne le secret de la conception.",
-    "2": "La médiation complète concerne la vérification de chaque accès.",
+    "0": "La conception ouverte concerne le secret de la conception.",
+    "1": "La médiation complète concerne la vérification de chaque accès.",
     "3": "Brewer-Nash concerne les conflits d'intérêts."
    },
    "kind": "general"
@@ -885,19 +885,19 @@
    "concept": "TCB",
    "prompt": "Que désigne la base informatique de confiance (TCB) ?",
    "choices": [
-    "La liste des utilisateurs de confiance",
-    "L'ensemble du matériel, du logiciel et du micrologiciel dont dépend la sécurité du système",
-    "Le réseau interne",
-    "Le contrat avec le fournisseur cloud"
+    "La liste des utilisateurs considérés comme de confiance",
+    "Le réseau interne protégé par le pare-feu périmétrique",
+    "Le contrat de service signé avec le fournisseur cloud",
+    "Les composants matériels et logiciels dont dépend la sécurité"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Si un élément de la TCB est compromis, la politique de sécurité n'est plus garantie.",
    "whyNot": {
     "0": "La TCB est technique, pas une liste de personnes.",
-    "2": "Le réseau interne n'est pas en soi de confiance.",
-    "3": "Un contrat n'est pas un composant technique."
+    "1": "Le réseau interne n'est pas en soi de confiance.",
+    "2": "Un contrat n'est pas un composant technique."
    },
    "kind": "general"
   },
@@ -908,19 +908,19 @@
    "concept": "Bell-LaPadula",
    "prompt": "Selon Bell-LaPadula, un utilisateur habilité « confidentiel » peut-il lire un document « secret » ?",
    "choices": [
-    "Oui, s'il est pressé",
-    "Non : pas de lecture vers le haut",
     "Oui, mais il ne peut pas l'imprimer",
-    "Non, car Biba l'interdit"
+    "Oui, s'il est pressé",
+    "Non, car Biba l'interdit",
+    "Non : pas de lecture vers le haut"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "La règle de simple sécurité de Bell-LaPadula interdit de lire au-dessus de son niveau d'habilitation.",
    "whyNot": {
-    "0": "L'urgence ne change pas la règle.",
-    "2": "La lecture elle-même est interdite.",
-    "3": "La règle vient de Bell-LaPadula, qui protège la confidentialité."
+    "0": "La lecture elle-même est interdite.",
+    "1": "L'urgence ne change pas la règle.",
+    "2": "La règle vient de Bell-LaPadula, qui protège la confidentialité."
    },
    "kind": "general"
   },
@@ -931,19 +931,19 @@
    "concept": "Biba",
    "prompt": "Quel modèle interdit d'écrire dans une donnée de niveau d'intégrité supérieur ?",
    "choices": [
-    "Bell-LaPadula",
     "Biba",
+    "Le modèle OSI",
     "Brewer-Nash",
-    "Le modèle OSI"
+    "Bell-LaPadula"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "Biba protège l'intégrité : pas de lecture vers le bas, pas d'écriture vers le haut.",
    "whyNot": {
-    "0": "Bell-LaPadula protège la confidentialité.",
+    "1": "Le modèle OSI décrit les réseaux.",
     "2": "Brewer-Nash traite les conflits d'intérêts.",
-    "3": "Le modèle OSI décrit les réseaux."
+    "3": "Bell-LaPadula protège la confidentialité."
    },
    "kind": "general"
   },
@@ -977,18 +977,18 @@
    "concept": "Clark-Wilson",
    "prompt": "Quel modèle impose que les données comptables ne soient modifiées que par des transactions bien formées, avec séparation des tâches ?",
    "choices": [
-    "Clark-Wilson",
-    "Bell-LaPadula",
     "Brewer-Nash",
+    "Bell-LaPadula",
+    "Clark-Wilson",
     "Take-Grant"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Clark-Wilson protège l'intégrité commerciale par des programmes de transformation contrôlés et la séparation des tâches.",
    "whyNot": {
+    "0": "Brewer-Nash concerne les conflits d'intérêts.",
     "1": "Bell-LaPadula concerne la confidentialité.",
-    "2": "Brewer-Nash concerne les conflits d'intérêts.",
     "3": "Take-Grant décrit la transmission de droits, pas les transactions bien formées."
    },
    "kind": "general"
@@ -1000,9 +1000,9 @@
    "concept": "Brewer-Nash",
    "prompt": "Quel modèle est aussi appelé « muraille de Chine » ?",
    "choices": [
-    "Biba",
-    "Brewer-Nash",
     "Clark-Wilson",
+    "Brewer-Nash",
+    "Biba",
     "Bell-LaPadula"
    ],
    "correct": [
@@ -1010,8 +1010,8 @@
    ],
    "explanation": "Brewer-Nash empêche d'accéder aux données d'entreprises concurrentes après avoir consulté celles d'un client.",
    "whyNot": {
-    "0": "Biba concerne l'intégrité.",
-    "2": "Clark-Wilson concerne les transactions bien formées.",
+    "0": "Clark-Wilson concerne les transactions bien formées.",
+    "2": "Biba concerne l'intégrité.",
     "3": "Bell-LaPadula concerne la confidentialité."
    },
    "kind": "general"
@@ -1023,19 +1023,19 @@
    "concept": "Moniteur de référence",
    "prompt": "Quelles sont les propriétés exigées d'un moniteur de référence ?",
    "choices": [
-    "Rapide, gratuit et open source",
+    "Hébergé dans le cloud pour être toujours disponible",
+    "Installé sur chaque poste et désactivable par l'administrateur",
     "Toujours invoqué, infalsifiable et assez petit pour être vérifié",
-    "Installé sur chaque poste et désactivable",
-    "Hébergé dans le cloud"
+    "Rapide, gratuit, open source et facile à mettre à jour"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Il contrôle chaque accès, ne peut pas être modifié et doit pouvoir être analysé complètement.",
    "whyNot": {
-    "0": "Ce ne sont pas des propriétés de sécurité.",
-    "2": "Il ne doit justement pas pouvoir être contourné.",
-    "3": "Son emplacement n'est pas une propriété du concept."
+    "0": "Son emplacement n'est pas une propriété du concept.",
+    "1": "Il ne doit justement pas pouvoir être contourné.",
+    "3": "Ce ne sont pas des propriétés de sécurité."
    },
    "kind": "general"
   },
@@ -1046,19 +1046,19 @@
    "concept": "TPM et démarrage",
    "prompt": "Quel composant mesure le démarrage et protège les clés de chiffrement du disque dans la machine ?",
    "choices": [
-    "Le TPM",
     "Le pare-feu",
+    "Le WAF",
     "Le serveur DNS",
-    "Le WAF"
+    "Le TPM"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "Le TPM stocke des clés et enregistre les mesures du démarrage pour détecter une modification.",
    "whyNot": {
-    "1": "Le pare-feu filtre le trafic réseau.",
-    "2": "Le DNS résout des noms.",
-    "3": "Le WAF protège les applications web."
+    "0": "Le pare-feu filtre le trafic réseau.",
+    "1": "Le WAF protège les applications web.",
+    "2": "Le DNS résout des noms."
    },
    "kind": "general"
   },
@@ -1069,10 +1069,10 @@
    "concept": "Virtualisation",
    "prompt": "Qu'est-ce qu'une évasion de machine virtuelle (VM escape) ?",
    "choices": [
-    "La migration d'une VM vers un autre hôte",
-    "L'exploitation d'une faille de l'hyperviseur pour sortir d'une VM et atteindre l'hôte ou d'autres VM",
-    "La suppression d'une VM inutile",
-    "La sauvegarde d'une VM"
+    "La migration à chaud d'une VM vers un autre hôte physique",
+    "L'exploitation d'une faille de l'hyperviseur pour sortir d'une VM",
+    "La suppression d'une VM inutile pour réduire la surface d'attaque",
+    "La sauvegarde d'une VM sous forme d'instantané (snapshot)"
    ],
    "correct": [
     1
@@ -1092,19 +1092,19 @@
    "concept": "Choix du modèle",
    "prompt": "Un laboratoire veut empêcher que des résultats d'expérience validés soient modifiés à partir de données brutes non vérifiées. Quel modèle correspond le mieux ?",
    "choices": [
-    "Bell-LaPadula",
     "Biba",
     "Brewer-Nash",
-    "Aucun, c'est un problème de disponibilité"
+    "Aucun, c'est un problème de disponibilité",
+    "Bell-LaPadula"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "Il s'agit d'intégrité : on ne laisse pas une source moins fiable contaminer une donnée plus fiable.",
    "whyNot": {
-    "0": "Bell-LaPadula protège la confidentialité, pas l'intégrité.",
-    "2": "Il n'y a pas de conflit d'intérêts.",
-    "3": "C'est un problème d'intégrité."
+    "1": "Il n'y a pas de conflit d'intérêts.",
+    "2": "C'est un problème d'intégrité.",
+    "3": "Bell-LaPadula protège la confidentialité, pas l'intégrité."
    },
    "kind": "general"
   },
@@ -1115,9 +1115,9 @@
    "concept": "Zero Trust",
    "prompt": "Quelle phrase résume le Zero Trust ?",
    "choices": [
-    "Faire confiance à tout ce qui est dans le réseau interne",
-    "Ne jamais faire confiance, toujours vérifier",
     "Supprimer tous les mots de passe",
+    "Ne jamais faire confiance, toujours vérifier",
+    "Faire confiance à tout ce qui est dans le réseau interne",
     "Bloquer Internet"
    ],
    "correct": [
@@ -1125,8 +1125,8 @@
    ],
    "explanation": "Aucune confiance implicite : chaque accès est vérifié explicitement.",
    "whyNot": {
-    "0": "C'est le modèle du périmètre que le Zero Trust remet en cause.",
-    "2": "Le Zero Trust renforce l'authentification, il ne la supprime pas.",
+    "0": "Le Zero Trust renforce l'authentification, il ne la supprime pas.",
+    "2": "C'est le modèle du périmètre que le Zero Trust remet en cause.",
     "3": "Le Zero Trust contrôle les accès, il ne coupe pas tout."
    },
    "kind": "general"
@@ -1138,19 +1138,19 @@
    "concept": "PDP et PEP",
    "prompt": "Dans l'architecture Zero Trust du NIST, quel composant décide d'accorder l'accès ?",
    "choices": [
-    "Le point d'application de la politique (PEP)",
-    "Le point de décision de la politique (PDP)",
     "Le commutateur d'accès",
-    "Le serveur DNS"
+    "Le point d'application de la politique (PEP)",
+    "Le serveur DNS",
+    "Le point de décision de la politique (PDP)"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Le PDP (moteur et administrateur de politique) décide ; le PEP applique la décision devant la ressource.",
    "whyNot": {
-    "0": "Le PEP applique la décision, il ne la prend pas.",
-    "2": "Le commutateur n'évalue pas la politique Zero Trust.",
-    "3": "Le DNS ne prend pas de décision d'accès."
+    "0": "Le commutateur n'évalue pas la politique Zero Trust.",
+    "1": "Le PEP applique la décision, il ne la prend pas.",
+    "2": "Le DNS ne prend pas de décision d'accès."
    },
    "kind": "general"
   },
@@ -1184,19 +1184,19 @@
    "concept": "Modèle du périmètre",
    "prompt": "Pourquoi le modèle de sécurité du périmètre ne suffit-il plus ?",
    "choices": [
-    "Parce que les pare-feu n'existent plus",
-    "Parce que les utilisateurs, applications et attaquants sont aussi hors du réseau, ou déjà à l'intérieur avec des identifiants volés",
-    "Parce que le chiffrement est interdit",
-    "Parce qu'Internet est trop lent"
+    "Parce qu'Internet est devenu trop lent pour passer par un périmètre",
+    "Parce que les pare-feu périmétriques ne sont plus commercialisés",
+    "Parce que le chiffrement des flux est interdit en sortie du réseau",
+    "Parce que les utilisateurs et les attaquants sont aussi hors du réseau"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Télétravail, cloud et vol d'identifiants rendent l'emplacement réseau peu fiable comme critère de confiance.",
    "whyNot": {
-    "0": "Les pare-feu restent utiles.",
-    "2": "Faux.",
-    "3": "Sans rapport."
+    "0": "Sans rapport.",
+    "1": "Les pare-feu restent utiles.",
+    "2": "Faux."
    },
    "kind": "general"
   },
@@ -1207,19 +1207,19 @@
    "concept": "Piliers",
    "prompt": "Quels éléments font partie des piliers du modèle de maturité Zero Trust de la CISA ? (plusieurs réponses)",
    "choices": [
+    "Imprimantes",
     "Identité",
     "Appareils",
-    "Données",
-    "Imprimantes"
+    "Données"
    ],
    "correct": [
-    0,
     1,
-    2
+    2,
+    3
    ],
    "explanation": "Les cinq piliers sont : identité, appareils, réseaux, applications et charges de travail, données.",
    "whyNot": {
-    "3": "Les imprimantes sont des appareils, mais ne forment pas un pilier à part."
+    "0": "Les imprimantes sont des appareils, mais ne forment pas un pilier à part."
    },
    "kind": "general"
   },
@@ -1230,9 +1230,9 @@
    "concept": "IaaS",
    "prompt": "Dans un modèle IaaS, qui applique les correctifs du système d'exploitation des machines virtuelles ?",
    "choices": [
-    "Le fournisseur cloud",
-    "Le client",
     "Le fabricant du processeur",
+    "Le client",
+    "Le fournisseur cloud",
     "Personne, c'est automatique"
    ],
    "correct": [
@@ -1240,8 +1240,8 @@
    ],
    "explanation": "En IaaS, le fournisseur gère le matériel et la virtualisation ; le système invité est à la charge du client.",
    "whyNot": {
-    "0": "Il gère l'infrastructure sous l'hyperviseur.",
-    "2": "Il ne gère pas les systèmes du client.",
+    "0": "Il ne gère pas les systèmes du client.",
+    "2": "Il gère l'infrastructure sous l'hyperviseur.",
     "3": "Rien n'est automatique sans configuration du client."
    },
    "kind": "general"
@@ -1253,19 +1253,19 @@
    "concept": "ZTNA",
    "prompt": "Qu'apporte un ZTNA par rapport à un VPN d'accès distant classique ?",
    "choices": [
-    "L'utilisateur accède à tout le réseau interne",
-    "L'utilisateur n'accède qu'aux applications autorisées, après vérification de l'identité et de l'appareil",
-    "Il supprime l'authentification",
-    "Il remplace le chiffrement par du NAT"
+    "L'utilisateur accède à tout le réseau interne, comme s'il était au bureau",
+    "Il remplace le chiffrement par de la traduction d'adresses (NAT)",
+    "Il supprime l'authentification, remplacée par l'adresse IP de l'appareil",
+    "L'utilisateur n'accède qu'aux applications autorisées, selon son contexte"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Le ZTNA donne un accès par application, décidé selon l'identité et le contexte, au lieu d'un accès réseau large.",
    "whyNot": {
     "0": "C'est le défaut classique du VPN.",
-    "2": "Il la renforce.",
-    "3": "Le NAT ne remplace pas le chiffrement."
+    "1": "Le NAT ne remplace pas le chiffrement.",
+    "2": "Il la renforce."
    },
    "kind": "general"
   },
@@ -1276,19 +1276,19 @@
    "concept": "Supposer la compromission",
    "prompt": "Quelle mesure applique le plus directement le principe « supposer la compromission » ?",
    "choices": [
-    "Faire confiance aux postes du siège",
-    "Microsegmenter et surveiller en continu pour limiter et détecter les déplacements d'un attaquant déjà présent",
-    "Ouvrir les flux internes pour simplifier",
-    "Supprimer la journalisation interne"
+    "Supprimer la journalisation interne pour réduire le volume de données",
+    "Microsegmenter et surveiller pour limiter et repérer un intrus présent",
+    "Ouvrir les flux internes pour simplifier l'administration et le dépannage",
+    "Faire confiance aux postes du siège, déjà protégés par le périmètre"
    ],
    "correct": [
     1
    ],
    "explanation": "Si l'attaquant est déjà là, on limite ce qu'il peut atteindre et on le détecte vite.",
    "whyNot": {
-    "0": "C'est une confiance implicite.",
+    "0": "On perdrait la détection.",
     "2": "Cela facilite les déplacements latéraux.",
-    "3": "On perdrait la détection."
+    "3": "C'est une confiance implicite."
    },
    "kind": "general"
   },
@@ -1299,10 +1299,10 @@
    "concept": "Zero Trust",
    "prompt": "Un fournisseur promet « le Zero Trust en un seul boîtier ». Quelle est la meilleure réaction ?",
    "choices": [
-    "Acheter immédiatement",
-    "Rappeler que le Zero Trust est une stratégie qui combine identité, appareils, réseau, applications et données, et évaluer ce que le produit couvre réellement",
-    "Refuser toute solution du marché",
-    "Remplacer le SOC par ce boîtier"
+    "Acheter immédiatement le boîtier pour être conforme au Zero Trust le plus vite possible",
+    "Rappeler que le Zero Trust est une stratégie, et évaluer ce que couvre le produit",
+    "Remplacer le SOC par ce boîtier, puisqu'il couvre toute la stratégie Zero Trust",
+    "Refuser toute solution du marché et tout développer en interne pour garder la maîtrise"
    ],
    "correct": [
     1
@@ -1310,8 +1310,8 @@
    "explanation": "Aucun produit unique ne réalise le Zero Trust ; on évalue chaque solution par rapport aux piliers.",
    "whyNot": {
     "0": "C'est confondre un outil et une stratégie.",
-    "2": "Des produits aident, sans suffire seuls.",
-    "3": "La surveillance humaine reste indispensable."
+    "2": "La surveillance humaine reste indispensable.",
+    "3": "Des produits aident, sans suffire seuls."
    },
    "kind": "general"
   },
@@ -1322,19 +1322,19 @@
    "concept": "Erreur de configuration cloud",
    "prompt": "Un stockage cloud contenant des données clients est laissé ouvert au public par erreur. Qui est responsable ?",
    "choices": [
-    "Le fournisseur cloud",
     "Le client, qui gère la configuration et l'accès à ses données",
-    "Personne, c'est une panne",
-    "Le fournisseur d'accès Internet"
+    "Le fournisseur cloud, qui héberge le stockage",
+    "Le fournisseur d'accès Internet de l'entreprise",
+    "Personne, il s'agit d'une panne technique"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "La configuration des accès aux données relève toujours du client dans le modèle de responsabilité partagée.",
    "whyNot": {
-    "0": "Le fournisseur fournit les réglages ; il ne décide pas de rendre les données publiques.",
-    "2": "C'est une erreur humaine, pas une panne.",
-    "3": "Le FAI n'a aucun rôle ici."
+    "1": "Le fournisseur fournit les réglages ; il ne décide pas de rendre les données publiques.",
+    "2": "Le FAI n'a aucun rôle ici.",
+    "3": "C'est une erreur humaine, pas une panne."
    },
    "kind": "general"
   }
