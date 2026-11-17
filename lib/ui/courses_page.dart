@@ -15,8 +15,15 @@ import 'bilingual.dart';
 /// Programme : au choix, le livre MILE2 (11 modules + Prérequis), le
 /// programme ORSYS en 5 modules tel quel, ou ce même programme enrichi de
 /// tout le livre MILE2. Les leçons et la progression sont les mêmes partout.
-class CoursesPage extends StatelessWidget {
-  const CoursesPage({super.key});
+class CoursesPage extends StatefulWidget {
+  const CoursesPage({super.key, this.focus});
+
+  /// Numéro du module (1 à 5) choisi ailleurs, par exemple sur l'accueil :
+  /// la page défile jusqu'à ce module, dans la vue affichée.
+  final ValueNotifier<int?>? focus;
+
+  @override
+  State<CoursesPage> createState() => _CoursesPageState();
 
   static const _labels = {
     CourseView.mile2: 'Livre MILE2',
@@ -24,85 +31,33 @@ class CoursesPage extends StatelessWidget {
     CourseView.orsysPlus: 'ORSYS enrichi',
   };
 
-  @override
-  Widget build(BuildContext context) {
-    final state = AppScope.of(context);
-    final library = state.library;
-    final views = [
-      for (final v in CourseView.values)
-        if (library.outline(v).modules.isNotEmpty) v,
-    ];
-    final view = views.contains(state.courseView)
-        ? state.courseView
-        : views.firstOrNull;
-    return NotebookPage(
-      title: 'Cours',
-      children: [
-        if (views.length > 1) ...[
-          SegmentedButton<CourseView>(
-            key: const Key('course-view'),
-            segments: [
-              for (final v in views)
-                ButtonSegment(value: v, label: Text(_labels[v]!)),
-            ],
-            selected: {view!},
-            showSelectedIcon: false,
-            onSelectionChanged: (v) =>
-                AppScope.read(context).setCourseView(v.first),
-          ),
-          const SizedBox(height: 14),
-        ],
-        Align(
-          alignment: Alignment.centerLeft,
-          child: GradientButton(
-            emoji: '🧠',
-            label: 'Carte mentale de toute la formation',
-            from: Tone.violet,
-            to: Tone.pink,
-            onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => MindMapPage(
-                  title: 'Toute la formation',
-                  root: courseMindMap(library),
-                ),
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(height: 12),
-        switch (view) {
-          CourseView.mile2 => OutlineView(
-            outline: library.mile2Outline,
-            intro: _mile2Intro(library.mile2Outline),
-          ),
-          CourseView.orsys => OutlineView(
-            outline: library.orsysOutline,
-            sectionWord: 'Thème',
-            toneOf: (i) => moduleStyle(i + 1).$1,
-            intro:
-                'Le programme ORSYS tel quel : ses '
-                '${library.orsysOutline.modules.length} modules et ses '
-                '${_count(library.orsysOutline)} thèmes, dans le même ordre, '
-                'avec les leçons qui les traitent. Rien n\'est ajouté.',
-          ),
-          CourseView.orsysPlus => OutlineView(
-            outline: library.orsysPlusOutline,
-            sectionWord: 'Thème',
-            toneOf: (i) => moduleStyle(i + 1).$1,
-            intro:
-                'Les 5 modules ORSYS, enrichis de tout le contenu du livre '
-                'MILE2 : les thèmes et leçons ajoutés portent l\'étiquette '
-                '« Livre MILE2 » ou « + MILE2 ». Sous chaque module, ses '
-                'chapitres d\'entraînement (questions, flashcards, fiche) ; '
-                'un chapitre est validé à 80 %.',
-            trailing: (i) => i < library.modules.length
-                ? _chapters(context, library.modules[i])
-                : const [],
-          ),
-          null => _ChapterList(modules: library.modules),
-        },
-      ],
-    );
+  /// Rang, dans la vue [view], du module qui correspond au module [number]
+  /// de l'application : le même rang pour ORSYS ; pour le livre MILE2, le
+  /// module qui contient le plus de leçons de ce module.
+  static int targetModule(
+    ContentLibrary library,
+    CourseView? view,
+    int number,
+  ) {
+    if (view == null || view != CourseView.mile2) return number - 1;
+    final module = library.modules.where((m) => m.number == number).firstOrNull;
+    if (module == null) return 0;
+    final ids = {
+      for (final c in module.chapters)
+        for (final l in c.lessons) l.id,
+    };
+    var best = 0;
+    var bestCount = -1;
+    for (final (i, m) in library.mile2Outline.modules.indexed) {
+      final n = {for (final s in m.sections) ...s.lessons}
+          .where(ids.contains)
+          .length;
+      if (n > bestCount) {
+        best = i;
+        bestCount = n;
+      }
+    }
+    return best;
   }
 
   static int _count(CourseOutline o) =>
@@ -146,11 +101,142 @@ class CoursesPage extends StatelessWidget {
   }
 }
 
+class _CoursesPageState extends State<CoursesPage> {
+  final _keys = List.generate(16, (_) => GlobalKey());
+  CourseView? _view;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.focus?.addListener(_onFocus);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _onFocus());
+  }
+
+  @override
+  void didUpdateWidget(CoursesPage old) {
+    super.didUpdateWidget(old);
+    if (old.focus != widget.focus) {
+      old.focus?.removeListener(_onFocus);
+      widget.focus?.addListener(_onFocus);
+    }
+  }
+
+  @override
+  void dispose() {
+    widget.focus?.removeListener(_onFocus);
+    super.dispose();
+  }
+
+  void _onFocus() {
+    final number = widget.focus?.value;
+    if (number == null) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final library = AppScope.read(context).library;
+      final index = CoursesPage.targetModule(library, _view, number);
+      final target = index < _keys.length ? _keys[index].currentContext : null;
+      if (target == null) return;
+      widget.focus?.value = null;
+      Scrollable.ensureVisible(
+        target,
+        duration: const Duration(milliseconds: 350),
+        curve: Curves.easeOutCubic,
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final state = AppScope.of(context);
+    final library = state.library;
+    final views = [
+      for (final v in CourseView.values)
+        if (library.outline(v).modules.isNotEmpty) v,
+    ];
+    final view = views.contains(state.courseView)
+        ? state.courseView
+        : views.firstOrNull;
+    _view = view;
+    return NotebookPage(
+      title: 'Cours',
+      children: [
+        if (views.length > 1) ...[
+          SegmentedButton<CourseView>(
+            key: const Key('course-view'),
+            segments: [
+              for (final v in views)
+                ButtonSegment(value: v, label: Text(CoursesPage._labels[v]!)),
+            ],
+            selected: {view!},
+            showSelectedIcon: false,
+            onSelectionChanged: (v) =>
+                AppScope.read(context).setCourseView(v.first),
+          ),
+          const SizedBox(height: 14),
+        ],
+        Align(
+          alignment: Alignment.centerLeft,
+          child: GradientButton(
+            emoji: '🧠',
+            label: 'Carte mentale de toute la formation',
+            from: Tone.violet,
+            to: Tone.pink,
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => MindMapPage(
+                  title: 'Toute la formation',
+                  root: courseMindMap(library),
+                ),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 12),
+        switch (view) {
+          CourseView.mile2 => OutlineView(
+            outline: library.mile2Outline,
+            moduleKeys: _keys,
+            intro: CoursesPage._mile2Intro(library.mile2Outline),
+          ),
+          CourseView.orsys => OutlineView(
+            outline: library.orsysOutline,
+            moduleKeys: _keys,
+            sectionWord: 'Thème',
+            toneOf: (i) => moduleStyle(i + 1).$1,
+            intro:
+                'Le programme ORSYS tel quel : ses '
+                '${library.orsysOutline.modules.length} modules et ses '
+                '${CoursesPage._count(library.orsysOutline)} thèmes, dans le même ordre, '
+                'avec les leçons qui les traitent. Rien n\'est ajouté.',
+          ),
+          CourseView.orsysPlus => OutlineView(
+            outline: library.orsysPlusOutline,
+            moduleKeys: _keys,
+            sectionWord: 'Thème',
+            toneOf: (i) => moduleStyle(i + 1).$1,
+            intro:
+                'Les 5 modules ORSYS, enrichis de tout le contenu du livre '
+                'MILE2 : les thèmes et leçons ajoutés portent l\'étiquette '
+                '« Livre MILE2 » ou « + MILE2 ». Sous chaque module, ses '
+                'chapitres d\'entraînement (questions, flashcards, fiche) ; '
+                'un chapitre est validé à 80 %.',
+            trailing: (i) => i < library.modules.length
+                ? CoursesPage._chapters(context, library.modules[i])
+                : const [],
+          ),
+          null => _ChapterList(modules: library.modules, moduleKeys: _keys),
+        },
+      ],
+    );
+  }
+}
+
 /// Repli sans sommaire : les modules et leurs chapitres.
 class _ChapterList extends StatelessWidget {
-  const _ChapterList({required this.modules});
+  const _ChapterList({required this.modules, required this.moduleKeys});
 
   final List<Module> modules;
+  final List<GlobalKey> moduleKeys;
 
   @override
   Widget build(BuildContext context) {
@@ -158,9 +244,13 @@ class _ChapterList extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        for (final m in modules) ...[
+        for (final (i, m) in modules.indexed) ...[
           const SizedBox(height: 22),
-          _ModuleBanner(module: m, progress: state.stats.moduleProgress(m.id)),
+          _ModuleBanner(
+            key: i < moduleKeys.length ? moduleKeys[i] : null,
+            module: m,
+            progress: state.stats.moduleProgress(m.id),
+          ),
           ...CoursesPage._chapters(context, m),
         ],
       ],
@@ -169,7 +259,11 @@ class _ChapterList extends StatelessWidget {
 }
 
 class _ModuleBanner extends StatelessWidget {
-  const _ModuleBanner({required this.module, required this.progress});
+  const _ModuleBanner({
+    super.key,
+    required this.module,
+    required this.progress,
+  });
 
   final Module module;
   final double progress;
