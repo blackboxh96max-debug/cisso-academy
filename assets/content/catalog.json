@@ -8,6 +8,8 @@
   },
   "examPrep": "exam_prep.json",
   "mile2Outline": "mile2_outline.json",
+  "orsysOutline": "orsys_outline.json",
+  "orsysPlusOutline": "orsys_plus_outline.json",
   "domains": [
     {"id": "operations-security", "nameEn": "Operations Security", "nameFr": "Sécurité des opérations", "weight": 14},
     {"id": "network-security", "nameEn": "Network Security", "nameFr": "Sécurité des réseaux", "weight": 13},

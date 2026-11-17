@@ -18,39 +18,56 @@ const _tones = [
   Tone.pink,
 ];
 
-/// Couleur d'un module du sommaire MILE2.
-Tone mile2Tone(int index) => _tones[index % _tones.length];
+/// Couleur par défaut d'un module de sommaire.
+Tone outlineTone(int index) => _tones[index % _tones.length];
 
-/// Le programme dans l'ordre du support officiel MILE2 v20 : 11 modules et
-/// le module Prérequis, section par section, avec les leçons qui les
-/// traitent. Les sections encore sans leçon sont signalées.
-class Mile2OutlineView extends StatelessWidget {
-  const Mile2OutlineView({super.key});
+/// Un programme (livre MILE2 ou ORSYS) module par module et section par
+/// section, avec les leçons qui traitent chaque section. Les sections sans
+/// leçon et les ajouts venus du livre MILE2 sont signalés.
+class OutlineView extends StatelessWidget {
+  const OutlineView({
+    super.key,
+    required this.outline,
+    required this.intro,
+    this.sectionWord = 'Section',
+    this.toneOf = outlineTone,
+    this.trailing,
+  });
+
+  final CourseOutline outline;
+  final String intro;
+
+  /// « Section » (livre MILE2) ou « Thème » (ORSYS).
+  final String sectionWord;
+  final Tone Function(int moduleIndex) toneOf;
+
+  /// Contenu ajouté sous chaque module (chapitres d'entraînement).
+  final List<Widget> Function(int moduleIndex)? trailing;
 
   @override
   Widget build(BuildContext context) {
-    final state = AppScope.of(context);
-    final outline = state.library.mile2Outline;
-    final sections = outline.modules.expand((m) => m.sections);
-    final missing = sections.where((s) => s.coverage == Coverage.missing);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(
-          'Même découpage et même ordre que le sommaire du livre MILE2 v20 : '
-          '${outline.modules.length - 1} modules et le module Prérequis, '
-          '${sections.length} sections. '
-          '${missing.isEmpty ? 'Toutes les sections ont une leçon.' : '${missing.length} section(s) attendent encore leur leçon.'}',
-          style: Hand.bodyText(context),
-        ),
+        Text(intro, style: Hand.bodyText(context)),
         for (final (i, m) in outline.modules.indexed) ...[
           const SizedBox(height: 22),
-          _Mile2Banner(module: m, tone: mile2Tone(i), seed: 60 + i),
+          _OutlineBanner(
+            module: m,
+            tone: toneOf(i),
+            seed: 60 + i,
+            word: sectionWord,
+          ),
           for (final s in m.sections)
             Padding(
               padding: const EdgeInsets.only(top: 10, left: 12),
-              child: _SectionCard(section: s, tone: mile2Tone(i)),
+              child: _SectionCard(
+                section: s,
+                tone: toneOf(i),
+                word: sectionWord,
+              ),
             ),
+          ...?trailing?.call(i),
         ],
         const SizedBox(height: 16),
         Text(
@@ -65,16 +82,18 @@ class Mile2OutlineView extends StatelessWidget {
   }
 }
 
-class _Mile2Banner extends StatelessWidget {
-  const _Mile2Banner({
+class _OutlineBanner extends StatelessWidget {
+  const _OutlineBanner({
     required this.module,
     required this.tone,
     required this.seed,
+    required this.word,
   });
 
-  final Mile2Module module;
+  final OutlineModule module;
   final Tone tone;
   final int seed;
+  final String word;
 
   @override
   Widget build(BuildContext context) {
@@ -111,9 +130,10 @@ class _Mile2Banner extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             ids.isEmpty
-                ? '${module.sections.length} sections · leçons à venir'
+                ? '${module.sections.length} ${word.toLowerCase()}s · leçons à venir'
                 : '${(progress * 100).round()} % · $read/${ids.length} '
-                      'leçon(s) lue(s) · ${module.sections.length} sections',
+                      'leçon(s) lue(s) · ${module.sections.length} '
+                      '${word.toLowerCase()}s',
             style: Hand.sansText(
               context,
               size: 12.5,
@@ -126,10 +146,15 @@ class _Mile2Banner extends StatelessWidget {
 }
 
 class _SectionCard extends StatelessWidget {
-  const _SectionCard({required this.section, required this.tone});
+  const _SectionCard({
+    required this.section,
+    required this.tone,
+    required this.word,
+  });
 
-  final Mile2Section section;
+  final OutlineSection section;
   final Tone tone;
+  final String word;
 
   @override
   Widget build(BuildContext context) {
@@ -178,7 +203,7 @@ class _SectionCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Section ${section.number} · ${section.titleFr}',
+                      '$word ${section.number} · ${section.titleFr}',
                       style: TextStyle(
                         fontFamily: Hand.body,
                         fontSize: 19,
@@ -192,6 +217,10 @@ class _SectionCard extends StatelessWidget {
               ),
               const SizedBox(width: 6),
               switch (section.coverage) {
+                Coverage.covered when section.extra => const Sticker(
+                  text: 'Livre MILE2',
+                  tone: Tone.violet,
+                ),
                 Coverage.covered => const SizedBox.shrink(),
                 Coverage.partial => const Sticker(
                   text: 'En partie',
@@ -207,7 +236,11 @@ class _SectionCard extends StatelessWidget {
           if (lessons.isNotEmpty) ...[
             const SizedBox(height: 8),
             for (final l in lessons)
-              _LessonLink(lesson: l, read: state.readLessons.contains(l.id)),
+              _LessonLink(
+                lesson: l,
+                read: state.readLessons.contains(l.id),
+                added: !section.extra && section.extraLessons.contains(l.id),
+              ),
           ],
         ],
       ),
@@ -216,10 +249,17 @@ class _SectionCard extends StatelessWidget {
 }
 
 class _LessonLink extends StatelessWidget {
-  const _LessonLink({required this.lesson, required this.read});
+  const _LessonLink({
+    required this.lesson,
+    required this.read,
+    this.added = false,
+  });
 
   final Lesson lesson;
   final bool read;
+
+  /// Leçon ajoutée depuis le livre MILE2 (vue ORSYS enrichie).
+  final bool added;
 
   @override
   Widget build(BuildContext context) {
@@ -243,6 +283,10 @@ class _LessonLink extends StatelessWidget {
                 ).copyWith(color: paper.ink, fontWeight: FontWeight.w600),
               ),
             ),
+            if (added) ...[
+              const SizedBox(width: 6),
+              const Sticker(text: '+ MILE2', tone: Tone.violet),
+            ],
             Icon(Icons.chevron_right, color: paper.inkSoft),
           ],
         ),

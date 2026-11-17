@@ -115,7 +115,7 @@ void main() {
       );
       expect(find.text(chapter.title), findsWidgets);
       // MILE2 : après le module 1 vient « Lois, éthique » (module 2 du
-      // livre) ; parcours : la gouvernance (chapitre 1.2).
+      // livre) ; ORSYS : le management de la sécurité (chapitre 1.2).
       expect(chapter.id, view == CourseView.mile2 ? 'm5c3' : 'm1c2');
       await tester.tap(find.byTooltip('Leçon précédente'));
       await tester.pumpAndSettle();
@@ -127,7 +127,7 @@ void main() {
     });
   }
 
-  testWidgets('cours : vue « ordre MILE2 » puis vue « 5 modules »', (
+  testWidgets('cours : vues « Livre MILE2 », « ORSYS » et « ORSYS enrichi »', (
     tester,
   ) async {
     final state = await pumpApp(tester);
@@ -158,21 +158,39 @@ void main() {
           matching: find.byType(Scrollable),
         )
         .first;
-    final pending = find.text('Section 7 · Cryptographie quantique');
+    final pending = find.text(
+      'Section 1 · L\'environnement européen de la cybersécurité',
+    );
     for (var i = 0; i < 30 && pending.evaluate().isEmpty; i++) {
       await tester.drag(list, const Offset(0, -600));
       await tester.pumpAndSettle();
     }
     expect(pending, findsOneWidget);
     expect(find.text('Leçon à venir'), findsWidgets);
-    // Bascule vers le parcours en 5 modules, mémorisée.
+    // Programme ORSYS tel quel : ses thèmes, sans les ajouts du livre.
     await tester.drag(list, const Offset(0, 40000));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('5 modules'));
+    await tester.tap(find.text('ORSYS'));
     await tester.pumpAndSettle();
-    expect(state.courseView, CourseView.app);
-    expect(await state.store.setting('courseView'), 'app');
-    expect(find.text('📖 3 leçons'), findsWidgets);
+    expect(state.courseView, CourseView.orsys);
+    expect(
+      find.text('Thème 1 · Gestion des risques : évaluation et réponses'),
+      findsOneWidget,
+    );
+    expect(find.text('+ MILE2'), findsNothing);
+    expect(find.text('Comprendre la sécurité de l\'information'), findsNothing);
+    // Version enrichie : les ajouts du livre sont signalés, mémorisée.
+    await tester.tap(find.text('ORSYS enrichi'));
+    await tester.pumpAndSettle();
+    expect(state.courseView, CourseView.orsysPlus);
+    expect(await state.store.setting('courseView'), 'orsysPlus');
+    final added = find.text('Comprendre la sécurité de l\'information');
+    for (var i = 0; i < 10 && added.evaluate().isEmpty; i++) {
+      await tester.drag(list, const Offset(0, -400));
+      await tester.pumpAndSettle();
+    }
+    expect(added, findsOneWidget);
+    expect(find.text('+ MILE2'), findsWidgets);
   });
 
   testWidgets('recherche dans le texte puis dans la leçon ouverte', (
@@ -397,10 +415,9 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
-    await tester.tap(find.text('5 modules'));
+    await tester.tap(find.text('ORSYS enrichi'));
     await tester.pumpAndSettle();
     expect(find.text('Module 1'), findsOneWidget);
-    expect(find.text('📖 3 leçons'), findsWidgets);
     final list = find
         .descendant(
           of: find.byType(CoursesPage),

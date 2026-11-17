@@ -33,7 +33,7 @@ class AppState extends ChangeNotifier {
   bool _animations = true;
   CourseView _view = CourseView.mile2;
 
-  /// Vue du programme : ordre du livre MILE2 ou parcours en 5 modules.
+  /// Vue du programme : livre MILE2, ORSYS ou ORSYS enrichi.
   CourseView get courseView => _view;
 
   Future<void> setCourseView(CourseView view) async {
@@ -62,9 +62,12 @@ class AppState extends ChangeNotifier {
   /// Relit l'historique local et recalcule les statistiques.
   Future<void> refresh() async {
     _animations = (await store.setting('animations')) != '0';
-    _view = (await store.setting('courseView')) == CourseView.app.name
-        ? CourseView.app
-        : CourseView.mile2;
+    // « app » : ancien nom de la vue en 5 modules, devenue « ORSYS enrichi ».
+    _view = switch (await store.setting('courseView')) {
+      'orsys' => CourseView.orsys,
+      'orsysPlus' || 'app' => CourseView.orsysPlus,
+      _ => CourseView.mile2,
+    };
     final answers = await store.answers();
     final sessions = await store.sessions();
     _cards = await store.cards();

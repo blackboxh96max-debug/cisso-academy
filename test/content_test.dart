@@ -452,4 +452,50 @@ void main() {
       }
     },
   );
+
+  test('programme ORSYS : 5 modules, tel quel puis enrichi du livre', () async {
+    final library = await loadRealContent();
+    final strict = library.orsysOutline;
+    final plus = library.orsysPlusOutline;
+    Set<String> cited(CourseOutline o) => {
+      for (final m in o.modules)
+        for (final s in m.sections) ...s.lessons,
+    };
+    // Les 5 modules ORSYS et leurs 18 thèmes, sans ajout.
+    expect(strict.modules, hasLength(5));
+    expect(
+      [for (final m in strict.modules) m.sections.length],
+      [4, 4, 4, 3, 3],
+    );
+    expect(
+      strict.modules.expand((m) => m.sections).where((s) => s.extra),
+      isEmpty,
+    );
+    expect(
+      strict.modules.expand((m) => m.sections).expand((s) => s.extraLessons),
+      isEmpty,
+    );
+    // Les modèles de sécurité sont au module 2, comme chez ORSYS.
+    expect(
+      strict.modules[1].sections.first.titleEn,
+      'Security Models and Evaluation Criteria',
+    );
+    // La vue enrichie garde les thèmes ORSYS, dans le même ordre, et
+    // contient toutes les leçons de l'application.
+    for (final (i, m) in strict.modules.indexed) {
+      expect(
+        plus.modules[i].sections.take(m.sections.length).map((s) => s.titleEn),
+        m.sections.map((s) => s.titleEn),
+      );
+    }
+    expect(cited(plus), containsAll(library.lessons.map((l) => l.id)));
+    // Tout ce que la vue enrichie ajoute est signalé comme venant du livre.
+    final added = cited(plus).difference(cited(strict));
+    final marked = {
+      for (final m in plus.modules)
+        for (final s in m.sections) ...s.extraLessons,
+    };
+    expect(marked, containsAll(added));
+    expect(added, isNotEmpty);
+  });
 }

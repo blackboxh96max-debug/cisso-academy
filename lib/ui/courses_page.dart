@@ -4,7 +4,7 @@ import '../app_state.dart';
 import '../logic/stats.dart';
 import '../models/content.dart';
 import 'chapter_page.dart';
-import 'mile2_outline_view.dart';
+import 'outline_view.dart';
 import 'mind_map_page.dart';
 import 'notebook/hand_drawn.dart';
 import 'notebook/page_kit.dart';
@@ -12,38 +12,40 @@ import 'notebook/palette.dart';
 import 'notebook/typography.dart';
 import 'bilingual.dart';
 
-/// Programme : au choix, l'ordre du livre MILE2 (11 modules + Prérequis) ou
-/// le parcours de l'application en 5 modules. Les leçons et la progression
-/// sont les mêmes dans les deux vues.
+/// Programme : au choix, le livre MILE2 (11 modules + Prérequis), le
+/// programme ORSYS en 5 modules tel quel, ou ce même programme enrichi de
+/// tout le livre MILE2. Les leçons et la progression sont les mêmes partout.
 class CoursesPage extends StatelessWidget {
   const CoursesPage({super.key});
+
+  static const _labels = {
+    CourseView.mile2: 'Livre MILE2',
+    CourseView.orsys: 'ORSYS',
+    CourseView.orsysPlus: 'ORSYS enrichi',
+  };
 
   @override
   Widget build(BuildContext context) {
     final state = AppScope.of(context);
     final library = state.library;
-    final view = library.mile2Outline.modules.isEmpty
-        ? CourseView.app
-        : state.courseView;
+    final views = [
+      for (final v in CourseView.values)
+        if (library.outline(v).modules.isNotEmpty) v,
+    ];
+    final view = views.contains(state.courseView)
+        ? state.courseView
+        : views.firstOrNull;
     return NotebookPage(
       title: 'Cours',
       children: [
-        if (library.mile2Outline.modules.isNotEmpty) ...[
+        if (views.length > 1) ...[
           SegmentedButton<CourseView>(
             key: const Key('course-view'),
-            segments: const [
-              ButtonSegment(
-                value: CourseView.mile2,
-                icon: Icon(Icons.menu_book_outlined),
-                label: Text('Livre MILE2'),
-              ),
-              ButtonSegment(
-                value: CourseView.app,
-                icon: Icon(Icons.view_module_outlined),
-                label: Text('5 modules'),
-              ),
+            segments: [
+              for (final v in views)
+                ButtonSegment(value: v, label: Text(_labels[v]!)),
             ],
-            selected: {view},
+            selected: {view!},
             showSelectedIcon: false,
             onSelectionChanged: (v) =>
                 AppScope.read(context).setCourseView(v.first),
@@ -68,34 +70,98 @@ class CoursesPage extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 12),
-        if (view == CourseView.mile2)
-          const Mile2OutlineView()
-        else ...[
-          Text(
-            'Votre programme en ${library.modules.length} modules '
-            'thématiques. Un chapitre est validé à 80 %. Le bouton « Livre '
-            'MILE2 » montre les mêmes leçons rangées comme dans le livre.',
-            style: Hand.bodyText(context),
+        switch (view) {
+          CourseView.mile2 => OutlineView(
+            outline: library.mile2Outline,
+            intro: _mile2Intro(library.mile2Outline),
           ),
-          for (final m in library.modules) ...[
-            const SizedBox(height: 22),
-            _ModuleBanner(
-              module: m,
-              progress: state.stats.moduleProgress(m.id),
-            ),
-            for (final (i, c) in m.chapters.indexed)
-              Padding(
-                padding: const EdgeInsets.only(top: 10, left: 12),
-                child: _ChapterCard(
-                  chapter: c,
-                  number: '${m.number}.${i + 1}',
-                  tone: moduleStyle(m.number).$1,
-                  stats: state.stats.chapters
-                      .where((s) => s.chapter.id == c.id)
-                      .firstOrNull,
-                ),
-              ),
-          ],
+          CourseView.orsys => OutlineView(
+            outline: library.orsysOutline,
+            sectionWord: 'Thème',
+            toneOf: (i) => moduleStyle(i + 1).$1,
+            intro:
+                'Le programme ORSYS tel quel : ses '
+                '${library.orsysOutline.modules.length} modules et ses '
+                '${_count(library.orsysOutline)} thèmes, dans le même ordre, '
+                'avec les leçons qui les traitent. Rien n\'est ajouté.',
+          ),
+          CourseView.orsysPlus => OutlineView(
+            outline: library.orsysPlusOutline,
+            sectionWord: 'Thème',
+            toneOf: (i) => moduleStyle(i + 1).$1,
+            intro:
+                'Les 5 modules ORSYS, enrichis de tout le contenu du livre '
+                'MILE2 : les thèmes et leçons ajoutés portent l\'étiquette '
+                '« Livre MILE2 » ou « + MILE2 ». Sous chaque module, ses '
+                'chapitres d\'entraînement (questions, flashcards, fiche) ; '
+                'un chapitre est validé à 80 %.',
+            trailing: (i) => i < library.modules.length
+                ? _chapters(context, library.modules[i])
+                : const [],
+          ),
+          null => _ChapterList(modules: library.modules),
+        },
+      ],
+    );
+  }
+
+  static int _count(CourseOutline o) =>
+      o.modules.fold(0, (n, m) => n + m.sections.length);
+
+  static String _mile2Intro(CourseOutline outline) {
+    final sections = outline.modules.expand((m) => m.sections);
+    final missing = sections.where((s) => s.coverage == Coverage.missing);
+    return 'Même découpage et même ordre que le sommaire du livre MILE2 v20 : '
+        '${outline.modules.length - 1} modules et le module Prérequis, '
+        '${sections.length} sections. '
+        '${missing.isEmpty ? 'Toutes les sections ont une leçon.' : '${missing.length} section(s) attendent encore leur leçon.'}';
+  }
+
+  static List<Widget> _chapters(BuildContext context, Module m) {
+    final state = AppScope.of(context);
+    return [
+      Padding(
+        padding: const EdgeInsets.only(top: 14, left: 12),
+        child: Text(
+          '🎯 S\'entraîner : chapitres du module ${m.number}',
+          style: Hand.sansText(
+            context,
+            size: 15,
+          ).copyWith(fontWeight: FontWeight.w800),
+        ),
+      ),
+      for (final (i, c) in m.chapters.indexed)
+        Padding(
+          padding: const EdgeInsets.only(top: 10, left: 12),
+          child: _ChapterCard(
+            chapter: c,
+            number: '${m.number}.${i + 1}',
+            tone: moduleStyle(m.number).$1,
+            stats: state.stats.chapters
+                .where((s) => s.chapter.id == c.id)
+                .firstOrNull,
+          ),
+        ),
+    ];
+  }
+}
+
+/// Repli sans sommaire : les modules et leurs chapitres.
+class _ChapterList extends StatelessWidget {
+  const _ChapterList({required this.modules});
+
+  final List<Module> modules;
+
+  @override
+  Widget build(BuildContext context) {
+    final state = AppScope.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        for (final m in modules) ...[
+          const SizedBox(height: 22),
+          _ModuleBanner(module: m, progress: state.stats.moduleProgress(m.id)),
+          ...CoursesPage._chapters(context, m),
         ],
       ],
     );

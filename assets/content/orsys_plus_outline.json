@@ -1,0 +1,306 @@
+{
+  "source": "Programme de la formation ORSYS « CISSO, Certified Information Systems Security Officer, certification » (réf. CEF), page https://www.orsys.fr/formation/formation-cisso-certified-information-systems-security-officer-certification consultée le 2026-11-17. Seuls les titres des 5 modules et des thèmes sont repris ; rattachement aux leçons : choix de l'application. Vue enrichie : les thèmes et leçons marqués « Livre MILE2 » viennent du sommaire officiel MILE2 v20.",
+  "modules": [
+    {
+      "id": "orsys-1",
+      "label": "Module 1",
+      "titleEn": "Risk and Security Management, IAM and Access Control",
+      "titleFr": "Management des risques et de la sécurité, IAM et contrôle d'accès",
+      "sections": [
+        {
+          "number": 1,
+          "titleEn": "Risk Management",
+          "titleFr": "Gestion des risques : évaluation et réponses",
+          "lessons": [
+            "m1c1-l1",
+            "m1c1-l2",
+            "m1c1-l3"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 2,
+          "titleEn": "Security Management",
+          "titleFr": "Management de la sécurité : SMSI, rôles, référentiels, ressources humaines",
+          "lessons": [
+            "m1c2-l1",
+            "m1c3-l2",
+            "m1c3-l1",
+            "m1c3-l3",
+            "m1c2-l3",
+            "m1c5-l1"
+          ],
+          "coverage": "covered",
+          "extraLessons": [
+            "m1c5-l1"
+          ]
+        },
+        {
+          "number": 3,
+          "titleEn": "Identification and Authentication",
+          "titleFr": "Identification et authentification : identités, authentification, surveillance des accès",
+          "lessons": [
+            "m1c4-l1",
+            "m1c4-l3",
+            "m2c1-l2",
+            "m3c4-l1"
+          ],
+          "coverage": "covered",
+          "extraLessons": [
+            "m3c4-l1"
+          ]
+        },
+        {
+          "number": 4,
+          "titleEn": "Access Control",
+          "titleFr": "Contrôle d'accès : types, classification de l'information, modèles et méthodes",
+          "lessons": [
+            "m1c4-l2",
+            "m1c2-l2"
+          ],
+          "coverage": "covered"
+        }
+      ]
+    },
+    {
+      "id": "orsys-2",
+      "label": "Module 2",
+      "titleEn": "Security Operations and Cryptography",
+      "titleFr": "Opérations de sécurité et cryptographie",
+      "sections": [
+        {
+          "number": 1,
+          "titleEn": "Security Models and Evaluation Criteria",
+          "titleFr": "Modèles de sécurité et critères d'évaluation",
+          "lessons": [
+            "m3c3-l2",
+            "m1c5-l2"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 2,
+          "titleEn": "Operations Security",
+          "titleFr": "Sécurité des opérations : incidents et menaces, responsabilités",
+          "lessons": [
+            "m2c1-l1",
+            "m2c1-l3",
+            "m1c5-l3",
+            "m2c3-l1",
+            "m2c3-l2",
+            "m2c3-l3"
+          ],
+          "coverage": "covered",
+          "extraLessons": [
+            "m1c5-l3",
+            "m2c3-l1",
+            "m2c3-l2",
+            "m2c3-l3"
+          ]
+        },
+        {
+          "number": 3,
+          "titleEn": "Symmetric Cryptography and Hashing",
+          "titleFr": "Cryptographie symétrique et hachage : histoire, fondamentaux, algorithmes",
+          "lessons": [
+            "m2c4-l1",
+            "m2c2-l1",
+            "m2c2-l2"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 4,
+          "titleEn": "Asymmetric Cryptography and PKI",
+          "titleFr": "Cryptographie asymétrique et PKI : hybride, signature, PKI, attaques",
+          "lessons": [
+            "m2c2-l1",
+            "m2c2-l2",
+            "m2c2-l3"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 5,
+          "titleEn": "Quantum Cryptography and Advancements in Cryptography",
+          "titleFr": "Cryptographie quantique et avancées (livre MILE2, module 3)",
+          "lessons": [
+            "m2c4-l2",
+            "m2c4-l3"
+          ],
+          "coverage": "covered",
+          "extra": true,
+          "extraLessons": [
+            "m2c4-l2",
+            "m2c4-l3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "orsys-3",
+      "label": "Module 3",
+      "titleEn": "Network and Communications Security, Security Architecture",
+      "titleFr": "Sécurité des réseaux et des communications, architecture de sécurité",
+      "sections": [
+        {
+          "number": 1,
+          "titleEn": "Network Connections",
+          "titleFr": "Connexions réseau : topologies, transmissions, câblage, LAN et WAN",
+          "lessons": [
+            "m3c1-l1"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 2,
+          "titleEn": "Network Protocols and Devices",
+          "titleFr": "Protocoles et équipements réseau : modèle OSI, ports et services",
+          "lessons": [
+            "m3c1-l1",
+            "m3c1-l2",
+            "m3c1-l3",
+            "m3c2-l1",
+            "m3c2-l2"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 3,
+          "titleEn": "Telephony, VPNs and Wireless",
+          "titleFr": "Téléphonie, VPN et sans-fil, attaques réseau",
+          "lessons": [
+            "m3c4-l3",
+            "m3c2-l3",
+            "m3c1-l2"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 4,
+          "titleEn": "Security Architecture and Attacks",
+          "titleFr": "Architecture de sécurité et attaques des systèmes",
+          "lessons": [
+            "m3c3-l1",
+            "m3c3-l3"
+          ],
+          "coverage": "covered"
+        }
+      ]
+    },
+    {
+      "id": "orsys-4",
+      "label": "Module 4",
+      "titleEn": "Software Development Security, Database Security, Malware",
+      "titleFr": "Sécurité du développement logiciel, des bases de données, malwares",
+      "sections": [
+        {
+          "number": 1,
+          "titleEn": "Software Development Security",
+          "titleFr": "Développement logiciel sécurisé : processus, sécurité web, PCI DSS",
+          "lessons": [
+            "m4c1-l1",
+            "m4c1-l2",
+            "m4c1-l3",
+            "m1c3-l3"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 2,
+          "titleEn": "Database Security and System Development",
+          "titleFr": "Sécurité des bases de données : modèles et terminologie",
+          "lessons": [
+            "m4c2-l1"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 3,
+          "titleEn": "Malware and Software Attacks",
+          "titleFr": "Malwares et attaques logicielles : virus, ver, bombe logique, cheval de Troie, attaque temporelle, logiciel espion",
+          "lessons": [
+            "m4c3-l1",
+            "m4c3-l2",
+            "m4c3-l3"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 4,
+          "titleEn": "Data Security",
+          "titleFr": "Sécurité des données : cycle de vie, stockage, fuites (livre MILE2, module 5)",
+          "lessons": [
+            "m4c2-l2",
+            "m3c4-l2",
+            "m4c2-l3"
+          ],
+          "coverage": "covered",
+          "extra": true,
+          "extraLessons": [
+            "m4c2-l2",
+            "m3c4-l2",
+            "m4c2-l3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "orsys-5",
+      "label": "Module 5",
+      "titleEn": "BCP & DRP, Security Incidents, Law and Ethics, Physical Security",
+      "titleFr": "Continuité et reprise, incidents, lois et éthique, sécurité physique",
+      "sections": [
+        {
+          "number": 1,
+          "titleEn": "BCP & DRP",
+          "titleFr": "Continuité et reprise : BIA, stratégies, plan, tests",
+          "lessons": [
+            "m5c1-l1",
+            "m5c1-l2",
+            "m5c1-l3"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 2,
+          "titleEn": "Incident Management, Law and Ethics",
+          "titleFr": "Incidents, droit et éthique : criminalité informatique, preuves, vie privée",
+          "lessons": [
+            "m5c2-l1",
+            "m5c2-l2",
+            "m5c2-l3",
+            "m5c3-l1",
+            "m5c3-l2",
+            "m5c3-l3"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 3,
+          "titleEn": "Physical Security",
+          "titleFr": "Sécurité physique : site et bâtiment, périmètre, électricité et incendie",
+          "lessons": [
+            "m5c4-l1",
+            "m5c4-l2",
+            "m5c4-l3"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 4,
+          "titleEn": "European Cybersecurity Governance and Regulatory Compliance",
+          "titleFr": "Gouvernance et conformité européennes (livre MILE2, module 11)",
+          "lessons": [
+            "m5c3-l2"
+          ],
+          "coverage": "partial",
+          "extra": true,
+          "extraLessons": [
+            "m5c3-l2"
+          ]
+        }
+      ]
+    }
+  ]
+}
