@@ -7,6 +7,7 @@ import 'package:cisso_academy/data/progress_store.dart';
 import 'package:cisso_academy/main.dart';
 import 'package:cisso_academy/logic/study_groups.dart';
 import 'package:cisso_academy/models/content.dart';
+import 'package:cisso_academy/ui/app_menu.dart';
 import 'package:cisso_academy/ui/flashcards_page.dart';
 import 'package:cisso_academy/ui/chapter_page.dart';
 import 'package:cisso_academy/ui/courses_page.dart';
@@ -51,7 +52,7 @@ void main() {
     tester,
   ) async {
     await pumpApp(tester);
-    await tester.tap(find.byType(PopupMenuButton<String>));
+    await tester.tap(find.byTooltip('Menu'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('À propos de l\'application'));
     await tester.pumpAndSettle();
@@ -89,6 +90,103 @@ void main() {
     );
     expect(pubspec, contains('version: $appVersion+'));
     expect(pubspec, contains(appAuthor));
+  });
+
+  testWidgets('pied de page : auteur et version sur chaque écran principal', (
+    tester,
+  ) async {
+    await pumpApp(tester);
+    for (final label in ['Accueil', 'Cours', 'QCM', 'Révisions', 'Glossaire']) {
+      await tester.tap(
+        find.descendant(
+          of: find.byType(NavigationBar),
+          matching: find.text(label),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text(appFooterText), findsOneWidget, reason: label);
+    }
+    expect(appFooterText, contains('© 2026 Samir ACHAHOD'));
+    expect(appFooterText, contains('v$appVersion'));
+    expect(appFooterText, contains('non officielle'));
+    // Un appui ouvre « À propos ».
+    await tester.tap(find.text(appFooterText));
+    await tester.pumpAndSettle();
+    expect(find.text('Créée par $appAuthor'), findsOneWidget);
+  });
+
+  testWidgets('menu de gauche (téléphone) : écrans, réglages, réinitialiser', (
+    tester,
+  ) async {
+    final state = await pumpApp(tester);
+    await state.markLessonRead('m1c1-l1');
+    await tester.pumpAndSettle();
+    expect(state.readLessons, isNotEmpty);
+    // Le menu ☰ existe aussi sur les autres écrans principaux.
+    await tester.tap(
+      find.descendant(
+        of: find.byType(NavigationBar),
+        matching: find.text('Glossaire'),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Ouvrir le menu').hitTestable());
+    await tester.pumpAndSettle();
+    final drawer = find.byType(Drawer);
+    for (final a in AppAction.values) {
+      expect(
+        find.descendant(of: drawer, matching: find.text(a.label)),
+        findsOneWidget,
+      );
+    }
+    expect(
+      find.descendant(of: drawer, matching: find.text(appFooterText)),
+      findsOneWidget,
+    );
+    // Aller à un écran depuis le menu.
+    await tester.tap(find.descendant(of: drawer, matching: find.text('Cours')));
+    await tester.pumpAndSettle();
+    expect(find.byType(Drawer), findsNothing);
+    expect(
+      tester.widget<NavigationBar>(find.byType(NavigationBar)).selectedIndex,
+      1,
+    );
+    // Réinitialiser depuis le menu : confirmation puis effacement.
+    await tester.tap(find.byTooltip('Ouvrir le menu').hitTestable());
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Réinitialiser ma progression'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.widgetWithText(FilledButton, 'Effacer'));
+    await tester.runAsync(() => Future<void>.delayed(Duration.zero));
+    await tester.pumpAndSettle();
+    expect(state.readLessons, isEmpty);
+    // Réglages depuis le menu.
+    await tester.tap(find.byTooltip('Ouvrir le menu').hitTestable());
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Réglages'));
+    await tester.pumpAndSettle();
+    expect(find.text('Animations'), findsOneWidget);
+  });
+
+  testWidgets('rail (grand écran) : actions et pied de page', (tester) async {
+    await pumpApp(tester, size: const Size(1280, 800));
+    final rail = find.byType(NavigationRail);
+    for (final a in AppAction.values) {
+      expect(
+        find.descendant(of: rail, matching: find.byTooltip(a.label)),
+        findsOneWidget,
+      );
+    }
+    expect(find.byTooltip('Ouvrir le menu'), findsNothing);
+    expect(find.text(appFooterText), findsOneWidget);
+    await tester.tap(
+      find.descendant(
+        of: rail,
+        matching: find.byTooltip('À propos de l\'application'),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('Créée par $appAuthor'), findsOneWidget);
   });
 
   testWidgets('navigation vers chaque onglet', (tester) async {

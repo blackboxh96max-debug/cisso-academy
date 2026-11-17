@@ -1,6 +1,7 @@
 import 'package:material_ui/material_ui.dart';
 
 import '../../logic/stats.dart';
+import '../app_menu.dart';
 import '../assistant_page.dart';
 import '../search_page.dart';
 import 'hand_drawn.dart';
@@ -32,6 +33,7 @@ class NotebookPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Paper.of(context).background,
       appBar: AppBar(
+        leading: ShellMenuButton.maybe(context),
         title: Text(title),
         actions: [
           ...?actions,
