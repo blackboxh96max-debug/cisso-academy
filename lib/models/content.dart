@@ -507,9 +507,13 @@ class ContentLibrary {
     required this.glossary,
     required this.examInfo,
     this.examPrep = ExamPrep.empty,
+    this.mile2Outline = Mile2Outline.empty,
   });
 
   final List<Module> modules;
+
+  /// Sommaire officiel MILE2 (11 modules + Prérequis) relié à nos leçons.
+  final Mile2Outline mile2Outline;
   final List<ExamDomain> domains;
   final List<GlossaryTerm> glossary;
   final ExamInfo examInfo;
@@ -527,9 +531,120 @@ class ContentLibrary {
 
   Chapter chapter(String id) => chapters.firstWhere((c) => c.id == id);
 
+  Iterable<Lesson> get lessons => chapters.expand((c) => c.lessons);
+
+  Lesson lesson(String id) => lessons.firstWhere((l) => l.id == id);
+
+  /// Toutes les leçons dans l'ordre de la vue choisie, chacune une seule
+  /// fois (à sa première apparition dans le sommaire MILE2), puis celles que
+  /// le sommaire ne cite pas.
+  List<Lesson> lessonOrder(CourseView view) {
+    final all = lessons.toList();
+    if (view == CourseView.app || mile2Outline.modules.isEmpty) return all;
+    final byId = {for (final l in all) l.id: l};
+    final out = <Lesson>[];
+    final seen = <String>{};
+    for (final m in mile2Outline.modules) {
+      for (final s in m.sections) {
+        for (final id in s.lessons) {
+          if (seen.add(id) && byId[id] != null) out.add(byId[id]!);
+        }
+      }
+    }
+    for (final l in all) {
+      if (seen.add(l.id)) out.add(l);
+    }
+    return out;
+  }
+
   Module module(String id) => modules.firstWhere((m) => m.id == id);
 
   ExamDomain domain(String id) => domains.firstWhere((d) => d.id == id);
 
   Question question(String id) => questions.firstWhere((q) => q.id == id);
+}
+
+/// Les deux façons de parcourir la formation.
+enum CourseView {
+  /// Ordre du support officiel MILE2 v20 : 11 modules + Prérequis.
+  mile2,
+
+  /// Parcours de l'application : 5 modules thématiques.
+  app,
+}
+
+/// Niveau de couverture d'une section officielle par nos leçons.
+enum Coverage { covered, partial, missing }
+
+class Mile2Section {
+  const Mile2Section({
+    required this.number,
+    required this.titleEn,
+    required this.titleFr,
+    required this.lessons,
+    required this.coverage,
+  });
+
+  factory Mile2Section.fromJson(Map<String, dynamic> json) => Mile2Section(
+    number: json['number'] as int,
+    titleEn: json['titleEn'] as String,
+    titleFr: json['titleFr'] as String,
+    lessons: (json['lessons'] as List).cast<String>(),
+    coverage: Coverage.values.byName(json['coverage'] as String),
+  );
+
+  final int number;
+
+  /// Titre exact du sommaire officiel (anglais).
+  final String titleEn;
+  final String titleFr;
+
+  /// Identifiants des leçons qui traitent la section.
+  final List<String> lessons;
+  final Coverage coverage;
+}
+
+class Mile2Module {
+  const Mile2Module({
+    required this.id,
+    required this.label,
+    required this.titleEn,
+    required this.titleFr,
+    required this.sections,
+  });
+
+  factory Mile2Module.fromJson(Map<String, dynamic> json) => Mile2Module(
+    id: json['id'] as String,
+    label: json['label'] as String,
+    titleEn: json['titleEn'] as String,
+    titleFr: json['titleFr'] as String,
+    sections: (json['sections'] as List)
+        .map((s) => Mile2Section.fromJson(s as Map<String, dynamic>))
+        .toList(),
+  );
+
+  final String id;
+
+  /// « Module 1 » … « Module 11 », « Prérequis ».
+  final String label;
+  final String titleEn;
+  final String titleFr;
+  final List<Mile2Section> sections;
+}
+
+class Mile2Outline {
+  const Mile2Outline({required this.source, required this.modules});
+
+  factory Mile2Outline.fromJson(Map<String, dynamic> json) => Mile2Outline(
+    source: json['source'] as String,
+    modules: (json['modules'] as List)
+        .map((m) => Mile2Module.fromJson(m as Map<String, dynamic>))
+        .toList(),
+  );
+
+  static const empty = Mile2Outline(source: '', modules: []);
+
+  /// D'où vient le sommaire.
+  final String source;
+  final List<Mile2Module> modules;
 }
