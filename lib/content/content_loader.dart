@@ -61,6 +61,12 @@ class ContentLoader {
               jsonDecode(await read('$root/${catalog['examPrep']}'))
                   as Map<String, dynamic>,
             ),
+      mile2Outline: catalog['mile2Outline'] == null
+          ? Mile2Outline.empty
+          : Mile2Outline.fromJson(
+              jsonDecode(await read('$root/${catalog['mile2Outline']}'))
+                  as Map<String, dynamic>,
+            ),
     );
     validate(library);
     return library;
@@ -111,6 +117,26 @@ class ContentLoader {
   /// Vérifie la cohérence du contenu ; lève [FormatException] sinon.
   static void validate(ContentLibrary library) {
     final domainIds = library.domains.map((d) => d.id).toSet();
+    final lessonIds = library.lessons.map((l) => l.id).toSet();
+    for (final m in library.mile2Outline.modules) {
+      for (final s in m.sections) {
+        for (final id in s.lessons) {
+          if (!lessonIds.contains(id)) {
+            throw FormatException(
+              'Sommaire MILE2 ${m.label} section ${s.number} : leçon '
+              'inconnue $id',
+            );
+          }
+        }
+        if ((s.coverage == Coverage.missing) != s.lessons.isEmpty &&
+            s.coverage != Coverage.partial) {
+          throw FormatException(
+            'Sommaire MILE2 ${m.label} section ${s.number} : couverture '
+            '« ${s.coverage.name} » incohérente avec ses leçons',
+          );
+        }
+      }
+    }
     final seen = <String>{};
 
     void unique(String id) {

@@ -417,4 +417,36 @@ void main() {
     ).load();
     expect(ok.chapter('c').mindMap!.children.single.label, 'B');
   });
+
+  test(
+    'le sommaire officiel MILE2 v20 est complet et relié aux leçons',
+    () async {
+      final library = await loadRealContent();
+      final outline = library.mile2Outline;
+      // 11 modules + le module Prérequis, 70 sections, dans l'ordre du livre.
+      expect(outline.modules, hasLength(12));
+      expect(outline.modules.last.label, 'Prérequis');
+      expect(
+        [for (final m in outline.modules) m.sections.length],
+        [4, 7, 9, 5, 5, 6, 6, 4, 5, 4, 5, 10],
+      );
+      for (final m in outline.modules) {
+        expect([
+          for (final s in m.sections) s.number,
+        ], List.generate(m.sections.length, (i) => i + 1));
+      }
+      // Chaque leçon de l'application apparaît dans le sommaire.
+      final cited = {
+        for (final m in outline.modules)
+          for (final s in m.sections) ...s.lessons,
+      };
+      expect(cited, containsAll(library.lessons.map((l) => l.id)));
+      // Les deux ordres contiennent les mêmes leçons, une seule fois.
+      for (final view in CourseView.values) {
+        final order = library.lessonOrder(view).map((l) => l.id).toList();
+        expect(order.toSet(), hasLength(order.length));
+        expect(order.toSet(), library.lessons.map((l) => l.id).toSet());
+      }
+    },
+  );
 }

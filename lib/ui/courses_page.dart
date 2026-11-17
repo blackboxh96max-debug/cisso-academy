@@ -4,6 +4,7 @@ import '../app_state.dart';
 import '../logic/stats.dart';
 import '../models/content.dart';
 import 'chapter_page.dart';
+import 'mile2_outline_view.dart';
 import 'mind_map_page.dart';
 import 'notebook/hand_drawn.dart';
 import 'notebook/page_kit.dart';
@@ -11,7 +12,9 @@ import 'notebook/palette.dart';
 import 'notebook/typography.dart';
 import 'bilingual.dart';
 
-/// Programme : 5 modules, chacun rattaché aux domaines officiels MILE2.
+/// Programme : au choix, l'ordre du livre MILE2 (11 modules + Prérequis) ou
+/// le parcours de l'application en 5 modules. Les leçons et la progression
+/// sont les mêmes dans les deux vues.
 class CoursesPage extends StatelessWidget {
   const CoursesPage({super.key});
 
@@ -19,17 +22,34 @@ class CoursesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = AppScope.of(context);
     final library = state.library;
-    final available = library.availableChapters.length;
+    final view = library.mile2Outline.modules.isEmpty
+        ? CourseView.app
+        : state.courseView;
     return NotebookPage(
       title: 'Cours',
       children: [
-        Text(
-          'Votre programme en ${library.modules.length} modules : '
-          '$available chapitre(s) déjà disponible(s), les autres arrivent '
-          'au fil des mises à jour. Un chapitre est validé à 80 %.',
-          style: Hand.bodyText(context),
-        ),
-        const SizedBox(height: 12),
+        if (library.mile2Outline.modules.isNotEmpty) ...[
+          SegmentedButton<CourseView>(
+            key: const Key('course-view'),
+            segments: const [
+              ButtonSegment(
+                value: CourseView.mile2,
+                icon: Icon(Icons.menu_book_outlined),
+                label: Text('Livre MILE2'),
+              ),
+              ButtonSegment(
+                value: CourseView.app,
+                icon: Icon(Icons.view_module_outlined),
+                label: Text('5 modules'),
+              ),
+            ],
+            selected: {view},
+            showSelectedIcon: false,
+            onSelectionChanged: (v) =>
+                AppScope.read(context).setCourseView(v.first),
+          ),
+          const SizedBox(height: 14),
+        ],
         Align(
           alignment: Alignment.centerLeft,
           child: GradientButton(
@@ -47,21 +67,35 @@ class CoursesPage extends StatelessWidget {
             ),
           ),
         ),
-        for (final m in library.modules) ...[
-          const SizedBox(height: 22),
-          _ModuleBanner(module: m, progress: state.stats.moduleProgress(m.id)),
-          for (final (i, c) in m.chapters.indexed)
-            Padding(
-              padding: const EdgeInsets.only(top: 10, left: 12),
-              child: _ChapterCard(
-                chapter: c,
-                number: '${m.number}.${i + 1}',
-                tone: moduleStyle(m.number).$1,
-                stats: state.stats.chapters
-                    .where((s) => s.chapter.id == c.id)
-                    .firstOrNull,
-              ),
+        const SizedBox(height: 12),
+        if (view == CourseView.mile2)
+          const Mile2OutlineView()
+        else ...[
+          Text(
+            'Votre programme en ${library.modules.length} modules '
+            'thématiques. Un chapitre est validé à 80 %. Le bouton « Livre '
+            'MILE2 » montre les mêmes leçons rangées comme dans le livre.',
+            style: Hand.bodyText(context),
+          ),
+          for (final m in library.modules) ...[
+            const SizedBox(height: 22),
+            _ModuleBanner(
+              module: m,
+              progress: state.stats.moduleProgress(m.id),
             ),
+            for (final (i, c) in m.chapters.indexed)
+              Padding(
+                padding: const EdgeInsets.only(top: 10, left: 12),
+                child: _ChapterCard(
+                  chapter: c,
+                  number: '${m.number}.${i + 1}',
+                  tone: moduleStyle(m.number).$1,
+                  stats: state.stats.chapters
+                      .where((s) => s.chapter.id == c.id)
+                      .firstOrNull,
+                ),
+              ),
+          ],
         ],
       ],
     );

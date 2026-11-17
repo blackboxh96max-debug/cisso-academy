@@ -88,32 +88,91 @@ void main() {
     expect(find.text(second), findsWidgets);
   });
 
-  testWidgets('leçon : boutons précédente et suivante, même entre chapitres', (
+  for (final view in CourseView.values) {
+    testWidgets('leçon : précédente et suivante dans l\'ordre ${view.name}', (
+      tester,
+    ) async {
+      final state = await pumpApp(tester);
+      await state.setCourseView(view);
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Prochaine révision recommandée'));
+      await tester.pumpAndSettle();
+      final lessons = library.lessonOrder(view);
+      expect(lessons.first.id, 'm1c1-l1');
+      // Précédente désactivée sur la toute première leçon.
+      final prev = tester.widget<IconButton>(
+        find.widgetWithIcon(IconButton, Icons.chevron_left),
+      );
+      expect(prev.onPressed, isNull);
+      // On avance jusqu'à la première leçon du chapitre suivant.
+      for (var i = 0; i < 3; i++) {
+        await tester.tap(find.byTooltip('Leçon suivante'));
+        await tester.pumpAndSettle();
+      }
+      expect(find.text(lessons[3].title), findsWidgets);
+      final chapter = library.chapters.firstWhere(
+        (c) => c.lessons.contains(lessons[3]),
+      );
+      expect(find.text(chapter.title), findsWidgets);
+      // MILE2 : après le module 1 vient « Lois, éthique » (module 2 du
+      // livre) ; parcours : la gouvernance (chapitre 1.2).
+      expect(chapter.id, view == CourseView.mile2 ? 'm5c3' : 'm1c2');
+      await tester.tap(find.byTooltip('Leçon précédente'));
+      await tester.pumpAndSettle();
+      expect(find.text(lessons[2].title), findsWidgets);
+      // Les pages ne s'empilent pas : un retour ramène au tableau de bord.
+      await tester.pageBack();
+      await tester.pumpAndSettle();
+      expect(find.text('Prochaine révision recommandée'), findsOneWidget);
+    });
+  }
+
+  testWidgets('cours : vue « ordre MILE2 » puis vue « 5 modules »', (
     tester,
   ) async {
-    await pumpApp(tester);
-    await tester.tap(find.text('Prochaine révision recommandée'));
-    await tester.pumpAndSettle();
-    final lessons = library.chapters.expand((c) => c.lessons).toList();
-    // Précédente désactivée sur la toute première leçon.
-    final prev = tester.widget<IconButton>(
-      find.widgetWithIcon(IconButton, Icons.chevron_left),
+    final state = await pumpApp(tester);
+    await tester.tap(
+      find.descendant(
+        of: find.byType(NavigationBar),
+        matching: find.text('Cours'),
+      ),
     );
-    expect(prev.onPressed, isNull);
-    // On avance jusqu'à la première leçon du chapitre suivant.
-    for (var i = 0; i < 3; i++) {
-      await tester.tap(find.byTooltip('Leçon suivante'));
-      await tester.pumpAndSettle();
-    }
-    expect(find.text(lessons[3].title), findsWidgets);
-    expect(find.text(library.chapters.elementAt(1).title), findsWidgets);
-    await tester.tap(find.byTooltip('Leçon précédente'));
     await tester.pumpAndSettle();
-    expect(find.text(lessons[2].title), findsWidgets);
-    // Les pages ne s'empilent pas : un retour ramène au tableau de bord.
+    // Par défaut, l'ordre du livre : sections officielles et leçons reliées.
+    expect(find.text('Section 1 · Définitions du risque'), findsOneWidget);
+    expect(find.text('Risk Definitions'), findsWidgets);
+    final link = find
+        .text('Les briques du risque et le processus de gestion')
+        .first;
+    await tester.ensureVisible(link);
+    await tester.pumpAndSettle();
+    await tester.tap(link);
+    await tester.pumpAndSettle();
+    expect(find.text('OBJECTIFS DE LA LEÇON'), findsOneWidget);
     await tester.pageBack();
     await tester.pumpAndSettle();
-    expect(find.text('Prochaine révision recommandée'), findsOneWidget);
+    // Une section sans leçon est signalée.
+    final list = find
+        .descendant(
+          of: find.byType(CoursesPage),
+          matching: find.byType(Scrollable),
+        )
+        .first;
+    final pending = find.text('Section 7 · Cryptographie quantique');
+    for (var i = 0; i < 30 && pending.evaluate().isEmpty; i++) {
+      await tester.drag(list, const Offset(0, -600));
+      await tester.pumpAndSettle();
+    }
+    expect(pending, findsOneWidget);
+    expect(find.text('Leçon à venir'), findsWidgets);
+    // Bascule vers le parcours en 5 modules, mémorisée.
+    await tester.drag(list, const Offset(0, 40000));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('5 modules'));
+    await tester.pumpAndSettle();
+    expect(state.courseView, CourseView.app);
+    expect(await state.store.setting('courseView'), 'app');
+    expect(find.text('📖 3 leçons'), findsWidgets);
   });
 
   testWidgets('recherche dans le texte puis dans la leçon ouverte', (
@@ -338,6 +397,8 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
+    await tester.tap(find.text('5 modules'));
+    await tester.pumpAndSettle();
     expect(find.text('Module 1'), findsOneWidget);
     expect(find.text('📖 3 leçons'), findsWidgets);
     final list = find
@@ -360,7 +421,10 @@ void main() {
       await tester.pumpAndSettle();
     }
 
-    await tester.tap(find.text('Gestion, analyse et traitement des risques'));
+    final first = find.text('Gestion, analyse et traitement des risques');
+    await tester.ensureVisible(first);
+    await tester.pumpAndSettle();
+    await tester.tap(first);
     await tester.pumpAndSettle();
     expect(find.text('Leçons'), findsOneWidget);
     expect(find.text('📖 À lire'), findsNWidgets(3));

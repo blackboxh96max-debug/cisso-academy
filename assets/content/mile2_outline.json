@@ -1,0 +1,725 @@
+{
+  "source": "Sommaire du support officiel MILE2 CISSO v20 (Table of Contents, pages 3 à 5), d'après les captures fournies par l'apprenant le 2026-11-17. Titres anglais recopiés ; titres français et rattachement aux leçons : traduction et choix de l'application.",
+  "modules": [
+    {
+      "id": "mile2-1",
+      "label": "Module 1",
+      "titleEn": "Risk Management",
+      "titleFr": "Gestion des risques",
+      "sections": [
+        {
+          "number": 1,
+          "titleEn": "Risk Definitions",
+          "titleFr": "Définitions du risque",
+          "lessons": [
+            "m1c1-l1"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 2,
+          "titleEn": "Risk Management",
+          "titleFr": "Gestion du risque",
+          "lessons": [
+            "m1c1-l1"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 3,
+          "titleEn": "Risk Assessment",
+          "titleFr": "Appréciation des risques",
+          "lessons": [
+            "m1c1-l2"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 4,
+          "titleEn": "Responding to Risk",
+          "titleFr": "Traiter le risque",
+          "lessons": [
+            "m1c1-l3"
+          ],
+          "coverage": "covered"
+        }
+      ]
+    },
+    {
+      "id": "mile2-2",
+      "label": "Module 2",
+      "titleEn": "Security Management",
+      "titleFr": "Management de la sécurité",
+      "sections": [
+        {
+          "number": 1,
+          "titleEn": "Laws, Regulations, Privacy, Ethics, and Compliance",
+          "titleFr": "Lois, réglementation, vie privée, éthique et conformité",
+          "lessons": [
+            "m5c3-l1",
+            "m5c3-l2",
+            "m5c3-l3"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 2,
+          "titleEn": "Understanding Information Security",
+          "titleFr": "Comprendre la sécurité de l'information",
+          "lessons": [],
+          "coverage": "partial"
+        },
+        {
+          "number": 3,
+          "titleEn": "Information Security Management System",
+          "titleFr": "Système de management de la sécurité de l'information",
+          "lessons": [
+            "m1c3-l2"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 4,
+          "titleEn": "Organization Roles and Responsibilities",
+          "titleFr": "Rôles et responsabilités dans l'organisation",
+          "lessons": [
+            "m1c2-l1"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 5,
+          "titleEn": "Information Security Control Frameworks",
+          "titleFr": "Référentiels de contrôles de sécurité",
+          "lessons": [
+            "m1c3-l1",
+            "m1c3-l3"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 6,
+          "titleEn": "Employee Education",
+          "titleFr": "Formation des employés",
+          "lessons": [
+            "m1c2-l3"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 7,
+          "titleEn": "Security Models and Evaluation Criteria",
+          "titleFr": "Modèles de sécurité et critères d'évaluation",
+          "lessons": [
+            "m3c3-l2"
+          ],
+          "coverage": "partial"
+        }
+      ]
+    },
+    {
+      "id": "mile2-3",
+      "label": "Module 3",
+      "titleEn": "Cryptography",
+      "titleFr": "Cryptographie",
+      "sections": [
+        {
+          "number": 1,
+          "titleEn": "Cryptography Foundations",
+          "titleFr": "Bases de la cryptographie",
+          "lessons": [
+            "m2c2-l1"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 2,
+          "titleEn": "Symmetric Cryptography",
+          "titleFr": "Cryptographie symétrique",
+          "lessons": [
+            "m2c2-l1"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 3,
+          "titleEn": "Asymmetric Cryptography",
+          "titleFr": "Cryptographie asymétrique",
+          "lessons": [
+            "m2c2-l1"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 4,
+          "titleEn": "Hashing",
+          "titleFr": "Hachage",
+          "lessons": [
+            "m2c2-l2"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 5,
+          "titleEn": "Hybrid Systems",
+          "titleFr": "Systèmes hybrides",
+          "lessons": [
+            "m2c2-l1"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 6,
+          "titleEn": "Public Key Infrastructure",
+          "titleFr": "Infrastructure à clés publiques",
+          "lessons": [
+            "m2c2-l3"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 7,
+          "titleEn": "Quantum Cryptography",
+          "titleFr": "Cryptographie quantique",
+          "lessons": [],
+          "coverage": "missing"
+        },
+        {
+          "number": 8,
+          "titleEn": "Advancements in Cryptography",
+          "titleFr": "Avancées en cryptographie",
+          "lessons": [],
+          "coverage": "missing"
+        },
+        {
+          "number": 9,
+          "titleEn": "Attacking Cryptography",
+          "titleFr": "Attaquer la cryptographie",
+          "lessons": [
+            "m2c2-l3"
+          ],
+          "coverage": "covered"
+        }
+      ]
+    },
+    {
+      "id": "mile2-4",
+      "label": "Module 4",
+      "titleEn": "Identification, Authentication and Access Control",
+      "titleFr": "Identification, authentification et contrôle d'accès",
+      "sections": [
+        {
+          "number": 1,
+          "titleEn": "Identity Management",
+          "titleFr": "Gestion des identités",
+          "lessons": [
+            "m1c4-l3"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 2,
+          "titleEn": "Authentication Techniques",
+          "titleFr": "Techniques d'authentification",
+          "lessons": [
+            "m1c4-l1"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 3,
+          "titleEn": "Access Controls: Design, Methods, and Characteristics",
+          "titleFr": "Contrôles d'accès : conception, méthodes et caractéristiques",
+          "lessons": [
+            "m1c4-l2"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 4,
+          "titleEn": "Cloud and Hybrid Access Control Considerations",
+          "titleFr": "Contrôle d'accès cloud et hybride",
+          "lessons": [
+            "m3c3-l3"
+          ],
+          "coverage": "partial"
+        },
+        {
+          "number": 5,
+          "titleEn": "Access Control Monitoring",
+          "titleFr": "Surveillance des accès",
+          "lessons": [
+            "m2c1-l2"
+          ],
+          "coverage": "partial"
+        }
+      ]
+    },
+    {
+      "id": "mile2-5",
+      "label": "Module 5",
+      "titleEn": "Data Security Management",
+      "titleFr": "Management de la sécurité des données",
+      "sections": [
+        {
+          "number": 1,
+          "titleEn": "Data Lifecycle",
+          "titleFr": "Cycle de vie des données",
+          "lessons": [
+            "m4c2-l2"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 2,
+          "titleEn": "Data Discovery and Classification",
+          "titleFr": "Découverte et classification des données",
+          "lessons": [
+            "m4c2-l2",
+            "m1c2-l2"
+          ],
+          "coverage": "partial"
+        },
+        {
+          "number": 3,
+          "titleEn": "Data Storage Architectures and Strategies",
+          "titleFr": "Architectures et stratégies de stockage",
+          "lessons": [],
+          "coverage": "missing"
+        },
+        {
+          "number": 4,
+          "titleEn": "Data Security Architectures and Strategies",
+          "titleFr": "Architectures et stratégies de sécurité des données",
+          "lessons": [
+            "m4c2-l3"
+          ],
+          "coverage": "partial"
+        },
+        {
+          "number": 5,
+          "titleEn": "Data Retention, Deletion, and Archival Policies",
+          "titleFr": "Conservation, suppression et archivage",
+          "lessons": [
+            "m4c2-l3"
+          ],
+          "coverage": "covered"
+        }
+      ]
+    },
+    {
+      "id": "mile2-6",
+      "label": "Module 6",
+      "titleEn": "Operations Security",
+      "titleFr": "Sécurité des opérations",
+      "sections": [
+        {
+          "number": 1,
+          "titleEn": "Management Responsibilities",
+          "titleFr": "Responsabilités de la direction",
+          "lessons": [
+            "m2c1-l1"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 2,
+          "titleEn": "Human Resources",
+          "titleFr": "Ressources humaines",
+          "lessons": [
+            "m1c2-l3"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 3,
+          "titleEn": "Security Assessments",
+          "titleFr": "Évaluations de sécurité",
+          "lessons": [
+            "m2c3-l1",
+            "m2c3-l2",
+            "m2c3-l3"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 4,
+          "titleEn": "Logging and Monitoring",
+          "titleFr": "Journalisation et surveillance",
+          "lessons": [
+            "m2c1-l2"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 5,
+          "titleEn": "Artificial Intelligence",
+          "titleFr": "Intelligence artificielle",
+          "lessons": [],
+          "coverage": "missing"
+        },
+        {
+          "number": 6,
+          "titleEn": "Threats to Operations",
+          "titleFr": "Menaces sur les opérations",
+          "lessons": [
+            "m4c3-l1",
+            "m2c1-l1"
+          ],
+          "coverage": "partial"
+        }
+      ]
+    },
+    {
+      "id": "mile2-7",
+      "label": "Module 7",
+      "titleEn": "Network Connections, Protocols, Devices, and Designs",
+      "titleFr": "Réseaux : connexions, protocoles, équipements et conception",
+      "sections": [
+        {
+          "number": 1,
+          "titleEn": "Network Management",
+          "titleFr": "Gestion du réseau",
+          "lessons": [
+            "m3c1-l2"
+          ],
+          "coverage": "partial"
+        },
+        {
+          "number": 2,
+          "titleEn": "Network Protocols",
+          "titleFr": "Protocoles réseau",
+          "lessons": [
+            "m3c1-l1",
+            "m3c1-l2",
+            "m3c1-l3"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 3,
+          "titleEn": "Wireless Protocols",
+          "titleFr": "Protocoles sans fil",
+          "lessons": [
+            "m3c2-l3"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 4,
+          "titleEn": "Network Design",
+          "titleFr": "Conception du réseau",
+          "lessons": [
+            "m3c2-l1"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 5,
+          "titleEn": "Network Devices",
+          "titleFr": "Équipements réseau",
+          "lessons": [
+            "m3c2-l2"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 6,
+          "titleEn": "Threats to the Network",
+          "titleFr": "Menaces sur le réseau",
+          "lessons": [
+            "m3c1-l2"
+          ],
+          "coverage": "covered"
+        }
+      ]
+    },
+    {
+      "id": "mile2-8",
+      "label": "Module 8",
+      "titleEn": "IT and Business Security Architecture",
+      "titleFr": "Architecture de sécurité SI et métier",
+      "sections": [
+        {
+          "number": 1,
+          "titleEn": "Security Controls Frameworks",
+          "titleFr": "Référentiels de contrôles de sécurité",
+          "lessons": [
+            "m1c3-l3"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 2,
+          "titleEn": "IT Secure Design Principles",
+          "titleFr": "Principes de conception sécurisée",
+          "lessons": [
+            "m3c3-l1"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 3,
+          "titleEn": "IT Systems Capabilities",
+          "titleFr": "Capacités des systèmes",
+          "lessons": [
+            "m3c3-l2"
+          ],
+          "coverage": "partial"
+        },
+        {
+          "number": 4,
+          "titleEn": "IT Security Architectures and Design",
+          "titleFr": "Architectures de sécurité et conception",
+          "lessons": [
+            "m3c3-l3"
+          ],
+          "coverage": "covered"
+        }
+      ]
+    },
+    {
+      "id": "mile2-9",
+      "label": "Module 9",
+      "titleEn": "Software Development Security",
+      "titleFr": "Sécurité du développement logiciel",
+      "sections": [
+        {
+          "number": 1,
+          "titleEn": "Software Security Basics",
+          "titleFr": "Bases de la sécurité logicielle",
+          "lessons": [
+            "m4c1-l1"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 2,
+          "titleEn": "Vulnerabilities, Threats, and Risks",
+          "titleFr": "Vulnérabilités, menaces et risques",
+          "lessons": [
+            "m4c1-l2"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 3,
+          "titleEn": "Software Development Lifecycle",
+          "titleFr": "Cycle de développement logiciel",
+          "lessons": [
+            "m4c1-l1"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 4,
+          "titleEn": "Software Security Controls",
+          "titleFr": "Contrôles de sécurité logicielle",
+          "lessons": [
+            "m4c1-l3"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 5,
+          "titleEn": "Secure Coding Guidelines and Standards",
+          "titleFr": "Guides et standards de codage sécurisé",
+          "lessons": [
+            "m4c1-l2"
+          ],
+          "coverage": "partial"
+        }
+      ]
+    },
+    {
+      "id": "mile2-10",
+      "label": "Module 10",
+      "titleEn": "Business Continuity, Disaster Recovery, and Incident Management",
+      "titleFr": "Continuité, reprise après sinistre et gestion des incidents",
+      "sections": [
+        {
+          "number": 1,
+          "titleEn": "Security Operations Center",
+          "titleFr": "Centre des opérations de sécurité (SOC)",
+          "lessons": [
+            "m2c1-l3"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 2,
+          "titleEn": "Business Continuity",
+          "titleFr": "Continuité d'activité",
+          "lessons": [
+            "m5c1-l1",
+            "m5c1-l2",
+            "m5c1-l3"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 3,
+          "titleEn": "Incident Handling",
+          "titleFr": "Traitement des incidents",
+          "lessons": [
+            "m5c2-l1",
+            "m5c2-l3"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 4,
+          "titleEn": "Computer Crime",
+          "titleFr": "Criminalité informatique",
+          "lessons": [
+            "m5c2-l2"
+          ],
+          "coverage": "covered"
+        }
+      ]
+    },
+    {
+      "id": "mile2-11",
+      "label": "Module 11",
+      "titleEn": "European Cybersecurity Governance and Regulatory Compliance",
+      "titleFr": "Gouvernance et conformité réglementaire européennes",
+      "sections": [
+        {
+          "number": 1,
+          "titleEn": "European Cybersecurity Environment",
+          "titleFr": "L'environnement européen de la cybersécurité",
+          "lessons": [],
+          "coverage": "missing"
+        },
+        {
+          "number": 2,
+          "titleEn": "Core European Cybersecurity Regulations",
+          "titleFr": "Les grands textes européens",
+          "lessons": [
+            "m5c3-l2"
+          ],
+          "coverage": "partial"
+        },
+        {
+          "number": 3,
+          "titleEn": "Operational Security Requirements in Practice",
+          "titleFr": "Exigences opérationnelles en pratique",
+          "lessons": [],
+          "coverage": "missing"
+        },
+        {
+          "number": 4,
+          "titleEn": "Mapping to CISSO and Common Frameworks",
+          "titleFr": "Correspondance avec CISSO et les référentiels",
+          "lessons": [],
+          "coverage": "missing"
+        },
+        {
+          "number": 5,
+          "titleEn": "Enforcement Changes Security Leadership",
+          "titleFr": "Sanctions et rôle des dirigeants",
+          "lessons": [],
+          "coverage": "missing"
+        }
+      ]
+    },
+    {
+      "id": "mile2-pre",
+      "label": "Prérequis",
+      "titleEn": "Prerequisites Module – Other Exam Related Items",
+      "titleFr": "Module Prérequis : autres sujets de l'examen",
+      "sections": [
+        {
+          "number": 1,
+          "titleEn": "Historical Uses of Cryptography",
+          "titleFr": "Histoire de la cryptographie",
+          "lessons": [],
+          "coverage": "missing"
+        },
+        {
+          "number": 2,
+          "titleEn": "Identification, Authentication, Authorization, and Accountability",
+          "titleFr": "Identification, authentification, autorisation et traçabilité",
+          "lessons": [
+            "m1c4-l1"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 3,
+          "titleEn": "Physical Security",
+          "titleFr": "Sécurité physique",
+          "lessons": [
+            "m5c4-l1",
+            "m5c4-l2",
+            "m5c4-l3"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 4,
+          "titleEn": "Redundancy and Fault Tolerance",
+          "titleFr": "Redondance et tolérance aux pannes",
+          "lessons": [
+            "m5c1-l2"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 5,
+          "titleEn": "Network Connections",
+          "titleFr": "Connexions réseau",
+          "lessons": [
+            "m3c1-l1"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 6,
+          "titleEn": "Network Protocols and Devices",
+          "titleFr": "Protocoles et équipements réseau",
+          "lessons": [
+            "m3c1-l2"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 7,
+          "titleEn": "Telephony",
+          "titleFr": "Téléphonie",
+          "lessons": [],
+          "coverage": "missing"
+        },
+        {
+          "number": 8,
+          "titleEn": "Database Security",
+          "titleFr": "Sécurité des bases de données",
+          "lessons": [
+            "m4c2-l1"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 9,
+          "titleEn": "Architecture Models",
+          "titleFr": "Modèles d'architecture",
+          "lessons": [
+            "m3c3-l2"
+          ],
+          "coverage": "covered"
+        },
+        {
+          "number": 10,
+          "titleEn": "Malware, Threats, and Attacks",
+          "titleFr": "Logiciels malveillants, menaces et attaques",
+          "lessons": [
+            "m4c3-l1",
+            "m4c3-l2",
+            "m4c3-l3"
+          ],
+          "coverage": "covered"
+        }
+      ]
+    }
+  ]
+}
