@@ -1,0 +1,1358 @@
+{
+ "lessons": [
+  {
+   "id": "m3c4-l1",
+   "title": "Contrôle d'accès dans le cloud et en environnement hybride",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m3c4_l1_nuage.svg",
+   "illustrationAlt": "Dessin d'un nuage relié à un petit bâtiment par un pont, avec une carte d'identité posée au milieu du pont.",
+   "objectives": [
+    "Appliquer le modèle de responsabilité partagée au contrôle d'accès.",
+    "Expliquer la fédération d'identités et l'accès conditionnel entre site et cloud.",
+    "Citer les outils de contrôle : CASB, CSPM, CIEM, accès à privilèges juste à temps.",
+    "Surveiller les accès : journaux d'audit du cloud, revues d'accès, alertes comportementales."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-210, General Access Control Guidance for Cloud Systems (2020)",
+     "url": "https://csrc.nist.gov/news/2020/nist-publishes-sp-800-210-ac-guidance-for-cloud",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-207, Zero Trust Architecture",
+     "url": "https://csrc.nist.gov/pubs/sp/800/207/final",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "L'identité devient le périmètre"
+    },
+    {
+     "type": "text",
+     "text": "Dans le cloud, les ressources ne sont plus derrière le pare-feu de l'entreprise : elles sont joignables depuis Internet, et c'est l'identité qui décide qui y accède. Une seule clé d'accès oubliée dans un dépôt de code ou un compte d'administration sans authentification forte suffit à tout exposer."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Modèle",
+       "Le fournisseur gère",
+       "Le client gère toujours"
+      ],
+      [
+       "IaaS (infrastructure)",
+       "Bâtiments, matériel, virtualisation",
+       "Systèmes, applications, données, identités et droits"
+      ],
+      [
+       "PaaS (plateforme)",
+       "Plus le système et l'environnement d'exécution",
+       "Applications, données, identités et droits"
+      ],
+      [
+       "SaaS (logiciel)",
+       "Presque toute la pile",
+       "Données, comptes utilisateurs, droits et configuration"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Les identités restent au client",
+     "text": "Quel que soit le modèle, la gestion des comptes, des droits et de leur revue reste sous la responsabilité du client. La plupart des fuites dans le cloud viennent d'erreurs de configuration ou de droits trop larges, pas d'une faille du fournisseur."
+    },
+    {
+     "type": "heading",
+     "text": "Relier le site et le cloud"
+    },
+    {
+     "type": "definition",
+     "title": "Fédération d'identités",
+     "text": "Le fournisseur d'identité de l'entreprise (IdP) authentifie l'utilisateur, puis transmet une assertion au service cloud grâce à SAML ou OpenID Connect. L'utilisateur n'a qu'un compte, et le désactiver dans l'annuaire coupe aussi l'accès au cloud.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Accès conditionnel",
+     "text": "Règle qui accorde, refuse ou durcit un accès selon le contexte : appareil géré ou non, pays, niveau de risque de la connexion. Exemple : authentification multifacteur exigée hors du réseau de l'entreprise.",
+     "kind": "general"
+    },
+    {
+     "type": "diagram",
+     "title": "Une connexion fédérée",
+     "alt": "Schéma en cinq étapes : l'utilisateur ouvre l'application cloud ; il est redirigé vers le fournisseur d'identité de l'entreprise ; celui-ci vérifie l'identité et le contexte (multifacteur, appareil) ; il renvoie une assertion signée ; l'application accorde les droits prévus pour ce rôle.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "👤",
+        "label": "Utilisateur",
+        "detail": "ouvre l'application cloud",
+        "tone": "blue"
+       },
+       {
+        "emoji": "↪️",
+        "label": "Redirection",
+        "detail": "vers le fournisseur d'identité",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🔐",
+        "label": "Vérification",
+        "detail": "multifacteur, appareil, contexte",
+        "tone": "orange"
+       },
+       {
+        "emoji": "📜",
+        "label": "Assertion signée",
+        "detail": "SAML ou OpenID Connect",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "✅",
+        "label": "Accès",
+        "detail": "droits du rôle, journalisé",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "heading",
+     "text": "Les outils du contrôle"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Outil",
+       "Rôle"
+      ],
+      [
+       "CASB (courtier de sécurité d'accès au cloud)",
+       "Voir et contrôler l'usage des services cloud, y compris ceux non approuvés (shadow IT)"
+      ],
+      [
+       "CSPM (gestion de la posture du cloud)",
+       "Détecter les erreurs de configuration : stockage public, ports ouverts, journaux désactivés"
+      ],
+      [
+       "CIEM (gestion des droits du cloud)",
+       "Repérer les droits excessifs ou inutilisés des personnes et des services"
+      ],
+      [
+       "Accès à privilèges juste à temps",
+       "Accorder un rôle d'administration pour une durée limitée, après approbation"
+      ]
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "Identité de charge de travail",
+     "text": "Identité attribuée à une application ou à un service (et non à une personne) pour accéder à d'autres ressources. On préfère des identités gérées, aux secrets renouvelés automatiquement, aux clés d'accès permanentes copiées dans le code.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Surveiller les accès"
+    },
+    {
+     "type": "practice",
+     "title": "Surveillance des accès",
+     "kind": "practice",
+     "items": [
+      "Activer et centraliser les journaux d'audit du cloud (connexions, changements de droits, créations de clés) dans le SIEM.",
+      "Alerter sur les signaux suspects : connexion depuis un pays inhabituel, « voyage impossible », création d'un compte d'administration, désactivation de la journalisation.",
+      "Réviser régulièrement les droits avec les responsables métier et retirer ceux qui ne servent plus.",
+      "Protéger les comptes de secours (« bris de glace ») : peu nombreux, surveillés et testés."
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "Réflexe d'examen : dans le cloud, le client reste responsable des identités, des droits et des données. Le fournisseur sécurise l'infrastructure qu'il gère."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : une clé d'accès publiée par erreur",
+     "kind": "example",
+     "text": "Exercice simulé : dans le laboratoire, une clé d'accès fictive d'un compte cloud de test est poussée dans un dépôt de code public. Les journaux d'audit montrent des appels depuis une adresse inconnue quelques minutes plus tard. L'analyste désactive la clé, liste les actions effectuées avec elle, vérifie qu'aucune ressource n'a été créée et recommande de remplacer les clés permanentes par des identités gérées."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : il impose la fédération, l'authentification multifacteur et l'accès juste à temps pour l'administration du cloud.",
+      "Responsable SOC : les journaux d'audit du cloud doivent arriver au SIEM, avec des alertes sur les changements de droits.",
+      "Auditeur : il vérifie les revues d'accès et la répartition des responsabilités prévue au contrat.",
+      "Risk manager : il considère l'erreur de configuration comme le premier risque du cloud."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Responsabilité partagée : les identités et les données restent toujours au client.",
+      "CASB : usage des services cloud ; CSPM : configuration ; CIEM : droits.",
+      "La fédération transmet une assertion ; le service cloud ne voit pas le mot de passe.",
+      "Une clé d'accès permanente dans le code est un risque majeur : préférer les identités gérées."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Dans le cloud, l'identité est le périmètre.",
+      "IaaS, PaaS, SaaS : le client garde identités, droits et données.",
+      "Fédération (SAML, OpenID Connect) et accès conditionnel relient le site et le cloud.",
+      "CASB, CSPM, CIEM, accès juste à temps, identités gérées.",
+      "Journaux d'audit au SIEM, alertes, revues d'accès."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m3c4-q01",
+      "m3c4-q04"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m3c4-l2",
+   "title": "Architectures et stratégies de stockage des données",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m3c4_l2_stockage.svg",
+   "illustrationAlt": "Dessin de trois étagères : une baie de disques, une armoire de fichiers et un seau rempli de petits objets étiquetés.",
+   "objectives": [
+    "Distinguer stockage en attachement direct, en réseau (NAS), en réseau dédié (SAN) et stockage objet.",
+    "Citer les protections propres au SAN : zonage et masquage de LUN.",
+    "Choisir entre réplication synchrone et asynchrone, instantané et sauvegarde.",
+    "Sécuriser le stockage : chiffrement, administration, immutabilité, exposition publique."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-209, Security Guidelines for Storage Infrastructure (2020)",
+     "url": "https://www.nist.gov/news-events/news/2020/10/security-guidelines-storage-infrastructure-nist-sp-800-209",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Où vivent les données ?"
+    },
+    {
+     "type": "text",
+     "text": "Le stockage n'est pas seulement des disques : c'est une infrastructure avec ses réseaux, ses consoles d'administration et ses copies. Les attaquants le savent : un rançongiciel cherche d'abord à détruire les sauvegardes et les instantanés avant de chiffrer."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Architecture",
+       "Accès",
+       "Usage typique",
+       "Point de vigilance"
+      ],
+      [
+       "DAS (attachement direct)",
+       "Disque relié à un seul serveur",
+       "Serveur isolé, poste de travail",
+       "Pas de partage ; perte si le serveur tombe"
+      ],
+      [
+       "NAS (stockage en réseau)",
+       "Fichiers, via SMB ou NFS",
+       "Partages de fichiers",
+       "Droits sur les partages, chiffrement des échanges"
+      ],
+      [
+       "SAN (réseau de stockage)",
+       "Blocs, via Fibre Channel ou iSCSI",
+       "Bases de données, virtualisation",
+       "Zonage, masquage de LUN, réseau séparé"
+      ],
+      [
+       "Stockage objet",
+       "Objets dans des compartiments, via une API web",
+       "Cloud, archives, sauvegardes",
+       "Compartiments rendus publics par erreur"
+      ]
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "Zonage et masquage de LUN",
+     "text": "Dans un SAN, le zonage limite quels serveurs voient quels ports de stockage ; le masquage de LUN limite quels serveurs voient quels volumes logiques (LUN). Ensemble, ils empêchent un serveur de lire les volumes d'un autre.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Copier les données : les bons outils"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Technique",
+       "Ce qu'elle fait",
+       "Limite"
+      ],
+      [
+       "Réplication synchrone",
+       "Chaque écriture est confirmée sur les deux sites",
+       "Distance limitée, latence ; réplique aussi les erreurs"
+      ],
+      [
+       "Réplication asynchrone",
+       "Copie avec un léger retard",
+       "Quelques données perdues en cas de sinistre"
+      ],
+      [
+       "Instantané (snapshot)",
+       "Image du volume à un instant, très rapide",
+       "Souvent sur le même équipement : ce n'est pas une sauvegarde"
+      ],
+      [
+       "Sauvegarde",
+       "Copie séparée, conservée selon une politique",
+       "Doit être testée et protégée (hors ligne ou immuable)"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Réplication n'est pas sauvegarde",
+     "text": "Une réplication copie aussi les suppressions et les fichiers chiffrés par un rançongiciel. Seule une sauvegarde séparée, avec plusieurs versions et une copie hors ligne ou immuable, permet de revenir en arrière."
+    },
+    {
+     "type": "diagram",
+     "title": "Les niveaux de stockage",
+     "alt": "Schéma en trois étapes : le stockage chaud, rapide et cher, pour les données utilisées tous les jours ; le stockage tiède pour les données moins consultées ; l'archive, lente et peu coûteuse, pour la conservation longue et la conformité.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🔥",
+        "label": "Chaud",
+        "detail": "SSD, accès immédiat",
+        "tone": "red"
+       },
+       {
+        "emoji": "🌤️",
+        "label": "Tiède",
+        "detail": "disques, accès moins fréquent",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🧊",
+        "label": "Archive",
+        "detail": "bande ou archive cloud, conservation longue",
+        "tone": "blue"
+       }
+      ]
+     }
+    },
+    {
+     "type": "heading",
+     "text": "Sécuriser l'infrastructure de stockage"
+    },
+    {
+     "type": "practice",
+     "title": "Les mesures clés (NIST SP 800-209)",
+     "kind": "practice",
+     "items": [
+      "Isoler les consoles d'administration du stockage et exiger l'authentification multifacteur.",
+      "Chiffrer les données au repos et gérer les clés à part, pour pouvoir les détruire en fin de vie.",
+      "Garder au moins une copie immuable (WORM) ou hors ligne des sauvegardes.",
+      "Vérifier régulièrement qu'aucun compartiment de stockage objet n'est public sans raison.",
+      "Journaliser les opérations sensibles : suppression d'instantanés, changement de rétention, création d'accès."
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "À l'examen : NAS = fichiers ; SAN = blocs ; objet = API web et compartiments. Le zonage et le masquage de LUN sont les contrôles d'accès du SAN."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : des instantanés supprimés en pleine nuit",
+     "kind": "example",
+     "text": "Exercice simulé : à 3 h du matin, les journaux d'une baie de stockage fictive du laboratoire montrent la suppression de tous les instantanés par un compte d'administration. L'analyste y reconnaît un signe classique de préparation d'un rançongiciel. Il isole le compte, prévient l'équipe de réponse et vérifie que la copie immuable des sauvegardes est intacte."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : il exige une copie immuable ou hors ligne et la séparation des comptes d'administration du stockage.",
+      "Responsable SOC : la suppression d'instantanés ou le changement de rétention doivent déclencher une alerte prioritaire.",
+      "Auditeur : il vérifie les tests de restauration, pas seulement l'existence des sauvegardes.",
+      "Risk manager : il choisit synchrone ou asynchrone selon la perte de données acceptable (RPO) et la distance entre les sites."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "NAS : fichiers (SMB, NFS) ; SAN : blocs (Fibre Channel, iSCSI).",
+      "Un instantané sur le même équipement n'est pas une sauvegarde.",
+      "La réplication copie aussi les erreurs et le chiffrement d'un rançongiciel.",
+      "Réplication synchrone : aucune perte, mais distance limitée ; asynchrone : petite perte possible."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "DAS, NAS, SAN, objet : quatre façons de stocker, quatre surfaces d'attaque.",
+      "SAN : zonage et masquage de LUN.",
+      "Réplication, instantané et sauvegarde ne protègent pas de la même façon.",
+      "Chiffrement, administration isolée, copie immuable, compartiments non publics, journalisation."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m3c4-q08",
+      "m3c4-q10"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m3c4-l3",
+   "title": "Téléphonie : du réseau téléphonique à la voix sur IP",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m3c4_l3_telephone.svg",
+   "illustrationAlt": "Dessin d'un ancien téléphone à cadran relié par un fil à un téléphone IP moderne, avec un petit cadenas sur le fil.",
+   "objectives": [
+    "Décrire le réseau téléphonique commuté, l'autocommutateur (PBX) et la voix sur IP.",
+    "Reconnaître les attaques : fraude téléphonique, écoute, usurpation du numéro, vishing, déni de service.",
+    "Citer les protocoles SIP, RTP et leurs versions sécurisées.",
+    "Appliquer les mesures : séparation du réseau voix, chiffrement, contrôleur de session, durcissement du PBX."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-58, Security Considerations for Voice Over IP Systems",
+     "url": "https://csrc.nist.gov/pubs/sp/800/58/final",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Pourquoi la téléphonie reste un sujet de sécurité"
+    },
+    {
+     "type": "text",
+     "text": "La voix circule aujourd'hui presque toujours sur des réseaux IP. Elle hérite donc des attaques réseau, tout en gardant des risques propres au téléphone : appels payants détournés, numéros usurpés, manipulation par la voix. Un autocommutateur mal protégé peut coûter très cher en une seule nuit."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Élément",
+       "Rôle",
+       "Risque principal"
+      ],
+      [
+       "Réseau téléphonique commuté (RTC)",
+       "Le réseau historique des opérateurs",
+       "Écoute sur la ligne, signalisation ancienne"
+      ],
+      [
+       "Autocommutateur (PBX)",
+       "Le central téléphonique de l'entreprise",
+       "Fraude par appels surtaxés, accès de maintenance oubliés"
+      ],
+      [
+       "Voix sur IP (VoIP)",
+       "La voix transportée en paquets IP",
+       "Toutes les attaques réseau, plus l'écoute des flux"
+      ],
+      [
+       "Messagerie vocale",
+       "Les messages enregistrés",
+       "Codes par défaut, écoute de messages sensibles"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Un peu d'histoire : le phreaking"
+    },
+    {
+     "type": "text",
+     "text": "Dans les années 1960 et 1970, les « phreakers » ont détourné le réseau téléphonique en sifflant une tonalité de 2 600 Hz qui servait aussi à piloter les centraux : la signalisation passait dans le même canal que la voix (signalisation dans la bande). Les opérateurs ont ensuite séparé la signalisation de la voix (signalisation hors bande, SS7). SS7 a ses propres faiblesses : il a été conçu pour un réseau fermé de confiance et permet, mal filtré, de localiser un abonné ou d'intercepter des SMS."
+    },
+    {
+     "type": "definition",
+     "title": "Composition automatique (war dialing)",
+     "text": "Appeler automatiquement des séries de numéros pour trouver des modems ou des accès de maintenance oubliés. C'est l'ancêtre du balayage de ports.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "La voix sur IP"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Protocole",
+       "Rôle",
+       "Version protégée"
+      ],
+      [
+       "SIP",
+       "Établir, modifier et terminer les appels (signalisation), port 5060",
+       "SIP sur TLS, port 5061"
+      ],
+      [
+       "RTP",
+       "Transporter la voix elle-même (média)",
+       "SRTP, chiffré et authentifié"
+      ]
+     ]
+    },
+    {
+     "type": "diagram",
+     "title": "Protéger un appel en voix sur IP",
+     "alt": "Schéma en quatre étapes : le téléphone IP est placé dans un réseau voix séparé ; la signalisation SIP passe en TLS ; la voix passe en SRTP ; un contrôleur de session en bordure (SBC) filtre les échanges avec l'opérateur.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "☎️",
+        "label": "Réseau voix séparé",
+        "detail": "VLAN voix",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🔏",
+        "label": "SIP sur TLS",
+        "detail": "signalisation chiffrée",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🔊",
+        "label": "SRTP",
+        "detail": "voix chiffrée",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "🧱",
+        "label": "Contrôleur de session",
+        "detail": "filtre la bordure",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "heading",
+     "text": "Les attaques à connaître"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Attaque",
+       "Principe"
+      ],
+      [
+       "Fraude téléphonique (toll fraud)",
+       "Utiliser le PBX pour passer des appels surtaxés ou internationaux aux frais de l'entreprise"
+      ],
+      [
+       "Usurpation du numéro (caller ID spoofing)",
+       "Afficher un faux numéro d'appelant, par exemple celui de la banque"
+      ],
+      [
+       "Vishing",
+       "Hameçonnage par la voix ; aujourd'hui parfois avec une voix clonée"
+      ],
+      [
+       "Écoute",
+       "Capturer les flux RTP non chiffrés et reconstituer la conversation"
+      ],
+      [
+       "Déni de service téléphonique (TDoS)",
+       "Saturer les lignes d'appels, par exemple celles d'un centre d'appel"
+      ],
+      [
+       "SPIT",
+       "Appels publicitaires ou malveillants automatisés en voix sur IP"
+      ]
+     ]
+    },
+    {
+     "type": "practice",
+     "title": "Les mesures",
+     "kind": "practice",
+     "items": [
+      "Séparer le réseau voix du réseau des données (VLAN voix) et filtrer entre les deux.",
+      "Chiffrer la signalisation (SIP sur TLS) et la voix (SRTP).",
+      "Placer un contrôleur de session (SBC) en bordure, face à l'opérateur.",
+      "Durcir le PBX : changer les codes par défaut, fermer les accès de maintenance, bloquer les destinations surtaxées non nécessaires, surveiller les volumes d'appels la nuit.",
+      "Former les employés au vishing : rappeler sur un numéro connu avant toute action sensible."
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "À l'examen : SIP = signalisation, RTP = voix ; SRTP chiffre la voix. La fraude téléphonique vise le PBX ; l'usurpation du numéro sert au vishing. Les signaux dans la bande ont permis le phreaking."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : des appels internationaux la nuit",
+     "kind": "example",
+     "text": "Exercice simulé : le tableau de bord du PBX fictif du laboratoire montre des centaines d'appels vers des numéros surtaxés entre 2 h et 4 h du matin, depuis un poste de messagerie vocale. L'analyste soupçonne une fraude téléphonique par un code de messagerie resté à sa valeur par défaut. Il bloque les destinations internationales, change le code, et ajoute une alerte sur le volume d'appels hors des heures de bureau."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : la téléphonie fait partie du périmètre de sécurité ; il l'inclut dans les audits et les tests.",
+      "Responsable SOC : les journaux d'appels du PBX et du contrôleur de session doivent remonter au SIEM.",
+      "Auditeur : il vérifie les codes par défaut, les accès de maintenance et la séparation du réseau voix.",
+      "Risk manager : une fraude téléphonique se chiffre vite ; il évalue la limite de coût acceptable et les alertes associées."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "SIP établit l'appel ; RTP transporte la voix.",
+      "SRTP chiffre la voix ; SIP sur TLS chiffre la signalisation.",
+      "Le phreaking exploitait la signalisation dans la bande (2 600 Hz).",
+      "Le numéro affiché peut être usurpé : il ne prouve pas l'identité de l'appelant.",
+      "Le war dialing cherche des modems ; le vishing manipule une personne."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "RTC, PBX, VoIP, messagerie vocale : chacun a ses risques.",
+      "Phreaking : signalisation dans la bande ; SS7 : signalisation hors bande, à filtrer.",
+      "SIP (signalisation, TLS) et RTP (voix, SRTP).",
+      "Fraude téléphonique, usurpation du numéro, vishing, écoute, TDoS, SPIT.",
+      "VLAN voix, chiffrement, SBC, PBX durci, sensibilisation."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m3c4-q15",
+      "m3c4-q17"
+     ]
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "id": "m3c4-q01",
+   "domain": "iaaa",
+   "level": "beginner",
+   "concept": "Responsabilité partagée",
+   "prompt": "En SaaS, qui reste responsable des comptes et des droits des utilisateurs ?",
+   "choices": [
+    "Le client",
+    "L'opérateur réseau",
+    "Le fabricant du matériel",
+    "Le fournisseur"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Quel que soit le modèle, le client gère ses identités, ses droits et ses données.",
+   "whyNot": {
+    "1": "Il transporte le trafic.",
+    "2": "Il n'intervient pas dans les droits.",
+    "3": "Il gère l'application et l'infrastructure, pas les droits accordés par le client."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c4-q02",
+   "domain": "iaaa",
+   "level": "intermediate",
+   "concept": "Fédération d'identités",
+   "prompt": "Que transmet le fournisseur d'identité au service cloud lors d'une connexion fédérée ?",
+   "choices": [
+    "Le mot de passe de l'utilisateur",
+    "Une copie de l'annuaire",
+    "La clé privée de l'utilisateur",
+    "Une assertion signée"
+   ],
+   "correct": [
+    3
+   ],
+   "explanation": "Avec SAML ou OpenID Connect, le service reçoit une assertion signée et ne voit jamais le mot de passe.",
+   "whyNot": {
+    "0": "C'est justement ce que la fédération évite.",
+    "1": "Seules les informations utiles sont transmises.",
+    "2": "Une clé privée ne quitte jamais son détenteur."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c4-q03",
+   "domain": "iaaa",
+   "level": "intermediate",
+   "concept": "CSPM",
+   "prompt": "Quel outil détecte un stockage cloud rendu public par erreur ?",
+   "choices": [
+    "Un courtier d'accès au cloud (CASB)",
+    "Un outil de gestion de la posture (CSPM)",
+    "Un fournisseur d'identité (IdP)",
+    "Un contrôleur de session (SBC)"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le CSPM compare la configuration du cloud aux bonnes pratiques et signale les écarts.",
+   "whyNot": {
+    "0": "Il contrôle l'usage des services cloud par les utilisateurs.",
+    "2": "Il authentifie les utilisateurs.",
+    "3": "Il protège la bordure de la téléphonie."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c4-q04",
+   "domain": "iaaa",
+   "level": "intermediate",
+   "concept": "Accès conditionnel",
+   "prompt": "Exiger le multifacteur seulement hors du réseau de l'entreprise relève de quoi ?",
+   "choices": [
+    "De la séparation des tâches",
+    "Du masquage de LUN",
+    "De la fédération d'identités",
+    "De l'accès conditionnel"
+   ],
+   "correct": [
+    3
+   ],
+   "explanation": "La décision dépend du contexte de la connexion : lieu, appareil, risque.",
+   "whyNot": {
+    "0": "Elle répartit une opération entre deux personnes.",
+    "1": "C'est un contrôle du stockage SAN.",
+    "2": "Elle relie deux domaines d'identité, sans règle de contexte."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c4-q05",
+   "domain": "iaaa",
+   "level": "advanced",
+   "concept": "Identités de charge de travail",
+   "prompt": "Comment une application cloud doit-elle accéder de préférence à une autre ressource ?",
+   "choices": [
+    "Avec une clé copiée dans le code",
+    "Avec un compte partagé de l'équipe",
+    "Avec le compte d'un administrateur",
+    "Avec une identité gérée"
+   ],
+   "correct": [
+    3
+   ],
+   "explanation": "Une identité gérée renouvelle ses secrets automatiquement, sans clé permanente à protéger.",
+   "whyNot": {
+    "0": "Une clé dans le code finit souvent publiée.",
+    "1": "Un compte partagé empêche de savoir qui agit.",
+    "2": "Droits excessifs et traçabilité perdue."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c4-q06",
+   "domain": "iaaa",
+   "level": "advanced",
+   "concept": "CIEM",
+   "prompt": "Quel outil repère les droits excessifs ou inutilisés des comptes cloud ?",
+   "choices": [
+    "La gestion des droits du cloud (CIEM)",
+    "Le système de détection d'intrusion",
+    "Le courtier d'accès au cloud (CASB)",
+    "La gestion de la posture (CSPM)"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le CIEM analyse les permissions réellement utilisées pour appliquer le moindre privilège.",
+   "whyNot": {
+    "1": "Il détecte des attaques sur le réseau.",
+    "2": "Il contrôle l'usage des services cloud.",
+    "3": "Il vise les erreurs de configuration des ressources."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c4-q07",
+   "domain": "iaaa",
+   "level": "intermediate",
+   "concept": "Surveillance des accès",
+   "prompt": "Quel signal doit alerter le SOC dans les journaux d'audit du cloud ?",
+   "choices": [
+    "Un document ouvert par son auteur",
+    "La désactivation de la journalisation",
+    "La lecture d'un tableau de bord",
+    "Une connexion habituelle du matin"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Un attaquant désactive souvent les journaux pour masquer ses actions.",
+   "whyNot": {
+    "0": "Un auteur qui consulte son propre document est normal.",
+    "2": "Consulter un tableau de bord est une activité courante.",
+    "3": "Une connexion attendue, à l'heure et depuis le lieu habituels."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c4-q08",
+   "domain": "data-security",
+   "level": "beginner",
+   "concept": "NAS et SAN",
+   "prompt": "Quelle différence principale entre un NAS et un SAN ?",
+   "choices": [
+    "NAS : fichiers ; SAN : blocs",
+    "Aucune, ce sont deux noms",
+    "NAS : objets ; SAN : bandes",
+    "NAS : blocs ; SAN : fichiers"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le NAS partage des fichiers (SMB, NFS) ; le SAN fournit des blocs (Fibre Channel, iSCSI).",
+   "whyNot": {
+    "1": "Ce sont deux architectures différentes.",
+    "2": "Ni l'un ni l'autre n'est défini ainsi.",
+    "3": "C'est l'inverse."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c4-q09",
+   "domain": "data-security",
+   "level": "intermediate",
+   "concept": "Zonage et masquage de LUN",
+   "prompt": "Quel contrôle empêche un serveur de voir les volumes d'un autre dans un SAN ?",
+   "choices": [
+    "Le masquage de LUN",
+    "La réplication synchrone",
+    "Le stockage hiérarchisé",
+    "La déduplication"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le masquage de LUN limite les volumes visibles par chaque serveur ; le zonage limite les ports.",
+   "whyNot": {
+    "1": "Elle copie les écritures sur un second site.",
+    "2": "Il déplace les données selon leur usage.",
+    "3": "Elle supprime les doublons pour gagner de la place."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c4-q10",
+   "domain": "data-security",
+   "level": "intermediate",
+   "concept": "Instantanés",
+   "prompt": "Pourquoi un instantané (snapshot) n'est-il pas une sauvegarde ?",
+   "choices": [
+    "Il est toujours chiffré par défaut",
+    "Il dépend souvent du même équipement",
+    "Il ne contient aucune donnée réelle",
+    "Il est beaucoup trop lent à créer"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Si la baie est perdue ou compromise, ses instantanés le sont aussi.",
+   "whyNot": {
+    "0": "Le chiffrement n'est pas la question.",
+    "2": "Il permet bien de revenir à un état.",
+    "3": "Il est au contraire très rapide."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c4-q11",
+   "domain": "data-security",
+   "level": "advanced",
+   "concept": "Réplication",
+   "prompt": "Pourquoi la réplication ne protège-t-elle pas d'un rançongiciel ?",
+   "choices": [
+    "Elle désactive l'antivirus du site",
+    "Elle ne copie que les métadonnées",
+    "Elle copie aussi les fichiers chiffrés",
+    "Elle ne fonctionne qu'avec des bandes"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "La réplication reproduit chaque écriture, y compris celles du rançongiciel ; il faut des sauvegardes versionnées et immuables.",
+   "whyNot": {
+    "0": "Elle n'a pas d'effet sur l'antivirus.",
+    "1": "Elle copie les données elles-mêmes.",
+    "3": "Elle fonctionne entre disques ou baies."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c4-q12",
+   "domain": "data-security",
+   "level": "advanced",
+   "concept": "Réplication synchrone",
+   "prompt": "Quand préférer la réplication synchrone ?",
+   "choices": [
+    "Quand aucune perte de données n'est acceptable",
+    "Quand les sites sont à des milliers de kilomètres",
+    "Quand il faut garder dix ans d'historique",
+    "Quand la bande passante est très faible"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Chaque écriture est confirmée sur les deux sites : RPO quasi nul, au prix d'une distance limitée.",
+   "whyNot": {
+    "1": "La latence rend le synchrone difficile à grande distance.",
+    "2": "C'est le rôle de l'archivage.",
+    "3": "Il demande au contraire un lien rapide."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c4-q13",
+   "domain": "data-security",
+   "level": "intermediate",
+   "concept": "Stockage objet",
+   "prompt": "Quel risque est typique du stockage objet dans le cloud ?",
+   "choices": [
+    "Un câble Fibre Channel débranché",
+    "Une tête de lecture de bande usée",
+    "Un zonage mal configuré dans le SAN",
+    "Un compartiment rendu public par erreur"
+   ],
+   "correct": [
+    3
+   ],
+   "explanation": "De nombreuses fuites viennent de compartiments accessibles à tous sur Internet.",
+   "whyNot": {
+    "0": "C'est un risque du SAN.",
+    "1": "C'est un risque des bandes.",
+    "2": "C'est un risque du SAN."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c4-q14",
+   "domain": "data-security",
+   "level": "beginner",
+   "concept": "Copie immuable",
+   "prompt": "Quelle copie protège le mieux les sauvegardes contre un rançongiciel ?",
+   "choices": [
+    "Un instantané sur la même baie",
+    "Une réplique synchrone en direct",
+    "Une copie immuable ou hors ligne",
+    "Un partage réseau accessible à tous"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Une copie qu'on ne peut ni modifier ni supprimer reste utilisable après l'attaque.",
+   "whyNot": {
+    "0": "Il peut être supprimé avec la baie.",
+    "1": "Elle reproduit le chiffrement.",
+    "3": "Le rançongiciel pourra la chiffrer aussi."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c4-q15",
+   "domain": "network-security",
+   "level": "beginner",
+   "concept": "SIP et RTP",
+   "prompt": "Dans un appel en voix sur IP, quel protocole transporte la voix ?",
+   "choices": [
+    "RTP",
+    "SNMP",
+    "SIP",
+    "DNS"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "SIP établit et termine l'appel ; RTP transporte la voix.",
+   "whyNot": {
+    "1": "Il sert à superviser les équipements.",
+    "2": "Il gère la signalisation.",
+    "3": "Il résout les noms."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c4-q16",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "SRTP",
+   "prompt": "Quel protocole chiffre la voix d'un appel en voix sur IP ?",
+   "choices": [
+    "H.323 sans chiffrement",
+    "SRTP",
+    "SS7",
+    "SIP sur TLS"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "SRTP est la version chiffrée et authentifiée de RTP.",
+   "whyNot": {
+    "0": "Sans chiffrement, rien n'est protégé.",
+    "2": "C'est la signalisation des opérateurs.",
+    "3": "Il protège la signalisation, pas la voix."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c4-q17",
+   "domain": "network-security",
+   "level": "beginner",
+   "concept": "Fraude téléphonique",
+   "prompt": "Des centaines d'appels surtaxés partent du PBX la nuit. Quelle attaque ?",
+   "choices": [
+    "Une fraude téléphonique",
+    "Une composition automatique",
+    "Une écoute des flux RTP",
+    "Un déni de service téléphonique"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "L'attaquant utilise le PBX pour passer des appels coûteux aux frais de l'entreprise.",
+   "whyNot": {
+    "1": "Elle cherche des modems en appelant des séries de numéros.",
+    "2": "Elle capture des conversations.",
+    "3": "Il sature les lignes entrantes, sans but de profit."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c4-q18",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "Phreaking",
+   "prompt": "Qu'exploitaient les phreakers avec la tonalité de 2 600 Hz ?",
+   "choices": [
+    "La messagerie vocale sur IP",
+    "Les accès Wi-Fi des centraux",
+    "Le chiffrement faible de SRTP",
+    "La signalisation dans la bande"
+   ],
+   "correct": [
+    3
+   ],
+   "explanation": "La signalisation passait dans le même canal que la voix : un son bien choisi pilotait le central.",
+   "whyNot": {
+    "0": "La voix sur IP est apparue bien plus tard.",
+    "1": "Le Wi-Fi n'existait pas.",
+    "2": "SRTP est bien plus récent."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c4-q19",
+   "domain": "network-security",
+   "level": "intermediate",
+   "concept": "Usurpation du numéro",
+   "prompt": "Un appel affiche le numéro de la banque. Que peut-on en conclure ?",
+   "choices": [
+    "Que l'opérateur a vérifié l'appelant",
+    "Que l'appel est chiffré par SRTP",
+    "Que l'appel vient bien de la banque",
+    "Rien : le numéro peut être usurpé"
+   ],
+   "correct": [
+    3
+   ],
+   "explanation": "Le numéro affiché se falsifie facilement ; il faut rappeler sur un numéro connu.",
+   "whyNot": {
+    "0": "Ce n'est pas garanti partout.",
+    "1": "L'affichage n'a aucun lien avec le chiffrement.",
+    "2": "Le numéro affiché ne prouve rien."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c4-q20",
+   "domain": "network-security",
+   "level": "advanced",
+   "concept": "Contrôleur de session",
+   "prompt": "Quel équipement filtre les échanges de voix sur IP avec l'opérateur, en bordure du réseau ?",
+   "choices": [
+    "Le commutateur Fibre Channel",
+    "Le courtier d'accès au cloud",
+    "Le contrôleur de session (SBC)",
+    "Le fournisseur d'identité"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Le SBC joue pour la voix le rôle d'un pare-feu applicatif en bordure.",
+   "whyNot": {
+    "0": "Il relie les serveurs au stockage SAN.",
+    "1": "Il contrôle l'usage des services cloud.",
+    "3": "Il authentifie les utilisateurs."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m3c4-q21",
+   "domain": "network-security",
+   "level": "advanced",
+   "concept": "Mesures pour la téléphonie",
+   "prompt": "Quelles DEUX mesures réduisent le risque de fraude téléphonique sur un PBX ?",
+   "choices": [
+    "Changer les codes par défaut",
+    "Passer le SAN en réplication synchrone",
+    "Rendre public le compartiment des enregistrements",
+    "Bloquer les destinations surtaxées inutiles"
+   ],
+   "correct": [
+    0,
+    3
+   ],
+   "explanation": "Les codes par défaut et les destinations coûteuses ouvertes sont les deux portes de la fraude.",
+   "whyNot": {
+    "1": "Le stockage n'a pas de lien avec la fraude.",
+    "2": "Ce serait une fuite de données."
+   },
+   "kind": "general"
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "m3c4-f01",
+   "front": "Responsabilité partagée",
+   "back": "Le client garde toujours identités, droits et données.",
+   "concept": "Responsabilité partagée"
+  },
+  {
+   "id": "m3c4-f02",
+   "front": "Fédération",
+   "back": "Le fournisseur d'identité envoie une assertion signée (SAML, OpenID Connect).",
+   "concept": "Fédération d'identités"
+  },
+  {
+   "id": "m3c4-f03",
+   "front": "Accès conditionnel",
+   "back": "Accorder ou durcir l'accès selon le contexte.",
+   "concept": "Accès conditionnel"
+  },
+  {
+   "id": "m3c4-f04",
+   "front": "CASB",
+   "back": "Voir et contrôler l'usage des services cloud.",
+   "concept": "CSPM"
+  },
+  {
+   "id": "m3c4-f05",
+   "front": "CSPM",
+   "back": "Détecter les erreurs de configuration du cloud.",
+   "concept": "CSPM"
+  },
+  {
+   "id": "m3c4-f06",
+   "front": "CIEM",
+   "back": "Repérer les droits excessifs du cloud.",
+   "concept": "CIEM"
+  },
+  {
+   "id": "m3c4-f07",
+   "front": "Identité gérée",
+   "back": "Pour les applications : pas de clé permanente dans le code.",
+   "concept": "Identités de charge de travail"
+  },
+  {
+   "id": "m3c4-f08",
+   "front": "NAS",
+   "back": "Fichiers, via SMB ou NFS.",
+   "concept": "NAS et SAN"
+  },
+  {
+   "id": "m3c4-f09",
+   "front": "SAN",
+   "back": "Blocs, via Fibre Channel ou iSCSI.",
+   "concept": "NAS et SAN"
+  },
+  {
+   "id": "m3c4-f10",
+   "front": "Zonage et masquage de LUN",
+   "back": "Limiter les ports et les volumes visibles par chaque serveur.",
+   "concept": "Zonage et masquage de LUN"
+  },
+  {
+   "id": "m3c4-f11",
+   "front": "Stockage objet",
+   "back": "Compartiments via une API web ; attention aux compartiments publics.",
+   "concept": "Stockage objet"
+  },
+  {
+   "id": "m3c4-f12",
+   "front": "Instantané",
+   "back": "Rapide, mais souvent sur le même équipement : pas une sauvegarde.",
+   "concept": "Instantanés"
+  },
+  {
+   "id": "m3c4-f13",
+   "front": "Synchrone ou asynchrone",
+   "back": "Synchrone : aucune perte, distance limitée. Asynchrone : petite perte possible.",
+   "concept": "Réplication synchrone"
+  },
+  {
+   "id": "m3c4-f14",
+   "front": "Copie immuable",
+   "back": "Ni modifiable ni supprimable : la meilleure défense des sauvegardes.",
+   "concept": "Copie immuable"
+  },
+  {
+   "id": "m3c4-f15",
+   "front": "SIP et RTP",
+   "back": "SIP : signalisation (5060, TLS 5061). RTP : voix (SRTP chiffré).",
+   "concept": "SIP et RTP"
+  },
+  {
+   "id": "m3c4-f16",
+   "front": "Fraude téléphonique",
+   "back": "Appels surtaxés passés par le PBX.",
+   "concept": "Fraude téléphonique"
+  },
+  {
+   "id": "m3c4-f17",
+   "front": "Phreaking",
+   "back": "Tonalité de 2 600 Hz : signalisation dans la bande.",
+   "concept": "Phreaking"
+  },
+  {
+   "id": "m3c4-f18",
+   "front": "Usurpation du numéro",
+   "back": "Le numéro affiché ne prouve pas l'identité de l'appelant.",
+   "concept": "Usurpation du numéro"
+  },
+  {
+   "id": "m3c4-f19",
+   "front": "SBC",
+   "back": "Contrôleur de session : filtre la voix en bordure.",
+   "concept": "Contrôleur de session"
+  },
+  {
+   "id": "m3c4-f20",
+   "front": "War dialing",
+   "back": "Appeler des séries de numéros pour trouver des modems.",
+   "concept": "Phreaking"
+  }
+ ],
+ "revisionSheet": [
+  "# Fiche de révision : accès cloud, stockage et téléphonie",
+  "Cloud : l'identité est le périmètre. IaaS, PaaS, SaaS : le client garde identités, droits, données.",
+  "Fédération (SAML, OpenID Connect) : assertion signée, pas de mot de passe transmis. Accès conditionnel selon le contexte.",
+  "CASB (usage), CSPM (configuration), CIEM (droits), accès juste à temps, identités gérées.",
+  "Surveillance : journaux d'audit au SIEM, voyage impossible, désactivation de la journalisation, revues d'accès.",
+  "DAS (direct), NAS (fichiers, SMB/NFS), SAN (blocs, Fibre Channel/iSCSI), objet (API web, compartiments).",
+  "SAN : zonage (ports) et masquage de LUN (volumes).",
+  "Réplication synchrone (aucune perte, distance limitée) ou asynchrone (petite perte).",
+  "Instantané ≠ sauvegarde ; réplication ≠ sauvegarde. Copie immuable ou hors ligne.",
+  "NIST SP 800-209 : administration isolée, chiffrement, immuabilité, journalisation.",
+  "RTC, PBX, VoIP, messagerie vocale. Phreaking : 2 600 Hz, signalisation dans la bande. SS7 : hors bande, à filtrer.",
+  "SIP (signalisation, 5060 ; TLS 5061) ; RTP (voix) ; SRTP (voix chiffrée).",
+  "Attaques : fraude téléphonique, usurpation du numéro, vishing, écoute, TDoS, SPIT, war dialing.",
+  "Mesures : VLAN voix, SIP sur TLS, SRTP, SBC, PBX durci, alertes sur les appels de nuit, rappel sur numéro connu."
+ ],
+ "mindMap": {
+  "label": "Accès cloud,\nstockage et téléphonie",
+  "en": "Cloud Access, Data Storage and Telephony",
+  "emoji": "☁️",
+  "children": [
+   {
+    "label": "Accès cloud et hybride",
+    "en": "Cloud and Hybrid Access Control Considerations",
+    "emoji": "🔑",
+    "tone": "blue",
+    "children": [
+     {
+      "label": "Responsabilité partagée",
+      "detail": "Identités et données au client."
+     },
+     {
+      "label": "Fédération",
+      "detail": "SAML, OpenID Connect.",
+      "children": [
+       {
+        "label": "Accès conditionnel"
+       }
+      ]
+     },
+     {
+      "label": "Outils",
+      "detail": "CASB, CSPM, CIEM, juste à temps."
+     },
+     {
+      "label": "Surveillance",
+      "detail": "Journaux d'audit, revues d'accès."
+     }
+    ]
+   },
+   {
+    "label": "Stockage",
+    "en": "Data Storage Architectures and Strategies",
+    "emoji": "🗄️",
+    "tone": "orange",
+    "children": [
+     {
+      "label": "DAS, NAS, SAN, objet",
+      "children": [
+       {
+        "label": "Zonage, masquage de LUN",
+        "detail": "Contrôles du SAN."
+       }
+      ]
+     },
+     {
+      "label": "Copies",
+      "detail": "Réplication, instantané, sauvegarde."
+     },
+     {
+      "label": "Copie immuable",
+      "detail": "Contre les rançongiciels."
+     }
+    ]
+   },
+   {
+    "label": "Téléphonie",
+    "en": "Telephony",
+    "emoji": "☎️",
+    "tone": "green",
+    "children": [
+     {
+      "label": "RTC, PBX, VoIP"
+     },
+     {
+      "label": "SIP et RTP",
+      "detail": "TLS et SRTP."
+     },
+     {
+      "label": "Attaques",
+      "detail": "Fraude, usurpation, vishing, écoute."
+     },
+     {
+      "label": "Mesures",
+      "detail": "VLAN voix, SBC, PBX durci."
+     }
+    ]
+   }
+  ]
+ }
+}

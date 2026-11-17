@@ -18,6 +18,12 @@ class ContentLoader {
   Future<ContentLibrary> load() async {
     final catalog =
         jsonDecode(await read('$root/catalog.json')) as Map<String, dynamic>;
+    Future<CourseOutline> outline(String key) async => catalog[key] == null
+        ? CourseOutline.empty
+        : CourseOutline.fromJson(
+            jsonDecode(await read('$root/${catalog[key]}'))
+                as Map<String, dynamic>,
+          );
 
     final domains = (catalog['domains'] as List)
         .map((d) => ExamDomain.fromJson(d as Map<String, dynamic>))
@@ -61,6 +67,9 @@ class ContentLoader {
               jsonDecode(await read('$root/${catalog['examPrep']}'))
                   as Map<String, dynamic>,
             ),
+      mile2Outline: await outline('mile2Outline'),
+      orsysOutline: await outline('orsysOutline'),
+      orsysPlusOutline: await outline('orsysPlusOutline'),
     );
     validate(library);
     return library;
@@ -111,6 +120,29 @@ class ContentLoader {
   /// Vérifie la cohérence du contenu ; lève [FormatException] sinon.
   static void validate(ContentLibrary library) {
     final domainIds = library.domains.map((d) => d.id).toSet();
+    final lessonIds = library.lessons.map((l) => l.id).toSet();
+    for (final view in CourseView.values) {
+      for (final m in library.outline(view).modules) {
+        for (final s in m.sections) {
+          final where = 'Sommaire ${view.name} ${m.label} section ${s.number}';
+          for (final id in s.lessons) {
+            if (!lessonIds.contains(id)) {
+              throw FormatException('$where : leçon inconnue $id');
+            }
+          }
+          if (!s.lessons.toSet().containsAll(s.extraLessons)) {
+            throw FormatException('$where : leçon ajoutée hors liste');
+          }
+          if ((s.coverage == Coverage.missing) != s.lessons.isEmpty &&
+              s.coverage != Coverage.partial) {
+            throw FormatException(
+              '$where : couverture « ${s.coverage.name} » incohérente avec '
+              'ses leçons',
+            );
+          }
+        }
+      }
+    }
     final seen = <String>{};
 
     void unique(String id) {

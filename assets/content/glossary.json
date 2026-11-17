@@ -2859,5 +2859,388 @@
   "definition": "Ensemble de mesures contre la fuite d'informations par les émanations électromagnétiques des équipements.",
   "example": "Salle blindée pour des informations classifiées.",
   "kind": "general"
+ },
+ {
+  "id": "substitution-cipher",
+  "en": "Substitution cipher",
+  "fr": "Chiffre par substitution",
+  "definition": "Chiffre qui remplace chaque lettre ou symbole par un autre.",
+  "example": "Le chiffre de César décale chaque lettre de trois rangs.",
+  "kind": "general"
+ },
+ {
+  "id": "transposition-cipher",
+  "en": "Transposition cipher",
+  "fr": "Chiffre par transposition",
+  "definition": "Chiffre qui garde les lettres mais change leur ordre.",
+  "example": "La scytale spartiate.",
+  "kind": "general"
+ },
+ {
+  "id": "frequency-analysis",
+  "en": "Frequency analysis",
+  "fr": "Analyse fréquentielle",
+  "definition": "Cryptanalyse qui compare la fréquence des symboles chiffrés à celle des lettres de la langue.",
+  "example": "La lettre la plus fréquente d'un César en français correspond souvent au E.",
+  "kind": "general"
+ },
+ {
+  "id": "steganography",
+  "en": "Steganography",
+  "fr": "Stéganographie",
+  "definition": "Technique qui cache l'existence d'un message au lieu de le rendre illisible.",
+  "example": "Un texte dissimulé dans les pixels d'une image.",
+  "kind": "general"
+ },
+ {
+  "id": "one-time-pad",
+  "en": "One-time pad",
+  "fr": "Masque jetable",
+  "definition": "Chiffre à clé aléatoire aussi longue que le message, utilisée une seule fois ; sécurité parfaite prouvée par Shannon.",
+  "example": "Le chiffre de Vernam avec une clé jamais réutilisée.",
+  "kind": "general"
+ },
+ {
+  "id": "kerckhoffs-principle",
+  "en": "Kerckhoffs's principle",
+  "fr": "Principe de Kerckhoffs",
+  "definition": "La sécurité d'un chiffrement doit reposer sur le secret de la clé, pas de l'algorithme.",
+  "example": "AES est public ; seule la clé est secrète.",
+  "kind": "general"
+ },
+ {
+  "id": "post-quantum-cryptography",
+  "en": "Post-quantum cryptography",
+  "fr": "Cryptographie post-quantique",
+  "acronym": "PQC",
+  "definition": "Algorithmes classiques conçus pour résister à un ordinateur quantique.",
+  "example": "ML-KEM (FIPS 203) et ML-DSA (FIPS 204).",
+  "kind": "general"
+ },
+ {
+  "id": "quantum-key-distribution",
+  "en": "Quantum key distribution",
+  "fr": "Distribution quantique de clés",
+  "acronym": "QKD",
+  "definition": "Échange de clés par photons qui rend toute écoute détectable.",
+  "example": "Le protocole BB84.",
+  "kind": "general"
+ },
+ {
+  "id": "harvest-now-decrypt-later",
+  "en": "Harvest now, decrypt later",
+  "fr": "Récolter maintenant, déchiffrer plus tard",
+  "definition": "Stratégie qui consiste à stocker des échanges chiffrés pour les déchiffrer quand un ordinateur quantique sera disponible.",
+  "example": "Des échanges VPN capturés aujourd'hui, visés dans quinze ans.",
+  "kind": "general"
+ },
+ {
+  "id": "crypto-agility",
+  "en": "Crypto-agility",
+  "fr": "Agilité cryptographique",
+  "definition": "Capacité d'un système à changer d'algorithme par configuration, sans être réécrit.",
+  "example": "Passer un serveur TLS à un échange de clés hybride par simple réglage.",
+  "kind": "practice"
+ },
+ {
+  "id": "homomorphic-encryption",
+  "en": "Homomorphic encryption",
+  "fr": "Chiffrement homomorphe",
+  "definition": "Chiffrement qui permet de calculer sur des données chiffrées.",
+  "example": "Additionner des montants chiffrés sans les déchiffrer.",
+  "kind": "general"
+ },
+ {
+  "id": "secure-multi-party-computation",
+  "en": "Secure multi-party computation",
+  "fr": "Calcul multipartite sécurisé",
+  "acronym": "MPC",
+  "definition": "Calcul commun à plusieurs parties sans qu'aucune ne révèle ses données.",
+  "example": "Trouver les indicateurs communs à deux SOC.",
+  "kind": "general"
+ },
+ {
+  "id": "zero-knowledge-proof",
+  "en": "Zero-knowledge proof",
+  "fr": "Preuve à divulgation nulle de connaissance",
+  "acronym": "ZKP",
+  "definition": "Preuve qu'une affirmation est vraie sans révéler le secret qui la fonde.",
+  "example": "Prouver sa majorité sans donner sa date de naissance.",
+  "kind": "general"
+ },
+ {
+  "id": "blockchain",
+  "en": "Blockchain",
+  "fr": "Chaîne de blocs",
+  "definition": "Registre partagé où chaque bloc contient l'empreinte du précédent, ce qui rend la falsification visible.",
+  "example": "Le registre de Bitcoin.",
+  "kind": "general"
+ },
+ {
+  "id": "format-preserving-encryption",
+  "en": "Format-preserving encryption",
+  "fr": "Chiffrement préservant le format",
+  "acronym": "FPE",
+  "definition": "Chiffrement dont le résultat garde le format de la donnée d'origine.",
+  "example": "Un numéro de carte chiffré qui reste un nombre à 16 chiffres.",
+  "kind": "general"
+ },
+ {
+  "id": "lightweight-cryptography",
+  "en": "Lightweight cryptography",
+  "fr": "Cryptographie légère",
+  "definition": "Algorithmes conçus pour les appareils à faibles ressources.",
+  "example": "Ascon pour un capteur connecté.",
+  "kind": "general"
+ },
+ {
+  "id": "dad-triad",
+  "en": "DAD triad",
+  "fr": "Triade DAD",
+  "acronym": "DAD",
+  "definition": "Divulgation, altération, destruction : les contraires de la confidentialité, de l'intégrité et de la disponibilité.",
+  "example": "Une fuite de données est une divulgation.",
+  "kind": "general"
+ },
+ {
+  "id": "parkerian-hexad",
+  "en": "Parkerian hexad",
+  "fr": "Hexagone parkérien",
+  "definition": "Modèle de Donn Parker qui ajoute au triangle CIA l'authenticité, la possession et l'utilité.",
+  "example": "Une sauvegarde dont la clé est perdue a perdu son utilité.",
+  "kind": "general"
+ },
+ {
+  "id": "tcsec",
+  "en": "Trusted Computer System Evaluation Criteria",
+  "fr": "Critères d'évaluation des systèmes informatiques de confiance",
+  "acronym": "TCSEC",
+  "definition": "Critères américains des années 1980, dits « livre orange », centrés sur la confidentialité, avec les niveaux D à A1.",
+  "example": "Un système classé B1 utilise des étiquettes de sécurité.",
+  "kind": "general"
+ },
+ {
+  "id": "itsec",
+  "en": "Information Technology Security Evaluation Criteria",
+  "fr": "Critères d'évaluation de la sécurité des technologies de l'information",
+  "acronym": "ITSEC",
+  "definition": "Critères européens de 1991 qui séparent fonctionnalité et assurance (niveaux E0 à E6).",
+  "example": "Un produit évalué E3.",
+  "kind": "general"
+ },
+ {
+  "id": "common-criteria",
+  "en": "Common Criteria",
+  "fr": "Critères communs",
+  "acronym": "CC",
+  "definition": "Norme ISO/IEC 15408 d'évaluation de la sécurité des produits, avec les niveaux d'assurance EAL1 à EAL7.",
+  "example": "Une carte à puce certifiée EAL5.",
+  "kind": "general"
+ },
+ {
+  "id": "protection-profile",
+  "en": "Protection Profile",
+  "fr": "Profil de protection",
+  "acronym": "PP",
+  "definition": "Document qui exprime les besoins de sécurité d'une famille de produits, indépendamment d'un fabricant.",
+  "example": "Le profil de protection des pare-feu réseau.",
+  "kind": "general"
+ },
+ {
+  "id": "security-target",
+  "en": "Security Target",
+  "fr": "Cible de sécurité",
+  "acronym": "ST",
+  "definition": "Document du fabricant qui décrit les fonctions de sécurité du produit évalué.",
+  "example": "La cible de sécurité d'un pare-feu en version 7.2.",
+  "kind": "general"
+ },
+ {
+  "id": "evaluation-assurance-level",
+  "en": "Evaluation Assurance Level",
+  "fr": "Niveau d'assurance de l'évaluation",
+  "acronym": "EAL",
+  "definition": "Niveau de rigueur d'une évaluation selon les Critères communs, de EAL1 à EAL7.",
+  "example": "EAL7 : conception vérifiée formellement.",
+  "kind": "general"
+ },
+ {
+  "id": "accreditation",
+  "en": "Accreditation (authorization)",
+  "fr": "Accréditation (autorisation)",
+  "definition": "Décision formelle d'un responsable d'accepter le risque résiduel et de mettre un système en service.",
+  "example": "Le directeur signe l'autorisation d'exploitation du système.",
+  "kind": "general"
+ },
+ {
+  "id": "data-poisoning",
+  "en": "Data poisoning",
+  "fr": "Empoisonnement des données",
+  "definition": "Attaque qui glisse des exemples piégés dans les données d'entraînement d'un modèle.",
+  "example": "Des courriels malveillants étiquetés « sains » dans le jeu d'entraînement.",
+  "kind": "general"
+ },
+ {
+  "id": "evasion-attack",
+  "en": "Evasion attack",
+  "fr": "Attaque par évasion",
+  "definition": "Modification légère d'une entrée pour tromper un modèle au moment de son utilisation.",
+  "example": "Un fichier malveillant modifié pour être classé sain.",
+  "kind": "general"
+ },
+ {
+  "id": "prompt-injection",
+  "en": "Prompt injection",
+  "fr": "Injection d'instructions",
+  "definition": "Attaque qui glisse des instructions dans le texte traité par un modèle de langage pour détourner son comportement.",
+  "example": "Un ordre caché dans un courriel résumé par un assistant.",
+  "kind": "general"
+ },
+ {
+  "id": "ai-rmf",
+  "en": "AI Risk Management Framework",
+  "fr": "Cadre de gestion des risques de l'IA",
+  "acronym": "AI RMF",
+  "definition": "Cadre du NIST (2023) qui organise la gestion des risques de l'IA en quatre fonctions : Govern, Map, Measure, Manage.",
+  "example": "Cartographier les usages de l'IA avant de les mesurer.",
+  "kind": "general"
+ },
+ {
+  "id": "conditional-access",
+  "en": "Conditional access",
+  "fr": "Accès conditionnel",
+  "definition": "Règle qui accorde, refuse ou durcit un accès selon le contexte de la connexion.",
+  "example": "Multifacteur exigé hors du réseau de l'entreprise.",
+  "kind": "practice"
+ },
+ {
+  "id": "casb",
+  "en": "Cloud Access Security Broker",
+  "fr": "Courtier de sécurité d'accès au cloud",
+  "acronym": "CASB",
+  "definition": "Outil qui donne de la visibilité et du contrôle sur l'usage des services cloud.",
+  "example": "Repérer un service de partage de fichiers non approuvé.",
+  "kind": "general"
+ },
+ {
+  "id": "cspm",
+  "en": "Cloud Security Posture Management",
+  "fr": "Gestion de la posture de sécurité du cloud",
+  "acronym": "CSPM",
+  "definition": "Outil qui détecte les erreurs de configuration des ressources cloud.",
+  "example": "Alerte sur un compartiment de stockage public.",
+  "kind": "general"
+ },
+ {
+  "id": "ciem",
+  "en": "Cloud Infrastructure Entitlement Management",
+  "fr": "Gestion des droits de l'infrastructure cloud",
+  "acronym": "CIEM",
+  "definition": "Outil qui repère les droits excessifs ou inutilisés des identités cloud.",
+  "example": "Un compte de service avec des droits d'administration jamais utilisés.",
+  "kind": "general"
+ },
+ {
+  "id": "nas",
+  "en": "Network Attached Storage",
+  "fr": "Stockage en réseau",
+  "acronym": "NAS",
+  "definition": "Stockage qui partage des fichiers sur le réseau, via SMB ou NFS.",
+  "example": "Le partage des dossiers d'équipe.",
+  "kind": "general"
+ },
+ {
+  "id": "san",
+  "en": "Storage Area Network",
+  "fr": "Réseau de stockage",
+  "acronym": "SAN",
+  "definition": "Réseau dédié qui fournit des volumes en mode bloc aux serveurs, via Fibre Channel ou iSCSI.",
+  "example": "Les volumes des machines virtuelles.",
+  "kind": "general"
+ },
+ {
+  "id": "lun-masking",
+  "en": "LUN masking",
+  "fr": "Masquage de LUN",
+  "definition": "Contrôle du SAN qui limite les volumes logiques visibles par chaque serveur.",
+  "example": "Le serveur RH ne voit pas le volume de la comptabilité.",
+  "kind": "practice"
+ },
+ {
+  "id": "object-storage",
+  "en": "Object storage",
+  "fr": "Stockage objet",
+  "definition": "Stockage de données sous forme d'objets rangés dans des compartiments, accessibles par une API web.",
+  "example": "Un compartiment d'archives dans le cloud.",
+  "kind": "general"
+ },
+ {
+  "id": "snapshot",
+  "en": "Snapshot",
+  "fr": "Instantané",
+  "definition": "Image d'un volume à un instant donné, souvent stockée sur le même équipement.",
+  "example": "Un instantané pris avant une mise à jour.",
+  "kind": "general"
+ },
+ {
+  "id": "pbx",
+  "en": "Private Branch Exchange",
+  "fr": "Autocommutateur privé",
+  "acronym": "PBX",
+  "definition": "Central téléphonique de l'entreprise.",
+  "example": "Le PBX relie les postes internes et l'opérateur.",
+  "kind": "general"
+ },
+ {
+  "id": "voip",
+  "en": "Voice over IP",
+  "fr": "Voix sur IP",
+  "acronym": "VoIP",
+  "definition": "Transport de la voix en paquets sur un réseau IP.",
+  "example": "Les téléphones IP du bureau.",
+  "kind": "general"
+ },
+ {
+  "id": "sip",
+  "en": "Session Initiation Protocol",
+  "fr": "Protocole d'ouverture de session",
+  "acronym": "SIP",
+  "definition": "Protocole de signalisation qui établit, modifie et termine les appels en voix sur IP.",
+  "example": "SIP sur TLS utilise le port 5061.",
+  "kind": "general"
+ },
+ {
+  "id": "srtp",
+  "en": "Secure Real-time Transport Protocol",
+  "fr": "Protocole de transport temps réel sécurisé",
+  "acronym": "SRTP",
+  "definition": "Version chiffrée et authentifiée de RTP, qui transporte la voix.",
+  "example": "Les appels internes protégés par SRTP.",
+  "kind": "general"
+ },
+ {
+  "id": "toll-fraud",
+  "en": "Toll fraud",
+  "fr": "Fraude téléphonique",
+  "definition": "Usage frauduleux d'un PBX pour passer des appels coûteux aux frais de l'entreprise.",
+  "example": "Des appels surtaxés la nuit via la messagerie vocale.",
+  "kind": "general"
+ },
+ {
+  "id": "phreaking",
+  "en": "Phreaking",
+  "fr": "Phreaking",
+  "definition": "Détournement historique du réseau téléphonique, notamment par la tonalité de 2 600 Hz.",
+  "example": "Les « blue boxes » des années 1970.",
+  "kind": "general"
+ },
+ {
+  "id": "session-border-controller",
+  "en": "Session Border Controller",
+  "fr": "Contrôleur de session en bordure",
+  "acronym": "SBC",
+  "definition": "Équipement qui filtre et protège les échanges de voix sur IP en bordure du réseau.",
+  "example": "Le SBC entre le PBX et l'opérateur.",
+  "kind": "general"
  }
 ]

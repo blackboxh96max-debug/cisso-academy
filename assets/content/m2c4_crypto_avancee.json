@@ -1,0 +1,1441 @@
+{
+ "lessons": [
+  {
+   "id": "m2c4-l1",
+   "title": "Histoire de la cryptographie : de la scytale à Enigma",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m2c4_l1_scytale.svg",
+   "illustrationAlt": "Dessin d'un bâton autour duquel s'enroule un ruban de cuir couvert de lettres, à côté d'un disque de chiffrement à deux anneaux de lettres.",
+   "objectives": [
+    "Distinguer substitution, transposition, code et stéganographie.",
+    "Expliquer pourquoi l'analyse fréquentielle casse les chiffres monoalphabétiques.",
+    "Décrire le masque jetable et les conditions de sa sécurité parfaite.",
+    "Situer les grandes étapes jusqu'à la cryptographie moderne (DES, Diffie-Hellman, RSA, AES)."
+   ],
+   "references": [
+    {
+     "title": "C. E. Shannon, « Communication Theory of Secrecy Systems », Bell System Technical Journal, 1949",
+     "kind": "general"
+    },
+    {
+     "title": "NIST FIPS 197, Advanced Encryption Standard (AES)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Pourquoi l'histoire compte à l'examen"
+    },
+    {
+     "type": "text",
+     "text": "Les chiffres anciens se cassent aujourd'hui en quelques secondes, mais ils montrent les deux opérations de base que l'on retrouve dans les algorithmes modernes : remplacer des symboles (substitution) et les déplacer (transposition). AES combine encore ces deux idées, à grande échelle et avec une clé secrète."
+    },
+    {
+     "type": "heading",
+     "text": "Les opérations de base"
+    },
+    {
+     "type": "definition",
+     "title": "Chiffre par substitution",
+     "text": "Chaque lettre est remplacée par une autre lettre ou un symbole. Le chiffre de César décale chaque lettre de trois rangs dans l'alphabet : A devient D, B devient E.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Chiffre par transposition",
+     "text": "Les lettres restent les mêmes mais changent de place. La scytale spartiate en est l'exemple type : un ruban enroulé autour d'un bâton ne se lit qu'avec un bâton du même diamètre.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Stéganographie",
+     "text": "Cacher l'existence même du message (encre invisible, données glissées dans les pixels d'une image) au lieu de le rendre illisible. Elle se combine souvent avec un chiffrement.",
+     "kind": "general"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Procédé",
+       "Ce qui change",
+       "Exemple historique"
+      ],
+      [
+       "Substitution monoalphabétique",
+       "Une lettre donne toujours la même lettre chiffrée",
+       "César, Atbash"
+      ],
+      [
+       "Substitution polyalphabétique",
+       "La même lettre change selon sa position et la clé",
+       "Vigenère, Enigma"
+      ],
+      [
+       "Transposition",
+       "L'ordre des lettres",
+       "Scytale"
+      ],
+      [
+       "Code",
+       "Des mots entiers remplacés grâce à un répertoire",
+       "Répertoires diplomatiques"
+      ],
+      [
+       "Stéganographie",
+       "Rien n'est chiffré : le message est caché",
+       "Encre invisible"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "La première cryptanalyse : compter les lettres"
+    },
+    {
+     "type": "text",
+     "text": "Dans une langue, certaines lettres reviennent plus souvent que d'autres : le E en français comme en anglais. Avec un chiffre monoalphabétique, la lettre la plus fréquente du message chiffré correspond donc probablement au E. Le savant arabe Al-Kindi décrit cette analyse fréquentielle au IXe siècle : c'est la première méthode de cryptanalyse connue."
+    },
+    {
+     "type": "diagram",
+     "title": "De la scytale à AES",
+     "alt": "Frise en six étapes : la scytale de l'Antiquité (transposition) ; le chiffre de César au Ier siècle avant notre ère (décalage) ; le chiffre de Vigenère au XVIe siècle (plusieurs alphabets) ; la machine Enigma pendant la Seconde Guerre mondiale (rotors) ; l'ère moderne avec DES en 1977, Diffie-Hellman en 1976 et RSA en 1977 ; AES adopté en 2001.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "📜",
+        "label": "Scytale",
+        "detail": "Antiquité : transposition",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🏛️",
+        "label": "César",
+        "detail": "Ier s. av. J.-C. : décalage",
+        "tone": "pink"
+       },
+       {
+        "emoji": "🔤",
+        "label": "Vigenère",
+        "detail": "XVIe s. : plusieurs alphabets",
+        "tone": "violet"
+       },
+       {
+        "emoji": "⚙️",
+        "label": "Enigma",
+        "detail": "1939-1945 : rotors",
+        "tone": "red"
+       },
+       {
+        "emoji": "💻",
+        "label": "Ère moderne",
+        "detail": "DES 1977, Diffie-Hellman 1976, RSA 1977",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🛡️",
+        "label": "AES",
+        "detail": "adopté en 2001",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "heading",
+     "text": "Vigenère et Enigma : plusieurs alphabets"
+    },
+    {
+     "type": "text",
+     "text": "Le chiffre de Vigenère (XVIe siècle) utilise un mot-clé : chaque lettre du message est décalée d'une valeur qui dépend de la lettre correspondante de la clé. Une même lettre claire donne donc des lettres chiffrées différentes, ce qui brouille l'analyse fréquentielle. Sa faiblesse : la clé se répète. En 1863, Friedrich Kasiski publie une méthode pour trouver la longueur de la clé grâce aux répétitions ; chaque position se casse ensuite comme un César."
+    },
+    {
+     "type": "text",
+     "text": "La machine Enigma, utilisée par l'armée allemande pendant la Seconde Guerre mondiale, automatise une substitution polyalphabétique : des rotors tournent à chaque frappe. Les mathématiciens polonais, avec Marian Rejewski dès 1932, puis l'équipe de Bletchley Park, dont Alan Turing, l'ont cassée en s'appuyant sur des erreurs de procédure et des messages prévisibles."
+    },
+    {
+     "type": "important",
+     "title": "La leçon d'Enigma",
+     "text": "La machine était solide sur le papier ; ce sont les procédures (clés mal choisies, formules répétées chaque jour) qui l'ont trahie. Aujourd'hui encore, la plupart des échecs viennent de la mise en œuvre et de la gestion des clés, pas de l'algorithme."
+    },
+    {
+     "type": "heading",
+     "text": "Le masque jetable et la sécurité parfaite"
+    },
+    {
+     "type": "definition",
+     "title": "Masque jetable (one-time pad)",
+     "text": "Chiffre de Vernam (1917) : on combine le message avec une clé aléatoire de même longueur, par exemple par un OU exclusif. Claude Shannon a démontré en 1949 qu'il est incassable si la clé est vraiment aléatoire, aussi longue que le message, gardée secrète et utilisée une seule fois.",
+     "kind": "general"
+    },
+    {
+     "type": "risk",
+     "title": "Les limites du masque jetable",
+     "items": [
+      "Réutiliser la clé pour un deuxième message permet de combiner les deux messages chiffrés et de retrouver les messages clairs.",
+      "Distribuer en secret une clé aussi longue que tous les messages est très difficile : le masque jetable reste réservé à des usages rares."
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "Principe de Kerckhoffs",
+     "text": "Énoncé en 1883 : la sécurité d'un système de chiffrement doit reposer sur le secret de la clé, pas sur celui de l'algorithme. Un algorithme public et très étudié inspire plus confiance qu'un algorithme « secret ».",
+     "kind": "general"
+    },
+    {
+     "type": "trainerNote",
+     "text": "À l'examen, retenez trois couples : substitution (remplacer) et transposition (déplacer) ; monoalphabétique (un seul alphabet) et polyalphabétique (plusieurs) ; chiffrement (rendre illisible) et stéganographie (cacher). Le masque jetable est le seul chiffre prouvé incassable, sous quatre conditions."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : un « chiffrement » maison dans le laboratoire",
+     "kind": "example",
+     "text": "Exercice simulé dans le laboratoire de formation : un script interne fictif « protège » des mots de passe en décalant chaque caractère de trois rangs. L'analyste remarque que la fréquence des caractères ressemble à celle d'un texte clair : c'est un chiffre de César, pas une protection. Il recommande une fonction de hachage lente pour les mots de passe et un algorithme standard comme AES pour les données, puis ouvre un ticket pour l'équipe de développement."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : un algorithme maison ou « secret » est un signal d'alerte, conformément au principe de Kerckhoffs.",
+      "Responsable SOC : un encodage (Base64) ou un simple décalage ne protège rien ; l'analyste doit savoir les reconnaître.",
+      "Auditeur : il demande quels algorithmes standards sont utilisés et comment les clés sont gérées.",
+      "Risk manager : les grands échecs historiques viennent des procédures ; il évalue donc aussi la gestion des clés."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "César et Atbash sont des substitutions monoalphabétiques ; la scytale est une transposition.",
+      "Vigenère est polyalphabétique : il faut d'abord trouver la longueur de la clé avant l'analyse fréquentielle.",
+      "La stéganographie cache l'existence du message ; elle ne le chiffre pas.",
+      "Le masque jetable n'est parfait que si la clé est aléatoire, aussi longue que le message, secrète et jamais réutilisée.",
+      "Un encodage comme Base64 n'est pas un chiffrement : il n'y a pas de clé."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Substitution : remplacer ; transposition : déplacer.",
+      "Monoalphabétique : cassé par l'analyse fréquentielle (Al-Kindi, IXe siècle).",
+      "Polyalphabétique (Vigenère, Enigma) : plus solide, cassé grâce à la répétition de la clé et aux erreurs de procédure.",
+      "Masque jetable : sécurité parfaite prouvée par Shannon, sous des conditions strictes.",
+      "Kerckhoffs : seul le secret de la clé compte.",
+      "Ère moderne : Diffie-Hellman 1976, DES et RSA 1977, AES 2001."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m2c4-q01",
+      "m2c4-q04"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m2c4-l2",
+   "title": "Cryptographie quantique et post-quantique",
+   "minutes": 35,
+   "illustration": "assets/illustrations/m2c4_l2_quantique.svg",
+   "illustrationAlt": "Dessin d'un atome stylisé à côté d'un cadenas ouvert, puis d'un cadenas fermé renforcé, reliés par une flèche.",
+   "objectives": [
+    "Expliquer ce qu'un ordinateur quantique changerait (algorithmes de Shor et de Grover).",
+    "Distinguer cryptographie post-quantique et distribution quantique de clés.",
+    "Citer les standards NIST FIPS 203, 204 et 205 et leur usage.",
+    "Préparer une migration : inventaire, priorités, agilité, hybridation."
+   ],
+   "references": [
+    {
+     "title": "NIST FIPS 203, Module-Lattice-Based Key-Encapsulation Mechanism Standard (ML-KEM), 2024",
+     "url": "https://csrc.nist.gov/pubs/fips/203/final",
+     "kind": "general"
+    },
+    {
+     "title": "NIST FIPS 204, Module-Lattice-Based Digital Signature Standard (ML-DSA), 2024",
+     "url": "https://csrc.nist.gov/pubs/fips/204/final",
+     "kind": "general"
+    },
+    {
+     "title": "NIST FIPS 205, Stateless Hash-Based Digital Signature Standard (SLH-DSA), 2024",
+     "url": "https://csrc.nist.gov/pubs/fips/205/final",
+     "kind": "general"
+    },
+    {
+     "title": "NIST IR 8547, Transition to Post-Quantum Cryptography Standards",
+     "url": "https://csrc.nist.gov/pubs/ir/8547/final",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Ce qui change avec l'ordinateur quantique"
+    },
+    {
+     "type": "text",
+     "text": "Un ordinateur quantique assez puissant exécuterait des algorithmes impossibles à mener à grande échelle aujourd'hui. Une telle machine n'existe pas encore à la taille nécessaire, mais deux résultats mathématiques montrent déjà ce qu'elle casserait et ce qu'elle affaiblirait."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Algorithme",
+       "Ce qu'il attaque",
+       "Effet",
+       "Parade"
+      ],
+      [
+       "Shor (1994)",
+       "RSA, Diffie-Hellman, courbes elliptiques",
+       "Cassés : factorisation et logarithme discret deviennent faciles",
+       "Algorithmes post-quantiques"
+      ],
+      [
+       "Grover (1996)",
+       "Chiffrement symétrique, hachage",
+       "Recherche accélérée : la sécurité en bits est environ divisée par deux",
+       "Clés et empreintes plus longues (AES-256, SHA-384)"
+      ]
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "Récolter maintenant, déchiffrer plus tard (harvest now, decrypt later)",
+     "text": "Un attaquant enregistre aujourd'hui des échanges chiffrés pour les déchiffrer le jour où un ordinateur quantique sera disponible. Les données qui doivent rester secrètes longtemps sont donc déjà exposées.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Deux réponses à ne pas confondre"
+    },
+    {
+     "type": "definition",
+     "title": "Cryptographie post-quantique (PQC)",
+     "text": "De nouveaux algorithmes classiques, exécutés sur nos ordinateurs actuels, fondés sur des problèmes que l'on pense difficiles même pour un ordinateur quantique : réseaux euclidiens, fonctions de hachage…",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Distribution quantique de clés (QKD)",
+     "text": "Échange de clés qui utilise des photons : toute écoute perturbe le signal et se détecte. Protocole de référence : BB84 (Bennett et Brassard, 1984). Elle demande du matériel dédié, une distance limitée et un canal déjà authentifié. C'est elle que l'on appelle « cryptographie quantique ».",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Les standards NIST de 2024"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Standard",
+       "Nom",
+       "Usage",
+       "Origine"
+      ],
+      [
+       "FIPS 203",
+       "ML-KEM",
+       "Établir une clé partagée (encapsulation)",
+       "CRYSTALS-Kyber"
+      ],
+      [
+       "FIPS 204",
+       "ML-DSA",
+       "Signature numérique",
+       "CRYSTALS-Dilithium"
+      ],
+      [
+       "FIPS 205",
+       "SLH-DSA",
+       "Signature fondée sur le hachage",
+       "SPHINCS+"
+      ]
+     ]
+    },
+    {
+     "type": "text",
+     "text": "Ces trois standards ont été approuvés par le NIST en août 2024. ML-KEM et ML-DSA reposent sur des réseaux euclidiens ; SLH-DSA repose seulement sur des fonctions de hachage, une base très étudiée, au prix de signatures plus grandes. D'autres suivent : FN-DSA, issu de Falcon, et HQC, retenu en 2025 comme second mécanisme d'encapsulation.",
+     "kind": "official"
+    },
+    {
+     "type": "heading",
+     "text": "Préparer la migration"
+    },
+    {
+     "type": "diagram",
+     "title": "Migrer vers le post-quantique",
+     "alt": "Schéma en cinq étapes : inventorier les usages de RSA, ECC et Diffie-Hellman ; prioriser selon la durée de vie des données ; rendre les systèmes agiles pour changer d'algorithme par configuration ; déployer d'abord des modes hybrides classiques et post-quantiques ; tester puis basculer.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🗂️",
+        "label": "Inventorier",
+        "detail": "RSA, ECC, DH : où ?",
+        "tone": "blue"
+       },
+       {
+        "emoji": "⏳",
+        "label": "Prioriser",
+        "detail": "données à longue durée de vie",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🔧",
+        "label": "Agilité",
+        "detail": "changer par configuration",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🤝",
+        "label": "Hybride",
+        "detail": "classique + post-quantique",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "✅",
+        "label": "Tester, basculer",
+        "detail": "performances, compatibilité",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "practice",
+     "title": "Les bons réflexes",
+     "kind": "practice",
+     "items": [
+      "Inventorier où sont utilisés RSA, ECC et Diffie-Hellman : certificats, TLS, VPN, signatures de code.",
+      "Classer les données selon la durée pendant laquelle elles doivent rester secrètes : les plus longues d'abord.",
+      "Exiger l'agilité cryptographique : changer d'algorithme par configuration, sans réécrire l'application.",
+      "Utiliser des modes hybrides (classique et post-quantique) pendant la transition, comme le recommandent l'ANSSI et le BSI.",
+      "Passer le symétrique en AES-256 et les empreintes en SHA-384 ou plus quand c'est possible."
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Un calendrier qui se précise",
+     "text": "Aux États-Unis, l'objectif fixé à l'administration fédérale est d'avoir terminé la migration en 2035, avec des échéances plus proches pour les systèmes les plus sensibles. Le rapport NIST IR 8547 accompagne cette transition. Vérifiez la version en vigueur avant de citer une date précise.",
+     "kind": "official"
+    },
+    {
+     "type": "trainerNote",
+     "text": "Le piège classique : la « cryptographie quantique » (QKD, des photons) n'est pas la « cryptographie post-quantique » (de nouveaux algorithmes sur ordinateurs classiques). Autre réflexe : Shor casse l'asymétrique, Grover affaiblit le symétrique."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : l'inventaire cryptographique du laboratoire",
+     "kind": "example",
+     "text": "Exercice simulé : le SOC du laboratoire de formation aide à préparer la migration. À partir des journaux TLS et de l'inventaire des certificats d'un environnement fictif, il liste les échanges de clés RSA et ECDHE, les VPN et les signatures de code. Les flux qui transportent des données à garder secrètes dix ans (dossiers RH simulés) passent en priorité. Le SOC ajoute aussi une règle qui signale les rétrogradations vers des suites obsolètes."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : la migration post-quantique est un programme sur plusieurs années : inventaire, budget, exigences envers les fournisseurs.",
+      "Responsable SOC : les journaux TLS et l'inventaire des certificats donnent la carte des usages.",
+      "Auditeur : il vérifie qu'un inventaire existe et que les contrats imposent l'agilité cryptographique.",
+      "Risk manager : il priorise selon la durée de vie des données, pas selon une date supposée d'arrivée de l'ordinateur quantique."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "QKD (photons) n'est pas PQC (algorithmes classiques).",
+      "Shor vise l'asymétrique (RSA, ECC, Diffie-Hellman) ; Grover le symétrique et le hachage, avec une sécurité en bits environ divisée par deux.",
+      "AES-256 reste considéré comme solide : il n'est pas « cassé » par le quantique.",
+      "ML-KEM sert à établir une clé ; ML-DSA et SLH-DSA servent à signer.",
+      "Le risque existe déjà pour les données à longue durée de vie : récolter maintenant, déchiffrer plus tard."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Shor casse RSA, ECC et Diffie-Hellman ; Grover divise environ par deux la sécurité du symétrique.",
+      "Récolter maintenant, déchiffrer plus tard : les secrets durables sont déjà exposés.",
+      "PQC : nouveaux algorithmes sur ordinateurs classiques ; QKD : échange de clés par photons.",
+      "NIST 2024 : FIPS 203 ML-KEM (clés), FIPS 204 ML-DSA et FIPS 205 SLH-DSA (signatures).",
+      "Migration : inventaire, priorités, agilité, hybride, tests."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m2c4-q08",
+      "m2c4-q14"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m2c4-l3",
+   "title": "Avancées en cryptographie",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m2c4_l3_blocs.svg",
+   "illustrationAlt": "Dessin de trois cubes reliés par des maillons de chaîne, chacun portant une petite empreinte, à côté d'une boîte fermée d'où sort un résultat.",
+   "objectives": [
+    "Expliquer à quoi servent le chiffrement homomorphe, le calcul multipartite et les preuves à divulgation nulle.",
+    "Décrire ce qu'apporte une chaîne de blocs et ce qu'elle n'apporte pas.",
+    "Citer la cryptographie légère, le chiffrement préservant le format et le chiffrement authentifié.",
+    "Choisir la technique adaptée à un besoin donné."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-38G, Methods for Format-Preserving Encryption",
+     "url": "https://csrc.nist.gov/pubs/sp/800/38/g/upd1/final",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-232 (2025), Ascon-Based Lightweight Cryptography Standards for Constrained Devices",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Protéger la donnée dans ses trois états"
+    },
+    {
+     "type": "text",
+     "text": "On sait depuis longtemps protéger une donnée stockée (chiffrement du disque) ou transmise (TLS, IPsec). Le défi récent est de la protéger pendant qu'on s'en sert : les nouvelles techniques permettent de calculer sans voir les données."
+    },
+    {
+     "type": "diagram",
+     "title": "Les trois états de la donnée",
+     "alt": "Schéma en trois étapes : au repos, protégée par le chiffrement du disque ou de la base (AES) ; en transit, protégée par TLS ou IPsec ; en cours d'utilisation, protégée par le chiffrement homomorphe, le calcul multipartite ou les enclaves matérielles.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "💾",
+        "label": "Au repos",
+        "detail": "chiffrement du disque, AES",
+        "tone": "blue"
+       },
+       {
+        "emoji": "📡",
+        "label": "En transit",
+        "detail": "TLS, IPsec",
+        "tone": "violet"
+       },
+       {
+        "emoji": "⚙️",
+        "label": "En cours d'utilisation",
+        "detail": "homomorphe, MPC, enclaves",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "heading",
+     "text": "Calculer sans voir les données"
+    },
+    {
+     "type": "definition",
+     "title": "Chiffrement homomorphe",
+     "text": "Permet de calculer sur des données chiffrées : une fois déchiffré, le résultat est le même que si l'on avait calculé sur les données claires. Le premier schéma complètement homomorphe a été publié en 2009 par Craig Gentry. Il reste beaucoup plus lent qu'un calcul classique.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Calcul multipartite sécurisé (MPC)",
+     "text": "Plusieurs parties calculent ensemble un résultat (une moyenne, une comparaison, les éléments communs à deux listes) sans révéler leurs données aux autres.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Preuve à divulgation nulle de connaissance (ZKP)",
+     "text": "Prouver qu'une affirmation est vraie, ou qu'on connaît un secret, sans révéler le secret lui-même. Exemple : prouver qu'on est majeur sans donner sa date de naissance.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Informatique confidentielle",
+     "text": "Protéger les données pendant le traitement grâce à des enclaves matérielles, appelées environnements d'exécution de confiance : même l'administrateur de la machine ne voit pas les données traitées.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Les chaînes de blocs"
+    },
+    {
+     "type": "definition",
+     "title": "Chaîne de blocs (blockchain)",
+     "text": "Registre partagé dans lequel chaque bloc contient l'empreinte du bloc précédent. Modifier un ancien bloc changerait toutes les empreintes suivantes : la falsification se voit. Bitcoin, décrit en 2008, en est le premier grand usage.",
+     "kind": "general"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Ce qu'elle apporte",
+       "Ce qu'elle n'apporte pas"
+      ],
+      [
+       "Intégrité et traçabilité des écritures",
+       "La confidentialité : par défaut, tout est lisible"
+      ],
+      [
+       "Pas de tiers central obligatoire",
+       "La justesse des données saisies à l'entrée"
+      ],
+      [
+       "Un horodatage difficile à contester",
+       "La protection des clés privées des utilisateurs"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "D'autres techniques à connaître"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Technique",
+       "Pour quoi faire",
+       "Repère"
+      ],
+      [
+       "Cryptographie légère",
+       "Objets connectés, capteurs, cartes à très faible puissance",
+       "Ascon, retenu par le NIST en 2023"
+      ],
+      [
+       "Chiffrement préservant le format (FPE)",
+       "Chiffrer un numéro en gardant son format (16 chiffres)",
+       "NIST SP 800-38G"
+      ],
+      [
+       "Chiffrement authentifié (AEAD)",
+       "Confidentialité et intégrité en une seule opération",
+       "AES-GCM, ChaCha20-Poly1305"
+      ],
+      [
+       "Signatures sur courbes modernes",
+       "Signatures rapides et compactes",
+       "Ed25519"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Rester sur des standards",
+     "text": "Ces techniques sont prometteuses, mais le principe de Kerckhoffs vaut toujours : on choisit des bibliothèques éprouvées et des algorithmes standardisés, jamais une construction maison."
+    },
+    {
+     "type": "memo",
+     "text": "« Repos, transit, usage : AES pour le disque, TLS pour le réseau, homomorphe et enclaves pour le calcul. »"
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : partager des indicateurs sans exposer ses clients",
+     "kind": "example",
+     "text": "Exercice simulé : deux SOC fictifs veulent savoir s'ils ont observé les mêmes adresses IP malveillantes, sans révéler la liste complète de leurs clients. Le formateur présente une approche de calcul multipartite (intersection privée d'ensembles) : chacun n'apprend que les adresses communes. L'exercice se déroule uniquement sur des données inventées."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : ces techniques ouvrent de nouveaux usages (cloud, partage de données) mais coûtent en performance ; il les réserve aux cas qui le justifient.",
+      "Responsable SOC : une chaîne de blocs ne remplace pas un journal protégé ; un stockage non modifiable et des empreintes suffisent souvent à prouver l'intégrité des journaux.",
+      "Auditeur : il demande sur quel standard repose la solution et qui a audité son implémentation.",
+      "Risk manager : sur une chaîne de blocs publique, une erreur ou une fuite est irréversible ; il évalue aussi le risque de perte des clés privées."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Homomorphe : calcul sur données chiffrées ; ce n'est pas du hachage.",
+      "ZKP : on prouve sans révéler le secret.",
+      "Chaîne de blocs : intégrité et traçabilité, pas confidentialité.",
+      "FPE garde le format de la donnée ; il ne change rien à la longueur de la clé.",
+      "Cryptographie légère : pour les appareils contraints, pas pour accélérer un serveur."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Donnée au repos, en transit, en cours d'utilisation : chaque état a ses protections.",
+      "Homomorphe : calculer sur du chiffré ; MPC : calculer à plusieurs sans se dévoiler ; ZKP : prouver sans révéler.",
+      "Informatique confidentielle : enclaves matérielles pendant le traitement.",
+      "Chaîne de blocs : empreintes chaînées, intégrité et traçabilité, pas de confidentialité.",
+      "Cryptographie légère (Ascon), FPE (SP 800-38G), AEAD (AES-GCM)."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m2c4-q15",
+      "m2c4-q17"
+     ]
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "id": "m2c4-q01",
+   "domain": "cryptography",
+   "level": "beginner",
+   "concept": "Substitution et transposition",
+   "prompt": "La scytale spartiate, un ruban enroulé autour d'un bâton, utilise quel procédé ?",
+   "choices": [
+    "La substitution monoalphabétique",
+    "La stéganographie",
+    "La substitution polyalphabétique",
+    "La transposition des lettres"
+   ],
+   "correct": [
+    3
+   ],
+   "explanation": "Les lettres restent les mêmes ; seul leur ordre change quand on déroule le ruban : c'est une transposition.",
+   "whyNot": {
+    "0": "Une substitution remplace les lettres ; la scytale les garde.",
+    "1": "Le ruban est visible : le message n'est pas caché, seulement illisible.",
+    "2": "Plusieurs alphabets de substitution : c'est Vigenère ou Enigma."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c4-q02",
+   "domain": "cryptography",
+   "level": "beginner",
+   "concept": "Analyse fréquentielle",
+   "prompt": "Quelle technique cassait les chiffres monoalphabétiques comme celui de César ?",
+   "choices": [
+    "L'analyse fréquentielle",
+    "La rétrogradation de protocole",
+    "L'attaque par anniversaires",
+    "L'attaque par canal auxiliaire"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Une même lettre donne toujours la même lettre chiffrée : les fréquences de la langue restent visibles (méthode décrite par Al-Kindi).",
+   "whyNot": {
+    "1": "Elle force un protocole à utiliser une version faible.",
+    "2": "Elle vise les collisions des fonctions de hachage.",
+    "3": "Elle mesure le temps ou la consommation d'un appareil."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c4-q03",
+   "domain": "cryptography",
+   "level": "intermediate",
+   "concept": "Vigenère",
+   "prompt": "Pourquoi le chiffre de Vigenère résiste-t-il mieux à l'analyse fréquentielle que César ?",
+   "choices": [
+    "Il déplace les lettres sans les remplacer",
+    "Une même lettre peut donner plusieurs lettres",
+    "Sa clé est aussi longue que le message",
+    "Il cache l'existence même du message"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le décalage dépend de la lettre de la clé : une même lettre claire donne des lettres chiffrées différentes.",
+   "whyNot": {
+    "0": "C'est une substitution, pas une transposition.",
+    "2": "Sa clé se répète ; c'est le masque jetable qui utilise une clé aussi longue que le message.",
+    "3": "C'est la définition de la stéganographie."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c4-q04",
+   "domain": "cryptography",
+   "level": "intermediate",
+   "concept": "Masque jetable",
+   "prompt": "Quelles DEUX conditions sont nécessaires à la sécurité parfaite du masque jetable ?",
+   "choices": [
+    "Une clé vraiment aléatoire",
+    "Une clé plus courte que le message",
+    "Une clé utilisée une seule fois",
+    "Un algorithme gardé secret"
+   ],
+   "correct": [
+    0,
+    2
+   ],
+   "explanation": "Shannon : clé aléatoire, aussi longue que le message, secrète et jamais réutilisée.",
+   "whyNot": {
+    "1": "Au contraire, la clé doit être au moins aussi longue que le message.",
+    "3": "L'algorithme (un OU exclusif) peut être public : c'est le principe de Kerckhoffs."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c4-q05",
+   "domain": "cryptography",
+   "level": "beginner",
+   "concept": "Principe de Kerckhoffs",
+   "prompt": "Que dit le principe de Kerckhoffs ?",
+   "choices": [
+    "La sécurité repose sur le secret de l'algorithme",
+    "La sécurité repose sur le secret de la clé",
+    "Chaque message demande un nouvel algorithme",
+    "La clé doit être aussi longue que le message"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Un algorithme public et très étudié est plus sûr ; seul le secret de la clé doit protéger les données.",
+   "whyNot": {
+    "0": "C'est l'inverse du principe : la « sécurité par l'obscurité ».",
+    "2": "Ce n'est ni réaliste ni demandé.",
+    "3": "C'est une condition du masque jetable."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c4-q06",
+   "domain": "cryptography",
+   "level": "advanced",
+   "concept": "Enigma",
+   "prompt": "Qu'est-ce qui a surtout permis de casser Enigma pendant la guerre ?",
+   "choices": [
+    "Une simple analyse fréquentielle des lettres",
+    "Des erreurs de procédure et des messages prévisibles",
+    "Un seul alphabet de substitution fixe",
+    "Une clé unique valable toute la guerre"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Les cryptanalystes polonais puis britanniques ont exploité des formules répétées et des erreurs dans l'usage des clés.",
+   "whyNot": {
+    "0": "Enigma est polyalphabétique : la fréquence des lettres est brouillée.",
+    "2": "Les rotors tournaient à chaque frappe : l'alphabet changeait sans cesse.",
+    "3": "Les réglages changeaient chaque jour."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c4-q07",
+   "domain": "cryptography",
+   "level": "intermediate",
+   "concept": "Stéganographie",
+   "prompt": "Une image contient un message caché dans ses pixels, sans aucun chiffrement. De quoi s'agit-il ?",
+   "choices": [
+    "D'un code diplomatique",
+    "D'une fonction de hachage",
+    "De stéganographie",
+    "D'un chiffre par transposition"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Le message n'est pas rendu illisible : son existence est dissimulée.",
+   "whyNot": {
+    "0": "Un code remplace des mots grâce à un répertoire.",
+    "1": "Un hachage produit une empreinte, il ne cache pas de message.",
+    "3": "Une transposition déplace les lettres d'un message visible."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c4-q08",
+   "domain": "cryptography",
+   "level": "beginner",
+   "concept": "Algorithme de Shor",
+   "prompt": "Quel algorithme quantique menace RSA et les courbes elliptiques ?",
+   "choices": [
+    "L'algorithme de Grover",
+    "Le protocole BB84",
+    "L'algorithme de Shor",
+    "L'algorithme de Rijndael"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Shor résout efficacement la factorisation et le logarithme discret, sur lesquels reposent RSA, ECC et Diffie-Hellman.",
+   "whyNot": {
+    "0": "Grover accélère la recherche : il affaiblit le symétrique sans le casser.",
+    "1": "BB84 est un protocole de distribution quantique de clés.",
+    "3": "Rijndael est l'algorithme devenu AES."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c4-q09",
+   "domain": "cryptography",
+   "level": "intermediate",
+   "concept": "Algorithme de Grover",
+   "prompt": "Quel est l'effet attendu de l'algorithme de Grover sur AES-256 ?",
+   "choices": [
+    "Un algorithme cassé comme RSA",
+    "Une sécurité d'environ 128 bits",
+    "Aucun effet sur sa sécurité",
+    "Une sécurité d'environ 64 bits"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Grover divise environ par deux la sécurité en bits : AES-256 garde environ 128 bits, ce qui reste solide.",
+   "whyNot": {
+    "0": "Ce sont les algorithmes asymétriques que Shor casse.",
+    "2": "Grover accélère bien la recherche de clé.",
+    "3": "Ce serait l'effet sur une clé de 128 bits."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c4-q10",
+   "domain": "cryptography",
+   "level": "beginner",
+   "concept": "Cryptographie post-quantique",
+   "prompt": "Qu'appelle-t-on cryptographie post-quantique ?",
+   "choices": [
+    "Un échange de clés fondé sur des photons",
+    "De nouveaux algorithmes pour ordinateurs classiques",
+    "Le doublement des tailles de clés RSA",
+    "Un chiffrement exécuté sur ordinateur quantique"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Ce sont des algorithmes classiques, fondés sur des problèmes que l'on pense difficiles même pour un ordinateur quantique.",
+   "whyNot": {
+    "0": "C'est la distribution quantique de clés (QKD).",
+    "2": "Agrandir RSA ne résiste pas à Shor.",
+    "3": "Ils tournent sur nos ordinateurs actuels."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c4-q11",
+   "domain": "cryptography",
+   "level": "intermediate",
+   "concept": "Standards NIST 2024",
+   "prompt": "Quel standard NIST de 2024 sert à établir une clé partagée ?",
+   "choices": [
+    "FIPS 203 (ML-KEM)",
+    "FIPS 197 (AES)",
+    "FIPS 205 (SLH-DSA)",
+    "FIPS 204 (ML-DSA)"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "ML-KEM est un mécanisme d'encapsulation de clé, issu de CRYSTALS-Kyber.",
+   "whyNot": {
+    "1": "AES chiffre les données avec une clé déjà partagée.",
+    "2": "SLH-DSA est une signature fondée sur le hachage.",
+    "3": "ML-DSA sert à signer."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c4-q12",
+   "domain": "cryptography",
+   "level": "advanced",
+   "concept": "Récolter maintenant, déchiffrer plus tard",
+   "prompt": "Pourquoi des données chiffrées aujourd'hui avec RSA sont-elles déjà à risque ?",
+   "choices": [
+    "Les certificats RSA expirent plus rapidement",
+    "RSA est déjà cassé par les ordinateurs actuels",
+    "Grover retrouve directement la clé privée RSA",
+    "Elles peuvent être stockées puis déchiffrées plus tard"
+   ],
+   "correct": [
+    3
+   ],
+   "explanation": "Un attaquant peut enregistrer les échanges aujourd'hui et attendre un ordinateur quantique capable d'exécuter Shor.",
+   "whyNot": {
+    "0": "La durée d'un certificat ne dépend pas du quantique.",
+    "1": "Aucun ordinateur actuel ne casse RSA de taille correcte.",
+    "2": "C'est Shor, et non Grover, qui menace RSA."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c4-q13",
+   "domain": "cryptography",
+   "level": "advanced",
+   "concept": "Migration post-quantique",
+   "prompt": "Quelle est la PREMIÈRE étape d'une migration post-quantique ?",
+   "choices": [
+    "Remplacer d'un coup tous les certificats",
+    "Passer toutes les clés RSA à 8192 bits",
+    "Inventorier les usages de l'asymétrique",
+    "Déployer la distribution quantique de clés"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Sans inventaire des usages de RSA, ECC et Diffie-Hellman, on ne peut ni prioriser ni planifier.",
+   "whyNot": {
+    "0": "Une bascule brutale casse la compatibilité ; on passe par des modes hybrides.",
+    "1": "Une clé RSA plus longue ne résiste pas à Shor.",
+    "3": "La QKD exige du matériel dédié et ne remplace pas les signatures."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c4-q14",
+   "domain": "cryptography",
+   "level": "intermediate",
+   "concept": "Distribution quantique de clés",
+   "prompt": "Que permet la distribution quantique de clés (QKD) ?",
+   "choices": [
+    "Chiffrer de gros volumes sans aucune clé",
+    "Se passer d'un canal déjà authentifié",
+    "Détecter une écoute pendant l'échange de clés",
+    "Signer des documents de façon post-quantique"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Toute mesure des photons par un espion perturbe le signal : l'écoute se détecte (protocole BB84).",
+   "whyNot": {
+    "0": "Elle fournit une clé, qui sert ensuite à chiffrer.",
+    "1": "Elle exige au contraire un canal authentifié.",
+    "3": "Elle échange des clés ; elle ne signe pas."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c4-q15",
+   "domain": "cryptography",
+   "level": "beginner",
+   "concept": "Chiffrement homomorphe",
+   "prompt": "Quelle technique permet de calculer sur des données qui restent chiffrées ?",
+   "choices": [
+    "Le hachage salé et lent",
+    "La stéganographie",
+    "Le chiffrement homomorphe",
+    "Le chiffrement préservant le format"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Le résultat déchiffré est le même que si l'on avait calculé sur les données claires.",
+   "whyNot": {
+    "0": "Un hachage ne se déchiffre pas et ne sert pas à calculer.",
+    "1": "Elle cache un message, elle ne calcule pas.",
+    "3": "Il garde le format de la donnée mais ne permet pas de calculer dessus."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c4-q16",
+   "domain": "cryptography",
+   "level": "intermediate",
+   "concept": "Preuve à divulgation nulle",
+   "prompt": "Un utilisateur prouve qu'il est majeur sans révéler sa date de naissance. Quelle technique ?",
+   "choices": [
+    "Un chiffrement préservant le format",
+    "Une preuve à divulgation nulle",
+    "Un masque jetable à usage unique",
+    "Un algorithme de cryptographie légère"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "La preuve à divulgation nulle établit qu'une affirmation est vraie sans dévoiler le secret.",
+   "whyNot": {
+    "0": "Il chiffre la date ; le vérificateur ne pourrait rien conclure sans la clé.",
+    "2": "Il chiffre, il ne prouve rien.",
+    "3": "Elle vise les appareils contraints."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c4-q17",
+   "domain": "cryptography",
+   "level": "beginner",
+   "concept": "Chaîne de blocs",
+   "prompt": "Qu'apporte principalement une chaîne de blocs ?",
+   "choices": [
+    "La confidentialité de toutes les données",
+    "La justesse des données saisies à l'entrée",
+    "La protection des clés privées des membres",
+    "L'intégrité et la traçabilité des écritures"
+   ],
+   "correct": [
+    3
+   ],
+   "explanation": "Chaque bloc contient l'empreinte du précédent : une modification se voit.",
+   "whyNot": {
+    "0": "Par défaut, les écritures sont lisibles par les participants.",
+    "1": "Une donnée fausse au départ reste fausse, mais bien tracée.",
+    "2": "Chacun reste responsable de ses clés privées."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c4-q18",
+   "domain": "cryptography",
+   "level": "intermediate",
+   "concept": "Chiffrement préservant le format",
+   "prompt": "Une banque veut chiffrer des numéros de carte en gardant 16 chiffres. Quelle technique ?",
+   "choices": [
+    "La preuve à divulgation nulle",
+    "Le chiffrement homomorphe complet",
+    "Le chiffrement préservant le format",
+    "La cryptographie légère Ascon"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Le FPE (NIST SP 800-38G) produit un résultat chiffré qui garde le format d'origine.",
+   "whyNot": {
+    "0": "Elle prouve une affirmation, elle ne chiffre pas un numéro.",
+    "1": "Il sert à calculer sur du chiffré ; il ne garde pas le format.",
+    "3": "Elle vise les appareils contraints."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c4-q19",
+   "domain": "cryptography",
+   "level": "intermediate",
+   "concept": "Calcul multipartite",
+   "prompt": "Deux SOC veulent leurs indicateurs communs sans révéler le reste de leurs listes. Quelle technique ?",
+   "choices": [
+    "Le calcul multipartite sécurisé",
+    "Le chiffrement préservant le format",
+    "La stéganographie dans les échanges",
+    "Une chaîne de blocs publique"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Avec une intersection privée d'ensembles, chacun n'apprend que les éléments communs.",
+   "whyNot": {
+    "1": "Chiffrer en gardant le format ne permet pas de comparer sans révéler.",
+    "2": "Cacher les échanges ne limite pas ce que l'autre apprend.",
+    "3": "Tout y serait lisible par les participants."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c4-q20",
+   "domain": "cryptography",
+   "level": "advanced",
+   "concept": "Informatique confidentielle",
+   "prompt": "Quelle technique protège les données pendant leur traitement grâce au matériel ?",
+   "choices": [
+    "Les enclaves de l'informatique confidentielle",
+    "Le protocole TLS 1.3 entre deux serveurs",
+    "Le chiffrement intégral du disque dur",
+    "La signature numérique du code exécuté"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Une enclave isole le traitement : même l'administrateur de la machine ne voit pas les données.",
+   "whyNot": {
+    "1": "Il protège les données en transit.",
+    "2": "Il protège les données au repos.",
+    "3": "Elle prouve l'origine du code, pas la confidentialité des données traitées."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m2c4-q21",
+   "domain": "cryptography",
+   "level": "advanced",
+   "concept": "Cryptographie légère",
+   "prompt": "Quel choix convient le mieux à un capteur industriel à très faible puissance ?",
+   "choices": [
+    "Un algorithme léger comme Ascon",
+    "Le chiffrement homomorphe complet",
+    "RSA avec une clé de 4096 bits",
+    "Le chiffre de Vigenère, très simple"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "La cryptographie légère est conçue pour les appareils contraints ; le NIST a retenu Ascon.",
+   "whyNot": {
+    "1": "Il demande énormément de calcul.",
+    "2": "Trop coûteux en calcul et en énergie pour un petit capteur.",
+    "3": "Il est cassé depuis le XIXe siècle."
+   },
+   "kind": "general"
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "m2c4-f01",
+   "front": "Substitution",
+   "back": "Remplacer chaque lettre par une autre (César, Atbash).",
+   "concept": "Substitution et transposition"
+  },
+  {
+   "id": "m2c4-f02",
+   "front": "Transposition",
+   "back": "Garder les lettres, changer leur ordre (scytale).",
+   "concept": "Substitution et transposition"
+  },
+  {
+   "id": "m2c4-f03",
+   "front": "Analyse fréquentielle",
+   "back": "Compter les lettres : casse les chiffres monoalphabétiques (Al-Kindi, IXe siècle).",
+   "concept": "Analyse fréquentielle"
+  },
+  {
+   "id": "m2c4-f04",
+   "front": "Vigenère",
+   "back": "Polyalphabétique à mot-clé ; cassé grâce à la répétition de la clé (Kasiski, 1863).",
+   "concept": "Vigenère"
+  },
+  {
+   "id": "m2c4-f05",
+   "front": "Enigma",
+   "back": "Machine à rotors ; cassée grâce aux erreurs de procédure (Rejewski, Turing).",
+   "concept": "Enigma"
+  },
+  {
+   "id": "m2c4-f06",
+   "front": "Masque jetable",
+   "back": "Clé aléatoire, aussi longue que le message, secrète, utilisée une fois : sécurité parfaite (Shannon, 1949).",
+   "concept": "Masque jetable"
+  },
+  {
+   "id": "m2c4-f07",
+   "front": "Kerckhoffs",
+   "back": "Seul le secret de la clé doit protéger ; l'algorithme peut être public.",
+   "concept": "Principe de Kerckhoffs"
+  },
+  {
+   "id": "m2c4-f08",
+   "front": "Stéganographie",
+   "back": "Cacher l'existence du message, sans le chiffrer.",
+   "concept": "Stéganographie"
+  },
+  {
+   "id": "m2c4-f09",
+   "front": "Shor",
+   "back": "Casse RSA, ECC et Diffie-Hellman sur un ordinateur quantique.",
+   "concept": "Algorithme de Shor"
+  },
+  {
+   "id": "m2c4-f10",
+   "front": "Grover",
+   "back": "Divise environ par deux la sécurité en bits du symétrique : AES-256 reste solide.",
+   "concept": "Algorithme de Grover"
+  },
+  {
+   "id": "m2c4-f11",
+   "front": "PQC ou QKD ?",
+   "back": "PQC : nouveaux algorithmes classiques. QKD : échange de clés par photons (BB84).",
+   "concept": "Cryptographie post-quantique"
+  },
+  {
+   "id": "m2c4-f12",
+   "front": "FIPS 203, 204, 205",
+   "back": "ML-KEM (établir une clé), ML-DSA et SLH-DSA (signer) ; NIST, août 2024.",
+   "concept": "Standards NIST 2024"
+  },
+  {
+   "id": "m2c4-f13",
+   "front": "Récolter maintenant, déchiffrer plus tard",
+   "back": "Les échanges enregistrés aujourd'hui pourront être déchiffrés demain.",
+   "concept": "Récolter maintenant, déchiffrer plus tard"
+  },
+  {
+   "id": "m2c4-f14",
+   "front": "Migration post-quantique",
+   "back": "Inventorier, prioriser, agilité, hybride, tester.",
+   "concept": "Migration post-quantique"
+  },
+  {
+   "id": "m2c4-f15",
+   "front": "Homomorphe",
+   "back": "Calculer sur des données chiffrées (Gentry, 2009).",
+   "concept": "Chiffrement homomorphe"
+  },
+  {
+   "id": "m2c4-f16",
+   "front": "MPC",
+   "back": "Calculer à plusieurs sans révéler ses données.",
+   "concept": "Calcul multipartite"
+  },
+  {
+   "id": "m2c4-f17",
+   "front": "ZKP",
+   "back": "Prouver une affirmation sans révéler le secret.",
+   "concept": "Preuve à divulgation nulle"
+  },
+  {
+   "id": "m2c4-f18",
+   "front": "Chaîne de blocs",
+   "back": "Empreintes chaînées : intégrité et traçabilité, pas confidentialité.",
+   "concept": "Chaîne de blocs"
+  },
+  {
+   "id": "m2c4-f19",
+   "front": "FPE",
+   "back": "Chiffrer en gardant le format (SP 800-38G).",
+   "concept": "Chiffrement préservant le format"
+  },
+  {
+   "id": "m2c4-f20",
+   "front": "Cryptographie légère",
+   "back": "Pour les appareils contraints : Ascon (NIST).",
+   "concept": "Cryptographie légère"
+  }
+ ],
+ "revisionSheet": [
+  "# Fiche de révision : histoire de la cryptographie, quantique et innovations",
+  "Substitution : remplacer (César, Atbash, Vigenère). Transposition : déplacer (scytale). Code : répertoire de mots. Stéganographie : cacher l'existence du message.",
+  "Monoalphabétique : cassé par l'analyse fréquentielle (Al-Kindi, IXe siècle). Polyalphabétique : Vigenère (clé répétée, Kasiski 1863), Enigma (rotors, erreurs de procédure).",
+  "Masque jetable (Vernam 1917, Shannon 1949) : clé aléatoire, aussi longue que le message, secrète, jamais réutilisée.",
+  "Kerckhoffs (1883) : seul le secret de la clé compte. Base64 n'est pas un chiffrement.",
+  "Repères modernes : Diffie-Hellman 1976, DES et RSA 1977, AES 2001.",
+  "Shor : casse RSA, ECC, Diffie-Hellman. Grover : sécurité symétrique environ divisée par deux (AES-256 reste solide).",
+  "Récolter maintenant, déchiffrer plus tard : les secrets durables sont déjà exposés.",
+  "PQC = nouveaux algorithmes classiques ; QKD = clés par photons (BB84), canal authentifié nécessaire.",
+  "NIST 2024 : FIPS 203 ML-KEM (clés), FIPS 204 ML-DSA (signatures), FIPS 205 SLH-DSA (signatures par hachage).",
+  "Migration : inventaire, priorités selon la durée de vie des données, agilité, modes hybrides, tests.",
+  "Donnée au repos (AES), en transit (TLS), en cours d'utilisation (homomorphe, MPC, enclaves).",
+  "Homomorphe : calcul sur chiffré. MPC : calcul à plusieurs sans se dévoiler. ZKP : prouver sans révéler.",
+  "Chaîne de blocs : intégrité, traçabilité, horodatage ; pas de confidentialité, pas de justesse des données saisies.",
+  "Cryptographie légère (Ascon), FPE (SP 800-38G), AEAD (AES-GCM, ChaCha20-Poly1305), Ed25519.",
+  "À ne pas confondre : QKD et PQC ; Shor et Grover ; stéganographie et chiffrement ; homomorphe et hachage."
+ ],
+ "mindMap": {
+  "label": "Histoire, quantique et innovations",
+  "en": "Cryptography: History, Quantum and Advancements",
+  "emoji": "🔐",
+  "children": [
+   {
+    "label": "Histoire",
+    "en": "Historical Uses of Cryptography",
+    "emoji": "📜",
+    "tone": "orange",
+    "children": [
+     {
+      "label": "Substitution",
+      "detail": "Remplacer : César, Atbash.",
+      "children": [
+       {
+        "label": "Cassée par l'analyse fréquentielle",
+        "detail": "Al-Kindi, IXe siècle."
+       }
+      ]
+     },
+     {
+      "label": "Transposition",
+      "detail": "Déplacer : scytale."
+     },
+     {
+      "label": "Polyalphabétique",
+      "detail": "Vigenère, Enigma.",
+      "children": [
+       {
+        "label": "Clé répétée",
+        "detail": "Kasiski, 1863."
+       },
+       {
+        "label": "Erreurs de procédure",
+        "detail": "Rejewski, Turing."
+       }
+      ]
+     },
+     {
+      "label": "Masque jetable",
+      "detail": "Sécurité parfaite sous quatre conditions (Shannon, 1949)."
+     },
+     {
+      "label": "Kerckhoffs",
+      "detail": "Seul le secret de la clé compte."
+     }
+    ]
+   },
+   {
+    "label": "Quantique",
+    "en": "Quantum Cryptography",
+    "emoji": "⚛️",
+    "tone": "violet",
+    "children": [
+     {
+      "label": "Shor",
+      "detail": "Casse RSA, ECC, Diffie-Hellman."
+     },
+     {
+      "label": "Grover",
+      "detail": "Sécurité symétrique divisée par deux.",
+      "children": [
+       {
+        "label": "AES-256 reste solide"
+       }
+      ]
+     },
+     {
+      "label": "Récolter maintenant, déchiffrer plus tard",
+      "detail": "Les secrets durables sont déjà exposés."
+     },
+     {
+      "label": "PQC ou QKD",
+      "detail": "Algorithmes classiques ou photons.",
+      "children": [
+       {
+        "label": "FIPS 203 ML-KEM",
+        "detail": "Établir une clé."
+       },
+       {
+        "label": "FIPS 204 ML-DSA, FIPS 205 SLH-DSA",
+        "detail": "Signer."
+       }
+      ]
+     },
+     {
+      "label": "Migration",
+      "detail": "Inventaire, priorités, agilité, hybride."
+     }
+    ]
+   },
+   {
+    "label": "Innovations",
+    "en": "Advancements in Cryptography",
+    "emoji": "🧪",
+    "tone": "green",
+    "children": [
+     {
+      "label": "Calculer sans voir",
+      "detail": "Donnée en cours d'utilisation.",
+      "children": [
+       {
+        "label": "Homomorphe",
+        "detail": "Calcul sur chiffré."
+       },
+       {
+        "label": "MPC",
+        "detail": "Calcul à plusieurs."
+       },
+       {
+        "label": "Enclaves",
+        "detail": "Informatique confidentielle."
+       }
+      ]
+     },
+     {
+      "label": "ZKP",
+      "detail": "Prouver sans révéler."
+     },
+     {
+      "label": "Chaîne de blocs",
+      "detail": "Intégrité et traçabilité, pas confidentialité."
+     },
+     {
+      "label": "Techniques ciblées",
+      "detail": "Ascon (léger), FPE (format), AEAD (AES-GCM)."
+     }
+    ]
+   }
+  ]
+ }
+}

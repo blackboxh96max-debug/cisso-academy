@@ -507,9 +507,28 @@ class ContentLibrary {
     required this.glossary,
     required this.examInfo,
     this.examPrep = ExamPrep.empty,
+    this.mile2Outline = CourseOutline.empty,
+    this.orsysOutline = CourseOutline.empty,
+    this.orsysPlusOutline = CourseOutline.empty,
   });
 
   final List<Module> modules;
+
+  /// Sommaire officiel MILE2 (11 modules + Prérequis) relié à nos leçons.
+  final CourseOutline mile2Outline;
+
+  /// Programme ORSYS en 5 modules, tel quel (sans ajout).
+  final CourseOutline orsysOutline;
+
+  /// Programme ORSYS en 5 modules enrichi de tout le livre MILE2.
+  final CourseOutline orsysPlusOutline;
+
+  /// Sommaire affiché pour une vue.
+  CourseOutline outline(CourseView view) => switch (view) {
+    CourseView.mile2 => mile2Outline,
+    CourseView.orsys => orsysOutline,
+    CourseView.orsysPlus => orsysPlusOutline,
+  };
   final List<ExamDomain> domains;
   final List<GlossaryTerm> glossary;
   final ExamInfo examInfo;
@@ -527,9 +546,134 @@ class ContentLibrary {
 
   Chapter chapter(String id) => chapters.firstWhere((c) => c.id == id);
 
+  Iterable<Lesson> get lessons => chapters.expand((c) => c.lessons);
+
+  Lesson lesson(String id) => lessons.firstWhere((l) => l.id == id);
+
+  /// Toutes les leçons dans l'ordre de la vue choisie, chacune une seule
+  /// fois (à sa première apparition dans le sommaire), puis celles que le
+  /// sommaire ne cite pas.
+  List<Lesson> lessonOrder(CourseView view) {
+    final all = lessons.toList();
+    final outline = this.outline(view);
+    if (outline.modules.isEmpty) return all;
+    final byId = {for (final l in all) l.id: l};
+    final out = <Lesson>[];
+    final seen = <String>{};
+    for (final m in outline.modules) {
+      for (final s in m.sections) {
+        for (final id in s.lessons) {
+          if (seen.add(id) && byId[id] != null) out.add(byId[id]!);
+        }
+      }
+    }
+    for (final l in all) {
+      if (seen.add(l.id)) out.add(l);
+    }
+    return out;
+  }
+
   Module module(String id) => modules.firstWhere((m) => m.id == id);
 
   ExamDomain domain(String id) => domains.firstWhere((d) => d.id == id);
 
   Question question(String id) => questions.firstWhere((q) => q.id == id);
+}
+
+/// Les deux façons de parcourir la formation.
+enum CourseView {
+  /// Ordre du support officiel MILE2 v20 : 11 modules + Prérequis.
+  mile2,
+
+  /// Programme ORSYS : 5 modules, sans ajout.
+  orsys,
+
+  /// Programme ORSYS enrichi de tout le contenu du livre MILE2.
+  orsysPlus,
+}
+
+/// Niveau de couverture d'une section officielle par nos leçons.
+enum Coverage { covered, partial, missing }
+
+class OutlineSection {
+  const OutlineSection({
+    required this.number,
+    required this.titleEn,
+    required this.titleFr,
+    required this.lessons,
+    required this.coverage,
+    this.extra = false,
+    this.extraLessons = const [],
+  });
+
+  factory OutlineSection.fromJson(Map<String, dynamic> json) => OutlineSection(
+    number: json['number'] as int,
+    titleEn: json['titleEn'] as String,
+    titleFr: json['titleFr'] as String,
+    lessons: (json['lessons'] as List).cast<String>(),
+    coverage: Coverage.values.byName(json['coverage'] as String),
+    extra: json['extra'] as bool? ?? false,
+    extraLessons: (json['extraLessons'] as List? ?? const []).cast<String>(),
+  );
+
+  final int number;
+
+  /// Titre exact du sommaire officiel (anglais).
+  final String titleEn;
+  final String titleFr;
+
+  /// Identifiants des leçons qui traitent la section.
+  final List<String> lessons;
+  final Coverage coverage;
+
+  /// Vue enrichie : thème ajouté depuis le livre MILE2.
+  final bool extra;
+
+  /// Vue enrichie : leçons ajoutées depuis le livre MILE2.
+  final List<String> extraLessons;
+}
+
+class OutlineModule {
+  const OutlineModule({
+    required this.id,
+    required this.label,
+    required this.titleEn,
+    required this.titleFr,
+    required this.sections,
+  });
+
+  factory OutlineModule.fromJson(Map<String, dynamic> json) => OutlineModule(
+    id: json['id'] as String,
+    label: json['label'] as String,
+    titleEn: json['titleEn'] as String,
+    titleFr: json['titleFr'] as String,
+    sections: (json['sections'] as List)
+        .map((s) => OutlineSection.fromJson(s as Map<String, dynamic>))
+        .toList(),
+  );
+
+  final String id;
+
+  /// « Module 1 » … « Module 11 », « Prérequis ».
+  final String label;
+  final String titleEn;
+  final String titleFr;
+  final List<OutlineSection> sections;
+}
+
+class CourseOutline {
+  const CourseOutline({required this.source, required this.modules});
+
+  factory CourseOutline.fromJson(Map<String, dynamic> json) => CourseOutline(
+    source: json['source'] as String,
+    modules: (json['modules'] as List)
+        .map((m) => OutlineModule.fromJson(m as Map<String, dynamic>))
+        .toList(),
+  );
+
+  static const empty = CourseOutline(source: '', modules: []);
+
+  /// D'où vient le sommaire.
+  final String source;
+  final List<OutlineModule> modules;
 }

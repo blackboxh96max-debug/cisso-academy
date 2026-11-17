@@ -35,12 +35,15 @@ void main() {
         'm1c2',
         'm1c3',
         'm1c4',
+        'm1c5',
         'm2c1',
         'm2c2',
         'm2c3',
+        'm2c4',
         'm3c1',
         'm3c2',
         'm3c3',
+        'm3c4',
         'm4c1',
         'm4c2',
         'm4c3',
@@ -416,5 +419,83 @@ void main() {
       root: 'r',
     ).load();
     expect(ok.chapter('c').mindMap!.children.single.label, 'B');
+  });
+
+  test(
+    'le sommaire officiel MILE2 v20 est complet et relié aux leçons',
+    () async {
+      final library = await loadRealContent();
+      final outline = library.mile2Outline;
+      // 11 modules + le module Prérequis, 70 sections, dans l'ordre du livre.
+      expect(outline.modules, hasLength(12));
+      expect(outline.modules.last.label, 'Prérequis');
+      expect(
+        [for (final m in outline.modules) m.sections.length],
+        [4, 7, 9, 5, 5, 6, 6, 4, 5, 4, 5, 10],
+      );
+      for (final m in outline.modules) {
+        expect([
+          for (final s in m.sections) s.number,
+        ], List.generate(m.sections.length, (i) => i + 1));
+      }
+      // Chaque leçon de l'application apparaît dans le sommaire.
+      final cited = {
+        for (final m in outline.modules)
+          for (final s in m.sections) ...s.lessons,
+      };
+      expect(cited, containsAll(library.lessons.map((l) => l.id)));
+      // Les deux ordres contiennent les mêmes leçons, une seule fois.
+      for (final view in CourseView.values) {
+        final order = library.lessonOrder(view).map((l) => l.id).toList();
+        expect(order.toSet(), hasLength(order.length));
+        expect(order.toSet(), library.lessons.map((l) => l.id).toSet());
+      }
+    },
+  );
+
+  test('programme ORSYS : 5 modules, tel quel puis enrichi du livre', () async {
+    final library = await loadRealContent();
+    final strict = library.orsysOutline;
+    final plus = library.orsysPlusOutline;
+    Set<String> cited(CourseOutline o) => {
+      for (final m in o.modules)
+        for (final s in m.sections) ...s.lessons,
+    };
+    // Les 5 modules ORSYS et leurs 18 thèmes, sans ajout.
+    expect(strict.modules, hasLength(5));
+    expect(
+      [for (final m in strict.modules) m.sections.length],
+      [4, 4, 4, 3, 3],
+    );
+    expect(
+      strict.modules.expand((m) => m.sections).where((s) => s.extra),
+      isEmpty,
+    );
+    expect(
+      strict.modules.expand((m) => m.sections).expand((s) => s.extraLessons),
+      isEmpty,
+    );
+    // Les modèles de sécurité sont au module 2, comme chez ORSYS.
+    expect(
+      strict.modules[1].sections.first.titleEn,
+      'Security Models and Evaluation Criteria',
+    );
+    // La vue enrichie garde les thèmes ORSYS, dans le même ordre, et
+    // contient toutes les leçons de l'application.
+    for (final (i, m) in strict.modules.indexed) {
+      expect(
+        plus.modules[i].sections.take(m.sections.length).map((s) => s.titleEn),
+        m.sections.map((s) => s.titleEn),
+      );
+    }
+    expect(cited(plus), containsAll(library.lessons.map((l) => l.id)));
+    // Tout ce que la vue enrichie ajoute est signalé comme venant du livre.
+    final added = cited(plus).difference(cited(strict));
+    final marked = {
+      for (final m in plus.modules)
+        for (final s in m.sections) ...s.extraLessons,
+    };
+    expect(marked, containsAll(added));
+    expect(added, isNotEmpty);
   });
 }

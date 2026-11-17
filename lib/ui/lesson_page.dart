@@ -187,9 +187,9 @@ class _LessonPageState extends State<LessonPage> {
     final wide = width >= 1100;
     final paper = Paper.of(context);
     final plan = _termPlan(state.terms, lesson);
-    // Leçons de toute la formation, dans l'ordre : on enchaîne d'un chapitre
-    // à l'autre sans repasser par le menu.
-    final course = state.library.chapters.expand((c) => c.lessons).toList();
+    // Leçons de toute la formation, dans l'ordre de la vue choisie (livre
+    // MILE2 ou 5 modules) : on enchaîne sans repasser par le menu.
+    final course = state.lessonOrder;
     final position = course.indexWhere((l) => l.id == lesson.id);
     final previous = position > 0 ? course[position - 1] : null;
     final next = position >= 0 && position < course.length - 1

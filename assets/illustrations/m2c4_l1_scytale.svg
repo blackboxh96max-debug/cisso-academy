@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <!-- scytale : un ruban enroulé autour d'un bâton -->
+  <g fill="none" stroke="#26324A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M30 150 C55 120 85 80 112 34" />
+    <path d="M44 156 C69 126 99 86 126 40" />
+    <path d="M30 150 C33 155 40 158 44 156" />
+    <path d="M112 34 C115 30 123 36 126 40" />
+  </g>
+  <g stroke="#B5651D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="#F7D9A8">
+    <path d="M38 128 L56 134 L64 120 L46 114 Z" />
+    <path d="M52 106 L70 112 L78 98 L60 92 Z" />
+    <path d="M66 84 L84 90 L92 76 L74 70 Z" />
+    <path d="M80 62 L98 68 L106 54 L88 48 Z" />
+  </g>
+  <g fill="#26324A" font-family="Georgia, serif" font-size="9" font-weight="700">
+    <text x="49" y="127">K</text><text x="63" y="105">E</text><text x="77" y="83">R</text><text x="91" y="61">C</text>
+  </g>
+  <!-- disque de chiffrement à deux anneaux -->
+  <g stroke="#2D5BA8" stroke-width="2.6" fill="none">
+    <circle cx="178" cy="96" r="44" fill="#DCEBFF" />
+    <circle cx="178" cy="96" r="28" fill="#BFD7FF" />
+    <circle cx="178" cy="96" r="4" fill="#2D5BA8" />
+    <path d="M178 52 L178 68 M222 96 L206 96 M178 140 L178 124 M134 96 L150 96" />
+  </g>
+  <g fill="#26324A" font-family="Georgia, serif" font-size="11" font-weight="700" text-anchor="middle">
+    <text x="178" y="63">A</text><text x="214" y="100">B</text><text x="178" y="137">C</text><text x="142" y="100">D</text>
+    <text x="178" y="82" fill="#B23A3A">D</text><text x="196" y="100" fill="#B23A3A">E</text><text x="178" y="117" fill="#B23A3A">F</text><text x="160" y="100" fill="#B23A3A">G</text>
+  </g>
+  <path d="M140 30 C150 22 164 22 172 30" fill="none" stroke="#E08A00" stroke-width="2.4" stroke-linecap="round" />
+  <path d="M168 24 L173 31 L165 33" fill="none" stroke="#E08A00" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

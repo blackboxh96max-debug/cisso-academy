@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <g stroke="#26324A" stroke-width="2.6" stroke-linejoin="round">
+    <path d="M14 140 L22 96 L84 96 L92 140 Z" fill="#F7D9A8" />
+    <path d="M18 92 C18 70 88 70 88 92 L76 92 C70 82 36 82 30 92 Z" fill="#B5651D" />
+  </g>
+  <circle cx="53" cy="118" r="15" fill="#FFF6DA" stroke="#26324A" stroke-width="2.4" />
+  <g fill="#26324A"><circle cx="53" cy="107" r="2" /><circle cx="62" cy="111" r="2" /><circle cx="64" cy="120" r="2" /><circle cx="44" cy="111" r="2" /><circle cx="42" cy="120" r="2" /></g>
+  <path d="M92 130 C120 160 140 100 162 130" fill="none" stroke="#26324A" stroke-width="2.4" stroke-linecap="round" />
+  <g stroke="#2E7D4F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M116 126 C116 116 130 116 130 126" fill="none" />
+    <path d="M112 126 L134 126 L133 140 L113 140 Z" fill="#CDEFD9" />
+  </g>
+  <g stroke="#2D5BA8" stroke-width="2.6" stroke-linejoin="round">
+    <path d="M162 60 L226 60 L226 150 L162 150 Z" fill="#DCEBFF" />
+    <path d="M172 70 L216 70 L216 94 L172 94 Z" fill="#F2F7FF" />
+  </g>
+  <g fill="#2D5BA8"><rect x="174" y="104" width="10" height="8" /><rect x="189" y="104" width="10" height="8" /><rect x="204" y="104" width="10" height="8" /><rect x="174" y="118" width="10" height="8" /><rect x="189" y="118" width="10" height="8" /><rect x="204" y="118" width="10" height="8" /></g>
+  <g font-family="monospace" font-size="8" fill="#2D5BA8"><text x="176" y="86">SIP/TLS</text></g>
+</svg>

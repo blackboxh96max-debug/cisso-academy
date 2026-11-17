@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <!-- tête faite de nœuds -->
+  <path d="M40 140 C30 100 34 50 80 40 C124 32 140 70 132 96 L140 112 L128 114 L126 140 Z" fill="#EFE6FB" stroke="#6B3FA0" stroke-width="2.8" stroke-linejoin="round" />
+  <g stroke="#6B3FA0" stroke-width="1.8" fill="none">
+    <path d="M60 70 L86 60 L108 76 L84 92 L60 70 M86 60 L84 92 M108 76 L100 106 L84 92 M60 70 L66 104 L84 92" />
+  </g>
+  <g fill="#C9A7F0" stroke="#6B3FA0" stroke-width="2">
+    <circle cx="60" cy="70" r="5" /><circle cx="86" cy="60" r="5" /><circle cx="108" cy="76" r="5" /><circle cx="84" cy="92" r="5" /><circle cx="100" cy="106" r="5" /><circle cx="66" cy="104" r="5" />
+  </g>
+  <!-- bouclier -->
+  <path d="M150 36 L178 28 L206 36 C206 66 196 84 178 94 C160 84 150 66 150 36 Z" fill="#CDEFD9" stroke="#2E7D4F" stroke-width="2.6" stroke-linejoin="round" />
+  <path d="M166 60 L176 70 L192 50" fill="none" stroke="#2E7D4F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+  <!-- goutte d'encre dans le bocal de données : l'empoisonnement -->
+  <path d="M182 104 C176 114 176 120 182 122 C188 120 188 114 182 104 Z" fill="#B23A3A" />
+  <path d="M158 128 L206 128 L202 166 L162 166 Z" fill="#DCEBFF" stroke="#2D5BA8" stroke-width="2.4" stroke-linejoin="round" />
+  <g fill="#2D5BA8" font-family="monospace" font-size="9"><text x="166" y="146">0101</text><text x="170" y="158">110</text></g>
+  <circle cx="190" cy="152" r="4" fill="#B23A3A" opacity="0.7" />
+</svg>
