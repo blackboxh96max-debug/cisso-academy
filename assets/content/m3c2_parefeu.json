@@ -746,18 +746,18 @@
    "concept": "Refus par défaut",
    "prompt": "Quelle doit être la dernière règle d'un pare-feu bien configuré ?",
    "choices": [
-    "Autoriser tout",
     "Refuser tout",
     "Autoriser le web",
+    "Autoriser tout",
     "Journaliser sans décider"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "Ce qui n'est pas explicitement autorisé est refusé : la règle finale est « refuser tout ».",
    "whyNot": {
-    "0": "Autoriser tout annule l'intérêt du pare-feu.",
-    "2": "Le web doit être autorisé par une règle explicite, plus haut.",
+    "1": "Le web doit être autorisé par une règle explicite, plus haut.",
+    "2": "Autoriser tout annule l'intérêt du pare-feu.",
     "3": "Une règle doit décider ; la journalisation s'ajoute à la décision."
    },
    "kind": "general"
@@ -769,19 +769,19 @@
    "concept": "Types de pare-feu",
    "prompt": "Quel type de pare-feu garde en mémoire les connexions ouvertes pour n'accepter que les réponses attendues ?",
    "choices": [
-    "Filtrage de paquets sans état",
     "Pare-feu à états",
-    "Concentrateur",
-    "Serveur DNS"
+    "Filtrage de paquets sans état",
+    "Serveur DNS",
+    "Concentrateur"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "Le pare-feu à états tient une table des connexions et accepte les réponses qui y correspondent.",
    "whyNot": {
-    "0": "Sans état, chaque paquet est jugé seul, sans mémoire des connexions.",
-    "2": "Un concentrateur (hub) ne filtre rien.",
-    "3": "Un serveur DNS résout des noms, il ne filtre pas le trafic."
+    "1": "Sans état, chaque paquet est jugé seul, sans mémoire des connexions.",
+    "2": "Un serveur DNS résout des noms, il ne filtre pas le trafic.",
+    "3": "Un concentrateur (hub) ne filtre rien."
    },
    "kind": "general"
   },
@@ -816,18 +816,18 @@
    "prompt": "Quel contrôle peut bloquer une injection SQL envoyée dans une requête HTTPS autorisée vers le site web ?",
    "choices": [
     "Un filtrage de paquets sur le port 443",
+    "Un VLAN dédié",
     "Un pare-feu applicatif web (WAF)",
-    "Le NAT",
-    "Un VLAN dédié"
+    "Le NAT"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Le WAF lit le contenu HTTP (couche 7) et reconnaît les motifs d'injection. Les autres contrôles ne voient que les adresses et les ports.",
    "whyNot": {
     "0": "Il autorise ou refuse le port 443 sans lire la requête.",
-    "2": "Le NAT traduit les adresses ; il ne lit pas le contenu.",
-    "3": "Un VLAN sépare le trafic mais ne lit pas les requêtes."
+    "1": "Un VLAN sépare le trafic mais ne lit pas les requêtes.",
+    "3": "Le NAT traduit les adresses ; il ne lit pas le contenu."
    },
    "kind": "general"
   },
@@ -838,18 +838,18 @@
    "concept": "Ordre des règles",
    "prompt": "Une règle « autoriser tout le réseau interne vers Internet » est placée en tête, au-dessus d'une règle « refuser le poste X vers Internet ». Que se passe-t-il pour le poste X ?",
    "choices": [
+    "Le pare-feu signale un conflit et bloque tout",
     "Il est bloqué, car la règle la plus précise gagne toujours",
     "Il est autorisé, car la première règle qui correspond s'applique",
-    "Le pare-feu signale un conflit et bloque tout",
     "Cela dépend de l'heure"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Les règles sont lues de haut en bas et la première correspondance s'applique : la règle large masque la règle précise.",
    "whyNot": {
-    "0": "La plupart des pare-feu appliquent la première règle qui correspond, pas la plus précise.",
-    "2": "Le pare-feu n'arbitre pas : il applique l'ordre.",
+    "0": "Le pare-feu n'arbitre pas : il applique l'ordre.",
+    "1": "La plupart des pare-feu appliquent la première règle qui correspond, pas la plus précise.",
     "3": "Aucune notion d'horaire dans ces règles."
    },
    "kind": "general"
@@ -861,18 +861,18 @@
    "concept": "NAT",
    "prompt": "Un collègue affirme : « nous avons du NAT, donc nous n'avons pas besoin de règles de filtrage ». Que répondre ?",
    "choices": [
-    "Il a raison, le NAT bloque toutes les attaques",
-    "Le NAT masque les adresses internes mais n'est pas un contrôle de sécurité ; il faut une politique de filtrage",
-    "Le NAT remplace l'IDS",
-    "Le NAT chiffre le trafic"
+    "Le NAT masque les adresses mais ne remplace pas le filtrage",
+    "Le NAT remplace l'IDS en signalant les connexions suspectes",
+    "Il a raison, car le NAT bloque toutes les attaques venant d'Internet",
+    "Le NAT chiffre le trafic entre le réseau interne et Internet"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "Le NAT traduit les adresses ; seule la politique de filtrage décide de ce qui passe, en entrée comme en sortie.",
    "whyNot": {
-    "0": "Les redirections de ports et le trafic sortant passent malgré le NAT.",
-    "2": "Le NAT ne détecte rien.",
+    "1": "Le NAT ne détecte rien.",
+    "2": "Les redirections de ports et le trafic sortant passent malgré le NAT.",
     "3": "Le NAT ne chiffre rien."
    },
    "kind": "general"
@@ -884,10 +884,10 @@
    "concept": "Filtrage en sortie",
    "prompt": "Pourquoi filtrer aussi le trafic sortant ?",
    "choices": [
-    "Pour limiter l'exfiltration et les communications d'un logiciel malveillant vers son serveur de contrôle",
-    "Pour accélérer Internet",
-    "Parce que le filtrage entrant est inutile",
-    "Pour éviter de journaliser"
+    "Pour limiter l'exfiltration et les liaisons vers un serveur C2",
+    "Pour accélérer l'accès à Internet en réduisant le nombre de flux",
+    "Parce que le filtrage entrant est devenu inutile avec TLS",
+    "Pour éviter de devoir journaliser les connexions entrantes"
    ],
    "correct": [
     0
@@ -907,18 +907,18 @@
    "concept": "Architecture DMZ",
    "prompt": "Quel avantage principal apporte une DMZ placée entre deux pare-feu de fabricants différents ?",
    "choices": [
-    "Elle supprime le besoin de correctifs",
+    "Elle rend la traduction d'adresses (NAT) inutile",
+    "Elle supprime le besoin d'appliquer des correctifs sur les pare-feu",
     "Une faille propre à un fabricant ne suffit pas à traverser les deux barrières",
-    "Elle rend le NAT inutile",
-    "Elle double le débit"
+    "Elle double le débit disponible vers Internet"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Deux pare-feu différents obligent l'attaquant à exploiter deux failles distinctes : c'est la défense en profondeur appliquée au périmètre.",
    "whyNot": {
-    "0": "Les correctifs restent nécessaires sur les deux.",
-    "2": "Le NAT est une question d'adressage, indépendante.",
+    "0": "Le NAT est une question d'adressage, indépendante.",
+    "1": "Les correctifs restent nécessaires sur les deux.",
     "3": "Ajouter un équipement n'augmente pas le débit."
    },
    "kind": "general"
@@ -930,19 +930,19 @@
    "concept": "Flux de la DMZ",
    "prompt": "Le serveur web en DMZ doit lire une base de données interne. Quelle règle est la plus appropriée ?",
    "choices": [
-    "Autoriser la DMZ vers tout le réseau interne",
-    "Autoriser uniquement le serveur web vers le serveur de base de données, sur le port de la base, et journaliser",
-    "Placer la base de données dans la DMZ sans filtrage",
-    "Autoriser tout le réseau interne vers la DMZ et inversement"
+    "Placer la base de données dans la DMZ, à côté du serveur web, sans filtrage",
+    "Autoriser le seul serveur web vers la base, sur son port, avec journalisation",
+    "Autoriser tout le réseau interne vers la DMZ et inversement, tous ports",
+    "Autoriser la DMZ vers tout le réseau interne, pour éviter les blocages"
    ],
    "correct": [
     1
    ],
    "explanation": "Un flux précis (source, destination, port), justifié et journalisé limite l'usage du serveur web comme tremplin.",
    "whyNot": {
-    "0": "C'est exactement le tremplin à éviter.",
-    "2": "Les données sensibles seraient exposées à côté des serveurs publics.",
-    "3": "Des règles larges dans les deux sens annulent la DMZ."
+    "0": "Les données sensibles seraient exposées à côté des serveurs publics.",
+    "2": "Des règles larges dans les deux sens annulent la DMZ.",
+    "3": "C'est exactement le tremplin à éviter."
    },
    "kind": "general"
   },
@@ -953,19 +953,19 @@
    "concept": "Revue des règles",
    "prompt": "Lors d'un audit, quel constat sur un pare-feu est le plus préoccupant ?",
    "choices": [
-    "Des règles documentées avec un propriétaire",
-    "Une règle « any vers any, tous ports » créée pour un test il y a deux ans",
-    "La journalisation des refus",
-    "Une revue annuelle des règles"
+    "La journalisation des connexions refusées",
+    "Des règles documentées, chacune avec un propriétaire",
+    "Une revue annuelle des règles par le RSSI",
+    "Une règle « any vers any » créée pour un test il y a deux ans"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Une règle permissive oubliée ouvre largement le réseau. Les trois autres constats sont de bonnes pratiques.",
    "whyNot": {
     "0": "C'est une bonne pratique.",
-    "2": "C'est une bonne pratique.",
-    "3": "C'est une bonne pratique."
+    "1": "C'est une bonne pratique.",
+    "2": "C'est une bonne pratique."
    },
    "kind": "general"
   },
@@ -976,17 +976,17 @@
    "concept": "IDS et IPS",
    "prompt": "Quelle est la différence principale entre un IDS et un IPS ?",
    "choices": [
-    "L'IDS chiffre, l'IPS déchiffre",
     "L'IDS détecte et alerte, l'IPS est en ligne et peut bloquer",
+    "L'IDS chiffre, l'IPS déchiffre",
     "L'IDS est matériel, l'IPS est toujours logiciel",
     "Il n'y a aucune différence"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "L'IDS observe une copie du trafic et alerte ; l'IPS est placé en coupure et bloque.",
    "whyNot": {
-    "0": "Ni l'un ni l'autre n'a pour rôle de chiffrer.",
+    "1": "Ni l'un ni l'autre n'a pour rôle de chiffrer.",
     "2": "Les deux existent sous forme matérielle et logicielle.",
     "3": "La position et l'action diffèrent."
    },
@@ -999,19 +999,19 @@
    "concept": "Faux négatif",
    "prompt": "Comment appelle-t-on une attaque réelle qui ne déclenche aucune alerte ?",
    "choices": [
-    "Un faux positif",
     "Un faux négatif",
-    "Un vrai positif",
-    "Un vrai négatif"
+    "Un vrai négatif",
+    "Un faux positif",
+    "Un vrai positif"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "Faux négatif : il y a une attaque, mais l'outil dit « rien ». C'est le cas le plus dangereux.",
    "whyNot": {
-    "0": "Faux positif : une alerte sans attaque.",
-    "2": "Vrai positif : une attaque correctement détectée.",
-    "3": "Vrai négatif : pas d'attaque et pas d'alerte."
+    "1": "Vrai négatif : pas d'attaque et pas d'alerte.",
+    "2": "Faux positif : une alerte sans attaque.",
+    "3": "Vrai positif : une attaque correctement détectée."
    },
    "kind": "general"
   },
@@ -1022,10 +1022,10 @@
    "concept": "Pot de miel",
    "prompt": "Qu'est-ce qu'un pot de miel (honeypot) ?",
    "choices": [
-    "Un serveur de sauvegarde",
-    "Un système leurre isolé, sans usage légitime, qui attire et révèle les attaquants",
-    "Un antivirus",
-    "Un VPN gratuit"
+    "Un serveur de sauvegarde isolé du réseau de production",
+    "Un système leurre isolé, sans usage légitime",
+    "Un VPN gratuit proposé aux visiteurs",
+    "Un antivirus installé sur les serveurs exposés"
    ],
    "correct": [
     1
@@ -1033,8 +1033,8 @@
    "explanation": "Toute connexion vers un pot de miel est suspecte, car personne n'a de raison légitime de s'y connecter.",
    "whyNot": {
     "0": "Un serveur de sauvegarde contient de vraies données.",
-    "2": "Un antivirus protège un poste.",
-    "3": "Un VPN relie des réseaux."
+    "2": "Un VPN relie des réseaux.",
+    "3": "Un antivirus protège un poste."
    },
    "kind": "general"
   },
@@ -1045,19 +1045,19 @@
    "concept": "Signatures et anomalies",
    "prompt": "Quel est le principal défaut d'une détection uniquement par signatures ?",
    "choices": [
-    "Elle produit énormément de faux positifs",
-    "Elle ne détecte pas une attaque inconnue (zero-day)",
+    "Elle empêche la journalisation",
     "Elle ne fonctionne que sur Wi-Fi",
-    "Elle empêche la journalisation"
+    "Elle produit énormément de faux positifs",
+    "Elle ne détecte pas une attaque inconnue (zero-day)"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Une signature décrit une attaque connue : une attaque nouvelle n'a pas encore de signature.",
    "whyNot": {
-    "0": "C'est plutôt le défaut de la détection d'anomalies.",
-    "2": "Les signatures s'appliquent à tout type de trafic.",
-    "3": "Elle n'a pas de lien avec la journalisation."
+    "0": "Elle n'a pas de lien avec la journalisation.",
+    "1": "Les signatures s'appliquent à tout type de trafic.",
+    "2": "C'est plutôt le défaut de la détection d'anomalies."
    },
    "kind": "general"
   },
@@ -1068,19 +1068,19 @@
    "concept": "NIDS et HIDS",
    "prompt": "Le trafic vers un serveur est chiffré de bout en bout en TLS. Quel outil verra le mieux une attaque dans le contenu ?",
    "choices": [
-    "Un NIDS sur le segment réseau",
-    "Un HIDS installé sur le serveur",
     "Un concentrateur",
-    "Le NAT"
+    "Un NIDS sur le segment réseau",
+    "Le NAT",
+    "Un HIDS installé sur le serveur"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Le HIDS observe l'hôte, où le trafic est déchiffré, ainsi que ses journaux et processus. Le NIDS ne voit que le flux chiffré.",
    "whyNot": {
-    "0": "Sans déchiffrement, le NIDS ne voit pas le contenu.",
-    "2": "Un concentrateur ne détecte rien.",
-    "3": "Le NAT ne détecte rien."
+    "0": "Un concentrateur ne détecte rien.",
+    "1": "Sans déchiffrement, le NIDS ne voit pas le contenu.",
+    "2": "Le NAT ne détecte rien."
    },
    "kind": "general"
   },
@@ -1091,19 +1091,19 @@
    "concept": "802.1X",
    "prompt": "Dans 802.1X, quel est le rôle du commutateur ou de la borne Wi-Fi ?",
    "choices": [
-    "Demandeur",
     "Authentificateur, qui relaie la demande au serveur d'authentification",
-    "Serveur d'authentification",
-    "Autorité de certification"
+    "Autorité de certification, qui signe les certificats",
+    "Serveur d'authentification, qui vérifie les identifiants",
+    "Demandeur (supplicant), qui présente ses identifiants"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "Le demandeur est le poste ; l'authentificateur est le commutateur ou la borne ; le serveur d'authentification est généralement RADIUS.",
    "whyNot": {
-    "0": "Le demandeur (supplicant) est le poste.",
+    "1": "Une autorité de certification peut émettre des certificats, mais n'est pas un rôle 802.1X.",
     "2": "Le serveur d'authentification est le serveur RADIUS.",
-    "3": "Une autorité de certification peut émettre des certificats, mais n'est pas un rôle 802.1X."
+    "3": "Le demandeur (supplicant) est le poste."
    },
    "kind": "general"
   },
@@ -1114,19 +1114,19 @@
    "concept": "Positionnement IPS",
    "prompt": "Quel risque est propre à un IPS par rapport à un IDS ?",
    "choices": [
-    "Il ne voit pas le trafic",
-    "Un faux positif peut bloquer une activité légitime, et une panne peut couper le trafic",
-    "Il ne produit jamais d'alerte",
-    "Il ne peut pas utiliser de signatures"
+    "Un faux positif ou une panne peut bloquer le trafic légitime",
+    "Il ne produit jamais d'alerte, il bloque en silence",
+    "Il ne peut pas utiliser de signatures, seulement des anomalies",
+    "Il ne voit pas le trafic, car il ne reçoit qu'une copie"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "En coupure, l'IPS agit sur le trafic réel : ses erreurs et ses pannes ont un effet direct.",
    "whyNot": {
-    "0": "Il voit tout le trafic puisqu'il est en coupure.",
-    "2": "Il alerte aussi.",
-    "3": "Les IPS utilisent largement les signatures."
+    "1": "Il alerte aussi.",
+    "2": "Les IPS utilisent largement les signatures.",
+    "3": "Il voit tout le trafic puisqu'il est en coupure."
    },
    "kind": "general"
   },
@@ -1137,10 +1137,10 @@
    "concept": "Réglage de l'IDS",
    "prompt": "Un IDS produit 5 000 alertes par jour, presque toutes des faux positifs, et les analystes ne les lisent plus. Quelle est la meilleure réponse ?",
    "choices": [
-    "Désactiver l'IDS",
-    "Ajuster les règles à l'environnement, supprimer celles qui ne s'appliquent pas et prioriser les alertes",
-    "Ignorer les alertes la nuit",
-    "Ajouter un second IDS identique"
+    "Désactiver l'IDS jusqu'à ce que l'équipe ait plus de temps",
+    "Ajuster les règles à l'environnement et prioriser les alertes",
+    "Ignorer les alertes la nuit et le week-end pour réduire la charge",
+    "Ajouter un second IDS identique pour confirmer chaque alerte"
    ],
    "correct": [
     1
@@ -1160,10 +1160,10 @@
    "concept": "NAC",
    "prompt": "Un portable sans correctifs récents se connecte au réseau filaire. Que peut faire une solution NAC ?",
    "choices": [
-    "Rien, le NAC ne regarde que l'adresse IP",
-    "Vérifier l'état du poste et le placer dans un VLAN de quarantaine jusqu'à sa mise en conformité",
-    "Supprimer le système d'exploitation",
-    "Désactiver le pare-feu du poste"
+    "Rien, car le NAC ne regarde que l'adresse IP du poste",
+    "Vérifier l'état du poste et le mettre en quarantaine",
+    "Désactiver le pare-feu du poste pour installer les correctifs",
+    "Supprimer le système d'exploitation du poste non conforme"
    ],
    "correct": [
     1
@@ -1171,8 +1171,8 @@
    "explanation": "Le NAC contrôle l'identité et la conformité de l'appareil avant de lui ouvrir le réseau, et peut le mettre en quarantaine.",
    "whyNot": {
     "0": "Le NAC contrôle justement l'identité et l'état.",
-    "2": "Aucune action destructrice de ce genre.",
-    "3": "Ce serait l'inverse de l'objectif."
+    "2": "Ce serait l'inverse de l'objectif.",
+    "3": "Aucune action destructrice de ce genre."
    },
    "kind": "general"
   },
@@ -1184,18 +1184,18 @@
    "prompt": "Quelles affirmations sur la détection d'anomalies sont exactes ? (plusieurs réponses)",
    "choices": [
     "Elle compare le trafic à une base de référence du comportement normal",
+    "Elle exige une période d'apprentissage du comportement normal",
     "Elle peut repérer une attaque encore inconnue",
-    "Elle ne produit jamais de faux positifs",
-    "Elle exige une période d'apprentissage du comportement normal"
+    "Elle ne produit jamais de faux positifs"
    ],
    "correct": [
     0,
     1,
-    3
+    2
    ],
    "explanation": "La détection d'anomalies apprend le normal puis signale les écarts : elle repère l'inconnu, au prix de faux positifs.",
    "whyNot": {
-    "2": "Elle en produit souvent davantage que les signatures."
+    "3": "Elle en produit souvent davantage que les signatures."
    },
    "kind": "general"
   },
@@ -1206,18 +1206,18 @@
    "concept": "VPN",
    "prompt": "Quel VPN relie en permanence deux bureaux de l'entreprise ?",
    "choices": [
-    "Un VPN site à site",
     "Un VPN d'accès distant",
     "Un portail web sans client",
+    "Un VPN site à site",
     "Un pot de miel"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Le VPN site à site relie deux passerelles, souvent en IPsec mode tunnel.",
    "whyNot": {
-    "1": "L'accès distant concerne un utilisateur isolé.",
-    "2": "Le portail sans client sert à quelques applications web.",
+    "0": "L'accès distant concerne un utilisateur isolé.",
+    "1": "Le portail sans client sert à quelques applications web.",
     "3": "Un pot de miel est un leurre."
    },
    "kind": "general"
@@ -1229,19 +1229,19 @@
    "concept": "Wi-Fi",
    "prompt": "Quel protocole Wi-Fi est cassé et ne doit plus être utilisé ?",
    "choices": [
-    "WPA3",
-    "WPA2 avec AES",
     "WEP",
-    "802.1X"
+    "WPA3",
+    "802.1X",
+    "WPA2 avec AES"
    ],
    "correct": [
-    2
+    0
    ],
    "explanation": "WEP, basé sur RC4, se casse en quelques minutes.",
    "whyNot": {
-    "0": "WPA3 est le standard le plus récent.",
-    "1": "WPA2 avec AES-CCMP reste acceptable.",
-    "3": "802.1X est une méthode d'authentification, pas un chiffrement cassé."
+    "1": "WPA3 est le standard le plus récent.",
+    "2": "802.1X est une méthode d'authentification, pas un chiffrement cassé.",
+    "3": "WPA2 avec AES-CCMP reste acceptable."
    },
    "kind": "general"
   },
@@ -1252,19 +1252,19 @@
    "concept": "Segmentation",
    "prompt": "Quel est le principal intérêt de segmenter un réseau ?",
    "choices": [
-    "Limiter les déplacements d'un attaquant et l'étendue d'un incident",
-    "Supprimer le besoin de mots de passe",
-    "Accélérer les sauvegardes",
-    "Rendre Internet plus rapide"
+    "Supprimer le besoin de mots de passe dans chaque zone",
+    "Rendre l'accès à Internet plus rapide pour les postes",
+    "Accélérer les sauvegardes en réduisant le trafic",
+    "Limiter les déplacements d'un attaquant et l'étendue d'un incident"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "Un attaquant qui compromet une zone ne voit pas tout le reste : la compromission est contenue.",
    "whyNot": {
-    "1": "La segmentation ne remplace pas l'authentification.",
-    "2": "Ce n'est pas son objectif.",
-    "3": "Ce n'est pas son objectif."
+    "0": "La segmentation ne remplace pas l'authentification.",
+    "1": "Ce n'est pas son objectif.",
+    "2": "Ce n'est pas son objectif."
    },
    "kind": "general"
   },
@@ -1275,19 +1275,19 @@
    "concept": "Split tunneling",
    "prompt": "Pourquoi le split tunneling est-il un risque ?",
    "choices": [
-    "Il chiffre deux fois le trafic",
-    "Le poste est relié au réseau interne tout en accédant directement à Internet, sans les protections de l'entreprise",
-    "Il empêche l'accès aux applications internes",
-    "Il désactive l'authentification multifacteur"
+    "Il chiffre deux fois le trafic, ce qui affaiblit le chiffrement",
+    "Il empêche le poste d'accéder aux applications internes",
+    "Il désactive l'authentification multifacteur sur la passerelle",
+    "Le poste relie le réseau interne à Internet sans protection"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Le poste devient un pont possible entre Internet et le réseau interne.",
    "whyNot": {
     "0": "Il ne chiffre pas deux fois.",
-    "2": "Les applications internes restent accessibles via le tunnel.",
-    "3": "Il n'a pas de lien avec la MFA."
+    "1": "Les applications internes restent accessibles via le tunnel.",
+    "2": "Il n'a pas de lien avec la MFA."
    },
    "kind": "general"
   },
@@ -1298,10 +1298,10 @@
    "concept": "Wi-Fi Entreprise",
    "prompt": "Pourquoi préférer le mode Entreprise (802.1X) au mode Personnel pour le Wi-Fi d'une entreprise ?",
    "choices": [
-    "Il est plus simple à installer",
-    "Chaque utilisateur a ses propres identifiants : révocation individuelle et traçabilité",
-    "Il n'utilise aucun chiffrement",
-    "Il évite d'avoir un serveur RADIUS"
+    "Il est plus simple à installer et à maintenir",
+    "Des identifiants individuels : révocation et traçabilité",
+    "Il n'utilise aucun chiffrement, donc il est plus rapide",
+    "Il évite d'avoir à déployer un serveur RADIUS"
    ],
    "correct": [
     1
@@ -1321,19 +1321,19 @@
    "concept": "Jumeau maléfique",
    "prompt": "Une fausse borne diffuse le même nom de réseau que le Wi-Fi de l'entreprise. Quelle mesure empêche le mieux les postes de s'y connecter ?",
    "choices": [
-    "Masquer le SSID",
+    "Filtrer les adresses MAC autorisées sur les bornes",
     "802.1X avec vérification du certificat du serveur d'authentification",
-    "Filtrer les adresses MAC",
-    "Augmenter la puissance des bornes"
+    "Augmenter la puissance d'émission des bornes légitimes",
+    "Masquer le SSID pour que la fausse borne ne le connaisse pas"
    ],
    "correct": [
     1
    ],
    "explanation": "Le poste refuse un serveur dont le certificat n'est pas celui attendu : la fausse borne ne peut pas se faire passer pour le réseau.",
    "whyNot": {
-    "0": "Le SSID masqué se découvre facilement dans le trafic.",
-    "2": "Une adresse MAC se copie.",
-    "3": "La fausse borne peut être plus proche et plus forte."
+    "0": "Une adresse MAC se copie.",
+    "2": "La fausse borne peut être plus proche et plus forte.",
+    "3": "Le SSID masqué se découvre facilement dans le trafic."
    },
    "kind": "general"
   },
@@ -1344,19 +1344,19 @@
    "concept": "WPA3",
    "prompt": "Qu'apporte SAE dans WPA3-Personnel ?",
    "choices": [
-    "Il supprime le chiffrement",
-    "Il résiste aux attaques par dictionnaire hors ligne sur une poignée de main capturée",
-    "Il remplace 802.1X en mode Entreprise",
-    "Il désactive les trames de gestion protégées"
+    "Il désactive les trames de gestion protégées (PMF)",
+    "Il remplace 802.1X et RADIUS en mode Entreprise",
+    "Il résiste aux attaques par dictionnaire hors ligne",
+    "Il supprime le chiffrement pour accélérer la connexion"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Avec SAE, capturer l'échange ne suffit plus pour tester des mots de passe hors ligne.",
    "whyNot": {
-    "0": "WPA3 chiffre le trafic.",
-    "2": "SAE concerne le mode Personnel.",
-    "3": "WPA3 rend au contraire les trames de gestion protégées obligatoires."
+    "0": "WPA3 rend au contraire les trames de gestion protégées obligatoires.",
+    "1": "SAE concerne le mode Personnel.",
+    "3": "WPA3 chiffre le trafic."
    },
    "kind": "general"
   },
@@ -1367,18 +1367,18 @@
    "concept": "VLAN",
    "prompt": "Les postes invités et les serveurs sont dans deux VLAN différents, mais le routeur route librement entre eux. Qu'en conclure ?",
    "choices": [
-    "La séparation est suffisante",
+    "Il faut supprimer les VLAN et revenir à un réseau unique",
     "La séparation est inefficace tant que le routage entre VLAN n'est pas filtré",
-    "Il faut supprimer les VLAN",
-    "Le problème vient du Wi-Fi"
+    "La séparation est suffisante, puisque les VLAN sont différents",
+    "Le problème vient du Wi-Fi invité, pas du routage"
    ],
    "correct": [
     1
    ],
    "explanation": "Un VLAN sépare le trafic en couche 2 ; sans filtrage au routage, les invités joignent les serveurs.",
    "whyNot": {
-    "0": "Le routage libre annule la séparation.",
-    "2": "Les VLAN sont utiles ; il faut les compléter par un filtrage.",
+    "0": "Les VLAN sont utiles ; il faut les compléter par un filtrage.",
+    "2": "Le routage libre annule la séparation.",
     "3": "Le problème est le routage, pas le support."
    },
    "kind": "general"
@@ -1390,19 +1390,19 @@
    "concept": "Microsegmentation",
    "prompt": "Dans un centre de données virtualisé, on veut que le serveur web ne puisse parler qu'à sa base de données. Quelle approche convient le mieux ?",
    "choices": [
-    "Un seul grand VLAN pour tous les serveurs",
-    "La microsegmentation, avec des règles propres à chaque charge de travail",
-    "Le masquage du SSID",
-    "Le split tunneling"
+    "Le split tunneling sur les connexions d'administration",
+    "Le masquage du SSID du réseau d'administration",
+    "Un seul grand VLAN pour tous les serveurs du centre de données",
+    "La microsegmentation, avec des règles propres à chaque charge de travail"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "La microsegmentation applique des règles au plus près de chaque serveur, même dans un même sous-réseau.",
    "whyNot": {
-    "0": "Tous les serveurs se verraient entre eux.",
-    "2": "Le SSID concerne le Wi-Fi.",
-    "3": "Le split tunneling concerne les VPN."
+    "0": "Le split tunneling concerne les VPN.",
+    "1": "Le SSID concerne le Wi-Fi.",
+    "2": "Tous les serveurs se verraient entre eux."
    },
    "kind": "general"
   },
@@ -1413,19 +1413,19 @@
    "concept": "Accès distant",
    "prompt": "Quelles mesures renforcent un VPN d'accès distant ? (plusieurs réponses)",
    "choices": [
+    "Un compte partagé par tous les télétravailleurs",
     "Authentification multifacteur",
-    "Correctifs rapides sur la passerelle VPN",
     "Accès limité aux applications nécessaires",
-    "Un compte partagé par tous les télétravailleurs"
+    "Correctifs rapides sur la passerelle VPN"
    ],
    "correct": [
-    0,
     1,
-    2
+    2,
+    3
    ],
    "explanation": "MFA, correctifs de la passerelle exposée et moindre privilège réduisent fortement le risque.",
    "whyNot": {
-    "3": "Un compte partagé supprime la traçabilité et la révocation individuelle."
+    "0": "Un compte partagé supprime la traçabilité et la révocation individuelle."
    },
    "kind": "general"
   }

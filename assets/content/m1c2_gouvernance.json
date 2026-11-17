@@ -708,17 +708,17 @@
    "prompt": "Qui porte la responsabilité finale de la sécurité de l'information dans une entreprise ?",
    "choices": [
     "Le RSSI",
-    "Le DSI",
     "La direction générale",
+    "Le DSI",
     "Le responsable du SOC"
    ],
    "correct": [
-    2
+    1
    ],
    "explanation": "La responsabilité finale (accountability) appartient à la direction générale, qui fixe les objectifs et alloue les moyens. Le RSSI pilote et conseille.",
    "whyNot": {
     "0": "Le RSSI pilote le programme et rend compte, mais il n'est pas le responsable final.",
-    "1": "Le DSI met en œuvre le SI ; il n'est pas responsable final de la sécurité de l'organisation.",
+    "2": "Le DSI met en œuvre le SI ; il n'est pas responsable final de la sécurité de l'organisation.",
     "3": "Le responsable SOC est chargé de la détection et de la réponse, pas de la responsabilité globale."
    },
    "kind": "general"
@@ -730,18 +730,18 @@
    "concept": "Accountability et responsibility",
    "prompt": "Une entreprise confie l'application des correctifs à un infogérant. Que reste-t-il à l'entreprise ?",
    "choices": [
+    "Uniquement la responsabilité juridique, pas la responsabilité opérationnelle",
     "Rien : la responsabilité est transférée par le contrat",
     "La responsabilité finale (accountability) du résultat",
-    "Uniquement la responsabilité juridique, pas la responsabilité opérationnelle",
     "La responsabilité d'exécution (responsibility) des correctifs"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "La tâche (responsibility) est déléguée à l'infogérant, mais l'entreprise reste redevable du résultat (accountability).",
    "whyNot": {
-    "0": "La responsabilité finale ne se transfère pas par contrat.",
-    "2": "Cette séparation n'a pas de sens ici : l'entreprise reste redevable du résultat global, y compris opérationnel vis-à-vis de ses clients.",
+    "0": "Cette séparation n'a pas de sens ici : l'entreprise reste redevable du résultat global, y compris opérationnel vis-à-vis de ses clients.",
+    "1": "La responsabilité finale ne se transfère pas par contrat.",
     "3": "C'est justement l'exécution qui a été déléguée à l'infogérant."
    },
    "kind": "general"
@@ -753,19 +753,19 @@
    "concept": "Due diligence et due care",
    "prompt": "Avant de choisir un hébergeur, une entreprise examine ses certifications, ses rapports d'audit et ses incidents passés. Elle fait preuve de :",
    "choices": [
-    "Due care",
-    "Due diligence",
     "Séparation des tâches",
-    "Acceptation du risque"
+    "Acceptation du risque",
+    "Due diligence",
+    "Due care"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "S'informer et évaluer avant de décider, c'est la due diligence.",
    "whyNot": {
-    "0": "La due care consiste à agir et à maintenir des mesures raisonnables, pas à enquêter.",
-    "2": "La séparation des tâches répartit une tâche sensible entre plusieurs personnes.",
-    "3": "Aucun risque n'est accepté ici : l'entreprise s'informe."
+    "0": "La séparation des tâches répartit une tâche sensible entre plusieurs personnes.",
+    "1": "Aucun risque n'est accepté ici : l'entreprise s'informe.",
+    "3": "La due care consiste à agir et à maintenir des mesures raisonnables, pas à enquêter."
    },
    "kind": "general"
   },
@@ -776,18 +776,18 @@
    "concept": "Due diligence et due care",
    "prompt": "Une société sait depuis six mois qu'un serveur exposé présente une faille critique, mais ne fait rien. Un incident survient. Quel principe a-t-elle surtout manqué ?",
    "choices": [
+    "Besoin d'en connaître",
     "Due care",
     "Due diligence",
-    "Besoin d'en connaître",
     "Rotation des postes"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "Elle connaissait le risque (la diligence a eu lieu) mais n'a pas agi de façon raisonnable : c'est un manque de due care, assimilable à de la négligence.",
    "whyNot": {
-    "1": "La faille était connue : l'effort de connaissance a été fait.",
-    "2": "Le besoin d'en connaître limite l'accès à l'information ; il n'est pas en cause.",
+    "0": "Le besoin d'en connaître limite l'accès à l'information ; il n'est pas en cause.",
+    "2": "La faille était connue : l'effort de connaissance a été fait.",
     "3": "La rotation des postes est une mesure antifraude sans rapport avec ce cas."
    },
    "kind": "general"
@@ -800,18 +800,18 @@
    "prompt": "Pourquoi recommande-t-on souvent que le RSSI ne soit pas rattaché au DSI ?",
    "choices": [
     "Pour lui donner accès aux mots de passe administrateur",
-    "Pour éviter un conflit d'intérêts lorsqu'il doit signaler des écarts de la DSI",
     "Parce que la loi interdit ce rattachement dans tous les pays",
-    "Pour qu'il puisse gérer lui-même le budget informatique"
+    "Pour qu'il puisse gérer lui-même le budget informatique",
+    "Pour éviter un conflit d'intérêts lorsqu'il doit signaler des écarts de la DSI"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Le RSSI contrôle et conteste parfois les choix de la DSI (délais, correctifs, exceptions). Un rattachement indépendant protège sa liberté de signaler les risques.",
    "whyNot": {
     "0": "Le rattachement hiérarchique n'a rien à voir avec l'accès aux comptes ; le RSSI n'a d'ailleurs pas besoin de ces mots de passe.",
-    "2": "Il n'existe pas d'interdiction légale générale : c'est une bonne pratique d'organisation.",
-    "3": "Gérer le budget informatique n'est pas le but ; le budget sécurité peut d'ailleurs rester distinct."
+    "1": "Il n'existe pas d'interdiction légale générale : c'est une bonne pratique d'organisation.",
+    "2": "Gérer le budget informatique n'est pas le but ; le budget sécurité peut d'ailleurs rester distinct."
    },
    "kind": "practice"
   },
@@ -823,18 +823,18 @@
    "prompt": "Quel acteur vérifie de façon indépendante que les contrôles de sécurité existent et fonctionnent ?",
    "choices": [
     "Le dépositaire des données",
+    "Le propriétaire du risque",
     "Le SOC",
-    "L'audit interne",
-    "Le propriétaire du risque"
+    "L'audit interne"
    ],
    "correct": [
-    2
+    3
    ],
    "explanation": "L'audit interne apporte une assurance indépendante à la direction sur l'efficacité des contrôles.",
    "whyNot": {
     "0": "Le dépositaire applique les mesures ; il ne peut pas s'auditer lui-même.",
-    "1": "Le SOC exploite des contrôles détectifs ; il n'est pas indépendant de leur fonctionnement.",
-    "3": "Le propriétaire décide du traitement de ses risques ; il n'est pas l'instance de vérification indépendante."
+    "1": "Le propriétaire décide du traitement de ses risques ; il n'est pas l'instance de vérification indépendante.",
+    "2": "Le SOC exploite des contrôles détectifs ; il n'est pas indépendant de leur fonctionnement."
    },
    "kind": "general"
   },
@@ -845,18 +845,18 @@
    "concept": "Gouvernance et management",
    "prompt": "Parmi ces activités, lesquelles relèvent de la gouvernance de la sécurité ? (2 réponses)",
    "choices": [
-    "Approuver la politique de sécurité de l'information",
     "Configurer les règles de corrélation du SIEM",
     "Suivre en comité de direction les risques majeurs et l'avancement du plan sécurité",
+    "Approuver la politique de sécurité de l'information",
     "Appliquer les correctifs mensuels sur les serveurs"
    ],
    "correct": [
-    0,
+    1,
     2
    ],
    "explanation": "Approuver la politique et superviser les risques et le plan d'action sont des activités de direction et de contrôle : de la gouvernance.",
    "whyNot": {
-    "1": "Configurer le SIEM est une activité opérationnelle (management, exploitation).",
+    "0": "Configurer le SIEM est une activité opérationnelle (management, exploitation).",
     "3": "Appliquer les correctifs est une tâche d'exploitation."
    },
    "kind": "general"
@@ -868,19 +868,19 @@
    "concept": "Référentiels de gouvernance",
    "prompt": "Quelle norme ISO traite spécifiquement de la gouvernance de la sécurité de l'information ?",
    "choices": [
-    "ISO/IEC 27014",
+    "ISO/IEC 27035",
     "ISO/IEC 27005",
     "ISO 22301",
-    "ISO/IEC 27035"
+    "ISO/IEC 27014"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "ISO/IEC 27014 donne les principes et processus de gouvernance de la sécurité de l'information.",
    "whyNot": {
+    "0": "ISO/IEC 27035 porte sur la gestion des incidents de sécurité.",
     "1": "ISO/IEC 27005 porte sur la gestion des risques de sécurité de l'information.",
-    "2": "ISO 22301 porte sur la continuité d'activité.",
-    "3": "ISO/IEC 27035 porte sur la gestion des incidents de sécurité."
+    "2": "ISO 22301 porte sur la continuité d'activité."
    },
    "kind": "general"
   },
@@ -891,19 +891,19 @@
    "concept": "Procédures approuvées",
    "prompt": "La nuit, le SOC confirme un rançongiciel actif sur un serveur critique. Qu'est-ce qui permet à l'analyste d'astreinte d'isoler le serveur sans attendre la direction ?",
    "choices": [
-    "Son niveau d'expertise technique",
+    "L'accord oral d'un collègue de l'équipe d'astreinte",
+    "Le contrat de maintenance signé avec le fournisseur du serveur",
     "Une procédure de réponse approuvée à l'avance par la direction",
-    "L'accord oral d'un collègue",
-    "Le contrat de maintenance du serveur"
+    "Son niveau d'expertise technique et son ancienneté"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "La gouvernance délègue à l'avance, dans une procédure approuvée, le pouvoir d'agir dans des cas définis. L'analyste peut ainsi agir vite et légitimement.",
    "whyNot": {
-    "0": "L'expertise ne donne pas l'autorité d'arrêter une activité métier.",
-    "2": "Un accord oral entre pairs ne constitue pas une délégation d'autorité.",
-    "3": "Le contrat de maintenance ne donne aucun pouvoir de décision sur l'activité."
+    "0": "Un accord oral entre pairs ne constitue pas une délégation d'autorité.",
+    "1": "Le contrat de maintenance ne donne aucun pouvoir de décision sur l'activité.",
+    "3": "L'expertise ne donne pas l'autorité d'arrêter une activité métier."
    },
    "kind": "example"
   },
@@ -937,19 +937,19 @@
    "concept": "Rôles sur les données",
    "prompt": "L'équipe informatique sauvegarde et restaure la base clients selon les règles fixées par le directeur commercial. Quel est son rôle ?",
    "choices": [
-    "Propriétaire",
     "Dépositaire (custodian)",
-    "Utilisateur",
-    "Auditeur"
+    "Propriétaire",
+    "Auditeur",
+    "Utilisateur"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "Le dépositaire applique au quotidien les mesures décidées par le propriétaire : sauvegardes, droits, chiffrement.",
    "whyNot": {
-    "0": "Le propriétaire est le directeur commercial, qui fixe les règles.",
-    "2": "L'utilisateur se sert des données pour son travail ; il ne les administre pas.",
-    "3": "L'auditeur vérifie de façon indépendante ; il n'opère pas les sauvegardes."
+    "1": "Le propriétaire est le directeur commercial, qui fixe les règles.",
+    "2": "L'auditeur vérifie de façon indépendante ; il n'opère pas les sauvegardes.",
+    "3": "L'utilisateur se sert des données pour son travail ; il ne les administre pas."
    },
    "kind": "general"
   },
@@ -960,10 +960,10 @@
    "concept": "Classification",
    "prompt": "Quel est le but principal d'une classification de l'information ?",
    "choices": [
-    "Ranger les fichiers par date de création",
+    "Ranger les fichiers par date de création et par service",
     "Appliquer à chaque information une protection proportionnée à son impact",
-    "Chiffrer toutes les données de l'entreprise",
-    "Réduire le nombre de serveurs"
+    "Réduire le nombre de serveurs et de partages de fichiers",
+    "Chiffrer toutes les données de l'entreprise de la même façon"
    ],
    "correct": [
     1
@@ -971,8 +971,8 @@
    "explanation": "La classification permet de protéger fortement ce qui est sensible sans alourdir inutilement le reste.",
    "whyNot": {
     "0": "La classification de sécurité ne porte pas sur l'organisation documentaire par date.",
-    "2": "Tout chiffrer n'est ni le but ni toujours pertinent ; le niveau détermine les mesures.",
-    "3": "La classification n'a pas pour objectif la réduction du parc."
+    "2": "La classification n'a pas pour objectif la réduction du parc.",
+    "3": "Tout chiffrer n'est ni le but ni toujours pertinent ; le niveau détermine les mesures."
    },
    "kind": "general"
   },
@@ -984,18 +984,18 @@
    "prompt": "Dans le schéma gouvernemental américain souvent cité à l'examen, quel est le niveau le plus élevé ?",
    "choices": [
     "Confidential",
-    "Secret",
     "Top Secret",
-    "Sensitive But Unclassified"
+    "Sensitive But Unclassified",
+    "Secret"
    ],
    "correct": [
-    2
+    1
    ],
    "explanation": "L'ordre est : Top Secret, Secret, Confidential, puis Sensitive But Unclassified et Unclassified.",
    "whyNot": {
     "0": "Confidential est le troisième niveau classifié.",
-    "1": "Secret est sous Top Secret.",
-    "3": "SBU est une information sensible mais non classifiée."
+    "2": "SBU est une information sensible mais non classifiée.",
+    "3": "Secret est sous Top Secret."
    },
    "kind": "general"
   },
@@ -1006,19 +1006,19 @@
    "concept": "Besoin d'en connaître",
    "prompt": "Un analyste habilité au niveau « Confidentiel » demande à lire le dossier d'enquête interne d'un collègue, classé « Confidentiel », par curiosité. Quel principe justifie un refus ?",
    "choices": [
-    "La séparation des tâches",
-    "Le besoin d'en connaître (need to know)",
-    "La rotation des postes",
-    "La due diligence"
+    "La rotation des postes (job rotation)",
+    "La séparation des tâches (separation of duties)",
+    "La diligence raisonnable (due diligence)",
+    "Le besoin d'en connaître (need to know)"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Le niveau d'habilitation suffit, mais l'accès doit aussi être nécessaire à la mission : c'est le besoin d'en connaître.",
    "whyNot": {
-    "0": "La séparation des tâches répartit une opération sensible entre plusieurs personnes.",
-    "2": "La rotation des postes concerne les changements de fonction.",
-    "3": "La due diligence concerne l'effort de connaissance des risques par l'organisation."
+    "0": "La rotation des postes concerne les changements de fonction.",
+    "1": "La séparation des tâches répartit une opération sensible entre plusieurs personnes.",
+    "2": "La due diligence concerne l'effort de connaissance des risques par l'organisation."
    },
    "kind": "general"
   },
@@ -1029,19 +1029,19 @@
    "concept": "Moindre privilège",
    "prompt": "Un stagiaire en marketing reçoit des droits d'administrateur sur son poste « pour gagner du temps ». Quel principe est violé ?",
    "choices": [
-    "Le moindre privilège",
-    "La due care",
     "La classification",
-    "La rotation des postes"
+    "La rotation des postes",
+    "La due care",
+    "Le moindre privilège"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "Le moindre privilège exige de n'accorder que les droits nécessaires à la mission. Un stagiaire marketing n'a pas besoin des droits d'administrateur.",
    "whyNot": {
-    "1": "La due care est un principe général de prudence de l'organisation ; le principe précis violé ici est le moindre privilège.",
-    "2": "La classification porte sur l'information, pas sur les droits d'un poste.",
-    "3": "La rotation des postes n'a aucun lien avec ce cas."
+    "0": "La classification porte sur l'information, pas sur les droits d'un poste.",
+    "1": "La rotation des postes n'a aucun lien avec ce cas.",
+    "2": "La due care est un principe général de prudence de l'organisation ; le principe précis violé ici est le moindre privilège."
    },
    "kind": "general"
   },
@@ -1052,19 +1052,19 @@
    "concept": "Rôles sur les données",
    "prompt": "Quelles sont les responsabilités du propriétaire des données ? (2 réponses)",
    "choices": [
+    "Configurer les ACL sur le serveur de fichiers",
     "Fixer la classification des informations",
     "Effectuer les sauvegardes quotidiennes",
-    "Approuver les demandes d'accès aux informations",
-    "Configurer les ACL sur le serveur de fichiers"
+    "Approuver les demandes d'accès aux informations"
    ],
    "correct": [
-    0,
-    2
+    1,
+    3
    ],
    "explanation": "Le propriétaire décide : classification et accès. Le dépositaire exécute : sauvegardes et configuration technique.",
    "whyNot": {
-    "1": "Les sauvegardes sont une tâche du dépositaire.",
-    "3": "La configuration des ACL est une tâche du dépositaire, selon les décisions du propriétaire."
+    "0": "La configuration des ACL est une tâche du dépositaire, selon les décisions du propriétaire.",
+    "2": "Les sauvegardes sont une tâche du dépositaire."
    },
    "kind": "general"
   },
@@ -1075,19 +1075,19 @@
    "concept": "Classification",
    "prompt": "Une information classée « Confidentiel » il y a 5 ans concerne un produit lancé publiquement depuis. Que faut-il faire ?",
    "choices": [
+    "La reclasser au niveau supérieur par prudence",
     "La laisser « Confidentiel » : une classification est définitive",
     "Demander au propriétaire de la reclasser à un niveau inférieur",
-    "La supprimer immédiatement",
-    "La reclasser au niveau supérieur par prudence"
+    "La supprimer immédiatement"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "La classification doit être revue périodiquement. Le propriétaire peut déclasser une information devenue publique, ce qui évite des protections coûteuses et inutiles.",
    "whyNot": {
-    "0": "Une classification n'est pas définitive : elle suit la valeur de l'information.",
-    "2": "La suppression dépend des règles de conservation, pas du déclassement.",
-    "3": "Surclasser sans raison alourdit les coûts et banalise les niveaux élevés."
+    "0": "Surclasser sans raison alourdit les coûts et banalise les niveaux élevés.",
+    "1": "Une classification n'est pas définitive : elle suit la valeur de l'information.",
+    "3": "La suppression dépend des règles de conservation, pas du déclassement."
    },
    "kind": "general"
   },
@@ -1098,10 +1098,10 @@
    "concept": "Classification et SOC",
    "prompt": "Pour un SOC, à quoi sert la classification des données touchées par un incident ?",
    "choices": [
-    "À choisir l'outil d'investigation",
+    "À choisir l'outil d'investigation le plus adapté",
     "À évaluer la gravité de l'incident et les obligations de notification",
-    "À désigner l'analyste qui traitera le ticket",
-    "À calculer la durée de rétention des journaux"
+    "À calculer la durée de rétention des journaux du SIEM",
+    "À désigner l'analyste qui traitera le ticket en priorité"
    ],
    "correct": [
     1
@@ -1109,8 +1109,8 @@
    "explanation": "Plus les données touchées sont sensibles, plus l'impact est fort ; la classification aide à fixer la gravité et à savoir s'il faut alerter la direction, le DPO ou une autorité.",
    "whyNot": {
     "0": "Le choix de l'outil dépend de la nature technique de l'incident, pas de la classification.",
-    "2": "L'affectation d'un analyste dépend surtout de la gravité et de la disponibilité ; la classification alimente la gravité mais ne désigne personne.",
-    "3": "La rétention des journaux est fixée par une politique distincte."
+    "2": "La rétention des journaux est fixée par une politique distincte.",
+    "3": "L'affectation d'un analyste dépend surtout de la gravité et de la disponibilité ; la classification alimente la gravité mais ne désigne personne."
    },
    "kind": "example"
   },
@@ -1122,18 +1122,18 @@
    "prompt": "Depuis la réforme de 2021, combien de niveaux compte la classification du secret de la défense nationale en France ?",
    "choices": [
     "Un",
-    "Deux : Secret et Très Secret",
     "Trois : Confidentiel défense, Secret, Très Secret",
-    "Quatre"
+    "Quatre",
+    "Deux : Secret et Très Secret"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Depuis le 1er juillet 2021, le niveau « Confidentiel défense » a été supprimé ; il reste Secret et Très Secret.",
    "whyNot": {
     "0": "Il existe deux niveaux, pas un seul.",
-    "2": "C'était l'organisation antérieure à la réforme de 2021.",
-    "3": "La France n'a jamais compté quatre niveaux de secret de la défense nationale dans ce régime."
+    "1": "C'était l'organisation antérieure à la réforme de 2021.",
+    "2": "La France n'a jamais compté quatre niveaux de secret de la défense nationale dans ce régime."
    },
    "kind": "general"
   },
@@ -1144,19 +1144,19 @@
    "concept": "Séparation des tâches",
    "prompt": "Dans un ERP, la personne qui crée un nouveau fournisseur ne peut pas valider son premier paiement. Quel principe est appliqué ?",
    "choices": [
+    "Le besoin d'en connaître",
     "La rotation des postes",
-    "La séparation des tâches",
     "Les congés obligatoires",
-    "Le besoin d'en connaître"
+    "La séparation des tâches"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Répartir une opération sensible entre deux personnes empêche une fraude par une personne seule : c'est la séparation des tâches.",
    "whyNot": {
-    "0": "La rotation fait changer les personnes de poste dans le temps.",
-    "2": "Les congés obligatoires imposent une absence pour détecter une fraude.",
-    "3": "Le besoin d'en connaître limite l'accès à une information."
+    "0": "Le besoin d'en connaître limite l'accès à une information.",
+    "1": "La rotation fait changer les personnes de poste dans le temps.",
+    "2": "Les congés obligatoires imposent une absence pour détecter une fraude."
    },
    "kind": "general"
   },
@@ -1167,19 +1167,19 @@
    "concept": "Congés obligatoires",
    "prompt": "Quel est l'objectif principal, du point de vue de la sécurité, d'imposer deux semaines de congés consécutifs aux comptables ?",
    "choices": [
-    "Améliorer leur productivité",
+    "Réduire les coûts salariaux en période de faible activité",
+    "Respecter le principe de séparation des tâches",
     "Permettre à un remplaçant de découvrir une éventuelle fraude",
-    "Réduire les coûts salariaux",
-    "Respecter la séparation des tâches"
+    "Améliorer leur productivité au retour de congés"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Pendant l'absence, un remplaçant traite les dossiers : une fraude qui nécessitait une intervention quotidienne risque d'apparaître. C'est un contrôle détectif.",
    "whyNot": {
-    "0": "Le bien-être est un bénéfice annexe, pas l'objectif de sécurité.",
-    "2": "Ce n'est pas une mesure de réduction de coûts.",
-    "3": "La séparation des tâches est un principe différent : elle répartit une opération entre plusieurs personnes."
+    "0": "Ce n'est pas une mesure de réduction de coûts.",
+    "1": "La séparation des tâches est un principe différent : elle répartit une opération entre plusieurs personnes.",
+    "3": "Le bien-être est un bénéfice annexe, pas l'objectif de sécurité."
    },
    "kind": "general"
   },
@@ -1190,19 +1190,19 @@
    "concept": "Séparation des tâches",
    "prompt": "Quelle situation permet de contourner la séparation des tâches ?",
    "choices": [
-    "La rotation des postes",
     "La collusion entre deux personnes",
-    "Le chiffrement des données",
-    "Une campagne de sensibilisation"
+    "Une campagne de sensibilisation",
+    "La rotation des postes",
+    "Le chiffrement des données"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "Si les deux personnes qui doivent intervenir s'entendent, la séparation des tâches ne protège plus : c'est la collusion.",
    "whyNot": {
-    "0": "La rotation aide plutôt à détecter une collusion durable.",
-    "2": "Le chiffrement n'a pas d'effet sur la séparation des tâches.",
-    "3": "La sensibilisation ne contourne pas la mesure."
+    "1": "La sensibilisation ne contourne pas la mesure.",
+    "2": "La rotation aide plutôt à détecter une collusion durable.",
+    "3": "Le chiffrement n'a pas d'effet sur la séparation des tâches."
    },
    "kind": "general"
   },
@@ -1213,19 +1213,19 @@
    "concept": "Cycle de vie du salarié",
    "prompt": "Un salarié quitte l'entreprise vendredi. Quelle mesure est la plus urgente ?",
    "choices": [
-    "Lui faire remplir une enquête de satisfaction",
     "Désactiver ses comptes et accès dès son départ",
     "Archiver ses courriels dans six mois",
-    "Lui envoyer la politique de sécurité"
+    "Lui envoyer la politique de sécurité",
+    "Lui faire remplir une enquête de satisfaction"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "Un compte resté actif après un départ (compte orphelin) est une porte d'entrée classique. La désactivation doit être immédiate.",
    "whyNot": {
-    "0": "Une enquête RH n'a pas d'effet sur le risque d'accès.",
-    "2": "L'archivage relève de la conservation, pas de la protection contre l'accès.",
-    "3": "La politique doit être connue avant, pendant l'emploi ; au départ, on rappelle plutôt les obligations de confidentialité."
+    "1": "L'archivage relève de la conservation, pas de la protection contre l'accès.",
+    "2": "La politique doit être connue avant, pendant l'emploi ; au départ, on rappelle plutôt les obligations de confidentialité.",
+    "3": "Une enquête RH n'a pas d'effet sur le risque d'accès."
    },
    "kind": "general"
   },
@@ -1237,18 +1237,18 @@
    "prompt": "Une campagne d'hameçonnage simulé envoyée à tout le personnel est un exemple de :",
    "choices": [
     "Formation (training)",
-    "Sensibilisation (awareness)",
     "Éducation (education)",
-    "Contrôle correctif"
+    "Contrôle correctif",
+    "Sensibilisation (awareness)"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Elle vise tout le personnel et cherche à changer des comportements : c'est de la sensibilisation.",
    "whyNot": {
     "0": "La formation donne une compétence liée à un poste, par exemple un atelier SIEM pour les analystes.",
-    "2": "L'éducation approfondit la compréhension sur la durée, par exemple un cursus diplômant.",
-    "3": "Ce n'est pas une mesure qui répare un incident."
+    "1": "L'éducation approfondit la compréhension sur la durée, par exemple un cursus diplômant.",
+    "2": "Ce n'est pas une mesure qui répare un incident."
    },
    "kind": "general"
   },
@@ -1259,9 +1259,9 @@
    "concept": "Indicateurs",
    "prompt": "« Nombre de serveurs exposés sur Internet avec un correctif critique manquant depuis plus de 30 jours ». De quel type d'indicateur s'agit-il ?",
    "choices": [
-    "KPI",
-    "KRI",
     "SLA",
+    "KRI",
+    "KPI",
     "RTO"
    ],
    "correct": [
@@ -1269,8 +1269,8 @@
    ],
    "explanation": "Cet indicateur signale l'augmentation d'une exposition, avant l'incident : c'est un indicateur de risque (KRI).",
    "whyNot": {
-    "0": "Un KPI mesure la performance d'un processus, par exemple le délai moyen de correction.",
-    "2": "Un SLA est un engagement de niveau de service contractuel.",
+    "0": "Un SLA est un engagement de niveau de service contractuel.",
+    "2": "Un KPI mesure la performance d'un processus, par exemple le délai moyen de correction.",
     "3": "Le RTO est la durée maximale d'interruption admissible, en continuité d'activité."
    },
    "kind": "general"
@@ -1282,18 +1282,18 @@
    "concept": "Indicateurs",
    "prompt": "Quels indicateurs mesurent la performance du SOC (KPI) ? (2 réponses)",
    "choices": [
-    "Délai moyen de détection d'un incident (MTTD)",
     "Nombre de comptes à privilèges sans MFA",
+    "Délai moyen de détection d'un incident (MTTD)",
     "Délai moyen de résolution d'un incident (MTTR)",
     "Nombre de fournisseurs critiques non évalués"
    ],
    "correct": [
-    0,
+    1,
     2
    ],
    "explanation": "MTTD et MTTR mesurent l'efficacité du processus de détection et de réponse : ce sont des KPI du SOC.",
    "whyNot": {
-    "1": "Ce nombre signale une exposition au risque : c'est plutôt un KRI.",
+    "0": "Ce nombre signale une exposition au risque : c'est plutôt un KRI.",
     "3": "Ce nombre mesure une exposition liée aux tiers : c'est plutôt un KRI."
    },
    "kind": "general"
@@ -1305,19 +1305,19 @@
    "concept": "Rotation des postes",
    "prompt": "En plus de la détection de fraudes, quel bénéfice apporte la rotation des postes ?",
    "choices": [
-    "Elle supprime le besoin de journalisation",
+    "Elle permet de réduire à zéro les habilitations de chaque employé",
     "Elle réduit la dépendance à une seule personne pour une tâche critique",
-    "Elle remplace la séparation des tâches",
-    "Elle permet de réduire les habilitations à zéro"
+    "Elle supprime le besoin de journaliser les actions des employés",
+    "Elle remplace la séparation des tâches dans les processus sensibles"
    ],
    "correct": [
     1
    ],
    "explanation": "Plusieurs personnes savent faire une tâche critique : l'organisation dépend moins d'un seul expert.",
    "whyNot": {
-    "0": "La journalisation reste nécessaire pour tracer les actions.",
-    "2": "La rotation complète la séparation des tâches ; elle ne la remplace pas.",
-    "3": "Les personnes gardent les habilitations nécessaires à leur poste du moment."
+    "0": "Les personnes gardent les habilitations nécessaires à leur poste du moment.",
+    "2": "La journalisation reste nécessaire pour tracer les actions.",
+    "3": "La rotation complète la séparation des tâches ; elle ne la remplace pas."
    },
    "kind": "general"
   },
@@ -1328,19 +1328,19 @@
    "concept": "Cycle de vie du salarié",
    "prompt": "Un salarié a changé trois fois de service en cinq ans et a gardé tous ses anciens droits. Comment appelle-t-on ce phénomène et quelle mesure le prévient ?",
    "choices": [
-    "Collusion ; congés obligatoires",
-    "Accumulation de privilèges (privilege creep) ; revue périodique des droits et retrait à chaque mobilité",
-    "Escalade de privilèges ; antivirus",
-    "Usurpation d'identité ; MFA"
+    "Usurpation d'identité ; authentification multifacteur (MFA)",
+    "Escalade de privilèges ; antivirus et correctifs sur son poste",
+    "Accumulation de privilèges ; revue des droits à chaque mobilité",
+    "Collusion ; congés obligatoires et rotation des postes"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Les droits s'accumulent au fil des mobilités. On le prévient en retirant les droits inutiles à chaque changement de poste et en revoyant les droits régulièrement.",
    "whyNot": {
-    "0": "La collusion est une entente entre personnes ; ce n'est pas le cas ici.",
-    "2": "L'escalade de privilèges est une technique d'attaque ; ici les droits ont été accordés légitimement puis jamais retirés.",
-    "3": "Il n'y a pas d'usurpation : c'est bien le salarié qui détient les droits."
+    "0": "Il n'y a pas d'usurpation : c'est bien le salarié qui détient les droits.",
+    "1": "L'escalade de privilèges est une technique d'attaque ; ici les droits ont été accordés légitimement puis jamais retirés.",
+    "3": "La collusion est une entente entre personnes ; ce n'est pas le cas ici."
    },
    "kind": "general"
   },
@@ -1351,18 +1351,18 @@
    "concept": "Cycle de vie du salarié",
    "prompt": "À quel moment fait-on signer une clause de confidentialité (NDA) à un nouveau salarié ?",
    "choices": [
-    "Après son premier incident",
+    "Uniquement à son départ de l'entreprise",
+    "Après son premier incident de sécurité",
     "À son arrivée, avant l'accès aux informations sensibles",
-    "Uniquement à son départ",
-    "Seulement s'il travaille au SOC"
+    "Seulement s'il travaille au SOC ou à la DSI"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "L'engagement de confidentialité se signe à l'arrivée, avant que la personne n'accède à des informations sensibles.",
    "whyNot": {
-    "0": "Attendre un incident, c'est trop tard.",
-    "2": "Au départ, on rappelle les obligations ; elles doivent exister avant.",
+    "0": "Au départ, on rappelle les obligations ; elles doivent exister avant.",
+    "1": "Attendre un incident, c'est trop tard.",
     "3": "Toute personne qui accède à des informations sensibles est concernée, pas seulement le SOC."
    },
    "kind": "general"

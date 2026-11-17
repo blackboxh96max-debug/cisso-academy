@@ -22,7 +22,7 @@ Elle fonctionne **entièrement hors ligne** sur Android et Windows : cours, QCM,
 | Menu Révisions : flashcards, fiches et cartes mentales par chapitre ou par module, export PDF | ✅ |
 | Préparation examen : les questions de ta formation, par séance ou par chapitre, en anglais et en français (entraînement, fiche, PDF), gardées à part des statistiques | ✅ |
 | Suivi des erreurs par notion et par domaine officiel | ✅ |
-| Contenu : les 5 modules et leurs 17 chapitres (504 questions) | ✅ rédigé, relecture en cours |
+| Contenu : les 5 modules et leurs 17 chapitres (504 questions relues) | ✅ |
 
 Le détail de ce qui est fait, testé et prévu se trouve dans [PROJECT_STATUS.md](PROJECT_STATUS.md).
 

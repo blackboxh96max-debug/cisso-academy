@@ -778,18 +778,18 @@
    "concept": "Vulnérabilité",
    "prompt": "Qu'est-ce qu'une vulnérabilité ?",
    "choices": [
-    "Une personne malveillante",
+    "Le montant d'une perte annuelle attendue",
     "Une faiblesse exploitable dans un système ou un processus",
-    "Le montant d'une perte annuelle",
-    "Un correctif publié par l'éditeur"
+    "Une personne malveillante qui cherche à nuire",
+    "Un correctif publié par l'éditeur du logiciel"
    ],
    "correct": [
     1
    ],
    "explanation": "La vulnérabilité est la faiblesse ; la menace est ce qui peut l'exploiter.",
    "whyNot": {
-    "0": "Une personne malveillante est une source de menace.",
-    "2": "C'est une mesure financière du risque (ALE).",
+    "0": "C'est une mesure financière du risque (ALE).",
+    "2": "Une personne malveillante est une source de menace.",
     "3": "Le correctif sert à supprimer la vulnérabilité."
    },
    "kind": "general"
@@ -801,19 +801,19 @@
    "concept": "CVE",
    "prompt": "À quoi sert un identifiant CVE ?",
    "choices": [
-    "À noter la gravité d'une faille",
+    "À classer les grands types de faiblesses",
     "À désigner de façon unique une vulnérabilité précise",
-    "À classer les types de faiblesses",
-    "À chiffrer les rapports de scan"
+    "À chiffrer les rapports de scan échangés",
+    "À noter la gravité technique d'une faille"
    ],
    "correct": [
     1
    ],
    "explanation": "Un CVE (CVE-année-numéro) permet à tous de parler de la même vulnérabilité.",
    "whyNot": {
-    "0": "La gravité est donnée par le CVSS.",
-    "2": "Les types de faiblesses sont classés par la CWE.",
-    "3": "Le CVE n'a aucun rôle de chiffrement."
+    "0": "Les types de faiblesses sont classés par la CWE.",
+    "2": "Le CVE n'a aucun rôle de chiffrement.",
+    "3": "La gravité est donnée par le CVSS."
    },
    "kind": "general"
   },
@@ -824,19 +824,19 @@
    "concept": "CWE",
    "prompt": "« Injection SQL » correspond à quelle notion ?",
    "choices": [
-    "Un identifiant CVE",
     "Un type de faiblesse référencé dans la CWE",
-    "Un score CVSS",
-    "Une entrée du catalogue KEV"
+    "Une entrée du catalogue KEV de la CISA",
+    "Un score CVSS de gravité technique",
+    "Un identifiant CVE attribué à un produit"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "La CWE classe les familles de faiblesses ; une CVE est un cas concret dans un produit donné.",
    "whyNot": {
-    "0": "Une CVE désigne une faille précise dans un produit, pas une famille.",
+    "1": "Le KEV liste des CVE exploitées, pas des types de faiblesses.",
     "2": "Le CVSS est un score numérique.",
-    "3": "Le KEV liste des CVE exploitées, pas des types de faiblesses."
+    "3": "Une CVE désigne une faille précise dans un produit, pas une famille."
    },
    "kind": "general"
   },
@@ -848,18 +848,18 @@
    "prompt": "Avec le CVSS v3.1, quelle gravité correspond à un score de 9,1 ?",
    "choices": [
     "Moyenne",
+    "Faible",
     "Élevée",
-    "Critique",
-    "Faible"
+    "Critique"
    ],
    "correct": [
-    2
+    3
    ],
    "explanation": "9,0 à 10,0 = critique ; 7,0 à 8,9 = élevée ; 4,0 à 6,9 = moyenne ; 0,1 à 3,9 = faible.",
    "whyNot": {
     "0": "Moyenne va de 4,0 à 6,9.",
-    "1": "Élevée va de 7,0 à 8,9.",
-    "3": "Faible va de 0,1 à 3,9."
+    "1": "Faible va de 0,1 à 3,9.",
+    "2": "Élevée va de 7,0 à 8,9."
    },
    "kind": "general"
   },
@@ -870,19 +870,19 @@
    "concept": "CVSS",
    "prompt": "Pourquoi le score CVSS de base ne suffit-il pas à prioriser une correction ?",
    "choices": [
-    "Il est secret",
-    "Il ne tient compte ni de l'exposition, ni de la criticité de l'actif, ni d'une exploitation réelle",
-    "Il ne s'applique qu'aux mots de passe",
-    "Il change chaque jour"
+    "Il change chaque jour et n'est donc pas assez stable pour décider",
+    "Il ignore l'exposition, la criticité de l'actif et l'exploitation réelle",
+    "Il est confidentiel et réservé à l'éditeur du logiciel concerné",
+    "Il ne s'applique qu'aux vulnérabilités liées aux mots de passe"
    ],
    "correct": [
     1
    ],
    "explanation": "Le CVSS de base mesure la gravité technique ; la priorité dépend aussi du contexte de l'entreprise et de la menace réelle.",
    "whyNot": {
-    "0": "Les scores CVSS sont publics.",
-    "2": "Le CVSS s'applique à tout type de vulnérabilité logicielle.",
-    "3": "Le score de base est stable ; ce n'est pas le problème."
+    "0": "Le score de base est stable ; ce n'est pas le problème.",
+    "2": "Les scores CVSS sont publics.",
+    "3": "Le CVSS s'applique à tout type de vulnérabilité logicielle."
    },
    "kind": "general"
   },
@@ -893,19 +893,19 @@
    "concept": "KEV",
    "prompt": "Que contient le catalogue KEV publié par la CISA ?",
    "choices": [
-    "Toutes les vulnérabilités connues",
-    "Les vulnérabilités dont l'exploitation réelle est confirmée",
-    "Les correctifs Microsoft",
-    "Les mots de passe par défaut"
+    "Les correctifs mensuels publiés par Microsoft",
+    "Les mots de passe par défaut des équipements réseau",
+    "Toutes les vulnérabilités publiées dans le monde",
+    "Les vulnérabilités dont l'exploitation réelle est confirmée"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "KEV = Known Exploited Vulnerabilities : des failles déjà exploitées, donc prioritaires.",
    "whyNot": {
-    "0": "Ce serait la NVD ; le KEV n'en retient qu'une petite partie.",
-    "2": "Le KEV couvre tous les éditeurs et ne distribue pas de correctifs.",
-    "3": "Ce n'est pas une liste de mots de passe."
+    "0": "Le KEV couvre tous les éditeurs et ne distribue pas de correctifs.",
+    "1": "Ce n'est pas une liste de mots de passe.",
+    "2": "Ce serait la NVD ; le KEV n'en retient qu'une petite partie."
    },
    "kind": "general"
   },
@@ -916,19 +916,19 @@
    "concept": "EPSS",
    "prompt": "Que mesure le score EPSS ?",
    "choices": [
-    "La gravité technique d'une faille",
+    "Le nombre d'actifs du parc concernés par la faille",
     "La probabilité estimée qu'une CVE soit exploitée dans les 30 prochains jours",
-    "Le temps moyen de correction",
-    "Le nombre d'actifs concernés"
+    "Le temps moyen de correction d'une faille dans l'entreprise",
+    "La gravité technique d'une faille, de 0 à 10"
    ],
    "correct": [
     1
    ],
    "explanation": "L'EPSS, publié par le FIRST, complète le CVSS par une estimation de la probabilité d'exploitation.",
    "whyNot": {
-    "0": "La gravité technique est mesurée par le CVSS.",
+    "0": "L'EPSS ne connaît pas votre parc.",
     "2": "Le délai de correction est un indicateur interne.",
-    "3": "L'EPSS ne connaît pas votre parc."
+    "3": "La gravité technique est mesurée par le CVSS."
    },
    "kind": "general"
   },
@@ -939,19 +939,19 @@
    "concept": "Types de scans",
    "prompt": "Quel est l'avantage principal d'un scan authentifié ?",
    "choices": [
+    "Il ne demande aucune autorisation du propriétaire des systèmes",
+    "Il remplace un test d'intrusion manuel et ciblé",
     "Il voit les versions réellement installées et produit moins de faux positifs",
-    "Il ne demande aucune autorisation",
-    "Il est invisible pour le SOC",
-    "Il remplace le test d'intrusion"
+    "Il est invisible pour le SOC et ne laisse aucune trace"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Connecté au système, le scanner lit les versions et configurations au lieu de les deviner depuis le réseau.",
    "whyNot": {
-    "1": "Tout scan doit être autorisé.",
-    "2": "Un scan doit être connu du SOC, pas caché.",
-    "3": "Il liste les failles mais ne les exploite pas."
+    "0": "Tout scan doit être autorisé.",
+    "1": "Il liste les failles mais ne les exploite pas.",
+    "3": "Un scan doit être connu du SOC, pas caché."
    },
    "kind": "general"
   },
@@ -962,19 +962,19 @@
    "concept": "Cadre légal des scans",
    "prompt": "Avant de lancer un scan de vulnérabilités, quels éléments sont indispensables ? (2 réponses)",
    "choices": [
-    "Une autorisation écrite du propriétaire des systèmes",
     "Un périmètre et des horaires définis",
+    "La désactivation du SIEM pendant le scan",
     "L'accord de l'éditeur du scanner",
-    "La désactivation du SIEM pendant le scan"
+    "Une autorisation écrite du propriétaire des systèmes"
    ],
    "correct": [
     0,
-    1
+    3
    ],
    "explanation": "Le scan est autorisé, borné et planifié ; le SOC est prévenu pour ne pas confondre le scan avec une attaque.",
    "whyNot": {
-    "2": "L'éditeur du scanner n'a pas à autoriser vos scans.",
-    "3": "On prévient le SOC, on ne désactive pas la surveillance."
+    "1": "On prévient le SOC, on ne désactive pas la surveillance.",
+    "2": "L'éditeur du scanner n'a pas à autoriser vos scans."
    },
    "kind": "practice"
   },
@@ -985,19 +985,19 @@
    "concept": "Scan et test d'intrusion",
    "prompt": "Quelle est la différence principale entre un scan de vulnérabilités et un test d'intrusion ?",
    "choices": [
-    "Le scan liste les failles connues ; le test d'intrusion tente de les exploiter pour prouver l'impact",
-    "Il n'y a aucune différence",
-    "Le scan est toujours manuel",
-    "Le test d'intrusion ne nécessite pas d'autorisation"
+    "Il n'y a aucune différence : ce sont deux noms pour la même activité",
+    "Le test d'intrusion, contrairement au scan, ne nécessite pas d'autorisation",
+    "Le scan liste les failles ; le test d'intrusion les exploite",
+    "Le scan est toujours manuel, le test d'intrusion toujours automatisé"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Le scan est automatisé et large ; le test d'intrusion est manuel, ciblé et démontre l'exploitation.",
    "whyNot": {
-    "1": "Les objectifs et méthodes diffèrent.",
-    "2": "Le scan est généralement automatisé.",
-    "3": "Le test d'intrusion exige une autorisation écrite."
+    "0": "Les objectifs et méthodes diffèrent.",
+    "1": "Le test d'intrusion exige une autorisation écrite.",
+    "3": "Le scan est généralement automatisé."
    },
    "kind": "general"
   },
@@ -1008,19 +1008,19 @@
    "concept": "Cycle de gestion",
    "prompt": "Quelle étape suit la correction dans le cycle de gestion des vulnérabilités ?",
    "choices": [
-    "La découverte",
-    "La vérification par un nouveau scan",
     "L'achat d'un nouveau scanner",
-    "La suppression des journaux"
+    "La vérification par un nouveau scan",
+    "La suppression des journaux",
+    "La découverte"
    ],
    "correct": [
     1
    ],
    "explanation": "On vérifie que la correction est effective avant de clôturer.",
    "whyNot": {
-    "0": "La découverte ouvre le cycle.",
-    "2": "Changer d'outil n'est pas une étape du cycle.",
-    "3": "Les journaux sont conservés."
+    "0": "Changer d'outil n'est pas une étape du cycle.",
+    "2": "Les journaux sont conservés.",
+    "3": "La découverte ouvre le cycle."
    },
    "kind": "general"
   },
@@ -1031,19 +1031,19 @@
    "concept": "Priorisation",
    "prompt": "Quelle vulnérabilité traiter EN PREMIER ?",
    "choices": [
-    "CVSS 9,8 sur un poste de test isolé, sans exploit connu",
-    "CVSS 8,1 sur une passerelle VPN exposée à Internet, listée dans le KEV",
     "CVSS 5,0 sur une imprimante interne",
-    "CVSS 3,1 sur un serveur de développement"
+    "CVSS 8,1 sur une passerelle VPN exposée à Internet, listée dans le KEV",
+    "CVSS 3,1 sur un serveur de développement",
+    "CVSS 9,8 sur un poste de test isolé, sans exploit connu"
    ],
    "correct": [
     1
    ],
    "explanation": "Une faille exploitée activement sur un actif exposé présente le risque le plus élevé, même si son score est un peu plus bas.",
    "whyNot": {
-    "0": "Score élevé, mais actif isolé et pas d'exploitation : risque plus faible.",
-    "2": "Gravité moyenne sur un actif interne peu critique.",
-    "3": "Gravité faible."
+    "0": "Gravité moyenne sur un actif interne peu critique.",
+    "2": "Gravité faible.",
+    "3": "Score élevé, mais actif isolé et pas d'exploitation : risque plus faible."
    },
    "kind": "example"
   },
@@ -1054,19 +1054,19 @@
    "concept": "Priorisation",
    "prompt": "Quels critères, en plus du CVSS, entrent dans une priorisation fondée sur le risque ? (2 réponses)",
    "choices": [
-    "L'exposition de l'actif (Internet, segment peu protégé)",
     "La preuve ou la probabilité d'exploitation (KEV, EPSS)",
-    "La couleur de l'interface du scanner",
-    "Le nombre de lettres du nom du serveur"
+    "Le nombre de lettres du nom du serveur",
+    "L'exposition de l'actif (Internet, segment peu protégé)",
+    "La couleur de l'interface du scanner"
    ],
    "correct": [
     0,
-    1
+    2
    ],
    "explanation": "Exposition, exploitation et criticité de l'actif transforment un score technique en priorité.",
    "whyNot": {
-    "2": "L'interface n'a aucun lien avec le risque.",
-    "3": "Le nom d'un serveur n'a aucun lien avec le risque."
+    "1": "Le nom d'un serveur n'a aucun lien avec le risque.",
+    "3": "L'interface n'a aucun lien avec le risque."
    },
    "kind": "general"
   },
@@ -1077,19 +1077,19 @@
    "concept": "Patch virtuel",
    "prompt": "Qu'est-ce qu'un patch virtuel ?",
    "choices": [
-    "Un correctif téléchargé depuis un site non officiel",
-    "Une règle placée devant le système (WAF, IPS) qui bloque l'exploitation sans modifier le système",
-    "Un correctif installé dans une machine virtuelle",
-    "Une exception accordée sans date"
+    "Un correctif installé seulement dans une machine virtuelle",
+    "Une exception de correction accordée sans date de fin",
+    "Une règle WAF ou IPS qui bloque l'exploitation sans toucher au système",
+    "Un correctif téléchargé depuis un site non officiel"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Le patch virtuel est une mesure compensatoire temporaire en attendant la vraie correction.",
    "whyNot": {
-    "0": "C'est un risque, pas une mesure de sécurité.",
-    "2": "Le mot « virtuel » ne désigne pas la virtualisation ici.",
-    "3": "Une exception sans date est une mauvaise pratique."
+    "0": "Le mot « virtuel » ne désigne pas la virtualisation ici.",
+    "1": "Une exception sans date est une mauvaise pratique.",
+    "3": "C'est un risque, pas une mesure de sécurité."
    },
    "kind": "general"
   },
@@ -1100,19 +1100,19 @@
    "concept": "Exception",
    "prompt": "Qui doit approuver une exception de correction pour une vulnérabilité critique ?",
    "choices": [
-    "L'analyste qui a trouvé la faille",
     "Le propriétaire du risque (métier) avec l'avis de la sécurité",
-    "Le fournisseur du scanner",
-    "N'importe quel administrateur système"
+    "Le fournisseur du scanner de vulnérabilités",
+    "N'importe quel administrateur système de l'équipe",
+    "L'analyste qui a trouvé la faille lors du scan"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "Accepter un risque relève de la personne qui en porte la responsabilité, informée par la sécurité.",
    "whyNot": {
-    "0": "L'analyste signale, il ne décide pas d'accepter le risque.",
-    "2": "Le fournisseur n'a aucune autorité sur vos risques.",
-    "3": "L'administrateur applique, il ne porte pas le risque métier."
+    "1": "Le fournisseur n'a aucune autorité sur vos risques.",
+    "2": "L'administrateur applique, il ne porte pas le risque métier.",
+    "3": "L'analyste signale, il ne décide pas d'accepter le risque."
    },
    "kind": "general"
   },
@@ -1123,19 +1123,19 @@
    "concept": "Exception",
    "prompt": "Quels éléments une exception de correction bien gérée doit-elle comporter ? (2 réponses)",
    "choices": [
-    "Des mesures compensatoires",
     "Une date d'échéance ou de revue",
+    "L'arrêt des scans sur cet actif",
     "La suppression de l'actif de l'inventaire",
-    "L'arrêt des scans sur cet actif"
+    "Des mesures compensatoires"
    ],
    "correct": [
     0,
-    1
+    3
    ],
    "explanation": "L'exception est justifiée, compensée et limitée dans le temps.",
    "whyNot": {
-    "2": "Retirer l'actif de l'inventaire le rendrait invisible.",
-    "3": "On continue de scanner pour suivre le risque."
+    "1": "On continue de scanner pour suivre le risque.",
+    "2": "Retirer l'actif de l'inventaire le rendrait invisible."
    },
    "kind": "practice"
   },
@@ -1146,19 +1146,19 @@
    "concept": "Options de traitement",
    "prompt": "Un ancien serveur oublié n'a plus aucun usage et porte des vulnérabilités critiques. Quelle est la meilleure option ?",
    "choices": [
-    "L'accepter",
-    "Le retirer du service",
+    "Augmenter son score CVSS",
     "Le cacher dans un autre réseau sans le dire",
-    "Augmenter son score CVSS"
+    "Le retirer du service",
+    "L'accepter"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Un système inutile se retire : c'est la façon la plus sûre et la moins coûteuse de supprimer le risque.",
    "whyNot": {
-    "0": "Accepter un risque inutile n'a pas de sens.",
-    "2": "Un système caché et non géré reste un risque.",
-    "3": "Le score ne change rien au risque."
+    "0": "Le score ne change rien au risque.",
+    "1": "Un système caché et non géré reste un risque.",
+    "3": "Accepter un risque inutile n'a pas de sens."
    },
    "kind": "practice"
   },
@@ -1169,18 +1169,18 @@
    "concept": "Indicateurs",
    "prompt": "Quel indicateur révèle le mieux un retard dangereux dans la correction ?",
    "choices": [
-    "Le nombre total de vulnérabilités trouvées",
+    "Le nombre total de vulnérabilités trouvées par les scans",
+    "Le nombre de scanners achetés et déployés dans l'année",
     "La part des vulnérabilités critiques non corrigées dans le délai fixé",
-    "Le nombre de scanners achetés",
-    "La taille des rapports de scan"
+    "La taille moyenne des rapports de scan transmis aux équipes"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Le dépassement des délais sur les failles critiques mesure le risque réellement laissé ouvert.",
    "whyNot": {
     "0": "Le total dépend surtout de la taille du parc et de la couverture.",
-    "2": "Le nombre d'outils n'est pas un résultat.",
+    "1": "Le nombre d'outils n'est pas un résultat.",
     "3": "La taille d'un rapport n'est pas un indicateur de risque."
    },
    "kind": "general"
@@ -1192,18 +1192,18 @@
    "concept": "Faux positifs",
    "prompt": "Le scanner signale une faille critique sur un serveur, mais l'équipe affirme avoir appliqué un correctif rétroporté par l'éditeur sans changer le numéro de version. Que faire ?",
    "choices": [
-    "Clôturer sans vérifier",
-    "Vérifier la présence du correctif (scan authentifié, version du paquet, avis éditeur) avant de marquer un faux positif",
-    "Supprimer la règle du scanner pour tous les serveurs",
-    "Réinstaller le serveur immédiatement"
+    "Clôturer l'alerte sans vérifier, puisque l'équipe l'affirme",
+    "Supprimer la règle de détection du scanner pour tous les serveurs du parc",
+    "Vérifier la présence du correctif avant de conclure à un faux positif",
+    "Réinstaller le serveur immédiatement depuis une image neuve"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Un faux positif se démontre avec des preuves ; on documente puis on ajuste.",
    "whyNot": {
     "0": "Clôturer sans preuve peut laisser une vraie faille ouverte.",
-    "2": "Supprimer la règle partout masquerait de vrais cas.",
+    "1": "Supprimer la règle partout masquerait de vrais cas.",
     "3": "Réinstaller est disproportionné avant d'avoir vérifié."
    },
    "kind": "example"
@@ -1215,19 +1215,19 @@
    "concept": "Inventaire",
    "prompt": "Sur quoi repose tout programme de gestion des vulnérabilités ?",
    "choices": [
-    "Sur un inventaire à jour des actifs",
+    "Sur la confiance envers les éditeurs",
     "Sur un seul scan annuel",
-    "Sur l'achat d'un pare-feu",
-    "Sur la confiance envers les éditeurs"
+    "Sur un inventaire à jour des actifs",
+    "Sur l'achat d'un pare-feu"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "On ne peut ni scanner ni corriger un actif qu'on ne connaît pas.",
    "whyNot": {
+    "0": "La confiance ne remplace pas la vérification.",
     "1": "Un scan annuel laisse des mois de failles invisibles.",
-    "2": "Un pare-feu ne remplace pas la gestion des vulnérabilités.",
-    "3": "La confiance ne remplace pas la vérification."
+    "3": "Un pare-feu ne remplace pas la gestion des vulnérabilités."
    },
    "kind": "general"
   },
@@ -1238,17 +1238,17 @@
    "concept": "Gestion des correctifs",
    "prompt": "Pourquoi tester un correctif avant de le déployer sur tout le parc ?",
    "choices": [
-    "Pour vérifier qu'il ne casse pas un service critique",
     "Parce que les correctifs sont toujours malveillants",
+    "Pour vérifier qu'il ne casse pas un service critique",
     "Pour retarder la correction le plus possible",
     "Parce que la loi interdit les correctifs"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "Le test limite le risque de panne ; il doit rester proportionné à l'urgence.",
    "whyNot": {
-    "1": "Les correctifs officiels ne sont pas malveillants, mais il faut vérifier leur source.",
+    "0": "Les correctifs officiels ne sont pas malveillants, mais il faut vérifier leur source.",
     "2": "Le test ne doit pas servir de prétexte au retard.",
     "3": "Aucune loi n'interdit les correctifs."
    },
@@ -1261,19 +1261,19 @@
    "concept": "Zero-day",
    "prompt": "Une faille zero-day est exploitée et aucun correctif n'existe. Quelle réponse est la plus adaptée ?",
    "choices": [
-    "Attendre le correctif sans rien faire",
-    "Appliquer un contournement, filtrer ou isoler, et renforcer la détection",
-    "Désinstaller tous les antivirus",
-    "Publier la faille sur les réseaux sociaux"
+    "Attendre la publication du correctif sans rien changer",
+    "Publier la faille sur les réseaux sociaux pour alerter",
+    "Contourner, filtrer ou isoler, et renforcer la détection",
+    "Désinstaller les antivirus pour éviter les conflits"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Sans correctif, on réduit l'exposition et on surveille jusqu'à la publication du correctif.",
    "whyNot": {
     "0": "Ne rien faire laisse la porte ouverte.",
-    "2": "Cela réduirait la protection.",
-    "3": "Ce n'est pas une mesure de protection."
+    "1": "Ce n'est pas une mesure de protection.",
+    "3": "Cela réduirait la protection."
    },
    "kind": "example"
   },
@@ -1285,18 +1285,18 @@
    "prompt": "Un système d'exploitation n'est plus maintenu par son éditeur (fin de vie). Quel est le risque principal ?",
    "choices": [
     "Il devient plus rapide",
+    "Il ne peut plus être sauvegardé",
     "Les nouvelles failles ne seront plus corrigées",
-    "Il perd sa licence d'usage du clavier",
-    "Il ne peut plus être sauvegardé"
+    "Il perd sa licence d'usage du clavier"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Sans correctifs, chaque nouvelle faille reste ouverte : remplacement ou isolement avec mesures compensatoires.",
    "whyNot": {
     "0": "La fin de vie n'a pas d'effet sur la vitesse.",
-    "2": "Ce n'est pas un effet réel.",
-    "3": "La sauvegarde reste possible."
+    "1": "La sauvegarde reste possible.",
+    "3": "Ce n'est pas un effet réel."
    },
    "kind": "general"
   },
@@ -1307,19 +1307,19 @@
    "concept": "Déploiement",
    "prompt": "Quels éléments réduisent le risque d'un déploiement de correctifs ? (2 réponses)",
    "choices": [
-    "Un déploiement par vagues, en commençant par un groupe pilote",
-    "Un plan de retour arrière testé",
     "Le déploiement sur tout le parc d'un seul coup sans test",
-    "La suppression des sauvegardes pour gagner de la place"
+    "La suppression des sauvegardes pour gagner de la place",
+    "Un déploiement par vagues, en commençant par un groupe pilote",
+    "Un plan de retour arrière testé"
    ],
    "correct": [
-    0,
-    1
+    2,
+    3
    ],
    "explanation": "Vagues et retour arrière permettent d'aller vite sans tout risquer.",
    "whyNot": {
-    "2": "Un problème toucherait tout le parc à la fois.",
-    "3": "Les sauvegardes sont la dernière sécurité en cas d'échec."
+    "0": "Un problème toucherait tout le parc à la fois.",
+    "1": "Les sauvegardes sont la dernière sécurité en cas d'échec."
    },
    "kind": "practice"
   },
@@ -1330,19 +1330,19 @@
    "concept": "Gestion des changements",
    "prompt": "Comment un correctif urgent doit-il être traité vis-à-vis de la gestion des changements ?",
    "choices": [
-    "Il échappe totalement au processus",
-    "Il suit la procédure de changement d'urgence : approuvé, tracé, puis revu après coup",
-    "Il attend le prochain comité mensuel",
-    "Il est appliqué par n'importe qui, sans trace"
+    "Il est appliqué par n'importe quel administrateur, sans trace",
+    "Il échappe totalement au processus de gestion des changements",
+    "Il attend le prochain comité mensuel des changements",
+    "Il suit la procédure de changement d'urgence, tracée et revue"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Un correctif est un changement ; l'urgence accélère le circuit sans le supprimer.",
    "whyNot": {
-    "0": "Aucun changement n'échappe au processus.",
-    "2": "Attendre un mois serait trop long pour une urgence.",
-    "3": "L'absence de trace empêche le contrôle et l'enquête."
+    "0": "L'absence de trace empêche le contrôle et l'enquête.",
+    "1": "Aucun changement n'échappe au processus.",
+    "2": "Attendre un mois serait trop long pour une urgence."
    },
    "kind": "general"
   },
@@ -1353,19 +1353,19 @@
    "concept": "Vérification",
    "prompt": "Après le déploiement d'un correctif, que faut-il faire ?",
    "choices": [
-    "Vérifier qu'il est réellement installé et que la vulnérabilité a disparu",
-    "Supprimer le ticket sans vérifier",
-    "Désactiver les mises à jour automatiques",
-    "Effacer les journaux d'installation"
+    "Effacer les journaux d'installation pour gagner de la place",
+    "Clôturer le ticket sans autre vérification",
+    "Désactiver les mises à jour automatiques des postes",
+    "Vérifier qu'il est réellement installé et que la vulnérabilité a disparu"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "Un correctif distribué n'est pas forcément installé (échec, redémarrage manquant).",
    "whyNot": {
+    "0": "Les journaux servent de preuve.",
     "1": "Sans vérification, la faille peut rester ouverte.",
-    "2": "Cela empêcherait les prochaines corrections.",
-    "3": "Les journaux servent de preuve."
+    "2": "Cela empêcherait les prochaines corrections."
    },
    "kind": "general"
   },
@@ -1376,19 +1376,19 @@
    "concept": "Tests de sécurité",
    "prompt": "Quel exercice vise avant tout à mettre à l'épreuve la capacité de détection et de réponse de l'équipe de défense ?",
    "choices": [
-    "Un scan de vulnérabilités",
-    "Un audit de conformité",
     "Un exercice Red Team",
-    "Une revue de politique"
+    "Un scan de vulnérabilités",
+    "Une revue de politique",
+    "Un audit de conformité"
    ],
    "correct": [
-    2
+    0
    ],
    "explanation": "La Red Team simule un adversaire réaliste et discret pour tester la Blue Team.",
    "whyNot": {
-    "0": "Le scan liste des failles connues.",
-    "1": "L'audit compare à un référentiel.",
-    "3": "Une revue de politique est documentaire."
+    "1": "Le scan liste des failles connues.",
+    "2": "Une revue de politique est documentaire.",
+    "3": "L'audit compare à un référentiel."
    },
    "kind": "general"
   },
@@ -1399,19 +1399,19 @@
    "concept": "Boîte noire, grise, blanche",
    "prompt": "Un testeur reçoit le code source, les schémas réseau et des comptes. De quel type de test s'agit-il ?",
    "choices": [
-    "Boîte noire",
     "Boîte grise",
-    "Boîte blanche",
-    "Test aveugle"
+    "Test aveugle",
+    "Boîte noire",
+    "Boîte blanche"
    ],
    "correct": [
-    2
+    3
    ],
    "explanation": "En boîte blanche, le testeur dispose de toute l'information.",
    "whyNot": {
-    "0": "En boîte noire, il ne sait rien.",
-    "1": "En boîte grise, il dispose d'une partie (souvent un compte).",
-    "3": "Un test aveugle donne peu ou pas d'information."
+    "0": "En boîte grise, il dispose d'une partie (souvent un compte).",
+    "1": "Un test aveugle donne peu ou pas d'information.",
+    "2": "En boîte noire, il ne sait rien."
    },
    "kind": "general"
   },
@@ -1422,19 +1422,19 @@
    "concept": "Règles d'engagement",
    "prompt": "Quels éléments doivent figurer dans les règles d'engagement d'un test d'intrusion ? (2 réponses)",
    "choices": [
-    "Le périmètre et les dates autorisés",
-    "Les contacts d'urgence et les techniques interdites",
     "Le mot de passe personnel du directeur",
-    "L'autorisation de tester les clients de l'entreprise sans leur accord"
+    "L'autorisation de tester les clients de l'entreprise sans leur accord",
+    "Les contacts d'urgence et les techniques interdites",
+    "Le périmètre et les dates autorisés"
    ],
    "correct": [
-    0,
-    1
+    2,
+    3
    ],
    "explanation": "Les règles d'engagement bornent le test : quoi, quand, comment, et qui appeler en cas de problème.",
    "whyNot": {
-    "2": "On ne transmet jamais de secret personnel.",
-    "3": "Les systèmes de tiers ne peuvent être testés qu'avec leur propre autorisation."
+    "0": "On ne transmet jamais de secret personnel.",
+    "1": "Les systèmes de tiers ne peuvent être testés qu'avec leur propre autorisation."
    },
    "kind": "practice"
   },
@@ -1446,18 +1446,18 @@
    "prompt": "D'où faut-il télécharger les correctifs ?",
    "choices": [
     "Des sources officielles de l'éditeur, en vérifiant leur signature",
-    "D'un forum anonyme qui propose une version plus rapide",
     "D'une pièce jointe reçue par courriel",
-    "D'une clé USB trouvée sur le parking"
+    "D'une clé USB trouvée sur le parking",
+    "D'un forum anonyme qui propose une version plus rapide"
    ],
    "correct": [
     0
    ],
    "explanation": "Un faux correctif est un vecteur classique de logiciel malveillant.",
    "whyNot": {
-    "1": "Une source anonyme peut distribuer un fichier piégé.",
-    "2": "Une pièce jointe est un vecteur d'hameçonnage.",
-    "3": "Une clé trouvée est un vecteur d'attaque classique."
+    "1": "Une pièce jointe est un vecteur d'hameçonnage.",
+    "2": "Une clé trouvée est un vecteur d'attaque classique.",
+    "3": "Une source anonyme peut distribuer un fichier piégé."
    },
    "kind": "general"
   }

@@ -746,19 +746,19 @@
    "concept": "Common law",
    "prompt": "Quel système juridique repose principalement sur les décisions des juges et les précédents ?",
    "choices": [
+    "Le droit coutumier",
     "La common law",
     "Le droit civil codifié",
-    "Le droit religieux",
-    "Le droit coutumier"
+    "Le droit religieux"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "En common law, la jurisprudence fait le droit ; en droit civil, ce sont les codes.",
    "whyNot": {
-    "1": "Repose sur des codes écrits.",
-    "2": "Repose sur des textes religieux.",
-    "3": "Repose sur des usages."
+    "0": "Repose sur des usages.",
+    "2": "Repose sur des codes écrits.",
+    "3": "Repose sur des textes religieux."
    },
    "kind": "general"
   },
@@ -770,18 +770,18 @@
    "prompt": "Quelle branche du droit traite des infractions contre la société et peut conduire à la prison ?",
    "choices": [
     "Le droit pénal",
+    "Le droit des contrats",
     "Le droit civil",
-    "Le droit administratif",
-    "Le droit des contrats"
+    "Le droit administratif"
    ],
    "correct": [
     0
    ],
    "explanation": "Le pénal sanctionne les atteintes à la société ; le civil répare un préjudice.",
    "whyNot": {
-    "1": "Vise la réparation entre parties.",
-    "2": "Concerne les régulateurs.",
-    "3": "Branche du droit civil."
+    "1": "Branche du droit civil.",
+    "2": "Vise la réparation entre parties.",
+    "3": "Concerne les régulateurs."
    },
    "kind": "general"
   },
@@ -792,19 +792,19 @@
    "concept": "Niveau de preuve",
    "prompt": "Dans la tradition américaine, quel niveau de preuve exige un procès pénal ?",
    "choices": [
-    "Au-delà de tout doute raisonnable",
+    "Aucun niveau particulier",
     "La prépondérance de la preuve",
-    "Une simple suspicion",
-    "Aucun niveau particulier"
+    "Au-delà de tout doute raisonnable",
+    "Une simple suspicion"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Le pénal exige davantage que le civil, où suffit la prépondérance de la preuve.",
    "whyNot": {
+    "0": "Faux.",
     "1": "C'est le niveau du civil.",
-    "2": "Insuffisant.",
-    "3": "Faux."
+    "3": "Insuffisant."
    },
    "kind": "general"
   },
@@ -815,19 +815,19 @@
    "concept": "ECPA",
    "prompt": "Quelle loi américaine vise l'interception intentionnelle des communications électroniques pendant leur transmission ?",
    "choices": [
-    "L'Electronic Communications Privacy Act (ECPA)",
-    "Le Digital Millennium Copyright Act",
-    "Sarbanes-Oxley",
-    "HIPAA"
+    "La loi HIPAA sur les données de santé",
+    "Le Digital Millennium Copyright Act (DMCA)",
+    "La loi Sarbanes-Oxley (SOX)",
+    "L'Electronic Communications Privacy Act (ECPA)"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "L'ECPA (Wiretap Act) encadre l'interception en transit ; le Stored Communications Act couvre les communications stockées.",
    "whyNot": {
+    "0": "Données de santé.",
     "1": "Droit d'auteur.",
-    "2": "Information financière.",
-    "3": "Données de santé."
+    "2": "Information financière."
    },
    "kind": "general"
   },
@@ -838,18 +838,18 @@
    "concept": "SOX",
    "prompt": "Quelle loi impose aux sociétés cotées américaines des contrôles internes sur l'information financière ?",
    "choices": [
+    "GLBA (clients des institutions financières)",
+    "HIPAA (données de santé)",
     "Sarbanes-Oxley (SOX)",
-    "HIPAA",
-    "GLBA",
-    "CAN-SPAM"
+    "CAN-SPAM (courriels commerciaux)"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "SOX (2002) a suivi les scandales comptables et vise la fiabilité des états financiers.",
    "whyNot": {
+    "0": "Données des clients des institutions financières.",
     "1": "Santé.",
-    "2": "Données des clients des institutions financières.",
     "3": "Courriels commerciaux."
    },
    "kind": "general"
@@ -861,10 +861,10 @@
    "concept": "Norme et loi",
    "prompt": "Pourquoi PCI DSS n'est-il pas une loi ?",
    "choices": [
-    "Parce que c'est une norme imposée par contrat par les réseaux de cartes de paiement",
-    "Parce qu'il a été abrogé",
-    "Parce qu'il ne concerne que l'Europe",
-    "Parce qu'il est facultatif pour tous"
+    "Parce que c'est une norme imposée par contrat",
+    "Parce qu'il a été abrogé et remplacé par le RGPD",
+    "Parce qu'il est facultatif pour toutes les entreprises",
+    "Parce qu'il ne s'applique qu'aux commerçants européens"
    ],
    "correct": [
     0
@@ -872,8 +872,8 @@
    "explanation": "Les commerçants y sont tenus par leurs contrats d'acceptation des cartes.",
    "whyNot": {
     "1": "Il est en vigueur.",
-    "2": "Il est international.",
-    "3": "Il est obligatoire par contrat."
+    "2": "Il est obligatoire par contrat.",
+    "3": "Il est international."
    },
    "kind": "general"
   },
@@ -884,18 +884,18 @@
    "concept": "CAN-SPAM",
    "prompt": "Quelle pratique la loi CAN-SPAM impose-t-elle aux expéditeurs de courriels commerciaux ?",
    "choices": [
+    "Masquer l'adresse postale de l'expéditeur pour protéger sa vie privée",
     "Respecter les demandes de désinscription dans le délai prévu (10 jours ouvrables)",
-    "Utiliser des objets accrocheurs même trompeurs",
-    "Masquer l'adresse postale",
-    "Bloquer la désinscription 90 jours"
+    "Bloquer toute désinscription pendant 90 jours après l'inscription",
+    "Utiliser des objets accrocheurs, même trompeurs, pour augmenter l'ouverture"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "Elle exige aussi une adresse postale valide et interdit les objets trompeurs.",
    "whyNot": {
-    "1": "Interdit.",
-    "2": "L'adresse doit figurer.",
+    "0": "L'adresse doit figurer.",
+    "2": "Interdit.",
     "3": "Interdit."
    },
    "kind": "general"
@@ -907,19 +907,19 @@
    "concept": "Loi Godfrain",
    "prompt": "En France, quel texte réprime l'accès ou le maintien frauduleux dans un système de traitement automatisé de données ?",
    "choices": [
-    "La loi Godfrain de 1988 (Code pénal, art. 323-1 et suivants)",
-    "La loi CAN-SPAM",
-    "Le DMCA",
-    "La norme ISO 27001"
+    "La norme ISO/IEC 27001 sur le SMSI",
+    "La loi Godfrain (Code pénal, art. 323-1 et s.)",
+    "Le Digital Millennium Copyright Act (DMCA)",
+    "La loi américaine CAN-SPAM sur les courriels"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "Elle punit aussi l'entrave au fonctionnement et l'altération des données.",
    "whyNot": {
-    "1": "Loi américaine sur les courriels.",
+    "0": "Norme volontaire, pas une loi pénale.",
     "2": "Loi américaine sur le droit d'auteur.",
-    "3": "Norme volontaire, pas une loi pénale."
+    "3": "Loi américaine sur les courriels."
    },
    "kind": "general"
   },
@@ -930,19 +930,19 @@
    "concept": "International",
    "prompt": "Quel texte international vise à harmoniser les infractions informatiques et à faciliter la coopération entre États ?",
    "choices": [
-    "La Convention de Budapest sur la cybercriminalité (2001)",
-    "Le RGPD",
-    "La norme PCI DSS",
-    "Le code de l'(ISC)²"
+    "La norme PCI DSS des réseaux de cartes de paiement",
+    "Le Règlement général sur la protection des données (RGPD)",
+    "Le code de déontologie de l'(ISC)²",
+    "La Convention de Budapest sur la cybercriminalité (2001)"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "Adoptée dans le cadre du Conseil de l'Europe, elle est ouverte aux États non européens.",
    "whyNot": {
+    "0": "Norme contractuelle.",
     "1": "Protection des données, pas les infractions.",
-    "2": "Norme contractuelle.",
-    "3": "Code de déontologie."
+    "2": "Code de déontologie."
    },
    "kind": "general"
   },
@@ -953,19 +953,19 @@
    "concept": "Double action",
    "prompt": "Après une intrusion, l'entreprise porte plainte et réclame réparation de son préjudice. Quelles voies sont engagées ? (plusieurs réponses)",
    "choices": [
-    "Une action pénale contre l'auteur",
-    "Une action civile en réparation",
     "Une simple notification à l'éditeur d'antivirus",
-    "Une procédure de brevet"
+    "Une action pénale contre l'auteur",
+    "Une procédure de brevet",
+    "Une action civile en réparation"
    ],
    "correct": [
-    0,
-    1
+    1,
+    3
    ],
    "explanation": "Les deux voies peuvent coexister pour les mêmes faits.",
    "whyNot": {
-    "2": "Ce n'est pas une voie de droit.",
-    "3": "Sans rapport."
+    "0": "Ce n'est pas une voie de droit.",
+    "2": "Sans rapport."
    },
    "kind": "general"
   },
@@ -978,8 +978,8 @@
    "choices": [
     "Le brevet",
     "Le secret d'affaires",
-    "La marque",
-    "Le droit d'auteur"
+    "Le droit d'auteur",
+    "La marque"
    ],
    "correct": [
     0
@@ -987,8 +987,8 @@
    "explanation": "L'invention est publiée ; à l'expiration, elle tombe dans le domaine public.",
    "whyNot": {
     "1": "Rien n'est publié.",
-    "2": "Protège un signe distinctif.",
-    "3": "Protège l'expression d'une œuvre."
+    "2": "Protège l'expression d'une œuvre.",
+    "3": "Protège un signe distinctif."
    },
    "kind": "general"
   },
@@ -999,19 +999,19 @@
    "concept": "Droit d'auteur",
    "prompt": "Que protège le droit d'auteur ?",
    "choices": [
-    "L'expression d'une œuvre, comme le code source, mais pas l'idée",
-    "L'idée elle-même",
-    "Un nom de produit",
-    "Un procédé industriel"
+    "Un procédé industriel nouveau et inventif",
+    "L'expression d'une œuvre, pas l'idée",
+    "L'idée elle-même, quelle que soit sa forme",
+    "Un nom de produit ou un logo commercial"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "Deux programmes peuvent réaliser la même idée sans se copier.",
    "whyNot": {
-    "1": "Les idées ne sont pas protégées.",
-    "2": "C'est la marque.",
-    "3": "C'est le brevet."
+    "0": "C'est le brevet.",
+    "2": "Les idées ne sont pas protégées.",
+    "3": "C'est la marque."
    },
    "kind": "general"
   },
@@ -1022,19 +1022,19 @@
    "concept": "Secret d'affaires",
    "prompt": "Combien de temps dure la protection d'un secret d'affaires ?",
    "choices": [
-    "Tant que l'information reste secrète et protégée",
-    "20 ans",
-    "Vie de l'auteur + 70 ans",
-    "10 ans non renouvelables"
+    "10 ans, sans renouvellement possible",
+    "20 ans à compter du dépôt",
+    "La vie de l'auteur plus 70 ans",
+    "Tant que l'information reste secrète"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "Il faut des mesures raisonnables : NDA, contrôle d'accès, marquage.",
    "whyNot": {
+    "0": "Inexact.",
     "1": "Brevet.",
-    "2": "Droit d'auteur.",
-    "3": "Inexact."
+    "2": "Droit d'auteur."
    },
    "kind": "general"
   },
@@ -1045,19 +1045,19 @@
    "concept": "Marque",
    "prompt": "Quelle protection peut durer indéfiniment si elle est utilisée et renouvelée ?",
    "choices": [
-    "La marque",
     "Le brevet",
-    "Le droit d'auteur",
-    "Aucune"
+    "Aucune",
+    "La marque",
+    "Le droit d'auteur"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Elle se renouvelle par périodes (10 ans dans l'UE).",
    "whyNot": {
-    "1": "Durée limitée.",
-    "2": "Durée limitée.",
-    "3": "La marque le permet."
+    "0": "Durée limitée.",
+    "1": "La marque le permet.",
+    "3": "Durée limitée."
    },
    "kind": "general"
   },
@@ -1068,19 +1068,19 @@
    "concept": "Rôles RGPD",
    "prompt": "Qui détermine les finalités et les moyens d'un traitement de données personnelles ?",
    "choices": [
+    "L'hébergeur, seul",
+    "Le sous-traitant (processor)",
     "Le responsable de traitement",
-    "Le sous-traitant",
-    "La personne concernée",
-    "L'hébergeur seul"
+    "La personne concernée"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Le sous-traitant agit pour son compte, selon un contrat.",
    "whyNot": {
+    "0": "C'est en général un sous-traitant.",
     "1": "Il exécute.",
-    "2": "Elle a des droits, pas ce rôle.",
-    "3": "C'est en général un sous-traitant."
+    "3": "Elle a des droits, pas ce rôle."
    },
    "kind": "general"
   },
@@ -1091,19 +1091,19 @@
    "concept": "Minimisation",
    "prompt": "Quel principe du RGPD impose de ne collecter que les données nécessaires à la finalité ?",
    "choices": [
-    "La minimisation des données",
     "La portabilité",
-    "La transparence seulement",
-    "La limitation de la conservation"
+    "La minimisation des données",
+    "La limitation de la conservation",
+    "La transparence seulement"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "Moins de données, moins de risque.",
    "whyNot": {
-    "1": "Droit de la personne.",
-    "2": "Principe distinct.",
-    "3": "Concerne la durée, pas la quantité."
+    "0": "Droit de la personne.",
+    "2": "Concerne la durée, pas la quantité.",
+    "3": "Principe distinct."
    },
    "kind": "general"
   },
@@ -1114,19 +1114,19 @@
    "concept": "Transferts",
    "prompt": "Comment transférer légalement des données personnelles vers un pays sans décision d'adéquation ?",
    "choices": [
-    "Avec des garanties appropriées, comme des clauses contractuelles types",
-    "Sans condition",
-    "Uniquement avec l'accord oral du client",
-    "C'est toujours interdit"
+    "Sans condition particulière, dès lors que le client est informé",
+    "C'est toujours interdit, sans aucune exception possible",
+    "Uniquement avec l'accord oral de chaque client concerné",
+    "Avec des garanties appropriées, comme des clauses contractuelles types"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "Clauses types ou règles d'entreprise contraignantes, avec évaluation du risque.",
    "whyNot": {
-    "1": "Le RGPD encadre ces transferts.",
-    "2": "Insuffisant.",
-    "3": "Des mécanismes existent."
+    "0": "Le RGPD encadre ces transferts.",
+    "1": "Des mécanismes existent.",
+    "2": "Insuffisant."
    },
    "kind": "general"
   },
@@ -1137,19 +1137,19 @@
    "concept": "Privacy Shield",
    "prompt": "Qu'est devenu le Privacy Shield entre l'UE et les États-Unis ?",
    "choices": [
-    "Invalidé en 2020 (Schrems II), remplacé en 2023 par le Data Privacy Framework",
-    "Toujours en vigueur sans changement",
-    "Remplacé par le Safe Harbor",
-    "Intégré à PCI DSS"
+    "Remplacé en 2021 par le Safe Harbor, plus protecteur",
+    "Invalidé en 2020, remplacé en 2023 par le Data Privacy Framework",
+    "Intégré à la norme PCI DSS pour les données de paiement",
+    "Toujours en vigueur, sans aucun changement depuis 2016"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "Le Safe Harbor avait lui-même été invalidé en 2015.",
    "whyNot": {
-    "1": "Invalidé.",
-    "2": "Le Safe Harbor est antérieur.",
-    "3": "Sans rapport."
+    "0": "Le Safe Harbor est antérieur.",
+    "2": "Sans rapport.",
+    "3": "Invalidé."
    },
    "kind": "general"
   },
@@ -1161,8 +1161,8 @@
    "prompt": "Lesquels font partie des principes de l'OCDE sur la vie privée ? (plusieurs réponses)",
    "choices": [
     "Limitation de la collecte",
-    "Spécification des finalités",
     "Participation individuelle",
+    "Spécification des finalités",
     "Publication obligatoire des données"
    ],
    "correct": [
@@ -1183,19 +1183,19 @@
    "concept": "DPO",
    "prompt": "Quel est le rôle du délégué à la protection des données (DPO) ?",
    "choices": [
-    "Conseiller, contrôler la conformité et être le point de contact de l'autorité",
-    "Administrer les pare-feu",
-    "Développer les applications",
-    "Vendre les données"
+    "Administrer les pare-feu et les accès réseau",
+    "Conseiller, contrôler et dialoguer avec l'autorité de contrôle",
+    "Négocier la vente des fichiers clients à des partenaires",
+    "Développer les applications qui traitent les données"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "Il est obligatoire dans certains cas prévus par l'article 37 du RGPD.",
    "whyNot": {
-    "1": "Rôle technique distinct.",
-    "2": "Sans rapport.",
-    "3": "Absurde."
+    "0": "Rôle technique distinct.",
+    "2": "Absurde.",
+    "3": "Sans rapport."
    },
    "kind": "general"
   },
@@ -1206,19 +1206,19 @@
    "concept": "Due care",
    "prompt": "Que signifie la prudence raisonnable (due care) ?",
    "choices": [
+    "Transférer tous les risques à un assureur",
+    "Acheter l'outil de sécurité le plus cher du marché",
     "Mettre en place les mesures qu'une personne prudente prendrait",
-    "Ne rien faire tant qu'il n'y a pas d'incident",
-    "Acheter l'outil le plus cher",
-    "Transférer tous les risques"
+    "Ne rien faire tant qu'aucun incident ne s'est produit"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Agir comme il faut : correctifs, formation, contrôles adaptés.",
    "whyNot": {
-    "1": "C'est de la négligence.",
-    "2": "Le coût ne fait pas la prudence.",
-    "3": "Ce n'est qu'une option de traitement."
+    "0": "Ce n'est qu'une option de traitement.",
+    "1": "Le coût ne fait pas la prudence.",
+    "3": "C'est de la négligence."
    },
    "kind": "general"
   },
@@ -1230,9 +1230,9 @@
    "prompt": "Évaluer la sécurité d'un fournisseur avant de signer, puis l'auditer chaque année, relève de quoi ?",
    "choices": [
     "De la diligence raisonnable (due diligence)",
-    "De la négligence",
-    "Du droit d'auteur",
-    "De la provocation"
+    "De la négligence (faute de prudence)",
+    "Du droit d'auteur sur le contrat",
+    "De la provocation (entrapment)"
    ],
    "correct": [
     0
@@ -1252,19 +1252,19 @@
    "concept": "Négligence",
    "prompt": "Une entreprise n'applique pas un correctif critique connu depuis un an, et une fuite en résulte. Comment qualifier cela ?",
    "choices": [
-    "De négligence, faute de prudence raisonnable",
-    "De force majeure",
-    "De bonne pratique",
-    "D'acceptation formelle du risque"
+    "De bonne pratique, car le correctif aurait pu casser un service",
+    "De force majeure, car l'attaque était imprévisible",
+    "D'acceptation formelle du risque par la direction",
+    "De négligence, faute de prudence raisonnable"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "Une personne prudente aurait corrigé ou compensé la faille.",
    "whyNot": {
+    "0": "Non.",
     "1": "L'événement était prévisible.",
-    "2": "Non.",
-    "3": "Aucune décision documentée."
+    "2": "Aucune décision documentée."
    },
    "kind": "general"
   },
@@ -1275,18 +1275,18 @@
    "concept": "Conformité",
    "prompt": "Quel élément est essentiel à un programme de conformité efficace ?",
    "choices": [
-    "Un responsable de la conformité désigné",
     "Supprimer les règles disciplinaires",
     "Laisser chaque service définir ses obligations légales",
+    "Un responsable de la conformité désigné",
     "Éviter les audits internes"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Il supervise et rend compte ; audits et règles disciplinaires complètent le dispositif.",
    "whyNot": {
-    "1": "Affaiblit le programme.",
-    "2": "Incohérent.",
+    "0": "Affaiblit le programme.",
+    "1": "Incohérent.",
     "3": "Les audits sont indispensables."
    },
    "kind": "general"
@@ -1298,19 +1298,19 @@
    "concept": "Éthique",
    "prompt": "Face à un dilemme éthique, quelle priorité retenir selon les codes de déontologie courants ?",
    "choices": [
-    "Protéger la société et le bien commun, en restant légal et honnête",
-    "Satisfaire d'abord son employeur, quoi qu'il demande",
     "Agir seul sans prévenir personne",
-    "Choisir l'option la plus rentable"
+    "Choisir l'option la plus rentable",
+    "Satisfaire d'abord son employeur, quoi qu'il demande",
+    "Protéger la société et le bien commun, en restant légal et honnête"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "Par exemple, le premier canon de l'(ISC)² est la protection de la société.",
    "whyNot": {
-    "1": "Pas au détriment de la loi ou de la société.",
-    "2": "On passe par les canaux prévus.",
-    "3": "Ce n'est pas un critère éthique."
+    "0": "On passe par les canaux prévus.",
+    "1": "Ce n'est pas un critère éthique.",
+    "2": "Pas au détriment de la loi ou de la société."
    },
    "kind": "general"
   },
@@ -1322,17 +1322,17 @@
    "prompt": "Un analyste découvre qu'un site externe attaque son entreprise. Quelle réaction est éthique et légale ?",
    "choices": [
     "Bloquer, documenter et signaler par les canaux prévus",
-    "Lancer une contre-attaque contre le site",
-    "Publier les données de l'attaquant",
-    "Ignorer l'attaque"
+    "Publier les données de l'attaquant sur les réseaux sociaux",
+    "Lancer une contre-attaque pour neutraliser le site",
+    "Ignorer l'attaque tant qu'elle ne réussit pas"
    ],
    "correct": [
     0
    ],
    "explanation": "Une contre-attaque est généralement illégale et peut toucher des tiers innocents.",
    "whyNot": {
-    "1": "Illégal.",
-    "2": "Risque juridique.",
+    "1": "Risque juridique.",
+    "2": "Illégal.",
     "3": "Manque de diligence."
    },
    "kind": "general"
@@ -1345,8 +1345,8 @@
    "prompt": "Selon la RFC 1087, quelles activités sont contraires à l'éthique ? (plusieurs réponses)",
    "choices": [
     "Chercher un accès non autorisé",
-    "Gaspiller les ressources",
     "Porter atteinte à la vie privée des utilisateurs",
+    "Gaspiller les ressources",
     "Appliquer les correctifs"
    ],
    "correct": [
@@ -1367,19 +1367,19 @@
    "concept": "Responsabilité des dirigeants",
    "prompt": "Pourquoi les dirigeants doivent-ils s'impliquer dans la sécurité ?",
    "choices": [
-    "Parce qu'ils peuvent être tenus responsables s'ils n'exercent pas une prudence raisonnable",
-    "Parce que la loi interdit aux techniciens de décider",
-    "Parce que la sécurité est gratuite",
-    "Ce n'est pas nécessaire"
+    "Ce n'est pas nécessaire : le RSSI porte seul toute la responsabilité",
+    "Parce que la loi interdit aux techniciens de prendre des décisions de sécurité",
+    "Parce que la sécurité est gratuite si la direction la soutient",
+    "Parce qu'ils peuvent être tenus responsables s'ils n'exercent pas une prudence raisonnable"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "La gouvernance et la responsabilité remontent jusqu'à la direction.",
    "whyNot": {
+    "0": "C'est nécessaire.",
     "1": "Faux.",
-    "2": "Faux.",
-    "3": "C'est nécessaire."
+    "2": "Faux."
    },
    "kind": "general"
   },
@@ -1390,18 +1390,18 @@
    "concept": "Responsabilité envers les tiers",
    "prompt": "Un serveur mal protégé est utilisé comme relais pour attaquer un partenaire. Quel risque juridique l'organisation court-elle ?",
    "choices": [
+    "Aucun, puisqu'elle est elle-même victime de l'attaque",
+    "La perte de ses brevets sur le logiciel du serveur",
     "Voir sa responsabilité engagée envers ce tiers",
-    "Aucun, elle est aussi victime",
-    "Seulement une amende CAN-SPAM",
-    "Une perte de brevet"
+    "Seulement une amende au titre de la loi CAN-SPAM"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Le défaut de prudence raisonnable peut engager sa responsabilité.",
    "whyNot": {
-    "1": "Elle peut être à la fois victime et responsable.",
-    "2": "Sans rapport.",
+    "0": "Elle peut être à la fois victime et responsable.",
+    "1": "Sans rapport.",
     "3": "Sans rapport."
    },
    "kind": "general"
@@ -1413,19 +1413,19 @@
    "concept": "Conformité",
    "prompt": "Quels éléments font partie d'un programme de conformité ? (plusieurs réponses)",
    "choices": [
-    "Un inventaire des obligations légales et contractuelles",
-    "Des audits réguliers",
     "La formation du personnel",
-    "L'absence de politique écrite"
+    "L'absence de politique écrite",
+    "Un inventaire des obligations légales et contractuelles",
+    "Des audits réguliers"
    ],
    "correct": [
     0,
-    1,
-    2
+    2,
+    3
    ],
    "explanation": "Avec un responsable désigné, des politiques, un canal de signalement et des corrections suivies.",
    "whyNot": {
-    "3": "Les politiques écrites sont indispensables."
+    "1": "Les politiques écrites sont indispensables."
    },
    "kind": "general"
   }

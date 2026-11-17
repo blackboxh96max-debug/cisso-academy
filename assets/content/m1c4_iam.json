@@ -740,19 +740,19 @@
    "concept": "IAAA",
    "prompt": "Un utilisateur saisit son nom d'utilisateur « j.martin » sur la page de connexion. Quelle étape réalise-t-il ?",
    "choices": [
-    "L'authentification",
-    "L'identification",
+    "La traçabilité",
     "L'autorisation",
-    "La traçabilité"
+    "L'authentification",
+    "L'identification"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Déclarer une identité, sans la prouver, est une identification.",
    "whyNot": {
-    "0": "L'authentification commence quand il prouve l'identité, par exemple avec son mot de passe.",
-    "2": "L'autorisation vient après, quand le système décide de ses droits.",
-    "3": "La traçabilité relie ensuite ses actions à son identité."
+    "0": "La traçabilité relie ensuite ses actions à son identité.",
+    "1": "L'autorisation vient après, quand le système décide de ses droits.",
+    "2": "L'authentification commence quand il prouve l'identité, par exemple avec son mot de passe."
    },
    "kind": "general"
   },
@@ -763,19 +763,19 @@
    "concept": "Facteurs d'authentification",
    "prompt": "Une clé de sécurité FIDO2 branchée en USB relève de quel facteur ?",
    "choices": [
-    "Connaissance",
-    "Possession",
     "Inhérence",
-    "Localisation"
+    "Possession",
+    "Localisation",
+    "Connaissance"
    ],
    "correct": [
     1
    ],
    "explanation": "La clé est un objet que l'utilisateur détient : c'est un facteur de possession.",
    "whyNot": {
-    "0": "La connaissance regroupe les secrets mémorisés (mot de passe, PIN).",
-    "2": "L'inhérence regroupe les caractéristiques biométriques.",
-    "3": "La localisation est un élément de contexte, pas le facteur de cette clé."
+    "0": "L'inhérence regroupe les caractéristiques biométriques.",
+    "2": "La localisation est un élément de contexte, pas le facteur de cette clé.",
+    "3": "La connaissance regroupe les secrets mémorisés (mot de passe, PIN)."
    },
    "kind": "general"
   },
@@ -786,19 +786,19 @@
    "concept": "MFA",
    "prompt": "Laquelle de ces combinaisons est une véritable authentification multifacteur ?",
    "choices": [
-    "Mot de passe et code PIN",
+    "Deux mots de passe différents",
     "Mot de passe et question secrète",
-    "Mot de passe et empreinte digitale",
-    "Deux mots de passe différents"
+    "Mot de passe et code PIN",
+    "Mot de passe et empreinte digitale"
    ],
    "correct": [
-    2
+    3
    ],
    "explanation": "La MFA combine des facteurs de catégories différentes : connaissance (mot de passe) et inhérence (empreinte).",
    "whyNot": {
-    "0": "Mot de passe et PIN sont deux éléments de connaissance.",
+    "0": "Deux mots de passe restent un seul facteur, la connaissance.",
     "1": "La question secrète est aussi un élément de connaissance.",
-    "3": "Deux mots de passe restent un seul facteur, la connaissance."
+    "2": "Mot de passe et PIN sont deux éléments de connaissance."
    },
    "kind": "general"
   },
@@ -809,18 +809,18 @@
    "concept": "Biométrie",
    "prompt": "Un lecteur d'empreintes laisse entrer une personne non enregistrée. Quel type d'erreur s'est produit ?",
    "choices": [
-    "Un faux rejet (FRR, type I)",
+    "Un faux rejet (FRR, erreur de type I)",
+    "Le taux d'erreur égal (CER, ou EER)",
     "Une fausse acceptation (FAR, type II)",
-    "Le taux d'erreur égal (CER)",
-    "Une erreur d'enrôlement"
+    "Une erreur survenue lors de l'enrôlement"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Accepter un imposteur est une fausse acceptation, l'erreur de type II, la plus dangereuse pour la sécurité.",
    "whyNot": {
     "0": "Le faux rejet refuse une personne légitime.",
-    "2": "Le CER est le point où FAR et FRR sont égaux, pas une erreur ponctuelle.",
+    "1": "Le CER est le point où FAR et FRR sont égaux, pas une erreur ponctuelle.",
     "3": "L'enrôlement est l'enregistrement initial des empreintes, ce n'est pas ce qui s'est passé ici."
    },
    "kind": "general"
@@ -855,18 +855,18 @@
    "concept": "Mots de passe",
    "prompt": "Quelle mesure est conforme aux recommandations actuelles sur les mots de passe (par exemple NIST SP 800-63B) ?",
    "choices": [
-    "Imposer un changement tous les 30 jours",
-    "Exiger majuscule, chiffre et symbole quelle que soit la longueur",
     "Refuser les mots de passe présents dans des listes de fuites connues",
+    "Exiger majuscule, chiffre et symbole quelle que soit la longueur",
+    "Imposer un changement tous les 30 jours",
     "Envoyer un indice de mot de passe par courriel"
    ],
    "correct": [
-    2
+    0
    ],
    "explanation": "Les recommandations actuelles privilégient la longueur et le refus des mots de passe compromis ou trop courants.",
    "whyNot": {
-    "0": "Le changement périodique sans raison pousse à des mots de passe prévisibles ; on change en cas de compromission.",
     "1": "Les règles de composition arbitraires sont déconseillées au profit de la longueur.",
+    "2": "Le changement périodique sans raison pousse à des mots de passe prévisibles ; on change en cas de compromission.",
     "3": "Les indices facilitent la tâche de l'attaquant."
    },
    "kind": "general"
@@ -878,10 +878,10 @@
    "concept": "MFA résistante à l'hameçonnage",
    "prompt": "Quels moyens d'authentification résistent le mieux à un site d'hameçonnage qui relaie la connexion en temps réel ? (2 réponses)",
    "choices": [
-    "Clé de sécurité FIDO2",
-    "Code à usage unique reçu par SMS",
     "Passkey (WebAuthn) liée au nom de domaine",
-    "Code à usage unique d'une application"
+    "Code à usage unique d'une application",
+    "Clé de sécurité FIDO2",
+    "Code à usage unique reçu par SMS"
    ],
    "correct": [
     0,
@@ -889,8 +889,8 @@
    ],
    "explanation": "FIDO2 et les passkeys lient la signature au nom de domaine réel : un faux site ne peut pas obtenir une réponse valide pour le vrai.",
    "whyNot": {
-    "1": "Un code SMS peut être saisi sur le faux site et relayé immédiatement.",
-    "3": "Un code d'application peut aussi être relayé par l'attaquant pendant sa validité."
+    "1": "Un code d'application peut aussi être relayé par l'attaquant pendant sa validité.",
+    "3": "Un code SMS peut être saisi sur le faux site et relayé immédiatement."
    },
    "kind": "general"
   },
@@ -901,19 +901,19 @@
    "concept": "Attaques sur l'authentification",
    "prompt": "Le SIEM montre un seul essai de mot de passe sur chacun de 500 comptes, depuis la même source, en quelques minutes. De quoi s'agit-il ?",
    "choices": [
-    "Une attaque par force brute sur un compte",
     "Une pulvérisation de mots de passe (password spraying)",
-    "Un rejeu de ticket Kerberos",
-    "Une fatigue MFA"
+    "Une fatigue MFA (bombardement de notifications)",
+    "Une attaque par force brute sur un seul compte",
+    "Un rejeu de ticket Kerberos (pass-the-ticket)"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "Peu d'essais sur beaucoup de comptes, pour rester sous les seuils de verrouillage : c'est une pulvérisation.",
    "whyNot": {
-    "0": "La force brute cible un compte avec de nombreux essais.",
-    "2": "Le rejeu de ticket ne passe pas par des essais de mot de passe.",
-    "3": "La fatigue MFA consiste à envoyer des notifications push en rafale."
+    "1": "La fatigue MFA consiste à envoyer des notifications push en rafale.",
+    "2": "La force brute cible un compte avec de nombreux essais.",
+    "3": "Le rejeu de ticket ne passe pas par des essais de mot de passe."
    },
    "kind": "example"
   },
@@ -925,18 +925,18 @@
    "prompt": "Pourquoi les comptes partagés (« admin » utilisé par cinq personnes) posent-ils problème ?",
    "choices": [
     "Ils ralentissent les connexions",
-    "Ils empêchent d'imputer une action à une personne",
+    "Ils empêchent la sauvegarde",
     "Ils sont interdits par tous les systèmes d'exploitation",
-    "Ils empêchent la sauvegarde"
+    "Ils empêchent d'imputer une action à une personne"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Sans identité unique, les journaux ne permettent pas de savoir qui a fait quoi : la traçabilité est perdue.",
    "whyNot": {
     "0": "Le partage n'a pas d'effet sur la vitesse.",
-    "2": "Les systèmes le permettent techniquement, c'est une mauvaise pratique.",
-    "3": "Les sauvegardes ne dépendent pas de cela."
+    "1": "Les sauvegardes ne dépendent pas de cela.",
+    "2": "Les systèmes le permettent techniquement, c'est une mauvaise pratique."
    },
    "kind": "general"
   },
@@ -948,18 +948,18 @@
    "prompt": "Un utilisateur signale des dizaines de notifications MFA qu'il n'a pas demandées. Quelles mesures réduisent ce risque ? (2 réponses)",
    "choices": [
     "Activer la correspondance de nombres (saisir le nombre affiché à l'écran)",
-    "Désactiver la MFA pour cet utilisateur",
     "Limiter le nombre de notifications et alerter le SOC au-delà d'un seuil",
-    "Augmenter la durée de validité des sessions"
+    "Augmenter la durée de validité des sessions",
+    "Désactiver la MFA pour cet utilisateur"
    ],
    "correct": [
     0,
-    2
+    1
    ],
    "explanation": "La correspondance de nombres empêche l'approbation réflexe, et la limitation avec alerte stoppe et signale la rafale.",
    "whyNot": {
-    "1": "Supprimer la MFA ouvrirait le compte au seul mot de passe, que l'attaquant possède déjà.",
-    "3": "Des sessions plus longues n'empêchent pas l'attaque et prolongent l'usage d'une session volée."
+    "2": "Des sessions plus longues n'empêchent pas l'attaque et prolongent l'usage d'une session volée.",
+    "3": "Supprimer la MFA ouvrirait le compte au seul mot de passe, que l'attaquant possède déjà."
    },
    "kind": "general"
   },
@@ -970,19 +970,19 @@
    "concept": "Modèles de contrôle d'accès",
    "prompt": "Une salariée partage elle-même son dossier avec un collègue en modifiant les droits. Quel modèle est en jeu ?",
    "choices": [
-    "MAC",
-    "DAC",
     "RBAC",
-    "Contrôle par règles"
+    "DAC",
+    "Contrôle par règles",
+    "MAC"
    ],
    "correct": [
     1
    ],
    "explanation": "Dans le contrôle discrétionnaire (DAC), le propriétaire décide des droits sur ses ressources.",
    "whyNot": {
-    "0": "En MAC, le système impose l'accès selon les étiquettes ; l'utilisateur ne peut pas partager librement.",
-    "2": "En RBAC, les droits suivent les rôles définis par l'organisation.",
-    "3": "Le contrôle par règles applique des règles globales, comme un pare-feu."
+    "0": "En RBAC, les droits suivent les rôles définis par l'organisation.",
+    "2": "Le contrôle par règles applique des règles globales, comme un pare-feu.",
+    "3": "En MAC, le système impose l'accès selon les étiquettes ; l'utilisateur ne peut pas partager librement."
    },
    "kind": "general"
   },
@@ -993,19 +993,19 @@
    "concept": "Modèles de contrôle d'accès",
    "prompt": "Dans quel modèle les droits sont-ils attribués à des fonctions comme « comptable » ou « analyste SOC N1 » ?",
    "choices": [
+    "ABAC",
     "DAC",
-    "MAC",
     "RBAC",
-    "ABAC"
+    "MAC"
    ],
    "correct": [
     2
    ],
    "explanation": "Le RBAC attribue les droits aux rôles, puis les rôles aux personnes.",
    "whyNot": {
-    "0": "Le DAC laisse le propriétaire décider.",
-    "1": "Le MAC s'appuie sur des étiquettes de classification.",
-    "3": "L'ABAC combine des attributs ; un rôle peut en être un, mais le modèle décrit ici est le RBAC."
+    "0": "L'ABAC combine des attributs ; un rôle peut en être un, mais le modèle décrit ici est le RBAC.",
+    "1": "Le DAC laisse le propriétaire décider.",
+    "3": "Le MAC s'appuie sur des étiquettes de classification."
    },
    "kind": "general"
   },
@@ -1016,18 +1016,18 @@
    "concept": "Modèles de contrôle d'accès",
    "prompt": "Un système militaire compare l'étiquette « Secret » d'un document à l'habilitation de l'utilisateur, sans que celui-ci puisse rien changer. Quel modèle ?",
    "choices": [
-    "DAC",
     "MAC",
     "RBAC",
+    "DAC",
     "Contrôle par règles"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "Le contrôle obligatoire (MAC) impose l'accès selon des étiquettes et des habilitations définies centralement.",
    "whyNot": {
-    "0": "En DAC, le propriétaire pourrait modifier les droits.",
-    "2": "Le RBAC raisonne en rôles, pas en niveaux de classification.",
+    "1": "Le RBAC raisonne en rôles, pas en niveaux de classification.",
+    "2": "En DAC, le propriétaire pourrait modifier les droits.",
     "3": "Le contrôle par règles applique des règles générales sans comparer habilitation et classification."
    },
    "kind": "general"
@@ -1063,18 +1063,18 @@
    "prompt": "Un analyste habilité « Confidentiel » demande un dossier « Confidentiel » d'une enquête à laquelle il ne participe pas. Quel principe justifie le refus ?",
    "choices": [
     "Le moindre privilège",
-    "Le besoin d'en connaître",
+    "Le refus par défaut",
     "La séparation des tâches",
-    "Le refus par défaut"
+    "Le besoin d'en connaître"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "L'habilitation est suffisante, mais sa mission ne l'exige pas : c'est le besoin d'en connaître.",
    "whyNot": {
     "0": "Le moindre privilège porte sur l'étendue des droits accordés ; ici le critère décisif est le lien avec la mission.",
-    "2": "La séparation des tâches répartit une tâche sensible entre plusieurs personnes.",
-    "3": "Le refus par défaut concerne ce qui n'est pas explicitement autorisé."
+    "1": "Le refus par défaut concerne ce qui n'est pas explicitement autorisé.",
+    "2": "La séparation des tâches répartit une tâche sensible entre plusieurs personnes."
    },
    "kind": "general"
   },
@@ -1085,19 +1085,19 @@
    "concept": "Bell-LaPadula",
    "prompt": "Quel modèle protège la confidentialité avec les règles « pas de lecture vers le haut, pas d'écriture vers le bas » ?",
    "choices": [
-    "Biba",
-    "Bell-LaPadula",
+    "Brewer-Nash",
     "Clark-Wilson",
-    "Brewer-Nash"
+    "Biba",
+    "Bell-LaPadula"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Bell-LaPadula empêche de lire au-dessus de son niveau et de recopier une information vers un niveau inférieur.",
    "whyNot": {
-    "0": "Biba protège l'intégrité avec les règles inverses.",
-    "2": "Clark-Wilson protège l'intégrité par des transactions bien formées et la séparation des tâches.",
-    "3": "Brewer-Nash (muraille de Chine) évite les conflits d'intérêts."
+    "0": "Brewer-Nash (muraille de Chine) évite les conflits d'intérêts.",
+    "1": "Clark-Wilson protège l'intégrité par des transactions bien formées et la séparation des tâches.",
+    "2": "Biba protège l'intégrité avec les règles inverses."
    },
    "kind": "general"
   },
@@ -1108,19 +1108,19 @@
    "concept": "Biba",
    "prompt": "Dans le modèle Biba, quelles affirmations sont exactes ? (2 réponses)",
    "choices": [
-    "Il protège l'intégrité",
+    "Il protège la confidentialité",
     "Il interdit de lire des données de niveau d'intégrité inférieur",
     "Il interdit de lire des données de niveau supérieur",
-    "Il protège la confidentialité"
+    "Il protège l'intégrité"
    ],
    "correct": [
-    0,
-    1
+    1,
+    3
    ],
    "explanation": "Biba protège l'intégrité : pas de lecture vers le bas (no read down), pas d'écriture vers le haut (no write up).",
    "whyNot": {
-    "2": "Interdire la lecture vers le haut est une règle de Bell-LaPadula.",
-    "3": "La confidentialité est l'objet de Bell-LaPadula."
+    "0": "La confidentialité est l'objet de Bell-LaPadula.",
+    "2": "Interdire la lecture vers le haut est une règle de Bell-LaPadula."
    },
    "kind": "general"
   },
@@ -1132,18 +1132,18 @@
    "prompt": "La dernière règle d'un pare-feu bloque tout trafic qui n'a pas été autorisé par une règle précédente. Quel principe est appliqué ?",
    "choices": [
     "Le refus par défaut",
-    "Le besoin d'en connaître",
+    "La rotation des postes",
     "La défense en profondeur",
-    "La rotation des postes"
+    "Le besoin d'en connaître"
    ],
    "correct": [
     0
    ],
    "explanation": "Tout ce qui n'est pas explicitement permis est interdit : c'est le refus par défaut (implicit deny).",
    "whyNot": {
-    "1": "Le besoin d'en connaître concerne l'accès d'une personne à une information.",
+    "1": "La rotation des postes concerne le personnel.",
     "2": "La défense en profondeur empile plusieurs couches de protection.",
-    "3": "La rotation des postes concerne le personnel."
+    "3": "Le besoin d'en connaître concerne l'accès d'une personne à une information."
    },
    "kind": "practice"
   },
@@ -1154,19 +1154,19 @@
    "concept": "Accumulation de privilèges",
    "prompt": "Après trois changements de service, un salarié garde tous ses anciens droits. Quelle mesure corrige le mieux ce problème ?",
    "choices": [
-    "Augmenter la longueur de son mot de passe",
     "Une revue des accès et le retrait des droits à chaque mobilité",
-    "Activer le chiffrement de son disque",
-    "Lui attribuer un rôle d'administrateur unique"
+    "Augmenter la longueur de son mot de passe et activer la MFA",
+    "Lui attribuer un rôle d'administrateur unique et nominatif",
+    "Activer le chiffrement complet du disque de son poste"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "L'accumulation de privilèges se traite par le retrait des droits lors des mobilités et des revues régulières.",
    "whyNot": {
-    "0": "Le mot de passe n'a pas d'effet sur l'étendue des droits.",
-    "2": "Le chiffrement protège les données au repos, pas les droits d'accès.",
-    "3": "Un rôle administrateur aggraverait le problème."
+    "1": "Le mot de passe n'a pas d'effet sur l'étendue des droits.",
+    "2": "Un rôle administrateur aggraverait le problème.",
+    "3": "Le chiffrement protège les données au repos, pas les droits d'accès."
    },
    "kind": "practice"
   },
@@ -1177,19 +1177,19 @@
    "concept": "Contrôle par règles",
    "prompt": "Quelle affirmation distingue correctement le contrôle par règles (rule-based) du contrôle par rôles (role-based) ?",
    "choices": [
-    "Ce sont deux noms du même modèle",
-    "Le contrôle par règles applique des règles globales à tous, sans tenir compte de la fonction de l'utilisateur",
-    "Le contrôle par règles laisse le propriétaire décider",
-    "Le contrôle par règles utilise des étiquettes de classification"
+    "Le contrôle par règles laisse le propriétaire de la ressource décider des droits",
+    "Le contrôle par règles compare des étiquettes de classification à des habilitations",
+    "Le contrôle par règles applique les mêmes règles à tous, quelle que soit la fonction",
+    "Ce sont deux noms différents pour désigner le même modèle"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Le contrôle par règles (pare-feu, plages horaires) applique les mêmes règles à tous ; le RBAC dépend de la fonction.",
    "whyNot": {
-    "0": "Les deux sigles se ressemblent (RBAC), mais les modèles sont différents.",
-    "2": "C'est le principe du DAC.",
-    "3": "Les étiquettes caractérisent le MAC."
+    "0": "C'est le principe du DAC.",
+    "1": "Les étiquettes caractérisent le MAC.",
+    "3": "Les deux sigles se ressemblent (RBAC), mais les modèles sont différents."
    },
    "kind": "general"
   },
@@ -1200,19 +1200,19 @@
    "concept": "Fédération",
    "prompt": "Quel protocole est conçu pour déléguer une autorisation, par exemple permettre à une application d'accéder à vos fichiers sans connaître votre mot de passe ?",
    "choices": [
-    "SAML 2.0",
-    "OAuth 2.0",
     "Kerberos",
-    "LDAP"
+    "LDAP",
+    "OAuth 2.0",
+    "SAML 2.0"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "OAuth 2.0 délivre des jetons d'accès qui représentent une autorisation déléguée.",
    "whyNot": {
-    "0": "SAML 2.0 sert surtout à l'authentification et à la fédération par assertions XML.",
-    "2": "Kerberos authentifie dans un domaine à l'aide de tickets.",
-    "3": "LDAP est un protocole d'accès à un annuaire."
+    "0": "Kerberos authentifie dans un domaine à l'aide de tickets.",
+    "1": "LDAP est un protocole d'accès à un annuaire.",
+    "3": "SAML 2.0 sert surtout à l'authentification et à la fédération par assertions XML."
    },
    "kind": "general"
   },
@@ -1223,19 +1223,19 @@
    "concept": "Fédération",
    "prompt": "Quel protocole ajoute une couche d'authentification (jeton d'identité) au-dessus d'OAuth 2.0 ?",
    "choices": [
-    "SAML 2.0",
+    "RADIUS (accès réseau)",
     "OpenID Connect",
-    "RADIUS",
-    "Kerberos"
+    "Kerberos (tickets)",
+    "SAML 2.0 (assertions XML)"
    ],
    "correct": [
     1
    ],
    "explanation": "OpenID Connect s'appuie sur OAuth 2.0 et fournit un ID token, au format JWT, qui décrit l'utilisateur authentifié.",
    "whyNot": {
-    "0": "SAML 2.0 est un standard distinct, fondé sur XML.",
-    "2": "RADIUS est un protocole d'authentification réseau, sans lien avec OAuth.",
-    "3": "Kerberos fonctionne avec des tickets, pas au-dessus d'OAuth."
+    "0": "RADIUS est un protocole d'authentification réseau, sans lien avec OAuth.",
+    "2": "Kerberos fonctionne avec des tickets, pas au-dessus d'OAuth.",
+    "3": "SAML 2.0 est un standard distinct, fondé sur XML."
    },
    "kind": "general"
   },
@@ -1246,19 +1246,19 @@
    "concept": "Fédération",
    "prompt": "Dans une fédération SAML, quel acteur authentifie l'utilisateur et émet l'assertion ?",
    "choices": [
-    "Le fournisseur de service (SP)",
     "Le fournisseur d'identité (IdP)",
-    "Le navigateur",
-    "Le pare-feu"
+    "Le fournisseur de service (SP)",
+    "Le pare-feu",
+    "Le navigateur"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "Le fournisseur d'identité authentifie l'utilisateur et émet une assertion signée que le fournisseur de service accepte.",
    "whyNot": {
-    "0": "Le SP consomme l'assertion ; il ne l'émet pas.",
-    "2": "Le navigateur transporte souvent l'assertion mais ne l'émet pas.",
-    "3": "Le pare-feu ne participe pas à SAML."
+    "1": "Le SP consomme l'assertion ; il ne l'émet pas.",
+    "2": "Le pare-feu ne participe pas à SAML.",
+    "3": "Le navigateur transporte souvent l'assertion mais ne l'émet pas."
    },
    "kind": "general"
   },
@@ -1269,19 +1269,19 @@
    "concept": "Kerberos",
    "prompt": "Dans Kerberos, quel composant délivre le ticket d'octroi de tickets (TGT) ?",
    "choices": [
-    "Le service d'authentification (AS)",
     "Le service de tickets (TGS)",
-    "Le serveur de fichiers",
-    "Le client"
+    "Le client",
+    "Le service d'authentification (AS)",
+    "Le serveur de fichiers"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Le client s'authentifie auprès de l'AS, qui lui remet le TGT ; il présentera ensuite ce TGT au TGS.",
    "whyNot": {
-    "1": "Le TGS délivre les tickets de service, en échange du TGT.",
-    "2": "Le serveur de fichiers reçoit un ticket de service, il n'en délivre pas.",
-    "3": "Le client demande les tickets, il ne les émet pas."
+    "0": "Le TGS délivre les tickets de service, en échange du TGT.",
+    "1": "Le client demande les tickets, il ne les émet pas.",
+    "3": "Le serveur de fichiers reçoit un ticket de service, il n'en délivre pas."
    },
    "kind": "general"
   },
@@ -1292,19 +1292,19 @@
    "concept": "Kerberos",
    "prompt": "Les horloges d'un poste et du contrôleur de domaine ont 20 minutes d'écart. Quelle conséquence probable avec Kerberos ?",
    "choices": [
-    "Aucune, Kerberos ignore l'heure",
     "L'authentification échoue, car les tickets sont horodatés",
-    "Le mot de passe est envoyé en clair",
-    "Le poste devient contrôleur de domaine"
+    "Aucune, car Kerberos ne tient pas compte de l'heure",
+    "Le poste prend le rôle de contrôleur de domaine",
+    "Le mot de passe de l'utilisateur est envoyé en clair"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "Kerberos horodate ses échanges pour limiter le rejeu ; au-delà de la tolérance configurée, l'authentification est refusée.",
    "whyNot": {
-    "0": "L'heure est au contraire essentielle à Kerberos.",
-    "2": "Kerberos n'envoie pas le mot de passe sur le réseau.",
-    "3": "Un écart d'horloge ne change pas le rôle d'une machine."
+    "1": "L'heure est au contraire essentielle à Kerberos.",
+    "2": "Un écart d'horloge ne change pas le rôle d'une machine.",
+    "3": "Kerberos n'envoie pas le mot de passe sur le réseau."
    },
    "kind": "general"
   },
@@ -1315,10 +1315,10 @@
    "concept": "Kerberos",
    "prompt": "Quelles affirmations sur les faiblesses de Kerberos sont exactes ? (2 réponses)",
    "choices": [
-    "Le KDC est un point unique de défaillance à redonder",
     "Un ticket volé peut être rejoué jusqu'à son expiration",
-    "Kerberos transmet les mots de passe en clair",
-    "Kerberos ne fonctionne qu'avec la biométrie"
+    "Le KDC est un point unique de défaillance à redonder",
+    "Kerberos ne fonctionne qu'avec la biométrie",
+    "Kerberos transmet les mots de passe en clair"
    ],
    "correct": [
     0,
@@ -1326,8 +1326,8 @@
    ],
    "explanation": "Le KDC concentre la confiance et la disponibilité ; un ticket volé reste utilisable tant qu'il est valide (pass-the-ticket).",
    "whyNot": {
-    "2": "Le mot de passe sert à dériver une clé, il ne circule pas en clair.",
-    "3": "Kerberos n'impose aucun facteur particulier."
+    "2": "Kerberos n'impose aucun facteur particulier.",
+    "3": "Le mot de passe sert à dériver une clé, il ne circule pas en clair."
    },
    "kind": "general"
   },
@@ -1338,19 +1338,19 @@
    "concept": "Cycle de vie des identités",
    "prompt": "Un administrateur quitte l'entreprise ce soir. Quelle action est prioritaire ?",
    "choices": [
-    "Supprimer immédiatement toutes ses données",
+    "Changer le mot de passe du réseau Wi-Fi des invités",
     "Désactiver ses comptes et révoquer ses accès et sessions dès son départ",
-    "Attendre la revue trimestrielle des accès",
-    "Changer le mot de passe Wi-Fi invité"
+    "Attendre la prochaine revue trimestrielle des accès",
+    "Supprimer immédiatement toutes ses données et sa messagerie"
    ],
    "correct": [
     1
    ],
    "explanation": "La désactivation immédiate des comptes et la révocation des sessions ferment l'accès ; les données sont conservées selon les règles en vigueur.",
    "whyNot": {
-    "0": "Supprimer tout de suite peut détruire des données utiles ou des preuves.",
+    "0": "Le Wi-Fi invité n'est pas l'accès le plus critique d'un administrateur.",
     "2": "Attendre la revue laisse un compte actif sans propriétaire.",
-    "3": "Le Wi-Fi invité n'est pas l'accès le plus critique d'un administrateur."
+    "3": "Supprimer tout de suite peut détruire des données utiles ou des preuves."
    },
    "kind": "practice"
   },
@@ -1361,18 +1361,18 @@
    "concept": "PAM",
    "prompt": "Quelle mesure relève de la gestion des accès à privilèges (PAM) ?",
    "choices": [
+    "Un antivirus avec analyse comportementale sur les postes",
+    "Une politique de bureau propre et d'écran verrouillé",
     "Un coffre-fort de mots de passe administrateur avec rotation après usage",
-    "Un antivirus sur les postes",
-    "Une politique de bureau propre",
-    "Une sauvegarde hebdomadaire"
+    "Une sauvegarde hebdomadaire des serveurs d'administration"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Le coffre-fort, l'accès juste-à-temps et l'enregistrement des sessions sont des mesures PAM typiques.",
    "whyNot": {
-    "1": "L'antivirus protège contre les logiciels malveillants.",
-    "2": "Le bureau propre est une mesure de sécurité physique et organisationnelle.",
+    "0": "L'antivirus protège contre les logiciels malveillants.",
+    "1": "Le bureau propre est une mesure de sécurité physique et organisationnelle.",
     "3": "La sauvegarde relève de la disponibilité."
    },
    "kind": "practice"
@@ -1384,19 +1384,19 @@
    "concept": "SSO",
    "prompt": "Quels sont les effets du SSO sur la sécurité ? (2 réponses)",
    "choices": [
-    "Moins de mots de passe à retenir, donc moins de réutilisation",
-    "Un compte compromis donne accès à toutes les applications reliées",
     "Il supprime le besoin d'authentification",
-    "Il rend la MFA inutile"
+    "Moins de mots de passe à retenir, donc moins de réutilisation",
+    "Il rend la MFA inutile",
+    "Un compte compromis donne accès à toutes les applications reliées"
    ],
    "correct": [
-    0,
-    1
+    1,
+    3
    ],
    "explanation": "Le SSO réduit la fatigue des mots de passe mais concentre le risque sur une seule authentification, qui doit donc être forte.",
    "whyNot": {
-    "2": "L'utilisateur s'authentifie toujours, une seule fois.",
-    "3": "La MFA devient au contraire indispensable sur le compte SSO."
+    "0": "L'utilisateur s'authentifie toujours, une seule fois.",
+    "2": "La MFA devient au contraire indispensable sur le compte SSO."
    },
    "kind": "general"
   },
@@ -1407,19 +1407,19 @@
    "concept": "Détection",
    "prompt": "Un même compte se connecte depuis Paris puis, 10 minutes plus tard, depuis un autre continent. Quelle détection est déclenchée ?",
    "choices": [
-    "Un voyage impossible",
+    "Un Kerberoasting",
     "Une pulvérisation de mots de passe",
     "Une fatigue MFA",
-    "Un Kerberoasting"
+    "Un voyage impossible"
    ],
    "correct": [
-    0
+    3
    ],
    "explanation": "Deux connexions trop éloignées pour un délai si court signent un voyage impossible : identifiants ou jetons probablement volés.",
    "whyNot": {
+    "0": "Le Kerberoasting vise les tickets de comptes de service.",
     "1": "La pulvérisation vise beaucoup de comptes avec peu d'essais chacun.",
-    "2": "La fatigue MFA se manifeste par des notifications en rafale.",
-    "3": "Le Kerberoasting vise les tickets de comptes de service."
+    "2": "La fatigue MFA se manifeste par des notifications en rafale."
    },
    "kind": "example"
   }

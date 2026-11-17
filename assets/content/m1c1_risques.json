@@ -738,18 +738,18 @@
    "concept": "Menace et vulnérabilité",
    "prompt": "Un serveur web exposé sur Internet utilise une version d'Apache sans les derniers correctifs. Dans ce scénario, la version non corrigée est :",
    "choices": [
+    "Un impact",
     "Une menace",
     "Une vulnérabilité",
-    "Un impact",
     "Un contrôle"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Une version non corrigée est une faiblesse de l'actif lui-même : c'est une vulnérabilité, qu'une menace pourra exploiter.",
    "whyNot": {
-    "0": "La menace est la cause potentielle de l'incident (par exemple un attaquant qui scanne Internet), pas la faiblesse.",
-    "2": "L'impact est la conséquence d'un incident, par exemple l'indisponibilité du site.",
+    "0": "L'impact est la conséquence d'un incident, par exemple l'indisponibilité du site.",
+    "1": "La menace est la cause potentielle de l'incident (par exemple un attaquant qui scanne Internet), pas la faiblesse.",
     "3": "Un contrôle réduirait le risque ; ici c'est son absence (le correctif) qui crée la faiblesse."
    },
    "kind": "general"
@@ -761,19 +761,19 @@
    "concept": "Menace et vulnérabilité",
    "prompt": "Le CERT sectoriel signale qu'un groupe de rançongiciel cible activement les cliniques privées. Pour une clinique, ce groupe représente :",
    "choices": [
-    "Une vulnérabilité",
-    "Un actif",
     "Une menace",
-    "Un risque résiduel"
+    "Une vulnérabilité",
+    "Un risque résiduel",
+    "Un actif"
    ],
    "correct": [
-    2
+    0
    ],
    "explanation": "Le groupe est une source potentielle d'incident extérieure à l'actif : c'est une menace (humaine et intentionnelle).",
    "whyNot": {
-    "0": "Une vulnérabilité est une faiblesse interne (correctif manquant, mot de passe faible), pas un attaquant.",
-    "1": "L'actif est ce qui a de la valeur pour la clinique (dossiers patients, systèmes).",
-    "3": "Le risque résiduel est ce qui reste après les contrôles ; le groupe n'est qu'une des composantes du risque."
+    "1": "Une vulnérabilité est une faiblesse interne (correctif manquant, mot de passe faible), pas un attaquant.",
+    "2": "Le risque résiduel est ce qui reste après les contrôles ; le groupe n'est qu'une des composantes du risque.",
+    "3": "L'actif est ce qui a de la valeur pour la clinique (dossiers patients, systèmes)."
    },
    "kind": "general"
   },
@@ -784,19 +784,19 @@
    "concept": "Risque inhérent et résiduel",
    "prompt": "Après le déploiement d'un EDR et de sauvegardes hors ligne, le RSSI estime le risque de rançongiciel qui subsiste. Il s'agit du :",
    "choices": [
-    "Risque inhérent",
-    "Risque résiduel",
     "Risque accepté par défaut",
-    "Seuil de tolérance"
+    "Risque inhérent",
+    "Seuil de tolérance",
+    "Risque résiduel"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Le risque résiduel est le risque qui subsiste après la mise en place des contrôles.",
    "whyNot": {
-    "0": "Le risque inhérent est mesuré avant tout contrôle.",
-    "2": "Il n'existe pas d'acceptation par défaut : l'acceptation doit être une décision explicite du propriétaire du risque.",
-    "3": "La tolérance est l'écart acceptable autour de l'appétence, pas une mesure du risque restant."
+    "0": "Il n'existe pas d'acceptation par défaut : l'acceptation doit être une décision explicite du propriétaire du risque.",
+    "1": "Le risque inhérent est mesuré avant tout contrôle.",
+    "2": "La tolérance est l'écart acceptable autour de l'appétence, pas une mesure du risque restant."
    },
    "kind": "general"
   },
@@ -808,18 +808,18 @@
    "prompt": "La direction déclare : « Nous acceptons un niveau de risque modéré pour développer nos services en ligne. » Cette déclaration exprime :",
    "choices": [
     "L'appétence au risque",
+    "Un contrôle dissuasif",
     "Le risque inhérent",
-    "Le facteur d'exposition",
-    "Un contrôle dissuasif"
+    "Le facteur d'exposition"
    ],
    "correct": [
     0
    ],
    "explanation": "L'appétence au risque est le niveau global de risque que l'organisation accepte de prendre pour atteindre ses objectifs. C'est une décision de la direction.",
    "whyNot": {
-    "1": "Le risque inhérent est un niveau mesuré avant contrôles, pas une préférence de la direction.",
-    "2": "Le facteur d'exposition (EF) est un pourcentage de perte de la valeur d'un actif, utilisé en analyse quantitative.",
-    "3": "Un contrôle dissuasif décourage un attaquant ; une déclaration d'appétence n'a pas ce rôle."
+    "1": "Un contrôle dissuasif décourage un attaquant ; une déclaration d'appétence n'a pas ce rôle.",
+    "2": "Le risque inhérent est un niveau mesuré avant contrôles, pas une préférence de la direction.",
+    "3": "Le facteur d'exposition (EF) est un pourcentage de perte de la valeur d'un actif, utilisé en analyse quantitative."
    },
    "kind": "general"
   },
@@ -830,19 +830,19 @@
    "concept": "Processus ISO 27005",
    "prompt": "Selon ISO/IEC 27005, l'appréciation du risque (risk assessment) regroupe :",
    "choices": [
-    "L'identification, le traitement et l'acceptation",
     "L'analyse, le traitement et la surveillance",
-    "L'identification, l'analyse et l'évaluation",
-    "Le contexte, la communication et la revue"
+    "Le contexte, la communication et la revue",
+    "L'identification, le traitement et l'acceptation",
+    "L'identification, l'analyse et l'évaluation"
    ],
    "correct": [
-    2
+    3
    ],
    "explanation": "Dans ISO/IEC 27005 comme dans ISO 31000, l'appréciation du risque comprend trois activités : identification, analyse et évaluation. Le traitement vient ensuite.",
    "whyNot": {
-    "0": "Le traitement et l'acceptation suivent l'appréciation, ils n'en font pas partie.",
-    "1": "Le traitement et la surveillance sont des étapes distinctes de l'appréciation.",
-    "3": "Ce sont des activités qui encadrent tout le processus, pas le contenu de l'appréciation."
+    "0": "Le traitement et la surveillance sont des étapes distinctes de l'appréciation.",
+    "1": "Ce sont des activités qui encadrent tout le processus, pas le contenu de l'appréciation.",
+    "2": "Le traitement et l'acceptation suivent l'appréciation, ils n'en font pas partie."
    },
    "kind": "general"
   },
@@ -853,19 +853,19 @@
    "concept": "Composantes du risque",
    "prompt": "Pour estimer le niveau d'un risque, quels sont les deux éléments indispensables ? (2 réponses)",
    "choices": [
-    "La vraisemblance du scénario",
     "Le nom de l'éditeur de l'EDR",
-    "L'impact du scénario sur l'organisation",
-    "Le nombre d'analystes dans le SOC"
+    "La vraisemblance du scénario",
+    "Le nombre d'analystes dans le SOC",
+    "L'impact du scénario sur l'organisation"
    ],
    "correct": [
-    0,
-    2
+    1,
+    3
    ],
    "explanation": "Le niveau de risque se calcule à partir de la vraisemblance et de l'impact (risque = vraisemblance × impact).",
    "whyNot": {
-    "1": "L'éditeur d'un outil peut influencer l'efficacité d'un contrôle, mais ce n'est pas une composante du niveau de risque.",
-    "3": "La taille du SOC est une donnée de capacité ; elle n'entre pas directement dans le calcul du risque."
+    "0": "L'éditeur d'un outil peut influencer l'efficacité d'un contrôle, mais ce n'est pas une composante du niveau de risque.",
+    "2": "La taille du SOC est une donnée de capacité ; elle n'entre pas directement dans le calcul du risque."
    },
    "kind": "general"
   },
@@ -876,19 +876,19 @@
    "concept": "Propriétaire du risque",
    "prompt": "Qui doit accepter formellement le risque résiduel lié à une application métier ?",
    "choices": [
-    "L'analyste SOC qui a détecté la vulnérabilité",
     "Le propriétaire du risque, responsable métier ayant l'autorité nécessaire",
-    "L'auditeur externe",
-    "L'administrateur système de l'application"
+    "L'analyste SOC qui a détecté et documenté la vulnérabilité",
+    "L'administrateur système qui gère l'application au quotidien",
+    "L'auditeur externe qui a relevé l'écart pendant sa mission"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "L'acceptation revient au propriétaire du risque : la personne qui a l'autorité et la responsabilité de l'activité concernée, et donc le budget pour agir.",
    "whyNot": {
-    "0": "L'analyste signale et documente, il n'a pas l'autorité pour engager l'organisation.",
-    "2": "L'auditeur doit rester indépendant : il vérifie le processus mais ne prend pas les décisions de gestion.",
-    "3": "L'administrateur met en œuvre les contrôles techniques, il ne porte pas la décision métier."
+    "1": "L'analyste signale et documente, il n'a pas l'autorité pour engager l'organisation.",
+    "2": "L'administrateur met en œuvre les contrôles techniques, il ne porte pas la décision métier.",
+    "3": "L'auditeur doit rester indépendant : il vérifie le processus mais ne prend pas les décisions de gestion."
    },
    "kind": "general"
   },
@@ -899,10 +899,10 @@
    "concept": "Niveaux NIST SP 800-39",
    "prompt": "NIST SP 800-39 organise la gestion des risques sur trois niveaux. Lesquels ?",
    "choices": [
-    "Prévention, détection, réponse",
+    "Prévention ; détection ; réponse aux incidents",
     "Organisation ; mission et processus métier ; système d'information",
-    "Identifier, protéger, détecter",
-    "Actif, menace, vulnérabilité"
+    "Identifier ; protéger ; détecter, répondre et rétablir",
+    "Actif ; menace ; vulnérabilité et impact"
    ],
    "correct": [
     1
@@ -922,17 +922,17 @@
    "concept": "Qualitatif et quantitatif",
    "prompt": "Une analyse qui classe les risques en « faible », « moyen » ou « élevé » à l'aide d'une matrice vraisemblance × impact est une analyse :",
    "choices": [
-    "Quantitative",
     "Qualitative",
+    "Quantitative",
     "Financière",
     "Probabiliste"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "Utiliser des niveaux et une matrice, sans montants en euros, caractérise l'analyse qualitative.",
    "whyNot": {
-    "0": "L'analyse quantitative produit des valeurs chiffrées (euros par an) avec SLE, ARO et ALE.",
+    "1": "L'analyse quantitative produit des valeurs chiffrées (euros par an) avec SLE, ARO et ALE.",
     "2": "« Financière » n'est pas un type d'analyse de risque standard ; c'est le quantitatif qui exprime le risque en argent.",
     "3": "Une approche probabiliste repose sur des probabilités chiffrées, pas sur des niveaux qualitatifs."
    },
@@ -945,19 +945,19 @@
    "concept": "SLE",
    "prompt": "Un serveur de base de données vaut 500 000 €. Un incident de rançongiciel en détruirait 20 % de la valeur. Quelle est la SLE ?",
    "choices": [
-    "25 000 €",
-    "100 000 €",
     "400 000 €",
-    "2 500 000 €"
+    "2 500 000 €",
+    "25 000 €",
+    "100 000 €"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "SLE = AV × EF = 500 000 × 0,20 = 100 000 €.",
    "whyNot": {
-    "0": "25 000 € correspond à 5 %, pas à 20 %.",
-    "2": "400 000 € est la valeur qui reste intacte (80 %), pas la perte.",
-    "3": "Ce résultat multiplie au lieu d'appliquer un pourcentage."
+    "0": "400 000 € est la valeur qui reste intacte (80 %), pas la perte.",
+    "1": "Ce résultat multiplie au lieu d'appliquer un pourcentage.",
+    "2": "25 000 € correspond à 5 %, pas à 20 %."
    },
    "kind": "general"
   },
@@ -968,8 +968,8 @@
    "concept": "ALE",
    "prompt": "La SLE d'un scénario est de 100 000 € et l'incident est attendu une fois tous les 10 ans. Quelle est l'ALE ?",
    "choices": [
-    "1 000 000 €",
     "100 000 €",
+    "1 000 000 €",
     "10 000 €",
     "1 000 €"
    ],
@@ -978,8 +978,8 @@
    ],
    "explanation": "Une fois tous les 10 ans donne ARO = 0,1. ALE = SLE × ARO = 100 000 × 0,1 = 10 000 € par an.",
    "whyNot": {
-    "0": "Ce calcul utilise ARO = 10 au lieu de 0,1.",
-    "1": "C'est la SLE, la perte pour une seule occurrence, pas la perte annuelle.",
+    "0": "C'est la SLE, la perte pour une seule occurrence, pas la perte annuelle.",
+    "1": "Ce calcul utilise ARO = 10 au lieu de 0,1.",
     "3": "Ce calcul utilise ARO = 0,01 (une fois tous les 100 ans)."
    },
    "kind": "general"
@@ -991,19 +991,19 @@
    "concept": "ARO",
    "prompt": "Un incident est attendu une fois tous les 4 ans. Quel est son ARO ?",
    "choices": [
-    "4",
+    "25",
     "0,4",
-    "0,25",
-    "25"
+    "4",
+    "0,25"
    ],
    "correct": [
-    2
+    3
    ],
    "explanation": "ARO = nombre d'occurrences par an = 1 / 4 = 0,25.",
    "whyNot": {
-    "0": "4 signifierait quatre incidents par an.",
+    "0": "25 n'a pas de sens ici ; c'est un pourcentage mal converti.",
     "1": "0,4 correspondrait à un incident tous les 2,5 ans.",
-    "3": "25 n'a pas de sens ici ; c'est un pourcentage mal converti."
+    "2": "4 signifierait quatre incidents par an."
    },
    "kind": "general"
   },
@@ -1014,19 +1014,19 @@
    "concept": "Valeur d'un contrôle",
    "prompt": "L'ALE d'un risque est de 50 000 €. Avec un nouveau contrôle, elle passerait à 10 000 €. Le contrôle coûte 15 000 € par an. Quelle est sa valeur annuelle ?",
    "choices": [
-    "40 000 €",
     "35 000 €",
-    "25 000 €",
-    "−5 000 €"
+    "−5 000 €",
+    "40 000 €",
+    "25 000 €"
    ],
    "correct": [
-    2
+    3
    ],
    "explanation": "Valeur = ALE avant − ALE après − coût annuel = 50 000 − 10 000 − 15 000 = 25 000 €. Le contrôle est rentable.",
    "whyNot": {
-    "0": "40 000 € oublie de soustraire le coût du contrôle.",
-    "1": "35 000 € = 50 000 − 15 000 : ce calcul oublie la perte qui subsiste avec le contrôle (ALE après).",
-    "3": "−5 000 € = 10 000 − 15 000 : ce calcul part de l'ALE après au lieu de la perte évitée."
+    "0": "35 000 € = 50 000 − 15 000 : ce calcul oublie la perte qui subsiste avec le contrôle (ALE après).",
+    "1": "−5 000 € = 10 000 − 15 000 : ce calcul part de l'ALE après au lieu de la perte évitée.",
+    "2": "40 000 € oublie de soustraire le coût du contrôle."
    },
    "kind": "general"
   },
@@ -1037,19 +1037,19 @@
    "concept": "Qualitatif et quantitatif",
    "prompt": "Quels sont les avantages de l'analyse quantitative ? (2 réponses)",
    "choices": [
-    "Elle fournit des montants qui facilitent les arbitrages budgétaires",
-    "Elle ne nécessite aucune donnée historique",
+    "Elle est plus rapide à mener que l'analyse qualitative",
     "Elle permet de comparer le coût d'un contrôle à la perte qu'il évite",
-    "Elle est plus rapide à mener que l'analyse qualitative"
+    "Elle fournit des montants qui facilitent les arbitrages budgétaires",
+    "Elle ne nécessite aucune donnée historique"
    ],
    "correct": [
-    0,
+    1,
     2
    ],
    "explanation": "Le quantitatif exprime le risque en euros : on peut donc comparer les risques entre eux et calculer la rentabilité d'un contrôle.",
    "whyNot": {
-    "1": "C'est l'inverse : le quantitatif dépend fortement de données fiables (valeurs, fréquences).",
-    "3": "C'est l'inverse : le quantitatif est généralement plus long que le qualitatif."
+    "0": "C'est l'inverse : le quantitatif est généralement plus long que le qualitatif.",
+    "3": "C'est l'inverse : le quantitatif dépend fortement de données fiables (valeurs, fréquences)."
    },
    "kind": "general"
   },
@@ -1060,17 +1060,17 @@
    "concept": "Facteur d'exposition",
    "prompt": "Que mesure le facteur d'exposition (EF) ?",
    "choices": [
-    "Le nombre d'incidents attendus par an",
     "Le pourcentage de la valeur de l'actif perdu lors d'un incident",
-    "La valeur totale de l'actif",
-    "Le coût annuel d'un contrôle"
+    "Le nombre d'incidents attendus chaque année pour ce scénario",
+    "La valeur totale de l'actif, estimée par son propriétaire",
+    "Le coût annuel d'un contrôle, maintenance comprise"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "L'EF est la part de la valeur de l'actif perdue à chaque occurrence, entre 0 et 100 %.",
    "whyNot": {
-    "0": "C'est l'ARO.",
+    "1": "C'est l'ARO.",
     "2": "C'est l'AV (Asset Value).",
     "3": "Le coût du contrôle sert au calcul de sa valeur, pas à l'EF."
    },
@@ -1083,19 +1083,19 @@
    "concept": "ALE",
    "prompt": "Le SOC enregistre en moyenne 2 compromissions de poste de travail par an. Chacune coûte 15 000 € (investigation, réinstallation, perte de productivité). Quelle est l'ALE de ce scénario ?",
    "choices": [
-    "7 500 €",
-    "15 000 €",
     "17 000 €",
-    "30 000 €"
+    "30 000 €",
+    "15 000 €",
+    "7 500 €"
    ],
    "correct": [
-    3
+    1
    ],
    "explanation": "Ici la SLE vaut 15 000 € et l'ARO vaut 2. ALE = 15 000 × 2 = 30 000 € par an.",
    "whyNot": {
-    "0": "7 500 € divise la SLE par l'ARO au lieu de multiplier.",
-    "1": "15 000 € est la SLE (une seule compromission).",
-    "2": "17 000 € additionne SLE et ARO."
+    "0": "17 000 € additionne SLE et ARO.",
+    "2": "15 000 € est la SLE (une seule compromission).",
+    "3": "7 500 € divise la SLE par l'ARO au lieu de multiplier."
    },
    "kind": "example"
   },
@@ -1106,19 +1106,19 @@
    "concept": "Options de traitement",
    "prompt": "Une entreprise souscrit une cyber-assurance couvrant les pertes d'exploitation après une attaque. Quelle option de traitement applique-t-elle ?",
    "choices": [
-    "Réduction",
-    "Transfert (partage)",
     "Évitement",
-    "Acceptation"
+    "Acceptation",
+    "Réduction",
+    "Transfert (partage)"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "L'assurance fait porter une partie des conséquences financières par un tiers : c'est un transfert (ou partage) du risque.",
    "whyNot": {
-    "0": "La réduction baisse la vraisemblance ou l'impact par des contrôles ; l'assurance ne rend pas l'attaque moins probable.",
-    "2": "L'évitement supprime l'activité à l'origine du risque.",
-    "3": "Accepter, c'est conserver le risque sans le traiter davantage."
+    "0": "L'évitement supprime l'activité à l'origine du risque.",
+    "1": "Accepter, c'est conserver le risque sans le traiter davantage.",
+    "2": "La réduction baisse la vraisemblance ou l'impact par des contrôles ; l'assurance ne rend pas l'attaque moins probable."
    },
    "kind": "general"
   },
@@ -1129,19 +1129,19 @@
    "concept": "Options de traitement",
    "prompt": "Après l'analyse des risques, une banque renonce à lancer un service de paiement par une application tierce qu'elle ne peut pas sécuriser. Quelle option a-t-elle choisie ?",
    "choices": [
-    "Évitement",
+    "Acceptation",
     "Transfert",
-    "Réduction",
-    "Acceptation"
+    "Évitement",
+    "Réduction"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Renoncer à l'activité qui crée le risque, c'est éviter le risque.",
    "whyNot": {
+    "0": "La banque ne conserve pas le risque : elle supprime l'activité.",
     "1": "Aucune partie des conséquences n'est confiée à un tiers.",
-    "2": "Aucun contrôle n'est mis en place pour réduire le risque.",
-    "3": "La banque ne conserve pas le risque : elle supprime l'activité."
+    "3": "Aucun contrôle n'est mis en place pour réduire le risque."
    },
    "kind": "general"
   },
@@ -1152,19 +1152,19 @@
    "concept": "Transfert et responsabilité",
    "prompt": "Une entreprise confie la supervision de sécurité à un MSSP (SOC externalisé). Une fuite de données clients se produit. Qui reste responsable (accountable) vis-à-vis des clients et du régulateur ?",
    "choices": [
-    "Le MSSP",
-    "L'éditeur du SIEM",
+    "L'éditeur du SIEM utilisé par le MSSP",
     "L'entreprise cliente et sa direction",
-    "L'assureur"
+    "L'assureur, s'il couvre les cyber-risques",
+    "Le MSSP, qui assure la supervision"
    ],
    "correct": [
-    2
+    1
    ],
    "explanation": "On peut transférer des tâches et une partie des conséquences financières, mais pas la responsabilité finale : elle reste à l'organisation qui détient les données.",
    "whyNot": {
-    "0": "Le MSSP peut voir sa responsabilité contractuelle engagée envers son client, mais il ne remplace pas l'entreprise face à ses clients et au régulateur.",
-    "1": "L'éditeur fournit un outil ; il n'est pas responsable des données de ses clients.",
-    "3": "L'assureur indemnise certaines pertes, il ne porte pas la responsabilité."
+    "0": "L'éditeur fournit un outil ; il n'est pas responsable des données de ses clients.",
+    "2": "L'assureur indemnise certaines pertes, il ne porte pas la responsabilité.",
+    "3": "Le MSSP peut voir sa responsabilité contractuelle engagée envers son client, mais il ne remplace pas l'entreprise face à ses clients et au régulateur."
    },
    "kind": "general"
   },
@@ -1175,18 +1175,18 @@
    "concept": "Types de contrôles",
    "prompt": "Une règle SIEM déclenche une alerte quand un compte subit plus de 20 échecs d'authentification en 5 minutes. De quel type de contrôle s'agit-il ?",
    "choices": [
+    "Correctif",
     "Préventif",
     "Détectif",
-    "Correctif",
     "Dissuasif"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "La règle ne bloque rien : elle repère une activité suspecte et alerte. C'est un contrôle détectif.",
    "whyNot": {
-    "0": "Un contrôle préventif empêcherait l'action, par exemple un verrouillage automatique du compte.",
-    "2": "Un contrôle correctif agirait après coup pour limiter ou réparer les dégâts.",
+    "0": "Un contrôle correctif agirait après coup pour limiter ou réparer les dégâts.",
+    "1": "Un contrôle préventif empêcherait l'action, par exemple un verrouillage automatique du compte.",
     "3": "Un contrôle dissuasif chercherait à décourager l'attaquant, par exemple une bannière légale."
    },
    "kind": "general"
@@ -1198,19 +1198,19 @@
    "concept": "Types de contrôles",
    "prompt": "Un automate industriel ne peut plus recevoir de correctifs. L'équipe l'isole dans un VLAN dédié avec un filtrage strict, en remplacement du correctif impossible. Comment qualifier ce contrôle ?",
    "choices": [
-    "Dissuasif",
     "Correctif",
+    "Directif",
     "Compensatoire",
-    "Directif"
+    "Dissuasif"
    ],
    "correct": [
     2
    ],
    "explanation": "Un contrôle compensatoire remplace une mesure attendue qui ne peut pas être mise en place, ici le correctif.",
    "whyNot": {
-    "0": "Rien ici ne vise à décourager l'attaquant.",
-    "1": "Un contrôle correctif répare après un incident ; ici on anticipe en remplaçant une mesure impossible.",
-    "3": "Un contrôle directif impose un comportement (politique, consigne), ce n'est pas le cas d'une segmentation réseau."
+    "0": "Un contrôle correctif répare après un incident ; ici on anticipe en remplaçant une mesure impossible.",
+    "1": "Un contrôle directif impose un comportement (politique, consigne), ce n'est pas le cas d'une segmentation réseau.",
+    "3": "Rien ici ne vise à décourager l'attaquant."
    },
    "kind": "general"
   },
@@ -1222,17 +1222,17 @@
    "prompt": "Quelles conditions rendent une acceptation de risque valable ? (2 réponses)",
    "choices": [
     "La décision est documentée et signée par le propriétaire du risque",
-    "L'analyste qui a trouvé la faille décide seul",
     "Le risque résiduel reste dans les limites de l'appétence définie par la direction",
+    "L'analyste qui a trouvé la faille décide seul",
     "L'acceptation est définitive et n'a pas besoin d'être revue"
    ],
    "correct": [
     0,
-    2
+    1
    ],
    "explanation": "Une acceptation valable est explicite, prise par une personne habilitée et cohérente avec l'appétence au risque. Elle doit aussi être revue périodiquement.",
    "whyNot": {
-    "1": "L'analyste n'a pas l'autorité pour engager l'organisation.",
+    "2": "L'analyste n'a pas l'autorité pour engager l'organisation.",
     "3": "Le contexte évolue (nouvelles menaces) : une acceptation doit être revue, par exemple chaque année."
    },
    "kind": "general"
@@ -1244,19 +1244,19 @@
    "concept": "Registre des risques",
    "prompt": "À quoi sert principalement le registre des risques ?",
    "choices": [
-    "Stocker les journaux bruts collectés par le SIEM",
-    "Recenser les risques, leurs propriétaires, leurs niveaux, leurs traitements et leur suivi",
-    "Faire l'inventaire des licences logicielles",
-    "Archiver les tickets d'incidents clôturés"
+    "Archiver les tickets d'incidents clôturés et leurs comptes rendus",
+    "Recenser les risques, leurs propriétaires et leur traitement",
+    "Faire l'inventaire des licences logicielles et de leurs échéances",
+    "Stocker les journaux bruts collectés par le SIEM pour les enquêtes"
    ],
    "correct": [
     1
    ],
    "explanation": "Le registre des risques est l'outil de pilotage : il trace chaque risque, son propriétaire, son niveau, son traitement et ses revues.",
    "whyNot": {
-    "0": "Les journaux bruts sont conservés dans le SIEM ou un stockage de logs.",
+    "0": "C'est le rôle de l'outil de gestion des incidents, même si les incidents alimentent l'identification des risques.",
     "2": "C'est le rôle de la gestion des actifs logiciels.",
-    "3": "C'est le rôle de l'outil de gestion des incidents, même si les incidents alimentent l'identification des risques."
+    "3": "Les journaux bruts sont conservés dans le SIEM ou un stockage de logs."
    },
    "kind": "general"
   },

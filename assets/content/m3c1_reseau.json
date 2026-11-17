@@ -823,19 +823,19 @@
    "concept": "Modèle OSI",
    "prompt": "Combien de couches compte le modèle OSI ?",
    "choices": [
-    "4",
+    "9",
     "5",
-    "7",
-    "9"
+    "4",
+    "7"
    ],
    "correct": [
-    2
+    3
    ],
    "explanation": "Physique, liaison, réseau, transport, session, présentation, application : 7 couches.",
    "whyNot": {
-    "0": "4 couches, c'est le modèle TCP/IP.",
+    "0": "Le modèle OSI n'a pas 9 couches.",
     "1": "Certains manuels utilisent un modèle hybride à 5 couches, mais l'OSI en compte 7.",
-    "3": "Le modèle OSI n'a pas 9 couches."
+    "2": "4 couches, c'est le modèle TCP/IP."
    },
    "kind": "general"
   },
@@ -846,19 +846,19 @@
    "concept": "Équipements",
    "prompt": "À quelle couche OSI travaille principalement un commutateur (switch) classique ?",
    "choices": [
-    "Couche 1, physique",
+    "Couche 3, réseau (IP)",
+    "Couche 7, application",
     "Couche 2, liaison de données",
-    "Couche 3, réseau",
-    "Couche 7, application"
+    "Couche 1, physique (bits)"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Le commutateur achemine les trames selon les adresses MAC : couche 2.",
    "whyNot": {
-    "0": "La couche 1 est celle du concentrateur (hub) et des câbles.",
-    "2": "La couche 3 est celle du routeur (adresses IP).",
-    "3": "La couche 7 est celle des applications et des WAF."
+    "0": "La couche 3 est celle du routeur (adresses IP).",
+    "1": "La couche 7 est celle des applications et des WAF.",
+    "3": "La couche 1 est celle du concentrateur (hub) et des câbles."
    },
    "kind": "general"
   },
@@ -870,18 +870,18 @@
    "prompt": "Comment appelle-t-on l'unité de données de la couche 3 ?",
    "choices": [
     "La trame",
-    "Le paquet",
     "Le segment",
-    "Le bit"
+    "Le bit",
+    "Le paquet"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Couche 3 = paquet ; couche 2 = trame ; couche 4 = segment ; couche 1 = bit.",
    "whyNot": {
     "0": "La trame appartient à la couche 2.",
-    "2": "Le segment appartient à la couche 4.",
-    "3": "Le bit appartient à la couche 1."
+    "1": "Le segment appartient à la couche 4.",
+    "2": "Le bit appartient à la couche 1."
    },
    "kind": "general"
   },
@@ -892,19 +892,19 @@
    "concept": "Modèle TCP/IP",
    "prompt": "Dans le modèle TCP/IP, quelles couches OSI la couche Application regroupe-t-elle ?",
    "choices": [
-    "Les couches 1 et 2",
-    "Les couches 3 et 4",
+    "Uniquement la couche 7",
     "Les couches 5, 6 et 7",
-    "Uniquement la couche 7"
+    "Les couches 1 et 2",
+    "Les couches 3 et 4"
    ],
    "correct": [
-    2
+    1
    ],
    "explanation": "Session, présentation et application de l'OSI sont réunies dans la couche Application de TCP/IP.",
    "whyNot": {
-    "0": "Les couches 1 et 2 forment la couche Accès réseau.",
-    "1": "Les couches 3 et 4 correspondent à Internet et Transport.",
-    "3": "Les couches 5 et 6 y sont aussi incluses."
+    "0": "Les couches 5 et 6 y sont aussi incluses.",
+    "2": "Les couches 1 et 2 forment la couche Accès réseau.",
+    "3": "Les couches 3 et 4 correspondent à Internet et Transport."
    },
    "kind": "general"
   },
@@ -915,18 +915,18 @@
    "concept": "Contrôles par couche",
    "prompt": "Un pare-feu filtrant autorise le port 443. Une requête HTTPS contient une injection SQL. Pourquoi le pare-feu ne la bloque-t-il pas ?",
    "choices": [
+    "Parce que l'injection SQL agit sur la couche 1 et passe sous le filtrage",
     "Parce qu'il travaille aux couches 3 et 4 et n'analyse pas le contenu applicatif",
-    "Parce que le port 443 est toujours sûr",
-    "Parce que l'injection SQL agit en couche 1",
-    "Parce que les pare-feu ne filtrent que l'UDP"
+    "Parce que le port 443 est toujours sûr et chiffré de bout en bout",
+    "Parce que les pare-feu filtrants ne contrôlent que le trafic UDP"
    ],
    "correct": [
-    0
+    1
    ],
    "explanation": "L'injection est une attaque de couche 7 : il faut un contrôle applicatif comme un WAF, qui inspecte le contenu après déchiffrement.",
    "whyNot": {
-    "1": "Un port ne garantit rien sur le contenu.",
-    "2": "L'injection SQL est une attaque applicative.",
+    "0": "L'injection SQL est une attaque applicative.",
+    "2": "Un port ne garantit rien sur le contenu.",
     "3": "Les pare-feu filtrent aussi le TCP."
    },
    "kind": "example"
@@ -938,19 +938,19 @@
    "concept": "Encapsulation",
    "prompt": "Qu'est-ce que l'encapsulation ?",
    "choices": [
-    "Le chiffrement de toutes les données",
-    "L'ajout, par chaque couche, de son en-tête autour des données de la couche supérieure",
-    "La compression des fichiers",
-    "La suppression des adresses IP"
+    "La compression des fichiers par la couche présentation",
+    "La suppression des adresses IP pour masquer l'émetteur",
+    "Le chiffrement de toutes les données avant leur envoi",
+    "L'ajout par chaque couche de son propre en-tête autour des données"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "À l'envoi, chaque couche ajoute ses informations de contrôle ; à la réception, elle les retire.",
    "whyNot": {
-    "0": "L'encapsulation n'implique pas de chiffrement.",
-    "2": "La compression est un autre traitement.",
-    "3": "Au contraire, la couche 3 ajoute les adresses IP."
+    "0": "La compression est un autre traitement.",
+    "1": "Au contraire, la couche 3 ajoute les adresses IP.",
+    "2": "L'encapsulation n'implique pas de chiffrement."
    },
    "kind": "general"
   },
@@ -962,18 +962,18 @@
    "prompt": "Associez correctement : quelles attaques relèvent de la couche 2 ? (2 réponses)",
    "choices": [
     "Usurpation ARP",
+    "Inondation SYN",
     "Saturation de la table MAC d'un commutateur",
-    "Injection SQL",
-    "Inondation SYN"
+    "Injection SQL"
    ],
    "correct": [
     0,
-    1
+    2
    ],
    "explanation": "ARP et les adresses MAC appartiennent à la couche liaison de données.",
    "whyNot": {
-    "2": "L'injection SQL est une attaque de couche 7.",
-    "3": "L'inondation SYN vise la couche 4 (TCP)."
+    "1": "L'inondation SYN vise la couche 4 (TCP).",
+    "3": "L'injection SQL est une attaque de couche 7."
    },
    "kind": "general"
   },
@@ -984,19 +984,19 @@
    "concept": "Équipements",
    "prompt": "Quel équipement prend ses décisions d'acheminement à partir des adresses IP ?",
    "choices": [
+    "Le répéteur",
     "Le concentrateur",
     "Le commutateur",
-    "Le routeur",
-    "Le répéteur"
+    "Le routeur"
    ],
    "correct": [
-    2
+    3
    ],
    "explanation": "Le routeur relie des réseaux différents en couche 3, à partir des adresses IP.",
    "whyNot": {
-    "0": "Le concentrateur répète les bits sur tous les ports (couche 1).",
-    "1": "Le commutateur utilise les adresses MAC (couche 2).",
-    "3": "Le répéteur amplifie le signal (couche 1)."
+    "0": "Le répéteur amplifie le signal (couche 1).",
+    "1": "Le concentrateur répète les bits sur tous les ports (couche 1).",
+    "2": "Le commutateur utilise les adresses MAC (couche 2)."
    },
    "kind": "general"
   },
@@ -1007,19 +1007,19 @@
    "concept": "Couche physique",
    "prompt": "Quelle mesure protège en priorité la couche physique ?",
    "choices": [
-    "Le chiffrement TLS",
-    "Le contrôle d'accès aux locaux et la désactivation des prises réseau inutilisées",
-    "Un WAF",
-    "DNSSEC"
+    "Un pare-feu applicatif web (WAF) en frontal",
+    "Le chiffrement TLS de toutes les communications",
+    "DNSSEC sur les résolveurs internes",
+    "Le contrôle d'accès aux locaux et aux prises réseau"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "La couche 1 se protège par des mesures physiques : accès aux locaux, câbles, prises.",
    "whyNot": {
-    "0": "TLS agit au-dessus de la couche transport.",
-    "2": "Le WAF agit en couche 7.",
-    "3": "DNSSEC agit en couche 7."
+    "0": "Le WAF agit en couche 7.",
+    "1": "TLS agit au-dessus de la couche transport.",
+    "2": "DNSSEC agit en couche 7."
    },
    "kind": "general"
   },
@@ -1030,19 +1030,19 @@
    "concept": "Couche présentation",
    "prompt": "Quelles fonctions sont traditionnellement associées à la couche 6 (présentation) du modèle OSI ? (2 réponses)",
    "choices": [
-    "Le format et l'encodage des données",
-    "La compression et le chiffrement des données",
+    "L'adressage MAC",
     "Le routage entre réseaux",
-    "L'adressage MAC"
+    "La compression et le chiffrement des données",
+    "Le format et l'encodage des données"
    ],
    "correct": [
-    0,
-    1
+    2,
+    3
    ],
    "explanation": "La couche présentation s'occupe de la représentation des données : encodage, compression, chiffrement.",
    "whyNot": {
-    "2": "Le routage relève de la couche 3.",
-    "3": "L'adressage MAC relève de la couche 2."
+    "0": "L'adressage MAC relève de la couche 2.",
+    "1": "Le routage relève de la couche 3."
    },
    "kind": "general"
   },
@@ -1053,19 +1053,19 @@
    "concept": "TCP",
    "prompt": "Quel est l'ordre de la poignée de main TCP ?",
    "choices": [
+    "HELLO, KEY, DONE",
     "ACK, SYN, SYN-ACK",
-    "SYN, SYN-ACK, ACK",
     "SYN, ACK, FIN",
-    "HELLO, KEY, DONE"
+    "SYN, SYN-ACK, ACK"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "Le client envoie SYN, le serveur répond SYN-ACK, le client confirme par ACK.",
    "whyNot": {
-    "0": "L'ordre est inversé.",
-    "2": "FIN sert à fermer une connexion.",
-    "3": "Ce ne sont pas des drapeaux TCP."
+    "0": "Ce ne sont pas des drapeaux TCP.",
+    "1": "L'ordre est inversé.",
+    "2": "FIN sert à fermer une connexion."
    },
    "kind": "general"
   },
@@ -1076,19 +1076,19 @@
    "concept": "UDP",
    "prompt": "Quel protocole utilise principalement UDP ?",
    "choices": [
-    "SSH",
-    "HTTPS",
+    "SMTP pour l'envoi de courriels",
     "DNS pour les requêtes courantes",
-    "SMTP"
+    "HTTPS pour la navigation",
+    "SSH pour l'administration"
    ],
    "correct": [
-    2
+    1
    ],
    "explanation": "Les requêtes DNS courantes passent en UDP 53 ; le TCP 53 sert aux grosses réponses et transferts de zone.",
    "whyNot": {
-    "0": "SSH utilise TCP 22.",
-    "1": "HTTPS utilise TCP 443 (et QUIC sur UDP pour HTTP/3, mais le cas classique reste TCP).",
-    "3": "SMTP utilise TCP."
+    "0": "SMTP utilise TCP.",
+    "2": "HTTPS utilise TCP 443 (et QUIC sur UDP pour HTTP/3, mais le cas classique reste TCP).",
+    "3": "SSH utilise TCP 22."
    },
    "kind": "general"
   },
@@ -1099,19 +1099,19 @@
    "concept": "Ports",
    "prompt": "Quel port est utilisé par défaut par SSH ?",
    "choices": [
-    "21",
-    "22",
     "23",
-    "3389"
+    "21",
+    "3389",
+    "22"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "SSH écoute sur le port TCP 22.",
    "whyNot": {
-    "0": "21 est le port de commande FTP.",
-    "2": "23 est Telnet, en clair.",
-    "3": "3389 est RDP."
+    "0": "23 est Telnet, en clair.",
+    "1": "21 est le port de commande FTP.",
+    "2": "3389 est RDP."
    },
    "kind": "general"
   },
@@ -1122,19 +1122,19 @@
    "concept": "Protocoles en clair",
    "prompt": "Lequel de ces protocoles transmet les identifiants en clair ?",
    "choices": [
-    "SSH",
-    "Telnet",
     "HTTPS",
-    "SNMPv3"
+    "Telnet",
+    "SNMPv3",
+    "SSH"
    ],
    "correct": [
     1
    ],
    "explanation": "Telnet ne chiffre rien : un simple analyseur de trafic révèle les identifiants.",
    "whyNot": {
-    "0": "SSH chiffre la session.",
-    "2": "HTTPS chiffre avec TLS.",
-    "3": "SNMPv3 intègre authentification et chiffrement."
+    "0": "HTTPS chiffre avec TLS.",
+    "2": "SNMPv3 intègre authentification et chiffrement.",
+    "3": "SSH chiffre la session."
    },
    "kind": "general"
   },
@@ -1145,19 +1145,19 @@
    "concept": "ARP",
    "prompt": "Pourquoi l'usurpation ARP est-elle possible ?",
    "choices": [
-    "Parce qu'ARP chiffre mal les trames",
-    "Parce qu'ARP n'authentifie pas les réponses : une machine peut annoncer une fausse correspondance IP-MAC",
-    "Parce qu'ARP utilise le port 443",
-    "Parce qu'ARP fonctionne uniquement sur Internet"
+    "Parce qu'ARP accepte les réponses sans les authentifier",
+    "Parce qu'ARP fonctionne uniquement sur Internet, hors du réseau local",
+    "Parce qu'ARP chiffre mal les trames avec une clé trop courte",
+    "Parce qu'ARP utilise le port 443 qui est ouvert partout"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "ARP fait confiance aux réponses reçues ; un attaquant annonce son adresse MAC pour l'IP de la passerelle et intercepte le trafic.",
    "whyNot": {
-    "0": "ARP ne chiffre rien du tout.",
-    "2": "ARP n'utilise pas de port TCP ou UDP.",
-    "3": "ARP fonctionne sur le réseau local."
+    "1": "ARP fonctionne sur le réseau local.",
+    "2": "ARP ne chiffre rien du tout.",
+    "3": "ARP n'utilise pas de port TCP ou UDP."
    },
    "kind": "general"
   },
@@ -1168,18 +1168,18 @@
    "concept": "Inondation SYN",
    "prompt": "Qu'est-ce qui caractérise une inondation SYN ?",
    "choices": [
-    "Des milliers de SYN sans ACK final, qui laissent des connexions à moitié ouvertes",
-    "Des requêtes DNS falsifiées",
-    "Une fausse annonce ARP",
-    "Un mot de passe deviné"
+    "Des requêtes DNS falsifiées envoyées vers un résolveur",
+    "Une fausse annonce ARP pour l'adresse de la passerelle",
+    "Des milliers de SYN sans ACK final, qui saturent le serveur",
+    "Un mot de passe deviné par essais successifs"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "Le serveur garde en mémoire chaque demande en attente ; il sature et ne peut plus accepter de vrais clients.",
    "whyNot": {
-    "1": "C'est un empoisonnement DNS.",
-    "2": "C'est une usurpation ARP.",
+    "0": "C'est un empoisonnement DNS.",
+    "1": "C'est une usurpation ARP.",
     "3": "C'est une attaque par force brute ou dictionnaire."
    },
    "kind": "general"
@@ -1191,19 +1191,19 @@
    "concept": "Parades réseau",
    "prompt": "Quelles mesures protègent un réseau local contre l'usurpation ARP et les faux serveurs DHCP ? (2 réponses)",
    "choices": [
-    "L'inspection ARP dynamique sur les commutateurs",
-    "La surveillance DHCP (DHCP snooping)",
     "L'ouverture du port 23",
-    "La désactivation des journaux du commutateur"
+    "La surveillance DHCP (DHCP snooping)",
+    "La désactivation des journaux du commutateur",
+    "L'inspection ARP dynamique sur les commutateurs"
    ],
    "correct": [
-    0,
-    1
+    1,
+    3
    ],
    "explanation": "Ces fonctions des commutateurs n'acceptent les réponses ARP et DHCP que des sources légitimes.",
    "whyNot": {
-    "2": "Ouvrir Telnet affaiblit la sécurité.",
-    "3": "Les journaux sont nécessaires à la détection."
+    "0": "Ouvrir Telnet affaiblit la sécurité.",
+    "2": "Les journaux sont nécessaires à la détection."
    },
    "kind": "practice"
   },
@@ -1214,18 +1214,18 @@
    "concept": "Filtrage en sortie",
    "prompt": "À quoi sert le filtrage en sortie (egress filtering) contre l'usurpation IP ?",
    "choices": [
-    "À empêcher vos machines d'envoyer vers Internet des paquets dont l'adresse source n'appartient pas à votre réseau",
-    "À bloquer toutes les connexions entrantes",
-    "À chiffrer le trafic sortant",
-    "À accélérer le routage"
+    "À bloquer en sortie les paquets à adresse source étrangère",
+    "À chiffrer automatiquement tout le trafic qui sort vers Internet",
+    "À bloquer toutes les connexions entrantes depuis Internet vers le réseau interne",
+    "À accélérer le routage en supprimant les paquets en double"
    ],
    "correct": [
     0
    ],
    "explanation": "Refuser en sortie les adresses source étrangères empêche votre réseau de servir à des attaques usurpées.",
    "whyNot": {
-    "1": "Ce serait un filtrage en entrée, et beaucoup trop large.",
-    "2": "Le filtrage ne chiffre rien.",
+    "1": "Le filtrage ne chiffre rien.",
+    "2": "Ce serait un filtrage en entrée, et beaucoup trop large.",
     "3": "Ce n'est pas son objectif."
    },
    "kind": "general"
@@ -1237,19 +1237,19 @@
    "concept": "Tunnel DNS",
    "prompt": "Un poste envoie des milliers de requêtes DNS avec de longs sous-domaines aléatoires vers un même domaine inconnu. Que soupçonner ?",
    "choices": [
-    "Une mise à jour normale",
+    "Un test de vitesse de la connexion Internet",
+    "Une panne d'imprimante qui renvoie ses requêtes en boucle",
     "Un tunnel DNS servant à exfiltrer des données ou à contrôler le poste",
-    "Une panne d'imprimante",
-    "Un test de vitesse"
+    "Une mise à jour normale du système d'exploitation"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "Des sous-domaines longs et aléatoires peuvent encoder des données : c'est un signe classique de tunnel DNS.",
    "whyNot": {
-    "0": "Une mise à jour n'a pas ce profil.",
-    "2": "Une imprimante ne produit pas ce trafic.",
-    "3": "Un test de vitesse ne passe pas par des milliers de requêtes DNS."
+    "0": "Un test de vitesse ne passe pas par des milliers de requêtes DNS.",
+    "1": "Une imprimante ne produit pas ce trafic.",
+    "3": "Une mise à jour n'a pas ce profil."
    },
    "kind": "example"
   },
@@ -1260,18 +1260,18 @@
    "concept": "Exposition des services",
    "prompt": "Quel service ne doit jamais être exposé directement sur Internet ?",
    "choices": [
-    "Le partage de fichiers SMB (port 445)",
-    "Un site web public en HTTPS",
     "Un serveur de messagerie entrante",
+    "Un site web public en HTTPS",
+    "Le partage de fichiers SMB (port 445)",
     "Un résolveur DNS interne joignable seulement en interne"
    ],
    "correct": [
-    0
+    2
    ],
    "explanation": "SMB exposé est une porte d'entrée classique pour les vers et rançongiciels.",
    "whyNot": {
+    "0": "Un serveur de messagerie entrante doit être joignable, avec ses protections.",
     "1": "Un site public est fait pour être exposé, en HTTPS.",
-    "2": "Un serveur de messagerie entrante doit être joignable, avec ses protections.",
     "3": "Un résolveur interne n'est justement pas exposé."
    },
    "kind": "general"
@@ -1283,19 +1283,19 @@
    "concept": "Protocoles sécurisés",
    "prompt": "Par quoi remplacer Telnet pour administrer un serveur ?",
    "choices": [
-    "FTP",
-    "SSH",
     "HTTP",
-    "SNMPv1"
+    "FTP",
+    "SNMPv1",
+    "SSH"
    ],
    "correct": [
-    1
+    3
    ],
    "explanation": "SSH offre un canal d'administration chiffré et authentifié.",
    "whyNot": {
-    "0": "FTP transfère des fichiers en clair.",
-    "2": "HTTP est en clair.",
-    "3": "SNMPv1 est en clair."
+    "0": "HTTP est en clair.",
+    "1": "FTP transfère des fichiers en clair.",
+    "2": "SNMPv1 est en clair."
    },
    "kind": "general"
   },
@@ -1306,18 +1306,18 @@
    "concept": "IPsec",
    "prompt": "Quel composant d'IPsec apporte la confidentialité ?",
    "choices": [
+    "IKE seul",
     "AH",
     "ESP",
-    "IKE seul",
     "ICMP"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "ESP chiffre la charge utile (et protège son intégrité) ; AH n'apporte que l'intégrité et l'authentification.",
    "whyNot": {
-    "0": "AH ne chiffre pas.",
-    "2": "IKE négocie les clés mais ne chiffre pas le trafic lui-même.",
+    "0": "IKE négocie les clés mais ne chiffre pas le trafic lui-même.",
+    "1": "AH ne chiffre pas.",
     "3": "ICMP est un protocole de diagnostic."
    },
    "kind": "general"
@@ -1329,19 +1329,19 @@
    "concept": "IPsec",
    "prompt": "Quel mode IPsec utilise-t-on généralement pour un VPN site à site entre deux passerelles ?",
    "choices": [
-    "Le mode transport",
     "Le mode tunnel",
     "Le mode passif",
-    "Le mode diffusion"
+    "Le mode diffusion",
+    "Le mode transport"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "En mode tunnel, le paquet d'origine est entièrement encapsulé dans un nouveau paquet entre les passerelles.",
    "whyNot": {
-    "0": "Le mode transport protège la charge utile d'hôte à hôte.",
+    "1": "Ce mode n'existe pas dans IPsec.",
     "2": "Ce mode n'existe pas dans IPsec.",
-    "3": "Ce mode n'existe pas dans IPsec."
+    "3": "Le mode transport protège la charge utile d'hôte à hôte."
    },
    "kind": "general"
   },
@@ -1352,10 +1352,10 @@
    "concept": "AH et NAT",
    "prompt": "Pourquoi AH est-il incompatible avec la traduction d'adresses (NAT) ?",
    "choices": [
-    "Parce qu'AH chiffre l'adresse IP",
+    "Parce qu'AH chiffre l'adresse IP, que le NAT ne peut plus lire",
     "Parce qu'AH protège l'intégrité d'une partie de l'en-tête IP, que le NAT modifie",
-    "Parce qu'AH utilise le port 445",
-    "Parce qu'AH ne fonctionne qu'en IPv6"
+    "Parce qu'AH ne fonctionne qu'en IPv6, où le NAT n'existe pas",
+    "Parce qu'AH utilise le port 445, bloqué par les équipements NAT"
    ],
    "correct": [
     1
@@ -1363,8 +1363,8 @@
    "explanation": "Le NAT change l'adresse IP ; la vérification d'intégrité d'AH échoue alors.",
    "whyNot": {
     "0": "AH ne chiffre rien.",
-    "2": "AH n'utilise pas de port.",
-    "3": "AH existe en IPv4 et en IPv6."
+    "2": "AH existe en IPv4 et en IPv6.",
+    "3": "AH n'utilise pas de port."
    },
    "kind": "general"
   },
@@ -1375,19 +1375,19 @@
    "concept": "DNSSEC",
    "prompt": "Qu'apporte DNSSEC ?",
    "choices": [
-    "La confidentialité des requêtes DNS",
+    "La compression des noms de domaine dans les réponses",
     "L'intégrité et l'authenticité des réponses DNS grâce à des signatures",
-    "La compression des noms de domaine",
-    "La suppression des serveurs DNS"
+    "La suppression des serveurs DNS intermédiaires",
+    "La confidentialité des requêtes DNS grâce au chiffrement"
    ],
    "correct": [
     1
    ],
    "explanation": "DNSSEC signe les réponses ; il protège contre l'empoisonnement mais ne chiffre pas.",
    "whyNot": {
-    "0": "La confidentialité vient du DNS sur TLS ou HTTPS.",
-    "2": "DNSSEC ne compresse rien.",
-    "3": "Les serveurs DNS restent nécessaires."
+    "0": "DNSSEC ne compresse rien.",
+    "2": "Les serveurs DNS restent nécessaires.",
+    "3": "La confidentialité vient du DNS sur TLS ou HTTPS."
    },
    "kind": "general"
   },
@@ -1399,18 +1399,18 @@
    "prompt": "Quels mécanismes aident à empêcher l'usurpation du nom de domaine d'une entreprise dans des courriels ? (2 réponses)",
    "choices": [
     "DKIM",
+    "Telnet",
     "DMARC avec une politique de rejet",
-    "POP3",
-    "Telnet"
+    "POP3"
    ],
    "correct": [
     0,
-    1
+    2
    ],
    "explanation": "DKIM signe les messages du domaine ; DMARC impose l'alignement et la politique à appliquer en cas d'échec (avec SPF).",
    "whyNot": {
-    "2": "POP3 sert à relever le courrier, en clair.",
-    "3": "Telnet n'a pas de lien avec la messagerie sécurisée."
+    "1": "Telnet n'a pas de lien avec la messagerie sécurisée.",
+    "3": "POP3 sert à relever le courrier, en clair."
    },
    "kind": "general"
   },
@@ -1421,19 +1421,19 @@
    "concept": "SPF",
    "prompt": "Que publie un enregistrement SPF ?",
    "choices": [
-    "La clé privée du serveur de messagerie",
-    "La liste des serveurs autorisés à envoyer du courrier pour le domaine",
-    "Le mot de passe des boîtes aux lettres",
-    "La politique de conservation des courriels"
+    "Le mot de passe des boîtes aux lettres du domaine",
+    "La politique de conservation des courriels du domaine",
+    "La liste des serveurs autorisés à envoyer pour le domaine",
+    "La clé privée du serveur de messagerie du domaine"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "SPF, publié dans le DNS, liste les sources d'envoi autorisées.",
    "whyNot": {
-    "0": "Une clé privée n'est jamais publiée.",
-    "2": "Les mots de passe ne sont jamais publiés.",
-    "3": "La conservation relève d'une politique interne."
+    "0": "Les mots de passe ne sont jamais publiés.",
+    "1": "La conservation relève d'une politique interne.",
+    "3": "Une clé privée n'est jamais publiée."
    },
    "kind": "general"
   },
@@ -1444,19 +1444,19 @@
    "concept": "Transfert de fichiers",
    "prompt": "Sur quel protocole repose SFTP ?",
    "choices": [
-    "TLS",
     "SSH",
-    "Telnet",
-    "SNMP"
+    "TLS",
+    "SNMP",
+    "Telnet"
    ],
    "correct": [
-    1
+    0
    ],
    "explanation": "SFTP fonctionne dans un canal SSH ; FTPS, lui, ajoute TLS à FTP.",
    "whyNot": {
-    "0": "FTPS repose sur TLS, pas SFTP.",
-    "2": "Telnet est en clair.",
-    "3": "SNMP sert à la supervision."
+    "1": "FTPS repose sur TLS, pas SFTP.",
+    "2": "SNMP sert à la supervision.",
+    "3": "Telnet est en clair."
    },
    "kind": "general"
   },
@@ -1468,17 +1468,17 @@
    "prompt": "Quelles configurations sont aujourd'hui recommandées ? (2 réponses)",
    "choices": [
     "TLS 1.2 ou 1.3",
-    "SNMPv3",
     "SSL 3.0",
+    "SNMPv3",
     "TLS 1.0"
    ],
    "correct": [
     0,
-    1
+    2
    ],
    "explanation": "TLS 1.2 et 1.3 et SNMPv3 sont les versions sûres ; SSL et TLS 1.0/1.1 sont obsolètes.",
    "whyNot": {
-    "2": "SSL 3.0 est cassé (attaque POODLE).",
+    "1": "SSL 3.0 est cassé (attaque POODLE).",
     "3": "TLS 1.0 est obsolète et retiré."
    },
    "kind": "practice"
@@ -1490,19 +1490,19 @@
    "concept": "Messagerie",
    "prompt": "Un message est chiffré par STARTTLS entre les serveurs. Est-il protégé une fois stocké dans la boîte du destinataire ?",
    "choices": [
-    "Oui, STARTTLS chiffre le message de bout en bout",
-    "Non, STARTTLS ne protège que le transport ; pour le message lui-même, il faut S/MIME ou OpenPGP",
-    "Oui, si le message contient une pièce jointe",
-    "Non, car STARTTLS désactive DKIM"
+    "Non, car STARTTLS désactive la signature DKIM du message stocké",
+    "Oui, STARTTLS chiffre le message de bout en bout, jusque dans la boîte",
+    "Non, STARTTLS ne protège que le transport, pas le message stocké",
+    "Oui, mais seulement si le message contient une pièce jointe chiffrée"
    ],
    "correct": [
-    1
+    2
    ],
    "explanation": "STARTTLS chiffre la connexion ; le message est en clair sur chaque serveur. S/MIME ou OpenPGP chiffrent le contenu de bout en bout.",
    "whyNot": {
-    "0": "STARTTLS protège la connexion, pas le contenu stocké.",
-    "2": "La présence d'une pièce jointe ne change rien.",
-    "3": "STARTTLS et DKIM sont indépendants."
+    "0": "STARTTLS et DKIM sont indépendants.",
+    "1": "STARTTLS protège la connexion, pas le contenu stocké.",
+    "3": "La présence d'une pièce jointe ne change rien."
    },
    "kind": "general"
   }
