@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/widgets.dart';
 
 import 'data/progress_store.dart';
@@ -60,6 +62,88 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Recherches récentes, la plus récente d'abord (gardées sur l'appareil).
+  List<String> get searchHistory => List.unmodifiable(_searches);
+  List<String> _searches = [];
+  static const searchHistoryMax = 20;
+
+  /// Questions posées à l'assistant, dans l'ordre (la conversation).
+  List<String> get assistantHistory => List.unmodifiable(_questions);
+  List<String> _questions = [];
+  static const assistantHistoryMax = 30;
+
+  static String _key(String s) => normalize(s.trim());
+
+  /// Ajoute une recherche en tête de l'historique (sans doublon).
+  Future<void> addSearch(String query) async {
+    final q = query.trim();
+    if (q.length < 2) return;
+    _searches = [
+      q,
+      for (final s in _searches)
+        if (_key(s) != _key(q)) s,
+    ].take(searchHistoryMax).toList();
+    await _saveList('history.search', _searches);
+  }
+
+  Future<void> removeSearch(String query) async {
+    _searches = [
+      for (final s in _searches)
+        if (_key(s) != _key(query)) s,
+    ];
+    await _saveList('history.search', _searches);
+  }
+
+  Future<void> clearSearches() async {
+    _searches = [];
+    await _saveList('history.search', _searches);
+  }
+
+  /// Ajoute une question à la conversation de l'assistant.
+  Future<void> addQuestion(String question) async {
+    final q = question.trim();
+    if (q.isEmpty) return;
+    _questions = [..._questions, q];
+    if (_questions.length > assistantHistoryMax) {
+      _questions = _questions.sublist(_questions.length - assistantHistoryMax);
+    }
+    await _saveList('history.assistant', _questions);
+  }
+
+  /// Retire une question (toutes ses occurrences) de la conversation.
+  Future<void> removeQuestion(String question) async {
+    _questions = [
+      for (final q in _questions)
+        if (_key(q) != _key(question)) q,
+    ];
+    await _saveList('history.assistant', _questions);
+  }
+
+  Future<void> clearQuestions() async {
+    _questions = [];
+    await _saveList('history.assistant', _questions);
+  }
+
+  Future<void> _saveList(String key, List<String> values) async {
+    await store.setSetting(key, jsonEncode(values));
+    notifyListeners();
+  }
+
+  Future<List<String>> _loadList(String key) async {
+    final raw = await store.setting(key);
+    if (raw == null) return [];
+    try {
+      return [
+        for (final v in jsonDecode(raw) as List)
+          if (v is String) v,
+      ];
+    } on FormatException {
+      return [];
+    } on TypeError {
+      return [];
+    }
+  }
+
   Map<String, CardState> get cards => _cards;
   Set<String> get readLessons => _readLessons;
 
@@ -72,6 +156,8 @@ class AppState extends ChangeNotifier {
       'orsysPlus' || 'app' => CourseView.orsysPlus,
       _ => CourseView.mile2,
     };
+    _searches = await _loadList('history.search');
+    _questions = await _loadList('history.assistant');
     final answers = await store.answers();
     final sessions = await store.sessions();
     _cards = await store.cards();

@@ -8,6 +8,7 @@ import 'bilingual.dart';
 import 'chapter_page.dart';
 import 'course_view_bar.dart';
 import 'lesson_page.dart';
+import 'history_list.dart';
 import 'notebook/hand_drawn.dart';
 import 'notebook/palette.dart';
 import 'notebook/typography.dart';
@@ -57,6 +58,10 @@ class _AssistantPageState extends State<AssistantPage> {
   final _scroll = ScrollController();
   final _answers = <AssistantAnswer>[];
 
+  /// Nombre de réponses reprises de la conversation précédente.
+  int _restored = 0;
+  bool _loaded = false;
+
   @override
   void initState() {
     super.initState();
@@ -64,6 +69,56 @@ class _AssistantPageState extends State<AssistantPage> {
     if (q != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) => _ask(q));
     }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_loaded) return;
+    _loaded = true;
+    // La conversation précédente est reprise : les réponses sont recalculées
+    // sur l'appareil à partir des questions gardées.
+    final app = AppScope.read(context);
+    _answers.addAll(app.assistantHistory.map(app.assistant.ask));
+    _restored = _answers.length;
+    if (_restored > 0) _scrollToEnd(animate: false);
+  }
+
+  void _scrollToEnd({bool animate = true}) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!_scroll.hasClients) return;
+      final end = _scroll.position.maxScrollExtent;
+      if (animate) {
+        _scroll.animateTo(
+          end,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      } else {
+        _scroll.jumpTo(end);
+      }
+    });
+  }
+
+  void _remove(String question) {
+    final key = normalize(question.trim());
+    setState(() {
+      for (var i = _answers.length - 1; i >= 0; i--) {
+        if (normalize(_answers[i].question.trim()) == key) {
+          _answers.removeAt(i);
+          if (i < _restored) _restored--;
+        }
+      }
+    });
+    AppScope.read(context).removeQuestion(question);
+  }
+
+  void _clear() {
+    setState(() {
+      _answers.clear();
+      _restored = 0;
+    });
+    AppScope.read(context).clearQuestions();
   }
 
   @override
@@ -76,19 +131,14 @@ class _AssistantPageState extends State<AssistantPage> {
   void _ask(String question) {
     final q = question.trim();
     if (q.isEmpty) return;
-    final answer = AppScope.read(context).assistant.ask(q);
+    final app = AppScope.read(context);
+    final answer = app.assistant.ask(q);
     setState(() {
       _answers.add(answer);
       _controller.clear();
     });
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!_scroll.hasClients) return;
-      _scroll.animateTo(
-        _scroll.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeOut,
-      );
-    });
+    app.addQuestion(q);
+    _scrollToEnd();
   }
 
   @override
@@ -96,6 +146,12 @@ class _AssistantPageState extends State<AssistantPage> {
     final paper = Paper.of(context);
     final narrow = MediaQuery.sizeOf(context).width < 600;
     final side = narrow ? 12.0 : 24.0;
+    // Questions récentes, sans doublon, la plus récente d'abord.
+    final seen = <String>{};
+    final recent = [
+      for (final q in AppScope.of(context).assistantHistory.reversed)
+        if (seen.add(normalize(q.trim()))) q,
+    ].take(6).toList();
     return Scaffold(
       backgroundColor: paper.background,
       appBar: AppBar(
@@ -103,9 +159,9 @@ class _AssistantPageState extends State<AssistantPage> {
         actions: [
           if (_answers.isNotEmpty)
             IconButton(
-              tooltip: 'Effacer la conversation',
+              tooltip: 'Effacer la conversation et l\'historique',
               icon: const Icon(Icons.delete_sweep_outlined),
-              onPressed: () => setState(_answers.clear),
+              onPressed: _clear,
             ),
         ],
       ),
@@ -121,7 +177,23 @@ class _AssistantPageState extends State<AssistantPage> {
                   padding: EdgeInsets.fromLTRB(side, 8, side, 16),
                   children: [
                     _Welcome(onPick: _ask, compact: _answers.isNotEmpty),
-                    for (final a in _answers) ...[
+                    if (recent.isNotEmpty) ...[
+                      const SizedBox(height: 4),
+                      HistoryList(
+                        title: 'Questions récentes',
+                        entries: recent,
+                        tone: Tone.violet,
+                        onPick: _ask,
+                        onRemove: _remove,
+                        onClear: _clear,
+                      ),
+                      const SizedBox(height: 8),
+                    ],
+                    for (final (i, a) in _answers.indexed) ...[
+                      if (i == 0 && _restored > 0)
+                        const _Divider('Conversation précédente'),
+                      if (i == _restored && _restored > 0)
+                        const _Divider('Nouvelles questions'),
                       _UserBubble(text: a.question),
                       _AnswerCard(answer: a, onAsk: _ask),
                     ],
@@ -132,6 +204,37 @@ class _AssistantPageState extends State<AssistantPage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+/// Séparateur de la conversation : « Conversation précédente », « Nouvelles questions ».
+class _Divider extends StatelessWidget {
+  const _Divider(this.label);
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    final soft = Paper.of(context).inkSoft;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Row(
+        children: [
+          Expanded(child: Divider(color: soft.withValues(alpha: 0.4))),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Text(
+              label,
+              style: Hand.sansText(
+                context,
+                size: 13,
+              ).copyWith(color: soft, fontWeight: FontWeight.w700),
+            ),
+          ),
+          Expanded(child: Divider(color: soft.withValues(alpha: 0.4))),
+        ],
       ),
     );
   }

@@ -12,6 +12,7 @@ import 'quiz_page.dart';
 import 'revision_sheet_page.dart';
 import 'lesson_page.dart';
 import 'mind_map_page.dart';
+import 'history_list.dart';
 import 'notebook/hand_drawn.dart';
 import 'notebook/note_box.dart';
 import 'notebook/palette.dart';
@@ -43,11 +44,29 @@ const _suggestions = [
 class _SearchPageState extends State<SearchPage> {
   late final _controller = TextEditingController(text: widget.initialQuery);
   SearchKind? _filter;
+  AppState? _app;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _app = AppScope.read(context);
+  }
 
   @override
   void dispose() {
+    // En quittant la recherche, on garde la dernière recherche faite.
+    _remember();
     _controller.dispose();
     super.dispose();
+  }
+
+  /// Ajoute la recherche en cours à l'historique si elle donne des résultats.
+  void _remember() {
+    final app = _app;
+    final q = _controller.text.trim();
+    if (app == null || q.length < 2) return;
+    if (app.search.query(q).isEmpty) return;
+    app.addSearch(q);
   }
 
   void _search(String q) => setState(() {
@@ -80,6 +99,7 @@ class _SearchPageState extends State<SearchPage> {
           autofocus: true,
           textInputAction: TextInputAction.search,
           onChanged: (_) => setState(() {}),
+          onSubmitted: (_) => _remember(),
           style: Hand.sansText(context, size: 17),
           decoration: InputDecoration(
             hintText: 'Terme, sigle, chapitre… en français ou en anglais',
@@ -107,6 +127,16 @@ class _SearchPageState extends State<SearchPage> {
             ),
             children: [
               if (_controller.text.trim().isEmpty) ...[
+                if (state.searchHistory.isNotEmpty) ...[
+                  HistoryList(
+                    title: 'Recherches récentes',
+                    entries: state.searchHistory,
+                    onPick: _search,
+                    onRemove: state.removeSearch,
+                    onClear: state.clearSearches,
+                  ),
+                  const SizedBox(height: 16),
+                ],
                 NoteBox(
                   tone: Tone.yellow,
                   emoji: '🔎',
@@ -162,7 +192,11 @@ class _SearchPageState extends State<SearchPage> {
                     ),
                   ),
                 for (final r in results)
-                  _ResultTile(result: r, query: _controller.text),
+                  _ResultTile(
+                    result: r,
+                    query: _controller.text,
+                    onOpen: _remember,
+                  ),
               ],
             ],
           ),
@@ -173,10 +207,17 @@ class _SearchPageState extends State<SearchPage> {
 }
 
 class _ResultTile extends StatelessWidget {
-  const _ResultTile({required this.result, required this.query});
+  const _ResultTile({
+    required this.result,
+    required this.query,
+    required this.onOpen,
+  });
 
   final SearchResult result;
   final String query;
+
+  /// Appelé à l'ouverture d'un résultat (pour l'historique).
+  final VoidCallback onOpen;
 
   Tone get _tone => switch (result.kind) {
     SearchKind.term => Tone.turquoise,
@@ -191,6 +232,7 @@ class _ResultTile extends StatelessWidget {
   };
 
   void _open(BuildContext context) {
+    onOpen();
     final library = AppScope.read(context).library;
     final chapter = result.chapterId == null
         ? null
