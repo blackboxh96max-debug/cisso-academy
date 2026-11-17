@@ -143,7 +143,11 @@ void main() {
     await pump(tester, state, const SizedBox());
     await pump(tester, state, const AssistantPage());
     // La page s'ouvre en bas de la conversation : on remonte.
-    await tester.fling(find.byType(ListView), const Offset(0, 3000), 3000);
+    await tester.scrollUntilVisible(
+      find.text('Questions récentes'),
+      -300,
+      scrollable: find.byType(Scrollable).first,
+    );
     await tester.pumpAndSettle();
     expect(find.text('Conversation précédente'), findsOneWidget);
     expect(find.text('Questions récentes'), findsOneWidget);
