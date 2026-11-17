@@ -9,9 +9,7 @@ import '../data/progress_store.dart';
 import '../logic/badges.dart';
 import '../logic/stats.dart';
 import '../logic/study_groups.dart';
-import '../models/content.dart';
-import '../app_info.dart';
-import 'about_page.dart';
+import 'app_menu.dart';
 import 'assistant_page.dart';
 import 'chapter_page.dart';
 import 'course_view_bar.dart';
@@ -106,34 +104,12 @@ class DashboardPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Paper.of(context).background,
       appBar: AppBar(
+        leading: ShellMenuButton.maybe(context),
         title: const Text('CISSO Academy'),
         actions: [
           const AssistantAction(),
           const SearchAction(),
-          PopupMenuButton<String>(
-            tooltip: 'Menu',
-            onSelected: (v) {
-              if (v == 'settings') _settings(context);
-              if (v == 'reset') _confirmReset(context);
-              if (v == 'about') _about(context);
-              if (v == 'app') openAbout(context);
-            },
-            itemBuilder: (_) => const [
-              PopupMenuItem(value: 'settings', child: Text('Réglages')),
-              PopupMenuItem(
-                value: 'about',
-                child: Text('À propos de l\'examen'),
-              ),
-              PopupMenuItem(
-                value: 'app',
-                child: Text('À propos de l\'application'),
-              ),
-              PopupMenuItem(
-                value: 'reset',
-                child: Text('Réinitialiser ma progression'),
-              ),
-            ],
-          ),
+          const AppMenuButton(),
         ],
       ),
       body: SingleChildScrollView(
@@ -146,20 +122,7 @@ class DashboardPage extends StatelessWidget {
         child: Center(
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 1200),
-            child: Column(
-              children: [
-                body,
-                const SizedBox(height: 18),
-                TextButton(
-                  onPressed: () => openAbout(context),
-                  child: Text(
-                    '$appName $appVersion · créée par $appAuthor · '
-                    'application non officielle',
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ],
-            ),
+            child: body,
           ),
         ),
       ),
@@ -185,107 +148,6 @@ class DashboardPage extends StatelessWidget {
       case RecommendationKind.exam:
         onNavigate(2);
     }
-  }
-
-  void _settings(BuildContext context) {
-    showDialog<void>(
-      context: context,
-      builder: (ctx) {
-        final state = AppScope.of(ctx);
-        final systemReduced = MediaQuery.disableAnimationsOf(ctx);
-        return AlertDialog(
-          title: const Text('Réglages'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SwitchListTile(
-                contentPadding: EdgeInsets.zero,
-                title: const Text('Animations'),
-                subtitle: Text(
-                  systemReduced
-                      ? 'Désactivées par le réglage « réduire les animations » de votre appareil.'
-                      : 'Apparition des schémas, retournement des flashcards, effets de réussite.',
-                ),
-                value: state.animationsSetting,
-                onChanged: (v) => state.setAnimations(v),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(ctx),
-              child: const Text('Fermer'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  Future<void> _confirmReset(BuildContext context) async {
-    final ok = await showDialog<bool>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('Réinitialiser la progression ?'),
-        content: const Text(
-          'Toutes vos réponses, séries, flashcards et leçons lues seront '
-          'effacées de cet appareil. Cette action est définitive.',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Annuler'),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Effacer'),
-          ),
-        ],
-      ),
-    );
-    if (ok == true && context.mounted) {
-      await AppScope.read(context).resetProgress();
-    }
-  }
-
-  void _about(BuildContext context) {
-    final info = AppScope.read(context).library.examInfo;
-    showDialog<void>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('L\'examen CISSO'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SourceBadge(SourceKind.official),
-            const SizedBox(height: 12),
-            Text(
-              '${info.questionCount} questions à choix multiples, '
-              '${info.durationMinutes} minutes, seuil de réussite '
-              '${info.passingScore}/100.',
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Source : ${info.source}, vérifiée le ${info.verifiedOn}. '
-              'Vérifiez toujours ces paramètres sur le site de MILE2 avant '
-              'de vous inscrire.',
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              'Les questions de l\'application sont originales : '
-              'elles ne reproduisent pas les questions de l\'examen.',
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx),
-            child: const Text('Fermer'),
-          ),
-        ],
-      ),
-    );
   }
 }
 
