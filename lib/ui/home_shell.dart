@@ -33,14 +33,15 @@ const _destinations = [
 class _HomeShellState extends State<HomeShell> {
   int _index = 0;
 
-  /// Module choisi sur l'accueil : la page Cours défile jusqu'à lui.
+  /// Rang du module choisi sur l'accueil : la page Cours le déplie et défile
+  /// jusqu'à lui.
   final _courseFocus = ValueNotifier<int?>(null);
 
   void _go(int index) => setState(() => _index = index);
 
-  void _openModule(int number) {
+  void _openModule(int index) {
     _go(1);
-    _courseFocus.value = number;
+    _courseFocus.value = index;
   }
 
   @override

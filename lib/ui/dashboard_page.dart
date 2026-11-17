@@ -8,8 +8,10 @@ import '../app_state.dart';
 import '../data/progress_store.dart';
 import '../logic/badges.dart';
 import '../logic/stats.dart';
+import '../logic/study_groups.dart';
 import '../models/content.dart';
 import 'chapter_page.dart';
+import 'course_view_bar.dart';
 import 'lesson_page.dart';
 import 'notebook/hand_drawn.dart';
 import 'notebook/page_kit.dart';
@@ -29,7 +31,7 @@ class DashboardPage extends StatelessWidget {
   /// Change d'onglet (0 accueil, 1 cours, 2 QCM, 3 flashcards, 4 glossaire).
   final ValueChanged<int> onNavigate;
 
-  /// Ouvre la page Cours sur un module (son numéro, de 1 à 5).
+  /// Ouvre la page Cours sur un module (son rang dans la vue choisie).
   final ValueChanged<int>? onOpenModule;
 
   @override
@@ -466,122 +468,196 @@ class _ProgressRing extends StatelessWidget {
   }
 }
 
-class _ModuleCards extends StatelessWidget {
+class _ModuleCards extends StatefulWidget {
   const _ModuleCards({required this.stats, required this.onOpen});
 
   final ProgressStats stats;
+
+  /// Ouvre le cours sur un module (son rang dans la vue choisie).
   final ValueChanged<int> onOpen;
 
   @override
+  State<_ModuleCards> createState() => _ModuleCardsState();
+}
+
+class _ModuleCardsState extends State<_ModuleCards> {
+  /// Liste des modules dépliée (repliée au départ).
+  bool _open = false;
+
+  @override
   Widget build(BuildContext context) {
-    final library = AppScope.of(context).library;
+    final state = AppScope.of(context);
+    final view = currentView(state);
+    final groups = studyGroups(state.library, view);
     final brightness = Theme.of(context).brightness;
+    final stats = widget.stats;
+
+    double progressOf(StudyGroup g) {
+      if (g.moduleNumber != null) {
+        return stats.moduleProgress(state.library.modules[g.index].id);
+      }
+      if (g.lessonIds.isEmpty) return 0;
+      return g.lessonIds.where(state.readLessons.contains).length /
+          g.lessonIds.length;
+    }
+
+    String detailOf(StudyGroup g, double progress) {
+      final pct = '${(progress * 100).round()} %';
+      if (g.moduleNumber != null) {
+        final available = g.chapters.where((ch) => ch.available).length;
+        return '$pct · $available/${g.chapters.length} chapitre(s) disponible(s)';
+      }
+      final read = g.lessonIds.where(state.readLessons.contains).length;
+      return '$pct · $read/${g.lessonIds.length} leçon(s) lue(s)';
+    }
+
+    final toggle = IconButton(
+      tooltip: _open
+          ? 'Replier la liste des modules'
+          : 'Déplier la liste des modules',
+      onPressed: () => setState(() => _open = !_open),
+      icon: ExpandChevron(open: _open, onDark: false),
+    );
+
     return _Panel(
       tone: Tone.violet,
-      title: 'Mes 5 modules',
+      title: 'Mes ${groups.length} modules',
       emoji: '🗂️',
       seed: 23,
-      child: LayoutBuilder(
-        builder: (context, c) {
-          final perRow = c.maxWidth >= 640 ? 3 : (c.maxWidth >= 380 ? 2 : 1);
-          final w = (c.maxWidth - 10 * (perRow - 1)) / perRow;
-          return Wrap(
-            spacing: 10,
-            runSpacing: 10,
-            children: [
-              for (final m in library.modules)
-                SizedBox(
-                  width: w,
-                  child: Builder(
-                    builder: (context) {
-                      final (tone, emoji) = moduleStyle(m.number);
-                      final colors = toneColors(tone, brightness);
-                      final available = m.chapters
-                          .where((ch) => ch.available)
-                          .length;
-                      final progress = stats.moduleProgress(m.id);
-                      return InkWell(
-                        onTap: () => onOpen(m.number),
-                        borderRadius: BorderRadius.circular(14),
-                        child: HandBox(
-                          gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              colors.ink,
-                              Color.lerp(toneBright(tone), Colors.white, 0.1)!,
-                            ],
-                          ),
-                          stroke: colors.ink,
-                          strokeWidth: 2.2,
-                          seed: 30 + m.number,
-                          padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    emoji,
-                                    style: const TextStyle(fontSize: 22),
-                                  ),
-                                  const SizedBox(width: 6),
-                                  Flexible(
-                                    child: Text(
-                                      'Module ${m.number}',
-                                      maxLines: 1,
-                                      overflow: TextOverflow.fade,
-                                      softWrap: false,
-                                      style: const TextStyle(
-                                        fontFamily: Hand.title,
-                                        fontSize: 26,
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Text(
-                                m.title,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: Hand.sansText(context, size: 13)
-                                    .copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                              ),
-                              const SizedBox(height: 8),
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(6),
-                                child: LinearProgressIndicator(
-                                  value: progress,
-                                  minHeight: 8,
-                                  color: const Color(0xFFFDE047),
-                                  backgroundColor: Colors.white.withValues(
-                                    alpha: 0.3,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                '${(progress * 100).round()} % · $available/${m.chapters.length} chapitre(s) disponible(s)',
-                                style: Hand.sansText(
-                                  context,
-                                  size: 11.5,
-                                ).copyWith(color: Colors.white),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
+      trailing: toggle,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const CourseViewSelector(),
+          const SizedBox(height: 8),
+          if (!_open)
+            InkWell(
+              borderRadius: BorderRadius.circular(10),
+              onTap: () => setState(() => _open = true),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 6),
+                child: Text(
+                  'Vue ${courseViewLabel(view)} : '
+                  '${groups.map((g) => g.label.replaceFirst('Module ', 'M')).join(' · ')}'
+                  '  ▸ Déplier',
+                  style: Hand.sansText(context, size: 13.5).copyWith(
+                    color: Paper.of(context).inkSoft,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-            ],
-          );
-        },
+              ),
+            )
+          else
+            LayoutBuilder(
+              builder: (context, c) {
+                final perRow = c.maxWidth >= 640
+                    ? 3
+                    : (c.maxWidth >= 380 ? 2 : 1);
+                final w = (c.maxWidth - 10 * (perRow - 1)) / perRow;
+                return Wrap(
+                  spacing: 10,
+                  runSpacing: 10,
+                  children: [
+                    for (final g in groups)
+                      SizedBox(
+                        width: w,
+                        child: Builder(
+                          builder: (context) {
+                            final (tone, emoji) = groupStyle(g);
+                            final colors = toneColors(tone, brightness);
+                            final progress = progressOf(g);
+                            return InkWell(
+                              onTap: () => widget.onOpen(g.index),
+                              borderRadius: BorderRadius.circular(14),
+                              child: HandBox(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    colors.ink,
+                                    Color.lerp(
+                                      toneBright(tone),
+                                      Colors.white,
+                                      0.1,
+                                    )!,
+                                  ],
+                                ),
+                                stroke: colors.ink,
+                                strokeWidth: 2.2,
+                                seed: 30 + g.index,
+                                padding: const EdgeInsets.fromLTRB(
+                                  12,
+                                  10,
+                                  12,
+                                  12,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          emoji,
+                                          style: const TextStyle(fontSize: 22),
+                                        ),
+                                        const SizedBox(width: 6),
+                                        Flexible(
+                                          child: Text(
+                                            g.label,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.fade,
+                                            softWrap: false,
+                                            style: const TextStyle(
+                                              fontFamily: Hand.title,
+                                              fontSize: 26,
+                                              fontWeight: FontWeight.w700,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Text(
+                                      g.title,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: Hand.sansText(context, size: 13)
+                                          .copyWith(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(6),
+                                      child: LinearProgressIndicator(
+                                        value: progress,
+                                        minHeight: 8,
+                                        color: const Color(0xFFFDE047),
+                                        backgroundColor: Colors.white
+                                            .withValues(alpha: 0.3),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      detailOf(g, progress),
+                                      style: Hand.sansText(
+                                        context,
+                                        size: 11.5,
+                                      ).copyWith(color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                  ],
+                );
+              },
+            ),
+        ],
       ),
     );
   }

@@ -6,8 +6,10 @@ import '../app_state.dart';
 import '../export/pdf_export.dart';
 import '../export/mind_map_html.dart';
 import '../export/pdf_save.dart';
+import '../logic/study_groups.dart';
 import '../logic/terms.dart';
 import '../models/content.dart';
+import 'course_view_bar.dart';
 import 'notebook/hand_drawn.dart';
 import 'notebook/page_kit.dart';
 import 'notebook/palette.dart';
@@ -60,45 +62,116 @@ MindNode moduleMindMap(Module module) {
   );
 }
 
-/// Carte de toute la formation : modules, chapitres, grandes idées, et les
-/// domaines officiels de l'examen avec leur poids.
-MindNode courseMindMap(ContentLibrary library) => MindNode(
-  label: 'CISSO MILE2\nToute la formation',
-  emoji: '🎓',
+/// Carte d'une leçon : son titre et ses intertitres.
+MindNode _lessonNode(Lesson l, {bool headings = true}) => MindNode(
+  label: l.title,
   children: [
-    for (final m in library.modules)
-      MindNode(
-        label: 'Module ${m.number} · ${m.title}',
-        en: m.titleEn,
-        emoji: moduleStyle(m.number).$2,
-        tone: moduleStyle(m.number).$1.name,
-        children: [
-          for (final (i, c) in m.chapters.indexed)
-            MindNode(
-              label: '${m.number}.${i + 1} ${c.title}',
-              en: c.titleEn,
-              children: c.available
-                  ? [
-                      for (final b in chapterMindMap(c).children)
-                        MindNode(label: b.label, en: b.en, emoji: b.emoji),
-                    ]
-                  : const [MindNode(label: '🔒 Bientôt disponible')],
-            ),
-        ],
-      ),
-    MindNode(
-      label: 'Les ${library.domains.length} domaines de l\'examen',
-      emoji: '🎯',
-      tone: 'red',
-      detail:
-          'Poids officiels du blueprint MILE2 (${library.examInfo.source}).',
+    if (headings)
+      for (final b in l.blocks)
+        if (b.type == BlockType.heading && (b.text ?? '').isNotEmpty)
+          MindNode(label: b.text!),
+  ],
+);
+
+/// Carte d'un module de la vue choisie. Pour le livre MILE2 : ses sections,
+/// les leçons qui les traitent et leurs intertitres ; pour ORSYS : la carte
+/// du module et de ses chapitres.
+MindNode groupMindMap(ContentLibrary library, StudyGroup g) {
+  final outline = g.outline;
+  if (outline == null) {
+    return moduleMindMap(
+      library.modules.firstWhere((m) => m.number == g.moduleNumber),
+    );
+  }
+  final (tone, emoji) = groupStyle(g);
+  return MindNode(
+    label: '${g.label}\n${g.title}',
+    en: g.titleEn,
+    emoji: emoji,
+    tone: tone.name,
+    children: [
+      for (final s in outline.sections)
+        MindNode(
+          label: 'Section ${s.number} · ${s.titleFr}',
+          en: s.titleEn,
+          children: [
+            for (final id in s.lessons) _lessonNode(library.lesson(id)),
+          ],
+        ),
+    ],
+  );
+}
+
+/// Carte de toute la formation dans la vue [view] : modules, puis chapitres
+/// et grandes idées (ORSYS) ou sections et leçons (livre MILE2), et les
+/// domaines officiels de l'examen avec leur poids.
+MindNode courseMindMap(ContentLibrary library, {CourseView? view}) {
+  if (view == CourseView.mile2 && library.mile2Outline.modules.isNotEmpty) {
+    return MindNode(
+      label: 'CISSO MILE2\nToute la formation',
+      emoji: '🎓',
       children: [
-        for (final d in [
-          ...library.domains,
-        ]..sort((a, b) => b.weight.compareTo(a.weight)))
-          MindNode(label: '${d.nameFr} · ${d.weight}\u00a0%', en: d.nameEn),
+        for (final g in studyGroups(library, CourseView.mile2))
+          MindNode(
+            label: g.fullTitle,
+            en: g.titleEn,
+            emoji: groupStyle(g).$2,
+            tone: groupStyle(g).$1.name,
+            children: [
+              for (final s in g.outline!.sections)
+                MindNode(
+                  label: 'Section ${s.number} · ${s.titleFr}',
+                  en: s.titleEn,
+                  children: [
+                    for (final id in s.lessons)
+                      _lessonNode(library.lesson(id), headings: false),
+                  ],
+                ),
+            ],
+          ),
+        _domainsNode(library),
       ],
-    ),
+    );
+  }
+  return MindNode(
+    label: 'CISSO MILE2\nToute la formation',
+    emoji: '🎓',
+    children: [
+      for (final m in library.modules)
+        MindNode(
+          label: 'Module ${m.number} · ${m.title}',
+          en: m.titleEn,
+          emoji: moduleStyle(m.number).$2,
+          tone: moduleStyle(m.number).$1.name,
+          children: [
+            for (final (i, c) in m.chapters.indexed)
+              MindNode(
+                label: '${m.number}.${i + 1} ${c.title}',
+                en: c.titleEn,
+                children: c.available
+                    ? [
+                        for (final b in chapterMindMap(c).children)
+                          MindNode(label: b.label, en: b.en, emoji: b.emoji),
+                      ]
+                    : const [MindNode(label: '🔒 Bientôt disponible')],
+              ),
+          ],
+        ),
+      _domainsNode(library),
+    ],
+  );
+}
+
+MindNode _domainsNode(ContentLibrary library) => MindNode(
+  label: 'Les ${library.domains.length} domaines de l\'examen',
+  emoji: '🎯',
+  tone: 'red',
+  detail: 'Poids officiels du blueprint MILE2 (${library.examInfo.source}).',
+  children: [
+    for (final d in [
+      ...library.domains,
+    ]..sort((a, b) => b.weight.compareTo(a.weight)))
+      MindNode(label: '${d.nameFr} · ${d.weight}\u00a0%', en: d.nameEn),
   ],
 );
 

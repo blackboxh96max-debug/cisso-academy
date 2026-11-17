@@ -4,7 +4,9 @@ import '../app_state.dart';
 import '../export/pdf_export.dart';
 import '../export/pdf_save.dart';
 import '../models/content.dart';
+import '../logic/study_groups.dart';
 import 'bilingual.dart';
+import 'course_view_bar.dart';
 import 'flashcards_page.dart';
 import 'mind_map_page.dart';
 import 'notebook/hand_drawn.dart';
@@ -37,15 +39,28 @@ class RevisionsPage extends StatefulWidget {
 class _RevisionsPageState extends State<RevisionsPage> {
   RevisionTab _tab = RevisionTab.flashcards;
 
-  /// Module affiché, ou `null` pour tous.
-  String? _moduleId;
+  /// Rang du module affiché dans la vue, ou `null` pour tous.
+  int? _group;
+
+  /// Vue pour laquelle [_group] a été choisi.
+  CourseView? _groupView;
+
+  /// Modules dépliés (par rang) ; tout est replié au départ.
+  final _open = <int>{};
 
   @override
   Widget build(BuildContext context) {
     final state = AppScope.of(context);
     final library = state.library;
-    final modules = library.modules
-        .where((m) => _moduleId == null || m.id == _moduleId)
+    final view = currentView(state);
+    if (_groupView != view) {
+      _groupView = view;
+      _group = null;
+      _open.clear();
+    }
+    final all = studyGroups(library, view);
+    final groups = all
+        .where((g) => _group == null || g.index == _group)
         .toList();
     final locked = library.chapters.where((c) => !c.available).length;
 
@@ -54,11 +69,26 @@ class _RevisionsPageState extends State<RevisionsPage> {
       children: [
         Text(
           'Révisez avec les flashcards, les fiches et les cartes mentales, '
-          'chapitre par chapitre ou module entier. Chaque support se '
-          'télécharge en PDF pour l\'imprimer ou le lire hors de l\'application.',
+          'chapitre par chapitre ou module entier, dans la vue choisie. Chaque '
+          'support se télécharge en PDF pour l\'imprimer ou le lire hors de '
+          'l\'application.',
           style: Hand.bodyText(context),
         ),
         const SizedBox(height: 14),
+        const CourseViewSelector(),
+        if (view == CourseView.mile2) ...[
+          const SizedBox(height: 8),
+          Text(
+            'Vue du livre MILE2 : sous chaque module du livre, les chapitres '
+            'de l\'application qui traitent ses sections. Un chapitre peut '
+            'donc apparaître sous plusieurs modules.',
+            style: Hand.sansText(
+              context,
+              size: 13,
+            ).copyWith(color: Paper.of(context).inkSoft),
+          ),
+        ],
+        const SizedBox(height: 12),
         SegmentedButton<RevisionTab>(
           showSelectedIcon: false,
           segments: [
@@ -75,14 +105,17 @@ class _RevisionsPageState extends State<RevisionsPage> {
           children: [
             ChoiceChip(
               label: const Text('Tous les modules'),
-              selected: _moduleId == null,
-              onSelected: (_) => setState(() => _moduleId = null),
+              selected: _group == null,
+              onSelected: (_) => setState(() => _group = null),
             ),
-            for (final m in library.modules)
+            for (final g in all)
               ChoiceChip(
-                label: Text('${moduleStyle(m.number).$2} Module ${m.number}'),
-                selected: _moduleId == m.id,
-                onSelected: (_) => setState(() => _moduleId = m.id),
+                label: Text('${groupStyle(g).$2} ${g.label}'),
+                selected: _group == g.index,
+                onSelected: (_) => setState(() {
+                  _group = g.index;
+                  _open.add(g.index);
+                }),
               ),
           ],
         ),
@@ -100,30 +133,39 @@ class _RevisionsPageState extends State<RevisionsPage> {
             ),
           ),
         ],
-        if (_tab == RevisionTab.maps && _moduleId == null)
+        if (_tab == RevisionTab.maps && _group == null)
           _Row(
             tone: Tone.pink,
             emoji: '🎓',
             title: 'Toute la formation',
             subtitle:
-                '${library.modules.length} modules, '
+                '${all.length} modules, '
                 '${library.domains.length} domaines de l\'examen',
-            onOpen: () =>
-                _openMap(context, 'Toute la formation', courseMindMap(library)),
+            onOpen: () => _openMap(
+              context,
+              'Toute la formation',
+              courseMindMap(library, view: view),
+            ),
             onPdf: () => _openMap(
               context,
               'Toute la formation',
-              courseMindMap(library),
+              courseMindMap(library, view: view),
               export: true,
             ),
             onHtml: () => _openMap(
               context,
               'Toute la formation',
-              courseMindMap(library),
+              courseMindMap(library, view: view),
               html: true,
             ),
           ),
-        for (final m in modules) ..._moduleSection(context, m),
+        const SizedBox(height: 6),
+        ExpandAllBar(
+          onExpandAll: () =>
+              setState(() => _open.addAll(groups.map((g) => g.index))),
+          onCollapseAll: () => setState(_open.clear),
+        ),
+        for (final g in groups) ..._moduleSection(context, g),
         if (locked > 0) ...[
           const SizedBox(height: 18),
           NoteBox(
@@ -142,11 +184,13 @@ class _RevisionsPageState extends State<RevisionsPage> {
     );
   }
 
-  List<Widget> _moduleSection(BuildContext context, Module m) {
+  List<Widget> _moduleSection(BuildContext context, StudyGroup g) {
     final state = AppScope.of(context);
-    final (tone, emoji) = moduleStyle(m.number);
-    final chapters = m.chapters.where((c) => c.available).toList();
-    final title = 'Module ${m.number} · ${m.title}';
+    final library = state.library;
+    final (tone, emoji) = groupStyle(g);
+    final chapters = g.availableChapters;
+    final title = g.fullTitle;
+    final open = _open.contains(g.index);
     VoidCallback? moduleOpen;
     VoidCallback? modulePdf;
     VoidCallback? moduleHtml;
@@ -156,7 +200,7 @@ class _RevisionsPageState extends State<RevisionsPage> {
         final ids = [
           for (final c in chapters) ...c.flashcards.map((f) => f.id),
         ];
-        detail = '${ids.length} flashcards';
+        detail = '${ids.length} flashcards · ${chapters.length} chapitre(s)';
         if (ids.isNotEmpty) {
           moduleOpen = () => Navigator.of(context).push(
             MaterialPageRoute(
@@ -165,9 +209,9 @@ class _RevisionsPageState extends State<RevisionsPage> {
           );
           modulePdf = () => exportPdf(
             context,
-            title: 'Flashcards module ${m.number}',
+            title: 'Flashcards ${g.label}',
             build: () => flashcardsPdf(
-              title: 'Flashcards · Module ${m.number}',
+              title: 'Flashcards · ${g.label}',
               chapters: chapters,
               terms: state.terms,
             ),
@@ -178,52 +222,68 @@ class _RevisionsPageState extends State<RevisionsPage> {
         if (chapters.isNotEmpty) {
           modulePdf = () => exportPdf(
             context,
-            title: 'Fiches module ${m.number}',
+            title: 'Fiches ${g.label}',
             build: () => revisionSheetsPdf(
-              title: 'Fiches de révision · Module ${m.number}',
-              subtitle: m.title,
+              title: 'Fiches de révision · ${g.label}',
+              subtitle: g.title,
               chapters: chapters,
               terms: state.terms,
             ),
           );
         }
       case RevisionTab.maps:
-        detail = 'Carte du module';
-        moduleOpen = () =>
-            _openMap(context, 'Module ${m.number}', moduleMindMap(m));
-        modulePdf = () => _openMap(
-          context,
-          'Module ${m.number}',
-          moduleMindMap(m),
-          export: true,
-        );
-        moduleHtml = () => _openMap(
-          context,
-          'Module ${m.number}',
-          moduleMindMap(m),
-          html: true,
-        );
+        detail = g.outline != null
+            ? 'Carte du module · ${g.outline!.sections.length} sections'
+            : 'Carte du module';
+        final root = groupMindMap(library, g);
+        moduleOpen = () => _openMap(context, g.label, root);
+        modulePdf = () => _openMap(context, g.label, root, export: true);
+        moduleHtml = () => _openMap(context, g.label, root, html: true);
     }
     return [
       const SizedBox(height: 22),
       GradientBanner(
         tone: tone,
-        seed: 70 + m.number,
+        seed: 70 + g.index,
         padding: const EdgeInsets.fromLTRB(16, 12, 12, 12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              '$emoji  $title',
-              style: const TextStyle(
-                fontFamily: Hand.title,
-                fontSize: 24,
-                height: 1.1,
-                fontWeight: FontWeight.w700,
-                color: Colors.white,
+            Semantics(
+              button: true,
+              expanded: open,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(12),
+                onTap: () => setState(() {
+                  if (!_open.remove(g.index)) _open.add(g.index);
+                }),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '$emoji  $title',
+                            style: const TextStyle(
+                              fontFamily: Hand.title,
+                              fontSize: 24,
+                              height: 1.1,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                            ),
+                          ),
+                          if (g.titleEn != null)
+                            EnTag(g.titleEn!, onDark: true, size: 12),
+                        ],
+                      ),
+                    ),
+                    ExpandChevron(open: open),
+                  ],
+                ),
               ),
             ),
-            if (m.titleEn != null) EnTag(m.titleEn!, onDark: true, size: 12),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -262,7 +322,7 @@ class _RevisionsPageState extends State<RevisionsPage> {
           ],
         ),
       ),
-      if (chapters.isEmpty)
+      if (open && chapters.isEmpty)
         Padding(
           padding: const EdgeInsets.only(top: 10, left: 12),
           child: Text(
@@ -270,11 +330,16 @@ class _RevisionsPageState extends State<RevisionsPage> {
             style: Hand.sansText(context, size: 14),
           ),
         ),
-      for (final (i, c) in m.chapters.indexed)
-        if (c.available)
+      if (open)
+        for (final c in chapters)
           Padding(
             padding: const EdgeInsets.only(left: 12),
-            child: _chapterRow(context, c, '${m.number}.${i + 1}', tone),
+            child: _chapterRow(
+              context,
+              c,
+              chapterNumber(library, c),
+              moduleStyle(library.module(c.moduleId).number).$1,
+            ),
           ),
     ];
   }
