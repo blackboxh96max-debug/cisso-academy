@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <path d="M0 120 Q20 60 50 80 Q70 40 92 76 L92 140 L0 140 Z" fill="#FCA5A5" stroke="#DC2626" stroke-width="2.2" />
+  <g stroke="#26324A" stroke-width="2" fill="#D6B98C">
+    <ellipse cx="104" cy="132" rx="14" ry="8" /><ellipse cx="104" cy="116" rx="14" ry="8" /><ellipse cx="104" cy="100" rx="14" ry="8" /><ellipse cx="104" cy="84" rx="14" ry="8" />
+  </g>
+  <g stroke="#26324A" stroke-width="2"><rect x="136" y="100" width="22" height="16" rx="2" fill="#BFDBFE" /><rect x="172" y="100" width="22" height="16" rx="2" fill="#BFDBFE" /><rect x="154" y="74" width="22" height="16" rx="2" fill="#BFDBFE" /></g>
+  <path d="M147 116 L147 124 M183 116 L183 124 M165 90 L165 98 M147 98 L165 90 L183 98" fill="none" stroke="#26324A" stroke-width="1.6" />
+  <g stroke="#26324A" stroke-width="2" stroke-linejoin="round"><path d="M150 18 L186 22 L222 18 L222 56 L186 60 L150 56 Z" fill="#FFFFFF" /><path d="M186 22 L186 60" /></g>
+  <g stroke="#94A3B8" stroke-width="1.4"><path d="M156 30 L180 32 M156 38 L180 40 M156 46 L176 48 M192 32 L216 30 M192 40 L216 38" /></g>
+  <g font-family="Caveat, cursive" font-size="15" text-anchor="middle">
+    <text x="46" y="162" fill="#B91C1C">attaque contenue</text>
+    <text x="186" y="160" fill="#15803D">leçons apprises</text>
+  </g>
+</svg>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <g stroke="#26324A" stroke-width="2.2" stroke-linejoin="round">
+    <rect x="14" y="40" width="104" height="72" rx="6" fill="#E2E8F0" />
+    <rect x="22" y="48" width="88" height="44" rx="3" fill="#1E293B" />
+    <path d="M28 82 L44 70 L56 76 L72 58 L86 64 L104 54" fill="none" stroke="#22C55E" stroke-width="2" />
+    <path d="M52 112 L46 124 L86 124 L80 112" fill="#CBD5E1" />
+  </g>
+  <g stroke="#26324A" stroke-width="2.2"><path d="M54 30 A12 12 0 0 1 78 30 Z" fill="#EF4444" /><rect x="52" y="30" width="28" height="5" fill="#B91C1C" /></g>
+  <g stroke="#EF4444" stroke-width="2.4" stroke-linecap="round"><path d="M44 18 L50 24 M88 18 L82 24 M66 8 L66 14" /></g>
+  <g stroke="#26324A" stroke-width="2.2" stroke-linejoin="round">
+    <path d="M136 92 A18 16 0 0 1 172 92 Z" fill="#EF4444" /><rect x="130" y="92" width="48" height="6" rx="2" fill="#B91C1C" />
+    <path d="M160 72 A18 16 0 0 1 196 72 Z" fill="#F59E0B" /><rect x="154" y="72" width="48" height="6" rx="2" fill="#B45309" />
+    <path d="M184 92 A18 16 0 0 1 220 92 Z" fill="#3B82F6" /><rect x="178" y="92" width="48" height="6" rx="2" fill="#1D4ED8" />
+  </g>
+  <g font-family="Caveat, cursive" font-size="17" text-anchor="middle">
+    <text x="66" y="150" fill="#B91C1C">alerte</text>
+    <text x="178" y="130" fill="#1D4ED8">CSIRT</text>
+  </g>
+</svg>
