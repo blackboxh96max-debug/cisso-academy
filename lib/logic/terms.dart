@@ -2,14 +2,37 @@ import '../models/content.dart';
 
 /// Une occurrence d'un terme du glossaire dans un texte français.
 class TermMatch {
-  const TermMatch(this.term, this.start, this.end);
+  const TermMatch(
+    this.term,
+    this.start,
+    this.end, {
+    this.translate = true,
+    this.link = false,
+  });
 
   final GlossaryTerm term;
 
   /// Position du terme dans le texte d'origine (fin exclue).
   final int start;
   final int end;
+
+  /// Afficher l'équivalent anglais après le terme.
+  final bool translate;
+
+  /// Rendre le terme cliquable (info-bulle et lien vers sa définition).
+  final bool link;
+
+  TermMatch copyWith({bool? translate, bool? link}) => TermMatch(
+    term,
+    start,
+    end,
+    translate: translate ?? this.translate,
+    link: link ?? this.link,
+  );
 }
+
+/// Comment un terme a été reconnu dans le texte.
+enum _KeyKind { french, english, acronym }
 
 /// Minuscules sans accents, caractère pour caractère (même longueur que
 /// l'entrée), pour retrouver les positions dans le texte d'origine.
@@ -40,13 +63,27 @@ class TermIndex {
       if (fr.length >= 4 && fr != fold(t.termEn).trim()) {
         _annotable.add((fr, t));
       }
+      final en = fold(t.termEn).trim();
+      final acronym = t.acronym?.trim();
+      final keys = <(String, _KeyKind)>[
+        if (fr.length >= 3) (fr, _KeyKind.french),
+        if (en.length >= 4 && en != fr) (en, _KeyKind.english),
+        if (acronym != null && acronym.length >= 2)
+          (fold(acronym), _KeyKind.acronym),
+      ];
+      for (final (key, kind) in keys) {
+        if (_linkKeys.add(key)) _linkable.add((key, t, kind));
+      }
     }
+    _linkable.sort((a, b) => b.$1.length.compareTo(a.$1.length));
     // Les termes longs d'abord : « gestion des risques » avant « risque ».
     _annotable.sort((a, b) => b.$1.length.compareTo(a.$1.length));
   }
 
   final _byKey = <String, GlossaryTerm>{};
   final _annotable = <(String, GlossaryTerm)>[];
+  final _linkKeys = <String>{};
+  final _linkable = <(String, GlossaryTerm, _KeyKind)>[];
 
   /// Le terme dont le nom (français, anglais ou sigle) est exactement [label].
   /// Ce qui est entre parenthèses est ignoré : « SIEM (Security…) » → SIEM.
@@ -108,4 +145,112 @@ class TermIndex {
     out.sort((a, b) => a.start.compareTo(b.start));
     return out;
   }
+
+  /// Les termes à rendre cliquables dans [text] : la première occurrence de
+  /// chaque terme du glossaire, par son nom français, anglais ou son sigle
+  /// (sigle en majuscules seulement), sans chevauchement. `translate` dit si
+  /// l'équivalent anglais peut être ajouté (nom français, différent de
+  /// l'anglais, qui n'est pas déjà écrit dans le texte).
+  List<TermMatch> findLinks(String text) {
+    final folded = fold(text);
+    final taken = List<bool>.filled(folded.length, false);
+    final out = <TermMatch>[];
+    final found = <String>{};
+    for (final (key, term, kind) in _linkable) {
+      if (found.contains(term.id)) continue;
+      var from = 0;
+      while (true) {
+        final i = folded.indexOf(key, from);
+        if (i < 0) break;
+        from = i + 1;
+        final end = i + key.length;
+        // Un sigle s'écrit en majuscules : « IAM », pas « iam ».
+        if (kind == _KeyKind.acronym &&
+            text.substring(i, end) != term.acronym!.trim()) {
+          continue;
+        }
+        var stop = end;
+        if (kind != _KeyKind.acronym &&
+            stop < folded.length &&
+            (folded[stop] == 's' || folded[stop] == 'x')) {
+          stop++;
+        }
+        final before = i == 0 || !_isWordChar(folded[i - 1]);
+        final after = stop >= folded.length || !_isWordChar(folded[stop]);
+        if (!before || !after || taken.sublist(i, stop).contains(true)) {
+          continue;
+        }
+        for (var k = i; k < stop; k++) {
+          taken[k] = true;
+        }
+        final fr = fold(term.termFr).trim();
+        final en = fold(term.termEn).trim();
+        out.add(
+          TermMatch(
+            term,
+            i,
+            stop,
+            link: true,
+            translate:
+                kind == _KeyKind.french &&
+                fr.length >= 4 &&
+                fr != en &&
+                !folded.contains(en),
+          ),
+        );
+        found.add(term.id);
+        break;
+      }
+    }
+    out.sort((a, b) => a.start.compareTo(b.start));
+    return out;
+  }
 }
+
+/// Les noms qu'un titre de définition peut donner à un terme :
+/// « SLE, Single Loss Expectancy (perte unitaire) » → « SLE »,
+/// « Single Loss Expectancy », « perte unitaire »… ; « MAC et HMAC » → les
+/// deux.
+List<String> definitionNames(String title) {
+  final parts = <String>[title];
+  final open = title.indexOf('(');
+  if (open > 0) {
+    final close = title.lastIndexOf(')');
+    parts.add(title.substring(0, open));
+    if (close > open) parts.add(title.substring(open + 1, close));
+  }
+  final out = <String>[];
+  for (final p in parts) {
+    out.add(p.trim());
+    for (final piece in p.split(RegExp(r',| ou | et '))) {
+      final t = piece.trim();
+      if (t.isNotEmpty && !out.contains(t)) out.add(t);
+    }
+  }
+  return out;
+}
+
+/// Où un terme est défini dans le cours : la leçon et le numéro du bloc
+/// « Définition ».
+typedef TermHome = ({Lesson lesson, int block});
+
+final _homes = Expando<Map<String, TermHome>>();
+
+/// Pour chaque terme du glossaire défini dans une leçon, la première
+/// définition dans l'ordre du cours (calculé une fois).
+Map<String, TermHome> termHomes(ContentLibrary library, TermIndex index) =>
+    _homes[library] ??= () {
+      final out = <String, TermHome>{};
+      for (final lesson in library.lessons) {
+        for (final (i, b) in lesson.blocks.indexed) {
+          if (b.type != BlockType.definition || b.title == null) continue;
+          for (final name in definitionNames(b.title!)) {
+            final t = index.lookup(name);
+            if (t != null) {
+              out.putIfAbsent(t.id, () => (lesson: lesson, block: i));
+            }
+          }
+        }
+      }
+      return out;
+    }();

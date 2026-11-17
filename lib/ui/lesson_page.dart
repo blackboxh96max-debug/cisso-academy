@@ -18,6 +18,7 @@ import 'course_view_bar.dart';
 import 'find_highlight.dart';
 import 'outline_view.dart';
 import 'search_page.dart';
+import 'term_links.dart';
 
 /// Leçon présentée comme une page de cahier manuscrit.
 ///
@@ -201,7 +202,11 @@ class _LessonPageState extends State<LessonPage> {
     final width = MediaQuery.sizeOf(context).width;
     final wide = width >= 1100;
     final paper = Paper.of(context);
-    final plan = _termPlan(state.terms, lesson);
+    final plan = _termPlan(
+      state.terms,
+      lesson,
+      termHomes(state.library, state.terms),
+    );
     // Leçons de toute la formation, dans l'ordre de la vue choisie (livre
     // MILE2 ou 5 modules) : on enchaîne sans repasser par le menu.
     final course = state.lessonOrder;
@@ -339,27 +344,29 @@ class _LessonPageState extends State<LessonPage> {
         words: _words,
         child: TermPlan(
           plan: plan,
-          child: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(
-              horizontal: width < 600 ? 0 : 20,
-              vertical: width < 600 ? 0 : 16,
-            ),
-            child: Center(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: wide ? 1240 : 880),
-                child: wide
-                    ? Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: 300,
-                            child: _SidePanel(lesson: lesson),
-                          ),
-                          const SizedBox(width: 24),
-                          Expanded(child: shadowedPage),
-                        ],
-                      )
-                    : shadowedPage,
+          child: TermLinks(
+            child: SingleChildScrollView(
+              padding: EdgeInsets.symmetric(
+                horizontal: width < 600 ? 0 : 20,
+                vertical: width < 600 ? 0 : 16,
+              ),
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: wide ? 1240 : 880),
+                  child: wide
+                      ? Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: 300,
+                              child: _SidePanel(lesson: lesson),
+                            ),
+                            const SizedBox(width: 24),
+                            Expanded(child: shadowedPage),
+                          ],
+                        )
+                      : shadowedPage,
+                ),
               ),
             ),
           ),
@@ -451,13 +458,34 @@ class LessonNavigation extends StatelessWidget {
   }
 }
 
-/// Repère, dans l'ordre de lecture, la première apparition de chaque terme
-/// clé de la leçon pour afficher son équivalent anglais.
-Map<Object, List<TermMatch>> _termPlan(TermIndex terms, Lesson lesson) {
-  final seen = <String>{};
+/// Repère, dans l'ordre de lecture, les termes du glossaire de la leçon :
+/// - l'équivalent anglais est ajouté à la première apparition du terme dans
+///   la leçon ;
+/// - le terme est cliquable à sa première apparition dans chaque partie (entre
+///   deux titres), sauf s'il est défini dans cette leçon même.
+Map<Object, List<TermMatch>> _termPlan(
+  TermIndex terms,
+  Lesson lesson,
+  Map<String, TermHome> homes,
+) {
+  final translated = <String>{};
+  final linked = <String>{};
   final plan = <Object, List<TermMatch>>{};
+  List<TermMatch> pick(String text) => [
+    for (final m in terms.findLinks(text))
+      if (m.copyWith(
+            translate: m.translate && translated.add(m.term.id),
+            link:
+                homes[m.term.id]?.lesson.id != lesson.id &&
+                linked.add(m.term.id),
+          )
+          case final k when k.translate || k.link)
+        k,
+  ];
   for (final b in lesson.blocks) {
     switch (b.type) {
+      case BlockType.heading:
+        linked.clear();
       case BlockType.text ||
           BlockType.definition ||
           BlockType.important ||
@@ -465,9 +493,9 @@ Map<Object, List<TermMatch>> _termPlan(TermIndex terms, Lesson lesson) {
           BlockType.trainerNote ||
           BlockType.risk ||
           BlockType.practice:
-        if (b.text != null) plan[b] = terms.findIn(b.text!, skip: seen);
+        if (b.text != null) plan[b] = pick(b.text!);
         for (final (i, item) in b.items.indexed) {
-          plan[(b, i)] = terms.findIn(item, skip: seen);
+          plan[(b, i)] = pick(item);
         }
       default:
         break;
