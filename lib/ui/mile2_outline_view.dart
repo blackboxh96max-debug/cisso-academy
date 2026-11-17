@@ -38,7 +38,8 @@ class Mile2OutlineView extends StatelessWidget {
       children: [
         Text(
           'Même découpage et même ordre que le sommaire du livre MILE2 v20 : '
-          '${outline.modules.length} modules, ${sections.length} sections. '
+          '${outline.modules.length - 1} modules et le module Prérequis, '
+          '${sections.length} sections. '
           '${missing.isEmpty ? 'Toutes les sections ont une leçon.' : '${missing.length} section(s) attendent encore leur leçon.'}',
           style: Hand.bodyText(context),
         ),
