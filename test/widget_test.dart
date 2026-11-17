@@ -74,7 +74,7 @@ void main() {
     await tester.tap(find.text('Prochaine révision recommandée'));
     await tester.pumpAndSettle();
     expect(find.text('OBJECTIFS DE LA LEÇON'), findsOneWidget);
-    final button = find.text('J\'ai terminé cette leçon');
+    final button = find.text('J\'ai terminé : leçon suivante');
     await tester.scrollUntilVisible(
       button,
       400,
@@ -83,6 +83,74 @@ void main() {
     await tester.tap(button);
     await tester.pumpAndSettle();
     expect(state.readLessons, contains('m1c1-l1'));
+    // On enchaîne directement sur la leçon suivante.
+    final second = library.chapter('m1c1').lessons[1].title;
+    expect(find.text(second), findsWidgets);
+  });
+
+  testWidgets('leçon : boutons précédente et suivante, même entre chapitres', (
+    tester,
+  ) async {
+    await pumpApp(tester);
+    await tester.tap(find.text('Prochaine révision recommandée'));
+    await tester.pumpAndSettle();
+    final lessons = library.chapters.expand((c) => c.lessons).toList();
+    // Précédente désactivée sur la toute première leçon.
+    final prev = tester.widget<IconButton>(
+      find.widgetWithIcon(IconButton, Icons.chevron_left),
+    );
+    expect(prev.onPressed, isNull);
+    // On avance jusqu'à la première leçon du chapitre suivant.
+    for (var i = 0; i < 3; i++) {
+      await tester.tap(find.byTooltip('Leçon suivante'));
+      await tester.pumpAndSettle();
+    }
+    expect(find.text(lessons[3].title), findsWidgets);
+    expect(find.text(library.chapters.elementAt(1).title), findsWidgets);
+    await tester.tap(find.byTooltip('Leçon précédente'));
+    await tester.pumpAndSettle();
+    expect(find.text(lessons[2].title), findsWidgets);
+    // Les pages ne s'empilent pas : un retour ramène au tableau de bord.
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    expect(find.text('Prochaine révision recommandée'), findsOneWidget);
+  });
+
+  testWidgets('recherche dans le texte puis dans la leçon ouverte', (
+    tester,
+  ) async {
+    await pumpApp(tester);
+    await tester.tap(find.byTooltip('Rechercher').first);
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextField), 'Voisin');
+    await tester.pumpAndSettle();
+    // Le mot n'est que dans le corps d'un encadré : on voit le passage.
+    expect(find.textContaining('Mon Voisin', findRichText: true), findsWidgets);
+    await tester.tap(find.text('Les cinq briques').first);
+    await tester.pumpAndSettle();
+    // La leçon s'ouvre avec la recherche déjà remplie et le passage montré.
+    expect(find.byKey(const Key('lesson-find')), findsOneWidget);
+    final status = tester.widget<Text>(
+      find.byKey(const Key('lesson-find-status')),
+    );
+    expect(status.data, matches(RegExp(r'^1/\d+$')));
+    // Nouvelle recherche dans la même leçon.
+    await tester.enterText(find.byKey(const Key('lesson-find')), 'risque');
+    await tester.pumpAndSettle();
+    final count = tester.widget<Text>(
+      find.byKey(const Key('lesson-find-status')),
+    );
+    expect(count.data, matches(RegExp(r'^\d+ passages$')));
+    await tester.tap(find.byTooltip('Passage suivant'));
+    await tester.pumpAndSettle();
+    expect(
+      tester.widget<Text>(find.byKey(const Key('lesson-find-status'))).data,
+      matches(RegExp(r'^1/\d+$')),
+    );
+    // Fermer la recherche enlève la barre.
+    await tester.tap(find.byTooltip('Fermer la recherche dans la leçon'));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('lesson-find')), findsNothing);
   });
 
   testWidgets('entraînement : correction immédiate puis résultat enregistré', (

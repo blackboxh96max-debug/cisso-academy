@@ -4,6 +4,7 @@ import '../app_state.dart';
 import '../logic/search.dart';
 import '../models/content.dart';
 import 'bilingual.dart';
+import 'find_highlight.dart';
 import 'chapter_page.dart';
 import 'lesson_page.dart';
 import 'mind_map_page.dart';
@@ -156,7 +157,8 @@ class _SearchPageState extends State<SearchPage> {
                       style: Hand.bodyText(context),
                     ),
                   ),
-                for (final r in results) _ResultTile(result: r),
+                for (final r in results)
+                  _ResultTile(result: r, query: _controller.text),
               ],
             ],
           ),
@@ -167,9 +169,10 @@ class _SearchPageState extends State<SearchPage> {
 }
 
 class _ResultTile extends StatelessWidget {
-  const _ResultTile({required this.result});
+  const _ResultTile({required this.result, required this.query});
 
   final SearchResult result;
+  final String query;
 
   Tone get _tone => switch (result.kind) {
     SearchKind.term => Tone.turquoise,
@@ -214,6 +217,8 @@ class _ResultTile extends StatelessWidget {
               lesson: chapter!.lessons.firstWhere(
                 (l) => l.id == result.lessonId,
               ),
+              find: result.kind == SearchKind.section ? query.trim() : null,
+              focusBlock: result.blockIndex,
             ),
           ),
         );
@@ -272,9 +277,17 @@ class _ResultTile extends StatelessWidget {
                       EnTag(result.en!, size: 13),
                     ],
                     const SizedBox(height: 4),
-                    Text(
-                      result.subtitle,
-                      maxLines: 2,
+                    Text.rich(
+                      TextSpan(
+                        children: highlightSpans(
+                          result.subtitle,
+                          result.kind == SearchKind.section
+                              ? findWords(query)
+                              : const [],
+                          highlightStyle(context),
+                        ),
+                      ),
+                      maxLines: result.subtitle.startsWith('«') ? 4 : 2,
                       overflow: TextOverflow.ellipsis,
                       style: Hand.sansText(
                         context,

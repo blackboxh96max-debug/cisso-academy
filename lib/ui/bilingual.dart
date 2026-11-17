@@ -1,6 +1,7 @@
 import 'package:material_ui/material_ui.dart';
 
 import '../logic/terms.dart';
+import 'find_highlight.dart';
 import 'notebook/palette.dart';
 import 'notebook/typography.dart';
 
@@ -67,7 +68,16 @@ TextSpan bilingualSpan(
   List<TermMatch> matches,
   TextStyle style,
 ) {
-  if (matches.isEmpty) return TextSpan(text: text, style: style);
+  final words = FindHighlight.of(context);
+  final mark = highlightStyle(context);
+  InlineSpan plain(String t) => words.isEmpty
+      ? TextSpan(text: t)
+      : TextSpan(children: highlightSpans(t, words, mark));
+  if (matches.isEmpty) {
+    return words.isEmpty
+        ? TextSpan(text: text, style: style)
+        : TextSpan(style: style, children: [plain(text)]);
+  }
   final en = style.copyWith(
     color: englishColor(context),
     fontStyle: FontStyle.italic,
@@ -76,11 +86,11 @@ TextSpan bilingualSpan(
   final spans = <InlineSpan>[];
   var pos = 0;
   for (final m in matches) {
-    spans.add(TextSpan(text: text.substring(pos, m.end)));
+    spans.add(plain(text.substring(pos, m.end)));
     spans.add(TextSpan(text: ' (${m.term.termEn})', style: en));
     pos = m.end;
   }
-  spans.add(TextSpan(text: text.substring(pos)));
+  spans.add(plain(text.substring(pos)));
   return TextSpan(style: style, children: spans);
 }
 

@@ -25,6 +25,7 @@ class SearchResult {
     this.lessonId,
     this.termId,
     this.flashcardId,
+    this.blockIndex,
     this.score = 0,
   });
 
@@ -38,17 +39,21 @@ class SearchResult {
   final String? lessonId;
   final String? termId;
   final String? flashcardId;
+
+  /// Bloc de la leçon où se trouve le passage, pour y aller directement.
+  final int? blockIndex;
   final int score;
 
-  SearchResult _withScore(int s) => SearchResult(
+  SearchResult _withScore(int s, {String? subtitle}) => SearchResult(
     kind: kind,
     title: title,
     en: en,
-    subtitle: subtitle,
+    subtitle: subtitle ?? this.subtitle,
     chapterId: chapterId,
     lessonId: lessonId,
     termId: termId,
     flashcardId: flashcardId,
+    blockIndex: blockIndex,
     score: s,
   );
 }
@@ -59,9 +64,13 @@ class _Entry {
         for (final n in names)
           if (n != null && n.trim().isNotEmpty) fold(n),
       ],
+      rawBody = body.whereType<String>().join(' '),
       body = fold(body.whereType<String>().join(' '));
 
   final SearchResult result;
+
+  /// Texte complémentaire tel qu'affiché, pour en citer un extrait.
+  final String rawBody;
 
   /// Titres (français, anglais, sigle), pondérés fortement.
   final List<String> names;
@@ -135,9 +144,42 @@ class SearchIndex {
               l.objectives,
             ),
           );
-          for (final b in l.blocks) {
+          // Chaque partie de la leçon (d'un intertitre au suivant) est
+          // indexée avec tout son texte : paragraphes, listes, encadrés,
+          // tableaux. Les encadrés titrés ont aussi leur propre résultat.
+          String? sectionTitle;
+          var sectionStart = 0;
+          final sectionText = <String?>[];
+          void closeSection() {
+            final title = sectionTitle ?? l.title;
+            if (sectionText.whereType<String>().isEmpty) return;
+            _entries.add(
+              _Entry(
+                SearchResult(
+                  kind: SearchKind.section,
+                  title: title,
+                  en: terms.englishFor(title),
+                  subtitle: '${l.title} · ${c.title}',
+                  chapterId: c.id,
+                  lessonId: l.id,
+                  blockIndex: sectionStart,
+                ),
+                sectionTitle == null ? [] : [title, terms.englishFor(title)],
+                List.of(sectionText),
+              ),
+            );
+          }
+
+          for (final (i, b) in l.blocks.indexed) {
+            if (b.type == BlockType.heading) {
+              closeSection();
+              sectionTitle = b.text;
+              sectionStart = i;
+              sectionText.clear();
+              continue;
+            }
+            sectionText.addAll(blockSearchText(b));
             final name = switch (b.type) {
-              BlockType.heading => b.text,
               BlockType.definition ||
               BlockType.important ||
               BlockType.practice ||
@@ -156,12 +198,14 @@ class SearchIndex {
                   subtitle: '${l.title} · ${c.title}',
                   chapterId: c.id,
                   lessonId: l.id,
+                  blockIndex: i,
                 ),
                 [name, terms.englishFor(name)],
                 [b.text, ...b.items],
               ),
             );
           }
+          closeSection();
         }
         for (final f in c.flashcards) {
           _entries.add(
@@ -220,6 +264,7 @@ class SearchIndex {
     for (final e in _entries) {
       var score = 0;
       var allFound = true;
+      String? bodyHit;
       for (final w in words) {
         var best = 0;
         for (final n in e.names) {
@@ -233,7 +278,10 @@ class SearchIndex {
             best = best < 30 ? 30 : best;
           }
         }
-        if (best == 0 && e.body.contains(w)) best = 8;
+        if (best == 0 && e.body.contains(w)) {
+          best = 8;
+          bodyHit ??= w;
+        }
         if (best == 0) {
           allFound = false;
           break;
@@ -244,9 +292,67 @@ class SearchIndex {
       if (words.length > 1 && e.names.any((n) => n.contains(phrase))) {
         score += 50;
       }
-      hits.add(e.result._withScore(score + e.kindBonus));
+      // Trouvé dans le texte : on montre le passage plutôt que le résumé.
+      final snippet = bodyHit == null || e.result.kind != SearchKind.section
+          ? null
+          : excerpt(e.rawBody, bodyHit);
+      hits.add(
+        e.result._withScore(
+          score + e.kindBonus,
+          subtitle: snippet == null
+              ? null
+              : '« $snippet »\n${e.result.subtitle}',
+        ),
+      );
     }
     hits.sort((a, b) => b.score.compareTo(a.score));
     return hits.take(limit).toList();
   }
+}
+
+/// Tout le texte lisible d'un bloc de leçon.
+List<String?> blockSearchText(LessonBlock b) => [
+  b.title,
+  b.text,
+  ...b.items,
+  for (final row in b.rows) ...row,
+];
+
+/// Positions (début, fin) de [query] dans [text], en début de mot, sans
+/// tenir compte des accents ni des majuscules.
+List<(int, int)> findAll(String text, String query) {
+  final q = fold(query.trim());
+  if (q.isEmpty) return const [];
+  final t = fold(text);
+  // fold garde une lettre pour une lettre : les positions correspondent.
+  if (t.length != text.length) return const [];
+  final out = <(int, int)>[];
+  var from = 0;
+  while (true) {
+    final i = t.indexOf(q, from);
+    if (i < 0) break;
+    // Seulement en début de mot : « rsa » ne surligne pas « anniversaire ».
+    final startsWord = i == 0 || !RegExp(r'[a-z0-9]').hasMatch(t[i - 1]);
+    if (startsWord) out.add((i, i + q.length));
+    from = i + (startsWord ? q.length : 1);
+  }
+  return out;
+}
+
+/// Un extrait d'environ [radius] caractères de chaque côté du mot trouvé.
+String? excerpt(String text, String foldedWord, {int radius = 60}) {
+  final t = fold(text);
+  final i = t.indexOf(foldedWord);
+  if (i < 0 || t.length != text.length) return null;
+  var start = (i - radius).clamp(0, text.length);
+  var end = (i + foldedWord.length + radius).clamp(0, text.length);
+  if (start > 0) {
+    final space = text.indexOf(' ', start);
+    if (space >= 0 && space < i) start = space + 1;
+  }
+  if (end < text.length) {
+    final space = text.lastIndexOf(' ', end);
+    if (space > i + foldedWord.length) end = space;
+  }
+  return '${start > 0 ? '… ' : ''}${text.substring(start, end).trim()}${end < text.length ? ' …' : ''}';
 }
