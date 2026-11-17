@@ -116,6 +116,12 @@ class _RevisionsPageState extends State<RevisionsPage> {
               courseMindMap(library),
               export: true,
             ),
+            onHtml: () => _openMap(
+              context,
+              'Toute la formation',
+              courseMindMap(library),
+              html: true,
+            ),
           ),
         for (final m in modules) ..._moduleSection(context, m),
         if (locked > 0) ...[
@@ -143,6 +149,7 @@ class _RevisionsPageState extends State<RevisionsPage> {
     final title = 'Module ${m.number} · ${m.title}';
     VoidCallback? moduleOpen;
     VoidCallback? modulePdf;
+    VoidCallback? moduleHtml;
     String detail;
     switch (_tab) {
       case RevisionTab.flashcards:
@@ -189,6 +196,12 @@ class _RevisionsPageState extends State<RevisionsPage> {
           'Module ${m.number}',
           moduleMindMap(m),
           export: true,
+        );
+        moduleHtml = () => _openMap(
+          context,
+          'Module ${m.number}',
+          moduleMindMap(m),
+          html: true,
         );
     }
     return [
@@ -237,6 +250,12 @@ class _RevisionsPageState extends State<RevisionsPage> {
                     icon: Icons.picture_as_pdf_outlined,
                     label: 'PDF du module',
                     onPressed: modulePdf,
+                  ),
+                if (moduleHtml != null)
+                  _WhiteButton(
+                    icon: Icons.web_outlined,
+                    label: 'HTML du module',
+                    onPressed: moduleHtml,
                   ),
               ],
             ),
@@ -324,6 +343,7 @@ class _RevisionsPageState extends State<RevisionsPage> {
         onOpen: () => _openMap(context, c.title, chapterMindMap(c)),
         onPdf: () =>
             _openMap(context, c.title, chapterMindMap(c), export: true),
+        onHtml: () => _openMap(context, c.title, chapterMindMap(c), html: true),
       ),
     };
   }
@@ -333,11 +353,16 @@ class _RevisionsPageState extends State<RevisionsPage> {
     String title,
     MindNode root, {
     bool export = false,
+    bool html = false,
   }) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (_) =>
-            MindMapPage(title: title, root: root, exportOnOpen: export),
+        builder: (_) => MindMapPage(
+          title: title,
+          root: root,
+          exportOnOpen: export,
+          htmlOnOpen: html,
+        ),
       ),
     );
   }
@@ -352,6 +377,7 @@ class _Row extends StatelessWidget {
     required this.subtitle,
     required this.onOpen,
     required this.onPdf,
+    this.onHtml,
     this.openLabel = 'Ouvrir',
   });
 
@@ -362,6 +388,9 @@ class _Row extends StatelessWidget {
   final String subtitle;
   final VoidCallback onOpen;
   final VoidCallback onPdf;
+
+  /// Page HTML interactive (cartes mentales seulement).
+  final VoidCallback? onHtml;
   final String openLabel;
 
   @override
@@ -383,6 +412,12 @@ class _Row extends StatelessWidget {
           icon: const Icon(Icons.picture_as_pdf_outlined, size: 18),
           label: const Text('PDF'),
         ),
+        if (onHtml != null)
+          OutlinedButton.icon(
+            onPressed: onHtml,
+            icon: const Icon(Icons.web_outlined, size: 18),
+            label: const Text('HTML'),
+          ),
       ],
     );
     final text = Column(

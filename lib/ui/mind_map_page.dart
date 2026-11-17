@@ -4,6 +4,7 @@ import 'package:material_ui/material_ui.dart';
 
 import '../app_state.dart';
 import '../export/pdf_export.dart';
+import '../export/mind_map_html.dart';
 import '../export/pdf_save.dart';
 import '../logic/terms.dart';
 import '../models/content.dart';
@@ -124,6 +125,7 @@ class MindMapPage extends StatefulWidget {
     required this.title,
     required this.root,
     this.exportOnOpen = false,
+    this.htmlOnOpen = false,
   });
 
   final String title;
@@ -131,6 +133,9 @@ class MindMapPage extends StatefulWidget {
 
   /// Ouvre la carte puis lance tout de suite l'export PDF.
   final bool exportOnOpen;
+
+  /// Ouvre la carte puis lance tout de suite l'export HTML interactif.
+  final bool htmlOnOpen;
 
   @override
   State<MindMapPage> createState() => _MindMapPageState();
@@ -171,6 +176,17 @@ class _MindMapPageState extends State<MindMapPage> {
     }
   }
 
+  /// Crée la page HTML interactive, autonome et utilisable hors ligne.
+  Future<void> _exportHtml() async {
+    final root = _root(context);
+    await exportHtml(
+      context,
+      title: 'Carte mentale ${widget.title}',
+      build: () =>
+          mindMapHtml(title: 'Carte mentale · ${widget.title}', root: root),
+    );
+  }
+
   Set<String> _defaultCollapsed() {
     final out = <String>{};
     void walk(MindNode n, String path, int depth) {
@@ -203,6 +219,10 @@ class _MindMapPageState extends State<MindMapPage> {
       Future<void>.delayed(const Duration(milliseconds: 600), () {
         if (mounted) _exportPdf();
       });
+    } else if (widget.htmlOnOpen) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _exportHtml();
+      });
     }
   }
 
@@ -234,16 +254,42 @@ class _MindMapPageState extends State<MindMapPage> {
               onPressed: () => setState(() => _collapsed = _defaultCollapsed()),
             ),
           ],
-          IconButton(
-            tooltip: 'Télécharger en PDF',
-            icon: _exporting
-                ? const SizedBox.square(
+          _exporting
+              ? const Padding(
+                  padding: EdgeInsets.all(14),
+                  child: SizedBox.square(
                     dimension: 20,
                     child: CircularProgressIndicator(strokeWidth: 2),
-                  )
-                : const Icon(Icons.picture_as_pdf_outlined),
-            onPressed: _exporting ? null : _exportPdf,
-          ),
+                  ),
+                )
+              : PopupMenuButton<String>(
+                  tooltip: 'Télécharger',
+                  icon: const Icon(Icons.download_outlined),
+                  onSelected: (choice) =>
+                      choice == 'html' ? _exportHtml() : _exportPdf(),
+                  itemBuilder: (_) => const [
+                    PopupMenuItem(
+                      value: 'pdf',
+                      child: ListTile(
+                        leading: Icon(Icons.picture_as_pdf_outlined),
+                        title: Text('PDF zoomable'),
+                        subtitle: Text(
+                          'Carte générale cliquable, une page par branche',
+                        ),
+                      ),
+                    ),
+                    PopupMenuItem(
+                      value: 'html',
+                      child: ListTile(
+                        leading: Icon(Icons.web_outlined),
+                        title: Text('Page HTML interactive'),
+                        subtitle: Text(
+                          'Un seul fichier, hors ligne, branches à déplier',
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
           IconButton(
             tooltip: list ? 'Voir la carte' : 'Voir la liste',
             icon: Icon(list ? Icons.account_tree_outlined : Icons.list_alt),

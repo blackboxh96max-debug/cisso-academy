@@ -380,61 +380,83 @@ Future<Uint8List> flashcardsPdf({
   return doc.save();
 }
 
-/// Carte mentale : la carte dessinée en arborescence (vectorielle, nette à
-/// tous les zooms), puis son plan détaillé.
+/// Carte mentale « zoomable » : la carte générale (deux niveaux) dont chaque
+/// grande branche renvoie à sa page de détail, une page par branche avec un
+/// lien de retour, puis le plan détaillé. Tout est vectoriel.
 Future<Uint8List> mindMapPdf({
   required String title,
   required MindNode root,
 }) async {
   final f = await _fonts();
   final doc = pw.Document(title: stripEmoji(title), author: 'CISSO Academy');
-  final map = MindMapLayout.of(root);
-  // Au-delà de 200 pouces (14 400 points), certains lecteurs refusent la
-  // page : la carte est alors réduite pour tenir.
-  const maxSide = 14000.0;
-  final scale = [
-    1.0,
-    maxSide / (map.width + 60),
-    maxSide / (map.height + 200),
-  ].reduce((a, b) => a < b ? a : b);
-  doc.addPage(
-    pw.Page(
-      pageFormat: PdfPageFormat(
-        (map.width + 60) * scale,
-        (map.height + 200) * scale,
-      ),
-      margin: pw.EdgeInsets.all(30 * scale),
-      theme: _theme(f),
-      build: (ctx) => pw.Column(
-        crossAxisAlignment: pw.CrossAxisAlignment.start,
-        children: [
-          pw.Text(
-            stripEmoji(title),
-            style: pw.TextStyle(font: f.handBold, fontSize: 28 * scale),
+  // Page 1 : la carte générale, réduite aux deux premiers niveaux. Chaque
+  // grande branche renvoie (lien cliquable) à sa page de détail.
+  final branches = root.children;
+  final detailed = [
+    for (final b in branches) b.children.any((c) => c.children.isNotEmpty),
+  ];
+  final links = <MindNode, String>{};
+  final overviewBranches = <MindNode>[];
+  for (final (i, b) in branches.indexed) {
+    final n = MindNode(
+      label: b.label,
+      en: b.en,
+      emoji: b.emoji,
+      tone: b.tone,
+      detail: detailed[i]
+          ? [
+              if (b.detail != null) b.detail!,
+              '→ détail en page ${i + 2}',
+            ].join('\n')
+          : b.detail,
+      children: [
+        for (final c in b.children)
+          MindNode(
+            label: c.label,
+            en: c.en,
+            emoji: c.emoji,
+            tone: c.tone,
+            detail: c.children.isEmpty ? c.detail : null,
           ),
-          pw.SizedBox(height: 20 * scale),
-          scale == 1.0
-              ? _mindMapCanvas(map, f)
-              : pw.SizedBox(
-                  width: map.width * scale,
-                  height: map.height * scale,
-                  child: pw.Transform.scale(
-                    scale: scale,
-                    alignment: pw.Alignment.topLeft,
-                    child: pw.OverflowBox(
-                      alignment: pw.Alignment.topLeft,
-                      minWidth: map.width,
-                      maxWidth: map.width,
-                      minHeight: map.height,
-                      maxHeight: map.height,
-                      child: _mindMapCanvas(map, f),
-                    ),
-                  ),
-                ),
-        ],
-      ),
-    ),
+      ],
+    );
+    overviewBranches.add(n);
+    links[n] = 'branche-$i';
+  }
+  final overview = MindNode(
+    label: root.label,
+    en: root.en,
+    emoji: root.emoji,
+    children: overviewBranches,
   );
+  _addMapPage(
+    doc,
+    f,
+    title: title,
+    map: MindMapLayout.of(overview),
+    anchor: 'carte',
+    links: links,
+    note: branches.isEmpty
+        ? null
+        : 'Touchez une grande branche pour ouvrir sa page de détail. '
+              'Zoomez librement : la carte est vectorielle.',
+  );
+
+  // Une page par grande branche, avec tout son détail et un lien de retour.
+  for (final (i, b) in branches.indexed) {
+    _addMapPage(
+      doc,
+      f,
+      title:
+          '${stripEmoji(title)} › ${stripEmoji(b.label.replaceAll('\n', ' '))}',
+      map: MindMapLayout.of(
+        b,
+        color: _toneColor(b.tone, _rainbow[i % _rainbow.length]),
+      ),
+      anchor: 'branche-$i',
+      back: 'carte',
+    );
+  }
 
   // Plan aplati : une ligne par nœud, pour que les pages se coupent bien.
   final rows = <pw.Widget>[];
@@ -520,6 +542,92 @@ Future<Uint8List> mindMapPdf({
     ),
   );
   return doc.save();
+}
+
+/// Une page à la taille de la carte (réduite au-delà de 200 pouces).
+void _addMapPage(
+  pw.Document doc,
+  _Fonts f, {
+  required String title,
+  required MindMapLayout map,
+  required String anchor,
+  String? back,
+  String? note,
+  Map<MindNode, String> links = const {},
+}) {
+  // Au-delà de 200 pouces (14 400 points), certains lecteurs refusent la
+  // page : la carte est alors réduite pour tenir.
+  const maxSide = 14000.0;
+  final width = map.width < 520 ? 520.0 : map.width;
+  final scale = [
+    1.0,
+    maxSide / (width + 60),
+    maxSide / (map.height + 230),
+  ].reduce((a, b) => a < b ? a : b);
+  doc.addPage(
+    pw.Page(
+      pageFormat: PdfPageFormat(
+        (width + 60) * scale,
+        (map.height + 230) * scale,
+      ),
+      margin: pw.EdgeInsets.all(30 * scale),
+      theme: _theme(f),
+      build: (ctx) => pw.Column(
+        crossAxisAlignment: pw.CrossAxisAlignment.start,
+        children: [
+          pw.Anchor(
+            name: anchor,
+            child: pw.Text(
+              stripEmoji(title),
+              style: pw.TextStyle(font: f.handBold, fontSize: 28 * scale),
+            ),
+          ),
+          pw.SizedBox(height: 6 * scale),
+          if (back != null)
+            pw.Link(
+              destination: back,
+              child: pw.Text(
+                '← Retour à la carte générale',
+                style: pw.TextStyle(
+                  font: f.handBold,
+                  fontSize: 13 * scale,
+                  color: _blue,
+                  decoration: pw.TextDecoration.underline,
+                ),
+              ),
+            )
+          else
+            pw.Text(
+              note ?? '',
+              style: pw.TextStyle(
+                font: f.body,
+                fontSize: 12 * scale,
+                color: _soft,
+              ),
+            ),
+          pw.SizedBox(height: 14 * scale),
+          scale == 1.0
+              ? _mindMapCanvas(map, f, links: links)
+              : pw.SizedBox(
+                  width: map.width * scale,
+                  height: map.height * scale,
+                  child: pw.Transform.scale(
+                    scale: scale,
+                    alignment: pw.Alignment.topLeft,
+                    child: pw.OverflowBox(
+                      alignment: pw.Alignment.topLeft,
+                      minWidth: map.width,
+                      maxWidth: map.width,
+                      minHeight: map.height,
+                      maxHeight: map.height,
+                      child: _mindMapCanvas(map, f, links: links),
+                    ),
+                  ),
+                ),
+        ],
+      ),
+    ),
+  );
 }
 
 /// Fiche de préparation à l'examen (questions de la formation de
@@ -825,8 +933,9 @@ class MindMapLayout {
 
   Iterable<MindBox> get boxes => root.all;
 
-  factory MindMapLayout.of(MindNode node) {
-    final root = MindBox(node, 0, _rainbow[1], true);
+  /// [color] : une seule couleur pour toute la carte (page d'une branche).
+  factory MindMapLayout.of(MindNode node, {PdfColor? color}) {
+    final root = MindBox(node, 0, color ?? _rainbow[1], true);
     MindBox build(MindNode n, int depth, PdfColor color, bool right) {
       final b = MindBox(n, depth, color, right);
       for (final c in n.children) {
@@ -839,7 +948,7 @@ class MindMapLayout {
     // en gardant l'ordre de lecture.
     final branches = [
       for (final (i, c) in node.children.indexed)
-        (c, _toneColor(c.tone, _rainbow[i % _rainbow.length])),
+        (c, _toneColor(c.tone, color ?? _rainbow[i % _rainbow.length])),
     ];
     final total = branches.fold<double>(
       0,
@@ -927,8 +1036,12 @@ PdfColor _light(PdfColor c, double amount) => PdfColor(
   c.blue + (1 - c.blue) * amount,
 );
 
-pw.Widget _mindMapCanvas(MindMapLayout map, _Fonts f) {
-  final links = pw.CustomPaint(
+pw.Widget _mindMapCanvas(
+  MindMapLayout map,
+  _Fonts f, {
+  Map<MindNode, String> links = const {},
+}) {
+  final lines = pw.CustomPaint(
     size: PdfPoint(map.width, map.height),
     painter: (g, size) {
       // Le repère du PDF part du bas : on retourne les ordonnées.
@@ -1019,7 +1132,22 @@ pw.Widget _mindMapCanvas(MindMapLayout map, _Fonts f) {
   return pw.SizedBox(
     width: map.width,
     height: map.height,
-    child: pw.Stack(children: [links, for (final b in map.boxes) bubble(b)]),
+    child: pw.Stack(
+      children: [
+        lines,
+        for (final b in map.boxes)
+          if (links[b.node] case final target?)
+            pw.Positioned(
+              left: b.x,
+              top: b.y,
+              child: pw.Link(
+                destination: target,
+                child: pw.SizedBox(width: b.width, height: b.height),
+              ),
+            ),
+        for (final b in map.boxes) bubble(b),
+      ],
+    ),
   );
 }
 

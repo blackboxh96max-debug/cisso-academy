@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:cisso_academy/export/mind_map_html.dart';
 import 'package:cisso_academy/export/pdf_export.dart';
 import 'package:cisso_academy/logic/terms.dart';
 import 'package:cisso_academy/models/content.dart';
@@ -68,5 +71,53 @@ void main() {
     expect(String.fromCharCodes(bytes.sublist(0, 5)), '%PDF-');
     // Le dessin des liaisons produit des courbes de Bézier (opérateur « c »).
     expect(bytes.length, greaterThan(20000));
+  });
+
+  test('PDF zoomable : une page par branche, reliées par des liens', () async {
+    final root = chapterMindMap(library.chapter('m1c1'));
+    final bytes = await mindMapPdf(title: 'Carte', root: root);
+    final text = latin1.decode(bytes);
+    final pages = RegExp(r'/Type\s*/Page\b').allMatches(text).length;
+    // Carte générale + une page par branche + au moins une page de plan.
+    expect(pages, greaterThan(root.children.length + 1));
+    // Un lien vers chaque branche et un lien de retour sur chaque branche.
+    final links = RegExp(r'/Subtype\s*/Link').allMatches(text).length;
+    expect(links, 2 * root.children.length);
+    for (var i = 0; i < root.children.length; i++) {
+      expect(text, contains('branche-$i'));
+    }
+  });
+
+  test('page HTML : autonome, complète et repliable', () {
+    final root = courseMindMap(library);
+    final html = mindMapHtml(title: 'Carte <test>', root: root);
+    expect(html, startsWith('<!doctype html>'));
+    expect(html, contains('Carte &lt;test&gt;'));
+    // Hors ligne : aucune ressource extérieure.
+    expect(html, isNot(contains('src=')));
+    expect(html, isNot(contains('<link')));
+    expect(html, isNot(contains('@import')));
+    // Une bulle par nœud et un bouton par nœud qui a des enfants.
+    var nodes = 0;
+    var parents = 0;
+    void walk(MindNode n) {
+      nodes++;
+      if (n.children.isNotEmpty) parents++;
+      n.children.forEach(walk);
+    }
+
+    walk(root);
+    expect('class="bubble"'.allMatches(html).length, nodes);
+    expect('class="toggle"'.allMatches(html).length, parents);
+    // Chaque libellé est présent, échappé.
+    void check(MindNode n) {
+      expect(
+        html,
+        contains(const HtmlEscape().convert(n.label).replaceAll('\n', '<br>')),
+      );
+      n.children.forEach(check);
+    }
+
+    check(root);
   });
 }
