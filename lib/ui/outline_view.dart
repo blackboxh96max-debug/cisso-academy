@@ -32,9 +32,13 @@ class OutlineView extends StatelessWidget {
     this.sectionWord = 'Section',
     this.toneOf = outlineTone,
     this.trailing,
+    this.moduleKeys,
   });
 
   final CourseOutline outline;
+
+  /// Clés posées sur l'en-tête de chaque module (pour y faire défiler).
+  final List<GlobalKey>? moduleKeys;
   final String intro;
 
   /// « Section » (livre MILE2) ou « Thème » (ORSYS).
@@ -53,6 +57,9 @@ class OutlineView extends StatelessWidget {
         for (final (i, m) in outline.modules.indexed) ...[
           const SizedBox(height: 22),
           _OutlineBanner(
+            key: moduleKeys != null && i < moduleKeys!.length
+                ? moduleKeys![i]
+                : null,
             module: m,
             tone: toneOf(i),
             seed: 60 + i,
@@ -84,6 +91,7 @@ class OutlineView extends StatelessWidget {
 
 class _OutlineBanner extends StatelessWidget {
   const _OutlineBanner({
+    super.key,
     required this.module,
     required this.tone,
     required this.seed,

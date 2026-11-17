@@ -33,13 +33,27 @@ const _destinations = [
 class _HomeShellState extends State<HomeShell> {
   int _index = 0;
 
+  /// Module choisi sur l'accueil : la page Cours défile jusqu'à lui.
+  final _courseFocus = ValueNotifier<int?>(null);
+
   void _go(int index) => setState(() => _index = index);
+
+  void _openModule(int number) {
+    _go(1);
+    _courseFocus.value = number;
+  }
+
+  @override
+  void dispose() {
+    _courseFocus.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final pages = [
-      DashboardPage(onNavigate: _go),
-      const CoursesPage(),
+      DashboardPage(onNavigate: _go, onOpenModule: _openModule),
+      CoursesPage(focus: _courseFocus),
       const QuizHubPage(),
       const RevisionsPage(),
       const GlossaryPage(),

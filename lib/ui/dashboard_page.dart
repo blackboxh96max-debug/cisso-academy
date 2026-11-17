@@ -24,10 +24,13 @@ import 'search_page.dart';
 /// Tableau de bord visuel : accueil illustré, progression, modules,
 /// graphiques, badges, objectif du jour et accès rapides.
 class DashboardPage extends StatelessWidget {
-  const DashboardPage({super.key, required this.onNavigate});
+  const DashboardPage({super.key, required this.onNavigate, this.onOpenModule});
 
   /// Change d'onglet (0 accueil, 1 cours, 2 QCM, 3 flashcards, 4 glossaire).
   final ValueChanged<int> onNavigate;
+
+  /// Ouvre la page Cours sur un module (son numéro, de 1 à 5).
+  final ValueChanged<int>? onOpenModule;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +43,10 @@ class DashboardPage extends StatelessWidget {
       stats: stats,
       onOpen: () => _openRecommendation(context, stats.recommendation),
     );
-    final modules = _ModuleCards(stats: stats, onOpen: () => onNavigate(1));
+    final modules = _ModuleCards(
+      stats: stats,
+      onOpen: (n) => onOpenModule == null ? onNavigate(1) : onOpenModule!(n),
+    );
     final daily = _DailyGoal(stats: stats);
     final quick = _QuickAccess(onNavigate: onNavigate);
     final scores = _ScoreChart(sessions: stats.sessions);
@@ -464,7 +470,7 @@ class _ModuleCards extends StatelessWidget {
   const _ModuleCards({required this.stats, required this.onOpen});
 
   final ProgressStats stats;
-  final VoidCallback onOpen;
+  final ValueChanged<int> onOpen;
 
   @override
   Widget build(BuildContext context) {
@@ -495,7 +501,7 @@ class _ModuleCards extends StatelessWidget {
                           .length;
                       final progress = stats.moduleProgress(m.id);
                       return InkWell(
-                        onTap: onOpen,
+                        onTap: () => onOpen(m.number),
                         borderRadius: BorderRadius.circular(14),
                         child: HandBox(
                           gradient: LinearGradient(

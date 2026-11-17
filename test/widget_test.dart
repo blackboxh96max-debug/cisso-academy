@@ -7,6 +7,7 @@ import 'package:cisso_academy/models/content.dart';
 import 'package:cisso_academy/ui/flashcards_page.dart';
 import 'package:cisso_academy/ui/chapter_page.dart';
 import 'package:cisso_academy/ui/courses_page.dart';
+import 'package:cisso_academy/ui/dashboard_page.dart';
 import 'package:cisso_academy/ui/mind_map_page.dart';
 import 'package:cisso_academy/ui/quiz_page.dart';
 import 'package:cisso_academy/ui/quiz_result_page.dart';
@@ -125,6 +126,40 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('Prochaine révision recommandée'), findsOneWidget);
     });
+  }
+
+  for (final view in CourseView.values) {
+    testWidgets(
+      'accueil : un module ouvre le cours sur ce module (${view.name})',
+      (tester) async {
+        final state = await pumpApp(tester);
+        await state.setCourseView(view);
+        await tester.pumpAndSettle();
+        final card = find.descendant(
+          of: find.byType(DashboardPage),
+          matching: find.text('Module 4'),
+        );
+        await tester.ensureVisible(card);
+        await tester.pumpAndSettle();
+        await tester.tap(card);
+        await tester.pumpAndSettle();
+        expect(find.byType(CoursesPage), findsOneWidget);
+        final index = CoursesPage.targetModule(library, view, 4);
+        final label = library.outline(view).modules[index].label;
+        final banner = find.descendant(
+          of: find.byType(CoursesPage),
+          matching: find.text(label),
+        );
+        expect(banner, findsOneWidget);
+        // L'en-tête du module est à l'écran, en haut de la page.
+        final top = tester.getTopLeft(banner).dy;
+        final height =
+            tester.view.physicalSize.height / tester.view.devicePixelRatio;
+        expect(top, greaterThan(0));
+        expect(top, lessThan(height / 2));
+        if (view != CourseView.mile2) expect(label, 'Module 4');
+      },
+    );
   }
 
   testWidgets('cours : vues « Livre MILE2 », « ORSYS » et « ORSYS enrichi »', (
