@@ -593,7 +593,7 @@
     {
      "type": "diagram",
      "title": "Les tests, du plus léger au plus risqué",
-     "alt": "Échelle en cinq marches : revue documentaire (checklist), exercice sur table (walk-through), simulation, test en parallèle sur le site de secours, puis interruption complète de la production, la plus risquée.",
+     "alt": "Échelle en cinq marches : revue documentaire (checklist), exercice sur table (tabletop exercise, aussi appelé structured walk-through), simulation, test en parallèle sur le site de secours, puis interruption complète de la production, la plus risquée.",
      "diagram": {
       "type": "flow",
       "nodes": [
@@ -1240,7 +1240,7 @@
    "domain": "bcp-dr-ir-law",
    "level": "beginner",
    "concept": "Exercice sur table",
-   "prompt": "Comment se déroule un exercice sur table (walk-through) ?",
+   "prompt": "Comment se déroule un exercice sur table (tabletop exercise ou walk-through) ?",
    "choices": [
     "Les équipes se réunissent et déroulent ensemble un scénario étape par étape",
     "On coupe réellement le courant du centre de données principal",

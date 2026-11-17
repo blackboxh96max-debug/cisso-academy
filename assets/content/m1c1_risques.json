@@ -120,7 +120,7 @@
     },
     {
      "type": "text",
-     "text": "Retenez la formule de travail : risque = vraisemblance × impact. Certains supports, dont la préparation MILE2, présentent aussi le risque comme la combinaison menace × vulnérabilité × valeur de l'actif. Les deux disent la même chose : sans menace, sans vulnérabilité ou sans valeur, il n'y a pas de risque."
+     "text": "Retenez la formule de travail : risque = vraisemblance × impact. Certains supports présentent aussi le risque comme la combinaison menace × vulnérabilité × valeur de l'actif. Les deux disent la même chose : sans menace, sans vulnérabilité ou sans valeur, il n'y a pas de risque."
     },
     {
      "type": "memo",
@@ -245,7 +245,7 @@
        }
       ]
      },
-     "kind": "official"
+     "kind": "general"
     },
     {
      "type": "text",
@@ -285,7 +285,7 @@
       "Menace ≠ vulnérabilité : la menace vient de l'extérieur de l'actif, la vulnérabilité est une faiblesse de l'actif ou du contrôle.",
       "Appréciation (assessment) = identification + analyse + évaluation. Le traitement n'en fait pas partie.",
       "Le propriétaire du risque accepte le risque, pas le RSSI ni l'analyste SOC.",
-      "CISSP vs CISSO : les deux utilisent ces notions ; le CISSO insiste davantage sur le vocabulaire ISO/NIST et la logique managériale."
+      "CISSP et CISSO utilisent ces notions avec le même sens : un même mot ne change pas de définition d'une certification à l'autre."
      ]
     },
     {
