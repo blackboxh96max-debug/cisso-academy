@@ -247,18 +247,20 @@
           "titleEn": "Cloud and Hybrid Access Control Considerations",
           "titleFr": "Contrôle d'accès cloud et hybride",
           "lessons": [
-            "m3c3-l3"
+            "m3c3-l3",
+            "m3c4-l1"
           ],
-          "coverage": "partial"
+          "coverage": "covered"
         },
         {
           "number": 5,
           "titleEn": "Access Control Monitoring",
           "titleFr": "Surveillance des accès",
           "lessons": [
-            "m2c1-l2"
+            "m2c1-l2",
+            "m3c4-l1"
           ],
-          "coverage": "partial"
+          "coverage": "covered"
         }
       ]
     },
@@ -291,8 +293,10 @@
           "number": 3,
           "titleEn": "Data Storage Architectures and Strategies",
           "titleFr": "Architectures et stratégies de stockage",
-          "lessons": [],
-          "coverage": "missing"
+          "lessons": [
+            "m3c4-l2"
+          ],
+          "coverage": "covered"
         },
         {
           "number": 4,
@@ -698,8 +702,10 @@
           "number": 7,
           "titleEn": "Telephony",
           "titleFr": "Téléphonie",
-          "lessons": [],
-          "coverage": "missing"
+          "lessons": [
+            "m3c4-l3"
+          ],
+          "coverage": "covered"
         },
         {
           "number": 8,

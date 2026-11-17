@@ -46,7 +46,8 @@
       "chapters": [
         {"id": "m3c1", "title": "Modèles OSI, TCP/IP et protocoles sécurisés", "titleEn": "OSI and TCP/IP Models and Secure Protocols", "domains": ["network-security"], "file": "m3c1_reseau.json"},
         {"id": "m3c2", "title": "Pare-feu, IDS/IPS, VPN, segmentation et sans-fil", "titleEn": "Firewalls, IDS/IPS, VPN, Segmentation and Wireless", "domains": ["network-security"], "file": "m3c2_parefeu.json"},
-        {"id": "m3c3", "title": "Architecture sécurisée, défense en profondeur et Zero Trust", "titleEn": "Secure Architecture, Defense in Depth and Zero Trust", "domains": ["architecture"], "file": "m3c3_architecture.json"}
+        {"id": "m3c3", "title": "Architecture sécurisée, défense en profondeur et Zero Trust", "titleEn": "Secure Architecture, Defense in Depth and Zero Trust", "domains": ["architecture"], "file": "m3c3_architecture.json"},
+        {"id": "m3c4", "title": "Accès cloud, stockage et téléphonie", "titleEn": "Cloud Access, Data Storage and Telephony", "domains": ["iaaa", "data-security", "network-security"], "file": "m3c4_cloud_stockage_telephonie.json"}
       ]
     },
     {
