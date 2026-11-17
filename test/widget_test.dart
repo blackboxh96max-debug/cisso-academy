@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cisso_academy/app_state.dart';
 import 'package:cisso_academy/data/progress_store.dart';
 import 'package:cisso_academy/main.dart';
+import 'package:cisso_academy/logic/study_groups.dart';
 import 'package:cisso_academy/models/content.dart';
 import 'package:cisso_academy/ui/flashcards_page.dart';
 import 'package:cisso_academy/ui/chapter_page.dart';
@@ -114,7 +115,13 @@ void main() {
       final chapter = library.chapters.firstWhere(
         (c) => c.lessons.contains(lessons[3]),
       );
-      expect(find.text(chapter.title), findsWidgets);
+      // Le numéro suit la vue : rang de la leçon dans son module.
+      final place = lessonPlace(library, view, lessons[3].id);
+      expect(find.text('Leçon ${place.number}/${place.total}'), findsOneWidget);
+      expect(
+        find.text('Chapitre ${chapterNumber(library, chapter)}'),
+        findsOneWidget,
+      );
       // MILE2 : après le module 1 vient « Lois, éthique » (module 2 du
       // livre) ; ORSYS : le management de la sécurité (chapitre 1.2).
       expect(chapter.id, view == CourseView.mile2 ? 'm5c3' : 'm1c2');

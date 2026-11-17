@@ -11,9 +11,12 @@ import 'notebook/palette.dart';
 import 'notebook/typography.dart';
 import '../logic/terms.dart';
 import '../logic/search.dart';
+import '../logic/study_groups.dart';
 import 'assistant_page.dart';
 import 'bilingual.dart';
+import 'course_view_bar.dart';
 import 'find_highlight.dart';
+import 'outline_view.dart';
 import 'search_page.dart';
 
 /// Leçon présentée comme une page de cahier manuscrit.
@@ -183,7 +186,18 @@ class _LessonPageState extends State<LessonPage> {
     );
     final module = state.library.module(chapter.moduleId);
     final (moduleTone, moduleEmoji) = moduleStyle(module.number);
-    final lessonNumber = chapter.lessons.indexOf(lesson) + 1;
+    // Numérotation dans la vue choisie : rang de la leçon dans son module
+    // (livre MILE2 ou ORSYS), le même ordre que « leçon suivante ».
+    final place = lessonPlace(state.library, currentView(state), lesson.id);
+    final (
+      placeTone,
+      placeEmoji,
+    ) = place.groupIndex != null && currentView(state) == CourseView.mile2
+        ? (
+            outlineTone(place.groupIndex!),
+            place.label == 'Prérequis' ? '🧰' : '📘',
+          )
+        : (moduleTone, moduleEmoji);
     final width = MediaQuery.sizeOf(context).width;
     final wide = width >= 1100;
     final paper = Paper.of(context);
@@ -212,17 +226,28 @@ class _LessonPageState extends State<LessonPage> {
               spacing: 8,
               runSpacing: 6,
               children: [
+                Sticker(text: '$placeEmoji ${place.label}', tone: placeTone),
                 Sticker(
-                  text: '$moduleEmoji Module ${module.number}',
-                  tone: moduleTone,
+                  text: 'Leçon ${place.number}/${place.total}',
+                  tone: Tone.yellow,
                 ),
                 Sticker(
-                  text: 'Leçon $lessonNumber/${chapter.lessons.length}',
-                  tone: Tone.yellow,
+                  text: 'Chapitre ${chapterNumber(state.library, chapter)}',
+                  tone: Tone.blue,
                 ),
                 Sticker(text: '⏱ ${lesson.minutes} min', tone: Tone.green),
               ],
             ),
+            if (place.section != null) ...[
+              const SizedBox(height: 6),
+              Text(
+                '📍 ${place.section}',
+                style: Hand.sansText(
+                  context,
+                  size: 13,
+                ).copyWith(color: paper.inkSoft, fontWeight: FontWeight.w600),
+              ),
+            ],
             const SizedBox(height: 12),
             _LessonHeader(lesson: lesson, tone: moduleTone),
             if (!wide) _Objectives(lesson: lesson),
@@ -279,7 +304,10 @@ class _LessonPageState extends State<LessonPage> {
     return Scaffold(
       backgroundColor: paper.background,
       appBar: AppBar(
-        title: Text(chapter.title, overflow: TextOverflow.ellipsis),
+        title: Text(
+          '${place.label} · ${place.title}',
+          overflow: TextOverflow.ellipsis,
+        ),
         actions: [
           IconButton(
             tooltip: 'Leçon précédente',
