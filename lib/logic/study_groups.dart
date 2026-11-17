@@ -145,3 +145,104 @@ List<String> placeInView(
   final m = library.module(chapter.moduleId);
   return ['Module ${m.number} · ${m.title}'];
 }
+
+/// Place d'une leçon dans la vue choisie : son module (celui où elle
+/// apparaît pour la première fois, comme pour « leçon suivante ») et son
+/// rang parmi les leçons de ce module.
+class LessonPlace {
+  const LessonPlace({
+    required this.label,
+    required this.title,
+    required this.number,
+    required this.total,
+    this.groupIndex,
+    this.section,
+  });
+
+  /// « Module 3 », « Prérequis ».
+  final String label;
+  final String title;
+
+  /// Rang de la leçon dans le module (à partir de 1) et nombre de leçons.
+  final int number;
+  final int total;
+
+  /// Rang du module dans la vue.
+  final int? groupIndex;
+
+  /// Section du livre ou thème ORSYS : « Section 2 · … », « Thème 1 · … ».
+  final String? section;
+}
+
+/// Pour chaque vue, la place de chaque leçon (calculée une fois).
+final _places = Expando<Map<CourseView, Map<String, LessonPlace>>>();
+
+LessonPlace lessonPlace(
+  ContentLibrary library,
+  CourseView view,
+  String lessonId,
+) {
+  final byView = _places[library] ??= {};
+  final places = byView[view] ??= _computePlaces(library, view);
+  return places[lessonId] ?? _chapterPlace(library, lessonId);
+}
+
+Map<String, LessonPlace> _computePlaces(
+  ContentLibrary library,
+  CourseView view,
+) {
+  final outline = library.outline(view);
+  final out = <String, LessonPlace>{};
+  if (outline.modules.isEmpty) return out;
+  final known = {for (final l in library.lessons) l.id};
+  final seen = <String>{};
+  final word = view == CourseView.mile2 ? 'Section' : 'Thème';
+  for (final (i, m) in outline.modules.indexed) {
+    // Leçons dont c'est la première apparition, dans l'ordre du module.
+    final own = <(String, OutlineSection)>[];
+    for (final s in m.sections) {
+      for (final id in s.lessons) {
+        if (known.contains(id) && seen.add(id)) own.add((id, s));
+      }
+    }
+    for (final (k, (id, s)) in own.indexed) {
+      out[id] = LessonPlace(
+        label: m.label,
+        title: m.titleFr,
+        number: k + 1,
+        total: own.length,
+        groupIndex: i,
+        section: '$word ${s.number} · ${s.titleFr}',
+      );
+    }
+  }
+  // Leçons que le sommaire ne cite pas : elles viennent à la fin, comme
+  // dans « leçon suivante ».
+  final rest = [
+    for (final l in library.lessons)
+      if (!seen.contains(l.id)) l.id,
+  ];
+  for (final (k, id) in rest.indexed) {
+    out[id] = LessonPlace(
+      label: 'Compléments',
+      title: 'Leçons hors de ce programme',
+      number: k + 1,
+      total: rest.length,
+    );
+  }
+  return out;
+}
+
+/// Repli : la leçon dans son chapitre.
+LessonPlace _chapterPlace(ContentLibrary library, String lessonId) {
+  final chapter = library.chapters.firstWhere(
+    (c) => c.lessons.any((l) => l.id == lessonId),
+  );
+  final m = library.module(chapter.moduleId);
+  return LessonPlace(
+    label: 'Module ${m.number}',
+    title: m.title,
+    number: chapter.lessons.indexWhere((l) => l.id == lessonId) + 1,
+    total: chapter.lessons.length,
+  );
+}

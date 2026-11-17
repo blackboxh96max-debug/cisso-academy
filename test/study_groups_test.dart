@@ -49,4 +49,36 @@ void main() {
   test('numéro d\'un chapitre dans l\'application', () {
     expect(chapterNumber(library, library.chapter('m2c4')), '2.4');
   });
+
+  for (final view in CourseView.values) {
+    test(
+      'numérotation des leçons continue dans chaque module (${view.name})',
+      () {
+        final order = library.lessonOrder(view);
+        LessonPlace? previous;
+        for (final l in order) {
+          final place = lessonPlace(library, view, l.id);
+          expect(place.number, inInclusiveRange(1, place.total));
+          if (previous != null && previous.label == place.label) {
+            // Même module : la leçon suivante porte le numéro suivant.
+            expect(place.number, previous.number + 1, reason: l.id);
+            expect(place.total, previous.total);
+          } else {
+            // Nouveau module : on repart de 1, après avoir fini le précédent.
+            expect(place.number, 1, reason: l.id);
+            if (previous != null) expect(previous.number, previous.total);
+          }
+          previous = place;
+        }
+        expect(previous!.number, previous.total);
+      },
+    );
+  }
+
+  test('un module ORSYS numérote toutes ses leçons, pas 1/3 par chapitre', () {
+    final first = library.lessonOrder(CourseView.orsysPlus).first;
+    final place = lessonPlace(library, CourseView.orsysPlus, first.id);
+    expect(place.label, 'Module 1');
+    expect(place.total, greaterThan(3));
+  });
 }
