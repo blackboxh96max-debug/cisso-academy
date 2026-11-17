@@ -110,3 +110,38 @@ String courseViewLabel(CourseView view) => switch (view) {
   CourseView.orsys => 'ORSYS',
   CourseView.orsysPlus => 'ORSYS enrichi',
 };
+
+/// Où se trouve une leçon ou un chapitre dans la vue [view] : le module (ou
+/// les modules du livre) et, pour une leçon du livre, la section.
+List<String> placeInView(
+  ContentLibrary library,
+  CourseView view, {
+  String? lessonId,
+  String? chapterId,
+}) {
+  final chapter = chapterId == null ? null : library.chapter(chapterId);
+  if (view == CourseView.mile2 && library.mile2Outline.modules.isNotEmpty) {
+    final out = <String>[];
+    for (final m in library.mile2Outline.modules) {
+      if (lessonId != null) {
+        for (final s in m.sections) {
+          if (s.lessons.contains(lessonId)) {
+            out.add(
+              'Livre MILE2 · ${m.label} · section ${s.number} · ${s.titleFr}',
+            );
+          }
+        }
+      } else if (chapter != null &&
+          m.sections.any(
+            (s) =>
+                s.lessons.any((id) => chapter.lessons.any((l) => l.id == id)),
+          )) {
+        out.add('Livre MILE2 · ${m.label} · ${m.titleFr}');
+      }
+    }
+    return out.take(3).toList();
+  }
+  if (chapter == null) return const [];
+  final m = library.module(chapter.moduleId);
+  return ['Module ${m.number} · ${m.title}'];
+}

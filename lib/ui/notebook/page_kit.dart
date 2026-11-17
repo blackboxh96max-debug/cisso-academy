@@ -1,6 +1,7 @@
 import 'package:material_ui/material_ui.dart';
 
 import '../../logic/stats.dart';
+import '../assistant_page.dart';
 import '../search_page.dart';
 import 'hand_drawn.dart';
 import 'palette.dart';
@@ -32,7 +33,11 @@ class NotebookPage extends StatelessWidget {
       backgroundColor: Paper.of(context).background,
       appBar: AppBar(
         title: Text(title),
-        actions: [...?actions, if (showSearch) const SearchAction()],
+        actions: [
+          ...?actions,
+          if (showSearch) const AssistantAction(),
+          if (showSearch) const SearchAction(),
+        ],
       ),
       body: Align(
         alignment: Alignment.topCenter,
