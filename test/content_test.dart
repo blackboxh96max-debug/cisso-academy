@@ -112,15 +112,18 @@ void main() {
     }
     // Longueur : la bonne réponse n'est nettement la plus longue (plus de
     // 30 % de plus que la suivante) que dans moins de 5 % des questions.
-    final tooLong = single.where((q) {
-      final lengths = q.choices.map((c) => c.length).toList();
-      final right = lengths[q.correct.single];
-      final others = [
-        for (var i = 0; i < lengths.length; i++)
-          if (i != q.correct.single) lengths[i],
-      ];
-      return others.every((l) => right > l * 1.3);
-    }).map((q) => q.id).toList();
+    final tooLong = single
+        .where((q) {
+          final lengths = q.choices.map((c) => c.length).toList();
+          final right = lengths[q.correct.single];
+          final others = [
+            for (var i = 0; i < lengths.length; i++)
+              if (i != q.correct.single) lengths[i],
+          ];
+          return others.every((l) => right > l * 1.3);
+        })
+        .map((q) => q.id)
+        .toList();
     expect(
       tooLong.length / single.length,
       lessThan(0.05),

@@ -380,43 +380,61 @@ Future<Uint8List> flashcardsPdf({
   return doc.save();
 }
 
-/// Carte mentale : l'image de la carte (si fournie), puis son plan détaillé.
+/// Carte mentale : la carte dessinée en arborescence (vectorielle, nette à
+/// tous les zooms), puis son plan détaillé.
 Future<Uint8List> mindMapPdf({
   required String title,
   required MindNode root,
-  Uint8List? image,
-  double? imageWidth,
-  double? imageHeight,
 }) async {
   final f = await _fonts();
   final doc = pw.Document(title: stripEmoji(title), author: 'CISSO Academy');
-  if (image != null && imageWidth != null && imageHeight != null) {
-    // Une page à la taille de la carte, pour garder tous les détails.
-    const maxSide = 2400.0;
-    final scale = imageWidth > maxSide || imageHeight > maxSide
-        ? maxSide / (imageWidth > imageHeight ? imageWidth : imageHeight)
-        : 1.0;
-    final w = imageWidth * scale;
-    final h = imageHeight * scale;
-    doc.addPage(
-      pw.Page(
-        pageFormat: PdfPageFormat(w + 40, h + 80),
-        margin: const pw.EdgeInsets.all(20),
-        theme: _theme(f),
-        build: (ctx) => pw.Column(
-          crossAxisAlignment: pw.CrossAxisAlignment.start,
-          children: [
-            pw.Text(
-              stripEmoji(title),
-              style: pw.TextStyle(font: f.handBold, fontSize: 26),
-            ),
-            pw.SizedBox(height: 8),
-            pw.Image(pw.MemoryImage(image), width: w, height: h),
-          ],
-        ),
+  final map = MindMapLayout.of(root);
+  // Au-delà de 200 pouces (14 400 points), certains lecteurs refusent la
+  // page : la carte est alors réduite pour tenir.
+  const maxSide = 14000.0;
+  final scale = [
+    1.0,
+    maxSide / (map.width + 60),
+    maxSide / (map.height + 200),
+  ].reduce((a, b) => a < b ? a : b);
+  doc.addPage(
+    pw.Page(
+      pageFormat: PdfPageFormat(
+        (map.width + 60) * scale,
+        (map.height + 200) * scale,
       ),
-    );
-  }
+      margin: pw.EdgeInsets.all(30 * scale),
+      theme: _theme(f),
+      build: (ctx) => pw.Column(
+        crossAxisAlignment: pw.CrossAxisAlignment.start,
+        children: [
+          pw.Text(
+            stripEmoji(title),
+            style: pw.TextStyle(font: f.handBold, fontSize: 28 * scale),
+          ),
+          pw.SizedBox(height: 20 * scale),
+          scale == 1.0
+              ? _mindMapCanvas(map, f)
+              : pw.SizedBox(
+                  width: map.width * scale,
+                  height: map.height * scale,
+                  child: pw.Transform.scale(
+                    scale: scale,
+                    alignment: pw.Alignment.topLeft,
+                    child: pw.OverflowBox(
+                      alignment: pw.Alignment.topLeft,
+                      minWidth: map.width,
+                      maxWidth: map.width,
+                      minHeight: map.height,
+                      maxHeight: map.height,
+                      child: _mindMapCanvas(map, f),
+                    ),
+                  ),
+                ),
+        ],
+      ),
+    ),
+  );
 
   // Plan aplati : une ligne par nœud, pour que les pages se coupent bien.
   final rows = <pw.Widget>[];
@@ -679,3 +697,332 @@ Future<Uint8List> examPrepPdf({
   );
   return doc.save();
 }
+
+// ---------------------------------------------------------------------------
+// Carte mentale dessinée : racine au centre, branches réparties à gauche et à
+// droite, une colonne par niveau, reliées par des courbes.
+
+const _mmGapX = 40.0;
+const _mmGapY = 8.0;
+const _mmBranchGap = 20.0;
+
+double _mmWidth(int depth) => switch (depth) {
+  0 => 210,
+  1 => 175,
+  2 => 170,
+  _ => 155,
+};
+
+/// Une bulle de la carte, avec sa place calculée (repère haut-gauche).
+class MindBox {
+  MindBox(this.node, this.depth, this.color, this.right)
+    : width = _mmWidth(depth);
+
+  final MindNode node;
+  final int depth;
+  final PdfColor color;
+
+  /// Côté de la racine (vrai : à droite).
+  final bool right;
+  final double width;
+  final children = <MindBox>[];
+  double x = 0;
+  double y = 0;
+  late final double height = _estimateHeight();
+
+  String get label =>
+      stripEmoji(depth == 0 ? node.label : node.label.replaceAll('\n', ' '))
+          .trim();
+  String? get detail => node.detail == null ? null : stripEmoji(node.detail!);
+
+  double get titleSize => switch (depth) {
+    0 => 17,
+    1 => 13,
+    2 => 10.5,
+    _ => 9.5,
+  };
+
+  // Estimation prudente du nombre de lignes : la bulle est un peu plus haute
+  // que nécessaire, jamais trop petite.
+  static int _lines(String text, double size, double inner) {
+    final perLine = (inner / (size * 0.62)).floor().clamp(1, 1000);
+    var lines = 0;
+    for (final part in text.split('\n')) {
+      // Coupure aux mots, comme le moteur PDF.
+      var current = 0;
+      var count = 1;
+      for (final word in part.split(' ')) {
+        final len = word.length;
+        if (current == 0) {
+          current = len;
+        } else if (current + 1 + len <= perLine) {
+          current += 1 + len;
+        } else {
+          count++;
+          current = len;
+        }
+        while (current > perLine) {
+          count++;
+          current -= perLine;
+        }
+      }
+      lines += count;
+    }
+    return lines;
+  }
+
+  double _estimateHeight() {
+    final inner = width - 16;
+    var h =
+        14 +
+        _lines(label, titleSize, inner) *
+            titleSize *
+            (depth <= 2 ? 1.75 : 1.45);
+    if (node.en != null && depth <= 2) {
+      h += _lines(node.en!, 8.5, inner) * 8.5 * 1.3;
+    }
+    if (detail != null) h += 2 + _lines(detail!, 8.5, inner) * 8.5 * 1.3;
+    return h;
+  }
+
+  /// Hauteur totale occupée par la bulle et ses descendants.
+  late final double span = () {
+    if (children.isEmpty) return height;
+    final kids =
+        children.fold<double>(0, (s, c) => s + c.span) +
+        _mmGapY * (children.length - 1);
+    return kids > height ? kids : height;
+  }();
+
+  void place(double top, double Function(int depth) column) {
+    x = column(depth) - (right ? 0 : width);
+    y = top + (span - height) / 2;
+    final kids =
+        children.fold<double>(0, (s, c) => s + c.span) +
+        _mmGapY * (children.length - 1);
+    var t = top + (span - kids) / 2;
+    for (final c in children) {
+      c.place(t, column);
+      t += c.span + _mmGapY;
+    }
+  }
+
+  Iterable<MindBox> get all sync* {
+    yield this;
+    for (final c in children) {
+      yield* c.all;
+    }
+  }
+}
+
+/// Mise en page complète d'une carte mentale, sans dépendre de l'écran.
+class MindMapLayout {
+  MindMapLayout._(this.root, this.width, this.height);
+
+  final MindBox root;
+  final double width;
+  final double height;
+
+  Iterable<MindBox> get boxes => root.all;
+
+  factory MindMapLayout.of(MindNode node) {
+    final root = MindBox(node, 0, _rainbow[1], true);
+    MindBox build(MindNode n, int depth, PdfColor color, bool right) {
+      final b = MindBox(n, depth, color, right);
+      for (final c in n.children) {
+        b.children.add(build(c, depth + 1, _toneColor(c.tone, color), right));
+      }
+      return b;
+    }
+
+    // Répartit les branches à droite puis à gauche pour équilibrer les côtés,
+    // en gardant l'ordre de lecture.
+    final branches = [
+      for (final (i, c) in node.children.indexed)
+        (c, _toneColor(c.tone, _rainbow[i % _rainbow.length])),
+    ];
+    final total = branches.fold<double>(
+      0,
+      (s, b) => s + build(b.$1, 1, b.$2, true).span,
+    );
+    final rightSide = <MindBox>[];
+    final leftSide = <MindBox>[];
+    var acc = 0.0;
+    for (final (n, color) in branches) {
+      final probe = build(n, 1, color, true);
+      final goRight = branches.length == 1 || acc + probe.span / 2 <= total / 2;
+      if (goRight) {
+        rightSide.add(probe);
+        acc += probe.span + _mmBranchGap;
+      } else {
+        leftSide.add(build(n, 1, color, false));
+      }
+    }
+    root.children
+      ..addAll(rightSide)
+      ..addAll(leftSide);
+
+    int depthOf(MindBox b) => b.children.isEmpty
+        ? b.depth
+        : b.children.map(depthOf).reduce((a, c) => a > c ? a : c);
+    double sideWidth(List<MindBox> side) {
+      if (side.isEmpty) return 0;
+      final deepest = side.map(depthOf).reduce((a, c) => a > c ? a : c);
+      var w = 0.0;
+      for (var d = 1; d <= deepest; d++) {
+        w += _mmGapX + _mmWidth(d);
+      }
+      return w;
+    }
+
+    double sideSpan(List<MindBox> side) => side.isEmpty
+        ? 0
+        : side.fold<double>(0, (s, b) => s + b.span) +
+              _mmBranchGap * (side.length - 1);
+
+    final leftW = sideWidth(leftSide);
+    final rightW = sideWidth(rightSide);
+    final height = [
+      root.height,
+      sideSpan(rightSide),
+      sideSpan(leftSide),
+    ].reduce((a, b) => a > b ? a : b);
+    final width = leftW + root.width + rightW;
+
+    root.x = leftW;
+    root.y = (height - root.height) / 2;
+    double rightColumn(int depth) {
+      var x = leftW + root.width;
+      for (var d = 1; d < depth; d++) {
+        x += _mmGapX + _mmWidth(d);
+      }
+      return x + _mmGapX;
+    }
+
+    double leftColumn(int depth) {
+      var x = leftW;
+      for (var d = 1; d < depth; d++) {
+        x -= _mmGapX + _mmWidth(d);
+      }
+      return x - _mmGapX;
+    }
+
+    for (final (side, column) in [
+      (rightSide, rightColumn),
+      (leftSide, leftColumn),
+    ]) {
+      var top = (height - sideSpan(side)) / 2;
+      for (final b in side) {
+        b.place(top, column);
+        top += b.span + _mmBranchGap;
+      }
+    }
+    return MindMapLayout._(root, width, height);
+  }
+}
+
+PdfColor _light(PdfColor c, double amount) => PdfColor(
+  c.red + (1 - c.red) * amount,
+  c.green + (1 - c.green) * amount,
+  c.blue + (1 - c.blue) * amount,
+);
+
+pw.Widget _mindMapCanvas(MindMapLayout map, _Fonts f) {
+  final links = pw.CustomPaint(
+    size: PdfPoint(map.width, map.height),
+    painter: (g, size) {
+      // Le repère du PDF part du bas : on retourne les ordonnées.
+      double fy(double y) => size.y - y;
+      for (final parent in map.boxes) {
+        for (final child in parent.children) {
+          final right = child.right;
+          final x1 = right ? parent.x + parent.width : parent.x;
+          final y1 = parent.y + parent.height / 2;
+          final x2 = right ? child.x : child.x + child.width;
+          final y2 = child.y + child.height / 2;
+          final mid = (x1 + x2) / 2;
+          g
+            ..setStrokeColor(child.color)
+            ..setLineWidth(child.depth == 1 ? 3 : 1.6)
+            ..setLineCap(PdfLineCap.round)
+            ..moveTo(x1, fy(y1))
+            ..curveTo(mid, fy(y1), mid, fy(y2), x2, fy(y2))
+            ..strokePath();
+        }
+      }
+    },
+  );
+
+  pw.Widget bubble(MindBox b) {
+    final strong = b.depth <= 1;
+    final textColor = strong ? PdfColors.white : _ink;
+    return pw.Positioned(
+      left: b.x,
+      top: b.y,
+      child: pw.Container(
+        width: b.width,
+        height: b.height,
+        padding: const pw.EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+        alignment: b.depth == 0 ? pw.Alignment.center : pw.Alignment.centerLeft,
+        decoration: pw.BoxDecoration(
+          color: switch (b.depth) {
+            0 || 1 => b.color,
+            2 => _light(b.color, 0.82),
+            _ => PdfColors.white,
+          },
+          border: pw.Border.all(color: b.color, width: b.depth >= 2 ? 1.2 : 0),
+          borderRadius: pw.BorderRadius.circular(b.depth == 0 ? 22 : 8),
+        ),
+        child: pw.Column(
+          mainAxisSize: pw.MainAxisSize.min,
+          crossAxisAlignment: b.depth == 0
+              ? pw.CrossAxisAlignment.center
+              : pw.CrossAxisAlignment.start,
+          children: [
+            pw.Text(
+              b.label,
+              textAlign: b.depth == 0 ? pw.TextAlign.center : pw.TextAlign.left,
+              style: pw.TextStyle(
+                font: b.depth <= 2 ? f.handBold : f.body,
+                fontSize: b.titleSize,
+                color: b.depth >= 2 ? _toneInk(b.color) : textColor,
+              ),
+            ),
+            if (b.node.en != null && b.depth <= 2)
+              pw.Text(
+                b.node.en!,
+                style: pw.TextStyle(
+                  font: f.body,
+                  fontSize: 8.5,
+                  fontStyle: pw.FontStyle.italic,
+                  color: strong ? PdfColors.white : _blue,
+                ),
+              ),
+            if (b.detail != null)
+              pw.Padding(
+                padding: const pw.EdgeInsets.only(top: 2),
+                child: pw.Text(
+                  b.detail!,
+                  style: pw.TextStyle(
+                    font: f.body,
+                    fontSize: 8.5,
+                    color: strong ? PdfColors.white : _soft,
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  return pw.SizedBox(
+    width: map.width,
+    height: map.height,
+    child: pw.Stack(children: [links, for (final b in map.boxes) bubble(b)]),
+  );
+}
+
+/// Version foncée d'une couleur de branche, lisible sur fond clair.
+PdfColor _toneInk(PdfColor c) =>
+    PdfColor(c.red * 0.6, c.green * 0.6, c.blue * 0.6);

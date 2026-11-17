@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:material_ui/material_ui.dart';
 
+import '../find_highlight.dart';
 import 'hand_drawn.dart';
 import 'palette.dart';
 import 'typography.dart';
@@ -173,7 +174,7 @@ class HandBullets extends StatelessWidget {
                 SizedBox(width: 22, child: Text(bullet, style: s)),
                 Expanded(
                   child: itemSpan == null
-                      ? Text(item, style: s)
+                      ? FindText(item, style: s)
                       : Text.rich(itemSpan!(i, item, s)),
                 ),
               ],

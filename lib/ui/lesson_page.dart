@@ -10,17 +10,168 @@ import 'notebook/note_box.dart';
 import 'notebook/palette.dart';
 import 'notebook/typography.dart';
 import '../logic/terms.dart';
+import '../logic/search.dart';
 import 'bilingual.dart';
+import 'find_highlight.dart';
 import 'search_page.dart';
 
 /// Leçon présentée comme une page de cahier manuscrit.
 ///
 /// Sur grand écran, un sommaire et les objectifs s'affichent dans une colonne
 /// à gauche de la page.
-class LessonPage extends StatelessWidget {
-  const LessonPage({super.key, required this.lesson});
+class LessonPage extends StatefulWidget {
+  const LessonPage({
+    super.key,
+    required this.lesson,
+    this.find,
+    this.focusBlock,
+  });
 
   final Lesson lesson;
+
+  /// Texte à chercher dès l'ouverture (venu de la recherche globale).
+  final String? find;
+
+  /// Bloc à montrer dès l'ouverture.
+  final int? focusBlock;
+
+  @override
+  State<LessonPage> createState() => _LessonPageState();
+}
+
+class _LessonPageState extends State<LessonPage> {
+  late bool _finding = (widget.find ?? '').trim().isNotEmpty;
+  late final _findController = TextEditingController(text: widget.find ?? '');
+  final _findFocus = FocusNode();
+  late final _blockKeys = [for (final _ in widget.lesson.blocks) GlobalKey()];
+
+  /// Position dans la liste des blocs trouvés (-1 : aucun encore montré).
+  int _current = -1;
+
+  Lesson get lesson => widget.lesson;
+
+  List<String> get _words =>
+      _finding ? findWords(_findController.text) : const [];
+
+  /// Blocs de la leçon qui contiennent tous les mots cherchés.
+  List<int> get _hits {
+    final words = _words;
+    if (words.isEmpty) return const [];
+    return [
+      for (final (i, b) in lesson.blocks.indexed)
+        if (containsAllWords(
+          blockSearchText(b).whereType<String>().join(' '),
+          words,
+        ))
+          i,
+    ];
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.focusBlock != null || _finding) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        final hits = _hits;
+        final target = widget.focusBlock ?? (hits.isEmpty ? null : hits.first);
+        if (target == null) return;
+        final i = hits.indexWhere((h) => h >= target);
+        setState(() => _current = i);
+        _reveal(i >= 0 ? hits[i] : target);
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _findController.dispose();
+    _findFocus.dispose();
+    super.dispose();
+  }
+
+  void _reveal(int block) {
+    final target = _blockKeys[block].currentContext;
+    if (target == null) return;
+    Scrollable.ensureVisible(
+      target,
+      alignment: 0.1,
+      duration: const Duration(milliseconds: 350),
+      curve: Curves.easeOutCubic,
+    );
+  }
+
+  void _go(int delta) {
+    final hits = _hits;
+    if (hits.isEmpty) return;
+    final next = _current < 0
+        ? (delta > 0 ? 0 : hits.length - 1)
+        : (_current + delta) % hits.length;
+    setState(() => _current = next);
+    _reveal(hits[next]);
+  }
+
+  void _toggleFind() {
+    setState(() {
+      _finding = !_finding;
+      _current = -1;
+    });
+    if (_finding) _findFocus.requestFocus();
+  }
+
+  PreferredSizeWidget _findBar(BuildContext context) {
+    final hits = _hits;
+    final typed = _findController.text.trim().isNotEmpty;
+    final status = !typed
+        ? ''
+        : hits.isEmpty
+        ? 'Aucun passage'
+        : _current < 0
+        ? '${hits.length} passage${hits.length > 1 ? 's' : ''}'
+        : '${_current + 1}/${hits.length}';
+    return PreferredSize(
+      preferredSize: const Size.fromHeight(60),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(12, 0, 8, 8),
+        child: Row(
+          children: [
+            Expanded(
+              child: TextField(
+                key: const Key('lesson-find'),
+                controller: _findController,
+                focusNode: _findFocus,
+                autofocus: (widget.find ?? '').isEmpty,
+                textInputAction: TextInputAction.search,
+                decoration: const InputDecoration(
+                  isDense: true,
+                  prefixIcon: Icon(Icons.search),
+                  hintText: 'Chercher dans cette leçon',
+                  border: OutlineInputBorder(),
+                ),
+                onChanged: (_) => setState(() => _current = -1),
+                onSubmitted: (_) {
+                  _go(1);
+                  _findFocus.requestFocus();
+                },
+              ),
+            ),
+            const SizedBox(width: 8),
+            Text(status, key: const Key('lesson-find-status')),
+            IconButton(
+              tooltip: 'Passage précédent',
+              icon: const Icon(Icons.keyboard_arrow_up),
+              onPressed: hits.isEmpty ? null : () => _go(-1),
+            ),
+            IconButton(
+              tooltip: 'Passage suivant',
+              icon: const Icon(Icons.keyboard_arrow_down),
+              onPressed: hits.isEmpty ? null : () => _go(1),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +187,14 @@ class LessonPage extends StatelessWidget {
     final wide = width >= 1100;
     final paper = Paper.of(context);
     final plan = _termPlan(state.terms, lesson);
+    // Leçons de toute la formation, dans l'ordre : on enchaîne d'un chapitre
+    // à l'autre sans repasser par le menu.
+    final course = state.library.chapters.expand((c) => c.lessons).toList();
+    final position = course.indexWhere((l) => l.id == lesson.id);
+    final previous = position > 0 ? course[position - 1] : null;
+    final next = position >= 0 && position < course.length - 1
+        ? course[position + 1]
+        : null;
 
     final page = NotebookPaper(
       child: Padding(
@@ -67,7 +226,10 @@ class LessonPage extends StatelessWidget {
             _LessonHeader(lesson: lesson, tone: moduleTone),
             if (!wide) _Objectives(lesson: lesson),
             for (final (i, block) in lesson.blocks.indexed)
-              NotebookBlock(block, seed: i + 3),
+              KeyedSubtree(
+                key: _blockKeys[i],
+                child: NotebookBlock(block, seed: i + 3),
+              ),
             if (lesson.references.isNotEmpty) _References(lesson.references),
             const SizedBox(height: 28),
             Center(
@@ -76,12 +238,23 @@ class LessonPage extends StatelessWidget {
                   : FilledButton.icon(
                       onPressed: () async {
                         await AppScope.read(context).markLessonRead(lesson.id);
-                        if (context.mounted) Navigator.of(context).pop();
+                        if (!context.mounted) return;
+                        if (next != null) {
+                          openLessonInPlace(context, next);
+                        } else {
+                          Navigator.of(context).pop();
+                        }
                       },
                       icon: const Icon(Icons.check),
-                      label: const Text('J\'ai terminé cette leçon'),
+                      label: Text(
+                        next != null
+                            ? 'J\'ai terminé : leçon suivante'
+                            : 'J\'ai terminé cette leçon',
+                      ),
                     ),
             ),
+            const SizedBox(height: 20),
+            LessonNavigation(previous: previous, next: next),
           ],
         ),
       ),
@@ -106,32 +279,144 @@ class LessonPage extends StatelessWidget {
       backgroundColor: paper.background,
       appBar: AppBar(
         title: Text(chapter.title, overflow: TextOverflow.ellipsis),
-        actions: const [SearchAction()],
-      ),
-      body: TermPlan(
-        plan: plan,
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(
-            horizontal: width < 600 ? 0 : 20,
-            vertical: width < 600 ? 0 : 16,
+        actions: [
+          IconButton(
+            tooltip: 'Leçon précédente',
+            icon: const Icon(Icons.chevron_left),
+            onPressed: previous == null
+                ? null
+                : () => openLessonInPlace(context, previous),
           ),
-          child: Center(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: wide ? 1240 : 880),
-              child: wide
-                  ? Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(width: 300, child: _SidePanel(lesson: lesson)),
-                        const SizedBox(width: 24),
-                        Expanded(child: shadowedPage),
-                      ],
-                    )
-                  : shadowedPage,
+          IconButton(
+            tooltip: 'Leçon suivante',
+            icon: const Icon(Icons.chevron_right),
+            onPressed: next == null
+                ? null
+                : () => openLessonInPlace(context, next),
+          ),
+          IconButton(
+            tooltip: _finding
+                ? 'Fermer la recherche dans la leçon'
+                : 'Chercher dans la leçon',
+            icon: Icon(_finding ? Icons.search_off : Icons.find_in_page),
+            onPressed: _toggleFind,
+          ),
+          const SearchAction(),
+        ],
+        bottom: _finding ? _findBar(context) : null,
+      ),
+      body: FindHighlight(
+        words: _words,
+        child: TermPlan(
+          plan: plan,
+          child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(
+              horizontal: width < 600 ? 0 : 20,
+              vertical: width < 600 ? 0 : 16,
+            ),
+            child: Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: wide ? 1240 : 880),
+                child: wide
+                    ? Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: 300,
+                            child: _SidePanel(lesson: lesson),
+                          ),
+                          const SizedBox(width: 24),
+                          Expanded(child: shadowedPage),
+                        ],
+                      )
+                    : shadowedPage,
+              ),
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+/// Remplace la leçon affichée par une autre, sans empiler les pages : le
+/// bouton retour ramène toujours à l'écran d'où l'on est venu.
+void openLessonInPlace(BuildContext context, Lesson lesson) {
+  Navigator.of(context).pushReplacement(
+    MaterialPageRoute(builder: (_) => LessonPage(lesson: lesson)),
+  );
+}
+
+/// Boutons « précédente » et « suivante » en bas de la leçon, avec le titre
+/// de la leçon visée.
+class LessonNavigation extends StatelessWidget {
+  const LessonNavigation({super.key, this.previous, this.next});
+
+  final Lesson? previous;
+  final Lesson? next;
+
+  @override
+  Widget build(BuildContext context) {
+    Widget card(Lesson l, {required bool forward}) => Card(
+      child: InkWell(
+        onTap: () => openLessonInPlace(context, l),
+        borderRadius: BorderRadius.circular(12),
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Row(
+            children: [
+              if (!forward) const Icon(Icons.arrow_back),
+              if (!forward) const SizedBox(width: 8),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: forward
+                      ? CrossAxisAlignment.end
+                      : CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      forward ? 'Leçon suivante' : 'Leçon précédente',
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
+                    Text(
+                      l.title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: forward ? TextAlign.end : TextAlign.start,
+                      style: const TextStyle(fontWeight: FontWeight.w700),
+                    ),
+                  ],
+                ),
+              ),
+              if (forward) const SizedBox(width: 8),
+              if (forward) const Icon(Icons.arrow_forward),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final items = [
+          if (previous != null) card(previous!, forward: false),
+          if (next != null) card(next!, forward: true),
+        ];
+        if (items.isEmpty) return const SizedBox.shrink();
+        if (constraints.maxWidth < 520 || items.length == 1) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: items,
+          );
+        }
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(child: items[0]),
+            const SizedBox(width: 12),
+            Expanded(child: items[1]),
+          ],
+        );
+      },
     );
   }
 }
@@ -346,7 +631,7 @@ class NotebookBlock extends StatelessWidget {
           child: HandUnderline(
             color: toneColors(Tone.yellow, brightness).ink,
             seed: seed,
-            child: Text(
+            child: FindText(
               block.text ?? '',
               style: Hand.subtitle(context, Tone.blue),
             ),
@@ -466,7 +751,7 @@ class NotebookBlock extends StatelessWidget {
           label: block.title ?? 'Mémorisation',
           sticky: true,
           seed: seed,
-          child: Text(
+          child: FindText(
             block.text ?? '',
             style: Hand.noteText(context).copyWith(fontSize: 19),
           ),
@@ -530,7 +815,7 @@ class NotebookBlock extends StatelessWidget {
               DiagramView(data: block.diagram!, alt: block.alt ?? ''),
               if (block.text != null) ...[
                 const SizedBox(height: 10),
-                Text(
+                FindText(
                   block.text!,
                   style: Hand.noteText(context).copyWith(fontSize: 16),
                 ),
@@ -553,7 +838,7 @@ class NotebookBlock extends StatelessWidget {
                 ),
               ),
               if (block.text != null)
-                Text(
+                FindText(
                   block.text!,
                   textAlign: TextAlign.center,
                   style: Hand.noteText(context).copyWith(fontSize: 16),
@@ -589,7 +874,7 @@ class _Viewpoint extends StatelessWidget {
   Widget build(BuildContext context) {
     final i = item.indexOf(':');
     final body = Hand.bodyText(context).copyWith(fontSize: 19);
-    if (i < 0) return Text(item, style: body);
+    if (i < 0) return FindText(item, style: body);
     final emoji = switch (item.substring(0, i).trim().toLowerCase()) {
       final r when r.contains('rssi') => '🧭',
       final r when r.contains('soc') => '🖥️',
@@ -613,7 +898,13 @@ class _Viewpoint extends StatelessWidget {
                 ).ink,
               ),
             ),
-            TextSpan(text: ' : ${item.substring(i + 1).trim()}'),
+            TextSpan(
+              children: highlightSpans(
+                ' : ${item.substring(i + 1).trim()}',
+                FindHighlight.of(context),
+                highlightStyle(context),
+              ),
+            ),
           ],
           style: body,
         ),
@@ -671,7 +962,7 @@ class _StepsDiagram extends StatelessWidget {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 3),
-                  child: Text(
+                  child: FindText(
                     step.replaceFirst(RegExp(r'^\d+\.\s*'), ''),
                     style: Hand.bodyText(context).copyWith(fontSize: 19),
                   ),
@@ -729,7 +1020,7 @@ class _HandTable extends StatelessWidget {
                 for (final h in header)
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text(
+                    child: FindText(
                       h,
                       style: TextStyle(
                         fontFamily: Hand.title,
@@ -747,7 +1038,7 @@ class _HandTable extends StatelessWidget {
                   for (final (i, cell) in r.indexed)
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
+                      child: FindText(
                         cell,
                         style: i == 0
                             ? Hand.sansText(

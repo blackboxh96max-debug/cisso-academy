@@ -90,4 +90,61 @@ void main() {
         .toList();
     expect(hits, hasLength(1));
   });
+
+  test('un mot du texte d\'une leçon (ici un tableau) est retrouvé', () {
+    final hits = search
+        .query('Shor')
+        .where((r) => r.kind == SearchKind.section)
+        .toList();
+    expect(hits, isNotEmpty);
+    final hit = hits.firstWhere((r) => r.lessonId == 'm2c2-l3');
+    expect(hit.blockIndex, isNotNull);
+    expect(hit.subtitle, startsWith('« '));
+    expect(hit.subtitle, contains('Shor'));
+    final lesson = library
+        .chapter('m2c2')
+        .lessons
+        .firstWhere((l) => l.id == 'm2c2-l3');
+    expect(lesson.blocks[hit.blockIndex!].type, BlockType.heading);
+  });
+
+  test(
+    'chaque paragraphe de chaque leçon est atteignable par la recherche',
+    () {
+      for (final c in library.chapters) {
+        for (final l in c.lessons) {
+          for (final b in l.blocks.where((b) => b.type == BlockType.text)) {
+            // Un mot rare du paragraphe : le plus long.
+            final word = (b.text!.split(
+              RegExp(r"[^\wÀ-ÿ'-]+"),
+            )..sort((a, b) => b.length.compareTo(a.length))).first;
+            final found = search
+                .query(word, limit: 100000)
+                .any((r) => r.lessonId == l.id);
+            expect(found, isTrue, reason: '« $word » dans ${l.id}');
+          }
+        }
+      }
+    },
+  );
+
+  test('findAll ignore accents et majuscules, et garde les positions', () {
+    const text = 'La Sécurité et la securite.';
+    final ranges = findAll(text, 'securité');
+    expect(ranges, hasLength(2));
+    expect(text.substring(ranges[0].$1, ranges[0].$2), 'Sécurité');
+    expect(text.substring(ranges[1].$1, ranges[1].$2), 'securite');
+    expect(findAll(text, '  '), isEmpty);
+    // Seulement en début de mot.
+    expect(findAll('anniversaires et RSA', 'rsa'), [(17, 20)]);
+  });
+
+  test('l\'extrait cite le passage autour du mot', () {
+    final text = '${'mot ' * 40}chiffrement asymétrique ${'fin ' * 40}';
+    final e = excerpt(text, fold('asymetrique'))!;
+    expect(e, contains('chiffrement asymétrique'));
+    expect(e, startsWith('… '));
+    expect(e, endsWith(' …'));
+    expect(e.length, lessThan(160));
+  });
 }

@@ -1,8 +1,5 @@
 import 'dart:math';
-import 'dart:typed_data';
-import 'dart:ui' as ui;
 
-import 'package:flutter/rendering.dart';
 import 'package:material_ui/material_ui.dart';
 
 import '../app_state.dart';
@@ -157,48 +154,21 @@ class _MindMapPageState extends State<MindMapPage> {
     null => widget.root,
   };
 
-  /// Déplie tout, photographie la carte, puis crée le PDF (image + plan).
+  /// Crée le PDF : la carte dessinée en arborescence, puis son plan.
   Future<void> _exportPdf() async {
     if (_exporting) return;
-    final before = _collapsed;
-    final beforeList = _listView;
-    setState(() {
-      _exporting = true;
-      _collapsed = {};
-      _listView = false;
-    });
-    await WidgetsBinding.instance.endOfFrame;
-    await WidgetsBinding.instance.endOfFrame;
-    if (!mounted) return;
-    Uint8List? png;
-    Size? size;
-    final boundary =
-        _canvasKey.currentContext?.findRenderObject() as RenderRepaintBoundary?;
-    if (boundary != null) {
-      size = boundary.size;
-      final ratio = (3000 / max(size.width, size.height)).clamp(0.6, 2.0);
-      final image = await boundary.toImage(pixelRatio: ratio);
-      final data = await image.toByteData(format: ui.ImageByteFormat.png);
-      png = data?.buffer.asUint8List();
-    }
-    if (!mounted) return;
+    setState(() => _exporting = true);
     final root = _root(context);
-    setState(() {
-      _collapsed = before;
-      _listView = beforeList;
-      _exporting = false;
-    });
-    await exportPdf(
-      context,
-      title: 'Carte mentale ${widget.title}',
-      build: () => mindMapPdf(
-        title: 'Carte mentale · ${widget.title}',
-        root: root,
-        image: png,
-        imageWidth: size?.width,
-        imageHeight: size?.height,
-      ),
-    );
+    try {
+      await exportPdf(
+        context,
+        title: 'Carte mentale ${widget.title}',
+        build: () =>
+            mindMapPdf(title: 'Carte mentale · ${widget.title}', root: root),
+      );
+    } finally {
+      if (mounted) setState(() => _exporting = false);
+    }
   }
 
   Set<String> _defaultCollapsed() {
