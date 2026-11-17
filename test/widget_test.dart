@@ -278,13 +278,15 @@ void main() {
           matching: find.byType(Scrollable),
         )
         .first;
-    // Descendre jusqu'aux chapitres à venir, quel que soit leur nombre.
-    final locked = find.text('🔒 Bientôt disponible');
-    for (var i = 0; i < 20 && locked.evaluate().isEmpty; i++) {
+    // Descendre jusqu'au dernier chapitre : le programme est complet,
+    // plus aucun chapitre n'est verrouillé.
+    final last = find.text('Sécurité physique et environnementale');
+    for (var i = 0; i < 20 && last.evaluate().isEmpty; i++) {
       await tester.drag(list, const Offset(0, -800));
       await tester.pumpAndSettle();
     }
-    expect(locked, findsWidgets);
+    expect(last, findsWidgets);
+    expect(find.text('🔒 Bientôt disponible'), findsNothing);
     for (var i = 0; i < 25; i++) {
       await tester.drag(list, const Offset(0, 2000));
       await tester.pumpAndSettle();

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <rect x="0" y="150" width="240" height="30" fill="#DCFCE7" />
+  <g stroke="#26324A" stroke-width="2.2" stroke-linejoin="round">
+    <rect x="96" y="56" width="92" height="94" rx="3" fill="#DBEAFE" />
+    <path d="M90 58 L142 30 L194 58 Z" fill="#2563EB" />
+    <rect x="132" y="112" width="24" height="38" fill="#FFFFFF" />
+    <rect x="106" y="70" width="18" height="16" fill="#FFFFFF" /><rect x="160" y="70" width="18" height="16" fill="#FFFFFF" />
+    <rect x="106" y="96" width="18" height="16" fill="#FFFFFF" /><rect x="160" y="96" width="18" height="16" fill="#FFFFFF" />
+    <path d="M180 62 L192 62 L192 70 L184 70 Z" fill="#94A3B8" />
+  </g>
+  <circle cx="186" cy="66" r="2" fill="#EF4444" />
+  <g stroke="#26324A" stroke-width="2" fill="#F97316">
+    <rect x="124" y="138" width="6" height="12" rx="2" /><rect x="158" y="138" width="6" height="12" rx="2" />
+  </g>
+  <g stroke="#26324A" stroke-width="2">
+    <path d="M40 150 L40 52" stroke-width="3" />
+    <path d="M40 52 L54 52" stroke-width="3" />
+    <path d="M48 52 L60 52 L56 60 L52 60 Z" fill="#FDE68A" />
+  </g>
+  <path d="M54 62 L36 120 L84 120 Z" fill="#FEF08A" opacity="0.5" />
+  <g stroke="#7C3AED" stroke-width="2.2" fill="none">
+    <path d="M8 150 L8 104 M24 150 L24 104 M72 150 L72 104 M88 150 L88 104 M204 150 L204 104 M220 150 L220 104 M236 150 L236 104" />
+    <path d="M4 112 L92 112 M4 132 L92 132 M200 112 L240 112 M200 132 L240 132" />
+    <path d="M4 104 L12 98 L20 104 L28 98 L36 104 M68 104 L76 98 L84 104 L92 98 M200 104 L208 98 L216 104 L224 98 L232 104 L240 98" stroke="#26324A" stroke-width="1.6" />
+  </g>
+  <text x="142" y="22" font-family="Caveat, cursive" font-size="18" fill="#DB2777" text-anchor="middle">couches</text>
+</svg>
