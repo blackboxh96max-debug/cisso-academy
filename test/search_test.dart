@@ -147,4 +147,51 @@ void main() {
     expect(e, endsWith(' …'));
     expect(e.length, lessThan(160));
   });
+
+  test('la recherche couvre aussi fiches, QCM et préparation examen', () {
+    // Fiche de révision du module 11 : NIS 2 et ses délais.
+    final sheet = search
+        .query('rapport final')
+        .where((r) => r.kind == SearchKind.sheet);
+    expect(sheet.map((r) => r.chapterId), contains('m5c5'));
+    expect(sheet.first.subtitle, startsWith('«'));
+    // Une question du QCM se retrouve par son énoncé.
+    final q = library.chapter('m3c4').questions.first;
+    final hits = search.query(q.prompt);
+    expect(
+      hits.where((r) => r.kind == SearchKind.question).map((r) => r.questionId),
+      contains(q.id),
+    );
+    // Les questions de préparation fournies par l'apprenant aussi.
+    final prep = library.examPrep.questions.first;
+    expect(
+      search
+          .query(prep.prompt.fr)
+          .where((r) => r.kind == SearchKind.prep)
+          .map((r) => r.questionId),
+      contains(prep.id),
+    );
+  });
+
+  test('chaque chapitre, y compris les nouveaux, est trouvable', () {
+    for (final (term, chapter) in [
+      ('NIS 2', 'm5c5'),
+      ('post-quantique', 'm2c4'),
+      ('téléphonie', 'm3c4'),
+      ('TOCTOU', 'm4c3'),
+      ('injection d\'instructions', 'm1c5'),
+      ('EU-CyCLONe', 'm5c5'),
+    ]) {
+      final hits = search.query(term, limit: 200);
+      expect(hits.map((h) => h.chapterId), contains(chapter), reason: term);
+    }
+    for (final c in library.chapters) {
+      final hits = search.query(c.title);
+      expect(
+        hits.where((h) => h.kind == SearchKind.chapter).map((h) => h.chapterId),
+        contains(c.id),
+        reason: c.id,
+      );
+    }
+  });
 }

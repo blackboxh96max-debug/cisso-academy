@@ -1,11 +1,15 @@
 import 'package:material_ui/material_ui.dart';
 
 import '../app_state.dart';
+import '../data/progress_store.dart';
 import '../logic/search.dart';
 import '../models/content.dart';
 import 'bilingual.dart';
 import 'find_highlight.dart';
 import 'chapter_page.dart';
+import 'exam_prep_page.dart';
+import 'quiz_page.dart';
+import 'revision_sheet_page.dart';
 import 'lesson_page.dart';
 import 'mind_map_page.dart';
 import 'notebook/hand_drawn.dart';
@@ -181,6 +185,9 @@ class _ResultTile extends StatelessWidget {
     SearchKind.section => Tone.orange,
     SearchKind.flashcard => Tone.pink,
     SearchKind.mindNode => Tone.green,
+    SearchKind.sheet => Tone.yellow,
+    SearchKind.question => Tone.red,
+    SearchKind.prep => Tone.violet,
   };
 
   void _open(BuildContext context) {
@@ -236,6 +243,42 @@ class _ResultTile extends StatelessWidget {
             ),
           ),
         );
+      case SearchKind.sheet:
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => RevisionSheetPage(chapter: chapter!),
+          ),
+        );
+      case SearchKind.question:
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => QuizPage(
+              config: QuizConfig(
+                mode: SessionMode.practice,
+                title: chapter!.title,
+                questions: [
+                  chapter.questions.firstWhere(
+                    (q) => q.id == result.questionId,
+                  ),
+                ],
+                chapterId: chapter.id,
+              ),
+            ),
+          ),
+        );
+      case SearchKind.prep:
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => PrepQuizPage(
+              title: 'Préparation examen',
+              questions: [
+                library.examPrep.questions.firstWhere(
+                  (q) => q.id == result.questionId,
+                ),
+              ],
+            ),
+          ),
+        );
     }
   }
 
@@ -281,7 +324,7 @@ class _ResultTile extends StatelessWidget {
                       TextSpan(
                         children: highlightSpans(
                           result.subtitle,
-                          result.kind == SearchKind.section
+                          result.subtitle.startsWith('«')
                               ? findWords(query)
                               : const [],
                           highlightStyle(context),

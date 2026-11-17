@@ -8,7 +8,10 @@ enum SearchKind {
   lesson('Leçon', '📖'),
   section('Dans une leçon', '📌'),
   flashcard('Flashcard', '🃏'),
-  mindNode('Carte mentale', '🧠');
+  mindNode('Carte mentale', '🧠'),
+  sheet('Fiche de révision', '📝'),
+  question('QCM', '❓'),
+  prep('Préparation examen', '🎯');
 
   const SearchKind(this.label, this.emoji);
   final String label;
@@ -25,6 +28,7 @@ class SearchResult {
     this.lessonId,
     this.termId,
     this.flashcardId,
+    this.questionId,
     this.blockIndex,
     this.score = 0,
   });
@@ -40,6 +44,9 @@ class SearchResult {
   final String? termId;
   final String? flashcardId;
 
+  /// Question du QCM ou de la préparation à l'examen.
+  final String? questionId;
+
   /// Bloc de la leçon où se trouve le passage, pour y aller directement.
   final int? blockIndex;
   final int score;
@@ -53,6 +60,7 @@ class SearchResult {
     lessonId: lessonId,
     termId: termId,
     flashcardId: flashcardId,
+    questionId: questionId,
     blockIndex: blockIndex,
     score: s,
   );
@@ -86,6 +94,9 @@ class _Entry {
     SearchKind.section => 4,
     SearchKind.flashcard => 3,
     SearchKind.mindNode => 2,
+    SearchKind.sheet => 2,
+    SearchKind.question => 1,
+    SearchKind.prep => 1,
   };
 }
 
@@ -246,7 +257,56 @@ class SearchIndex {
         }
 
         if (c.mindMap != null) walk(c.mindMap!, 0);
+        if (c.revisionSheet.isNotEmpty) {
+          _entries.add(
+            _Entry(
+              SearchResult(
+                kind: SearchKind.sheet,
+                title: 'Fiche de révision · ${c.title}',
+                subtitle: 'Module ${m.number}',
+                chapterId: c.id,
+              ),
+              const [],
+              c.revisionSheet.skip(1).toList(),
+            ),
+          );
+        }
+        for (final q in c.questions) {
+          _entries.add(
+            _Entry(
+              SearchResult(
+                kind: SearchKind.question,
+                title: q.prompt,
+                subtitle: c.title,
+                chapterId: c.id,
+                questionId: q.id,
+              ),
+              [q.prompt],
+              [...q.choices, q.explanation],
+            ),
+          );
+        }
       }
+    }
+    // Questions de préparation fournies par l'apprenant (français et anglais).
+    for (final q in library.examPrep.questions) {
+      _entries.add(
+        _Entry(
+          SearchResult(
+            kind: SearchKind.prep,
+            title: q.prompt.fr,
+            en: q.prompt.en,
+            subtitle: 'Préparation examen · question ${q.number}',
+            questionId: q.id,
+          ),
+          [q.prompt.fr, q.prompt.en],
+          [
+            for (final c in q.choices) ...[c.fr, c.en],
+            q.explanation.fr,
+            q.explanation.en,
+          ],
+        ),
+      );
     }
   }
 
@@ -293,7 +353,14 @@ class SearchIndex {
         score += 50;
       }
       // Trouvé dans le texte : on montre le passage plutôt que le résumé.
-      final snippet = bodyHit == null || e.result.kind != SearchKind.section
+      final snippet =
+          bodyHit == null ||
+              !const {
+                SearchKind.section,
+                SearchKind.sheet,
+                SearchKind.question,
+                SearchKind.prep,
+              }.contains(e.result.kind)
           ? null
           : excerpt(e.rawBody, bodyHit);
       hits.add(
