@@ -89,11 +89,11 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.cissoacademy" "\0"
+            VALUE "CompanyName", "Samir ACHAHOD" "\0"
             VALUE "FileDescription", "CISSO Academy" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "cisso_academy" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2026 com.cissoacademy. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2026 Samir ACHAHOD. Application non officielle." "\0"
             VALUE "OriginalFilename", "cisso_academy.exe" "\0"
             VALUE "ProductName", "CISSO Academy" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"

@@ -10,6 +10,8 @@ import '../logic/badges.dart';
 import '../logic/stats.dart';
 import '../logic/study_groups.dart';
 import '../models/content.dart';
+import '../app_info.dart';
+import 'about_page.dart';
 import 'assistant_page.dart';
 import 'chapter_page.dart';
 import 'course_view_bar.dart';
@@ -114,12 +116,17 @@ class DashboardPage extends StatelessWidget {
               if (v == 'settings') _settings(context);
               if (v == 'reset') _confirmReset(context);
               if (v == 'about') _about(context);
+              if (v == 'app') openAbout(context);
             },
             itemBuilder: (_) => const [
               PopupMenuItem(value: 'settings', child: Text('Réglages')),
               PopupMenuItem(
                 value: 'about',
                 child: Text('À propos de l\'examen'),
+              ),
+              PopupMenuItem(
+                value: 'app',
+                child: Text('À propos de l\'application'),
               ),
               PopupMenuItem(
                 value: 'reset',
@@ -139,7 +146,20 @@ class DashboardPage extends StatelessWidget {
         child: Center(
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 1200),
-            child: body,
+            child: Column(
+              children: [
+                body,
+                const SizedBox(height: 18),
+                TextButton(
+                  onPressed: () => openAbout(context),
+                  child: Text(
+                    '$appName $appVersion · créée par $appAuthor · '
+                    'application non officielle',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

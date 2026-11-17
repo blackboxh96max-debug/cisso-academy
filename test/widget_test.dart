@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'dart:math';
 
+import 'package:cisso_academy/app_info.dart';
 import 'package:cisso_academy/app_state.dart';
 import 'package:cisso_academy/data/progress_store.dart';
 import 'package:cisso_academy/main.dart';
@@ -43,6 +45,50 @@ void main() {
     expect(find.text('Prochaine révision recommandée'), findsOneWidget);
     expect(find.textContaining('Les briques du risque'), findsOneWidget);
     expect(find.text('Progression globale'), findsOneWidget);
+  });
+
+  testWidgets('à propos : auteur, version et mention non officielle', (
+    tester,
+  ) async {
+    await pumpApp(tester);
+    await tester.tap(find.byType(PopupMenuButton<String>));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('À propos de l\'application'));
+    await tester.pumpAndSettle();
+    expect(find.text('Créée par $appAuthor'), findsOneWidget);
+    expect(find.text(appAuthorTitle), findsOneWidget);
+    expect(find.text('Version $appVersion'), findsOneWidget);
+    expect(find.text('APPLICATION NON OFFICIELLE'), findsOneWidget);
+    expect(
+      find.textContaining('ni affiliée à MILE2 ou à ORSYS'),
+      findsOneWidget,
+    );
+    final modulesLine = find.text(
+      '${library.modules.length} modules, '
+      '${library.chapters.length} chapitres',
+    );
+    await tester.scrollUntilVisible(
+      modulesLine,
+      300,
+      scrollable: find.byType(Scrollable).last,
+    );
+    expect(
+      find.text(
+        '${library.modules.length} modules, '
+        '${library.chapters.length} chapitres',
+      ),
+      findsOneWidget,
+    );
+    expect(
+      find.text('${library.questions.length} questions de QCM'),
+      findsOneWidget,
+    );
+    // La version affichée est celle du pubspec.
+    final pubspec = await tester.runAsync(
+      () => File('pubspec.yaml').readAsString(),
+    );
+    expect(pubspec, contains('version: $appVersion+'));
+    expect(pubspec, contains(appAuthor));
   });
 
   testWidgets('navigation vers chaque onglet', (tester) async {
