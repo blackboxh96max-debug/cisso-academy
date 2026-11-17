@@ -2859,5 +2859,138 @@
   "definition": "Ensemble de mesures contre la fuite d'informations par les émanations électromagnétiques des équipements.",
   "example": "Salle blindée pour des informations classifiées.",
   "kind": "general"
+ },
+ {
+  "id": "substitution-cipher",
+  "en": "Substitution cipher",
+  "fr": "Chiffre par substitution",
+  "definition": "Chiffre qui remplace chaque lettre ou symbole par un autre.",
+  "example": "Le chiffre de César décale chaque lettre de trois rangs.",
+  "kind": "general"
+ },
+ {
+  "id": "transposition-cipher",
+  "en": "Transposition cipher",
+  "fr": "Chiffre par transposition",
+  "definition": "Chiffre qui garde les lettres mais change leur ordre.",
+  "example": "La scytale spartiate.",
+  "kind": "general"
+ },
+ {
+  "id": "frequency-analysis",
+  "en": "Frequency analysis",
+  "fr": "Analyse fréquentielle",
+  "definition": "Cryptanalyse qui compare la fréquence des symboles chiffrés à celle des lettres de la langue.",
+  "example": "La lettre la plus fréquente d'un César en français correspond souvent au E.",
+  "kind": "general"
+ },
+ {
+  "id": "steganography",
+  "en": "Steganography",
+  "fr": "Stéganographie",
+  "definition": "Technique qui cache l'existence d'un message au lieu de le rendre illisible.",
+  "example": "Un texte dissimulé dans les pixels d'une image.",
+  "kind": "general"
+ },
+ {
+  "id": "one-time-pad",
+  "en": "One-time pad",
+  "fr": "Masque jetable",
+  "definition": "Chiffre à clé aléatoire aussi longue que le message, utilisée une seule fois ; sécurité parfaite prouvée par Shannon.",
+  "example": "Le chiffre de Vernam avec une clé jamais réutilisée.",
+  "kind": "general"
+ },
+ {
+  "id": "kerckhoffs-principle",
+  "en": "Kerckhoffs's principle",
+  "fr": "Principe de Kerckhoffs",
+  "definition": "La sécurité d'un chiffrement doit reposer sur le secret de la clé, pas de l'algorithme.",
+  "example": "AES est public ; seule la clé est secrète.",
+  "kind": "general"
+ },
+ {
+  "id": "post-quantum-cryptography",
+  "en": "Post-quantum cryptography",
+  "fr": "Cryptographie post-quantique",
+  "acronym": "PQC",
+  "definition": "Algorithmes classiques conçus pour résister à un ordinateur quantique.",
+  "example": "ML-KEM (FIPS 203) et ML-DSA (FIPS 204).",
+  "kind": "general"
+ },
+ {
+  "id": "quantum-key-distribution",
+  "en": "Quantum key distribution",
+  "fr": "Distribution quantique de clés",
+  "acronym": "QKD",
+  "definition": "Échange de clés par photons qui rend toute écoute détectable.",
+  "example": "Le protocole BB84.",
+  "kind": "general"
+ },
+ {
+  "id": "harvest-now-decrypt-later",
+  "en": "Harvest now, decrypt later",
+  "fr": "Récolter maintenant, déchiffrer plus tard",
+  "definition": "Stratégie qui consiste à stocker des échanges chiffrés pour les déchiffrer quand un ordinateur quantique sera disponible.",
+  "example": "Des échanges VPN capturés aujourd'hui, visés dans quinze ans.",
+  "kind": "general"
+ },
+ {
+  "id": "crypto-agility",
+  "en": "Crypto-agility",
+  "fr": "Agilité cryptographique",
+  "definition": "Capacité d'un système à changer d'algorithme par configuration, sans être réécrit.",
+  "example": "Passer un serveur TLS à un échange de clés hybride par simple réglage.",
+  "kind": "practice"
+ },
+ {
+  "id": "homomorphic-encryption",
+  "en": "Homomorphic encryption",
+  "fr": "Chiffrement homomorphe",
+  "definition": "Chiffrement qui permet de calculer sur des données chiffrées.",
+  "example": "Additionner des montants chiffrés sans les déchiffrer.",
+  "kind": "general"
+ },
+ {
+  "id": "secure-multi-party-computation",
+  "en": "Secure multi-party computation",
+  "fr": "Calcul multipartite sécurisé",
+  "acronym": "MPC",
+  "definition": "Calcul commun à plusieurs parties sans qu'aucune ne révèle ses données.",
+  "example": "Trouver les indicateurs communs à deux SOC.",
+  "kind": "general"
+ },
+ {
+  "id": "zero-knowledge-proof",
+  "en": "Zero-knowledge proof",
+  "fr": "Preuve à divulgation nulle de connaissance",
+  "acronym": "ZKP",
+  "definition": "Preuve qu'une affirmation est vraie sans révéler le secret qui la fonde.",
+  "example": "Prouver sa majorité sans donner sa date de naissance.",
+  "kind": "general"
+ },
+ {
+  "id": "blockchain",
+  "en": "Blockchain",
+  "fr": "Chaîne de blocs",
+  "definition": "Registre partagé où chaque bloc contient l'empreinte du précédent, ce qui rend la falsification visible.",
+  "example": "Le registre de Bitcoin.",
+  "kind": "general"
+ },
+ {
+  "id": "format-preserving-encryption",
+  "en": "Format-preserving encryption",
+  "fr": "Chiffrement préservant le format",
+  "acronym": "FPE",
+  "definition": "Chiffrement dont le résultat garde le format de la donnée d'origine.",
+  "example": "Un numéro de carte chiffré qui reste un nombre à 16 chiffres.",
+  "kind": "general"
+ },
+ {
+  "id": "lightweight-cryptography",
+  "en": "Lightweight cryptography",
+  "fr": "Cryptographie légère",
+  "definition": "Algorithmes conçus pour les appareils à faibles ressources.",
+  "example": "Ascon pour un capteur connecté.",
+  "kind": "general"
  }
 ]

@@ -181,15 +181,19 @@
           "number": 7,
           "titleEn": "Quantum Cryptography",
           "titleFr": "Cryptographie quantique",
-          "lessons": [],
-          "coverage": "missing"
+          "lessons": [
+            "m2c4-l2"
+          ],
+          "coverage": "covered"
         },
         {
           "number": 8,
           "titleEn": "Advancements in Cryptography",
           "titleFr": "Avancées en cryptographie",
-          "lessons": [],
-          "coverage": "missing"
+          "lessons": [
+            "m2c4-l3"
+          ],
+          "coverage": "covered"
         },
         {
           "number": 9,
@@ -633,8 +637,10 @@
           "number": 1,
           "titleEn": "Historical Uses of Cryptography",
           "titleFr": "Histoire de la cryptographie",
-          "lessons": [],
-          "coverage": "missing"
+          "lessons": [
+            "m2c4-l1"
+          ],
+          "coverage": "covered"
         },
         {
           "number": 2,
