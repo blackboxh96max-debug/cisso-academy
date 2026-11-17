@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:material_ui/material_ui.dart';
 
 import '../app_state.dart';
@@ -8,6 +10,7 @@ import 'bilingual.dart';
 import 'chapter_page.dart';
 import 'course_view_bar.dart';
 import 'lesson_page.dart';
+import 'mascot.dart';
 import 'history_list.dart';
 import 'notebook/hand_drawn.dart';
 import 'notebook/palette.dart';
@@ -62,9 +65,18 @@ class _AssistantPageState extends State<AssistantPage> {
   int _restored = 0;
   bool _loaded = false;
 
+  /// Humeur de la mascotte, et nombre de frappes (elle hoche la tête).
+  MascotMood _mood = MascotMood.idle;
+  int _keys = 0;
+
+  /// Question en cours de recherche (la mascotte réfléchit).
+  String? _pending;
+  Timer? _timer;
+
   @override
   void initState() {
     super.initState();
+    _controller.addListener(_onTyping);
     final q = widget.initialQuestion;
     if (q != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) => _ask(q));
@@ -123,22 +135,67 @@ class _AssistantPageState extends State<AssistantPage> {
 
   @override
   void dispose() {
+    _timer?.cancel();
+    _controller.removeListener(_onTyping);
     _controller.dispose();
     _scroll.dispose();
     super.dispose();
   }
 
+  void _onTyping() {
+    if (_pending != null) return;
+    final typing = _controller.text.trim().isNotEmpty;
+    final mood = typing
+        ? MascotMood.listening
+        : (_mood == MascotMood.listening ? MascotMood.idle : _mood);
+    setState(() {
+      if (typing) _keys++;
+      _mood = mood;
+    });
+  }
+
   void _ask(String question) {
     final q = question.trim();
-    if (q.isEmpty) return;
+    if (q.isEmpty || _pending != null) return;
     final app = AppScope.read(context);
     final answer = app.assistant.ask(q);
-    setState(() {
-      _answers.add(answer);
-      _controller.clear();
-    });
+    void show() {
+      if (!mounted) return;
+      final found =
+          !(answer.isEmpty || (answer.uncertain && answer.terms.isEmpty));
+      setState(() {
+        _pending = null;
+        _answers.add(answer);
+        _mood = found ? MascotMood.answering : MascotMood.puzzled;
+      });
+      _scrollToEnd();
+      // Puis elle se remet à attendre la question suivante.
+      _timer?.cancel();
+      _timer = Timer(const Duration(milliseconds: 2600), () {
+        if (!mounted || _pending != null) return;
+        setState(
+          () => _mood = _controller.text.trim().isEmpty
+              ? MascotMood.idle
+              : MascotMood.listening,
+        );
+      });
+    }
+
     app.addQuestion(q);
+    _timer?.cancel();
+    _controller.clear();
+    if (!animationsOn(context)) {
+      show();
+      return;
+    }
+    // La recherche est immédiate ; un court instant de réflexion laisse voir
+    // la mascotte chercher.
+    setState(() {
+      _pending = q;
+      _mood = MascotMood.thinking;
+    });
     _scrollToEnd();
+    _timer = Timer(const Duration(milliseconds: 700), show);
   }
 
   @override
@@ -197,8 +254,15 @@ class _AssistantPageState extends State<AssistantPage> {
                       _UserBubble(text: a.question),
                       _AnswerCard(answer: a, onAsk: _ask),
                     ],
+                    if (_pending != null) _UserBubble(text: _pending!),
                   ],
                 ),
+              ),
+              _MascotBar(
+                mood: _mood,
+                typing: _keys,
+                big: _answers.isEmpty && _pending == null,
+                side: side,
               ),
               _InputBar(controller: _controller, onSend: _ask, side: side),
             ],
@@ -693,6 +757,80 @@ class _HitCard extends StatelessWidget {
               ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// La mascotte au-dessus du champ de saisie, avec sa bulle.
+class _MascotBar extends StatelessWidget {
+  const _MascotBar({
+    required this.mood,
+    required this.typing,
+    required this.big,
+    required this.side,
+  });
+
+  final MascotMood mood;
+  final int typing;
+  final bool big;
+  final double side;
+
+  @override
+  Widget build(BuildContext context) {
+    final paper = Paper.of(context);
+    final c = toneColors(Tone.violet, Theme.of(context).brightness);
+    return Padding(
+      padding: EdgeInsets.fromLTRB(side, 4, side, 2),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          AnimatedSize(
+            duration: const Duration(milliseconds: 250),
+            child: Mascot(
+              key: const Key('assistant-mascot'),
+              mood: mood,
+              typing: typing,
+              size: big ? 96 : 60,
+            ),
+          ),
+          const SizedBox(width: 8),
+          Flexible(
+            child: Padding(
+              padding: EdgeInsets.only(bottom: big ? 40 : 22),
+              child: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 200),
+                child: Container(
+                  key: ValueKey(mood),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 7,
+                  ),
+                  decoration: BoxDecoration(
+                    color: paper.card,
+                    border: Border.all(
+                      color: toneBright(Tone.violet),
+                      width: 1.6,
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(14),
+                      topRight: Radius.circular(14),
+                      bottomRight: Radius.circular(14),
+                      bottomLeft: Radius.circular(3),
+                    ),
+                  ),
+                  child: Text(
+                    mascotLine(mood),
+                    style: Hand.sansText(
+                      context,
+                      size: 14,
+                    ).copyWith(color: c.ink, fontWeight: FontWeight.w700),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
