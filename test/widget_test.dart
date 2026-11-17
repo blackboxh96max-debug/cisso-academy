@@ -151,22 +151,31 @@ void main() {
     expect(find.text('OBJECTIFS DE LA LEÇON'), findsOneWidget);
     await tester.pageBack();
     await tester.pumpAndSettle();
-    // Une section sans leçon est signalée.
+    // Toutes les sections du livre ont désormais leur leçon, jusqu'au
+    // module 11.
+    expect(
+      find.textContaining('Toutes les sections ont une leçon.'),
+      findsOneWidget,
+    );
     final list = find
         .descendant(
           of: find.byType(CoursesPage),
           matching: find.byType(Scrollable),
         )
         .first;
-    final pending = find.text(
+    final m11 = find.text(
       'Section 1 · L\'environnement européen de la cybersécurité',
     );
-    for (var i = 0; i < 30 && pending.evaluate().isEmpty; i++) {
+    for (var i = 0; i < 30 && m11.evaluate().isEmpty; i++) {
       await tester.drag(list, const Offset(0, -600));
       await tester.pumpAndSettle();
     }
-    expect(pending, findsOneWidget);
-    expect(find.text('Leçon à venir'), findsWidgets);
+    expect(m11, findsOneWidget);
+    expect(
+      find.text('L\'environnement européen de la cybersécurité'),
+      findsWidgets,
+    );
+    expect(find.text('Leçon à venir'), findsNothing);
     // Programme ORSYS tel quel : ses thèmes, sans les ajouts du livre.
     await tester.drag(list, const Offset(0, 40000));
     await tester.pumpAndSettle();

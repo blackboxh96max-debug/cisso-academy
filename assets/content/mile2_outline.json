@@ -601,38 +601,47 @@
           "number": 1,
           "titleEn": "European Cybersecurity Environment",
           "titleFr": "L'environnement européen de la cybersécurité",
-          "lessons": [],
-          "coverage": "missing"
+          "lessons": [
+            "m5c5-l1"
+          ],
+          "coverage": "covered"
         },
         {
           "number": 2,
           "titleEn": "Core European Cybersecurity Regulations",
           "titleFr": "Les grands textes européens",
           "lessons": [
+            "m5c5-l2",
             "m5c3-l2"
           ],
-          "coverage": "partial"
+          "coverage": "covered"
         },
         {
           "number": 3,
           "titleEn": "Operational Security Requirements in Practice",
           "titleFr": "Exigences opérationnelles en pratique",
-          "lessons": [],
-          "coverage": "missing"
+          "lessons": [
+            "m5c5-l3"
+          ],
+          "coverage": "covered"
         },
         {
           "number": 4,
           "titleEn": "Mapping to CISSO and Common Frameworks",
           "titleFr": "Correspondance avec CISSO et les référentiels",
-          "lessons": [],
-          "coverage": "missing"
+          "lessons": [
+            "m5c5-l4"
+          ],
+          "coverage": "covered"
         },
         {
           "number": 5,
           "titleEn": "Enforcement Changes Security Leadership",
           "titleFr": "Sanctions et rôle des dirigeants",
-          "lessons": [],
-          "coverage": "missing"
+          "lessons": [
+            "m5c5-l5"
+          ],
+          "coverage": "covered"
         }
       ]
     },

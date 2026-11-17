@@ -292,11 +292,21 @@
           "titleEn": "European Cybersecurity Governance and Regulatory Compliance",
           "titleFr": "Gouvernance et conformité européennes (livre MILE2, module 11)",
           "lessons": [
+            "m5c5-l1",
+            "m5c5-l2",
+            "m5c5-l3",
+            "m5c5-l4",
+            "m5c5-l5",
             "m5c3-l2"
           ],
-          "coverage": "partial",
+          "coverage": "covered",
           "extra": true,
           "extraLessons": [
+            "m5c5-l1",
+            "m5c5-l2",
+            "m5c5-l3",
+            "m5c5-l4",
+            "m5c5-l5",
             "m5c3-l2"
           ]
         }

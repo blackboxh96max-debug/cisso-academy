@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <g stroke="#26324A" stroke-width="2.6" stroke-linejoin="round">
+    <path d="M20 40 L66 40 L66 156 L20 156 Z" fill="#BFD7FF" />
+    <path d="M74 32 L120 32 L120 156 L74 156 Z" fill="#E3D4F7" />
+    <path d="M128 44 L174 44 L174 156 L128 156 Z" fill="#FFD9B0" />
+    <path d="M182 36 L228 36 L228 156 L182 156 Z" fill="#CDEFD9" />
+  </g>
+  <g fill="#fff" stroke="#26324A" stroke-width="1.6">
+    <rect x="28" y="96" width="30" height="16" /><rect x="82" y="96" width="30" height="16" /><rect x="136" y="96" width="30" height="16" /><rect x="190" y="96" width="30" height="16" />
+  </g>
+  <g fill="#F2C230" stroke="#C99A00" stroke-width="1"><circle cx="43" cy="62" r="7" /><circle cx="97" cy="56" r="7" /><circle cx="151" cy="66" r="7" /><circle cx="205" cy="58" r="7" /></g>
+  <g font-family="sans-serif" font-size="8" font-weight="700" fill="#26324A" text-anchor="middle">
+    <text x="43" y="107">NIS 2</text><text x="97" y="107">DORA</text><text x="151" y="107">CRA</text><text x="205" y="107">CER</text>
+  </g>
+</svg>

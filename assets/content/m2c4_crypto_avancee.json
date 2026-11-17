@@ -358,7 +358,7 @@
     {
      "type": "text",
      "text": "Ces trois standards ont été approuvés par le NIST en août 2024. ML-KEM et ML-DSA reposent sur des réseaux euclidiens ; SLH-DSA repose seulement sur des fonctions de hachage, une base très étudiée, au prix de signatures plus grandes. D'autres suivent : FN-DSA, issu de Falcon, et HQC, retenu en 2025 comme second mécanisme d'encapsulation.",
-     "kind": "official"
+     "kind": "general"
     },
     {
      "type": "heading",
@@ -420,7 +420,7 @@
      "type": "important",
      "title": "Un calendrier qui se précise",
      "text": "Aux États-Unis, l'objectif fixé à l'administration fédérale est d'avoir terminé la migration en 2035, avec des échéances plus proches pour les systèmes les plus sensibles. Le rapport NIST IR 8547 accompagne cette transition. Vérifiez la version en vigueur avant de citer une date précise.",
-     "kind": "official"
+     "kind": "general"
     },
     {
      "type": "trainerNote",
