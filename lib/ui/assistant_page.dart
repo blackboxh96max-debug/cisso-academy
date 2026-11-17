@@ -1,0 +1,648 @@
+import 'package:material_ui/material_ui.dart';
+
+import '../app_state.dart';
+import '../logic/assistant.dart';
+import '../logic/study_groups.dart';
+import '../models/content.dart';
+import 'bilingual.dart';
+import 'chapter_page.dart';
+import 'course_view_bar.dart';
+import 'lesson_page.dart';
+import 'notebook/hand_drawn.dart';
+import 'notebook/palette.dart';
+import 'notebook/typography.dart';
+
+/// Ouvre l'assistant de questions.
+void openAssistant(BuildContext context) =>
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (_) => const AssistantPage()));
+
+/// Bouton de la barre : ouvre l'assistant.
+class AssistantAction extends StatelessWidget {
+  const AssistantAction({super.key});
+
+  @override
+  Widget build(BuildContext context) => IconButton(
+    tooltip: 'Assistant : poser une question',
+    icon: const Icon(Icons.forum_outlined),
+    onPressed: () => openAssistant(context),
+  );
+}
+
+const _suggestions = [
+  'Qu\'est-ce que l\'ALE ?',
+  'Différence entre IDS et IPS',
+  'Délais de notification NIS 2',
+  'What is a SIEM?',
+  'Qui décide dans le RGPD : le DPO ou le responsable de traitement ?',
+  'Règle de sauvegarde 3-2-1',
+];
+
+/// Assistant de questions, de type conversation : on écrit une question en
+/// français ou en anglais ; il répond avec les passages du cours qui
+/// conviennent le mieux et indique où les étudier. Tout se passe sur
+/// l'appareil, sans connexion ni compte.
+class AssistantPage extends StatefulWidget {
+  const AssistantPage({super.key, this.initialQuestion});
+
+  /// Question posée dès l'ouverture (tests, démonstration).
+  final String? initialQuestion;
+
+  @override
+  State<AssistantPage> createState() => _AssistantPageState();
+}
+
+class _AssistantPageState extends State<AssistantPage> {
+  final _controller = TextEditingController();
+  final _scroll = ScrollController();
+  final _answers = <AssistantAnswer>[];
+
+  @override
+  void initState() {
+    super.initState();
+    final q = widget.initialQuestion;
+    if (q != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => _ask(q));
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _scroll.dispose();
+    super.dispose();
+  }
+
+  void _ask(String question) {
+    final q = question.trim();
+    if (q.isEmpty) return;
+    final answer = AppScope.read(context).assistant.ask(q);
+    setState(() {
+      _answers.add(answer);
+      _controller.clear();
+    });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!_scroll.hasClients) return;
+      _scroll.animateTo(
+        _scroll.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final paper = Paper.of(context);
+    final narrow = MediaQuery.sizeOf(context).width < 600;
+    final side = narrow ? 12.0 : 24.0;
+    return Scaffold(
+      backgroundColor: paper.background,
+      appBar: AppBar(
+        title: const Text('Assistant'),
+        actions: [
+          if (_answers.isNotEmpty)
+            IconButton(
+              tooltip: 'Effacer la conversation',
+              icon: const Icon(Icons.delete_sweep_outlined),
+              onPressed: () => setState(_answers.clear),
+            ),
+        ],
+      ),
+      body: Align(
+        alignment: Alignment.topCenter,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 920),
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView(
+                  controller: _scroll,
+                  padding: EdgeInsets.fromLTRB(side, 8, side, 16),
+                  children: [
+                    _Welcome(onPick: _ask, compact: _answers.isNotEmpty),
+                    for (final a in _answers) ...[
+                      _UserBubble(text: a.question),
+                      _AnswerCard(answer: a, onAsk: _ask),
+                    ],
+                  ],
+                ),
+              ),
+              _InputBar(controller: _controller, onSend: _ask, side: side),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _Welcome extends StatelessWidget {
+  const _Welcome({required this.onPick, required this.compact});
+
+  final ValueChanged<String> onPick;
+  final bool compact;
+
+  @override
+  Widget build(BuildContext context) {
+    final paper = Paper.of(context);
+    final c = toneColors(Tone.violet, Theme.of(context).brightness);
+    return Padding(
+      padding: const EdgeInsets.only(top: 8, bottom: 8),
+      child: HandBox(
+        fill: c.fill,
+        stroke: toneBright(Tone.violet),
+        strokeWidth: 2,
+        seed: 501,
+        padding: const EdgeInsets.fromLTRB(14, 12, 14, 14),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '🤖 Pose ta question',
+              style: TextStyle(
+                fontFamily: Hand.title,
+                fontSize: 26,
+                fontWeight: FontWeight.w700,
+                color: c.ink,
+              ),
+            ),
+            if (!compact) ...[
+              const SizedBox(height: 4),
+              Text(
+                'En français ou en anglais. Je cherche dans tout le cours '
+                '(leçons, glossaire, fiches, flashcards, explications des QCM) '
+                'et je t\'indique le module, le chapitre et la leçon où '
+                'l\'étudier. Tout reste sur l\'appareil : pas d\'internet, pas '
+                'd\'IA en ligne. Je cite le cours tel qu\'il est écrit, je '
+                'n\'invente rien.',
+                style: Hand.sansText(context, size: 14.5),
+              ),
+            ],
+            const SizedBox(height: 10),
+            Wrap(
+              spacing: 6,
+              runSpacing: 6,
+              children: [
+                for (final s in _suggestions)
+                  ActionChip(
+                    label: Text(s),
+                    labelStyle: Hand.sansText(
+                      context,
+                      size: 13,
+                    ).copyWith(color: paper.ink),
+                    onPressed: () => onPick(s),
+                  ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _UserBubble extends StatelessWidget {
+  const _UserBubble({required this.text});
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = toneColors(Tone.blue, Theme.of(context).brightness);
+    return Align(
+      alignment: Alignment.centerRight,
+      child: Container(
+        margin: const EdgeInsets.only(top: 14, left: 48),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+        decoration: BoxDecoration(
+          color: c.ink,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(18),
+            topRight: Radius.circular(18),
+            bottomLeft: Radius.circular(18),
+            bottomRight: Radius.circular(4),
+          ),
+        ),
+        child: Text(
+          text,
+          style: Hand.sansText(
+            context,
+            size: 15,
+          ).copyWith(color: Colors.white, fontWeight: FontWeight.w600),
+        ),
+      ),
+    );
+  }
+}
+
+class _AnswerCard extends StatelessWidget {
+  const _AnswerCard({required this.answer, required this.onAsk});
+
+  final AssistantAnswer answer;
+  final ValueChanged<String> onAsk;
+
+  @override
+  Widget build(BuildContext context) {
+    final paper = Paper.of(context);
+    final hits = answer.hits;
+    final main = hits.isEmpty ? null : hits.first;
+    // Où l'étudier : la meilleure leçon, si la réponse principale n'en est
+    // pas une.
+    final lesson = hits
+        .where((h) => h.passage.kind == PassageKind.lesson)
+        .firstOrNull;
+    // Voir aussi : seulement les passages proches de la réponse principale.
+    final others = hits
+        .skip(1)
+        .where((h) => h != lesson)
+        .where((h) => h.coverage >= 0.5 && h.score >= main!.score * 0.4)
+        .take(3)
+        .toList();
+    final children = <Widget>[];
+
+    if (answer.english) {
+      children.add(
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: Text(
+            '🇬🇧 Question in English: the course is written in French; '
+            'English terms are shown next to the French ones.',
+            style: Hand.sansText(
+              context,
+              size: 13,
+            ).copyWith(color: englishColor(context)),
+          ),
+        ),
+      );
+    }
+
+    if (answer.isEmpty || (answer.uncertain && answer.terms.isEmpty)) {
+      children.add(
+        Text(
+          answer.isEmpty
+              ? 'Je n\'ai rien trouvé dans le cours pour cette question. '
+                    'Essaie avec un mot-clé ou un sigle (par exemple « RPO », '
+                    '« pare-feu », « NIS 2 »).'
+              : 'Je n\'ai pas trouvé de réponse sûre. Voici les passages les '
+                    'plus proches ; reformule avec un mot-clé si ce n\'est pas '
+                    'ce que tu cherches.',
+          style: Hand.sansText(context, size: 14.5),
+        ),
+      );
+    }
+
+    for (final t in answer.terms) {
+      children.add(_TermCard(term: t));
+    }
+
+    if (main != null) {
+      children.add(
+        _HitCard(
+          hit: main,
+          label: answer.terms.isEmpty ? 'Réponse du cours' : 'Dans le cours',
+          big: true,
+        ),
+      );
+    }
+    if (lesson != null && lesson != main) {
+      children.add(_HitCard(hit: lesson, label: 'Où l\'étudier'));
+    }
+    if (others.isNotEmpty) {
+      children.add(
+        Padding(
+          padding: const EdgeInsets.only(top: 10, bottom: 2),
+          child: Text(
+            'Voir aussi',
+            style: Hand.sansText(
+              context,
+              size: 13,
+            ).copyWith(color: paper.inkSoft, fontWeight: FontWeight.w800),
+          ),
+        ),
+      );
+      for (final h in others) {
+        children.add(_HitCard(hit: h, compact: true));
+      }
+    }
+
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 10, right: 24),
+        child: HandBox(
+          fill: paper.page,
+          stroke: toneBright(Tone.violet),
+          strokeWidth: 2,
+          seed: answer.question.hashCode,
+          padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: children,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _TermCard extends StatelessWidget {
+  const _TermCard({required this.term});
+
+  final GlossaryTerm term;
+
+  @override
+  Widget build(BuildContext context) {
+    final paper = Paper.of(context);
+    final c = toneColors(Tone.blue, Theme.of(context).brightness);
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(12, 8, 12, 10),
+        decoration: BoxDecoration(
+          color: c.fill,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: c.ink.withValues(alpha: 0.4)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Wrap(
+              spacing: 8,
+              runSpacing: 4,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                const Sticker(text: '🔤 Définition', tone: Tone.blue),
+                Text(
+                  term.acronym == null
+                      ? term.termFr
+                      : '${term.acronym} · ${term.termFr}',
+                  style: TextStyle(
+                    fontFamily: Hand.body,
+                    fontSize: 20,
+                    height: 1.15,
+                    color: c.ink,
+                  ),
+                ),
+              ],
+            ),
+            EnTag(term.termEn, size: 12.5),
+            const SizedBox(height: 4),
+            Text(
+              term.definition,
+              style: Hand.sansText(
+                context,
+                size: 15,
+              ).copyWith(color: paper.ink),
+            ),
+            if (term.example.trim().isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.only(top: 4),
+                child: Text(
+                  'Exemple : ${term.example}',
+                  style: Hand.sansText(
+                    context,
+                    size: 13.5,
+                  ).copyWith(color: paper.inkSoft),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _HitCard extends StatelessWidget {
+  const _HitCard({
+    required this.hit,
+    this.label,
+    this.big = false,
+    this.compact = false,
+  });
+
+  final AssistantHit hit;
+  final String? label;
+  final bool big;
+  final bool compact;
+
+  @override
+  Widget build(BuildContext context) {
+    final state = AppScope.of(context);
+    final library = state.library;
+    final paper = Paper.of(context);
+    final p = hit.passage;
+    final chapter = p.chapterId == null
+        ? null
+        : library.chapters.where((c) => c.id == p.chapterId).firstOrNull;
+    final lesson = p.lessonId == null ? null : library.lesson(p.lessonId!);
+    final view = currentView(state);
+    final places = chapter == null
+        ? const <String>[]
+        : placeInView(
+            library,
+            view,
+            lessonId: p.lessonId,
+            chapterId: chapter.id,
+          );
+    final tone = chapter == null
+        ? Tone.blue
+        : moduleStyle(library.module(chapter.moduleId).number).$1;
+    final c = toneColors(tone, Theme.of(context).brightness);
+
+    VoidCallback? open;
+    String? openLabel;
+    if (lesson != null) {
+      openLabel = 'Ouvrir la leçon';
+      open = () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => LessonPage(lesson: lesson, focusBlock: p.blockIndex),
+        ),
+      );
+    } else if (chapter != null) {
+      openLabel = 'Ouvrir le chapitre';
+      open = () => Navigator.of(context).push(
+        MaterialPageRoute(builder: (_) => ChapterPage(chapterId: chapter.id)),
+      );
+    }
+
+    final location = <String>[
+      if (chapter != null)
+        'Chapitre ${chapterNumber(library, chapter)} · ${chapter.title}',
+      ...places,
+      if (lesson != null) 'Leçon : ${lesson.title}',
+    ];
+
+    if (compact) {
+      return InkWell(
+        borderRadius: BorderRadius.circular(10),
+        onTap: open,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 2),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(p.kind.emoji, style: const TextStyle(fontSize: 18)),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      p.title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: Hand.sansText(
+                        context,
+                        size: 14,
+                      ).copyWith(color: paper.ink, fontWeight: FontWeight.w700),
+                    ),
+                    Text(
+                      [
+                        p.kind.label,
+                        if (chapter != null)
+                          'chapitre ${chapterNumber(library, chapter)}',
+                      ].join(' · '),
+                      style: Hand.sansText(
+                        context,
+                        size: 12,
+                      ).copyWith(color: paper.inkSoft),
+                    ),
+                  ],
+                ),
+              ),
+              if (open != null) Icon(Icons.chevron_right, color: paper.inkSoft),
+            ],
+          ),
+        ),
+      );
+    }
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 6),
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(12, 8, 12, 10),
+        decoration: BoxDecoration(
+          color: big ? c.fill : paper.page,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: c.ink.withValues(alpha: 0.4)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Wrap(
+              spacing: 8,
+              runSpacing: 4,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                if (label != null)
+                  Text(
+                    label!,
+                    style: Hand.sansText(
+                      context,
+                      size: 13,
+                    ).copyWith(color: c.ink, fontWeight: FontWeight.w800),
+                  ),
+                Sticker(text: '${p.kind.emoji} ${p.kind.label}', tone: tone),
+              ],
+            ),
+            const SizedBox(height: 4),
+            Text(
+              p.title,
+              style: TextStyle(
+                fontFamily: Hand.body,
+                fontSize: big ? 20 : 18,
+                height: 1.15,
+                color: paper.ink,
+              ),
+            ),
+            if (p.en != null) EnTag(p.en!, size: 12),
+            const SizedBox(height: 4),
+            Text(
+              hit.excerpt,
+              style: Hand.sansText(
+                context,
+                size: big ? 15 : 14,
+              ).copyWith(color: paper.ink),
+            ),
+            if (location.isNotEmpty) ...[
+              const SizedBox(height: 6),
+              for (final l in location)
+                Text(
+                  '📍 $l',
+                  style: Hand.sansText(
+                    context,
+                    size: 12.5,
+                  ).copyWith(color: paper.inkSoft, fontWeight: FontWeight.w600),
+                ),
+            ],
+            if (open != null)
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 6),
+                  child: FilledButton.tonalIcon(
+                    onPressed: open,
+                    icon: const Icon(Icons.menu_book_outlined, size: 18),
+                    label: Text(openLabel!),
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _InputBar extends StatelessWidget {
+  const _InputBar({
+    required this.controller,
+    required this.onSend,
+    required this.side,
+  });
+
+  final TextEditingController controller;
+  final ValueChanged<String> onSend;
+  final double side;
+
+  @override
+  Widget build(BuildContext context) {
+    final paper = Paper.of(context);
+    return Material(
+      color: paper.page,
+      elevation: 4,
+      child: SafeArea(
+        top: false,
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(side, 8, side - 4, 8),
+          child: Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  key: const Key('assistant-input'),
+                  controller: controller,
+                  minLines: 1,
+                  maxLines: 4,
+                  textInputAction: TextInputAction.send,
+                  onSubmitted: onSend,
+                  decoration: const InputDecoration(
+                    hintText: 'Ta question, en français ou en anglais…',
+                    border: OutlineInputBorder(),
+                    isDense: true,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 6),
+              IconButton.filled(
+                tooltip: 'Envoyer',
+                icon: const Icon(Icons.send),
+                onPressed: () => onSend(controller.text),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

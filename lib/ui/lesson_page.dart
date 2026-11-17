@@ -11,6 +11,7 @@ import 'notebook/palette.dart';
 import 'notebook/typography.dart';
 import '../logic/terms.dart';
 import '../logic/search.dart';
+import 'assistant_page.dart';
 import 'bilingual.dart';
 import 'find_highlight.dart';
 import 'search_page.dart';
@@ -301,6 +302,7 @@ class _LessonPageState extends State<LessonPage> {
             icon: Icon(_finding ? Icons.search_off : Icons.find_in_page),
             onPressed: _toggleFind,
           ),
+          const AssistantAction(),
           const SearchAction(),
         ],
         bottom: _finding ? _findBar(context) : null,

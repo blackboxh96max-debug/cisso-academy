@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 import 'data/progress_store.dart';
+import 'logic/assistant.dart';
 import 'logic/stats.dart';
 import 'models/content.dart';
 import 'logic/search.dart';
@@ -21,6 +22,9 @@ class AppState extends ChangeNotifier {
 
   /// Index de la recherche globale.
   late final SearchIndex search = SearchIndex(library);
+
+  /// Assistant de questions, hors ligne.
+  late final Assistant assistant = Assistant(library);
   final ProgressStore store;
 
   /// Horloge injectable (tests).

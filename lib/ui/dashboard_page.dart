@@ -10,6 +10,7 @@ import '../logic/badges.dart';
 import '../logic/stats.dart';
 import '../logic/study_groups.dart';
 import '../models/content.dart';
+import 'assistant_page.dart';
 import 'chapter_page.dart';
 import 'course_view_bar.dart';
 import 'lesson_page.dart';
@@ -105,6 +106,7 @@ class DashboardPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('CISSO Academy'),
         actions: [
+          const AssistantAction(),
           const SearchAction(),
           PopupMenuButton<String>(
             tooltip: 'Menu',
@@ -744,6 +746,12 @@ class _QuickAccess extends StatelessWidget {
         spacing: 8,
         runSpacing: 8,
         children: [
+          button(
+            '🤖',
+            'Poser une question',
+            Tone.violet,
+            () => openAssistant(context),
+          ),
           button('📘', 'Cours', Tone.blue, () => onNavigate(1)),
           button('📝', 'QCM et examen blanc', Tone.pink, () => onNavigate(2)),
           button('🃏', 'Révisions', Tone.violet, () => onNavigate(3)),
