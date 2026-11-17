@@ -4,38 +4,33 @@ import 'dart:math';
 import 'package:material_ui/material_ui.dart';
 
 import '../app_state.dart';
+import 'mascot_characters.dart';
 import 'notebook/palette.dart';
 
-/// Humeur de la mascotte de l'assistant.
-enum MascotMood {
-  /// Attend la question : respire, cligne des yeux.
-  idle,
+export 'mascot_characters.dart'
+    show MascotMood, MascotCharacter, mascotCharacters, mascotById;
 
-  /// L'utilisateur tape : elle écoute, hoche la tête.
-  listening,
-
-  /// Recherche en cours : regarde en l'air, bulles de réflexion.
-  thinking,
-
-  /// Réponse trouvée : yeux rieurs, bras levé vers la réponse.
-  answering,
-
-  /// Rien trouvé : tête penchée, point d'interrogation.
-  puzzled,
-}
-
-/// « Cybi », la mascotte de l'assistant : un petit robot au cadenas,
-/// entièrement dessiné en code (aucune image, aucune dépendance).
+/// La mascotte de l'assistant (Cybi par défaut, ou le personnage choisi),
+/// entièrement dessinée en code (aucune image, aucune dépendance).
 ///
 /// Elle apparaît en saluant, puis s'anime par petites séquences (respiration,
 /// clignement) entre deux pauses. Si les animations sont coupées (réglage de
 /// l'application ou du système), elle reste immobile dans la pose de son
 /// humeur.
 class Mascot extends StatefulWidget {
-  const Mascot({super.key, required this.mood, this.size = 72, this.typing});
+  const Mascot({
+    super.key,
+    required this.mood,
+    this.size = 72,
+    this.typing,
+    this.character,
+  });
 
   final MascotMood mood;
   final double size;
+
+  /// Personnage à dessiner ; par défaut, celui choisi dans les réglages.
+  final MascotCharacter? character;
 
   /// Change à chaque frappe : la mascotte hoche la tête.
   final Object? typing;
@@ -140,8 +135,12 @@ class _MascotState extends State<Mascot> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
+    final character =
+        widget.character ?? mascotById(AppScope.of(context).mascotId);
     return Semantics(
-      label: 'Cybi, la mascotte de l\'assistant : ${mascotLine(widget.mood)}',
+      label:
+          '${character.name}, ${character.species} : '
+          '${character.line(widget.mood)}',
       image: true,
       excludeSemantics: true,
       child: AnimatedBuilder(
@@ -168,14 +167,17 @@ class _MascotState extends State<Mascot> with TickerProviderStateMixin {
               alignment: Alignment.bottomCenter,
               child: CustomPaint(
                 painter: MascotPainter(
-                  mood: widget.mood,
-                  breath: breath,
-                  blink: blink,
-                  wave: wave,
-                  nod: nod,
-                  think: _think.value,
-                  show: Curves.easeOutBack.transform(_show.value),
-                  brightness: brightness,
+                  character,
+                  MascotPose(
+                    mood: widget.mood,
+                    breath: breath,
+                    blink: blink,
+                    wave: wave,
+                    nod: nod,
+                    think: _think.value,
+                    show: Curves.easeOutBack.transform(_show.value),
+                    brightness: brightness,
+                  ),
                 ),
               ),
             ),
@@ -186,340 +188,118 @@ class _MascotState extends State<Mascot> with TickerProviderStateMixin {
   }
 }
 
-/// Ce que dit la mascotte selon son humeur.
-String mascotLine(MascotMood mood) => switch (mood) {
-  MascotMood.idle => 'Pose-moi ta question, je t\'attends !',
-  MascotMood.listening => 'Je t\'écoute…',
-  MascotMood.thinking => 'Je cherche dans le cours…',
-  MascotMood.answering => 'Voilà ce que j\'ai trouvé !',
-  MascotMood.puzzled => 'Hmm, essaie avec d\'autres mots ?',
-};
-
-/// Dessin du robot, dans un repère de 100 × 120.
+/// Dessin d'un personnage : ombre, respiration, bras, corps, tête penchée et
+/// petits effets (bulles de réflexion, « ? », étincelles).
 class MascotPainter extends CustomPainter {
-  MascotPainter({
-    required this.mood,
-    required this.brightness,
-    this.breath = 0,
-    this.blink = 0,
-    this.wave = 0,
-    this.nod = 0,
-    this.think = 0,
-    this.show = 0,
-  });
+  MascotPainter(this.character, this.pose);
 
-  final MascotMood mood;
-  final Brightness brightness;
-
-  /// 0 → 1 → 0 : le corps se soulève légèrement.
-  final double breath;
-
-  /// 0 (ouverts) → 1 (fermés).
-  final double blink;
-
-  /// Angle du salut (radians, autour de 0).
-  final double wave;
-
-  /// Inclinaison de la tête à la frappe.
-  final double nod;
-
-  /// Phase des bulles de réflexion (0 → 1, en boucle).
-  final double think;
-
-  /// 0 → 1 : bras levé vers la réponse.
-  final double show;
+  final MascotCharacter character;
+  final MascotPose pose;
 
   @override
   void paint(Canvas canvas, Size size) {
-    final k = min(size.width / 100, size.height / 120);
+    final s = min(size.width / 100, size.height / 120);
     canvas.save();
-    canvas.translate((size.width - 100 * k) / 2, size.height - 120 * k);
-    canvas.scale(k);
+    canvas.translate((size.width - 100 * s) / 2, size.height - 120 * s);
+    canvas.scale(s);
+    final k = MascotKit(pose);
+    final mood = pose.mood;
 
-    final dark = brightness == Brightness.dark;
-    final ink = dark ? const Color(0xFFE6E9F5) : const Color(0xFF26324A);
-    final violet = toneColors(Tone.violet, brightness);
-    final shell = dark ? const Color(0xFF3A3360) : const Color(0xFFEDE7FF);
-    final screen = dark ? const Color(0xFF0E1A33) : const Color(0xFF1D2B4F);
-    const glow = Color(0xFF5BE3F0);
-    const gold = Color(0xFFF7C948);
-    final line = Paint()
-      ..color = ink
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2.6
-      ..strokeCap = StrokeCap.round
-      ..strokeJoin = StrokeJoin.round;
-    Paint fill(Color c) => Paint()..color = c;
-
-    // Ombre au sol.
     canvas.drawOval(
       Rect.fromCenter(
         center: const Offset(50, 116),
-        width: 52 - breath * 4,
+        width: 52 - pose.breath * 4,
         height: 6,
       ),
-      fill(ink.withValues(alpha: 0.15)),
+      k.fill(k.ink.withValues(alpha: 0.15)),
     );
+    canvas.translate(0, -pose.breath * 2.2);
 
-    final lift = -breath * 2.2;
-    canvas.translate(0, lift);
+    character.paintBack(canvas, k);
 
-    // Pieds.
-    for (final x in [38.0, 62.0]) {
-      final r = RRect.fromRectAndRadius(
-        Rect.fromCenter(center: Offset(x, 110), width: 16, height: 8),
-        const Radius.circular(4),
-      );
-      canvas.drawRRect(r, fill(violet.ink));
-      canvas.drawRRect(r, line);
+    // Bras : le gauche au repos ; le droit salue, se lève pour montrer la
+    // réponse, ou se porte au menton quand le personnage réfléchit.
+    _arm(canvas, k, character.leftShoulder, 0.25, left: true);
+    final thinking = mood == MascotMood.thinking;
+    final raise = mood == MascotMood.answering ? pose.show * 2.0 : 0.0;
+    if (!thinking) {
+      _arm(canvas, k, character.rightShoulder, -0.25 - raise + pose.wave);
     }
 
-    // Bras gauche (au repos, ou sur la hanche quand il réfléchit).
-    final leftAngle = mood == MascotMood.thinking ? -0.9 : 0.25;
-    _arm(
-      canvas,
-      const Offset(27, 74),
-      leftAngle,
-      line,
-      fill(shell),
-      left: true,
-    );
+    character.paintBody(canvas, k);
 
-    // Bras droit : salut, réponse (levé) ou repos.
-    final restRight = mood == MascotMood.thinking ? -2.3 : -0.25;
-    final raise = mood == MascotMood.answering ? show * 2.0 : 0.0;
-    final rightAngle = restRight - raise + wave;
-    _arm(canvas, const Offset(73, 74), rightAngle, line, fill(shell));
-
-    // Corps : un écusson arrondi.
-    final body = Path()
-      ..moveTo(28, 66)
-      ..quadraticBezierTo(50, 60, 72, 66)
-      ..lineTo(72, 92)
-      ..quadraticBezierTo(72, 106, 50, 108)
-      ..quadraticBezierTo(28, 106, 28, 92)
-      ..close();
-    canvas.drawPath(body, fill(violet.fill));
-    canvas.drawPath(body, line);
-
-    // Cadenas sur la poitrine.
-    final shackle = Path()
-      ..moveTo(44, 84)
-      ..lineTo(44, 79)
-      ..arcToPoint(const Offset(56, 79), radius: const Radius.circular(6))
-      ..lineTo(56, 84);
-    canvas.drawPath(shackle, line..strokeWidth = 2.4);
-    final lockBody = RRect.fromRectAndRadius(
-      const Rect.fromLTWH(40, 83, 20, 15),
-      const Radius.circular(3),
-    );
-    canvas.drawRRect(lockBody, fill(gold));
-    canvas.drawRRect(lockBody, line);
-    canvas.drawCircle(const Offset(50, 89), 1.8, fill(ink));
-    canvas.drawLine(
-      const Offset(50, 90),
-      const Offset(50, 94),
-      line..strokeWidth = 2,
-    );
-    line.strokeWidth = 2.6;
-
-    // Tête (penchée selon l'humeur et la frappe).
     final tilt =
         switch (mood) {
           MascotMood.listening => 0.10,
           MascotMood.puzzled => -0.16,
           _ => 0.0,
         } +
-        nod;
+        pose.nod;
+    final n = character.neck;
     canvas.save();
-    canvas.translate(50, 62);
+    canvas.translate(n.dx, n.dy);
     canvas.rotate(tilt);
-    canvas.translate(-50, -62);
-
-    // Antenne : la boule brille quand il réfléchit ou écoute.
-    canvas.drawLine(const Offset(50, 24), const Offset(50, 13), line);
-    final bright = switch (mood) {
-      MascotMood.thinking => 0.5 + 0.5 * sin(think * 2 * pi),
-      MascotMood.listening => 0.8,
-      MascotMood.answering => 1.0,
-      _ => 0.35 + 0.4 * breath,
-    };
-    canvas.drawCircle(
-      const Offset(50, 10),
-      7,
-      fill(glow.withValues(alpha: 0.25 * bright)),
-    );
-    canvas.drawCircle(
-      const Offset(50, 10),
-      4.2,
-      fill(Color.lerp(gold, glow, bright)!),
-    );
-    canvas.drawCircle(const Offset(50, 10), 4.2, line);
-
-    // Oreilles.
-    for (final x in [17.0, 83.0]) {
-      final r = RRect.fromRectAndRadius(
-        Rect.fromCenter(center: Offset(x, 44), width: 7, height: 14),
-        const Radius.circular(3),
-      );
-      canvas.drawRRect(r, fill(violet.ink));
-      canvas.drawRRect(r, line);
-    }
-
-    final head = RRect.fromRectAndRadius(
-      const Rect.fromLTWH(20, 24, 60, 40),
-      const Radius.circular(14),
-    );
-    canvas.drawRRect(head, fill(shell));
-    canvas.drawRRect(head, line);
-    final face = RRect.fromRectAndRadius(
-      const Rect.fromLTWH(27, 30, 46, 28),
-      const Radius.circular(10),
-    );
-    canvas.drawRRect(face, fill(screen));
-
-    _eyes(canvas, glow);
-    _mouth(canvas, glow);
-
-    // Joues.
-    for (final x in [32.0, 68.0]) {
-      canvas.drawCircle(
-        Offset(x, 51),
-        3,
-        fill(const Color(0xFFFF8FB1).withValues(alpha: 0.55)),
-      );
-    }
+    canvas.translate(-n.dx, -n.dy);
+    character.paintHead(canvas, k);
     canvas.restore();
+    // Main au menton pendant la réflexion, devant le corps.
+    if (thinking) _arm(canvas, k, character.rightShoulder, 2.55);
 
-    // Bulles de réflexion ou point d'interrogation.
     if (mood == MascotMood.thinking) {
       for (var j = 0; j < 3; j++) {
-        final phase = (think + j / 3) % 1;
-        final r = 2.2 + j * 1.3;
+        final phase = (pose.think + j / 3) % 1;
         canvas.drawCircle(
-          Offset(80 + j * 6.0, 26 - j * 7.0),
-          r,
-          fill(ink.withValues(alpha: 0.25 + 0.6 * sin(phase * pi))),
+          Offset(82 + j * 6.0, 24 - j * 7.0),
+          2.2 + j * 1.3,
+          k.fill(k.ink.withValues(alpha: 0.25 + 0.6 * sin(phase * pi))),
         );
       }
     }
     if (mood == MascotMood.puzzled) {
+      final violet = toneColors(Tone.violet, pose.brightness);
       final tp = TextPainter(
         text: TextSpan(
           text: '?',
           style: TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.w900,
-            color: violet.ink.withValues(alpha: show),
+            color: violet.ink.withValues(alpha: pose.show.clamp(0.0, 1.0)),
           ),
         ),
         textDirection: TextDirection.ltr,
       )..layout();
-      tp.paint(canvas, Offset(82, 2 + (1 - show) * 6));
+      tp.paint(canvas, Offset(84, 0 + (1 - pose.show) * 6));
     }
     if (mood == MascotMood.answering) {
-      // Petites étincelles autour de la main levée.
-      final p = fill(gold.withValues(alpha: show));
-      for (final o in const [Offset(90, 30), Offset(96, 42), Offset(84, 22)]) {
-        _sparkle(canvas, o, 3.2 * show, p);
+      final p = k.fill(
+        const Color(0xFFF7C948).withValues(alpha: pose.show.clamp(0.0, 1.0)),
+      );
+      for (final o in const [Offset(92, 30), Offset(97, 42), Offset(86, 20)]) {
+        _sparkle(canvas, o, 3.2 * pose.show, p);
       }
     }
     canvas.restore();
   }
 
-  void _eyes(Canvas canvas, Color glow) {
-    final eye = Paint()
-      ..color = glow
-      ..strokeWidth = 3
-      ..strokeCap = StrokeCap.round
-      ..style = PaintingStyle.stroke;
-    // Où regarde-t-il ?
-    final look = switch (mood) {
-      MascotMood.thinking => const Offset(2.5, -3),
-      MascotMood.listening => const Offset(0, 2.5),
-      _ => Offset.zero,
-    };
-    for (final x in [40.0, 60.0]) {
-      final c = Offset(x, 43) + look;
-      if (mood == MascotMood.answering) {
-        // Yeux rieurs : deux arcs.
-        canvas.drawArc(
-          Rect.fromCenter(center: c + const Offset(0, 2), width: 9, height: 8),
-          pi,
-          pi,
-          false,
-          eye,
-        );
-        continue;
-      }
-      final h = 8 * (1 - blink);
-      if (h < 1.2) {
-        canvas.drawLine(c - const Offset(4, 0), c + const Offset(4, 0), eye);
-      } else {
-        canvas.drawRRect(
-          RRect.fromRectAndRadius(
-            Rect.fromCenter(center: c, width: 7, height: h),
-            const Radius.circular(3.5),
-          ),
-          Paint()..color = glow,
-        );
-      }
-    }
-    if (mood == MascotMood.puzzled) {
-      canvas.drawLine(const Offset(55, 35), const Offset(64, 33), eye);
-    }
-  }
-
-  void _mouth(Canvas canvas, Color glow) {
-    final m = Paint()
-      ..color = glow
-      ..strokeWidth = 2.4
-      ..strokeCap = StrokeCap.round
-      ..style = PaintingStyle.stroke;
-    switch (mood) {
-      case MascotMood.thinking:
-        canvas.drawCircle(const Offset(52, 52), 2.2, m);
-      case MascotMood.puzzled:
-        canvas.drawLine(const Offset(45, 53), const Offset(55, 51), m);
-      case MascotMood.answering:
-        final p = Path()
-          ..moveTo(43, 50)
-          ..quadraticBezierTo(50, 57, 57, 50)
-          ..close();
-        canvas.drawPath(p, Paint()..color = glow);
-      case MascotMood.idle || MascotMood.listening:
-        canvas.drawArc(
-          Rect.fromCenter(center: const Offset(50, 49), width: 12, height: 7),
-          0.2,
-          pi - 0.4,
-          false,
-          m,
-        );
-    }
-  }
-
-  /// Un bras : segment arrondi qui pivote à l'épaule, avec une main ronde.
   void _arm(
     Canvas canvas,
+    MascotKit k,
     Offset shoulder,
-    double angle,
-    Paint line,
-    Paint fill, {
+    double angle, {
     bool left = false,
   }) {
     canvas.save();
     canvas.translate(shoulder.dx, shoulder.dy);
     canvas.rotate(angle);
-    final dir = left ? -1.0 : 1.0;
-    final arm = RRect.fromRectAndRadius(
+    k.rrect(
+      canvas,
       Rect.fromLTWH(left ? -6 : -3, -4, 9, 24),
-      const Radius.circular(4.5),
+      4.5,
+      character.sleeve(k),
     );
-    canvas.drawRRect(arm, fill);
-    canvas.drawRRect(arm, line);
-    final hand = Offset(dir * 0.5 + (left ? -1.5 : 1.5), 22);
-    canvas.drawCircle(hand, 5.2, fill);
-    canvas.drawCircle(hand, 5.2, line);
+    final hand = Offset(left ? -1.5 : 1.5, 22);
+    k.oval(canvas, hand, 10.4, 10.4, character.hand(k));
+    if (!left) character.paintRightHandItem(canvas, k);
     canvas.restore();
   }
 
@@ -540,12 +320,5 @@ class MascotPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(MascotPainter old) =>
-      old.mood != mood ||
-      old.breath != breath ||
-      old.blink != blink ||
-      old.wave != wave ||
-      old.nod != nod ||
-      old.think != think ||
-      old.show != show ||
-      old.brightness != brightness;
+      old.character != character || old.pose != pose;
 }

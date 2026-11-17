@@ -4,6 +4,8 @@ import '../app_info.dart';
 import '../app_state.dart';
 import '../models/content.dart';
 import 'about_page.dart';
+import 'mascot.dart';
+import 'mascot_picker.dart';
 import 'notebook/palette.dart';
 import 'widgets.dart';
 
@@ -140,6 +142,21 @@ void showSettings(BuildContext context) {
               ),
               value: state.animationsSetting,
               onChanged: (v) => state.setAnimations(v),
+            ),
+            ListTile(
+              key: const Key('settings-mascot'),
+              contentPadding: EdgeInsets.zero,
+              leading: const SizedBox(
+                width: 40,
+                child: Mascot(mood: MascotMood.idle, size: 40),
+              ),
+              title: const Text('Mascotte de l\'assistant'),
+              subtitle: Text(
+                '${mascotById(state.mascotId).name}, '
+                '${mascotById(state.mascotId).species}',
+              ),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => showMascotPicker(ctx),
             ),
           ],
         ),

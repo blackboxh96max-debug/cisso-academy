@@ -11,6 +11,7 @@ import 'chapter_page.dart';
 import 'course_view_bar.dart';
 import 'lesson_page.dart';
 import 'mascot.dart';
+import 'mascot_picker.dart';
 import 'history_list.dart';
 import 'notebook/hand_drawn.dart';
 import 'notebook/palette.dart';
@@ -214,6 +215,11 @@ class _AssistantPageState extends State<AssistantPage> {
       appBar: AppBar(
         title: const Text('Assistant'),
         actions: [
+          IconButton(
+            tooltip: 'Changer de mascotte',
+            icon: const Icon(Icons.face_retouching_natural),
+            onPressed: () => showMascotPicker(context),
+          ),
           if (_answers.isNotEmpty)
             IconButton(
               tooltip: 'Effacer la conversation et l\'historique',
@@ -787,11 +793,14 @@ class _MascotBar extends StatelessWidget {
         children: [
           AnimatedSize(
             duration: const Duration(milliseconds: 250),
-            child: Mascot(
-              key: const Key('assistant-mascot'),
-              mood: mood,
-              typing: typing,
-              size: big ? 96 : 60,
+            child: GestureDetector(
+              onTap: () => showMascotPicker(context),
+              child: Mascot(
+                key: const Key('assistant-mascot'),
+                mood: mood,
+                typing: typing,
+                size: big ? 96 : 60,
+              ),
             ),
           ),
           const SizedBox(width: 8),
@@ -820,7 +829,7 @@ class _MascotBar extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    mascotLine(mood),
+                    mascotById(AppScope.of(context).mascotId).line(mood),
                     style: Hand.sansText(
                       context,
                       size: 14,

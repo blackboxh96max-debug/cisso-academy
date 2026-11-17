@@ -144,6 +144,16 @@ class AppState extends ChangeNotifier {
     }
   }
 
+  /// Mascotte choisie pour l'assistant (identifiant du personnage).
+  String get mascotId => _mascot;
+  String _mascot = 'cybi';
+
+  Future<void> setMascot(String id) async {
+    _mascot = id;
+    await store.setSetting('mascot', id);
+    notifyListeners();
+  }
+
   Map<String, CardState> get cards => _cards;
   Set<String> get readLessons => _readLessons;
 
@@ -156,6 +166,7 @@ class AppState extends ChangeNotifier {
       'orsysPlus' || 'app' => CourseView.orsysPlus,
       _ => CourseView.mile2,
     };
+    _mascot = await store.setting('mascot') ?? 'cybi';
     _searches = await _loadList('history.search');
     _questions = await _loadList('history.assistant');
     final answers = await store.answers();
