@@ -5,7 +5,9 @@ import 'package:material_ui/material_ui.dart';
 import '../app_state.dart';
 import '../data/progress_store.dart';
 import '../logic/spaced_repetition.dart';
+import '../logic/study_groups.dart';
 import '../models/content.dart';
+import 'course_view_bar.dart';
 import 'notebook/hand_drawn.dart';
 import 'notebook/note_box.dart';
 import 'notebook/page_kit.dart';
@@ -28,7 +30,6 @@ class FlashcardsPage extends StatelessWidget {
     final seenDue = due.where(state.cards.containsKey).length;
     final fresh = due.length - seenDue;
     final mastered = state.cards.values.where((c) => c.mastered).length;
-    final brightness = Theme.of(context).brightness;
 
     return NotebookPage(
       title: 'Flashcards',
@@ -97,85 +98,187 @@ class FlashcardsPage extends StatelessWidget {
             style: Hand.noteText(context),
           ),
         ),
-        NotePanel(
-          title: 'Par chapitre',
-          emoji: '📚',
-          tone: Tone.turquoise,
-          seed: 15,
-          child: Column(
-            children: [
-              for (final ch in library.availableChapters)
-                Builder(
-                  builder: (context) {
-                    final (tone, emoji) = moduleStyle(
-                      library.module(ch.moduleId).number,
-                    );
-                    final c = toneColors(tone, brightness);
-                    final done = ch.flashcards
-                        .where((f) => state.cards[f.id]?.mastered ?? false)
-                        .length;
-                    return Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(16),
-                        onTap: () => Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (_) => FlashcardSessionPage(
-                              cardIds: ch.flashcards.map((f) => f.id).toList(),
-                            ),
-                          ),
-                        ),
-                        child: HandBox(
-                          fill: c.fill,
-                          stroke: toneBright(tone),
-                          strokeWidth: 2,
-                          seed: ch.id.hashCode,
-                          padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
-                          child: Row(
-                            children: [
-                              Text(emoji, style: const TextStyle(fontSize: 26)),
-                              const SizedBox(width: 12),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      ch.title,
-                                      style: TextStyle(
-                                        fontFamily: Hand.body,
-                                        fontSize: 20,
-                                        height: 1.2,
-                                        color: c.ink,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 6),
-                                    HandProgress(
-                                      value: ch.flashcards.isEmpty
-                                          ? 0
-                                          : done / ch.flashcards.length,
-                                      tone: tone,
-                                      height: 8,
-                                    ),
-                                    const SizedBox(height: 3),
-                                    Text(
-                                      '$done/${ch.flashcards.length} maîtrisées',
-                                      style: Hand.sansText(context, size: 12.5),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Icon(Icons.arrow_forward_rounded, color: c.ink),
-                            ],
-                          ),
+        const _ChaptersByModule(),
+      ],
+    );
+  }
+}
+
+/// Flashcards par chapitre, rangées par module de la vue choisie ; chaque
+/// module se replie (tout est replié au départ).
+class _ChaptersByModule extends StatefulWidget {
+  const _ChaptersByModule();
+
+  @override
+  State<_ChaptersByModule> createState() => _ChaptersByModuleState();
+}
+
+class _ChaptersByModuleState extends State<_ChaptersByModule> {
+  final _open = <int>{};
+  CourseView? _view;
+
+  @override
+  Widget build(BuildContext context) {
+    final state = AppScope.of(context);
+    final library = state.library;
+    final view = currentView(state);
+    if (_view != view) {
+      _view = view;
+      _open.clear();
+    }
+    final groups = [
+      for (final g in studyGroups(library, view))
+        if (g.availableChapters.isNotEmpty) g,
+    ];
+    final brightness = Theme.of(context).brightness;
+    return NotePanel(
+      title: 'Par module et chapitre',
+      emoji: '📚',
+      tone: Tone.turquoise,
+      seed: 15,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const CourseViewSelector(),
+          ExpandAllBar(
+            onExpandAll: () =>
+                setState(() => _open.addAll(groups.map((g) => g.index))),
+            onCollapseAll: () => setState(_open.clear),
+          ),
+          for (final g in groups) ...[
+            _groupHeader(context, g),
+            if (_open.contains(g.index))
+              for (final ch in g.availableChapters)
+                _chapterCard(context, state, library, brightness, ch),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _groupHeader(BuildContext context, StudyGroup g) {
+    final state = AppScope.of(context);
+    final (tone, emoji) = groupStyle(g);
+    final c = toneColors(tone, Theme.of(context).brightness);
+    final cards = [for (final ch in g.availableChapters) ...ch.flashcards];
+    final done = cards
+        .where((f) => state.cards[f.id]?.mastered ?? false)
+        .length;
+    final open = _open.contains(g.index);
+    return Padding(
+      padding: const EdgeInsets.only(top: 10),
+      child: Semantics(
+        button: true,
+        expanded: open,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(12),
+          onTap: () => setState(() {
+            if (!_open.remove(g.index)) _open.add(g.index);
+          }),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: Row(
+              children: [
+                Text(emoji, style: const TextStyle(fontSize: 22)),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        g.fullTitle,
+                        style: TextStyle(
+                          fontFamily: Hand.title,
+                          fontSize: 21,
+                          height: 1.1,
+                          fontWeight: FontWeight.w700,
+                          color: c.ink,
                         ),
                       ),
-                    );
-                  },
+                      Text(
+                        '${g.availableChapters.length} chapitre(s) · '
+                        '$done/${cards.length} maîtrisées',
+                        style: Hand.sansText(context, size: 12.5),
+                      ),
+                    ],
+                  ),
                 ),
+                ExpandChevron(open: open, onDark: false),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _chapterCard(
+    BuildContext context,
+    AppState state,
+    ContentLibrary library,
+    Brightness brightness,
+    Chapter ch,
+  ) {
+    final (tone, emoji) = moduleStyle(library.module(ch.moduleId).number);
+    final c = toneColors(tone, brightness);
+    final done = ch.flashcards
+        .where((f) => state.cards[f.id]?.mastered ?? false)
+        .length;
+    return Padding(
+      padding: const EdgeInsets.only(top: 8),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => FlashcardSessionPage(
+              cardIds: ch.flashcards.map((f) => f.id).toList(),
+            ),
+          ),
+        ),
+        child: HandBox(
+          fill: c.fill,
+          stroke: toneBright(tone),
+          strokeWidth: 2,
+          seed: ch.id.hashCode,
+          padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
+          child: Row(
+            children: [
+              Text(emoji, style: const TextStyle(fontSize: 26)),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      ch.title,
+                      style: TextStyle(
+                        fontFamily: Hand.body,
+                        fontSize: 20,
+                        height: 1.2,
+                        color: c.ink,
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    HandProgress(
+                      value: ch.flashcards.isEmpty
+                          ? 0
+                          : done / ch.flashcards.length,
+                      tone: tone,
+                      height: 8,
+                    ),
+                    const SizedBox(height: 3),
+                    Text(
+                      '$done/${ch.flashcards.length} maîtrisées',
+                      style: Hand.sansText(context, size: 12.5),
+                    ),
+                  ],
+                ),
+              ),
+              Icon(Icons.arrow_forward_rounded, color: c.ink),
             ],
           ),
         ),
-      ],
+      ),
     );
   }
 }

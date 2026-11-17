@@ -11,6 +11,8 @@ import 'notebook/page_kit.dart';
 import 'notebook/palette.dart';
 import 'notebook/typography.dart';
 import 'bilingual.dart';
+import 'course_view_bar.dart';
+import '../logic/study_groups.dart';
 
 /// Programme : au choix, le livre MILE2 (11 modules + Prérequis), le
 /// programme ORSYS en 5 modules tel quel, ou ce même programme enrichi de
@@ -18,47 +20,12 @@ import 'bilingual.dart';
 class CoursesPage extends StatefulWidget {
   const CoursesPage({super.key, this.focus});
 
-  /// Numéro du module (1 à 5) choisi ailleurs, par exemple sur l'accueil :
-  /// la page défile jusqu'à ce module, dans la vue affichée.
+  /// Rang du module choisi ailleurs, par exemple sur l'accueil, dans la vue
+  /// en cours : la page déplie ce module et défile jusqu'à lui.
   final ValueNotifier<int?>? focus;
 
   @override
   State<CoursesPage> createState() => _CoursesPageState();
-
-  static const _labels = {
-    CourseView.mile2: 'Livre MILE2',
-    CourseView.orsys: 'ORSYS',
-    CourseView.orsysPlus: 'ORSYS enrichi',
-  };
-
-  /// Rang, dans la vue [view], du module qui correspond au module [number]
-  /// de l'application : le même rang pour ORSYS ; pour le livre MILE2, le
-  /// module qui contient le plus de leçons de ce module.
-  static int targetModule(
-    ContentLibrary library,
-    CourseView? view,
-    int number,
-  ) {
-    if (view == null || view != CourseView.mile2) return number - 1;
-    final module = library.modules.where((m) => m.number == number).firstOrNull;
-    if (module == null) return 0;
-    final ids = {
-      for (final c in module.chapters)
-        for (final l in c.lessons) l.id,
-    };
-    var best = 0;
-    var bestCount = -1;
-    for (final (i, m) in library.mile2Outline.modules.indexed) {
-      final n = {for (final s in m.sections) ...s.lessons}
-          .where(ids.contains)
-          .length;
-      if (n > bestCount) {
-        best = i;
-        bestCount = n;
-      }
-    }
-    return best;
-  }
 
   static int _count(CourseOutline o) =>
       o.modules.fold(0, (n, m) => n + m.sections.length);
@@ -72,26 +39,32 @@ class CoursesPage extends StatefulWidget {
         '${missing.isEmpty ? 'Toutes les sections ont une leçon.' : '${missing.length} section(s) attendent encore leur leçon.'}';
   }
 
-  static List<Widget> _chapters(BuildContext context, Module m) {
+  static List<Widget> _chapters(BuildContext context, StudyGroup g) {
     final state = AppScope.of(context);
+    final library = state.library;
+    final (tone, _) = groupStyle(g);
     return [
       Padding(
         padding: const EdgeInsets.only(top: 14, left: 12),
         child: Text(
-          '🎯 S\'entraîner : chapitres du module ${m.number}',
+          g.moduleNumber != null
+              ? '🎯 S\'entraîner : chapitres du module ${g.moduleNumber}'
+              : '🎯 S\'entraîner : chapitres liés à ce module',
           style: Hand.sansText(
             context,
             size: 15,
           ).copyWith(fontWeight: FontWeight.w800),
         ),
       ),
-      for (final (i, c) in m.chapters.indexed)
+      for (final c in g.chapters)
         Padding(
           padding: const EdgeInsets.only(top: 10, left: 12),
           child: _ChapterCard(
             chapter: c,
-            number: '${m.number}.${i + 1}',
-            tone: moduleStyle(m.number).$1,
+            number: chapterNumber(library, c),
+            tone: g.moduleNumber != null
+                ? tone
+                : moduleStyle(library.module(c.moduleId).number).$1,
             stats: state.stats.chapters
                 .where((s) => s.chapter.id == c.id)
                 .firstOrNull,
@@ -103,7 +76,11 @@ class CoursesPage extends StatefulWidget {
 
 class _CoursesPageState extends State<CoursesPage> {
   final _keys = List.generate(16, (_) => GlobalKey());
-  CourseView? _view;
+
+  /// Modules dépliés, par vue (tout est replié au départ).
+  final _expanded = <CourseView?, Set<int>>{};
+
+  Set<int> _open(CourseView? view) => _expanded.putIfAbsent(view, () => {});
 
   @override
   void initState() {
@@ -127,13 +104,18 @@ class _CoursesPageState extends State<CoursesPage> {
     super.dispose();
   }
 
+  CourseView? _view(BuildContext context) {
+    final views = availableViews(AppScope.read(context).library);
+    return views.isEmpty ? null : currentView(AppScope.read(context));
+  }
+
   void _onFocus() {
-    final number = widget.focus?.value;
-    if (number == null) return;
+    final index = widget.focus?.value;
+    if (index == null || !mounted) return;
+    // Le module choisi est déplié, puis amené en haut de l'écran.
+    setState(() => _open(_view(context)).add(index));
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
-      final library = AppScope.read(context).library;
-      final index = CoursesPage.targetModule(library, _view, number);
       final target = index < _keys.length ? _keys[index].currentContext : null;
       if (target == null) return;
       widget.focus?.value = null;
@@ -145,35 +127,23 @@ class _CoursesPageState extends State<CoursesPage> {
     });
   }
 
+  void _toggle(CourseView? view, int i) => setState(() {
+    final open = _open(view);
+    if (!open.remove(i)) open.add(i);
+  });
+
   @override
   Widget build(BuildContext context) {
     final state = AppScope.of(context);
     final library = state.library;
-    final views = [
-      for (final v in CourseView.values)
-        if (library.outline(v).modules.isNotEmpty) v,
-    ];
-    final view = views.contains(state.courseView)
-        ? state.courseView
-        : views.firstOrNull;
-    _view = view;
+    final view = availableViews(library).isEmpty ? null : currentView(state);
+    final groups = studyGroups(library, view ?? CourseView.orsysPlus);
+    final open = _open(view);
     return NotebookPage(
       title: 'Cours',
       children: [
-        if (views.length > 1) ...[
-          SegmentedButton<CourseView>(
-            key: const Key('course-view'),
-            segments: [
-              for (final v in views)
-                ButtonSegment(value: v, label: Text(CoursesPage._labels[v]!)),
-            ],
-            selected: {view!},
-            showSelectedIcon: false,
-            onSelectionChanged: (v) =>
-                AppScope.read(context).setCourseView(v.first),
-          ),
-          const SizedBox(height: 14),
-        ],
+        const CourseViewSelector(key: Key('course-view')),
+        const SizedBox(height: 14),
         Align(
           alignment: Alignment.centerLeft,
           child: GradientButton(
@@ -185,22 +155,35 @@ class _CoursesPageState extends State<CoursesPage> {
               MaterialPageRoute(
                 builder: (_) => MindMapPage(
                   title: 'Toute la formation',
-                  root: courseMindMap(library),
+                  root: courseMindMap(library, view: view),
                 ),
               ),
             ),
           ),
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 8),
+        ExpandAllBar(
+          onExpandAll: () => setState(
+            () => open.addAll([for (var i = 0; i < groups.length; i++) i]),
+          ),
+          onCollapseAll: () => setState(open.clear),
+        ),
         switch (view) {
           CourseView.mile2 => OutlineView(
             outline: library.mile2Outline,
             moduleKeys: _keys,
+            expanded: open,
+            onToggle: (i) => _toggle(view, i),
             intro: CoursesPage._mile2Intro(library.mile2Outline),
+            trailing: (i) => i < groups.length && groups[i].chapters.isNotEmpty
+                ? CoursesPage._chapters(context, groups[i])
+                : const [],
           ),
           CourseView.orsys => OutlineView(
             outline: library.orsysOutline,
             moduleKeys: _keys,
+            expanded: open,
+            onToggle: (i) => _toggle(view, i),
             sectionWord: 'Thème',
             toneOf: (i) => moduleStyle(i + 1).$1,
             intro:
@@ -212,6 +195,8 @@ class _CoursesPageState extends State<CoursesPage> {
           CourseView.orsysPlus => OutlineView(
             outline: library.orsysPlusOutline,
             moduleKeys: _keys,
+            expanded: open,
+            onToggle: (i) => _toggle(view, i),
             sectionWord: 'Thème',
             toneOf: (i) => moduleStyle(i + 1).$1,
             intro:
@@ -220,11 +205,16 @@ class _CoursesPageState extends State<CoursesPage> {
                 '« Livre MILE2 » ou « + MILE2 ». Sous chaque module, ses '
                 'chapitres d\'entraînement (questions, flashcards, fiche) ; '
                 'un chapitre est validé à 80 %.',
-            trailing: (i) => i < library.modules.length
-                ? CoursesPage._chapters(context, library.modules[i])
+            trailing: (i) => i < groups.length
+                ? CoursesPage._chapters(context, groups[i])
                 : const [],
           ),
-          null => _ChapterList(modules: library.modules, moduleKeys: _keys),
+          null => _ChapterList(
+            groups: groups,
+            moduleKeys: _keys,
+            expanded: open,
+            onToggle: (i) => _toggle(view, i),
+          ),
         },
       ],
     );
@@ -233,10 +223,17 @@ class _CoursesPageState extends State<CoursesPage> {
 
 /// Repli sans sommaire : les modules et leurs chapitres.
 class _ChapterList extends StatelessWidget {
-  const _ChapterList({required this.modules, required this.moduleKeys});
+  const _ChapterList({
+    required this.groups,
+    required this.moduleKeys,
+    required this.expanded,
+    required this.onToggle,
+  });
 
-  final List<Module> modules;
+  final List<StudyGroup> groups;
   final List<GlobalKey> moduleKeys;
+  final Set<int> expanded;
+  final ValueChanged<int> onToggle;
 
   @override
   Widget build(BuildContext context) {
@@ -244,14 +241,21 @@ class _ChapterList extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        for (final (i, m) in modules.indexed) ...[
+        for (final g in groups) ...[
           const SizedBox(height: 22),
-          _ModuleBanner(
-            key: i < moduleKeys.length ? moduleKeys[i] : null,
-            module: m,
-            progress: state.stats.moduleProgress(m.id),
+          InkWell(
+            key: g.index < moduleKeys.length ? moduleKeys[g.index] : null,
+            borderRadius: BorderRadius.circular(18),
+            onTap: () => onToggle(g.index),
+            child: _ModuleBanner(
+              module: state.library.modules[g.index],
+              progress: state.stats.moduleProgress(
+                state.library.modules[g.index].id,
+              ),
+              open: expanded.contains(g.index),
+            ),
           ),
-          ...CoursesPage._chapters(context, m),
+          if (expanded.contains(g.index)) ...CoursesPage._chapters(context, g),
         ],
       ],
     );
@@ -260,18 +264,19 @@ class _ChapterList extends StatelessWidget {
 
 class _ModuleBanner extends StatelessWidget {
   const _ModuleBanner({
-    super.key,
     required this.module,
     required this.progress,
+    required this.open,
   });
 
   final Module module;
   final double progress;
+  final bool open;
 
   @override
   Widget build(BuildContext context) {
     final (tone, emoji) = moduleStyle(module.number);
-    final open = module.chapters.where((c) => c.available).length;
+    final available = module.chapters.where((c) => c.available).length;
     return GradientBanner(
       tone: tone,
       seed: 40 + module.number,
@@ -308,6 +313,7 @@ class _ModuleBanner extends StatelessWidget {
                   ],
                 ),
               ),
+              ExpandChevron(open: open),
             ],
           ),
           const SizedBox(height: 10),
@@ -320,7 +326,7 @@ class _ModuleBanner extends StatelessWidget {
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
               Text(
-                '${(progress * 100).round()} % · $open/${module.chapters.length} '
+                '${(progress * 100).round()} % · $available/${module.chapters.length} '
                 'chapitre(s) disponible(s)',
                 style: Hand.sansText(
                   context,

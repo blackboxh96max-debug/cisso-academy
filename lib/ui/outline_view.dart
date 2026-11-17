@@ -3,6 +3,7 @@ import 'package:material_ui/material_ui.dart';
 import '../app_state.dart';
 import '../models/content.dart';
 import 'bilingual.dart';
+import 'course_view_bar.dart';
 import 'lesson_page.dart';
 import 'notebook/hand_drawn.dart';
 import 'notebook/page_kit.dart';
@@ -33,7 +34,15 @@ class OutlineView extends StatelessWidget {
     this.toneOf = outlineTone,
     this.trailing,
     this.moduleKeys,
+    this.expanded,
+    this.onToggle,
   });
+
+  /// Modules dépliés (par rang). `null` : tout est déplié.
+  final Set<int>? expanded;
+
+  /// Déplie ou replie un module (par rang).
+  final ValueChanged<int>? onToggle;
 
   final CourseOutline outline;
 
@@ -64,17 +73,21 @@ class OutlineView extends StatelessWidget {
             tone: toneOf(i),
             seed: 60 + i,
             word: sectionWord,
+            open: expanded?.contains(i) ?? true,
+            onToggle: onToggle == null ? null : () => onToggle!(i),
           ),
-          for (final s in m.sections)
-            Padding(
-              padding: const EdgeInsets.only(top: 10, left: 12),
-              child: _SectionCard(
-                section: s,
-                tone: toneOf(i),
-                word: sectionWord,
+          if (expanded?.contains(i) ?? true) ...[
+            for (final s in m.sections)
+              Padding(
+                padding: const EdgeInsets.only(top: 10, left: 12),
+                child: _SectionCard(
+                  section: s,
+                  tone: toneOf(i),
+                  word: sectionWord,
+                ),
               ),
-            ),
-          ...?trailing?.call(i),
+            ...?trailing?.call(i),
+          ],
         ],
         const SizedBox(height: 16),
         Text(
@@ -96,12 +109,16 @@ class _OutlineBanner extends StatelessWidget {
     required this.tone,
     required this.seed,
     required this.word,
+    this.open = true,
+    this.onToggle,
   });
 
   final OutlineModule module;
   final Tone tone;
   final int seed;
   final String word;
+  final bool open;
+  final VoidCallback? onToggle;
 
   @override
   Widget build(BuildContext context) {
@@ -109,21 +126,28 @@ class _OutlineBanner extends StatelessWidget {
     final ids = {for (final s in module.sections) ...s.lessons};
     final read = ids.where(state.readLessons.contains).length;
     final progress = ids.isEmpty ? 0.0 : read / ids.length;
-    return GradientBanner(
+    final banner = GradientBanner(
       tone: tone,
       seed: seed,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            module.label,
-            style: const TextStyle(
-              fontFamily: Hand.title,
-              fontSize: 30,
-              height: 1,
-              fontWeight: FontWeight.w700,
-              color: Colors.white,
-            ),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  module.label,
+                  style: const TextStyle(
+                    fontFamily: Hand.title,
+                    fontSize: 30,
+                    height: 1,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              if (onToggle != null) ExpandChevron(open: open),
+            ],
           ),
           Text(
             module.titleFr,
@@ -148,6 +172,16 @@ class _OutlineBanner extends StatelessWidget {
             ).copyWith(color: Colors.white, fontWeight: FontWeight.w600),
           ),
         ],
+      ),
+    );
+    if (onToggle == null) return banner;
+    return Semantics(
+      button: true,
+      expanded: open,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(18),
+        onTap: onToggle,
+        child: banner,
       ),
     );
   }

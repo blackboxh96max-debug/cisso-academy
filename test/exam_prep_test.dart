@@ -6,6 +6,7 @@ import 'package:cisso_academy/data/progress_store.dart';
 import 'package:cisso_academy/export/pdf_export.dart';
 import 'package:cisso_academy/main.dart';
 import 'package:cisso_academy/models/content.dart';
+import 'package:cisso_academy/ui/exam_prep_page.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 
@@ -143,8 +144,23 @@ void main() {
     await tester.scrollUntilVisible(find.text('📚 Par chapitre'), -200);
     await tester.tap(find.text('📚 Par chapitre'));
     await tester.pumpAndSettle();
+    // Modules de la vue choisie, repliés au départ.
     final chapterRow = find.textContaining('Gestion, analyse et traitement');
-    await tester.scrollUntilVisible(chapterRow, 200);
+    expect(chapterRow, findsNothing);
+    await tester.ensureVisible(find.text('Tout déplier'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Tout déplier'));
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      chapterRow,
+      200,
+      scrollable: find
+          .descendant(
+            of: find.byType(ExamPrepPage),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
     expect(chapterRow, findsOne);
     await tester.ensureVisible(find.text('Fiche').first);
     await tester.pumpAndSettle();

@@ -135,6 +135,12 @@ void main() {
         final state = await pumpApp(tester);
         await state.setCourseView(view);
         await tester.pumpAndSettle();
+        // La liste des modules de l'accueil est repliée au départ.
+        final toggle = find.byTooltip('Déplier la liste des modules');
+        await tester.ensureVisible(toggle);
+        await tester.pumpAndSettle();
+        await tester.tap(toggle);
+        await tester.pumpAndSettle();
         final card = find.descendant(
           of: find.byType(DashboardPage),
           matching: find.text('Module 4'),
@@ -144,8 +150,8 @@ void main() {
         await tester.tap(card);
         await tester.pumpAndSettle();
         expect(find.byType(CoursesPage), findsOneWidget);
-        final index = CoursesPage.targetModule(library, view, 4);
-        final label = library.outline(view).modules[index].label;
+        // Même découpage que l'accueil : le 4e module de la vue choisie.
+        final label = library.outline(view).modules[3].label;
         final banner = find.descendant(
           of: find.byType(CoursesPage),
           matching: find.text(label),
@@ -157,7 +163,10 @@ void main() {
             tester.view.physicalSize.height / tester.view.devicePixelRatio;
         expect(top, greaterThan(0));
         expect(top, lessThan(height / 2));
-        if (view != CourseView.mile2) expect(label, 'Module 4');
+        expect(label, 'Module 4');
+        // Ce module est déplié, les autres restent repliés.
+        final firstSection = view == CourseView.mile2 ? 'Section 1' : 'Thème 1';
+        expect(find.textContaining('$firstSection · '), findsWidgets);
       },
     );
   }
@@ -173,7 +182,19 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
-    // Par défaut, l'ordre du livre : sections officielles et leçons reliées.
+    // Par défaut, l'ordre du livre, modules repliés.
+    expect(find.text('Section 1 · Définitions du risque'), findsNothing);
+    expect(find.text('Prérequis'), findsOneWidget);
+    // Un module se déplie d'un geste…
+    await tester.tap(find.text('Module 1').first);
+    await tester.pumpAndSettle();
+    expect(find.text('Section 1 · Définitions du risque'), findsOneWidget);
+    await tester.tap(find.text('Tout replier'));
+    await tester.pumpAndSettle();
+    expect(find.text('Section 1 · Définitions du risque'), findsNothing);
+    // … ou tous ensemble : sections officielles et leçons reliées.
+    await tester.tap(find.text('Tout déplier'));
+    await tester.pumpAndSettle();
     expect(find.text('Section 1 · Définitions du risque'), findsOneWidget);
     expect(find.text('Risk Definitions'), findsWidgets);
     final link = find
@@ -217,6 +238,8 @@ void main() {
     await tester.tap(find.text('ORSYS'));
     await tester.pumpAndSettle();
     expect(state.courseView, CourseView.orsys);
+    await tester.tap(find.text('Tout déplier'));
+    await tester.pumpAndSettle();
     expect(
       find.text('Thème 1 · Gestion des risques : évaluation et réponses'),
       findsOneWidget,
@@ -224,9 +247,13 @@ void main() {
     expect(find.text('+ MILE2'), findsNothing);
     expect(find.text('Comprendre la sécurité de l\'information'), findsNothing);
     // Version enrichie : les ajouts du livre sont signalés, mémorisée.
+    await tester.drag(list, const Offset(0, 40000));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('ORSYS enrichi'));
     await tester.pumpAndSettle();
     expect(state.courseView, CourseView.orsysPlus);
+    await tester.tap(find.text('Tout déplier'));
+    await tester.pumpAndSettle();
     expect(await state.store.setting('courseView'), 'orsysPlus');
     final added = find.text('Comprendre la sécurité de l\'information');
     for (var i = 0; i < 10 && added.evaluate().isEmpty; i++) {
@@ -462,6 +489,8 @@ void main() {
     await tester.tap(find.text('ORSYS enrichi'));
     await tester.pumpAndSettle();
     expect(find.text('Module 1'), findsOneWidget);
+    await tester.tap(find.text('Tout déplier'));
+    await tester.pumpAndSettle();
     final list = find
         .descendant(
           of: find.byType(CoursesPage),
@@ -576,6 +605,15 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Répétition espacée : cartes du jour'), findsOneWidget);
     expect(find.text('Réviser le module'), findsWidgets);
+    // Vue du livre MILE2 par défaut : 11 modules et Prérequis, repliés.
+    expect(find.widgetWithText(ChoiceChip, '🧰 Prérequis'), findsOneWidget);
+    expect(find.text('Réviser'), findsNothing);
+    await tester.tap(find.text('Tout déplier'));
+    await tester.pumpAndSettle();
+    expect(find.text('Réviser'), findsWidgets);
+    await tester.tap(find.text('Tout replier'));
+    await tester.pumpAndSettle();
+    expect(find.text('Réviser'), findsNothing);
 
     await tester.tap(find.text('📋 Fiches'));
     await tester.pumpAndSettle();
@@ -591,6 +629,8 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.textContaining('Module 1 ·'), findsNothing);
     expect(find.textContaining('Module 2 ·'), findsOneWidget);
+    // Le module choisi est déplié : ses fiches sont à l'écran.
+    expect(find.text('Ouvrir'), findsWidgets);
 
     await tester.tap(find.text('🧠 Cartes mentales'));
     await tester.pumpAndSettle();

@@ -4,7 +4,9 @@ import '../app_state.dart';
 import '../export/pdf_export.dart';
 import '../export/pdf_save.dart';
 import '../models/content.dart';
+import '../logic/study_groups.dart';
 import 'bilingual.dart';
+import 'course_view_bar.dart';
 import 'notebook/hand_drawn.dart';
 import 'notebook/note_box.dart';
 import 'notebook/page_kit.dart';
@@ -32,6 +34,10 @@ class ExamPrepPage extends StatefulWidget {
 
 class _ExamPrepPageState extends State<ExamPrepPage> {
   _View _view = _View.lots;
+
+  /// Modules dépliés dans la vue « Par chapitre » (repliés au départ).
+  final _open = <int>{};
+  CourseView? _groupView;
 
   @override
   Widget build(BuildContext context) {
@@ -129,14 +135,23 @@ class _ExamPrepPageState extends State<ExamPrepPage> {
 
   List<Widget> _chapterSections(BuildContext context, ContentLibrary library) {
     final prep = library.examPrep;
+    final state = AppScope.of(context);
+    final view = currentView(state);
+    if (_groupView != view) {
+      _groupView = view;
+      _open.clear();
+    }
     final out = <Widget>[];
-    for (final m in library.modules) {
+    final shown = <int>[];
+    for (final g in studyGroups(library, view)) {
       final rows = <Widget>[];
-      for (final (i, c) in m.chapters.indexed) {
+      var count = 0;
+      for (final c in g.chapters) {
         final qs = prep.forChapter(c.id);
         if (qs.isEmpty) continue;
-        final number = '${m.number}.${i + 1}';
-        final (tone, _) = moduleStyle(m.number);
+        count += qs.length;
+        final number = chapterNumber(library, c);
+        final (tone, _) = moduleStyle(library.module(c.moduleId).number);
         rows.add(
           _PrepRow(
             tone: tone,
@@ -164,33 +179,69 @@ class _ExamPrepPageState extends State<ExamPrepPage> {
         );
       }
       if (rows.isEmpty) continue;
-      final (tone, emoji) = moduleStyle(m.number);
+      shown.add(g.index);
+      final (tone, emoji) = groupStyle(g);
+      final open = _open.contains(g.index);
       out.add(const SizedBox(height: 18));
       out.add(
-        GradientBanner(
-          tone: tone,
-          seed: 90 + m.number,
-          padding: const EdgeInsets.fromLTRB(16, 10, 12, 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '$emoji  Module ${m.number} · ${m.title}',
-                style: const TextStyle(
-                  fontFamily: Hand.title,
-                  fontSize: 22,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
+        Semantics(
+          button: true,
+          expanded: open,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(18),
+            onTap: () => setState(() {
+              if (!_open.remove(g.index)) _open.add(g.index);
+            }),
+            child: GradientBanner(
+              tone: tone,
+              seed: 90 + g.index,
+              padding: const EdgeInsets.fromLTRB(16, 10, 12, 10),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '$emoji  ${g.fullTitle}',
+                          style: const TextStyle(
+                            fontFamily: Hand.title,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
+                        if (g.titleEn != null)
+                          EnTag(g.titleEn!, onDark: true, size: 12),
+                        Text(
+                          '${rows.length} chapitre(s) · $count question(s)',
+                          style: Hand.sansText(context, size: 12.5).copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  ExpandChevron(open: open),
+                ],
               ),
-              if (m.titleEn != null) EnTag(m.titleEn!, onDark: true, size: 12),
-            ],
+            ),
           ),
         ),
       );
-      out.addAll(rows);
+      if (open) out.addAll(rows);
     }
-    return out;
+    return [
+      const SizedBox(height: 12),
+      const CourseViewSelector(),
+      if (shown.isNotEmpty)
+        ExpandAllBar(
+          onExpandAll: () => setState(() => _open.addAll(shown)),
+          onCollapseAll: () => setState(_open.clear),
+        ),
+      ...out,
+    ];
   }
 
   void _practice(BuildContext context, String title, List<PrepQuestion> qs) =>
