@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <!-- remparts : la défense en profondeur -->
+  <g fill="none" stroke-width="2" stroke-dasharray="6 5">
+    <circle cx="120" cy="98" r="78" stroke="#B5651D" />
+    <circle cx="120" cy="98" r="62" stroke="#2E7D4F" />
+  </g>
+  <!-- triangle CIA -->
+  <path d="M120 44 L170 128 L70 128 Z" fill="#FFF6DA" stroke="#26324A" stroke-width="3" stroke-linejoin="round" />
+  <!-- cadenas : confidentialité -->
+  <g stroke="#2D5BA8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M113 40 C113 28 127 28 127 40" fill="none" />
+    <path d="M108 40 L132 40 L131 56 L109 56 Z" fill="#BFD7FF" />
+  </g>
+  <!-- balance : intégrité -->
+  <g stroke="#2E7D4F" stroke-width="2.4" stroke-linecap="round" fill="none">
+    <path d="M170 116 L170 142 M156 120 L184 120" />
+    <path d="M156 120 L150 132 L162 132 Z M184 120 L178 132 L190 132 Z" fill="#CDEFD9" />
+  </g>
+  <!-- horloge : disponibilité -->
+  <g stroke="#E08A00" stroke-width="2.4" stroke-linecap="round">
+    <circle cx="70" cy="130" r="13" fill="#FFE8C2" />
+    <path d="M70 130 L70 122 M70 130 L76 133" />
+  </g>
+</svg>

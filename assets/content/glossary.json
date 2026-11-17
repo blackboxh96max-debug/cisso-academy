@@ -2992,5 +2992,117 @@
   "definition": "Algorithmes conçus pour les appareils à faibles ressources.",
   "example": "Ascon pour un capteur connecté.",
   "kind": "general"
+ },
+ {
+  "id": "dad-triad",
+  "en": "DAD triad",
+  "fr": "Triade DAD",
+  "acronym": "DAD",
+  "definition": "Divulgation, altération, destruction : les contraires de la confidentialité, de l'intégrité et de la disponibilité.",
+  "example": "Une fuite de données est une divulgation.",
+  "kind": "general"
+ },
+ {
+  "id": "parkerian-hexad",
+  "en": "Parkerian hexad",
+  "fr": "Hexagone parkérien",
+  "definition": "Modèle de Donn Parker qui ajoute au triangle CIA l'authenticité, la possession et l'utilité.",
+  "example": "Une sauvegarde dont la clé est perdue a perdu son utilité.",
+  "kind": "general"
+ },
+ {
+  "id": "tcsec",
+  "en": "Trusted Computer System Evaluation Criteria",
+  "fr": "Critères d'évaluation des systèmes informatiques de confiance",
+  "acronym": "TCSEC",
+  "definition": "Critères américains des années 1980, dits « livre orange », centrés sur la confidentialité, avec les niveaux D à A1.",
+  "example": "Un système classé B1 utilise des étiquettes de sécurité.",
+  "kind": "general"
+ },
+ {
+  "id": "itsec",
+  "en": "Information Technology Security Evaluation Criteria",
+  "fr": "Critères d'évaluation de la sécurité des technologies de l'information",
+  "acronym": "ITSEC",
+  "definition": "Critères européens de 1991 qui séparent fonctionnalité et assurance (niveaux E0 à E6).",
+  "example": "Un produit évalué E3.",
+  "kind": "general"
+ },
+ {
+  "id": "common-criteria",
+  "en": "Common Criteria",
+  "fr": "Critères communs",
+  "acronym": "CC",
+  "definition": "Norme ISO/IEC 15408 d'évaluation de la sécurité des produits, avec les niveaux d'assurance EAL1 à EAL7.",
+  "example": "Une carte à puce certifiée EAL5.",
+  "kind": "general"
+ },
+ {
+  "id": "protection-profile",
+  "en": "Protection Profile",
+  "fr": "Profil de protection",
+  "acronym": "PP",
+  "definition": "Document qui exprime les besoins de sécurité d'une famille de produits, indépendamment d'un fabricant.",
+  "example": "Le profil de protection des pare-feu réseau.",
+  "kind": "general"
+ },
+ {
+  "id": "security-target",
+  "en": "Security Target",
+  "fr": "Cible de sécurité",
+  "acronym": "ST",
+  "definition": "Document du fabricant qui décrit les fonctions de sécurité du produit évalué.",
+  "example": "La cible de sécurité d'un pare-feu en version 7.2.",
+  "kind": "general"
+ },
+ {
+  "id": "evaluation-assurance-level",
+  "en": "Evaluation Assurance Level",
+  "fr": "Niveau d'assurance de l'évaluation",
+  "acronym": "EAL",
+  "definition": "Niveau de rigueur d'une évaluation selon les Critères communs, de EAL1 à EAL7.",
+  "example": "EAL7 : conception vérifiée formellement.",
+  "kind": "general"
+ },
+ {
+  "id": "accreditation",
+  "en": "Accreditation (authorization)",
+  "fr": "Accréditation (autorisation)",
+  "definition": "Décision formelle d'un responsable d'accepter le risque résiduel et de mettre un système en service.",
+  "example": "Le directeur signe l'autorisation d'exploitation du système.",
+  "kind": "general"
+ },
+ {
+  "id": "data-poisoning",
+  "en": "Data poisoning",
+  "fr": "Empoisonnement des données",
+  "definition": "Attaque qui glisse des exemples piégés dans les données d'entraînement d'un modèle.",
+  "example": "Des courriels malveillants étiquetés « sains » dans le jeu d'entraînement.",
+  "kind": "general"
+ },
+ {
+  "id": "evasion-attack",
+  "en": "Evasion attack",
+  "fr": "Attaque par évasion",
+  "definition": "Modification légère d'une entrée pour tromper un modèle au moment de son utilisation.",
+  "example": "Un fichier malveillant modifié pour être classé sain.",
+  "kind": "general"
+ },
+ {
+  "id": "prompt-injection",
+  "en": "Prompt injection",
+  "fr": "Injection d'instructions",
+  "definition": "Attaque qui glisse des instructions dans le texte traité par un modèle de langage pour détourner son comportement.",
+  "example": "Un ordre caché dans un courriel résumé par un assistant.",
+  "kind": "general"
+ },
+ {
+  "id": "ai-rmf",
+  "en": "AI Risk Management Framework",
+  "fr": "Cadre de gestion des risques de l'IA",
+  "acronym": "AI RMF",
+  "definition": "Cadre du NIST (2023) qui organise la gestion des risques de l'IA en quatre fonctions : Govern, Map, Measure, Manage.",
+  "example": "Cartographier les usages de l'IA avant de les mesurer.",
+  "kind": "general"
  }
 ]

@@ -66,8 +66,10 @@
           "number": 2,
           "titleEn": "Understanding Information Security",
           "titleFr": "Comprendre la sécurité de l'information",
-          "lessons": [],
-          "coverage": "partial"
+          "lessons": [
+            "m1c5-l1"
+          ],
+          "coverage": "covered"
         },
         {
           "number": 3,
@@ -111,9 +113,10 @@
           "titleEn": "Security Models and Evaluation Criteria",
           "titleFr": "Modèles de sécurité et critères d'évaluation",
           "lessons": [
-            "m3c3-l2"
+            "m3c3-l2",
+            "m1c5-l2"
           ],
-          "coverage": "partial"
+          "coverage": "covered"
         }
       ]
     },
@@ -359,8 +362,10 @@
           "number": 5,
           "titleEn": "Artificial Intelligence",
           "titleFr": "Intelligence artificielle",
-          "lessons": [],
-          "coverage": "missing"
+          "lessons": [
+            "m1c5-l3"
+          ],
+          "coverage": "covered"
         },
         {
           "number": 6,
