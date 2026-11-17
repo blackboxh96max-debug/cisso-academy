@@ -1,0 +1,1722 @@
+{
+ "lessons": [
+  {
+   "id": "m5c3-l1",
+   "title": "Systèmes juridiques et lois sur la cybercriminalité",
+   "minutes": 35,
+   "illustration": "assets/illustrations/m5c3_l1_balance.svg",
+   "illustrationAlt": "Dessin d'une balance de la justice posée sur un gros livre de lois, avec à côté un clavier d'ordinateur et un marteau de juge.",
+   "objectives": [
+    "Distinguer common law, droit civil, droit coutumier et droit religieux.",
+    "Différencier droit pénal, droit civil et droit administratif, et leurs niveaux de preuve.",
+    "Situer les grandes lois américaines et européennes souvent citées à l'examen.",
+    "Comprendre les difficultés des enquêtes internationales."
+   ],
+   "references": [
+    {
+     "title": "Convention du Conseil de l'Europe sur la cybercriminalité (Budapest, 2001)",
+     "kind": "general"
+    },
+    {
+     "title": "Code pénal français, articles 323-1 et suivants (atteintes aux systèmes de traitement automatisé de données)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Les grandes familles de droit"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Système",
+       "Principe",
+       "Exemples"
+      ],
+      [
+       "Common law (droit jurisprudentiel)",
+       "Les décisions des juges et les précédents font le droit",
+       "Royaume-Uni, États-Unis, Canada (hors Québec), Australie"
+      ],
+      [
+       "Droit civil (codifié)",
+       "Des codes écrits votés par le législateur ; le juge les applique",
+       "France, Allemagne, la plupart des pays européens"
+      ],
+      [
+       "Droit coutumier",
+       "Usages et traditions reconnus comme règles",
+       "Souvent combiné à d'autres systèmes"
+      ],
+      [
+       "Droit religieux",
+       "Fondé sur des textes religieux",
+       "Certains pays, en tout ou partie"
+      ],
+      [
+       "Systèmes mixtes",
+       "Combinaison de plusieurs systèmes",
+       "Québec, Écosse, Afrique du Sud"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "Common law = le juge et le précédent. Droit civil = le code."
+    },
+    {
+     "type": "diagram",
+     "title": "Qui fait la règle ?",
+     "alt": "Tableau en quatre cases : en common law, le juge et ses précédents ; en droit civil, le législateur et ses codes ; en droit coutumier, l'usage et la tradition ; en droit religieux, les textes religieux.",
+     "diagram": {
+      "type": "quadrant",
+      "xLabel": "Système",
+      "yLabel": "Source de la règle",
+      "cells": [
+       {
+        "emoji": "👨‍⚖️",
+        "label": "Common law",
+        "detail": "le juge, le précédent",
+        "tone": "blue"
+       },
+       {
+        "emoji": "📕",
+        "label": "Droit civil",
+        "detail": "le législateur, le code",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🏘️",
+        "label": "Coutumier",
+        "detail": "l'usage, la tradition",
+        "tone": "orange"
+       },
+       {
+        "emoji": "📖",
+        "label": "Religieux",
+        "detail": "les textes religieux",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "heading",
+     "text": "Les branches du droit"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Branche",
+       "Objet",
+       "Sanction",
+       "Niveau de preuve (tradition américaine)"
+      ],
+      [
+       "Pénal (criminal)",
+       "Infractions contre la société",
+       "Amende, prison",
+       "Au-delà de tout doute raisonnable"
+      ],
+      [
+       "Civil (tort, contrats)",
+       "Litiges entre personnes ou entreprises",
+       "Dommages et intérêts",
+       "Prépondérance de la preuve"
+      ],
+      [
+       "Administratif (réglementaire)",
+       "Règles fixées par les autorités publiques et les régulateurs",
+       "Amendes administratives, sanctions",
+       "Selon l'autorité"
+      ]
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "À l'examen : une intrusion peut donner lieu à la fois à des poursuites pénales (contre l'auteur) et à une action civile (en réparation du préjudice). Le niveau de preuve exigé au pénal est plus élevé qu'au civil."
+    },
+    {
+     "type": "heading",
+     "text": "Lois souvent citées"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Loi",
+       "Pays",
+       "Objet"
+      ],
+      [
+       "Computer Fraud and Abuse Act (CFAA, 1986)",
+       "États-Unis",
+       "Accès non autorisé aux ordinateurs protégés"
+      ],
+      [
+       "Electronic Communications Privacy Act (ECPA, 1986)",
+       "États-Unis",
+       "Interception des communications en transit (Wiretap Act) ; ses autres titres couvrent les communications stockées (Stored Communications Act) et les relevés de numéros"
+      ],
+      [
+       "Digital Millennium Copyright Act (DMCA, 1998)",
+       "États-Unis",
+       "Droit d'auteur numérique, contournement des protections techniques"
+      ],
+      [
+       "Economic Espionage Act (1996), Defend Trade Secrets Act (2016)",
+       "États-Unis",
+       "Vol de secrets commerciaux"
+      ],
+      [
+       "HIPAA (1996)",
+       "États-Unis",
+       "Données de santé"
+      ],
+      [
+       "Gramm-Leach-Bliley Act (GLBA, 1999)",
+       "États-Unis",
+       "Données des clients des institutions financières"
+      ],
+      [
+       "Sarbanes-Oxley (SOX, 2002)",
+       "États-Unis",
+       "Fiabilité de l'information financière des sociétés cotées et contrôles internes"
+      ],
+      [
+       "FISMA (2002, modernisée en 2014)",
+       "États-Unis",
+       "Sécurité des systèmes d'information fédéraux"
+      ],
+      [
+       "CAN-SPAM (2003)",
+       "États-Unis",
+       "Courriels commerciaux : pas d'objet trompeur, adresse postale, désinscription respectée sous 10 jours ouvrables"
+      ],
+      [
+       "Loi Godfrain (1988)",
+       "France",
+       "Accès ou maintien frauduleux dans un système, entrave, altération de données (Code pénal, art. 323-1 et suivants)"
+      ],
+      [
+       "RGPD (2016, applicable en 2018)",
+       "Union européenne",
+       "Protection des données personnelles"
+      ],
+      [
+       "Directive NIS 2 (2022)",
+       "Union européenne",
+       "Cybersécurité des entités essentielles et importantes"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Une norme n'est pas une loi",
+     "text": "PCI DSS est une norme imposée par contrat par les réseaux de cartes de paiement, pas une loi. Les normes ISO sont volontaires, sauf si un contrat ou une réglementation les rend obligatoires. Une question d'examen peut jouer sur cette différence."
+    },
+    {
+     "type": "heading",
+     "text": "Le casse-tête international"
+    },
+    {
+     "type": "practice",
+     "title": "Pourquoi les enquêtes transfrontalières sont difficiles",
+     "items": [
+      "L'attaquant, les serveurs et la victime peuvent relever de pays et de lois différents.",
+      "Un acte puni dans un pays peut ne pas l'être dans un autre.",
+      "La collecte de preuves à l'étranger passe par l'entraide judiciaire, souvent lente.",
+      "La Convention de Budapest harmonise les infractions et facilite la coopération entre les États signataires.",
+      "Les règles sur les transferts de données limitent ce qu'on peut envoyer hors de l'UE."
+     ]
+    },
+    {
+     "type": "socCase",
+     "title": "Cas : une intrusion venue d'ailleurs",
+     "kind": "example",
+     "text": "Une PME fictive française découvre qu'un ancien prestataire, installé dans un autre pays, a continué à se connecter à son serveur après la fin du contrat. Le juridique dépose plainte en France pour maintien frauduleux dans un système (loi Godfrain) et engage en parallèle une action civile pour obtenir réparation. Les journaux horodatés et la chaîne de possession, préparés par le CSIRT, sont transmis aux enquêteurs."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "Juriste : je détermine les lois applicables selon le lieu des faits, des données et des personnes.",
+      "RSSI : je recense les obligations légales et contractuelles qui s'appliquent à mon organisation.",
+      "Enquêteur : je collecte les preuves de façon à ce qu'elles soient recevables au pénal comme au civil.",
+      "Auditeur : je vérifie que chaque obligation a un responsable et une preuve de conformité."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Common law = précédents des juges ; droit civil = codes.",
+      "Pénal = société, prison possible ; civil = réparation ; administratif = régulateurs.",
+      "ECPA = interception en transit ; Stored Communications Act = communications stockées.",
+      "SOX = information financière ; HIPAA = santé ; GLBA = finance ; FISMA = administration fédérale.",
+      "PCI DSS est contractuel, pas légal."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Familles de droit : common law, civil, coutumier, religieux, mixte.",
+      "Branches : pénal, civil, administratif ; niveaux de preuve.",
+      "Lois clés : CFAA, ECPA, DMCA, HIPAA, GLBA, SOX, FISMA, CAN-SPAM, Godfrain, RGPD, NIS 2.",
+      "Enquêtes internationales : compétence, entraide, Convention de Budapest."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c3-q01",
+      "m5c3-q06"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m5c3-l2",
+   "title": "Propriété intellectuelle et vie privée",
+   "minutes": 35,
+   "illustration": "assets/illustrations/m5c3_l2_cadenas.svg",
+   "illustrationAlt": "Dessin d'une ampoule protégée par un petit cadenas, à côté d'une fiche d'identité avec une silhouette dont certaines lignes sont masquées.",
+   "objectives": [
+    "Distinguer brevet, droit d'auteur, marque et secret d'affaires.",
+    "Appliquer les principes de protection des données personnelles (OCDE, RGPD).",
+    "Identifier responsable de traitement, sous-traitant et délégué à la protection des données.",
+    "Encadrer les transferts de données hors de l'Union européenne."
+   ],
+   "references": [
+    {
+     "title": "Lignes directrices de l'OCDE sur la protection de la vie privée et les flux transfrontières de données (1980, révisées en 2013)",
+     "kind": "general"
+    },
+    {
+     "title": "Règlement (UE) 2016/679 (RGPD), articles 5, 28, 37 et chapitre V",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Protéger les créations"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Protection",
+       "Ce qu'elle protège",
+       "Durée (règle générale)",
+       "Exemple"
+      ],
+      [
+       "Brevet",
+       "Une invention nouvelle, inventive et industrielle",
+       "20 ans à partir du dépôt",
+       "Un procédé de compression"
+      ],
+      [
+       "Droit d'auteur",
+       "L'expression d'une œuvre (texte, code source, image), pas l'idée",
+       "Vie de l'auteur + 70 ans (UE, États-Unis pour la plupart des œuvres)",
+       "Le code d'un logiciel"
+      ],
+      [
+       "Marque",
+       "Un signe qui distingue des produits ou services",
+       "Renouvelable sans limite tant qu'elle est utilisée et renouvelée (10 ans par période dans l'UE)",
+       "Un logo, un nom"
+      ],
+      [
+       "Secret d'affaires",
+       "Une information de valeur gardée secrète",
+       "Tant que le secret est protégé",
+       "Une recette, un algorithme interne"
+      ]
+     ]
+    },
+    {
+     "type": "diagram",
+     "title": "Quatre façons de protéger une création",
+     "alt": "Tableau en quatre cases : le brevet protège une invention environ 20 ans ; le droit d'auteur protège l'expression d'une œuvre ; la marque protège un signe distinctif et se renouvelle ; le secret d'affaires protège une information tant qu'elle reste secrète.",
+     "diagram": {
+      "type": "quadrant",
+      "xLabel": "Protection",
+      "yLabel": "Objet et durée",
+      "cells": [
+       {
+        "emoji": "⚙️",
+        "label": "Brevet",
+        "detail": "invention, ~20 ans",
+        "tone": "orange"
+       },
+       {
+        "emoji": "✍️",
+        "label": "Droit d'auteur",
+        "detail": "expression, vie + 70 ans",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🏷️",
+        "label": "Marque",
+        "detail": "signe, renouvelable",
+        "tone": "pink"
+       },
+       {
+        "emoji": "🤫",
+        "label": "Secret d'affaires",
+        "detail": "tant qu'il reste secret",
+        "tone": "violet"
+       }
+      ]
+     }
+    },
+    {
+     "type": "memo",
+     "text": "Brevet = invention, publiée en échange d'un monopole. Secret d'affaires = rien n'est publié, la protection dure tant que le secret tient."
+    },
+    {
+     "type": "practice",
+     "title": "Protéger un secret d'affaires",
+     "items": [
+      "Accords de confidentialité (NDA) avec employés et partenaires.",
+      "Contrôle d'accès selon le besoin d'en connaître.",
+      "Classification et marquage des documents.",
+      "Prévention des fuites (DLP) et surveillance des exfiltrations.",
+      "Rappel des obligations au départ d'un employé."
+     ]
+    },
+    {
+     "type": "risk",
+     "title": "Licences et piratage",
+     "text": "Utiliser un logiciel au-delà de sa licence (nombre de postes, usage commercial) ou copier du code sans respecter sa licence, y compris open source, expose l'organisation à des poursuites. Un inventaire des logiciels et des licences fait partie de la conformité."
+    },
+    {
+     "type": "heading",
+     "text": "Protéger les personnes : la vie privée"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Principes de l'OCDE (1980)",
+       "Principes du RGPD (art. 5)"
+      ],
+      [
+       "Limitation de la collecte",
+       "Licéité, loyauté, transparence"
+      ],
+      [
+       "Qualité des données",
+       "Limitation des finalités"
+      ],
+      [
+       "Spécification des finalités",
+       "Minimisation des données"
+      ],
+      [
+       "Limitation de l'utilisation",
+       "Exactitude"
+      ],
+      [
+       "Garanties de sécurité",
+       "Limitation de la conservation"
+      ],
+      [
+       "Transparence",
+       "Intégrité et confidentialité"
+      ],
+      [
+       "Participation individuelle",
+       "Responsabilité (accountability)"
+      ],
+      [
+       "Responsabilité",
+       ""
+      ]
+     ]
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Rôle (RGPD)",
+       "Responsabilité"
+      ],
+      [
+       "Responsable de traitement (controller)",
+       "Détermine les finalités et les moyens du traitement ; répond de la conformité"
+      ],
+      [
+       "Sous-traitant (processor)",
+       "Traite les données pour le compte du responsable, selon un contrat (art. 28)"
+      ],
+      [
+       "Délégué à la protection des données (DPO)",
+       "Conseille, contrôle la conformité, point de contact de l'autorité ; obligatoire dans certains cas (art. 37)"
+      ],
+      [
+       "Personne concernée",
+       "Dispose de droits : accès, rectification, effacement, opposition, portabilité…"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Les transferts hors de l'UE"
+    },
+    {
+     "type": "definition",
+     "title": "Transferts de données personnelles",
+     "text": "Un transfert hors de l'Espace économique européen n'est permis que si le pays offre un niveau de protection adéquat (décision d'adéquation de la Commission) ou avec des garanties appropriées : clauses contractuelles types, règles d'entreprise contraignantes. Le Privacy Shield entre l'UE et les États-Unis a été invalidé en 2020 (arrêt Schrems II) ; il a été remplacé en 2023 par le cadre de protection des données UE–États-Unis (Data Privacy Framework).",
+     "kind": "general"
+    },
+    {
+     "type": "trainerNote",
+     "text": "La vie privée et la sécurité se complètent : on ne peut pas protéger la vie privée sans sécurité, mais une sécurité excessive (surveillance sans limite des employés) peut porter atteinte à la vie privée. La minimisation et la proportionnalité guident les deux."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas : le nouvel outil d'analyse",
+     "kind": "example",
+     "text": "Une enseigne fictive veut confier l'analyse de ses fichiers clients à un prestataire hébergé hors de l'UE. Le DPO vérifie la finalité, réduit les données au strict nécessaire (pas de dates de naissance), fait signer un contrat de sous-traitance conforme à l'article 28, s'appuie sur des clauses contractuelles types et mène une analyse d'impact (AIPD) car le traitement porte sur un grand nombre de personnes."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "DPO : je vérifie la finalité et la minimisation avant tout nouveau traitement.",
+      "Juriste : je protège les inventions par brevet ou par secret selon la stratégie.",
+      "RSSI : je mets en place les mesures de sécurité que le RGPD exige « appropriées au risque ».",
+      "Développeur : je respecte les licences des bibliothèques que j'intègre."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Le droit d'auteur protège l'expression, pas l'idée.",
+      "Brevet : 20 ans, publication ; secret d'affaires : aucune publication, durée illimitée tant qu'il est gardé.",
+      "Responsable de traitement = décide ; sous-traitant = exécute.",
+      "Privacy Shield invalidé en 2020 ; Data Privacy Framework depuis 2023.",
+      "Minimisation : ne collecter que le nécessaire."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Brevet, droit d'auteur, marque, secret d'affaires.",
+      "Principes OCDE et RGPD.",
+      "Rôles : responsable, sous-traitant, DPO, personne concernée.",
+      "Transferts : adéquation, clauses types, règles d'entreprise contraignantes."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c3-q11",
+      "m5c3-q16"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m5c3-l3",
+   "title": "Responsabilité, conformité et éthique",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m5c3_l3_boussole.svg",
+   "illustrationAlt": "Dessin d'une boussole dont l'aiguille pointe vers le mot « éthique », posée sur une liste de contrôle de conformité avec des cases cochées.",
+   "objectives": [
+    "Expliquer prudence raisonnable (due care) et diligence raisonnable (due diligence).",
+    "Reconnaître la négligence et la responsabilité envers des tiers.",
+    "Décrire les éléments d'un programme de conformité efficace.",
+    "Appliquer des principes éthiques dans les décisions professionnelles."
+   ],
+   "references": [
+    {
+     "title": "(ISC)², Code of Ethics (quatre canons), exemple de code de déontologie professionnel",
+     "kind": "general"
+    },
+    {
+     "title": "RFC 1087, Ethics and the Internet (Internet Activities Board, 1989)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Prudence et diligence"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Notion",
+       "Signification",
+       "Exemple"
+      ],
+      [
+       "Prudence raisonnable (due care)",
+       "Faire ce qu'une personne raisonnable et prudente ferait : mettre en place les mesures attendues",
+       "Installer les correctifs, former le personnel"
+      ],
+      [
+       "Diligence raisonnable (due diligence)",
+       "Se renseigner, vérifier et contrôler en continu que les mesures sont adaptées et fonctionnent",
+       "Évaluer un fournisseur, auditer, surveiller"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "Due diligence = réfléchir et vérifier avant et pendant. Due care = agir comme il faut."
+    },
+    {
+     "type": "definition",
+     "title": "Négligence et règle de la personne prudente",
+     "text": "Une organisation qui ne prend pas les mesures qu'une personne prudente aurait prises dans la même situation peut être jugée négligente et responsable des dommages. Les dirigeants peuvent être tenus personnellement responsables s'ils n'ont pas exercé une prudence raisonnable.",
+     "kind": "general"
+    },
+    {
+     "type": "important",
+     "title": "Responsabilité envers les tiers",
+     "text": "Si un système mal protégé sert à attaquer d'autres organisations (relais d'un botnet, fuite des données d'un partenaire), l'organisation peut voir sa responsabilité engagée envers ces tiers. Les contrats avec les fournisseurs et partenaires précisent les obligations de sécurité, les audits et les notifications."
+    },
+    {
+     "type": "heading",
+     "text": "Un programme de conformité"
+    },
+    {
+     "type": "practice",
+     "title": "Éléments essentiels",
+     "items": [
+      "Un responsable de la conformité désigné, avec l'autorité et les moyens nécessaires.",
+      "Un inventaire des obligations : lois, règlements, contrats, normes.",
+      "Des politiques et procédures écrites, approuvées par la direction.",
+      "La formation et la sensibilisation du personnel.",
+      "Des audits internes et externes réguliers.",
+      "Un canal de signalement et des règles disciplinaires connues.",
+      "Des actions correctives suivies et un rapport à la direction."
+     ]
+    },
+    {
+     "type": "diagram",
+     "title": "La boucle de la conformité",
+     "alt": "Cycle en cinq étapes : identifier les obligations, rédiger les politiques, mettre en œuvre et former, contrôler et auditer, corriger et rendre compte, avec au centre le responsable de la conformité.",
+     "diagram": {
+      "type": "cycle",
+      "center": "👔 Responsable\nde la conformité",
+      "nodes": [
+       {
+        "emoji": "📚",
+        "label": "Obligations",
+        "detail": "lois, contrats, normes",
+        "tone": "blue"
+       },
+       {
+        "emoji": "📜",
+        "label": "Politiques",
+        "detail": "approuvées",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🎓",
+        "label": "Mise en œuvre",
+        "detail": "mesures, formation",
+        "tone": "green"
+       },
+       {
+        "emoji": "🔍",
+        "label": "Contrôle",
+        "detail": "audits",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🛠️",
+        "label": "Correction",
+        "detail": "actions, rapport",
+        "tone": "pink"
+       }
+      ]
+     }
+    },
+    {
+     "type": "heading",
+     "text": "L'éthique professionnelle"
+    },
+    {
+     "type": "text",
+     "text": "Les professionnels de la sécurité ont accès à des informations et à des pouvoirs importants. Les codes de déontologie des organismes de certification encadrent leur conduite ; chaque candidat doit connaître et respecter celui de son propre organisme."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Exemple : les quatre canons du code de l'(ISC)²",
+       "En pratique"
+      ],
+      [
+       "Protéger la société, le bien commun, la confiance du public et les infrastructures",
+       "Ne pas mettre le public en danger"
+      ],
+      [
+       "Agir honorablement, honnêtement, justement, de façon responsable et légale",
+       "Respecter la loi et dire la vérité"
+      ],
+      [
+       "Fournir un service diligent et compétent à ses mandants",
+       "Ne pas accepter une mission hors de ses compétences"
+      ],
+      [
+       "Faire progresser et protéger la profession",
+       "Partager, former, ne pas nuire à la réputation du métier"
+      ]
+     ]
+    },
+    {
+     "type": "practice",
+     "title": "Comportements contraires à l'éthique (d'après la RFC 1087)",
+     "items": [
+      "Chercher à obtenir un accès non autorisé aux ressources d'Internet.",
+      "Perturber l'usage prévu d'Internet.",
+      "Gaspiller des ressources (personnes, capacité, ordinateurs).",
+      "Détruire l'intégrité d'informations informatiques.",
+      "Porter atteinte à la vie privée des utilisateurs."
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "Face à un dilemme d'examen, choisis la réponse qui protège d'abord la société et les personnes, qui reste légale et honnête, et qui passe par les canaux prévus (hiérarchie, conformité, autorités) plutôt que par une action personnelle comme une « contre-attaque » ou une divulgation publique non encadrée."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas : le dilemme du consultant",
+     "kind": "example",
+     "text": "Lors d'un audit simulé, un consultant découvre qu'un client cache à son régulateur une fuite de données personnelles. Plutôt que de publier l'information sur un réseau social, il la documente, en informe par écrit la direction du client et lui rappelle ses obligations de notification, puis consulte son propre juridique sur la suite à donner si rien n'est fait."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "Responsable de la conformité : je rends compte à la direction de l'état des obligations.",
+      "Dirigeant : je peux être tenu personnellement responsable si je néglige la sécurité.",
+      "Auditeur : je reste indépendant et je rapporte ce que je constate, même si cela dérange.",
+      "Analyste : je n'utilise jamais mes accès à des fins personnelles."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Due care = agir ; due diligence = vérifier.",
+      "Négligence = ne pas faire ce qu'une personne prudente aurait fait.",
+      "Un programme de conformité efficace a un responsable désigné, des audits et des règles disciplinaires.",
+      "Éthique : protéger la société d'abord, rester légal, passer par les canaux prévus."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Prudence et diligence raisonnables ; négligence ; responsabilité envers les tiers.",
+      "Programme de conformité : responsable, inventaire, politiques, formation, audits, signalement, corrections.",
+      "Codes de déontologie et comportements contraires à l'éthique.",
+      "Décider : société, légalité, honnêteté, canaux prévus."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c3-q21",
+      "m5c3-q25"
+     ]
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "id": "m5c3-q01",
+   "domain": "bcp-dr-ir-law",
+   "level": "beginner",
+   "concept": "Common law",
+   "prompt": "Quel système juridique repose principalement sur les décisions des juges et les précédents ?",
+   "choices": [
+    "La common law",
+    "Le droit civil codifié",
+    "Le droit religieux",
+    "Le droit coutumier"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "En common law, la jurisprudence fait le droit ; en droit civil, ce sont les codes.",
+   "whyNot": {
+    "1": "Repose sur des codes écrits.",
+    "2": "Repose sur des textes religieux.",
+    "3": "Repose sur des usages."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c3-q02",
+   "domain": "bcp-dr-ir-law",
+   "level": "beginner",
+   "concept": "Branches du droit",
+   "prompt": "Quelle branche du droit traite des infractions contre la société et peut conduire à la prison ?",
+   "choices": [
+    "Le droit pénal",
+    "Le droit civil",
+    "Le droit administratif",
+    "Le droit des contrats"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le pénal sanctionne les atteintes à la société ; le civil répare un préjudice.",
+   "whyNot": {
+    "1": "Vise la réparation entre parties.",
+    "2": "Concerne les régulateurs.",
+    "3": "Branche du droit civil."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c3-q03",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Niveau de preuve",
+   "prompt": "Dans la tradition américaine, quel niveau de preuve exige un procès pénal ?",
+   "choices": [
+    "Au-delà de tout doute raisonnable",
+    "La prépondérance de la preuve",
+    "Une simple suspicion",
+    "Aucun niveau particulier"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le pénal exige davantage que le civil, où suffit la prépondérance de la preuve.",
+   "whyNot": {
+    "1": "C'est le niveau du civil.",
+    "2": "Insuffisant.",
+    "3": "Faux."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c3-q04",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "ECPA",
+   "prompt": "Quelle loi américaine vise l'interception intentionnelle des communications électroniques pendant leur transmission ?",
+   "choices": [
+    "L'Electronic Communications Privacy Act (ECPA)",
+    "Le Digital Millennium Copyright Act",
+    "Sarbanes-Oxley",
+    "HIPAA"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "L'ECPA (Wiretap Act) encadre l'interception en transit ; le Stored Communications Act couvre les communications stockées.",
+   "whyNot": {
+    "1": "Droit d'auteur.",
+    "2": "Information financière.",
+    "3": "Données de santé."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c3-q05",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "SOX",
+   "prompt": "Quelle loi impose aux sociétés cotées américaines des contrôles internes sur l'information financière ?",
+   "choices": [
+    "Sarbanes-Oxley (SOX)",
+    "HIPAA",
+    "GLBA",
+    "CAN-SPAM"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "SOX (2002) a suivi les scandales comptables et vise la fiabilité des états financiers.",
+   "whyNot": {
+    "1": "Santé.",
+    "2": "Données des clients des institutions financières.",
+    "3": "Courriels commerciaux."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c3-q06",
+   "domain": "bcp-dr-ir-law",
+   "level": "beginner",
+   "concept": "Norme et loi",
+   "prompt": "Pourquoi PCI DSS n'est-il pas une loi ?",
+   "choices": [
+    "Parce que c'est une norme imposée par contrat par les réseaux de cartes de paiement",
+    "Parce qu'il a été abrogé",
+    "Parce qu'il ne concerne que l'Europe",
+    "Parce qu'il est facultatif pour tous"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Les commerçants y sont tenus par leurs contrats d'acceptation des cartes.",
+   "whyNot": {
+    "1": "Il est en vigueur.",
+    "2": "Il est international.",
+    "3": "Il est obligatoire par contrat."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c3-q07",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "CAN-SPAM",
+   "prompt": "Quelle pratique la loi CAN-SPAM impose-t-elle aux expéditeurs de courriels commerciaux ?",
+   "choices": [
+    "Respecter les demandes de désinscription dans le délai prévu (10 jours ouvrables)",
+    "Utiliser des objets accrocheurs même trompeurs",
+    "Masquer l'adresse postale",
+    "Bloquer la désinscription 90 jours"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Elle exige aussi une adresse postale valide et interdit les objets trompeurs.",
+   "whyNot": {
+    "1": "Interdit.",
+    "2": "L'adresse doit figurer.",
+    "3": "Interdit."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c3-q08",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "Loi Godfrain",
+   "prompt": "En France, quel texte réprime l'accès ou le maintien frauduleux dans un système de traitement automatisé de données ?",
+   "choices": [
+    "La loi Godfrain de 1988 (Code pénal, art. 323-1 et suivants)",
+    "La loi CAN-SPAM",
+    "Le DMCA",
+    "La norme ISO 27001"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Elle punit aussi l'entrave au fonctionnement et l'altération des données.",
+   "whyNot": {
+    "1": "Loi américaine sur les courriels.",
+    "2": "Loi américaine sur le droit d'auteur.",
+    "3": "Norme volontaire, pas une loi pénale."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c3-q09",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "International",
+   "prompt": "Quel texte international vise à harmoniser les infractions informatiques et à faciliter la coopération entre États ?",
+   "choices": [
+    "La Convention de Budapest sur la cybercriminalité (2001)",
+    "Le RGPD",
+    "La norme PCI DSS",
+    "Le code de l'(ISC)²"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Adoptée dans le cadre du Conseil de l'Europe, elle est ouverte aux États non européens.",
+   "whyNot": {
+    "1": "Protection des données, pas les infractions.",
+    "2": "Norme contractuelle.",
+    "3": "Code de déontologie."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c3-q10",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "Double action",
+   "prompt": "Après une intrusion, l'entreprise porte plainte et réclame réparation de son préjudice. Quelles voies sont engagées ? (plusieurs réponses)",
+   "choices": [
+    "Une action pénale contre l'auteur",
+    "Une action civile en réparation",
+    "Une simple notification à l'éditeur d'antivirus",
+    "Une procédure de brevet"
+   ],
+   "correct": [
+    0,
+    1
+   ],
+   "explanation": "Les deux voies peuvent coexister pour les mêmes faits.",
+   "whyNot": {
+    "2": "Ce n'est pas une voie de droit.",
+    "3": "Sans rapport."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c3-q11",
+   "domain": "bcp-dr-ir-law",
+   "level": "beginner",
+   "concept": "Brevet",
+   "prompt": "Quelle protection accorde un monopole d'exploitation d'environ 20 ans sur une invention, en échange de sa publication ?",
+   "choices": [
+    "Le brevet",
+    "Le secret d'affaires",
+    "La marque",
+    "Le droit d'auteur"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "L'invention est publiée ; à l'expiration, elle tombe dans le domaine public.",
+   "whyNot": {
+    "1": "Rien n'est publié.",
+    "2": "Protège un signe distinctif.",
+    "3": "Protège l'expression d'une œuvre."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c3-q12",
+   "domain": "bcp-dr-ir-law",
+   "level": "beginner",
+   "concept": "Droit d'auteur",
+   "prompt": "Que protège le droit d'auteur ?",
+   "choices": [
+    "L'expression d'une œuvre, comme le code source, mais pas l'idée",
+    "L'idée elle-même",
+    "Un nom de produit",
+    "Un procédé industriel"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Deux programmes peuvent réaliser la même idée sans se copier.",
+   "whyNot": {
+    "1": "Les idées ne sont pas protégées.",
+    "2": "C'est la marque.",
+    "3": "C'est le brevet."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c3-q13",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Secret d'affaires",
+   "prompt": "Combien de temps dure la protection d'un secret d'affaires ?",
+   "choices": [
+    "Tant que l'information reste secrète et protégée",
+    "20 ans",
+    "Vie de l'auteur + 70 ans",
+    "10 ans non renouvelables"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Il faut des mesures raisonnables : NDA, contrôle d'accès, marquage.",
+   "whyNot": {
+    "1": "Brevet.",
+    "2": "Droit d'auteur.",
+    "3": "Inexact."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c3-q14",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Marque",
+   "prompt": "Quelle protection peut durer indéfiniment si elle est utilisée et renouvelée ?",
+   "choices": [
+    "La marque",
+    "Le brevet",
+    "Le droit d'auteur",
+    "Aucune"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Elle se renouvelle par périodes (10 ans dans l'UE).",
+   "whyNot": {
+    "1": "Durée limitée.",
+    "2": "Durée limitée.",
+    "3": "La marque le permet."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c3-q15",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Rôles RGPD",
+   "prompt": "Qui détermine les finalités et les moyens d'un traitement de données personnelles ?",
+   "choices": [
+    "Le responsable de traitement",
+    "Le sous-traitant",
+    "La personne concernée",
+    "L'hébergeur seul"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le sous-traitant agit pour son compte, selon un contrat.",
+   "whyNot": {
+    "1": "Il exécute.",
+    "2": "Elle a des droits, pas ce rôle.",
+    "3": "C'est en général un sous-traitant."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c3-q16",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Minimisation",
+   "prompt": "Quel principe du RGPD impose de ne collecter que les données nécessaires à la finalité ?",
+   "choices": [
+    "La minimisation des données",
+    "La portabilité",
+    "La transparence seulement",
+    "La limitation de la conservation"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Moins de données, moins de risque.",
+   "whyNot": {
+    "1": "Droit de la personne.",
+    "2": "Principe distinct.",
+    "3": "Concerne la durée, pas la quantité."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c3-q17",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "Transferts",
+   "prompt": "Comment transférer légalement des données personnelles vers un pays sans décision d'adéquation ?",
+   "choices": [
+    "Avec des garanties appropriées, comme des clauses contractuelles types",
+    "Sans condition",
+    "Uniquement avec l'accord oral du client",
+    "C'est toujours interdit"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Clauses types ou règles d'entreprise contraignantes, avec évaluation du risque.",
+   "whyNot": {
+    "1": "Le RGPD encadre ces transferts.",
+    "2": "Insuffisant.",
+    "3": "Des mécanismes existent."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c3-q18",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "Privacy Shield",
+   "prompt": "Qu'est devenu le Privacy Shield entre l'UE et les États-Unis ?",
+   "choices": [
+    "Invalidé en 2020 (Schrems II), remplacé en 2023 par le Data Privacy Framework",
+    "Toujours en vigueur sans changement",
+    "Remplacé par le Safe Harbor",
+    "Intégré à PCI DSS"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le Safe Harbor avait lui-même été invalidé en 2015.",
+   "whyNot": {
+    "1": "Invalidé.",
+    "2": "Le Safe Harbor est antérieur.",
+    "3": "Sans rapport."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c3-q19",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "Principes OCDE",
+   "prompt": "Lesquels font partie des principes de l'OCDE sur la vie privée ? (plusieurs réponses)",
+   "choices": [
+    "Limitation de la collecte",
+    "Spécification des finalités",
+    "Participation individuelle",
+    "Publication obligatoire des données"
+   ],
+   "correct": [
+    0,
+    1,
+    2
+   ],
+   "explanation": "Les huit principes incluent aussi qualité, limitation de l'utilisation, sécurité, transparence et responsabilité.",
+   "whyNot": {
+    "3": "Contraire à la vie privée."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c3-q20",
+   "domain": "bcp-dr-ir-law",
+   "level": "beginner",
+   "concept": "DPO",
+   "prompt": "Quel est le rôle du délégué à la protection des données (DPO) ?",
+   "choices": [
+    "Conseiller, contrôler la conformité et être le point de contact de l'autorité",
+    "Administrer les pare-feu",
+    "Développer les applications",
+    "Vendre les données"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Il est obligatoire dans certains cas prévus par l'article 37 du RGPD.",
+   "whyNot": {
+    "1": "Rôle technique distinct.",
+    "2": "Sans rapport.",
+    "3": "Absurde."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c3-q21",
+   "domain": "bcp-dr-ir-law",
+   "level": "beginner",
+   "concept": "Due care",
+   "prompt": "Que signifie la prudence raisonnable (due care) ?",
+   "choices": [
+    "Mettre en place les mesures qu'une personne prudente prendrait",
+    "Ne rien faire tant qu'il n'y a pas d'incident",
+    "Acheter l'outil le plus cher",
+    "Transférer tous les risques"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Agir comme il faut : correctifs, formation, contrôles adaptés.",
+   "whyNot": {
+    "1": "C'est de la négligence.",
+    "2": "Le coût ne fait pas la prudence.",
+    "3": "Ce n'est qu'une option de traitement."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c3-q22",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Due diligence",
+   "prompt": "Évaluer la sécurité d'un fournisseur avant de signer, puis l'auditer chaque année, relève de quoi ?",
+   "choices": [
+    "De la diligence raisonnable (due diligence)",
+    "De la négligence",
+    "Du droit d'auteur",
+    "De la provocation"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Se renseigner et vérifier en continu.",
+   "whyNot": {
+    "1": "C'est l'inverse.",
+    "2": "Sans rapport.",
+    "3": "Sans rapport."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c3-q23",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Négligence",
+   "prompt": "Une entreprise n'applique pas un correctif critique connu depuis un an, et une fuite en résulte. Comment qualifier cela ?",
+   "choices": [
+    "De négligence, faute de prudence raisonnable",
+    "De force majeure",
+    "De bonne pratique",
+    "D'acceptation formelle du risque"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Une personne prudente aurait corrigé ou compensé la faille.",
+   "whyNot": {
+    "1": "L'événement était prévisible.",
+    "2": "Non.",
+    "3": "Aucune décision documentée."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c3-q24",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Conformité",
+   "prompt": "Quel élément est essentiel à un programme de conformité efficace ?",
+   "choices": [
+    "Un responsable de la conformité désigné",
+    "Supprimer les règles disciplinaires",
+    "Laisser chaque service définir ses obligations légales",
+    "Éviter les audits internes"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Il supervise et rend compte ; audits et règles disciplinaires complètent le dispositif.",
+   "whyNot": {
+    "1": "Affaiblit le programme.",
+    "2": "Incohérent.",
+    "3": "Les audits sont indispensables."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c3-q25",
+   "domain": "bcp-dr-ir-law",
+   "level": "beginner",
+   "concept": "Éthique",
+   "prompt": "Face à un dilemme éthique, quelle priorité retenir selon les codes de déontologie courants ?",
+   "choices": [
+    "Protéger la société et le bien commun, en restant légal et honnête",
+    "Satisfaire d'abord son employeur, quoi qu'il demande",
+    "Agir seul sans prévenir personne",
+    "Choisir l'option la plus rentable"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Par exemple, le premier canon de l'(ISC)² est la protection de la société.",
+   "whyNot": {
+    "1": "Pas au détriment de la loi ou de la société.",
+    "2": "On passe par les canaux prévus.",
+    "3": "Ce n'est pas un critère éthique."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c3-q26",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "Éthique",
+   "prompt": "Un analyste découvre qu'un site externe attaque son entreprise. Quelle réaction est éthique et légale ?",
+   "choices": [
+    "Bloquer, documenter et signaler par les canaux prévus",
+    "Lancer une contre-attaque contre le site",
+    "Publier les données de l'attaquant",
+    "Ignorer l'attaque"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Une contre-attaque est généralement illégale et peut toucher des tiers innocents.",
+   "whyNot": {
+    "1": "Illégal.",
+    "2": "Risque juridique.",
+    "3": "Manque de diligence."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c3-q27",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "RFC 1087",
+   "prompt": "Selon la RFC 1087, quelles activités sont contraires à l'éthique ? (plusieurs réponses)",
+   "choices": [
+    "Chercher un accès non autorisé",
+    "Gaspiller les ressources",
+    "Porter atteinte à la vie privée des utilisateurs",
+    "Appliquer les correctifs"
+   ],
+   "correct": [
+    0,
+    1,
+    2
+   ],
+   "explanation": "Elle cite aussi la perturbation de l'usage d'Internet et la destruction de l'intégrité des informations.",
+   "whyNot": {
+    "3": "C'est une bonne pratique."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c3-q28",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Responsabilité des dirigeants",
+   "prompt": "Pourquoi les dirigeants doivent-ils s'impliquer dans la sécurité ?",
+   "choices": [
+    "Parce qu'ils peuvent être tenus responsables s'ils n'exercent pas une prudence raisonnable",
+    "Parce que la loi interdit aux techniciens de décider",
+    "Parce que la sécurité est gratuite",
+    "Ce n'est pas nécessaire"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "La gouvernance et la responsabilité remontent jusqu'à la direction.",
+   "whyNot": {
+    "1": "Faux.",
+    "2": "Faux.",
+    "3": "C'est nécessaire."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c3-q29",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "Responsabilité envers les tiers",
+   "prompt": "Un serveur mal protégé est utilisé comme relais pour attaquer un partenaire. Quel risque juridique l'organisation court-elle ?",
+   "choices": [
+    "Voir sa responsabilité engagée envers ce tiers",
+    "Aucun, elle est aussi victime",
+    "Seulement une amende CAN-SPAM",
+    "Une perte de brevet"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le défaut de prudence raisonnable peut engager sa responsabilité.",
+   "whyNot": {
+    "1": "Elle peut être à la fois victime et responsable.",
+    "2": "Sans rapport.",
+    "3": "Sans rapport."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c3-q30",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "Conformité",
+   "prompt": "Quels éléments font partie d'un programme de conformité ? (plusieurs réponses)",
+   "choices": [
+    "Un inventaire des obligations légales et contractuelles",
+    "Des audits réguliers",
+    "La formation du personnel",
+    "L'absence de politique écrite"
+   ],
+   "correct": [
+    0,
+    1,
+    2
+   ],
+   "explanation": "Avec un responsable désigné, des politiques, un canal de signalement et des corrections suivies.",
+   "whyNot": {
+    "3": "Les politiques écrites sont indispensables."
+   },
+   "kind": "general"
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "m5c3-f01",
+   "front": "Common law / droit civil",
+   "back": "Juges et précédents / codes écrits.",
+   "concept": "Common law"
+  },
+  {
+   "id": "m5c3-f02",
+   "front": "Pénal / civil / administratif",
+   "back": "Société, prison / réparation / régulateurs.",
+   "concept": "Droit pénal"
+  },
+  {
+   "id": "m5c3-f03",
+   "front": "Niveaux de preuve",
+   "back": "Pénal : au-delà du doute raisonnable ; civil : prépondérance.",
+   "concept": "Droit pénal"
+  },
+  {
+   "id": "m5c3-f04",
+   "front": "CFAA",
+   "back": "Accès non autorisé aux ordinateurs protégés (États-Unis).",
+   "concept": "CFAA"
+  },
+  {
+   "id": "m5c3-f05",
+   "front": "ECPA",
+   "back": "Interception en transit ; SCA = communications stockées.",
+   "concept": "ECPA"
+  },
+  {
+   "id": "m5c3-f06",
+   "front": "SOX / HIPAA / GLBA / FISMA",
+   "back": "Finance cotée / santé / clients financiers / État fédéral.",
+   "concept": "SOX"
+  },
+  {
+   "id": "m5c3-f07",
+   "front": "CAN-SPAM",
+   "back": "Pas d'objet trompeur, adresse postale, désinscription sous 10 jours ouvrables.",
+   "concept": "CAN-SPAM"
+  },
+  {
+   "id": "m5c3-f08",
+   "front": "Loi Godfrain",
+   "back": "France, 1988 : accès ou maintien frauduleux, entrave, altération.",
+   "concept": "Loi Godfrain"
+  },
+  {
+   "id": "m5c3-f09",
+   "front": "PCI DSS",
+   "back": "Norme contractuelle, pas une loi.",
+   "concept": "PCI DSS"
+  },
+  {
+   "id": "m5c3-f10",
+   "front": "Convention de Budapest",
+   "back": "Harmonise les infractions, facilite la coopération.",
+   "concept": "Convention de Budapest"
+  },
+  {
+   "id": "m5c3-f11",
+   "front": "Brevet",
+   "back": "Invention publiée, environ 20 ans.",
+   "concept": "Brevet"
+  },
+  {
+   "id": "m5c3-f12",
+   "front": "Droit d'auteur",
+   "back": "Expression, pas l'idée ; vie + 70 ans.",
+   "concept": "Droit d'auteur"
+  },
+  {
+   "id": "m5c3-f13",
+   "front": "Marque / secret d'affaires",
+   "back": "Renouvelable sans fin / tant que le secret tient.",
+   "concept": "Secret d'affaires"
+  },
+  {
+   "id": "m5c3-f14",
+   "front": "Principes RGPD",
+   "back": "Licéité, finalités, minimisation, exactitude, conservation, sécurité, responsabilité.",
+   "concept": "RGPD"
+  },
+  {
+   "id": "m5c3-f15",
+   "front": "Responsable / sous-traitant",
+   "back": "Décide / exécute pour son compte.",
+   "concept": "Responsable de traitement"
+  },
+  {
+   "id": "m5c3-f16",
+   "front": "Transferts hors UE",
+   "back": "Adéquation, clauses types, BCR ; Data Privacy Framework (2023).",
+   "concept": "Transferts de données"
+  },
+  {
+   "id": "m5c3-f17",
+   "front": "Due care / due diligence",
+   "back": "Agir comme il faut / vérifier en continu.",
+   "concept": "Prudence raisonnable"
+  },
+  {
+   "id": "m5c3-f18",
+   "front": "Négligence",
+   "back": "Ne pas faire ce qu'une personne prudente aurait fait.",
+   "concept": "Négligence"
+  },
+  {
+   "id": "m5c3-f19",
+   "front": "Programme de conformité",
+   "back": "Responsable désigné, obligations, politiques, formation, audits, signalement.",
+   "concept": "Conformité"
+  },
+  {
+   "id": "m5c3-f20",
+   "front": "Éthique",
+   "back": "Société d'abord, légal, honnête, canaux prévus ; pas de contre-attaque.",
+   "concept": "Éthique"
+  }
+ ],
+ "revisionSheet": [
+  "# Fiche de révision : lois, réglementation et éthique",
+  "Common law (juges, précédents), droit civil (codes), coutumier, religieux, mixte.",
+  "Pénal (société, prison, au-delà du doute raisonnable), civil (réparation, prépondérance de la preuve), administratif (régulateurs).",
+  "États-Unis : CFAA (accès non autorisé), ECPA (interception en transit ; SCA pour le stocké), DMCA (droit d'auteur numérique), EEA et DTSA (secrets commerciaux), HIPAA (santé), GLBA (finance), SOX (information financière), FISMA (fédéral), CAN-SPAM (désinscription sous 10 jours ouvrables).",
+  "France et Europe : loi Godfrain (Code pénal art. 323-1 et s.), RGPD, NIS 2, Convention de Budapest. PCI DSS = norme contractuelle.",
+  "Propriété intellectuelle : brevet (invention, ~20 ans), droit d'auteur (expression, vie + 70 ans), marque (renouvelable), secret d'affaires (tant que secret ; NDA, accès, DLP). Licences à respecter.",
+  "Vie privée : principes OCDE (collecte, qualité, finalités, utilisation, sécurité, transparence, participation, responsabilité) ; principes RGPD art. 5 (licéité, finalités, minimisation, exactitude, conservation, intégrité et confidentialité, responsabilité).",
+  "Rôles : responsable de traitement (décide), sous-traitant (exécute, contrat art. 28), DPO (conseille, contrôle, contact), personne concernée (droits).",
+  "Transferts hors UE : adéquation, clauses contractuelles types, BCR. Safe Harbor invalidé (2015), Privacy Shield invalidé (2020), Data Privacy Framework (2023).",
+  "Due care (agir comme une personne prudente) ; due diligence (se renseigner, vérifier en continu) ; négligence ; responsabilité des dirigeants et envers les tiers.",
+  "Programme de conformité : responsable désigné, inventaire des obligations, politiques, formation, audits, signalement, règles disciplinaires, corrections.",
+  "Éthique : codes de déontologie (ex. canons de l'(ISC)² : société, honnêteté et légalité, service compétent, profession) ; RFC 1087 ; jamais de contre-attaque ; canaux prévus.",
+  "Paires à ne pas confondre : common law/droit civil ; pénal/civil ; ECPA/SCA ; brevet/secret ; responsable/sous-traitant ; due care/due diligence."
+ ],
+ "mindMap": {
+  "label": "Lois, réglementation et éthique",
+  "en": "Law, Regulations and Ethics",
+  "emoji": "⚖️",
+  "children": [
+   {
+    "label": "Systèmes juridiques",
+    "en": "Legal Systems",
+    "emoji": "🏛️",
+    "tone": "blue",
+    "children": [
+     {
+      "label": "Common law",
+      "detail": "Précédents."
+     },
+     {
+      "label": "Droit civil",
+      "detail": "Codes."
+     },
+     {
+      "label": "Coutumier, religieux, mixte"
+     },
+     {
+      "label": "Pénal, civil, administratif"
+     }
+    ]
+   },
+   {
+    "label": "Lois clés",
+    "en": "Key Laws",
+    "emoji": "📜",
+    "tone": "violet",
+    "children": [
+     {
+      "label": "États-Unis",
+      "children": [
+       {
+        "label": "CFAA, ECPA, DMCA"
+       },
+       {
+        "label": "HIPAA, GLBA, SOX, FISMA"
+       },
+       {
+        "label": "CAN-SPAM"
+       }
+      ]
+     },
+     {
+      "label": "Europe et France",
+      "children": [
+       {
+        "label": "RGPD, NIS 2"
+       },
+       {
+        "label": "Loi Godfrain"
+       },
+       {
+        "label": "Convention de Budapest"
+       }
+      ]
+     },
+     {
+      "label": "PCI DSS",
+      "detail": "Contrat, pas loi."
+     }
+    ]
+   },
+   {
+    "label": "Propriété intellectuelle",
+    "en": "Intellectual Property",
+    "emoji": "💡",
+    "tone": "orange",
+    "children": [
+     {
+      "label": "Brevet",
+      "detail": "20 ans, publié."
+     },
+     {
+      "label": "Droit d'auteur",
+      "detail": "Expression."
+     },
+     {
+      "label": "Marque",
+      "detail": "Renouvelable."
+     },
+     {
+      "label": "Secret d'affaires",
+      "detail": "NDA."
+     }
+    ]
+   },
+   {
+    "label": "Vie privée",
+    "en": "Privacy",
+    "emoji": "🕵️",
+    "tone": "turquoise",
+    "children": [
+     {
+      "label": "Principes OCDE"
+     },
+     {
+      "label": "Principes RGPD",
+      "detail": "Minimisation."
+     },
+     {
+      "label": "Responsable, sous-traitant, DPO"
+     },
+     {
+      "label": "Transferts",
+      "detail": "Adéquation, clauses types."
+     }
+    ]
+   },
+   {
+    "label": "Responsabilité",
+    "en": "Liability and Compliance",
+    "emoji": "🧭",
+    "tone": "green",
+    "children": [
+     {
+      "label": "Due care, due diligence"
+     },
+     {
+      "label": "Négligence, personne prudente"
+     },
+     {
+      "label": "Tiers"
+     },
+     {
+      "label": "Programme de conformité"
+     }
+    ]
+   },
+   {
+    "label": "Éthique",
+    "en": "Ethics",
+    "emoji": "🤝",
+    "tone": "pink",
+    "children": [
+     {
+      "label": "Codes de déontologie"
+     },
+     {
+      "label": "RFC 1087"
+     },
+     {
+      "label": "Société d'abord, canaux prévus"
+     }
+    ]
+   }
+  ]
+ }
+}

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <g stroke="#26324A" stroke-width="2.2" stroke-linejoin="round">
+    <rect x="130" y="24" width="90" height="120" rx="5" fill="#FFFFFF" />
+    <rect x="140" y="40" width="12" height="12" fill="#FFFFFF" /><rect x="140" y="66" width="12" height="12" fill="#FFFFFF" /><rect x="140" y="92" width="12" height="12" fill="#FFFFFF" /><rect x="140" y="118" width="12" height="12" fill="#FFFFFF" />
+  </g>
+  <g stroke="#16A34A" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M142 46 L146 50 L154 38 M142 72 L146 76 L154 64 M142 98 L146 102 L154 90" /></g>
+  <path d="M160 46 L208 46 M160 72 L204 72 M160 98 L206 98 M160 124 L200 124" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" />
+  <g stroke="#26324A" stroke-width="2.4">
+    <circle cx="70" cy="84" r="46" fill="#FEF3C7" />
+    <circle cx="70" cy="84" r="38" fill="#FFFFFF" />
+  </g>
+  <path d="M70 84 L60 60 L70 52 L80 60 Z" fill="#EF4444" stroke="#26324A" stroke-width="1.6" />
+  <path d="M70 84 L60 108 L70 116 L80 108 Z" fill="#94A3B8" stroke="#26324A" stroke-width="1.6" />
+  <circle cx="70" cy="84" r="4" fill="#26324A" />
+  <g font-family="Nunito, sans-serif" font-size="9" font-weight="700" fill="#26324A" text-anchor="middle"><text x="70" y="44">N</text><text x="70" y="132">S</text></g>
+  <text x="70" y="22" font-family="Caveat, cursive" font-size="18" fill="#DB2777" text-anchor="middle">éthique</text>
+  <text x="175" y="166" font-family="Caveat, cursive" font-size="16" fill="#15803D" text-anchor="middle">conformité</text>
+</svg>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <g stroke="#26324A" stroke-width="2.2" stroke-linejoin="round">
+    <rect x="30" y="128" width="120" height="22" rx="3" fill="#7C3AED" />
+    <path d="M36 128 L36 150 M144 128 L144 150" stroke="#C4B5FD" />
+    <path d="M90 128 L90 40" stroke-width="3" />
+    <path d="M44 52 L136 52" stroke-width="3" />
+    <path d="M44 52 L30 88 L58 88 Z M136 52 L122 82 L150 82 Z" fill="none" stroke-width="1.6" />
+    <path d="M26 88 Q44 104 62 88 Z" fill="#FCD34D" />
+    <path d="M118 82 Q136 98 154 82 Z" fill="#FCD34D" />
+    <circle cx="90" cy="38" r="5" fill="#FCD34D" />
+  </g>
+  <text x="90" y="144" font-family="Caveat, cursive" font-size="14" fill="#FFFFFF" text-anchor="middle">CODE</text>
+  <g stroke="#26324A" stroke-width="2.2" stroke-linejoin="round">
+    <rect x="166" y="112" width="64" height="30" rx="4" fill="#E2E8F0" />
+    <path d="M174 120 L182 120 M188 120 L196 120 M202 120 L210 120 M216 120 L222 120 M174 128 L182 128 M188 128 L196 128 M202 128 L210 128 M216 128 L222 128 M184 136 L212 136" stroke-width="1.6" />
+    <rect x="176" y="48" width="44" height="18" rx="4" fill="#A16207" transform="rotate(-25 198 57)" />
+    <path d="M196 64 L178 98" stroke-width="5" stroke-linecap="round" stroke="#A16207" />
+  </g>
+  <text x="120" y="172" font-family="Caveat, cursive" font-size="16" fill="#1D4ED8" text-anchor="middle">droit et informatique</text>
+</svg>
