@@ -459,7 +459,7 @@
     },
     {
      "title": "Règlement (UE) 2024/1689 établissant des règles harmonisées concernant l'intelligence artificielle",
-     "kind": "official"
+     "kind": "general"
     },
     {
      "title": "ISO/IEC 42001:2023, Systèmes de management de l'intelligence artificielle",
@@ -512,7 +512,7 @@
     {
      "type": "text",
      "text": "Un système d'IA a une surface d'attaque propre : ses données d'entraînement, son modèle et ses entrées. Le NIST classe ces attaques dans sa taxonomie de l'apprentissage automatique adverse (NIST AI 100-2).",
-     "kind": "official"
+     "kind": "general"
     },
     {
      "type": "table",
@@ -596,7 +596,7 @@
     {
      "type": "text",
      "text": "Le NIST AI RMF 1.0, publié en janvier 2023, organise la gestion des risques de l'IA en quatre fonctions : Govern, Map, Measure, Manage. La norme ISO/IEC 42001:2023 définit un système de management de l'IA, sur le modèle de l'ISO/IEC 27001. Dans l'Union européenne, le règlement (UE) 2024/1689 sur l'IA classe les systèmes selon leur risque : pratiques interdites, systèmes à haut risque, obligations de transparence, risque minimal. Il s'applique de façon progressive : vérifiez le calendrier en vigueur avant de citer une échéance.",
-     "kind": "official"
+     "kind": "general"
     },
     {
      "type": "practice",

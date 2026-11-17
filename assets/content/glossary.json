@@ -3250,7 +3250,7 @@
   "acronym": "ENISA",
   "definition": "Agence qui conseille, prépare les schémas de certification et soutient la coopération en cybersécurité dans l'UE.",
   "example": "L'ENISA gère la plateforme unique de signalement prévue par le CRA.",
-  "kind": "official"
+  "kind": "general"
  },
  {
   "id": "essential-entity",
@@ -3258,7 +3258,7 @@
   "fr": "Entité essentielle",
   "definition": "Entité NIS 2 soumise à une supervision a priori et a posteriori, en général une grande entité d'un secteur hautement critique.",
   "example": "Un grand fournisseur d'électricité.",
-  "kind": "official"
+  "kind": "general"
  },
  {
   "id": "important-entity",
@@ -3266,7 +3266,7 @@
   "fr": "Entité importante",
   "definition": "Entité NIS 2 soumise à une supervision a posteriori, avec des plafonds d'amende plus bas.",
   "example": "Une entreprise moyenne de fabrication de dispositifs médicaux.",
-  "kind": "official"
+  "kind": "general"
  },
  {
   "id": "dora",
@@ -3275,7 +3275,7 @@
   "acronym": "DORA",
   "definition": "Règlement (UE) 2022/2554 sur la résilience opérationnelle numérique du secteur financier.",
   "example": "Une banque teste sa résilience et notifie ses incidents majeurs liés aux TIC.",
-  "kind": "official"
+  "kind": "general"
  },
  {
   "id": "tlpt",
@@ -3284,7 +3284,7 @@
   "acronym": "TLPT",
   "definition": "Test d'intrusion avancé qui reproduit les tactiques d'attaquants réels, exigé par DORA au moins tous les trois ans pour les entités concernées.",
   "example": "Un test simulant un groupe criminel visant les paiements.",
-  "kind": "official"
+  "kind": "general"
  },
  {
   "id": "cyber-resilience-act",
@@ -3293,7 +3293,7 @@
   "acronym": "CRA",
   "definition": "Règlement (UE) 2024/2847 fixant des exigences de cybersécurité pour les produits comportant des éléments numériques.",
   "example": "Une caméra connectée doit recevoir des mises à jour de sécurité pendant sa période de support.",
-  "kind": "official"
+  "kind": "general"
  },
  {
   "id": "cer-directive",
@@ -3302,7 +3302,7 @@
   "acronym": "CER",
   "definition": "Directive (UE) 2022/2557 sur la résilience des entités critiques, articulée avec NIS 2.",
   "example": "Un opérateur d'eau potable désigné entité critique.",
-  "kind": "official"
+  "kind": "general"
  },
  {
   "id": "eu-cyclone",
@@ -3311,7 +3311,7 @@
   "acronym": "EU-CyCLONe",
   "definition": "Réseau des autorités de gestion des crises cyber des États membres, créé par NIS 2.",
   "example": "Coordination lors d'une attaque touchant plusieurs pays.",
-  "kind": "official"
+  "kind": "general"
  },
  {
   "id": "early-warning",
@@ -3319,7 +3319,7 @@
   "fr": "Alerte précoce",
   "definition": "Premier signalement d'un incident important, exigé par NIS 2 dans les 24 heures.",
   "example": "« Incident en cours, origine malveillante suspectée. »",
-  "kind": "official"
+  "kind": "general"
  },
  {
   "id": "eu-cybersecurity-certification",
@@ -3327,7 +3327,7 @@
   "fr": "Certification européenne de cybersécurité",
   "definition": "Certification selon un schéma de l'UE, avec trois niveaux d'assurance : élémentaire, substantiel, élevé.",
   "example": "Le schéma EUCC fondé sur les Critères communs.",
-  "kind": "official"
+  "kind": "general"
  },
  {
   "id": "cyber-solidarity-act",
@@ -3335,7 +3335,7 @@
   "fr": "Règlement sur la cybersolidarité",
   "definition": "Règlement (UE) 2025/38 créant un système européen d'alerte, un mécanisme d'urgence et un examen des incidents.",
   "example": "Une réserve de prestataires de confiance mobilisable en cas d'incident majeur.",
-  "kind": "official"
+  "kind": "general"
  },
  {
   "id": "management-body-accountability",
@@ -3343,6 +3343,6 @@
   "fr": "Responsabilité des organes de direction",
   "definition": "Obligation pour la direction d'approuver et de superviser les mesures de cybersécurité, avec une responsabilité en cas de manquement (NIS 2, article 20).",
   "example": "Le conseil d'administration approuve la politique de sécurité.",
-  "kind": "official"
+  "kind": "general"
  }
 ]

@@ -15,15 +15,15 @@
    "references": [
     {
      "title": "Règlement (UE) 2019/881 relatif à l'ENISA et à la certification de cybersécurité (règlement sur la cybersécurité)",
-     "kind": "official"
+     "kind": "general"
     },
     {
      "title": "Directive (UE) 2022/2555 (NIS 2), articles 14 à 16 : groupe de coopération, réseau des CSIRT, EU-CyCLONe",
-     "kind": "official"
+     "kind": "general"
     },
     {
      "title": "Règlement (UE) 2025/38 sur la cybersolidarité, entré en vigueur le 4 février 2025",
-     "kind": "official"
+     "kind": "general"
     }
    ],
    "blocks": [
@@ -99,7 +99,7 @@
     {
      "type": "text",
      "text": "Ce règlement donne à l'ENISA un mandat permanent et crée un cadre européen de certification de cybersécurité pour les produits, services et processus TIC. Un certificat délivré selon un schéma européen est reconnu dans toute l'Union. Les schémas prévoient trois niveaux d'assurance : élémentaire, substantiel et élevé. Le premier schéma adopté, EUCC, s'appuie sur les Critères communs.",
-     "kind": "official"
+     "kind": "general"
     },
     {
      "type": "definition",
@@ -136,7 +136,7 @@
      "type": "important",
      "title": "Ce qu'il faut retenir",
      "text": "Textes vérifiés le 17 novembre 2026 ; certaines obligations entrent en application par étapes : vérifiez la version consolidée sur EUR-Lex avant de citer une date.",
-     "kind": "official"
+     "kind": "general"
     },
     {
      "type": "trainerNote",
@@ -202,19 +202,19 @@
    "references": [
     {
      "title": "Directive (UE) 2022/2555 (NIS 2)",
-     "kind": "official"
+     "kind": "general"
     },
     {
      "title": "Règlement (UE) 2022/2554 sur la résilience opérationnelle numérique du secteur financier (DORA)",
-     "kind": "official"
+     "kind": "general"
     },
     {
      "title": "Règlement (UE) 2024/2847 sur la cyberrésilience (CRA)",
-     "kind": "official"
+     "kind": "general"
     },
     {
      "title": "Directive (UE) 2022/2557 sur la résilience des entités critiques (CER)",
-     "kind": "official"
+     "kind": "general"
     }
    ],
    "blocks": [
@@ -264,7 +264,7 @@
     {
      "type": "text",
      "text": "NIS 2 s'applique, en règle générale, aux moyennes et grandes entreprises des secteurs listés dans ses annexes. L'annexe I couvre les secteurs hautement critiques : énergie, transports, banque, infrastructures des marchés financiers, santé, eau potable, eaux usées, infrastructures numériques, gestion des services TIC entre entreprises, administration publique, espace. L'annexe II couvre d'autres secteurs critiques : services postaux, gestion des déchets, chimie, alimentation, fabrication, fournisseurs numériques, recherche. Certaines entités sont visées quelle que soit leur taille (par exemple les fournisseurs de services DNS ou les prestataires de services de confiance qualifiés).",
-     "kind": "official"
+     "kind": "general"
     },
     {
      "type": "definition",
@@ -320,7 +320,7 @@
      "type": "important",
      "title": "DORA et NIS 2",
      "text": "Pour les entités financières, DORA est le texte spécifique : ses exigences priment sur celles de NIS 2 pour la gestion du risque TIC et la notification des incidents.",
-     "kind": "official"
+     "kind": "general"
     },
     {
      "type": "heading",
@@ -329,7 +329,7 @@
     {
      "type": "text",
      "text": "Le règlement sur la cyberrésilience impose aux fabricants de produits comportant des éléments numériques (logiciels, objets connectés) des exigences essentielles : sécurité dès la conception, pas de vulnérabilité exploitable connue à la mise sur le marché, configuration sûre par défaut, mises à jour de sécurité pendant la période de support, en principe d'au moins cinq ans. Les produits conformes portent le marquage CE. Les fabricants doivent signaler les vulnérabilités activement exploitées et les incidents graves via une plateforme unique gérée par l'ENISA.",
-     "kind": "official"
+     "kind": "general"
     },
     {
      "type": "heading",
@@ -420,15 +420,15 @@
    "references": [
     {
      "title": "Directive (UE) 2022/2555 (NIS 2), articles 21 et 23",
-     "kind": "official"
+     "kind": "general"
     },
     {
      "title": "Règlement d'exécution (UE) 2024/2690 : exigences techniques pour certaines entités numériques",
-     "kind": "official"
+     "kind": "general"
     },
     {
      "title": "Règlement (UE) 2016/679 (RGPD), articles 33 et 34",
-     "kind": "official"
+     "kind": "general"
     }
    ],
    "blocks": [
@@ -439,7 +439,7 @@
     {
      "type": "text",
      "text": "Les entités doivent prendre des mesures techniques, opérationnelles et organisationnelles proportionnées aux risques, selon une approche « tous risques ». L'article 21 fixe au minimum les mesures suivantes.",
-     "kind": "official"
+     "kind": "general"
     },
     {
      "type": "table",
@@ -655,7 +655,7 @@
     },
     {
      "title": "Directive (UE) 2022/2555 (NIS 2), article 21",
-     "kind": "official"
+     "kind": "general"
     }
    ],
    "blocks": [
@@ -830,15 +830,15 @@
    "references": [
     {
      "title": "Directive (UE) 2022/2555 (NIS 2), articles 20, 32 et 34",
-     "kind": "official"
+     "kind": "general"
     },
     {
      "title": "Règlement (UE) 2016/679 (RGPD), article 83",
-     "kind": "official"
+     "kind": "general"
     },
     {
      "title": "Règlement (UE) 2022/2554 (DORA), article 5",
-     "kind": "official"
+     "kind": "general"
     }
    ],
    "blocks": [
@@ -849,7 +849,7 @@
     {
      "type": "text",
      "text": "NIS 2 place la cybersécurité au niveau de la direction. Les organes de direction doivent approuver les mesures de gestion des risques, superviser leur mise en œuvre et peuvent être tenus responsables des manquements. Leurs membres doivent suivre une formation, et l'entité est encouragée à en proposer régulièrement à son personnel. DORA va dans le même sens pour le secteur financier : l'organe de direction porte la responsabilité finale du risque lié aux TIC.",
-     "kind": "official"
+     "kind": "general"
     },
     {
      "type": "diagram",
@@ -913,7 +913,7 @@
     {
      "type": "text",
      "text": "Pour NIS 2, ces montants sont des plafonds minimaux que chaque État doit au moins prévoir dans sa loi de transposition. Pour une entité essentielle, l'autorité peut aussi, en dernier recours, suspendre une certification ou interdire temporairement à un dirigeant d'exercer ses fonctions de direction.",
-     "kind": "official"
+     "kind": "general"
     },
     {
      "type": "heading",
