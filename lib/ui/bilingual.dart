@@ -4,6 +4,7 @@ import '../logic/terms.dart';
 import 'find_highlight.dart';
 import 'notebook/palette.dart';
 import 'notebook/typography.dart';
+import 'term_links.dart';
 
 /// Couleur des termes anglais : un bleu lisible sur le papier clair ou sombre.
 Color englishColor(BuildContext context) =>
@@ -83,11 +84,32 @@ TextSpan bilingualSpan(
     fontStyle: FontStyle.italic,
     fontSize: (style.fontSize ?? 16) * 0.86,
   );
+  final links = TermLinks.maybeOf(context);
   final spans = <InlineSpan>[];
   var pos = 0;
   for (final m in matches) {
-    spans.add(plain(text.substring(pos, m.end)));
-    spans.add(TextSpan(text: ' (${m.term.termEn})', style: en));
+    if (m.link && links != null) {
+      spans.add(plain(text.substring(pos, m.start)));
+      final term = m.term;
+      spans.add(
+        TextSpan(
+          text: text.substring(m.start, m.end),
+          style: termLinkStyle(context, style),
+          recognizer: links.tapFor((text, m.start, term.id), term),
+          mouseCursor: SystemMouseCursors.click,
+          onEnter: (e) => links.hoverEnter(term, e.position),
+          onExit: (_) => links.hoverExit(),
+          semanticsLabel:
+              '${text.substring(m.start, m.end)}, mot-clé : '
+              'appuyer pour la définition',
+        ),
+      );
+    } else {
+      spans.add(plain(text.substring(pos, m.end)));
+    }
+    if (m.translate) {
+      spans.add(TextSpan(text: ' (${m.term.termEn})', style: en));
+    }
     pos = m.end;
   }
   spans.add(plain(text.substring(pos)));

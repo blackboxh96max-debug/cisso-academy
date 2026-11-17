@@ -9,14 +9,24 @@ import 'widgets.dart';
 
 /// Glossaire bilingue anglais/français, avec recherche hors ligne.
 class GlossaryPage extends StatefulWidget {
-  const GlossaryPage({super.key});
+  const GlossaryPage({super.key, this.initialQuery});
+
+  /// Recherche déjà saisie à l'ouverture (venue d'un mot-clé d'une leçon).
+  final String? initialQuery;
 
   @override
   State<GlossaryPage> createState() => _GlossaryPageState();
 }
 
 class _GlossaryPageState extends State<GlossaryPage> {
-  String _query = '';
+  late String _query = widget.initialQuery ?? '';
+  late final _field = TextEditingController(text: _query);
+
+  @override
+  void dispose() {
+    _field.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +67,7 @@ class _GlossaryPageState extends State<GlossaryPage> {
           seed: 82,
           padding: const EdgeInsets.fromLTRB(8, 2, 8, 2),
           child: TextField(
+            controller: _field,
             style: Hand.sansText(context, size: 16),
             decoration: const InputDecoration(
               prefixIcon: Icon(Icons.search),
