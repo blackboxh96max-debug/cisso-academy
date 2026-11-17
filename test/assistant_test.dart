@@ -104,8 +104,8 @@ void main() {
         .first;
     await tester.drag(list, const Offset(0, 4000));
     await tester.pumpAndSettle();
-    // La question (bulle) et sa suggestion d'origine.
-    expect(find.text('What is a SIEM?'), findsNWidgets(2));
+    // La question (bulle), sa suggestion d'origine et les questions récentes.
+    expect(find.text('What is a SIEM?'), findsNWidgets(3));
     expect(find.text('🔤 Définition'), findsOneWidget);
     // Lieu selon la vue choisie (livre MILE2 par défaut).
     expect(find.textContaining('📍 Livre MILE2 · Module'), findsWidgets);
