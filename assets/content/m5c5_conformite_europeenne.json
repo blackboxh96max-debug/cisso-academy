@@ -1,0 +1,1813 @@
+{
+ "lessons": [
+  {
+   "id": "m5c5-l1",
+   "title": "L'environnement européen de la cybersécurité",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m5c5_l1_europe.svg",
+   "illustrationAlt": "Dessin d'un cercle d'étoiles jaunes autour d'un bouclier, relié par des traits à plusieurs petits postes de veille.",
+   "objectives": [
+    "Situer les acteurs européens : Commission, ENISA, autorités nationales, CSIRT.",
+    "Décrire les réseaux de coopération : groupe de coopération NIS, réseau des CSIRT, EU-CyCLONe.",
+    "Expliquer le cadre européen de certification de cybersécurité.",
+    "Citer les mécanismes du règlement sur la cybersolidarité."
+   ],
+   "references": [
+    {
+     "title": "Règlement (UE) 2019/881 relatif à l'ENISA et à la certification de cybersécurité (règlement sur la cybersécurité)",
+     "kind": "official"
+    },
+    {
+     "title": "Directive (UE) 2022/2555 (NIS 2), articles 14 à 16 : groupe de coopération, réseau des CSIRT, EU-CyCLONe",
+     "kind": "official"
+    },
+    {
+     "title": "Règlement (UE) 2025/38 sur la cybersolidarité, entré en vigueur le 4 février 2025",
+     "kind": "official"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Pourquoi une approche européenne ?"
+    },
+    {
+     "type": "text",
+     "text": "Les réseaux, les fournisseurs et les attaques ignorent les frontières. Une panne dans l'énergie ou la santé d'un pays peut toucher ses voisins. L'Union européenne fixe donc des règles communes et organise la coopération entre les États membres, qui restent responsables de leur sécurité nationale."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Acteur",
+       "Rôle"
+      ],
+      [
+       "Commission européenne",
+       "Propose les textes, adopte les actes d'exécution, finance des programmes"
+      ],
+      [
+       "ENISA (Agence de l'UE pour la cybersécurité)",
+       "Conseille, prépare les schémas de certification, soutient la coopération et la gestion des crises"
+      ],
+      [
+       "Autorités nationales compétentes",
+       "Supervisent les entités et prononcent les sanctions (par exemple l'ANSSI en France)"
+      ],
+      [
+       "CSIRT nationaux",
+       "Reçoivent les notifications d'incident et aident à la réponse"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Trois réseaux de coopération (NIS 2)"
+    },
+    {
+     "type": "diagram",
+     "title": "Du stratégique à l'opérationnel",
+     "alt": "Schéma en trois niveaux : le groupe de coopération NIS, qui réunit les États membres, la Commission et l'ENISA pour les orientations stratégiques ; EU-CyCLONe, qui coordonne la gestion des crises et incidents de grande ampleur ; le réseau des CSIRT, qui échange les informations techniques et coordonne la réponse.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🏛️",
+        "label": "Groupe de coopération",
+        "detail": "orientations stratégiques",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🚨",
+        "label": "EU-CyCLONe",
+        "detail": "crises de grande ampleur",
+        "tone": "red"
+       },
+       {
+        "emoji": "🛠️",
+        "label": "Réseau des CSIRT",
+        "detail": "coopération technique",
+        "tone": "blue"
+       }
+      ]
+     }
+    },
+    {
+     "type": "heading",
+     "text": "Le règlement sur la cybersécurité (2019/881)"
+    },
+    {
+     "type": "text",
+     "text": "Ce règlement donne à l'ENISA un mandat permanent et crée un cadre européen de certification de cybersécurité pour les produits, services et processus TIC. Un certificat délivré selon un schéma européen est reconnu dans toute l'Union. Les schémas prévoient trois niveaux d'assurance : élémentaire, substantiel et élevé. Le premier schéma adopté, EUCC, s'appuie sur les Critères communs.",
+     "kind": "official"
+    },
+    {
+     "type": "definition",
+     "title": "Certification européenne de cybersécurité",
+     "text": "Attestation, selon un schéma adopté au niveau de l'UE, qu'un produit, service ou processus TIC répond à des exigences de sécurité pour un niveau d'assurance donné (élémentaire, substantiel ou élevé).",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Le règlement sur la cybersolidarité (2025/38)"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Mécanisme",
+       "Ce qu'il apporte"
+      ],
+      [
+       "Système européen d'alerte",
+       "Des centres de cybersécurité nationaux et transfrontières qui détectent les menaces et partagent les alertes"
+      ],
+      [
+       "Mécanisme d'urgence",
+       "Préparation (tests de secteurs critiques), réserve européenne de prestataires de confiance, assistance mutuelle"
+      ],
+      [
+       "Examen des incidents",
+       "L'ENISA analyse un incident important ou de grande ampleur et en tire des recommandations"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Ce qu'il faut retenir",
+     "text": "Textes vérifiés le 17 novembre 2026 ; certaines obligations entrent en application par étapes : vérifiez la version consolidée sur EUR-Lex avant de citer une date.",
+     "kind": "official"
+    },
+    {
+     "type": "trainerNote",
+     "text": "À l'examen : ENISA = conseil, certification, coopération ; elle ne sanctionne pas les entreprises. Ce sont les autorités nationales qui supervisent et sanctionnent."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : un incident qui dépasse la frontière",
+     "kind": "example",
+     "text": "Exercice simulé : un fournisseur fictif de services gérés, présent dans trois pays, subit une compromission dans le laboratoire. Le SOC prépare la notification au CSIRT national de son pays d'établissement. Le formateur montre comment l'information circule ensuite dans le réseau des CSIRT et, si la crise s'étend, vers EU-CyCLONe."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : il identifie l'autorité compétente et le CSIRT auxquels son organisation doit rendre compte.",
+      "Responsable SOC : il garde les coordonnées du CSIRT national et le format de notification à portée de main.",
+      "Auditeur : il vérifie que l'organisation connaît les textes qui s'appliquent à elle.",
+      "Risk manager : il suit l'arrivée des nouveaux textes et leurs dates d'application."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "L'ENISA conseille et coordonne ; elle ne sanctionne pas.",
+      "EU-CyCLONe gère les crises ; le réseau des CSIRT gère la coopération technique.",
+      "Les niveaux d'assurance de la certification européenne : élémentaire, substantiel, élevé.",
+      "Le règlement sur la cybersolidarité ne remplace pas NIS 2 : il ajoute détection, réserve et entraide."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "L'UE fixe des règles communes ; les États supervisent et sanctionnent.",
+      "ENISA : mandat permanent depuis le règlement 2019/881.",
+      "Groupe de coopération, réseau des CSIRT, EU-CyCLONe.",
+      "Certification européenne : trois niveaux d'assurance ; EUCC fondé sur les Critères communs.",
+      "Cybersolidarité : alerte, urgence, examen des incidents."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c5-q01",
+      "m5c5-q03"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m5c5-l2",
+   "title": "Les grands textes : NIS 2, DORA, CRA et CER",
+   "minutes": 35,
+   "illustration": "assets/illustrations/m5c5_l2_textes.svg",
+   "illustrationAlt": "Dessin de quatre classeurs de couleurs différentes posés côte à côte, chacun marqué d'une étoile européenne.",
+   "objectives": [
+    "Décrire le champ de NIS 2 : entités essentielles et importantes.",
+    "Expliquer ce que DORA impose au secteur financier.",
+    "Décrire les obligations du règlement sur la cyberrésilience (CRA) pour les produits numériques.",
+    "Situer la directive CER, le RGPD et le règlement sur l'IA dans cet ensemble."
+   ],
+   "references": [
+    {
+     "title": "Directive (UE) 2022/2555 (NIS 2)",
+     "kind": "official"
+    },
+    {
+     "title": "Règlement (UE) 2022/2554 sur la résilience opérationnelle numérique du secteur financier (DORA)",
+     "kind": "official"
+    },
+    {
+     "title": "Règlement (UE) 2024/2847 sur la cyberrésilience (CRA)",
+     "kind": "official"
+    },
+    {
+     "title": "Directive (UE) 2022/2557 sur la résilience des entités critiques (CER)",
+     "kind": "official"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Une famille de textes complémentaires"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Texte",
+       "Vise",
+       "Idée centrale",
+       "Application"
+      ],
+      [
+       "NIS 2 (directive 2022/2555)",
+       "Entités de secteurs critiques",
+       "Gestion des risques, notification des incidents, responsabilité des dirigeants",
+       "Transposition au 17 octobre 2024, application depuis le 18 octobre 2024"
+      ],
+      [
+       "DORA (règlement 2022/2554)",
+       "Secteur financier et ses prestataires TIC critiques",
+       "Résilience opérationnelle numérique",
+       "Depuis le 17 janvier 2025"
+      ],
+      [
+       "CRA (règlement 2024/2847)",
+       "Produits comportant des éléments numériques",
+       "Sécurité dès la conception et pendant tout le support",
+       "Signalements dès le 11 septembre 2026 ; l'essentiel au 11 décembre 2027"
+      ],
+      [
+       "CER (directive 2022/2557)",
+       "Entités critiques",
+       "Résilience physique et globale",
+       "Volet non cyber, articulé avec NIS 2"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "NIS 2 : qui est concerné ?"
+    },
+    {
+     "type": "text",
+     "text": "NIS 2 s'applique, en règle générale, aux moyennes et grandes entreprises des secteurs listés dans ses annexes. L'annexe I couvre les secteurs hautement critiques : énergie, transports, banque, infrastructures des marchés financiers, santé, eau potable, eaux usées, infrastructures numériques, gestion des services TIC entre entreprises, administration publique, espace. L'annexe II couvre d'autres secteurs critiques : services postaux, gestion des déchets, chimie, alimentation, fabrication, fournisseurs numériques, recherche. Certaines entités sont visées quelle que soit leur taille (par exemple les fournisseurs de services DNS ou les prestataires de services de confiance qualifiés).",
+     "kind": "official"
+    },
+    {
+     "type": "definition",
+     "title": "Entité essentielle ou importante",
+     "text": "Les entités essentielles (en général les grandes entités des secteurs de l'annexe I) font l'objet d'une supervision a priori et a posteriori. Les entités importantes font l'objet d'une supervision a posteriori, plus légère. Les obligations de sécurité sont les mêmes ; la supervision et le plafond des amendes diffèrent.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "DORA : la résilience du secteur financier"
+    },
+    {
+     "type": "diagram",
+     "title": "Les piliers de DORA",
+     "alt": "Schéma en cinq piliers : gestion du risque lié aux TIC sous la responsabilité de l'organe de direction ; gestion, classification et notification des incidents majeurs ; tests de résilience, dont des tests d'intrusion fondés sur la menace au moins tous les trois ans pour les entités concernées ; gestion du risque lié aux prestataires TIC et supervision des prestataires critiques ; partage d'informations sur les menaces.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🧭",
+        "label": "Risque TIC",
+        "detail": "cadre sous la direction",
+        "tone": "blue"
+       },
+       {
+        "emoji": "📣",
+        "label": "Incidents",
+        "detail": "classer, notifier les majeurs",
+        "tone": "red"
+       },
+       {
+        "emoji": "🧪",
+        "label": "Tests",
+        "detail": "TLPT au moins tous les 3 ans",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🤝",
+        "label": "Prestataires TIC",
+        "detail": "contrats, prestataires critiques",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🔁",
+        "label": "Partage",
+        "detail": "renseignement sur les menaces",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "important",
+     "title": "DORA et NIS 2",
+     "text": "Pour les entités financières, DORA est le texte spécifique : ses exigences priment sur celles de NIS 2 pour la gestion du risque TIC et la notification des incidents.",
+     "kind": "official"
+    },
+    {
+     "type": "heading",
+     "text": "Le CRA : des produits sûrs par défaut"
+    },
+    {
+     "type": "text",
+     "text": "Le règlement sur la cyberrésilience impose aux fabricants de produits comportant des éléments numériques (logiciels, objets connectés) des exigences essentielles : sécurité dès la conception, pas de vulnérabilité exploitable connue à la mise sur le marché, configuration sûre par défaut, mises à jour de sécurité pendant la période de support, en principe d'au moins cinq ans. Les produits conformes portent le marquage CE. Les fabricants doivent signaler les vulnérabilités activement exploitées et les incidents graves via une plateforme unique gérée par l'ENISA.",
+     "kind": "official"
+    },
+    {
+     "type": "heading",
+     "text": "Et les autres textes ?"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Texte",
+       "Lien avec la cybersécurité"
+      ],
+      [
+       "RGPD (règlement 2016/679)",
+       "Sécurité des données personnelles, notification des violations à l'autorité en 72 heures"
+      ],
+      [
+       "Règlement sur l'IA (2024/1689)",
+       "Exigences de robustesse et de cybersécurité pour les systèmes d'IA à haut risque"
+      ],
+      [
+       "CER (directive 2022/2557)",
+       "Les entités critiques au sens de CER sont traitées comme entités essentielles dans NIS 2"
+      ]
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "Retenez la cible de chaque texte : NIS 2 = organisations de secteurs critiques ; DORA = finance ; CRA = produits ; CER = résilience des entités critiques ; RGPD = données personnelles."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : quel texte s'applique ?",
+     "kind": "example",
+     "text": "Exercice simulé : le formateur présente trois clients fictifs du SOC : un hôpital de taille moyenne, une banque et un fabricant de caméras connectées. L'analyste associe le premier à NIS 2 (santé), la seconde à DORA, le troisième au CRA pour ses produits, et rappelle que le RGPD s'applique aux trois dès qu'ils traitent des données personnelles."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : il établit la liste des textes applicables et les rattache à un responsable.",
+      "Responsable SOC : il aligne les procédures de notification sur les délais de chaque texte.",
+      "Auditeur : il vérifie la qualification de l'entité (essentielle ou importante) et sa justification.",
+      "Risk manager : il intègre la conformité réglementaire dans la cartographie des risques."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "NIS 2 est une directive : elle est transposée en droit national. DORA et le CRA sont des règlements : ils s'appliquent directement.",
+      "Entités essentielles et importantes ont les mêmes obligations de sécurité ; la supervision et les amendes diffèrent.",
+      "Pour la finance, DORA prime sur NIS 2 pour le risque TIC.",
+      "Le CRA vise les produits, pas l'organisation qui les utilise."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "NIS 2 : secteurs critiques, entités essentielles et importantes.",
+      "DORA : risque TIC, incidents, tests, prestataires, partage.",
+      "CRA : sécurité des produits numériques, marquage CE, signalement à l'ENISA.",
+      "CER, RGPD, règlement sur l'IA complètent l'ensemble.",
+      "Textes vérifiés le 17 novembre 2026 ; certaines obligations entrent en application par étapes : vérifiez la version consolidée sur EUR-Lex avant de citer une date."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c5-q06",
+      "m5c5-q08"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m5c5-l3",
+   "title": "Les exigences opérationnelles en pratique",
+   "minutes": 35,
+   "illustration": "assets/illustrations/m5c5_l3_horloge.svg",
+   "illustrationAlt": "Dessin d'une horloge marquée 24 h et 72 h à côté d'une liste à cocher de dix cases.",
+   "objectives": [
+    "Lister les dix catégories de mesures de l'article 21 de NIS 2.",
+    "Appliquer les délais de notification de NIS 2 et les comparer à ceux du RGPD et du CRA.",
+    "Organiser la sécurité de la chaîne d'approvisionnement et la gestion des vulnérabilités.",
+    "Préparer les preuves attendues par l'autorité de supervision."
+   ],
+   "references": [
+    {
+     "title": "Directive (UE) 2022/2555 (NIS 2), articles 21 et 23",
+     "kind": "official"
+    },
+    {
+     "title": "Règlement d'exécution (UE) 2024/2690 : exigences techniques pour certaines entités numériques",
+     "kind": "official"
+    },
+    {
+     "title": "Règlement (UE) 2016/679 (RGPD), articles 33 et 34",
+     "kind": "official"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Les dix mesures minimales (article 21 de NIS 2)"
+    },
+    {
+     "type": "text",
+     "text": "Les entités doivent prendre des mesures techniques, opérationnelles et organisationnelles proportionnées aux risques, selon une approche « tous risques ». L'article 21 fixe au minimum les mesures suivantes.",
+     "kind": "official"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Point",
+       "Mesure"
+      ],
+      [
+       "a",
+       "Politiques d'analyse des risques et de sécurité des systèmes d'information"
+      ],
+      [
+       "b",
+       "Gestion des incidents"
+      ],
+      [
+       "c",
+       "Continuité des activités : sauvegardes, reprise après sinistre, gestion de crise"
+      ],
+      [
+       "d",
+       "Sécurité de la chaîne d'approvisionnement"
+      ],
+      [
+       "e",
+       "Sécurité de l'acquisition, du développement et de la maintenance, dont le traitement et la divulgation des vulnérabilités"
+      ],
+      [
+       "f",
+       "Évaluation de l'efficacité des mesures"
+      ],
+      [
+       "g",
+       "Cyberhygiène de base et formation"
+      ],
+      [
+       "h",
+       "Cryptographie et chiffrement"
+      ],
+      [
+       "i",
+       "Sécurité des ressources humaines, contrôle d'accès, gestion des actifs"
+      ],
+      [
+       "j",
+       "Authentification multifacteur ou continue, communications sécurisées, y compris d'urgence"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Notifier un incident important"
+    },
+    {
+     "type": "diagram",
+     "title": "Les délais de NIS 2 (article 23)",
+     "alt": "Frise en quatre étapes : alerte précoce au CSIRT ou à l'autorité dans les 24 heures après avoir pris connaissance de l'incident important ; notification d'incident dans les 72 heures, avec une première évaluation ; rapport intermédiaire si l'autorité le demande ; rapport final au plus tard un mois après la notification.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "⏰",
+        "label": "Alerte précoce",
+        "detail": "24 h",
+        "tone": "red"
+       },
+       {
+        "emoji": "📝",
+        "label": "Notification",
+        "detail": "72 h, première évaluation",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🔄",
+        "label": "Intermédiaire",
+        "detail": "sur demande",
+        "tone": "yellow"
+       },
+       {
+        "emoji": "📕",
+        "label": "Rapport final",
+        "detail": "1 mois après la notification",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Texte",
+       "Événement",
+       "Premier délai"
+      ],
+      [
+       "NIS 2",
+       "Incident important",
+       "Alerte précoce en 24 h, notification en 72 h"
+      ],
+      [
+       "RGPD",
+       "Violation de données personnelles",
+       "72 h à l'autorité de contrôle, sauf risque improbable"
+      ],
+      [
+       "CRA",
+       "Vulnérabilité activement exploitée ou incident grave touchant un produit",
+       "Alerte précoce en 24 h via la plateforme de l'ENISA"
+      ],
+      [
+       "DORA",
+       "Incident majeur lié aux TIC",
+       "Délais fixés par les normes techniques : à vérifier"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Un même incident, plusieurs notifications",
+     "text": "Une intrusion avec vol de données personnelles chez une entité NIS 2 peut exiger une notification au CSIRT (NIS 2) et une autre à l'autorité de protection des données (RGPD). La procédure de réponse doit prévoir les deux circuits et leurs délais."
+    },
+    {
+     "type": "heading",
+     "text": "Chaîne d'approvisionnement et vulnérabilités"
+    },
+    {
+     "type": "practice",
+     "title": "Mettre en pratique",
+     "kind": "practice",
+     "items": [
+      "Tenir l'inventaire des fournisseurs critiques et évaluer leur sécurité ; l'inscrire dans les contrats (notification d'incident, audit, fin de contrat).",
+      "Publier une politique de divulgation coordonnée des vulnérabilités et un point de contact.",
+      "Suivre les vulnérabilités des produits utilisés et appliquer les correctifs selon leur criticité.",
+      "Généraliser l'authentification multifacteur pour les accès sensibles et à distance.",
+      "Tester les sauvegardes et les plans de crise, et garder la trace de ces tests."
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "Preuve de conformité",
+     "text": "L'autorité attend des éléments vérifiables : politiques approuvées, analyses de risque, comptes rendus de tests, registres d'incidents, preuves de formation, contrats fournisseurs. Une mesure sans trace écrite est difficile à démontrer.",
+     "kind": "general"
+    },
+    {
+     "type": "trainerNote",
+     "text": "Les délais sont des pièges classiques : NIS 2 = 24 h / 72 h / 1 mois ; RGPD = 72 h. Le délai court à partir du moment où l'entité a connaissance de l'incident."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : le compte à rebours",
+     "kind": "example",
+     "text": "Exercice simulé : à 10 h, le SOC d'une entité fictive confirme une intrusion importante dans le laboratoire. L'analyste lance le minuteur réglementaire : alerte précoce avant 10 h le lendemain, notification avant 10 h trois jours plus tard. Il prévient aussi le délégué à la protection des données, car des données personnelles fictives sont concernées."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : il fait approuver par la direction les politiques qui couvrent les dix mesures.",
+      "Responsable SOC : il intègre les délais réglementaires dans les procédures d'escalade et les outils de ticket.",
+      "Auditeur : il demande les preuves de chaque mesure et les registres d'incidents.",
+      "Risk manager : il évalue la dépendance aux fournisseurs critiques et leur niveau de sécurité."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "L'alerte précoce NIS 2 se fait en 24 h ; la notification complète en 72 h.",
+      "Le rapport final NIS 2 arrive au plus tard un mois après la notification.",
+      "La chaîne d'approvisionnement fait partie des mesures minimales (point d).",
+      "Le RGPD et NIS 2 peuvent s'appliquer au même incident."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Article 21 : dix catégories de mesures, approche tous risques.",
+      "Article 23 : 24 h, 72 h, un mois.",
+      "RGPD : 72 h ; CRA : 24 h pour les vulnérabilités exploitées.",
+      "Fournisseurs, vulnérabilités, multifacteur, tests : avec des preuves écrites."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c5-q11",
+      "m5c5-q12"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m5c5-l4",
+   "title": "Correspondance avec CISSO et les référentiels",
+   "minutes": 25,
+   "illustration": "assets/illustrations/m5c5_l4_correspondance.svg",
+   "illustrationAlt": "Dessin de deux colonnes de cases reliées par des flèches croisées, comme une table de correspondance.",
+   "objectives": [
+    "Relier les mesures de NIS 2 aux domaines CISSO étudiés dans cette formation.",
+    "Utiliser l'ISO/IEC 27001 et le NIST CSF 2.0 pour démontrer la conformité.",
+    "Construire une matrice de correspondance qui évite le travail en double."
+   ],
+   "references": [
+    {
+     "title": "ISO/IEC 27001:2022, Systèmes de management de la sécurité de l'information : exigences",
+     "kind": "general"
+    },
+    {
+     "title": "NIST Cybersecurity Framework (CSF) 2.0, février 2024",
+     "kind": "general"
+    },
+    {
+     "title": "Directive (UE) 2022/2555 (NIS 2), article 21",
+     "kind": "official"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Un seul système, plusieurs exigences"
+    },
+    {
+     "type": "text",
+     "text": "Une organisation n'a pas intérêt à créer un programme différent pour chaque texte. Elle s'appuie sur un système de management (souvent l'ISO/IEC 27001) et relie chaque exigence réglementaire aux mesures qui y répondent déjà. Les connaissances CISSO couvrent l'essentiel de ces mesures."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Mesure NIS 2 (art. 21)",
+       "Domaine CISSO",
+       "Fonction NIST CSF 2.0"
+      ],
+      [
+       "a. Analyse des risques, politiques",
+       "Gestion des risques ; management de la sécurité",
+       "Gouverner, Identifier"
+      ],
+      [
+       "b. Gestion des incidents",
+       "Réponse aux incidents",
+       "Détecter, Répondre"
+      ],
+      [
+       "c. Continuité, sauvegardes, crise",
+       "Continuité et reprise (BCP, DRP)",
+       "Rétablir"
+      ],
+      [
+       "d. Chaîne d'approvisionnement",
+       "Management de la sécurité",
+       "Gouverner"
+      ],
+      [
+       "e. Acquisition, développement, vulnérabilités",
+       "Développement sécurisé ; gestion des vulnérabilités",
+       "Protéger, Identifier"
+      ],
+      [
+       "f. Efficacité des mesures",
+       "Opérations de sécurité, audits",
+       "Identifier (amélioration)"
+      ],
+      [
+       "g. Cyberhygiène, formation",
+       "Sensibilisation du personnel",
+       "Protéger"
+      ],
+      [
+       "h. Cryptographie",
+       "Cryptographie",
+       "Protéger"
+      ],
+      [
+       "i. RH, contrôle d'accès, actifs",
+       "IAM et contrôle d'accès ; classification",
+       "Protéger, Identifier"
+      ],
+      [
+       "j. Multifacteur, communications sécurisées",
+       "Authentification ; sécurité des réseaux",
+       "Protéger"
+      ]
+     ]
+    },
+    {
+     "type": "diagram",
+     "title": "Construire une matrice de correspondance",
+     "alt": "Schéma en quatre étapes : lister les exigences de chaque texte applicable ; les relier aux mesures existantes du système de management ; repérer les écarts ; traiter les écarts et rassembler les preuves une seule fois pour plusieurs textes.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "📋",
+        "label": "Lister",
+        "detail": "exigences des textes",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🔗",
+        "label": "Relier",
+        "detail": "aux mesures existantes",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🔍",
+        "label": "Écarts",
+        "detail": "ce qui manque",
+        "tone": "orange"
+       },
+       {
+        "emoji": "✅",
+        "label": "Traiter",
+        "detail": "preuves mutualisées",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "important",
+     "title": "Certification n'est pas conformité",
+     "text": "Être certifié ISO/IEC 27001 aide beaucoup, mais ne prouve pas à lui seul la conformité à NIS 2 : le périmètre certifié, les délais de notification et la responsabilité des dirigeants doivent être vérifiés à part."
+    },
+    {
+     "type": "memo",
+     "text": "« Un système de management, une matrice, des preuves partagées. »"
+    },
+    {
+     "type": "trainerNote",
+     "text": "Le NIST CSF 2.0 a ajouté la fonction Gouverner aux cinq fonctions historiques (Identifier, Protéger, Détecter, Répondre, Rétablir). Elle correspond bien à la responsabilité des dirigeants exigée par NIS 2."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : une preuve pour deux exigences",
+     "kind": "example",
+     "text": "Exercice simulé : l'équipe du laboratoire prépare un audit fictif. Le registre des incidents du SOC sert à la fois de preuve pour la gestion des incidents de NIS 2 et pour la mesure correspondante de l'ISO/IEC 27001. L'analyste ajoute au registre l'heure de connaissance de l'incident, indispensable pour démontrer le respect des délais."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : la matrice évite de multiplier les programmes et montre la couverture à la direction.",
+      "Responsable SOC : ses registres et indicateurs sont des preuves pour plusieurs textes.",
+      "Auditeur : il vérifie que chaque exigence a une mesure et une preuve.",
+      "Risk manager : il traite les écarts selon le risque et les sanctions possibles."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Une certification ISO/IEC 27001 ne vaut pas conformité automatique à NIS 2.",
+      "CSF 2.0 : six fonctions, dont Gouverner.",
+      "La matrice relie exigences, mesures et preuves ; elle ne remplace pas l'analyse de risque."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Les mesures de NIS 2 recoupent les domaines CISSO.",
+      "ISO/IEC 27001 et NIST CSF 2.0 servent de colonne vertébrale.",
+      "Matrice : lister, relier, repérer les écarts, mutualiser les preuves."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c5-q16",
+      "m5c5-q17"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m5c5-l5",
+   "title": "Sanctions et rôle des dirigeants",
+   "minutes": 25,
+   "illustration": "assets/illustrations/m5c5_l5_direction.svg",
+   "illustrationAlt": "Dessin d'une table de réunion avec un marteau de juge posé dessus et un tableau montrant une flèche montante.",
+   "objectives": [
+    "Expliquer les obligations des organes de direction dans NIS 2.",
+    "Citer les plafonds d'amendes de NIS 2 et du RGPD.",
+    "Décrire comment ces textes changent le rôle du RSSI et de la direction."
+   ],
+   "references": [
+    {
+     "title": "Directive (UE) 2022/2555 (NIS 2), articles 20, 32 et 34",
+     "kind": "official"
+    },
+    {
+     "title": "Règlement (UE) 2016/679 (RGPD), article 83",
+     "kind": "official"
+    },
+    {
+     "title": "Règlement (UE) 2022/2554 (DORA), article 5",
+     "kind": "official"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "La direction devient responsable"
+    },
+    {
+     "type": "text",
+     "text": "NIS 2 place la cybersécurité au niveau de la direction. Les organes de direction doivent approuver les mesures de gestion des risques, superviser leur mise en œuvre et peuvent être tenus responsables des manquements. Leurs membres doivent suivre une formation, et l'entité est encouragée à en proposer régulièrement à son personnel. DORA va dans le même sens pour le secteur financier : l'organe de direction porte la responsabilité finale du risque lié aux TIC.",
+     "kind": "official"
+    },
+    {
+     "type": "diagram",
+     "title": "Ce que la direction doit faire",
+     "alt": "Schéma en quatre étapes : approuver les mesures de gestion des risques ; superviser leur mise en œuvre ; se former pour comprendre les risques ; rendre des comptes en cas de manquement.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "✍️",
+        "label": "Approuver",
+        "detail": "les mesures",
+        "tone": "blue"
+       },
+       {
+        "emoji": "👀",
+        "label": "Superviser",
+        "detail": "la mise en œuvre",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🎓",
+        "label": "Se former",
+        "detail": "comprendre les risques",
+        "tone": "green"
+       },
+       {
+        "emoji": "⚖️",
+        "label": "Répondre",
+        "detail": "des manquements",
+        "tone": "red"
+       }
+      ]
+     }
+    },
+    {
+     "type": "heading",
+     "text": "Les amendes"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Texte",
+       "Plafond maximal (montant le plus élevé des deux)"
+      ],
+      [
+       "NIS 2, entité essentielle",
+       "Au moins 10 millions d'euros ou 2 % du chiffre d'affaires annuel mondial"
+      ],
+      [
+       "NIS 2, entité importante",
+       "Au moins 7 millions d'euros ou 1,4 % du chiffre d'affaires annuel mondial"
+      ],
+      [
+       "RGPD, violations les plus graves",
+       "20 millions d'euros ou 4 % du chiffre d'affaires annuel mondial"
+      ]
+     ]
+    },
+    {
+     "type": "text",
+     "text": "Pour NIS 2, ces montants sont des plafonds minimaux que chaque État doit au moins prévoir dans sa loi de transposition. Pour une entité essentielle, l'autorité peut aussi, en dernier recours, suspendre une certification ou interdire temporairement à un dirigeant d'exercer ses fonctions de direction.",
+     "kind": "official"
+    },
+    {
+     "type": "heading",
+     "text": "Ce qui change pour le RSSI"
+    },
+    {
+     "type": "practice",
+     "title": "Le nouveau rôle",
+     "kind": "practice",
+     "items": [
+      "Rendre compte régulièrement à la direction, avec des indicateurs compréhensibles.",
+      "Faire approuver formellement les politiques et les décisions de risque, et en garder la trace.",
+      "Organiser la formation des dirigeants.",
+      "Préparer la relation avec l'autorité de supervision : contacts, preuves, notifications.",
+      "Participer aux décisions sur les fournisseurs critiques et les budgets."
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Pas seulement la peur de l'amende",
+     "text": "Les sanctions donnent du poids au RSSI, mais l'objectif reste la résilience : une direction qui comprend les risques décide mieux et plus vite pendant une crise."
+    },
+    {
+     "type": "trainerNote",
+     "text": "À l'examen : NIS 2 = 10 M€ ou 2 % (essentielles), 7 M€ ou 1,4 % (importantes) ; RGPD = jusqu'à 20 M€ ou 4 %. La responsabilité des dirigeants est l'article 20 de NIS 2."
+    },
+    {
+     "type": "socCase",
+     "title": "Cas SOC : préparer le point de la direction",
+     "kind": "example",
+     "text": "Exercice simulé : après un trimestre fictif, le responsable du SOC prépare une page pour le comité de direction : nombre d'incidents importants, délais de notification tenus, correctifs critiques en retard, résultat du dernier exercice de crise. La direction approuve un budget pour l'authentification multifacteur des accès à distance."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points de vue",
+     "items": [
+      "RSSI : il devient un conseiller de la direction, pas seulement un technicien.",
+      "Responsable SOC : ses indicateurs alimentent le tableau de bord de la direction.",
+      "Auditeur : il vérifie les procès-verbaux d'approbation et les preuves de formation des dirigeants.",
+      "Risk manager : il traduit les risques cyber en impact financier et réglementaire."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Pièges à l'examen",
+     "items": [
+      "Les dirigeants approuvent et supervisent ; ils peuvent être tenus responsables.",
+      "Les plafonds NIS 2 sont des minimums que les États doivent prévoir.",
+      "L'interdiction temporaire de fonctions de direction vise les entités essentielles, en dernier recours.",
+      "Les amendes RGPD les plus élevées vont jusqu'à 4 % du chiffre d'affaires mondial."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "NIS 2, article 20 : approuver, superviser, se former, répondre.",
+      "Amendes : 10 M€ / 2 % et 7 M€ / 1,4 % (NIS 2) ; jusqu'à 20 M€ / 4 % (RGPD).",
+      "Le RSSI rend compte à la direction, avec des preuves et des indicateurs.",
+      "Textes vérifiés le 17 novembre 2026 ; certaines obligations entrent en application par étapes : vérifiez la version consolidée sur EUR-Lex avant de citer une date."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c5-q21",
+      "m5c5-q22"
+     ]
+    }
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "id": "m5c5-q01",
+   "domain": "security-management",
+   "level": "beginner",
+   "concept": "ENISA",
+   "prompt": "Quel est le rôle de l'ENISA ?",
+   "choices": [
+    "Voter les directives européennes",
+    "Conseiller, certifier et coordonner",
+    "Remplacer les CSIRT nationaux",
+    "Sanctionner directement les entreprises"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "L'ENISA conseille, prépare les schémas de certification et soutient la coopération ; elle ne sanctionne pas.",
+   "whyNot": {
+    "0": "Ce sont le Parlement et le Conseil qui adoptent les textes.",
+    "2": "Elle soutient leur réseau sans les remplacer.",
+    "3": "Ce sont les autorités nationales qui sanctionnent."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c5-q02",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "EU-CyCLONe",
+   "prompt": "Quel réseau coordonne la gestion des crises cyber de grande ampleur dans l'UE ?",
+   "choices": [
+    "Le comité européen de la protection des données",
+    "EU-CyCLONe",
+    "Le réseau des CSIRT",
+    "Le groupe de coopération NIS"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "EU-CyCLONe relie les autorités de gestion des crises cyber des États membres.",
+   "whyNot": {
+    "0": "Il veille à l'application du RGPD.",
+    "2": "Il gère la coopération technique.",
+    "3": "Il donne les orientations stratégiques."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c5-q03",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "Certification européenne",
+   "prompt": "Quels sont les niveaux d'assurance de la certification européenne de cybersécurité ?",
+   "choices": [
+    "Élémentaire, substantiel, élevé",
+    "Les classes D, C, B puis A",
+    "Bronze, argent, or et platine",
+    "Les niveaux EAL1 à EAL7"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le règlement 2019/881 prévoit trois niveaux d'assurance.",
+   "whyNot": {
+    "1": "Ce sont les divisions du TCSEC.",
+    "2": "Ce ne sont pas des niveaux réglementaires.",
+    "3": "Ce sont les niveaux des Critères communs."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c5-q04",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "Cybersolidarité",
+   "prompt": "Que crée le règlement (UE) 2025/38 sur la cybersolidarité ?",
+   "choices": [
+    "Un système d'alerte et une réserve de prestataires",
+    "Une obligation de chiffrer toutes les données",
+    "Un nouveau régime de protection des données",
+    "Des amendes pour les fabricants d'objets"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Il crée un système européen d'alerte, un mécanisme d'urgence avec une réserve de prestataires de confiance, et un examen des incidents.",
+   "whyNot": {
+    "1": "Il n'impose pas de chiffrement général.",
+    "2": "C'est l'objet du RGPD.",
+    "3": "C'est l'objet du CRA."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c5-q05",
+   "domain": "security-management",
+   "level": "beginner",
+   "concept": "Autorités nationales",
+   "prompt": "Qui supervise et sanctionne les entités soumises à NIS 2 ?",
+   "choices": [
+    "L'ENISA, directement",
+    "Les CSIRT des autres États",
+    "La Commission européenne seule",
+    "Les autorités nationales compétentes"
+   ],
+   "correct": [
+    3
+   ],
+   "explanation": "Chaque État désigne ses autorités compétentes, qui supervisent et sanctionnent.",
+   "whyNot": {
+    "0": "Elle conseille et coordonne.",
+    "1": "Ils coopèrent mais ne supervisent pas les entités étrangères.",
+    "2": "Elle ne supervise pas directement les entités."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c5-q06",
+   "domain": "bcp-dr-ir-law",
+   "level": "beginner",
+   "concept": "NIS 2",
+   "prompt": "Quel texte vise la cybersécurité des entités de secteurs critiques comme l'énergie et la santé ?",
+   "choices": [
+    "Le règlement DORA",
+    "Le règlement sur l'IA",
+    "La directive NIS 2",
+    "Le règlement CRA"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "NIS 2 couvre les secteurs listés dans ses annexes I et II.",
+   "whyNot": {
+    "0": "Il vise le secteur financier.",
+    "1": "Il vise les systèmes d'IA.",
+    "3": "Il vise les produits numériques."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c5-q07",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Entités essentielles et importantes",
+   "prompt": "Qu'est-ce qui distingue une entité importante d'une entité essentielle dans NIS 2 ?",
+   "choices": [
+    "Une exemption de la responsabilité des dirigeants",
+    "Des obligations de sécurité totalement différentes",
+    "Une supervision plus légère et des amendes plus basses",
+    "L'absence de toute notification d'incident"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Les mesures sont les mêmes ; la supervision (a posteriori) et le plafond des amendes diffèrent.",
+   "whyNot": {
+    "0": "L'article 20 s'applique aux deux.",
+    "1": "Les mêmes mesures de l'article 21 s'appliquent.",
+    "3": "Elles doivent aussi notifier les incidents importants."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c5-q08",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "DORA",
+   "prompt": "Depuis quand le règlement DORA s'applique-t-il ?",
+   "choices": [
+    "Depuis le 11 décembre 2027",
+    "Depuis le 18 octobre 2024",
+    "Depuis le 25 mai 2018",
+    "Depuis le 17 janvier 2025"
+   ],
+   "correct": [
+    3
+   ],
+   "explanation": "DORA s'applique depuis le 17 janvier 2025.",
+   "whyNot": {
+    "0": "C'est l'application principale du CRA.",
+    "1": "C'est la date d'application de NIS 2.",
+    "2": "C'est la date d'application du RGPD."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c5-q09",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "DORA et NIS 2",
+   "prompt": "Une banque est soumise à NIS 2 et à DORA. Quel texte prime pour la gestion du risque TIC ?",
+   "choices": [
+    "DORA, texte spécifique au secteur",
+    "Le CRA, texte sur les produits",
+    "NIS 2, texte le plus récent",
+    "Le RGPD, texte le plus ancien"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "DORA est l'acte sectoriel spécifique : ses exigences priment pour le risque TIC et les incidents.",
+   "whyNot": {
+    "1": "Le CRA vise les fabricants de produits.",
+    "2": "NIS 2 est d'ailleurs antérieure à l'application de DORA ; c'est la spécificité qui compte.",
+    "3": "Le RGPD vise les données personnelles."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c5-q10",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "CRA",
+   "prompt": "Que doit garantir un fabricant au titre du règlement sur la cyberrésilience ?",
+   "choices": [
+    "Des mises à jour de sécurité pendant le support",
+    "Une assurance cyber pour chaque produit",
+    "Un SOC ouvert jour et nuit",
+    "Un audit ISO/IEC 27001 de ses clients"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Le CRA impose la sécurité dès la conception et des mises à jour de sécurité pendant la période de support.",
+   "whyNot": {
+    "1": "Il n'impose pas d'assurance.",
+    "2": "Il n'impose pas de SOC.",
+    "3": "Il ne vise pas les clients."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c5-q11",
+   "domain": "bcp-dr-ir-law",
+   "level": "beginner",
+   "concept": "Notification NIS 2",
+   "prompt": "Dans quel délai faut-il envoyer l'alerte précoce d'un incident important selon NIS 2 ?",
+   "choices": [
+    "72 heures",
+    "24 heures",
+    "Sept jours",
+    "Un mois"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Alerte précoce en 24 h, notification en 72 h, rapport final un mois après.",
+   "whyNot": {
+    "0": "C'est la notification d'incident.",
+    "2": "Ce délai n'existe pas dans NIS 2.",
+    "3": "C'est le rapport final."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c5-q12",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Rapport final",
+   "prompt": "Quand le rapport final NIS 2 doit-il être remis ?",
+   "choices": [
+    "Un mois après la notification",
+    "Seulement si l'autorité le demande",
+    "Une semaine après l'alerte précoce",
+    "Un an après l'incident"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "L'article 23 fixe un rapport final au plus tard un mois après la notification d'incident.",
+   "whyNot": {
+    "1": "C'est le rapport intermédiaire qui est remis sur demande.",
+    "2": "Ce délai n'est pas prévu.",
+    "3": "Beaucoup trop tardif."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c5-q13",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "RGPD et NIS 2",
+   "prompt": "Une intrusion vole des données personnelles chez une entité NIS 2. Que faire ?",
+   "choices": [
+    "Attendre la fin complète de l'enquête interne",
+    "Notifier seulement le CSIRT national, dans les 24 heures",
+    "Prévenir uniquement les clients dont les données ont fuité",
+    "Notifier le CSIRT et l'autorité de protection des données"
+   ],
+   "correct": [
+    3
+   ],
+   "explanation": "Les deux textes s'appliquent : chacun a son circuit et ses délais (24/72 h et 72 h).",
+   "whyNot": {
+    "0": "Les délais courent dès la connaissance de l'incident.",
+    "1": "Le RGPD impose aussi sa notification.",
+    "2": "L'autorité doit être notifiée, et les personnes en cas de risque élevé."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c5-q14",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "Article 21",
+   "prompt": "Laquelle de ces mesures figure explicitement dans l'article 21 de NIS 2 ?",
+   "choices": [
+    "Un audit externe mensuel obligatoire",
+    "Le chiffrement homomorphe des bases",
+    "La sécurité de la chaîne d'approvisionnement",
+    "La certification EAL4 de tous les produits"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Le point d vise la sécurité de la chaîne d'approvisionnement.",
+   "whyNot": {
+    "0": "Aucune fréquence d'audit n'est fixée ainsi.",
+    "1": "Aucune technique précise n'est imposée.",
+    "3": "Aucune certification de ce type n'est imposée."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c5-q15",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "CRA : signalement",
+   "prompt": "Un fabricant découvre qu'une faille de son produit est activement exploitée. Que prévoit le CRA ?",
+   "choices": [
+    "Une déclaration annuelle à la Commission",
+    "Une alerte précoce en 24 heures via l'ENISA",
+    "Un simple correctif lors de la prochaine version",
+    "Aucun signalement si un correctif existe"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "Le CRA impose de signaler les vulnérabilités activement exploitées, via la plateforme unique de l'ENISA.",
+   "whyNot": {
+    "0": "Le délai est bien plus court.",
+    "2": "Le signalement est obligatoire et rapide.",
+    "3": "Le signalement reste obligatoire."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c5-q16",
+   "domain": "security-management",
+   "level": "beginner",
+   "concept": "NIST CSF 2.0",
+   "prompt": "Quelle fonction le NIST CSF 2.0 a-t-il ajoutée ?",
+   "choices": [
+    "Protéger",
+    "Gouverner",
+    "Détecter",
+    "Rétablir"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "CSF 2.0 (2024) ajoute Gouverner aux cinq fonctions historiques.",
+   "whyNot": {
+    "0": "Elle existait déjà.",
+    "2": "Elle existait déjà.",
+    "3": "Elle existait déjà."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c5-q17",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "Matrice de correspondance",
+   "prompt": "Pourquoi construire une matrice de correspondance entre textes et mesures ?",
+   "choices": [
+    "Pour mutualiser les mesures et les preuves",
+    "Pour remplacer l'analyse de risque",
+    "Pour obtenir une certification automatique",
+    "Pour éviter toute notification d'incident"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Une même mesure et une même preuve peuvent répondre à plusieurs exigences.",
+   "whyNot": {
+    "1": "Elle ne la remplace pas.",
+    "2": "Aucune certification n'est automatique.",
+    "3": "Les notifications restent obligatoires."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c5-q18",
+   "domain": "security-management",
+   "level": "advanced",
+   "concept": "Certification et conformité",
+   "prompt": "Une entité certifiée ISO/IEC 27001 est-elle automatiquement conforme à NIS 2 ?",
+   "choices": [
+    "Non, il faut vérifier périmètre et exigences propres",
+    "Non, l'ISO/IEC 27001 est incompatible avec NIS 2",
+    "Oui, si la certification date de moins de trois ans",
+    "Oui, la certification vaut conformité"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "La certification aide beaucoup, mais le périmètre, les délais de notification et la responsabilité des dirigeants se vérifient à part.",
+   "whyNot": {
+    "1": "Elle est au contraire un bon socle.",
+    "2": "La date ne change rien.",
+    "3": "Ce n'est prévu par aucun texte."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c5-q19",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "Correspondance CISSO",
+   "prompt": "À quel domaine CISSO correspond la mesure NIS 2 « continuité des activités et gestion de crise » ?",
+   "choices": [
+    "Sécurité physique du site",
+    "Développement logiciel sécurisé",
+    "Continuité et reprise (BCP, DRP)",
+    "Cryptographie et PKI"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "Le point c de l'article 21 vise sauvegardes, reprise après sinistre et gestion de crise.",
+   "whyNot": {
+    "0": "Elle relève de l'approche tous risques mais pas de ce point.",
+    "1": "Il correspond au point e.",
+    "3": "Elle correspond au point h."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c5-q20",
+   "domain": "security-management",
+   "level": "beginner",
+   "concept": "Article 20",
+   "prompt": "Que doivent faire les organes de direction selon l'article 20 de NIS 2 ?",
+   "choices": [
+    "Approuver et superviser les mesures",
+    "Réaliser eux-mêmes les tests d'intrusion",
+    "Signer chaque notification d'incident",
+    "Déléguer toute la sécurité au RSSI"
+   ],
+   "correct": [
+    0
+   ],
+   "explanation": "Ils approuvent les mesures, supervisent leur mise en œuvre, se forment et peuvent être tenus responsables.",
+   "whyNot": {
+    "1": "Ce n'est pas leur rôle.",
+    "2": "Ce n'est pas exigé par l'article 20.",
+    "3": "La responsabilité ne se délègue pas entièrement."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c5-q21",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Amendes NIS 2",
+   "prompt": "Quel est le plafond d'amende prévu pour une entité essentielle dans NIS 2 ?",
+   "choices": [
+    "1 M€ ou 0,5 % du chiffre d'affaires",
+    "20 M€ ou 4 % du chiffre d'affaires",
+    "Au moins 7 M€ ou 1,4 % du chiffre d'affaires",
+    "Au moins 10 M€ ou 2 % du chiffre d'affaires"
+   ],
+   "correct": [
+    3
+   ],
+   "explanation": "Le montant le plus élevé des deux s'applique ; les États peuvent prévoir plus.",
+   "whyNot": {
+    "0": "Ce montant n'existe pas dans NIS 2.",
+    "1": "C'est le plafond le plus élevé du RGPD.",
+    "2": "C'est le plafond des entités importantes."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c5-q22",
+   "domain": "security-management",
+   "level": "intermediate",
+   "concept": "Formation des dirigeants",
+   "prompt": "Quelle obligation NIS 2 impose-t-elle aux membres des organes de direction ?",
+   "choices": [
+    "Passer un test d'intrusion",
+    "Suivre une formation",
+    "Assurer une astreinte au SOC",
+    "Obtenir une certification CISSO"
+   ],
+   "correct": [
+    1
+   ],
+   "explanation": "L'article 20 impose une formation pour comprendre et évaluer les risques.",
+   "whyNot": {
+    "0": "Ce n'est pas leur rôle.",
+    "2": "Ce n'est pas exigé.",
+    "3": "Aucune certification précise n'est exigée."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c5-q23",
+   "domain": "bcp-dr-ir-law",
+   "level": "advanced",
+   "concept": "Mesures de dernier recours",
+   "prompt": "Quelle mesure de dernier recours NIS 2 permet-elle contre une entité essentielle ?",
+   "choices": [
+    "Fermer définitivement l'entreprise",
+    "Saisir les serveurs de l'entité",
+    "Interdire temporairement un dirigeant",
+    "Retirer la nationalité européenne"
+   ],
+   "correct": [
+    2
+   ],
+   "explanation": "L'autorité peut, en dernier recours, interdire temporairement à un dirigeant d'exercer des fonctions de direction.",
+   "whyNot": {
+    "0": "Ce n'est pas prévu par NIS 2.",
+    "1": "Ce n'est pas une mesure de NIS 2.",
+    "3": "Cela n'a aucun sens juridique ici."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c5-q24",
+   "domain": "security-management",
+   "level": "advanced",
+   "concept": "Rôle du RSSI",
+   "prompt": "Quel changement NIS 2 apporte-t-il le plus au rôle du RSSI ?",
+   "choices": [
+    "Choisir seul le budget de sécurité",
+    "Ne plus gérer les incidents",
+    "Remplacer le délégué à la protection des données",
+    "Rendre compte à une direction responsable"
+   ],
+   "correct": [
+    3
+   ],
+   "explanation": "La direction devient responsable : le RSSI la conseille, l'informe et fait approuver les décisions.",
+   "whyNot": {
+    "0": "La direction approuve.",
+    "1": "Il continue à les piloter.",
+    "2": "Les deux rôles restent distincts."
+   },
+   "kind": "general"
+  },
+  {
+   "id": "m5c5-q25",
+   "domain": "bcp-dr-ir-law",
+   "level": "intermediate",
+   "concept": "Directive ou règlement",
+   "prompt": "Quelle différence entre NIS 2 et DORA sur le plan juridique ?",
+   "choices": [
+    "Les deux doivent être transposées",
+    "Les deux s'appliquent directement",
+    "DORA est transposée, NIS 2 s'applique directement",
+    "NIS 2 est transposée, DORA s'applique directement"
+   ],
+   "correct": [
+    3
+   ],
+   "explanation": "Une directive est transposée en droit national ; un règlement s'applique tel quel.",
+   "whyNot": {
+    "0": "DORA est un règlement.",
+    "1": "NIS 2 est une directive.",
+    "2": "C'est l'inverse."
+   },
+   "kind": "general"
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "m5c5-f01",
+   "front": "ENISA",
+   "back": "Agence de l'UE : conseil, certification, coopération ; pas de sanctions.",
+   "concept": "ENISA"
+  },
+  {
+   "id": "m5c5-f02",
+   "front": "Autorités nationales",
+   "back": "Supervisent et sanctionnent (ex. ANSSI).",
+   "concept": "Autorités nationales"
+  },
+  {
+   "id": "m5c5-f03",
+   "front": "Réseaux NIS 2",
+   "back": "Groupe de coopération (stratégie), réseau des CSIRT (technique), EU-CyCLONe (crises).",
+   "concept": "EU-CyCLONe"
+  },
+  {
+   "id": "m5c5-f04",
+   "front": "Règlement 2019/881",
+   "back": "Mandat permanent de l'ENISA ; certification : élémentaire, substantiel, élevé.",
+   "concept": "Certification européenne"
+  },
+  {
+   "id": "m5c5-f05",
+   "front": "Cybersolidarité (2025/38)",
+   "back": "Système d'alerte, mécanisme d'urgence et réserve, examen des incidents.",
+   "concept": "Cybersolidarité"
+  },
+  {
+   "id": "m5c5-f06",
+   "front": "NIS 2",
+   "back": "Directive 2022/2555 : secteurs critiques ; application depuis le 18 octobre 2024.",
+   "concept": "NIS 2"
+  },
+  {
+   "id": "m5c5-f07",
+   "front": "Essentielle ou importante",
+   "back": "Mêmes mesures ; supervision et amendes différentes.",
+   "concept": "Entités essentielles et importantes"
+  },
+  {
+   "id": "m5c5-f08",
+   "front": "DORA",
+   "back": "Règlement 2022/2554, finance, depuis le 17 janvier 2025 ; prime sur NIS 2 pour le risque TIC.",
+   "concept": "DORA"
+  },
+  {
+   "id": "m5c5-f09",
+   "front": "TLPT",
+   "back": "Tests d'intrusion fondés sur la menace : au moins tous les 3 ans (DORA).",
+   "concept": "DORA"
+  },
+  {
+   "id": "m5c5-f10",
+   "front": "CRA",
+   "back": "Règlement 2024/2847 : produits numériques, marquage CE, mises à jour, signalement à l'ENISA.",
+   "concept": "CRA"
+  },
+  {
+   "id": "m5c5-f11",
+   "front": "Dates du CRA",
+   "back": "Signalements dès le 11 septembre 2026 ; l'essentiel au 11 décembre 2027.",
+   "concept": "CRA"
+  },
+  {
+   "id": "m5c5-f12",
+   "front": "Article 21",
+   "back": "Dix mesures minimales, de l'analyse des risques au multifacteur.",
+   "concept": "Article 21"
+  },
+  {
+   "id": "m5c5-f13",
+   "front": "Article 23",
+   "back": "Alerte 24 h, notification 72 h, rapport final 1 mois.",
+   "concept": "Notification NIS 2"
+  },
+  {
+   "id": "m5c5-f14",
+   "front": "RGPD",
+   "back": "Violation de données : 72 h à l'autorité ; amendes jusqu'à 20 M€ ou 4 %.",
+   "concept": "RGPD et NIS 2"
+  },
+  {
+   "id": "m5c5-f15",
+   "front": "Matrice de correspondance",
+   "back": "Exigences → mesures → preuves, mutualisées.",
+   "concept": "Matrice de correspondance"
+  },
+  {
+   "id": "m5c5-f16",
+   "front": "CSF 2.0",
+   "back": "Six fonctions : Gouverner, Identifier, Protéger, Détecter, Répondre, Rétablir.",
+   "concept": "NIST CSF 2.0"
+  },
+  {
+   "id": "m5c5-f17",
+   "front": "Article 20",
+   "back": "La direction approuve, supervise, se forme et répond des manquements.",
+   "concept": "Article 20"
+  },
+  {
+   "id": "m5c5-f18",
+   "front": "Amendes NIS 2",
+   "back": "Essentielles : 10 M€ ou 2 % ; importantes : 7 M€ ou 1,4 % (au moins).",
+   "concept": "Amendes NIS 2"
+  },
+  {
+   "id": "m5c5-f19",
+   "front": "Dernier recours",
+   "back": "Interdiction temporaire d'un dirigeant (entités essentielles).",
+   "concept": "Mesures de dernier recours"
+  },
+  {
+   "id": "m5c5-f20",
+   "front": "Directive ou règlement",
+   "back": "Directive : transposée. Règlement : application directe.",
+   "concept": "Directive ou règlement"
+  }
+ ],
+ "revisionSheet": [
+  "# Fiche de révision : gouvernance et conformité européennes",
+  "Acteurs : Commission (textes), ENISA (conseil, certification, coopération), autorités nationales (supervision, sanctions), CSIRT (incidents).",
+  "Réseaux NIS 2 : groupe de coopération (stratégie), réseau des CSIRT (technique), EU-CyCLONe (crises).",
+  "Règlement 2019/881 : mandat permanent de l'ENISA, certification européenne (élémentaire, substantiel, élevé), EUCC.",
+  "Cybersolidarité (2025/38) : système d'alerte, mécanisme d'urgence et réserve, examen des incidents.",
+  "NIS 2 (directive 2022/2555) : transposition 17 octobre 2024, application 18 octobre 2024 ; entités essentielles et importantes.",
+  "DORA (règlement 2022/2554) : finance, depuis le 17 janvier 2025 ; risque TIC, incidents, tests (TLPT ≥ tous les 3 ans), prestataires, partage.",
+  "CRA (règlement 2024/2847) : produits numériques ; signalements dès le 11 septembre 2026, l'essentiel au 11 décembre 2027.",
+  "CER (directive 2022/2557) : résilience des entités critiques ; RGPD : données personnelles ; règlement 2024/1689 : IA.",
+  "Article 21 : dix mesures (risques, incidents, continuité, fournisseurs, développement et vulnérabilités, efficacité, hygiène et formation, cryptographie, RH et accès, multifacteur).",
+  "Article 23 : alerte 24 h, notification 72 h, rapport final un mois après. RGPD : 72 h.",
+  "Matrice : exigences → mesures (ISO/IEC 27001, NIST CSF 2.0) → preuves partagées.",
+  "Article 20 : la direction approuve, supervise, se forme, répond des manquements.",
+  "Amendes NIS 2 : 10 M€ / 2 % (essentielles), 7 M€ / 1,4 % (importantes). RGPD : jusqu'à 20 M€ / 4 %.",
+  "Textes vérifiés le 17 novembre 2026 ; certaines obligations entrent en application par étapes : vérifiez la version consolidée sur EUR-Lex avant de citer une date."
+ ],
+ "mindMap": {
+  "label": "Gouvernance et\nconformité européennes",
+  "en": "European Cybersecurity Governance and Regulatory Compliance",
+  "emoji": "🇪🇺",
+  "children": [
+   {
+    "label": "Environnement",
+    "en": "European Cybersecurity Environment",
+    "emoji": "🏛️",
+    "tone": "blue",
+    "children": [
+     {
+      "label": "ENISA",
+      "detail": "Conseil, certification, coopération."
+     },
+     {
+      "label": "Réseaux",
+      "detail": "Coopération, CSIRT, EU-CyCLONe."
+     },
+     {
+      "label": "Certification",
+      "detail": "Élémentaire, substantiel, élevé."
+     },
+     {
+      "label": "Cybersolidarité",
+      "detail": "Alerte, réserve, examen."
+     }
+    ]
+   },
+   {
+    "label": "Grands textes",
+    "en": "Core European Cybersecurity Regulations",
+    "emoji": "📚",
+    "tone": "violet",
+    "children": [
+     {
+      "label": "NIS 2",
+      "detail": "Secteurs critiques."
+     },
+     {
+      "label": "DORA",
+      "detail": "Finance."
+     },
+     {
+      "label": "CRA",
+      "detail": "Produits numériques."
+     },
+     {
+      "label": "CER, RGPD, IA"
+     }
+    ]
+   },
+   {
+    "label": "En pratique",
+    "en": "Operational Security Requirements in Practice",
+    "emoji": "⏰",
+    "tone": "orange",
+    "children": [
+     {
+      "label": "Article 21",
+      "detail": "Dix mesures."
+     },
+     {
+      "label": "Article 23",
+      "detail": "24 h, 72 h, un mois."
+     },
+     {
+      "label": "Fournisseurs et vulnérabilités"
+     }
+    ]
+   },
+   {
+    "label": "Correspondances",
+    "en": "Mapping to CISSO and Common Frameworks",
+    "emoji": "🔗",
+    "tone": "green",
+    "children": [
+     {
+      "label": "Domaines CISSO"
+     },
+     {
+      "label": "ISO/IEC 27001, NIST CSF 2.0"
+     },
+     {
+      "label": "Matrice et preuves"
+     }
+    ]
+   },
+   {
+    "label": "Dirigeants et sanctions",
+    "en": "Enforcement Changes Security Leadership",
+    "emoji": "⚖️",
+    "tone": "red",
+    "children": [
+     {
+      "label": "Article 20",
+      "detail": "Approuver, superviser, se former."
+     },
+     {
+      "label": "Amendes",
+      "detail": "10 M€ / 2 %, 7 M€ / 1,4 %."
+     },
+     {
+      "label": "Rôle du RSSI"
+     }
+    ]
+   }
+  ]
+ }
+}
