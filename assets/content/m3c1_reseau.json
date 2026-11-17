@@ -232,7 +232,7 @@
      "type": "socCase",
      "title": "Cas SOC : trois alertes, trois couches",
      "kind": "example",
-     "text": "Dans la même heure, l'analyste reçoit trois alertes : le commutateur d'un étage signale qu'une même adresse MAC répond pour la passerelle depuis deux ports (couche 2, possible usurpation ARP) ; le pare-feu voit des milliers de demandes SYN sans suite vers le portail (couche 4) ; le WAF bloque des requêtes contenant des apostrophes et des mots-clés SQL (couche 7). Situer chaque alerte à sa couche lui permet de prévenir la bonne équipe : réseau local, infrastructure, puis développement."
+     "text": "Dans la même heure, l'analyste reçoit trois alertes : le commutateur d'un étage signale que deux adresses MAC différentes répondent pour l'adresse IP de la passerelle (couche 2, possible usurpation ARP) ; le pare-feu voit des milliers de demandes SYN sans suite vers le portail (couche 4) ; le WAF bloque des requêtes contenant des apostrophes et des mots-clés SQL (couche 7). Situer chaque alerte à sa couche lui permet de prévenir la bonne équipe : réseau local, infrastructure, puis développement."
     },
     {
      "type": "viewpoints",

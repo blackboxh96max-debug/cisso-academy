@@ -235,7 +235,7 @@
       ],
       [
        "ISO/IEC 27001",
-       "Exigences d'un SMSI : la seule norme de la liste contre laquelle une organisation est certifiée"
+       "Exigences d'un SMSI : c'est contre elle qu'un SMSI est certifié"
       ],
       [
        "ISO/IEC 27002",
@@ -263,7 +263,7 @@
       ],
       [
        "ISO/IEC 27701",
-       "Management de la protection de la vie privée (données personnelles)"
+       "Management de la protection de la vie privée (données personnelles), également certifiable"
       ]
      ]
     },
@@ -316,7 +316,7 @@
     },
     {
      "type": "text",
-     "text": "Ces chapitres suivent la logique d'amélioration continue souvent résumée par le cycle PDCA (Plan, Do, Check, Act) : planifier (6), faire (8), vérifier (9), agir (10). La version 2022 ne cite plus le PDCA comme modèle obligatoire, mais la logique demeure.",
+     "text": "Ces chapitres suivent la logique d'amélioration continue souvent résumée par le cycle PDCA (Plan, Do, Check, Act) : planifier (6), faire (8), vérifier (9), agir (10). Depuis la version 2013, la norme n'impose plus le PDCA comme modèle, mais la logique demeure.",
      "kind": "general"
     },
     {
@@ -395,7 +395,7 @@
       ]
      },
      "text": "37 + 8 + 14 + 34 = 93. Ancienne version 2013 : 114 mesures en 14 domaines.",
-     "kind": "official"
+     "kind": "general"
     },
     {
      "type": "memo",

@@ -604,7 +604,7 @@
       ],
       [
        "Onduleur (UPS)",
-       "Fournit l'énergie quelques minutes pendant une coupure, le temps d'arrêter proprement ou de démarrer le groupe. Un onduleur en ligne (online) alimente en permanence par ses batteries : aucun temps de basculement."
+       "Fournit l'énergie quelques minutes pendant une coupure, le temps d'arrêter proprement ou de démarrer le groupe. Un onduleur en ligne (online, à double conversion) alimente en permanence les équipements par son convertisseur, la batterie prenant le relais sans coupure : aucun temps de basculement."
       ],
       [
        "Groupe électrogène",
@@ -715,7 +715,7 @@
     {
      "type": "important",
      "title": "Attention aux lettres",
-     "text": "La lettre C ne désigne pas la même chose aux États-Unis (feu électrique) et en Europe (feu de gaz). Lis bien le contexte de la question. Dans tous les cas, on coupe l'alimentation électrique avant d'utiliser de l'eau sur des équipements."
+     "text": "La lettre C ne désigne pas la même chose aux États-Unis (feu électrique) et en Europe (feu de gaz). Lisez bien le contexte de la question. Dans tous les cas, on coupe l'alimentation électrique avant d'utiliser de l'eau sur des équipements."
     },
     {
      "type": "table",

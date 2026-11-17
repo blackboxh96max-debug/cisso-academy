@@ -628,7 +628,7 @@
      "title": "Points de vue",
      "items": [
       "Responsable du CSIRT : un retour d'expérience sans actions suivies ne sert à rien.",
-      "Délégué à la protection des données : je décide avec le juridique de la notification sous 72 h.",
+      "Délégué à la protection des données : je conseille le responsable de traitement, qui décide de notifier sous 72 h.",
       "Direction : je veux savoir ce qui a coûté le plus et ce qui l'aurait évité.",
       "Analyste : je transforme chaque incident en nouvelle règle de détection."
      ]
