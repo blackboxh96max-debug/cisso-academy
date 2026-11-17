@@ -1025,9 +1025,9 @@
    "prompt": "Des centaines d'appels surtaxés partent du PBX la nuit. Quelle attaque ?",
    "choices": [
     "Une fraude téléphonique",
-    "Une composition automatique",
+    "Une composition automatique (war dialing)",
     "Une écoute des flux RTP",
-    "Un déni de service téléphonique"
+    "Un déni de service téléphonique (TDoS)"
    ],
    "correct": [
     0
@@ -1036,7 +1036,7 @@
    "whyNot": {
     "1": "Elle cherche des modems en appelant des séries de numéros.",
     "2": "Elle capture des conversations.",
-    "3": "Il sature les lignes entrantes, sans but de profit."
+    "3": "Il sature les lignes pour rendre le service indisponible, sans passer d'appels surtaxés."
    },
    "kind": "general"
   },
