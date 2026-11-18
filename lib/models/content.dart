@@ -604,6 +604,7 @@ class OutlineSection {
     required this.coverage,
     this.extra = false,
     this.extraLessons = const [],
+    this.keywords = const [],
   });
 
   factory OutlineSection.fromJson(Map<String, dynamic> json) => OutlineSection(
@@ -614,6 +615,13 @@ class OutlineSection {
     coverage: Coverage.values.byName(json['coverage'] as String),
     extra: json['extra'] as bool? ?? false,
     extraLessons: (json['extraLessons'] as List? ?? const []).cast<String>(),
+    keywords: [
+      for (final k in json['keywords'] as List? ?? const [])
+        (
+          fr: (k as Map<String, dynamic>)['fr'] as String,
+          en: k['en'] as String,
+        ),
+    ],
   );
 
   final int number;
@@ -631,6 +639,10 @@ class OutlineSection {
 
   /// Vue enrichie : leçons ajoutées depuis le livre MILE2.
   final List<String> extraLessons;
+
+  /// Mots-clés essentiels de la section (cartes mentales), en français et
+  /// en anglais.
+  final List<({String fr, String en})> keywords;
 }
 
 class OutlineModule {
