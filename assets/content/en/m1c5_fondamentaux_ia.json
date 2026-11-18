@@ -660,5 +660,342 @@
     }
    ]
   }
+ ],
+ "questions": [
+  {
+   "id": "m1c5-q01",
+   "prompt": "A payroll file is sent by mistake to an external address. Which property is affected?",
+   "choices": [
+    "Non-repudiation",
+    "Confidentiality",
+    "Integrity",
+    "Availability"
+   ],
+   "explanation": "An unauthorized person can read the information: this is disclosure, the opposite of confidentiality.",
+   "whyNot": {
+    "0": "The sender's identity is not in question here.",
+    "2": "The file has not been modified.",
+    "3": "The file remains accessible to the company."
+   }
+  },
+  {
+   "id": "m1c5-q02",
+   "prompt": "What is the opposite of integrity in the DAD model?",
+   "choices": [
+    "Destruction",
+    "Alteration",
+    "Duplication",
+    "Disclosure"
+   ],
+   "explanation": "DAD: Disclosure (opposite of C), Alteration (opposite of I), Destruction (opposite of A).",
+   "whyNot": {
+    "0": "It is the opposite of availability.",
+    "2": "It is not an element of the DAD model.",
+    "3": "It is the opposite of confidentiality."
+   }
+  },
+  {
+   "id": "m1c5-q03",
+   "prompt": "Which measure provides non-repudiation of a transfer order?",
+   "choices": [
+    "A daily backup of the orders",
+    "Symmetric encryption of the message",
+    "A digital signature by the sender",
+    "A firewall in front of the server"
+   ],
+   "explanation": "Only the holder of the private key could have signed: they cannot deny the order.",
+   "whyNot": {
+    "0": "It protects availability.",
+    "1": "The key is shared: both parties could have produced the message.",
+    "3": "It filters traffic; it does not prove the author."
+   }
+  },
+  {
+   "id": "m1c5-q04",
+   "prompt": "The person who creates a supplier cannot approve its payment. Which principle?",
+   "choices": [
+    "Defense in depth",
+    "Need to know",
+    "Fail-safe",
+    "Separation of duties"
+   ],
+   "explanation": "A sensitive operation is split between two people to limit fraud.",
+   "whyNot": {
+    "0": "It stacks layers of protection.",
+    "1": "It limits access to the information needed for the mission.",
+    "2": "It concerns the state of a system when it fails."
+   }
+  },
+  {
+   "id": "m1c5-q05",
+   "prompt": "Firewall, then strong authentication, then encryption: which principle?",
+   "choices": [
+    "Least privilege",
+    "Defense in depth",
+    "Non-repudiation",
+    "Separation of duties"
+   ],
+   "explanation": "Several independent layers: if one gives way, the others still protect.",
+   "whyNot": {
+    "0": "It concerns the rights granted to each person.",
+    "2": "It prevents denying an action.",
+    "3": "It splits an operation among several people."
+   }
+  },
+  {
+   "id": "m1c5-q06",
+   "prompt": "Ransomware encrypts the servers after copying the data. Which TWO properties are affected?",
+   "choices": [
+    "Non-repudiation",
+    "Availability",
+    "Authenticity",
+    "Confidentiality"
+   ],
+   "explanation": "The data is inaccessible (availability) and copied by the attacker (confidentiality).",
+   "whyNot": {
+    "0": "No one is denying an action here.",
+    "2": "The origin of the data is not in question."
+   }
+  },
+  {
+   "id": "m1c5-q07",
+   "prompt": "An intact backup is encrypted and its key has been lost. Which Parker attribute is affected?",
+   "choices": [
+    "Integrity",
+    "Authenticity",
+    "Possession",
+    "Utility"
+   ],
+   "explanation": "The data is intact but unusable: utility is what is lost.",
+   "whyNot": {
+    "0": "The data has not been modified.",
+    "1": "Its origin is known.",
+    "2": "The media is still in our hands."
+   }
+  },
+  {
+   "id": "m1c5-q08",
+   "prompt": "Which international standard corresponds to the Common Criteria?",
+   "choices": [
+    "ISO/IEC 27001",
+    "ISO/IEC 42001",
+    "ISO/IEC 15408",
+    "ISO 22301"
+   ],
+   "explanation": "The Common Criteria are published under the reference ISO/IEC 15408.",
+   "whyNot": {
+    "0": "It is the standard for the information security management system.",
+    "1": "It is the AI management system.",
+    "3": "It is business continuity."
+   }
+  },
+  {
+   "id": "m1c5-q09",
+   "prompt": "Which property did the TCSEC (Orange Book) mainly focus on?",
+   "choices": [
+    "Confidentiality",
+    "Availability",
+    "Accountability",
+    "Integrity"
+   ],
+   "explanation": "Designed for the US Department of Defense, it aimed first at protecting classified information.",
+   "whyNot": {
+    "1": "Availability was not its purpose.",
+    "2": "Auditing is included, but in the service of confidentiality.",
+    "3": "Integrity was barely addressed; this is one of the criticisms that led to ITSEC."
+   }
+  },
+  {
+   "id": "m1c5-q10",
+   "prompt": "Which document describes the security needs of a product family, without targeting a vendor?",
+   "choices": [
+    "The target of evaluation",
+    "The certification report",
+    "The protection profile",
+    "The security target"
+   ],
+   "explanation": "The protection profile (PP) expresses \"what a product of this type must do\".",
+   "whyNot": {
+    "0": "It is the evaluated product itself.",
+    "1": "It concludes the evaluation of a specific product.",
+    "3": "It describes the product of a given vendor."
+   }
+  },
+  {
+   "id": "m1c5-q11",
+   "prompt": "What does an EAL7 level mean compared with EAL4?",
+   "choices": [
+    "More security functions",
+    "A certification valid with no time limit",
+    "A product guaranteed to have no flaw",
+    "More rigorous verification"
+   ],
+   "explanation": "The EAL measures the depth of the evaluation (EAL7: formally verified design), not the number of functions.",
+   "whyNot": {
+    "0": "Functions are described in the security target, not by the EAL.",
+    "1": "The certificate applies to one version and one configuration.",
+    "2": "No evaluation guarantees the absence of flaws."
+   }
+  },
+  {
+   "id": "m1c5-q12",
+   "prompt": "What did ITSEC bring compared with TCSEC?",
+   "choices": [
+    "It replaces the Common Criteria",
+    "It imposes levels from D to A1",
+    "It separates functionality and assurance",
+    "It targets confidentiality only"
+   ],
+   "explanation": "ITSEC evaluates separately what the product does and how much confidence can be placed in it (E0 to E6).",
+   "whyNot": {
+    "0": "It is the opposite: the Common Criteria succeeded it.",
+    "1": "Those are the TCSEC levels.",
+    "3": "That was the limitation of TCSEC."
+   }
+  },
+  {
+   "id": "m1c5-q13",
+   "prompt": "Which step is the formal decision to accept a system's residual risk?",
+   "choices": [
+    "Evaluation against a profile",
+    "Technical certification",
+    "The final penetration test",
+    "Accreditation, or authorization"
+   ],
+   "explanation": "Certification evaluates; accreditation is a manager's decision to put the system into operation.",
+   "whyNot": {
+    "0": "It applies to a product, not to the decision.",
+    "1": "It provides the technical evaluation that informs the decision.",
+    "2": "It feeds the evaluation; it does not decide."
+   }
+  },
+  {
+   "id": "m1c5-q14",
+   "prompt": "An EAL4-certified firewall is deployed with an unevaluated option. What should be concluded?",
+   "choices": [
+    "The product must be evaluated at EAL7",
+    "This configuration falls outside the certificate",
+    "The certificate covers all options",
+    "The level automatically drops to EAL3"
+   ],
+   "explanation": "The certificate applies to the configuration described in the security target; anything else is not covered.",
+   "whyNot": {
+    "0": "A higher level does not fix a configuration gap.",
+    "2": "Only the evaluated configuration is covered.",
+    "3": "There is no automatic downgrade."
+   }
+  },
+  {
+   "id": "m1c5-q15",
+   "prompt": "An attacker slips booby-trapped examples into the training data. Which attack?",
+   "choices": [
+    "Membership inference",
+    "Data poisoning",
+    "Model extraction",
+    "Evasion through an adversarial example"
+   ],
+   "explanation": "It acts during training to skew or booby-trap the model.",
+   "whyNot": {
+    "0": "It guesses who appears in the data.",
+    "2": "It copies the model by querying it.",
+    "3": "It modifies an input at the time of use."
+   }
+  },
+  {
+   "id": "m1c5-q16",
+   "prompt": "A few modified pixels make a piece of malware be classified as clean. What is this?",
+   "choices": [
+    "Data poisoning",
+    "Prompt injection",
+    "Model extraction",
+    "An evasion attack"
+   ],
+   "explanation": "The input is slightly modified at the time of use to fool the model.",
+   "whyNot": {
+    "0": "It acts on the training data.",
+    "1": "It targets language models and their instructions.",
+    "2": "It seeks to copy the model."
+   }
+  },
+  {
+   "id": "m1c5-q17",
+   "prompt": "An assistant that summarizes emails obeys an order hidden in a message. Which attack?",
+   "choices": [
+    "Membership inference",
+    "A brute-force attack",
+    "Training data poisoning",
+    "Indirect prompt injection"
+   ],
+   "explanation": "The instructions come from content read by the model, not from the user.",
+   "whyNot": {
+    "0": "It seeks to know who is in the data.",
+    "1": "No password is being guessed.",
+    "2": "The model has not been retrained."
+   }
+  },
+  {
+   "id": "m1c5-q18",
+   "prompt": "What are the four functions of the NIST AI RMF?",
+   "choices": [
+    "Prepare, detect, contain, recover",
+    "Plan, do, check, act",
+    "Govern, map, measure, manage",
+    "Identify, protect, detect, respond"
+   ],
+   "explanation": "Govern, Map, Measure, Manage; Govern is cross-cutting.",
+   "whyNot": {
+    "0": "These are incident response phases.",
+    "1": "This is the Deming cycle (PDCA).",
+    "3": "These are functions of the NIST Cybersecurity Framework."
+   }
+  },
+  {
+   "id": "m1c5-q19",
+   "prompt": "Which measure most reduces the risk of an AI assistant that can send emails?",
+   "choices": [
+    "Training the model on more data",
+    "Making the system instructions longer",
+    "Hiding the name of the model used",
+    "Requiring human approval of sends"
+   ],
+   "explanation": "Limiting what the assistant does on its own (least privilege, human in the loop) reduces the impact of an injection.",
+   "whyNot": {
+    "0": "More data does not remove the ability to act.",
+    "1": "Longer instructions do not block an injection.",
+    "2": "That is security through obscurity."
+   }
+  },
+  {
+   "id": "m1c5-q20",
+   "prompt": "What does ISO/IEC 42001:2023 define?",
+   "choices": [
+    "A key exchange protocol",
+    "An AI management system",
+    "EAL evaluation levels",
+    "A lightweight encryption algorithm"
+   ],
+   "explanation": "It draws on the structure of ISO/IEC 27001, applied to AI.",
+   "whyNot": {
+    "0": "It is not a network protocol.",
+    "2": "That is the purpose of the Common Criteria.",
+    "3": "It is not a cryptographic standard."
+   }
+  },
+  {
+   "id": "m1c5-q21",
+   "prompt": "How does Regulation (EU) 2024/1689 classify AI systems?",
+   "choices": [
+    "By the provider's country",
+    "By the risk level of the use",
+    "By programming language",
+    "By company size"
+   ],
+   "explanation": "Prohibited practices, high risk, transparency, minimal risk: obligations follow the risk.",
+   "whyNot": {
+    "0": "The regulation covers systems placed on the Union market, whatever the country.",
+    "2": "The technology used does not matter.",
+    "3": "Size is not the classification criterion."
+   }
+  }
  ]
 }

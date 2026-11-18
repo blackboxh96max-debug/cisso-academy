@@ -168,3 +168,42 @@ class BilingualText extends StatelessWidget {
     return selectable ? SelectableText.rich(span) : Text.rich(span);
   }
 }
+
+/// Un texte en deux langues : l'anglais de l'examen d'abord, pour
+/// s'entraîner, puis le français, plus petit, pour comprendre. Sans
+/// anglais (ou identique), seul le français s'affiche.
+class BiLines extends StatelessWidget {
+  const BiLines({super.key, required this.en, required this.fr, this.style});
+
+  final String? en;
+  final String fr;
+  final TextStyle? style;
+
+  @override
+  Widget build(BuildContext context) {
+    final english = en;
+    if (english == null || english.trim() == fr.trim()) {
+      return Text(fr, style: style);
+    }
+    final base = DefaultTextStyle.of(context).style.merge(style);
+    final scheme = Theme.of(context).colorScheme;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          '🇬🇧 $english',
+          style: base.copyWith(color: englishColor(context)),
+        ),
+        const SizedBox(height: 2),
+        Text(
+          '🇫🇷 $fr',
+          style: base.copyWith(
+            fontSize: (base.fontSize ?? 14) * 0.88,
+            fontWeight: FontWeight.w400,
+            color: scheme.onSurfaceVariant,
+          ),
+        ),
+      ],
+    );
+  }
+}

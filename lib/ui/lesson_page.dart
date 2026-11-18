@@ -1319,13 +1319,16 @@ class _MiniQuizState extends State<_MiniQuiz> {
               final chosen = _chosen[id] ?? <int>{};
               final checked = _checked.contains(id);
               final ok = isAnswerCorrect(q, chosen);
+              // Leçon en anglais : la question en anglais, avec le français.
+              final en = LessonLanguage.isEnglish(context) ? q.en : null;
               return Padding(
                 padding: const EdgeInsets.only(top: 6, bottom: 14),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      '${n + 1}. ${q.prompt}',
+                    BiLines(
+                      en: en == null ? null : '${n + 1}. ${en.prompt}',
+                      fr: '${n + 1}. ${q.prompt}',
                       style: body.copyWith(fontWeight: FontWeight.w700),
                     ),
                     if (q.isMultiple)
@@ -1337,6 +1340,7 @@ class _MiniQuizState extends State<_MiniQuiz> {
                     for (final (i, choice) in q.choices.indexed)
                       _MiniChoice(
                         text: choice,
+                        english: en?.choices[i],
                         selected: chosen.contains(i),
                         result: !checked
                             ? null
@@ -1378,8 +1382,11 @@ class _MiniQuizState extends State<_MiniQuiz> {
                             : Duration.zero,
                         child: Padding(
                           padding: const EdgeInsets.only(top: 6),
-                          child: Text(
-                            '${ok ? '🎉 Bravo ! ' : '🤔 Pas tout à fait. '}${q.explanation}',
+                          child: BiLines(
+                            en: en == null
+                                ? null
+                                : '${ok ? '🎉 Well done! ' : '🤔 Not quite. '}${en.explanation}',
+                            fr: '${ok ? '🎉 Bravo ! ' : '🤔 Pas tout à fait. '}${q.explanation}',
                             style: Hand.noteText(context).copyWith(
                               fontSize: Hand.bsize(17),
                               color: ok
@@ -1403,12 +1410,14 @@ class _MiniQuizState extends State<_MiniQuiz> {
 class _MiniChoice extends StatelessWidget {
   const _MiniChoice({
     required this.text,
+    this.english,
     required this.selected,
     required this.result,
     required this.onTap,
   });
 
   final String text;
+  final String? english;
   final bool selected;
 
   /// null : pas encore corrigé (ou choix neutre), true : bonne réponse, false : erreur.
@@ -1442,8 +1451,9 @@ class _MiniChoice extends StatelessWidget {
               child: Text(mark, style: TextStyle(fontSize: 18, color: color)),
             ),
             Expanded(
-              child: Text(
-                text,
+              child: BiLines(
+                en: english,
+                fr: text,
                 style: Hand.bodyText(context).copyWith(
                   fontSize: Hand.bsize(18),
                   color: result == null ? null : color,

@@ -7,6 +7,7 @@ import '../app_state.dart';
 import '../data/progress_store.dart';
 import '../logic/quiz_engine.dart';
 import '../models/content.dart';
+import 'bilingual.dart';
 import 'quiz_result_page.dart';
 import 'theme.dart';
 import 'widgets.dart';
@@ -237,7 +238,7 @@ class _QuizPageState extends State<QuizPage> {
               ],
             ),
             const SizedBox(height: 12),
-            Text(q.prompt, style: text.titleMedium),
+            BiLines(en: q.en?.prompt, fr: q.prompt, style: text.titleMedium),
             if (q.isMultiple) ...[
               const SizedBox(height: 6),
               Text(
@@ -250,6 +251,7 @@ class _QuizPageState extends State<QuizPage> {
               _ChoiceTile(
                 letter: String.fromCharCode(65 + pos),
                 text: q.choices[choice],
+                english: q.en?.choices[choice],
                 multiple: q.isMultiple,
                 selected: selected.contains(choice),
                 state: !validated
@@ -317,6 +319,7 @@ class _ChoiceTile extends StatelessWidget {
   const _ChoiceTile({
     required this.letter,
     required this.text,
+    this.english,
     required this.multiple,
     required this.selected,
     required this.state,
@@ -325,6 +328,7 @@ class _ChoiceTile extends StatelessWidget {
 
   final String letter;
   final String text;
+  final String? english;
   final bool multiple;
   final bool selected;
   final _ChoiceState state;
@@ -372,7 +376,9 @@ class _ChoiceTile extends StatelessWidget {
                   '$letter. ',
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
-                Expanded(child: Text(text)),
+                Expanded(
+                  child: BiLines(en: english, fr: text),
+                ),
               ],
             ),
           ),
@@ -426,6 +432,7 @@ class QuestionCorrection extends StatelessWidget {
     final scheme = Theme.of(context).colorScheme;
     final text = Theme.of(context).textTheme;
     final ok = isAnswerCorrect(question, chosen);
+    final en = question.en;
     final correctList = question.correct.toList()
       ..sort((a, b) => _letter(a).compareTo(_letter(b)));
     final wrongList = [
@@ -482,13 +489,16 @@ class QuestionCorrection extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 8),
-            Text(
-              'Bonne réponse : ${correctList.map((c) => '${_letter(c)}. ${question.choices[c]}').join(' ; ')}',
+            BiLines(
+              en: en == null
+                  ? null
+                  : 'Right answer: ${correctList.map((c) => '${_letter(c)}. ${en.choices[c]}').join(' ; ')}',
+              fr: 'Bonne réponse : ${correctList.map((c) => '${_letter(c)}. ${question.choices[c]}').join(' ; ')}',
               style: const TextStyle(fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 8),
             Text('Pourquoi', style: text.labelLarge),
-            Text(question.explanation),
+            BiLines(en: en?.explanation, fr: question.explanation),
             if (question.whyNot.isNotEmpty) ...[
               const SizedBox(height: 8),
               Text('Pourquoi pas les autres', style: text.labelLarge),
@@ -496,8 +506,11 @@ class QuestionCorrection extends StatelessWidget {
             for (final i in wrongList.where(question.whyNot.containsKey))
               Padding(
                 padding: const EdgeInsets.only(top: 4),
-                child: Text(
-                  '${_letter(i)}. ${question.whyNot[i] ?? ''}',
+                child: BiLines(
+                  en: en?.whyNot[i] == null
+                      ? null
+                      : '${_letter(i)}. ${en!.whyNot[i]}',
+                  fr: '${_letter(i)}. ${question.whyNot[i] ?? ''}',
                   style: chosen.contains(i)
                       ? TextStyle(
                           color: scheme.error,
