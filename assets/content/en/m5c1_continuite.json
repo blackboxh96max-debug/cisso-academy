@@ -1,0 +1,708 @@
+{
+ "lessons": [
+  {
+   "id": "m5c1-l1",
+   "title": "Business continuity and business impact analysis (BIA)",
+   "minutes": 35,
+   "illustration": "assets/illustrations/m5c1_l1_horloge.svg",
+   "illustrationAlt": "Drawing of an hourglass next to a failed server, with an arrow pointing back marked RPO and an arrow pointing forward marked RTO.",
+   "objectives": [
+    "Tell apart the business continuity plan (BCP), the disaster recovery plan (DRP) and the incident response plan.",
+    "Carry out a business impact analysis (BIA).",
+    "Define and link MTD, RTO, RPO and WRT.",
+    "Place the main stages of a continuity program."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-34 Rev. 1, Contingency Planning Guide for Federal Information Systems",
+     "kind": "general"
+    },
+    {
+     "title": "ISO 22301, Security and resilience: business continuity management systems",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Three plans not to confuse"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Plan",
+       "Question it answers",
+       "Scope"
+      ],
+      [
+       "BCP, business continuity plan (plan de continuité d'activité, PCA)",
+       "How does the organization keep its essential activities going during and after a crisis?",
+       "The whole organization: people, processes, premises, suppliers"
+      ],
+      [
+       "DRP, disaster recovery plan (plan de reprise d'activité, PRA)",
+       "How are IT systems and data brought back into service?",
+       "Mainly technology, often at another site"
+      ],
+      [
+       "IRP, incident response plan",
+       "How is a security incident detected, contained and handled?",
+       "Security events, often without loss of the site"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "BCP = the business carries on. DRP = IT comes back. The DRP is part of the BCP."
+    },
+    {
+     "type": "important",
+     "title": "Human life first",
+     "text": "In any continuity plan, people's safety comes before property, data and systems. Evacuating, sheltering and accounting for people always comes before IT recovery."
+    },
+    {
+     "type": "heading",
+     "text": "The business impact analysis"
+    },
+    {
+     "type": "definition",
+     "title": "BIA, Business Impact Analysis (bilan d'impact sur l'activité)",
+     "text": "Study that identifies essential processes, their dependencies (people, applications, suppliers, premises) and the impact of their interruption over time. It sets the recovery objectives and is the basis of all continuity strategies.",
+     "kind": "general"
+    },
+    {
+     "type": "practice",
+     "title": "Steps of a BIA",
+     "items": [
+      "Identify the business processes and their owners.",
+      "List the resources and dependencies of each process.",
+      "Assess the impact of an interruption over time: financial, legal, reputation, people's safety.",
+      "Set the maximum tolerable downtime (MTD) and derive the RTO and RPO from it.",
+      "Rank the processes by recovery priority.",
+      "Have the results approved by senior management."
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "The time indicators"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Indicator",
+       "Meaning",
+       "Example"
+      ],
+      [
+       "MTD (or MTPD, MAO)",
+       "Maximum tolerable downtime before unacceptable damage",
+       "Payroll cannot stop for more than 72 h"
+      ],
+      [
+       "RTO",
+       "Target time to bring the system back into service",
+       "Payroll server restarted in 24 h"
+      ],
+      [
+       "WRT",
+       "Time to verify the data and resume normal work after the return to service",
+       "Checking and re-entry: 12 h"
+      ],
+      [
+       "RPO",
+       "Maximum acceptable data loss, measured in time before the incident",
+       "Losing 4 h of data entry is accepted"
+      ]
+     ]
+    },
+    {
+     "type": "diagram",
+     "title": "Before and after the incident",
+     "alt": "Timeline: to the left of the incident, the RPO measures how much recent data you accept to lose since the last backup; to the right, the RTO then the WRT, whose sum must remain less than or equal to the MTD.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "💾",
+        "label": "Last backup",
+        "detail": "RPO: data lost",
+        "tone": "blue"
+       },
+       {
+        "emoji": "💥",
+        "label": "Incident",
+        "detail": "start of the interruption",
+        "tone": "red"
+       },
+       {
+        "emoji": "🛠️",
+        "label": "System restarted",
+        "detail": "end of the RTO",
+        "tone": "orange"
+       },
+       {
+        "emoji": "✅",
+        "label": "Normal work",
+        "detail": "end of the WRT",
+        "tone": "green"
+       },
+       {
+        "emoji": "⏳",
+        "label": "MTD limit",
+        "detail": "RTO + WRT ≤ MTD",
+        "tone": "violet"
+       }
+      ]
+     }
+    },
+    {
+     "type": "trainerNote",
+     "text": "Two reflexes: the RPO looks back (how much data is lost) and dictates the frequency of backups or replication; the RTO looks forward (how much downtime) and dictates the type of recovery site. And the RTO is always shorter than the MTD."
+    },
+    {
+     "type": "heading",
+     "text": "A program, not a document"
+    },
+    {
+     "type": "diagram",
+     "title": "The stages of a continuity program (based on NIST SP 800-34)",
+     "alt": "Seven-stage cycle: policy, impact analysis, preventive measures, recovery strategies, plan writing, testing and training, plan maintenance, with senior management support at the center.",
+     "diagram": {
+      "type": "cycle",
+      "center": "👔 Senior management\nsupport",
+      "nodes": [
+       {
+        "emoji": "📜",
+        "label": "Policy",
+        "detail": "scope, roles",
+        "tone": "blue"
+       },
+       {
+        "emoji": "📊",
+        "label": "BIA",
+        "detail": "priorities, MTD",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🛡️",
+        "label": "Prevention",
+        "detail": "reduce likelihood",
+        "tone": "green"
+       },
+       {
+        "emoji": "🧭",
+        "label": "Strategies",
+        "detail": "sites, backups",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "📝",
+        "label": "Plan",
+        "detail": "procedures, teams",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🧪",
+        "label": "Tests",
+        "detail": "exercises, training",
+        "tone": "pink"
+       },
+       {
+        "emoji": "🔁",
+        "label": "Maintenance",
+        "detail": "updating",
+        "tone": "red"
+       }
+      ]
+     }
+    },
+    {
+     "type": "socCase",
+     "title": "Case: the BIA workshop",
+     "kind": "example",
+     "text": "In a fictitious online retail company, the BIA workshop shows that order taking loses €40,000 per hour of downtime and that senior management tolerates no more than 8 hours (MTD). The team sets an RTO of 4 hours, a WRT of 2 hours and an RPO of 15 minutes, which requires continuous replication of the order database. Accounting, less urgent, gets an MTD of 5 days and simple daily backups."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "Senior management: I approve the MTDs, because they are risk acceptance choices.",
+      "Business owner: I know the real impact of one hour of downtime of my process.",
+      "CIO: I translate RTO and RPO into technical solutions and a budget.",
+      "Auditor: I check that the BIA is recent and approved, and that the plan follows from it."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "The BIA comes before the strategies and the plan.",
+      "RPO = data lost (past); RTO = downtime (future).",
+      "RTO + WRT ≤ MTD.",
+      "Senior management support is the first success factor.",
+      "People's safety always comes first."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "BCP (business), DRP (IT), IRP (incidents).",
+      "BIA: critical processes, dependencies, impacts, priorities.",
+      "MTD, RTO, WRT, RPO and how they relate.",
+      "Continuous program supported by senior management."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c1-q03",
+      "m5c1-q05"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m5c1-l2",
+   "title": "Recovery strategies: sites, backups and redundancy",
+   "minutes": 35,
+   "illustration": "assets/illustrations/m5c1_l2_sites.svg",
+   "illustrationAlt": "Drawing of three buildings: a hot site with servers switched on, a warm site with some equipment, and an empty cold site with only power outlets.",
+   "objectives": [
+    "Compare hot, warm, cold and mobile sites, reciprocal agreement and cloud recovery.",
+    "Choose between full, incremental and differential backup.",
+    "Explain RAID levels and component redundancy.",
+    "Use MTBF and mean time to repair to reason about availability."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-34 Rev. 1, Contingency Planning Guide for Federal Information Systems",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Recovery sites"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Site",
+       "Contents",
+       "Recovery time",
+       "Cost"
+      ],
+      [
+       "Mirror site (redundant)",
+       "Active copy, synchronized data",
+       "Almost immediate",
+       "Very high"
+      ],
+      [
+       "Hot site (site chaud)",
+       "Hardware, network and software ready; mainly the latest data is missing",
+       "A few hours",
+       "High"
+      ],
+      [
+       "Warm site (site tiède)",
+       "Premises, network and part of the hardware",
+       "One to a few days",
+       "Medium"
+      ],
+      [
+       "Cold site (site froid)",
+       "Premises, electricity, air conditioning; no hardware",
+       "One to several weeks",
+       "Low"
+      ],
+      [
+       "Mobile site",
+       "Equipped trailer or container",
+       "Depending on the equipment",
+       "Variable"
+      ],
+      [
+       "Reciprocal agreement",
+       "Another organization hosts in case of disaster",
+       "Uncertain",
+       "Low but unreliable"
+      ],
+      [
+       "Cloud recovery (DRaaS)",
+       "Machines replicated at a provider",
+       "Minutes to hours",
+       "Pay per use"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "The hotter the site, the faster and more expensive it is. The RTO picks the temperature of the site."
+    },
+    {
+     "type": "risk",
+     "title": "Reciprocal agreements and sites too close",
+     "text": "A reciprocal agreement is hard to enforce: the other organization may lack capacity or be hit by the same disaster, and confidentiality is tricky. A recovery site that is too close may suffer the same flood, the same power outage or the same earthquake zone."
+    },
+    {
+     "type": "heading",
+     "text": "Types of backup"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Type",
+       "What is copied",
+       "Backup",
+       "Restore"
+      ],
+      [
+       "Full",
+       "Everything",
+       "Long",
+       "Fast: a single set"
+      ],
+      [
+       "Incremental",
+       "What changed since the last backup, whatever its type",
+       "Fast",
+       "Slow: the full one then all the incrementals"
+      ],
+      [
+       "Differential",
+       "What changed since the last full backup",
+       "Longer and longer during the week",
+       "Medium: the full one then the last differential"
+      ]
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "Classic question: restore after a failure on Thursday, with a full backup on Sunday. With incrementals: the full one plus those of Monday, Tuesday and Wednesday. With differentials: the full one plus only Wednesday's. Full and incremental backups reset the files' archive bit; the differential does not."
+    },
+    {
+     "type": "important",
+     "title": "A backup must be tested",
+     "text": "Media are kept off site, protected (encryption, access control), with at least one offline or immutable copy. Restoration is tested regularly to check that it works and fits within the RTO."
+    },
+    {
+     "type": "heading",
+     "text": "Redundancy"
+    },
+    {
+     "type": "diagram",
+     "title": "Common RAID levels",
+     "alt": "Four-cell table: RAID 0 stripes data without redundancy; RAID 1 mirrors to two disks; RAID 5 stripes with parity and survives the loss of one disk; RAID 6 uses double parity and survives the loss of two disks.",
+     "diagram": {
+      "type": "quadrant",
+      "xLabel": "Level",
+      "yLabel": "Tolerance",
+      "cells": [
+       {
+        "emoji": "⚡",
+        "label": "RAID 0",
+        "detail": "striping, no tolerance",
+        "tone": "red"
+       },
+       {
+        "emoji": "🪞",
+        "label": "RAID 1",
+        "detail": "mirror, 1 disk",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🧮",
+        "label": "RAID 5",
+        "detail": "parity, 1 disk (min. 3)",
+        "tone": "green"
+       },
+       {
+        "emoji": "🛡️",
+        "label": "RAID 6",
+        "detail": "double parity, 2 disks",
+        "tone": "violet"
+       }
+      ]
+     }
+    },
+    {
+     "type": "definition",
+     "title": "RAID is not a backup",
+     "text": "RAID protects against the failure of a disk, not against a deletion, corruption or ransomware: the error is instantly copied to all the disks. It complements backups without replacing them.",
+     "kind": "general"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Measure",
+       "Against what"
+      ],
+      [
+       "Server cluster with failover",
+       "Failure of a server"
+      ],
+      [
+       "Load balancing",
+       "Overload and failure of a node"
+      ],
+      [
+       "UPS, uninterruptible power supply",
+       "Short outages, long enough to shut down cleanly or start the generator"
+      ],
+      [
+       "Generator",
+       "Long outages"
+      ],
+      [
+       "Dual power supply, dual carrier link",
+       "Single point of failure"
+      ]
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "MTBF and mean time to repair",
+     "text": "MTBF (mean time between failures) measures the reliability of a component; mean time to repair (often written MTTR, Mean Time To Repair) measures the time to restore it. Availability ≈ MTBF / (MTBF + repair time). Be careful: in a SOC, MTTR rather means the mean time to respond to an incident.",
+     "kind": "general"
+    },
+    {
+     "type": "socCase",
+     "title": "Case: choosing the site",
+     "kind": "example",
+     "text": "A fictitious mutual insurer has an RTO of 4 hours for its reimbursement service and 15 days for its archives. It rents a hot site in another region for reimbursements, with replication every 15 minutes, and a shared cold site for the archives. The hot site is chosen more than 100 km away so as not to depend on the same power grid."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CIO: RTO and RPO tell me which solution to buy; without them I oversize or undersize.",
+      "CFO: a mirror site is expensive, so it must protect a process that justifies it.",
+      "Auditor: I ask for proof of the last restore test.",
+      "Operator: I monitor backups every day; a failed backup must raise an alert."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Hot site = hours; warm = days; cold = weeks.",
+      "Incremental: fast backup, slow restore; differential: the opposite.",
+      "RAID 0 offers no redundancy; RAID 5 = at least 3 disks.",
+      "RAID does not replace backup.",
+      "Reciprocal agreement: cheap but hard to enforce."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Sites: mirror, hot, warm, cold, mobile, reciprocal, cloud.",
+      "Backups: full, incremental, differential; off-site storage, tests.",
+      "Redundancy: RAID, clusters, load balancing, power.",
+      "Availability: MTBF and repair time."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c1-q11",
+      "m5c1-q13"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m5c1-l3",
+   "title": "Writing, testing and maintaining the plan",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m5c1_l3_exercice.svg",
+   "illustrationAlt": "Drawing of a table on which lie a \"Business continuity plan\" binder, a stopwatch and scenario cards, with an \"exercise\" checkbox.",
+   "objectives": [
+    "List the expected contents of a continuity and recovery plan.",
+    "Organize the teams and crisis communication.",
+    "Compare the five types of tests, from the least to the most risky.",
+    "Keep the plan up to date and use lessons learned."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-34 Rev. 1, Contingency Planning Guide for Federal Information Systems",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-84, Guide to Test, Training, and Exercise Programs for IT Plans and Capabilities",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "What the plan contains"
+    },
+    {
+     "type": "practice",
+     "title": "Typical contents",
+     "items": [
+      "Objectives, scope and assumptions (from the BIA).",
+      "Criteria and authority to declare a disaster and activate the plan.",
+      "Teams, roles, alternates and up-to-date contact details.",
+      "Recovery procedures in order of priority, with RTO and RPO.",
+      "Communication plan: staff, customers, authorities, media, with a designated spokesperson.",
+      "Procedure for returning to the primary site.",
+      "Appendices: inventories, supplier contracts, configurations."
+     ]
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Team",
+       "Role"
+      ],
+      [
+       "Crisis unit (senior management)",
+       "Decides, declares the disaster, arbitrates, communicates"
+      ],
+      [
+       "Recovery team",
+       "Brings services back at the recovery site, in order of priority"
+      ],
+      [
+       "Salvage team",
+       "Assesses the damage and restores the primary site"
+      ],
+      [
+       "Communication",
+       "Informs staff, customers, the media"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Returning to the primary site",
+     "text": "The return is prepared like a recovery: the least critical functions go back first, to check that the primary site is safe and stable, then the most critical ones are switched over. The disaster is only over when normal activity has resumed at the primary site."
+    },
+    {
+     "type": "heading",
+     "text": "Testing the plan"
+    },
+    {
+     "type": "diagram",
+     "title": "Tests, from the lightest to the most risky",
+     "alt": "Five-step scale: checklist review, tabletop exercise (also called structured walk-through), simulation, parallel test at the recovery site, then full interruption of production, the most risky.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "📋",
+        "label": "Checklist review",
+        "detail": "everyone rereads their part",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🗣️",
+        "label": "Tabletop exercise",
+        "detail": "the scenario is walked through together",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "🎭",
+        "label": "Simulation",
+        "detail": "scenario played out, without stopping production",
+        "tone": "green"
+       },
+       {
+        "emoji": "🔀",
+        "label": "Parallel",
+        "detail": "systems started at the recovery site, production maintained",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🛑",
+        "label": "Full interruption",
+        "detail": "production stopped, real switchover",
+        "tone": "red"
+       }
+      ]
+     }
+    },
+    {
+     "type": "risk",
+     "title": "The full interruption",
+     "text": "Stopping production to really switch over is the most realistic and most risky test: it can cause the disaster it aims to prevent. It requires written approval from senior management, solid preparation and a planned rollback."
+    },
+    {
+     "type": "trainerNote",
+     "text": "In the exam: the checklist review is the least costly; the tabletop exercise brings the teams together around the scenario; the parallel test starts the recovery site without cutting production; the full interruption is the most risky and requires senior management approval."
+    },
+    {
+     "type": "heading",
+     "text": "Maintaining the plan"
+    },
+    {
+     "type": "practice",
+     "title": "Keeping the plan alive",
+     "items": [
+      "Review it at least once a year and at every major change: new application, move, supplier, reorganization.",
+      "Update contact details and alternates.",
+      "Train newcomers and raise awareness among all staff.",
+      "After every test or real incident, write up lessons learned and correct the plan.",
+      "Include plan updates in change management.",
+      "Keep copies off site and accessible even without the information system."
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "An untested plan is a hypothesis; a plan that is not updated is a trap."
+    },
+    {
+     "type": "socCase",
+     "title": "Case: the tabletop exercise",
+     "kind": "example",
+     "text": "During a simulated tabletop exercise, the facilitator announces the flooding of the basement that houses the server room. While walking through the plan, the team discovers that the on-call number of the recovery site provider has changed and that the procedure assumes access to the network share… which is in the flooded room. Both corrections are made the following week and a paper copy of the plan is placed at each site."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "Senior management: I chair the crisis unit and approve risky tests.",
+      "Continuity manager: I plan a progressive test program over the year.",
+      "Communication: I prepare template messages for customers and the press in advance.",
+      "Auditor: I compare the date of the last test and the last plan update with recent changes."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Order of tests: checklist, tabletop, simulation, parallel, full interruption.",
+      "Full interruption = senior management approval.",
+      "Return to the primary site: least critical functions first.",
+      "The plan must be accessible without the information system.",
+      "Any significant change to the IS triggers an update of the plan."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Plan: activation, teams, priorities, communication, return.",
+      "Progressive tests; full interruption reserved and approved.",
+      "Maintenance: annual review, changes, lessons learned, training.",
+      "Off-site and offline copies."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c1-q21",
+      "m5c1-q24"
+     ]
+    }
+   ]
+  }
+ ]
+}

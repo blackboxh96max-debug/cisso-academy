@@ -1,0 +1,988 @@
+{
+ "lessons": [
+  {
+   "id": "m5c5-l1",
+   "title": "The European cybersecurity landscape",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m5c5_l1_europe.svg",
+   "illustrationAlt": "Drawing of a circle of yellow stars around a shield, linked by lines to several small watch stations.",
+   "objectives": [
+    "Place the European actors: Commission, ENISA, national authorities, CSIRTs.",
+    "Describe the cooperation networks: NIS Cooperation Group, CSIRTs network, EU-CyCLONe.",
+    "Explain the European cybersecurity certification framework.",
+    "Name the mechanisms of the Cyber Solidarity Act."
+   ],
+   "references": [
+    {
+     "title": "Regulation (EU) 2019/881 on ENISA and on cybersecurity certification (Cybersecurity Act)",
+     "kind": "general"
+    },
+    {
+     "title": "Directive (EU) 2022/2555 (NIS 2), Articles 14 to 16: Cooperation Group, CSIRTs network, EU-CyCLONe",
+     "kind": "general"
+    },
+    {
+     "title": "Regulation (EU) 2025/38 on cyber solidarity, in force since February 4, 2025",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Why a European approach?"
+    },
+    {
+     "type": "text",
+     "text": "Networks, suppliers and attacks ignore borders. An outage in one country's energy or health sector can affect its neighbors. The European Union therefore sets common rules and organizes cooperation between Member States, which remain responsible for their national security."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Actor",
+       "Role"
+      ],
+      [
+       "European Commission",
+       "Proposes legislation, adopts implementing acts, funds programs"
+      ],
+      [
+       "ENISA (EU Agency for Cybersecurity)",
+       "Advises, prepares certification schemes, supports cooperation and crisis management"
+      ],
+      [
+       "National competent authorities",
+       "Supervise entities and impose penalties (for example ANSSI in France)"
+      ],
+      [
+       "National CSIRTs",
+       "Receive incident notifications and help with response"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Three cooperation networks (NIS 2)"
+    },
+    {
+     "type": "diagram",
+     "title": "From strategic to operational",
+     "alt": "Three-level diagram: the NIS Cooperation Group, which brings together the Member States, the Commission and ENISA for strategic guidance; EU-CyCLONe, which coordinates the management of large-scale crises and incidents; the CSIRTs network, which exchanges technical information and coordinates response.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🏛️",
+        "label": "Cooperation Group",
+        "detail": "strategic guidance",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🚨",
+        "label": "EU-CyCLONe",
+        "detail": "large-scale crises",
+        "tone": "red"
+       },
+       {
+        "emoji": "🛠️",
+        "label": "CSIRTs network",
+        "detail": "technical cooperation",
+        "tone": "blue"
+       }
+      ]
+     }
+    },
+    {
+     "type": "heading",
+     "text": "The Cybersecurity Act (2019/881)"
+    },
+    {
+     "type": "text",
+     "text": "This regulation gives ENISA a permanent mandate and creates a European cybersecurity certification framework for ICT products, services and processes. A certificate issued under a European scheme is recognized throughout the Union. The schemes provide three assurance levels: basic, substantial and high. The first scheme adopted, EUCC, is based on the Common Criteria.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "European cybersecurity certification (certification européenne de cybersécurité)",
+     "text": "Attestation, under a scheme adopted at EU level, that an ICT product, service or process meets security requirements for a given assurance level (basic, substantial or high).",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "The Cyber Solidarity Act (2025/38)"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Mechanism",
+       "What it provides"
+      ],
+      [
+       "European alert system",
+       "National and cross-border cybersecurity hubs that detect threats and share alerts"
+      ],
+      [
+       "Emergency mechanism",
+       "Preparedness (testing of critical sectors), EU reserve of trusted providers, mutual assistance"
+      ],
+      [
+       "Incident review",
+       "ENISA analyzes a significant or large-scale incident and draws recommendations from it"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Dates to check",
+     "text": "Texts verified on November 17, 2026; some obligations apply in stages: check the consolidated version on EUR-Lex before citing a date.",
+     "kind": "general"
+    },
+    {
+     "type": "trainerNote",
+     "text": "In the exam: ENISA = advice, certification, cooperation; it does not penalize companies. National authorities supervise and impose penalties."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: an incident that crosses the border",
+     "kind": "example",
+     "text": "Simulated exercise: a fictitious managed service provider, present in three countries, suffers a compromise in the lab. The SOC prepares the notification to the national CSIRT of its country of establishment. The trainer shows how the information then flows through the CSIRTs network and, if the crisis spreads, to EU-CyCLONe."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: identifies the competent authority and the CSIRT to which the organization must report.",
+      "SOC manager: keeps the national CSIRT's contact details and the notification format close at hand.",
+      "Auditor: checks that the organization knows the texts that apply to it.",
+      "Risk manager: follows the arrival of new texts and their application dates."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "ENISA advises and coordinates; it does not impose penalties.",
+      "EU-CyCLONe manages crises; the CSIRTs network handles technical cooperation.",
+      "The assurance levels of European certification: basic, substantial, high.",
+      "The Cyber Solidarity Act does not replace NIS 2: it adds detection, a reserve and mutual assistance."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "The EU sets common rules; the Member States supervise and impose penalties.",
+      "ENISA: permanent mandate since Regulation 2019/881.",
+      "Cooperation Group, CSIRTs network, EU-CyCLONe.",
+      "European certification: three assurance levels; EUCC based on the Common Criteria.",
+      "Cyber solidarity: alert, emergency, incident review."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c5-q01",
+      "m5c5-q03"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m5c5-l2",
+   "title": "The main texts: NIS 2, DORA, CRA and CER",
+   "minutes": 35,
+   "illustration": "assets/illustrations/m5c5_l2_textes.svg",
+   "illustrationAlt": "Drawing of four binders of different colors side by side, each marked with a European star.",
+   "objectives": [
+    "Describe the scope of NIS 2: essential and important entities.",
+    "Explain what DORA requires of the financial sector.",
+    "Describe the obligations of the Cyber Resilience Act (CRA) for digital products.",
+    "Place the CER Directive, the GDPR and the AI Act within this whole."
+   ],
+   "references": [
+    {
+     "title": "Directive (EU) 2022/2555 (NIS 2)",
+     "kind": "general"
+    },
+    {
+     "title": "Regulation (EU) 2022/2554 on digital operational resilience for the financial sector (DORA)",
+     "kind": "general"
+    },
+    {
+     "title": "Regulation (EU) 2024/2847 on cyber resilience (CRA)",
+     "kind": "general"
+    },
+    {
+     "title": "Directive (EU) 2022/2557 on the resilience of critical entities (CER)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "A family of complementary texts"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Text",
+       "Targets",
+       "Core idea",
+       "Application"
+      ],
+      [
+       "NIS 2 (Directive 2022/2555)",
+       "Entities in critical sectors",
+       "Risk management, incident notification, management accountability",
+       "Transposition by October 17, 2024, applicable since October 18, 2024"
+      ],
+      [
+       "DORA (Regulation 2022/2554)",
+       "Financial sector and its critical ICT providers",
+       "Digital operational resilience",
+       "Since January 17, 2025"
+      ],
+      [
+       "CRA (Regulation 2024/2847)",
+       "Products with digital elements",
+       "Security by design and throughout the support period",
+       "Reporting from September 11, 2026; most of it on December 11, 2027"
+      ],
+      [
+       "CER (Directive 2022/2557)",
+       "Critical entities",
+       "Physical and overall resilience",
+       "Non-cyber component, linked with NIS 2"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "NIS 2: who is covered?"
+    },
+    {
+     "type": "text",
+     "text": "NIS 2 applies, as a general rule, to medium and large companies in the sectors listed in its annexes. Annex I covers sectors of high criticality: energy, transport, banking, financial market infrastructures, health, drinking water, waste water, digital infrastructure, ICT service management (business-to-business), public administration, space. Annex II covers other critical sectors: postal services, waste management, chemicals, food, manufacturing, digital providers, research. Some entities are covered regardless of their size (for example DNS service providers or qualified trust service providers).",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Essential or important entity",
+     "text": "Essential entities (generally the large entities in Annex I sectors) are subject to ex ante and ex post supervision. Important entities are subject to lighter, ex post supervision. The security obligations are the same; supervision and the maximum fines differ.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "DORA: resilience of the financial sector"
+    },
+    {
+     "type": "diagram",
+     "title": "The pillars of DORA",
+     "alt": "Five-pillar diagram: ICT risk management under the responsibility of the management body; management, classification and reporting of major incidents; resilience testing, including threat-led penetration testing at least every three years for the entities concerned; management of ICT third-party risk and oversight of critical providers; sharing of threat information.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🧭",
+        "label": "ICT risk",
+        "detail": "framework under management",
+        "tone": "blue"
+       },
+       {
+        "emoji": "📣",
+        "label": "Incidents",
+        "detail": "classify, report major ones",
+        "tone": "red"
+       },
+       {
+        "emoji": "🧪",
+        "label": "Tests",
+        "detail": "TLPT at least every 3 years",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🤝",
+        "label": "ICT providers",
+        "detail": "contracts, critical providers",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🔁",
+        "label": "Sharing",
+        "detail": "threat intelligence",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "important",
+     "title": "DORA and NIS 2",
+     "text": "For financial entities, DORA is the specific text: its requirements take precedence over those of NIS 2 for ICT risk management and incident reporting.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "The CRA: products secure by default"
+    },
+    {
+     "type": "text",
+     "text": "The Cyber Resilience Act imposes essential requirements on manufacturers of products with digital elements (software, connected devices): security by design, no known exploitable vulnerability when placed on the market, secure configuration by default, security updates during the support period, in principle of at least five years. Compliant products bear the CE marking. Manufacturers must report actively exploited vulnerabilities and severe incidents through a single platform managed by ENISA.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "And the other texts?"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Text",
+       "Link with cybersecurity"
+      ],
+      [
+       "GDPR (Regulation 2016/679)",
+       "Security of personal data, breach notification to the authority within 72 hours"
+      ],
+      [
+       "AI Act (2024/1689)",
+       "Robustness and cybersecurity requirements for high-risk AI systems"
+      ],
+      [
+       "CER (Directive 2022/2557)",
+       "Critical entities within the meaning of CER are treated as essential entities under NIS 2"
+      ]
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "Remember the target of each text: NIS 2 = organizations in critical sectors; DORA = finance; CRA = products; CER = resilience of critical entities; GDPR = personal data."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: which text applies?",
+     "kind": "example",
+     "text": "Simulated exercise: the trainer presents three fictitious SOC clients: a medium-sized hospital, a bank and a manufacturer of connected cameras. The analyst links the first to NIS 2 (health), the second to DORA, the third to the CRA for its products, and points out that the GDPR applies to all three as soon as they process personal data."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: draws up the list of applicable texts and assigns each one to an owner.",
+      "SOC manager: aligns notification procedures with each text's deadlines.",
+      "Auditor: checks the entity's classification (essential or important) and its justification.",
+      "Risk manager: integrates regulatory compliance into the risk map."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "NIS 2 is a directive: it is transposed into national law. DORA and the CRA are regulations: they apply directly.",
+      "Essential and important entities have the same security obligations; supervision and fines differ.",
+      "For finance, DORA takes precedence over NIS 2 for ICT risk.",
+      "The CRA targets products, not the organization that uses them."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "NIS 2: critical sectors, essential and important entities.",
+      "DORA: ICT risk, incidents, tests, providers, sharing.",
+      "CRA: security of digital products, CE marking, reporting to ENISA.",
+      "CER, GDPR and the AI Act complete the whole.",
+      "Texts verified on November 17, 2026; some obligations apply in stages: check the consolidated version on EUR-Lex before citing a date."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c5-q06",
+      "m5c5-q08"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m5c5-l3",
+   "title": "Operational requirements in practice",
+   "minutes": 35,
+   "illustration": "assets/illustrations/m5c5_l3_horloge.svg",
+   "illustrationAlt": "Drawing of a clock marked 24 h and 72 h next to a checklist of ten boxes.",
+   "objectives": [
+    "List the ten categories of measures in Article 21 of NIS 2.",
+    "Apply the NIS 2 notification deadlines and compare them with those of the GDPR and the CRA.",
+    "Organize supply chain security and vulnerability management.",
+    "Prepare the evidence expected by the supervisory authority."
+   ],
+   "references": [
+    {
+     "title": "Directive (EU) 2022/2555 (NIS 2), Articles 21 and 23",
+     "kind": "general"
+    },
+    {
+     "title": "Implementing Regulation (EU) 2024/2690: technical requirements for certain digital entities",
+     "kind": "general"
+    },
+    {
+     "title": "Regulation (EU) 2016/679 (GDPR), Articles 33 and 34",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "The ten minimum measures (Article 21 of NIS 2)"
+    },
+    {
+     "type": "text",
+     "text": "Entities must take technical, operational and organizational measures proportionate to the risks, following an \"all-hazards\" approach. Article 21 sets at least the following measures.",
+     "kind": "general"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Point",
+       "Measure"
+      ],
+      [
+       "a",
+       "Policies on risk analysis and information system security"
+      ],
+      [
+       "b",
+       "Incident handling"
+      ],
+      [
+       "c",
+       "Business continuity: backups, disaster recovery, crisis management"
+      ],
+      [
+       "d",
+       "Supply chain security"
+      ],
+      [
+       "e",
+       "Security in acquisition, development and maintenance, including vulnerability handling and disclosure"
+      ],
+      [
+       "f",
+       "Assessment of the effectiveness of the measures"
+      ],
+      [
+       "g",
+       "Basic cyber hygiene and training"
+      ],
+      [
+       "h",
+       "Cryptography and encryption"
+      ],
+      [
+       "i",
+       "Human resources security, access control, asset management"
+      ],
+      [
+       "j",
+       "Multi-factor or continuous authentication, secured communications, including emergency communications"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Reporting a significant incident"
+    },
+    {
+     "type": "diagram",
+     "title": "The NIS 2 deadlines (Article 23)",
+     "alt": "Four-step timeline: early warning to the CSIRT or the authority within 24 hours of becoming aware of the significant incident; incident notification within 72 hours, with an initial assessment; intermediate report if the authority requests it; final report no later than one month after the notification.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "⏰",
+        "label": "Early warning",
+        "detail": "24 h",
+        "tone": "red"
+       },
+       {
+        "emoji": "📝",
+        "label": "Notification",
+        "detail": "72 h, initial assessment",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🔄",
+        "label": "Intermediate",
+        "detail": "on request",
+        "tone": "yellow"
+       },
+       {
+        "emoji": "📕",
+        "label": "Final report",
+        "detail": "1 month after the notification",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Text",
+       "Event",
+       "First deadline"
+      ],
+      [
+       "NIS 2",
+       "Significant incident",
+       "Early warning within 24 h, notification within 72 h"
+      ],
+      [
+       "GDPR",
+       "Personal data breach",
+       "72 h to the supervisory authority, unless the risk is unlikely"
+      ],
+      [
+       "CRA",
+       "Actively exploited vulnerability or severe incident affecting a product",
+       "Early warning within 24 h through the ENISA platform"
+      ],
+      [
+       "DORA",
+       "Major ICT-related incident",
+       "Deadlines set by technical standards: to be checked"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "One incident, several notifications",
+     "text": "An intrusion with theft of personal data at a NIS 2 entity may require one notification to the CSIRT (NIS 2) and another to the data protection authority (GDPR). The response procedure must provide for both channels and their deadlines."
+    },
+    {
+     "type": "heading",
+     "text": "Supply chain and vulnerabilities"
+    },
+    {
+     "type": "practice",
+     "title": "Putting it into practice",
+     "kind": "practice",
+     "items": [
+      "Keep an inventory of critical suppliers and assess their security; write it into contracts (incident notification, audit, end of contract).",
+      "Publish a coordinated vulnerability disclosure policy and a point of contact.",
+      "Track vulnerabilities in the products used and apply patches according to their criticality.",
+      "Roll out multi-factor authentication for sensitive and remote access.",
+      "Test backups and crisis plans, and keep a record of these tests."
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "Proof of compliance",
+     "text": "The authority expects verifiable elements: approved policies, risk analyzes, test reports, incident registers, proof of training, supplier contracts. A measure without a written record is hard to demonstrate.",
+     "kind": "general"
+    },
+    {
+     "type": "trainerNote",
+     "text": "Deadlines are classic traps: NIS 2 = 24 h / 72 h / 1 month; GDPR = 72 h. The deadline runs from the moment the entity becomes aware of the incident."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: the countdown",
+     "kind": "example",
+     "text": "Simulated exercise: at 10 a.m., the SOC of a fictitious entity confirms a significant intrusion in the lab. The analyst starts the regulatory timer: early warning before 10 a.m. the next day, notification before 10 a.m. three days later. The analyst also informs the data protection officer, because fictitious personal data is involved."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: has senior management approve the policies that cover the ten measures.",
+      "SOC manager: builds the regulatory deadlines into escalation procedures and ticketing tools.",
+      "Auditor: asks for evidence of each measure and the incident registers.",
+      "Risk manager: assesses dependence on critical suppliers and their security level."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "The NIS 2 early warning is due within 24 h; the full notification within 72 h.",
+      "The NIS 2 final report arrives no later than one month after the notification.",
+      "The supply chain is part of the minimum measures (point d).",
+      "The GDPR and NIS 2 can apply to the same incident."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Article 21: ten categories of measures, all-hazards approach.",
+      "Article 23: 24 h, 72 h, one month.",
+      "GDPR: 72 h; CRA: 24 h for exploited vulnerabilities.",
+      "Suppliers, vulnerabilities, multi-factor, tests: with written evidence."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c5-q11",
+      "m5c5-q12"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m5c5-l4",
+   "title": "Mapping to CISSO and the frameworks",
+   "minutes": 25,
+   "illustration": "assets/illustrations/m5c5_l4_correspondance.svg",
+   "illustrationAlt": "Drawing of two columns of boxes linked by crossing arrows, like a mapping table.",
+   "objectives": [
+    "Link the NIS 2 measures to the CISSO domains studied in this course.",
+    "Use ISO/IEC 27001 and NIST CSF 2.0 to demonstrate compliance.",
+    "Build a mapping matrix that avoids duplicate work."
+   ],
+   "references": [
+    {
+     "title": "ISO/IEC 27001:2022, Information security management systems: requirements",
+     "kind": "general"
+    },
+    {
+     "title": "NIST Cybersecurity Framework (CSF) 2.0, February 2024",
+     "kind": "general"
+    },
+    {
+     "title": "Directive (EU) 2022/2555 (NIS 2), Article 21",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "One system, several requirements"
+    },
+    {
+     "type": "text",
+     "text": "An organization has no interest in creating a different program for each text. It relies on a management system (often ISO/IEC 27001) and links each regulatory requirement to the measures that already address it. CISSO knowledge covers most of these measures."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "NIS 2 measure (Art. 21)",
+       "CISSO domain",
+       "NIST CSF 2.0 function"
+      ],
+      [
+       "a. Risk analysis, policies",
+       "Risk management; security management",
+       "Govern, Identify"
+      ],
+      [
+       "b. Incident handling",
+       "Incident response",
+       "Detect, Respond"
+      ],
+      [
+       "c. Continuity, backups, crisis",
+       "Continuity and recovery (BCP, DRP)",
+       "Recover"
+      ],
+      [
+       "d. Supply chain",
+       "Security management",
+       "Govern"
+      ],
+      [
+       "e. Acquisition, development, vulnerabilities",
+       "Secure development; vulnerability management",
+       "Protect, Identify"
+      ],
+      [
+       "f. Effectiveness of measures",
+       "Security operations, audits",
+       "Identify (improvement)"
+      ],
+      [
+       "g. Cyber hygiene, training",
+       "Staff awareness",
+       "Protect"
+      ],
+      [
+       "h. Cryptography",
+       "Cryptography",
+       "Protect"
+      ],
+      [
+       "i. HR, access control, assets",
+       "IAM and access control; classification",
+       "Protect, Identify"
+      ],
+      [
+       "j. Multi-factor, secured communications",
+       "Authentication; network security",
+       "Protect"
+      ]
+     ]
+    },
+    {
+     "type": "diagram",
+     "title": "Building a mapping matrix",
+     "alt": "Four-step diagram: list the requirements of each applicable text; link them to the existing measures of the management system; spot the gaps; address the gaps and gather the evidence only once for several texts.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "📋",
+        "label": "List",
+        "detail": "requirements of the texts",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🔗",
+        "label": "Link",
+        "detail": "to existing measures",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🔍",
+        "label": "Gaps",
+        "detail": "what is missing",
+        "tone": "orange"
+       },
+       {
+        "emoji": "✅",
+        "label": "Address",
+        "detail": "shared evidence",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "important",
+     "title": "Certification is not compliance",
+     "text": "Being ISO/IEC 27001 certified helps a lot, but does not on its own prove compliance with NIS 2: the certified scope, the notification deadlines and management accountability must be checked separately."
+    },
+    {
+     "type": "memo",
+     "text": "\"One management system, one matrix, shared evidence.\""
+    },
+    {
+     "type": "trainerNote",
+     "text": "NIST CSF 2.0 added the Govern function to the five historical functions (Identify, Protect, Detect, Respond, Recover). It fits well with the management accountability required by NIS 2."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: one piece of evidence for two requirements",
+     "kind": "example",
+     "text": "Simulated exercise: the lab team prepares a fictitious audit. The SOC's incident register serves as evidence both for NIS 2 incident handling and for the corresponding ISO/IEC 27001 control. The analyst adds to the register the time the incident became known, which is essential to demonstrate that deadlines were met."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: the matrix avoids multiplying programs and shows senior management the coverage.",
+      "SOC manager: SOC registers and metrics are evidence for several texts.",
+      "Auditor: checks that each requirement has a measure and evidence.",
+      "Risk manager: addresses gaps according to risk and possible penalties."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "An ISO/IEC 27001 certification does not mean automatic compliance with NIS 2.",
+      "CSF 2.0: six functions, including Govern.",
+      "The matrix links requirements, measures and evidence; it does not replace risk analysis."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "The NIS 2 measures overlap with the CISSO domains.",
+      "ISO/IEC 27001 and NIST CSF 2.0 serve as the backbone.",
+      "Matrix: list, link, spot gaps, share evidence."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c5-q16",
+      "m5c5-q17"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m5c5-l5",
+   "title": "Penalties and the role of management",
+   "minutes": 25,
+   "illustration": "assets/illustrations/m5c5_l5_direction.svg",
+   "illustrationAlt": "Drawing of a meeting table with a judge's gavel on it and a chart showing a rising arrow.",
+   "objectives": [
+    "Explain the obligations of management bodies under NIS 2.",
+    "Name the maximum fines under NIS 2 and the GDPR.",
+    "Describe how these texts change the role of the CISO and senior management."
+   ],
+   "references": [
+    {
+     "title": "Directive (EU) 2022/2555 (NIS 2), Articles 20, 32 and 34",
+     "kind": "general"
+    },
+    {
+     "title": "Regulation (EU) 2016/679 (GDPR), Article 83",
+     "kind": "general"
+    },
+    {
+     "title": "Regulation (EU) 2022/2554 (DORA), Article 5",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Management becomes accountable"
+    },
+    {
+     "type": "text",
+     "text": "NIS 2 places cybersecurity at management level. Management bodies must approve the risk management measures, oversee their implementation and can be held liable for failures. Their members must follow training, and the entity is encouraged to offer it regularly to its staff. DORA goes in the same direction for the financial sector: the management body bears ultimate responsibility for ICT risk.",
+     "kind": "general"
+    },
+    {
+     "type": "diagram",
+     "title": "What management must do",
+     "alt": "Four-step diagram: approve the risk management measures; oversee their implementation; get trained to understand the risks; be held accountable for failures.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "✍️",
+        "label": "Approve",
+        "detail": "the measures",
+        "tone": "blue"
+       },
+       {
+        "emoji": "👀",
+        "label": "Oversee",
+        "detail": "implementation",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🎓",
+        "label": "Get trained",
+        "detail": "understand the risks",
+        "tone": "green"
+       },
+       {
+        "emoji": "⚖️",
+        "label": "Answer",
+        "detail": "for failures",
+        "tone": "red"
+       }
+      ]
+     }
+    },
+    {
+     "type": "heading",
+     "text": "The fines"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Text",
+       "Maximum ceiling (whichever is higher)"
+      ],
+      [
+       "NIS 2, essential entity",
+       "At least €10 million or 2% of total worldwide annual turnover"
+      ],
+      [
+       "NIS 2, important entity",
+       "At least €7 million or 1.4% of total worldwide annual turnover"
+      ],
+      [
+       "GDPR, most serious infringements",
+       "€20 million or 4% of total worldwide annual turnover"
+      ]
+     ]
+    },
+    {
+     "type": "text",
+     "text": "For NIS 2, these amounts are minimum ceilings that each Member State must at least provide for in its transposition law. For an essential entity, the authority may also, as a last resort, suspend a certification or temporarily prohibit an executive from exercising management functions.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "What changes for the CISO"
+    },
+    {
+     "type": "practice",
+     "title": "The new role",
+     "kind": "practice",
+     "items": [
+      "Report regularly to senior management, with understandable metrics.",
+      "Have policies and risk decisions formally approved, and keep a record of them.",
+      "Organize training for executives.",
+      "Prepare the relationship with the supervisory authority: contacts, evidence, notifications.",
+      "Take part in decisions on critical suppliers and budgets."
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Not just fear of the fine",
+     "text": "Penalties give the CISO weight, but the goal remains resilience: senior management that understands the risks decides better and faster during a crisis."
+    },
+    {
+     "type": "trainerNote",
+     "text": "In the exam: NIS 2 = €10 million or 2% (essential), €7 million or 1.4% (important); GDPR = up to €20 million or 4%. Management accountability is Article 20 of NIS 2."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: preparing the management briefing",
+     "kind": "example",
+     "text": "Simulated exercise: after a fictitious quarter, the SOC manager prepares a one-page summary for the executive committee: number of significant incidents, notification deadlines met, critical patches overdue, result of the last crisis exercise. Senior management approves a budget for multi-factor authentication on remote access."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: becomes an advisor to senior management, not just a technician.",
+      "SOC manager: SOC metrics feed the management dashboard.",
+      "Auditor: checks the approval minutes and the proof of executive training.",
+      "Risk manager: translates cyber risks into financial and regulatory impact."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Executives approve and oversee; they can be held liable.",
+      "The NIS 2 ceilings are minimums that the Member States must provide for.",
+      "The temporary ban on management functions applies to essential entities, as a last resort.",
+      "The highest GDPR fines go up to 4% of worldwide turnover."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "NIS 2, Article 20: approve, oversee, get trained, answer for failures.",
+      "Fines: €10 million / 2% and €7 million / 1.4% (NIS 2); up to €20 million / 4% (GDPR).",
+      "The CISO reports to senior management, with evidence and metrics.",
+      "Texts verified on November 17, 2026; some obligations apply in stages: check the consolidated version on EUR-Lex before citing a date."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c5-q21",
+      "m5c5-q22"
+     ]
+    }
+   ]
+  }
+ ]
+}

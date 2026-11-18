@@ -1,0 +1,856 @@
+{
+ "lessons": [
+  {
+   "id": "m5c4-l1",
+   "title": "Choosing and protecting the site",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m5c4_l1_enceinte.svg",
+   "illustrationAlt": "Drawing of a building surrounded by a fence, with a lit streetlight, bollards in front of the entrance and a camera fixed to the wall.",
+   "objectives": [
+    "Explain why physical security protects people first.",
+    "Choose the location of a site and a server room taking the risks into account.",
+    "Organize protection in successive layers, from the perimeter to the rack.",
+    "Apply the principles of crime prevention through environmental design (CPTED)."
+   ],
+   "references": [
+    {
+     "title": "ISO/IEC 27002:2022, \"physical controls\" theme (controls 7.1 to 7.14)",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-53 Rev. 5, PE family (Physical and Environmental Protection)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "People first"
+    },
+    {
+     "type": "text",
+     "text": "Physical security protects people, buildings, equipment and information against theft, intrusion, sabotage, fire, water or power outages. A perfect firewall is useless if someone can walk off with the server under their arm."
+    },
+    {
+     "type": "important",
+     "title": "Top priority: people's safety",
+     "text": "When protecting people and protecting property conflict, people always come first. An emergency exit must be able to open during a fire, even if that weakens the protection of the building."
+    },
+    {
+     "type": "heading",
+     "text": "Choosing the location"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Criterion",
+       "Questions to ask"
+      ],
+      [
+       "Natural hazards",
+       "Area exposed to flooding, earthquakes, storms or wildfires?"
+      ],
+      [
+       "Surroundings",
+       "Hazardous plant, airport, high-risk road, crime rate?"
+      ],
+      [
+       "Access and emergency services",
+       "Distance from firefighters, police, hospitals; multiple access roads?"
+      ],
+      [
+       "Utilities",
+       "Power supply, telecom networks, water: how many independent feeds?"
+      ],
+      [
+       "Visibility",
+       "Does the site attract attention? A \"data center\" sign is not a good idea."
+      ]
+     ]
+    },
+    {
+     "type": "practice",
+     "title": "Placing the server room",
+     "items": [
+      "At the heart of the building, away from outside walls and without windows.",
+      "Neither in the basement (flooding) nor under the roof (leaks, heat).",
+      "Away from water pipes, kitchens and hazardous storage areas.",
+      "With limited and controlled access, and no through traffic to other areas.",
+      "With walls that go from the true floor to the true ceiling, so that nobody can get in through the drop ceiling or the raised floor."
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Successive layers"
+    },
+    {
+     "type": "text",
+     "text": "Defense in depth also applies to the physical world: an intruder must get past several independent barriers, and each layer slows them down and increases the chances of spotting them."
+    },
+    {
+     "type": "diagram",
+     "title": "From the gate to the rack",
+     "alt": "Five-step diagram, from the outside in: the perimeter with fence and lighting, the building entrance with reception and badges, the internal zones, the server room with a mantrap, and finally the locked rack.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🚧",
+        "label": "Perimeter",
+        "detail": "fence, lighting, bollards",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🏢",
+        "label": "Building",
+        "detail": "reception, badges, cameras",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🚪",
+        "label": "Internal zones",
+        "detail": "need to know",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🖥️",
+        "label": "Server room",
+        "detail": "mantrap, access log",
+        "tone": "pink"
+       },
+       {
+        "emoji": "🔒",
+        "label": "Rack",
+        "detail": "lock, seals",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Perimeter measure",
+       "Role"
+      ],
+      [
+       "Fence",
+       "Mark the boundary and slow down. Benchmarks often cited in textbooks: about 1 m deters casual passersby, about 2 m is hard to climb, about 2.4 m topped with barbed wire stops a determined intruder."
+      ],
+      [
+       "Lighting",
+       "Deter and enable surveillance; avoid shadowy areas and glare for guards and cameras."
+      ],
+      [
+       "Bollards",
+       "Prevent a vehicle from ramming the entrance or the facade."
+      ],
+      [
+       "Gate and guard post",
+       "Check vehicles and deliveries."
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "A physical barrier does not make intrusion impossible: it delays it. It must therefore always be paired with a means of detection and a response."
+    },
+    {
+     "type": "heading",
+     "text": "CPTED"
+    },
+    {
+     "type": "definition",
+     "title": "Crime Prevention Through Environmental Design (CPTED)",
+     "text": "Approach that reduces crime by designing the environment. Its main strategies: natural surveillance (see and be seen: glazing, lighting, low hedges), natural access control (paths and layouts that guide toward the monitored entrance), territorial reinforcement (clearly marking private space) and maintenance (a well-kept place shows that it is watched).",
+     "kind": "general"
+    },
+    {
+     "type": "socCase",
+     "title": "Case: the SME's new site",
+     "kind": "example",
+     "text": "A fictitious SME installs its servers in a rented building. The first plan put the room in the basement, next to the boiler room. The CISO has it moved to the first floor, in the center of the building, without windows, asks for bollards in front of the glass lobby, removes the \"Data center\" sign and has the hedges that hid the delivery door trimmed."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "Facilities manager: I know the building, its exits and its weaknesses.",
+      "CISO: I link the physical zones to the sensitivity of the information they house.",
+      "Health and safety manager: I check that the measures never prevent evacuation.",
+      "Auditor: I test the layers under simulated and authorized conditions."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "People's safety comes before the protection of property.",
+      "Server room: in the center, neither basement nor top floor, without windows.",
+      "The walls of the sensitive room go from the true floor to the true ceiling.",
+      "A barrier delays; it must be combined with detection and response.",
+      "CPTED = designing the environment, not a technology."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Physical security: people, buildings, equipment, information.",
+      "Location: natural hazards, surroundings, emergency services, redundant utilities, discretion.",
+      "Defense in depth: perimeter, building, zones, room, rack.",
+      "CPTED: natural surveillance, natural access control, territorial reinforcement, maintenance."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c4-q01",
+      "m5c4-q05"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m5c4-l2",
+   "title": "Controlling access and monitoring",
+   "minutes": 35,
+   "illustration": "assets/illustrations/m5c4_l2_sas.svg",
+   "illustrationAlt": "Drawing of a mantrap between two glass doors, with a badge reader on the side and a person presenting their card.",
+   "objectives": [
+    "Compare badges, locks, biometrics, guards and mantraps.",
+    "Spot and prevent tailgating and piggybacking.",
+    "Choose suitable detection and video surveillance.",
+    "Tell apart fail-safe and fail-secure for a door."
+   ],
+   "references": [
+    {
+     "title": "ISO/IEC 27002:2022, controls 7.1 (perimeters), 7.2 (physical entry) and 7.4 (physical security monitoring)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Delay, see, respond"
+    },
+    {
+     "type": "text",
+     "text": "A physical protection system combines measures that complement each other. Each measure only makes sense if the next one exists: an alarm that nobody listens to protects nothing."
+    },
+    {
+     "type": "diagram",
+     "title": "The physical protection chain",
+     "alt": "Five-step diagram: deter with lighting and signs, delay with fences and locks, detect with sensors and cameras, assess the situation through images and guards, then respond with intervention and alerting.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "💡",
+        "label": "Deter",
+        "detail": "lighting, signs, visible guards",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🧱",
+        "label": "Delay",
+        "detail": "fences, doors, locks",
+        "tone": "violet"
+       },
+       {
+        "emoji": "📡",
+        "label": "Detect",
+        "detail": "sensors, alarms, cameras",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🧐",
+        "label": "Assess",
+        "detail": "images, alarm verification",
+        "tone": "pink"
+       },
+       {
+        "emoji": "🚨",
+        "label": "Respond",
+        "detail": "intervention, alert",
+        "tone": "red"
+       }
+      ]
+     }
+    },
+    {
+     "type": "heading",
+     "text": "Means of access control"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Means",
+       "Strengths",
+       "Limits"
+      ],
+      [
+       "Key lock",
+       "Simple, no power needed",
+       "Keys copied or lost, no log"
+      ],
+      [
+       "Cipher lock",
+       "No key to manage",
+       "Code shared or observed; change it regularly"
+      ],
+      [
+       "Badge (smart card, contactless)",
+       "Log of entries, immediate revocation",
+       "Badge lent, lost or cloned"
+      ],
+      [
+       "Biometrics",
+       "Tied to the person",
+       "Cost, FAR/FRR errors, privacy"
+      ],
+      [
+       "Guard",
+       "Human judgment, adapts to the unexpected",
+       "Cost, fatigue, social engineering"
+      ],
+      [
+       "Mantrap",
+       "One person at a time",
+       "Limited throughput; must allow evacuation"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "The guard is the most flexible measure: they can judge, deter, detect and respond. It is also the most expensive."
+    },
+    {
+     "type": "definition",
+     "title": "Mantrap (sas)",
+     "text": "Space closed by two doors, only one of which can be open at a time. The person identifies themselves to enter, then again to exit toward the protected zone. The mantrap prevents following someone in and can hold an intruder until intervention, while respecting evacuation rules.",
+     "kind": "general"
+    },
+    {
+     "type": "important",
+     "title": "Tailgating and piggybacking",
+     "text": "Tailgating means slipping in behind an authorized person without their knowledge. Piggybacking means going in with their consent, for example when they hold the door out of politeness. Not all textbooks make this distinction; in both cases, the countermeasure is the same: mantrap or turnstile, awareness, \"one badge, one person\" rule."
+    },
+    {
+     "type": "heading",
+     "text": "Visitors"
+    },
+    {
+     "type": "practice",
+     "title": "Managing visitors",
+     "items": [
+      "Record the identity, time of arrival, person visited and purpose.",
+      "Hand out a clearly visible visitor badge, different from the staff badge.",
+      "Escort the visitor in sensitive areas, from start to finish.",
+      "Collect the badge and record the time of departure.",
+      "Keep the register according to the organization's policy."
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Detecting and monitoring"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Sensor",
+       "Principle",
+       "Use"
+      ],
+      [
+       "Magnetic contact",
+       "Detects the opening of a door or window",
+       "Exits, racks"
+      ],
+      [
+       "Passive infrared",
+       "Detects the heat of a moving body",
+       "Rooms, corridors"
+      ],
+      [
+       "Photoelectric beam",
+       "Detects the interruption of a beam",
+       "Passages, perimeters"
+      ],
+      [
+       "Vibration, glass break",
+       "Detects impacts or the sound of breaking glass",
+       "Glazing, walls"
+      ],
+      [
+       "Volumetric (microwave, ultrasonic)",
+       "Detects a disturbance of a field in a room",
+       "Areas closed at night"
+      ]
+     ]
+    },
+    {
+     "type": "text",
+     "text": "Video surveillance (CCTV) deters, helps assess an alarm and provides evidence. It is only valuable if the images are watched or analyzed, kept long enough and protected. People being filmed must be informed, in compliance with privacy and local rules."
+    },
+    {
+     "type": "heading",
+     "text": "Fail-safe or fail-secure?"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Mode",
+       "If the power is cut",
+       "Priority"
+      ],
+      [
+       "Fail-safe",
+       "The door unlocks",
+       "People can get out"
+      ],
+      [
+       "Fail-secure",
+       "The door stays locked",
+       "Property stays protected"
+      ]
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "In the exam, for an exit used by people, the right answer is almost always fail-safe: human life comes first. Fail-secure suits a rack or a safe that nobody has to go through to escape."
+    },
+    {
+     "type": "socCase",
+     "title": "Case: the door held out of politeness",
+     "kind": "example",
+     "text": "During a simulated and authorized physical penetration test, an auditor carrying boxes waits in front of the entrance of a fictitious site. An employee holds the door. The auditor walks all the way to the meeting room, where they plug in a computer. The report recommends a turnstile, an awareness campaign and disabled network ports in open rooms."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "Guard: I check every badge, even one belonging to a familiar face.",
+      "Employee: I do not hold the door for a stranger; I direct them to reception.",
+      "CISO: I revoke badges on the day a person leaves.",
+      "Health and safety manager: I check that mantraps open in case of a fire alarm."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Mantrap = only one door open at a time, against tailgating.",
+      "Guard = the most flexible measure, thanks to human judgment.",
+      "A camera nobody watches only deters and records.",
+      "Emergency exit = fail-safe; safe = fail-secure.",
+      "A lock delays; it does not prevent."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Chain: deter, delay, detect, assess, respond.",
+      "Means: locks, codes, badges, biometrics, guards, mantraps.",
+      "Tailgating and piggybacking: mantraps, turnstiles, awareness.",
+      "Visitors: register, badge, escort, return.",
+      "Sensors and CCTV; fail-safe for people."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c4-q11",
+      "m5c4-q15"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m5c4-l3",
+   "title": "Power, climate and fire",
+   "minutes": 40,
+   "illustration": "assets/illustrations/m5c4_l3_onduleur.svg",
+   "illustrationAlt": "Drawing of a UPS with a lightning bolt on its front, next to a thermometer and a red fire extinguisher.",
+   "objectives": [
+    "Recognize electrical anomalies and their countermeasures.",
+    "Maintain temperature and humidity suited to the equipment.",
+    "Choose fire detection and suppression suited to a server room.",
+    "Protect equipment against theft, water and interference."
+   ],
+   "references": [
+    {
+     "title": "ASHRAE TC 9.9, Thermal Guidelines for Data Processing Environments (recommended range of 18 to 27 °C)",
+     "kind": "general"
+    },
+    {
+     "title": "NFPA 10 (US fire classes) and European standard EN 2 (fire classes)",
+     "kind": "general"
+    },
+    {
+     "title": "Montreal Protocol (1987) on Substances that Deplete the Ozone Layer",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Electrical power"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Anomaly",
+       "Description",
+       "Duration"
+      ],
+      [
+       "Spike",
+       "Overvoltage",
+       "Brief"
+      ],
+      [
+       "Surge",
+       "Overvoltage",
+       "Prolonged"
+      ],
+      [
+       "Sag (dip)",
+       "Undervoltage",
+       "Brief"
+      ],
+      [
+       "Brownout",
+       "Undervoltage",
+       "Prolonged"
+      ],
+      [
+       "Fault",
+       "Total loss",
+       "Brief"
+      ],
+      [
+       "Blackout",
+       "Total loss",
+       "Prolonged"
+      ],
+      [
+       "Inrush",
+       "Spike when equipment starts up",
+       "Brief"
+      ],
+      [
+       "Noise (EMI, RFI)",
+       "Electromagnetic or radio interference",
+       "Variable"
+      ]
+     ]
+    },
+    {
+     "type": "diagram",
+     "title": "Too much or not enough, brief or long",
+     "alt": "Four-cell table: a brief overvoltage is a spike, a prolonged overvoltage is a surge, a brief undervoltage is a sag, a prolonged undervoltage is a brownout.",
+     "diagram": {
+      "type": "quadrant",
+      "xLabel": "Duration",
+      "yLabel": "Voltage",
+      "cells": [
+       {
+        "emoji": "⚡",
+        "label": "Spike",
+        "detail": "too much, brief",
+        "tone": "red"
+       },
+       {
+        "emoji": "🌊",
+        "label": "Surge",
+        "detail": "too much, prolonged",
+        "tone": "orange"
+       },
+       {
+        "emoji": "📉",
+        "label": "Sag",
+        "detail": "not enough, brief",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🕯️",
+        "label": "Brownout",
+        "detail": "not enough, prolonged",
+        "tone": "violet"
+       }
+      ]
+     }
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Countermeasure",
+       "Role"
+      ],
+      [
+       "Surge protector",
+       "Absorbs spikes and surges"
+      ],
+      [
+       "Line conditioner, regulator",
+       "Smooths the voltage and filters noise"
+      ],
+      [
+       "UPS, uninterruptible power supply (onduleur)",
+       "Provides power for a few minutes during an outage, long enough to shut down cleanly or start the generator. An online (double-conversion) UPS powers the equipment permanently through its converter, with the battery taking over without interruption: no switchover time."
+      ],
+      [
+       "Generator",
+       "Takes over during long outages; needs fuel and regular tests"
+      ],
+      [
+       "Dual power feed",
+       "Two independent supplies, ideally from two different substations"
+      ],
+      [
+       "Shielded cables, cable separation",
+       "Reduce interference"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "UPS = hold out for a few minutes. Generator = hold out for hours or days."
+    },
+    {
+     "type": "heading",
+     "text": "The room's climate"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Parameter",
+       "Benchmark",
+       "If it is badly set"
+      ],
+      [
+       "Temperature",
+       "18 to 27 °C (range recommended by ASHRAE for server rooms)",
+       "Too hot: failures, shorter lifespan"
+      ],
+      [
+       "Relative humidity",
+       "About 40 to 60% (benchmark often cited in textbooks)",
+       "Too dry: static electricity; too humid: condensation and corrosion"
+      ],
+      [
+       "Air pressure",
+       "Positive pressure in the room",
+       "Without it, dust and smoke come in when the door is opened"
+      ]
+     ]
+    },
+    {
+     "type": "practice",
+     "title": "Protecting against water",
+     "items": [
+      "Leak sensors under the raised floor and near the air conditioning.",
+      "Shut-off valves known, labeled and accessible.",
+      "No pipes above the racks.",
+      "Raised equipment and a room outside flood zones."
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Fire"
+    },
+    {
+     "type": "text",
+     "text": "A fire needs fuel, oxygen and heat (the fire triangle), as well as a chemical chain reaction (the fire tetrahedron). Putting out a fire means removing one of these elements: water cools, CO2 and inert gases deprive it of oxygen, some chemical agents interrupt the reaction."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Class",
+       "United States (NFPA 10)",
+       "Europe (EN 2)",
+       "Suitable agents"
+      ],
+      [
+       "A",
+       "Ordinary combustibles: paper, wood",
+       "Solids: paper, wood",
+       "Water, foam"
+      ],
+      [
+       "B",
+       "Flammable liquids",
+       "Flammable liquids",
+       "Foam, CO2, dry chemical"
+      ],
+      [
+       "C",
+       "Energized electrical equipment",
+       "Gases",
+       "United States: CO2, gaseous agents, dry chemical (never water)"
+      ],
+      [
+       "D",
+       "Combustible metals",
+       "Metals",
+       "Special dry powders"
+      ],
+      [
+       "K (US) / F (Europe)",
+       "Cooking oils",
+       "Cooking oils and fats",
+       "Specific agents"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Watch the letters",
+     "text": "The letter C does not mean the same thing in the United States (electrical fire) and in Europe (gas fire). Read the context of the question carefully. In all cases, cut the power before using water on equipment."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Detector",
+       "Principle",
+       "Points to remember"
+      ],
+      [
+       "Ionization smoke",
+       "Particles alter an ionized current",
+       "Reacts quickly to flaming fires"
+      ],
+      [
+       "Optical (photoelectric) smoke",
+       "Smoke deflects or blocks light",
+       "Reacts quickly to smoldering fires"
+      ],
+      [
+       "Fixed-temperature heat",
+       "Triggers at a given temperature",
+       "Few false alarms, but late"
+      ],
+      [
+       "Rate-of-rise heat",
+       "Triggers if the temperature rises quickly",
+       "Faster than fixed temperature"
+      ],
+      [
+       "Flame",
+       "Infrared or ultraviolet from the flame",
+       "Very fast, expensive"
+      ]
+     ]
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Sprinkler",
+       "How it works",
+       "Use"
+      ],
+      [
+       "Wet pipe",
+       "The pipes are full of water; the head that heats up opens",
+       "The fastest and simplest; risk of leaks and freezing"
+      ],
+      [
+       "Dry pipe",
+       "The pipes contain pressurized air; water arrives when a head opens",
+       "Unheated premises"
+      ],
+      [
+       "Pre-action",
+       "Water enters the pipes only after detection; a head must then open",
+       "Recommended for server rooms: leaves time to act and limits damage in case of accidental triggering"
+      ],
+      [
+       "Deluge",
+       "All the heads are open; a large volume of water is released",
+       "High-risk areas, not for a server room"
+      ]
+     ]
+    },
+    {
+     "type": "text",
+     "text": "Gas systems protect equipment without water. Halon is effective but destroys the ozone layer: its production was stopped in developed countries in 1994 under the Montreal Protocol. It is replaced by agents such as FM-200 (HFC-227ea) or inert gases (Inergen, IG-541). CO2 is dangerous for people: it is reserved for unoccupied premises or requires evacuation before discharge."
+    },
+    {
+     "type": "trainerNote",
+     "text": "For an occupied server room, the expected answer is often: early smoke detection, pre-action sprinkler and, if the budget allows, a gaseous agent safe for people such as FM-200. CO2 and deluge are traps."
+    },
+    {
+     "type": "heading",
+     "text": "Protecting equipment"
+    },
+    {
+     "type": "practice",
+     "title": "Against theft, leaks and interference",
+     "items": [
+      "Equipment inventory, labels and control of hardware leaving the premises.",
+      "Cable locks and full-disk encryption of laptops.",
+      "Clean desk and locked screen when leaving your workstation.",
+      "Cabling protected in cable trays or conduits, racks locked.",
+      "Protection against emanations (TEMPEST, Faraday cage) for highly sensitive information.",
+      "Sanitization or destruction of media before disposal."
+     ]
+    },
+    {
+     "type": "socCase",
+     "title": "Case: the heat wave",
+     "kind": "example",
+     "text": "In a fictitious data center, an air conditioning unit fails during a heat wave. The sensors report 30 °C at the back of the room. The team shuts down the test servers, opens the degraded-mode procedure, moves workloads to the secondary site and calls in the maintenance contractor. The lessons learned lead to adding a redundant air conditioning unit (N+1)."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "Maintenance technician: I test the UPS and the generator on the planned schedule.",
+      "Room manager: I continuously monitor temperature, humidity and leak sensors.",
+      "Firefighter: I must be able to cut the power and get into the premises quickly.",
+      "CISO: I link these measures to the continuity plan and the availability objectives."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Spike/surge = overvoltage; sag/brownout = undervoltage; fault/blackout = outage.",
+      "UPS = minutes; generator = hours.",
+      "Humidity too low = static electricity; too high = corrosion.",
+      "Positive pressure: air flows out when the door is opened.",
+      "Class C: electrical in the United States, gas in Europe.",
+      "Server room: pre-action, not deluge; halon = production stopped; CO2 dangerous."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Power: anomalies, surge protector, conditioner, UPS, generator, dual feed.",
+      "Climate: 18 to 27 °C, controlled humidity, positive pressure, leak detection.",
+      "Fire: triangle and tetrahedron, classes, detectors, sprinklers, gaseous agents.",
+      "Equipment: inventory, anti-theft, encryption, protected cabling, safe disposal."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c4-q21",
+      "m5c4-q26"
+     ]
+    }
+   ]
+  }
+ ]
+}

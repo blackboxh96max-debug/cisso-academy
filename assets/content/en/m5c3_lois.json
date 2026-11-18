@@ -1,0 +1,741 @@
+{
+ "lessons": [
+  {
+   "id": "m5c3-l1",
+   "title": "Legal systems and cybercrime laws",
+   "minutes": 35,
+   "illustration": "assets/illustrations/m5c3_l1_balance.svg",
+   "illustrationAlt": "Drawing of the scales of justice resting on a big law book, next to a computer keyboard and a judge's gavel.",
+   "objectives": [
+    "Tell apart common law, civil law, customary law and religious law.",
+    "Differentiate criminal law, civil law and administrative law, and their standards of proof.",
+    "Place the main American and European laws often cited in the exam.",
+    "Understand the difficulties of international investigations."
+   ],
+   "references": [
+    {
+     "title": "Council of Europe Convention on Cybercrime (Budapest, 2001)",
+     "kind": "general"
+    },
+    {
+     "title": "French Penal Code, Articles 323-1 et seq. (offenses against automated data processing systems)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "The main families of law"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "System",
+       "Principle",
+       "Examples"
+      ],
+      [
+       "Common law (droit jurisprudentiel)",
+       "Judges' decisions and precedents make the law",
+       "United Kingdom, United States, Canada (outside Quebec), Australia"
+      ],
+      [
+       "Civil law, codified (droit civil)",
+       "Written codes passed by the legislature; the judge applies them",
+       "France, Germany, most European countries"
+      ],
+      [
+       "Customary law",
+       "Customs and traditions recognized as rules",
+       "Often combined with other systems"
+      ],
+      [
+       "Religious law",
+       "Based on religious texts",
+       "Some countries, wholly or partly"
+      ],
+      [
+       "Mixed systems",
+       "Combination of several systems",
+       "Quebec, Scotland, South Africa"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "Common law = the judge and precedent. Civil law = the code."
+    },
+    {
+     "type": "diagram",
+     "title": "Who makes the rule?",
+     "alt": "Four-cell table: in common law, the judge and their precedents; in civil law, the legislature and its codes; in customary law, custom and tradition; in religious law, religious texts.",
+     "diagram": {
+      "type": "quadrant",
+      "xLabel": "System",
+      "yLabel": "Source of the rule",
+      "cells": [
+       {
+        "emoji": "👨‍⚖️",
+        "label": "Common law",
+        "detail": "the judge, precedent",
+        "tone": "blue"
+       },
+       {
+        "emoji": "📕",
+        "label": "Civil law",
+        "detail": "the legislature, the code",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🏘️",
+        "label": "Customary",
+        "detail": "custom, tradition",
+        "tone": "orange"
+       },
+       {
+        "emoji": "📖",
+        "label": "Religious",
+        "detail": "religious texts",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "heading",
+     "text": "The branches of law"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Branch",
+       "Subject",
+       "Penalty",
+       "Standard of proof (US tradition)"
+      ],
+      [
+       "Criminal",
+       "Offenses against society",
+       "Fine, prison",
+       "Beyond a reasonable doubt"
+      ],
+      [
+       "Civil (tort, contracts)",
+       "Disputes between people or companies",
+       "Damages",
+       "Preponderance of the evidence"
+      ],
+      [
+       "Administrative (regulatory)",
+       "Rules set by public authorities and regulators",
+       "Administrative fines, penalties",
+       "Depending on the authority"
+      ]
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "In the exam: an intrusion can lead both to criminal prosecution (against the perpetrator) and to a civil action (to compensate for the harm). The standard of proof required in criminal cases is higher than in civil cases."
+    },
+    {
+     "type": "heading",
+     "text": "Laws often cited"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Law",
+       "Country",
+       "Subject"
+      ],
+      [
+       "Computer Fraud and Abuse Act (CFAA, 1986)",
+       "United States",
+       "Unauthorized access to protected computers"
+      ],
+      [
+       "Electronic Communications Privacy Act (ECPA, 1986)",
+       "United States",
+       "Interception of communications in transit (Wiretap Act); its other titles cover stored communications (Stored Communications Act) and number records"
+      ],
+      [
+       "Digital Millennium Copyright Act (DMCA, 1998)",
+       "United States",
+       "Digital copyright, circumvention of technical protections"
+      ],
+      [
+       "Economic Espionage Act (1996), Defend Trade Secrets Act (2016)",
+       "United States",
+       "Theft of trade secrets"
+      ],
+      [
+       "HIPAA (1996)",
+       "United States",
+       "Health data"
+      ],
+      [
+       "Gramm-Leach-Bliley Act (GLBA, 1999)",
+       "United States",
+       "Customer data of financial institutions"
+      ],
+      [
+       "Sarbanes-Oxley (SOX, 2002)",
+       "United States",
+       "Reliability of the financial reporting of listed companies and internal controls"
+      ],
+      [
+       "FISMA (2002, modernized in 2014)",
+       "United States",
+       "Security of federal information systems"
+      ],
+      [
+       "CAN-SPAM (2003)",
+       "United States",
+       "Commercial email: no misleading subject, postal address, opt-out honored within 10 business days"
+      ],
+      [
+       "Godfrain Act (1988)",
+       "France",
+       "Fraudulent access to or remaining in a system, obstruction, alteration of data (Penal Code, Art. 323-1 et seq.)"
+      ],
+      [
+       "GDPR (2016, applicable in 2018)",
+       "European Union",
+       "Protection of personal data"
+      ],
+      [
+       "NIS 2 Directive (2022)",
+       "European Union",
+       "Cybersecurity of essential and important entities"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "A standard is not a law",
+     "text": "PCI DSS is a standard imposed by contract by the payment card networks, not a law. ISO standards are voluntary, unless a contract or a regulation makes them mandatory. An exam question may play on this difference."
+    },
+    {
+     "type": "heading",
+     "text": "The international puzzle"
+    },
+    {
+     "type": "practice",
+     "title": "Why cross-border investigations are difficult",
+     "items": [
+      "The attacker, the servers and the victim may fall under different countries and laws.",
+      "An act punished in one country may not be punished in another.",
+      "Collecting evidence abroad goes through mutual legal assistance, which is often slow.",
+      "The Budapest Convention harmonizes offenses and facilitates cooperation between signatory states.",
+      "Rules on data transfers limit what can be sent outside the EU."
+     ]
+    },
+    {
+     "type": "socCase",
+     "title": "Case: an intrusion from elsewhere",
+     "kind": "example",
+     "text": "A fictitious French SME discovers that a former contractor, based in another country, kept connecting to its server after the end of the contract. Legal files a complaint in France for fraudulently remaining in a system (Godfrain Act) and, in parallel, brings a civil action to obtain compensation. The timestamped logs and the chain of custody, prepared by the CSIRT, are passed on to the investigators."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "Lawyer: I determine the applicable laws according to where the events, the data and the people are.",
+      "CISO: I list the legal and contractual obligations that apply to my organization.",
+      "Investigator: I collect evidence so that it is admissible in criminal as well as civil proceedings.",
+      "Auditor: I check that each obligation has an owner and proof of compliance."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Common law = judges' precedents; civil law = codes.",
+      "Criminal = society, prison possible; civil = compensation; administrative = regulators.",
+      "ECPA = interception in transit; Stored Communications Act = stored communications.",
+      "SOX = financial reporting; HIPAA = health; GLBA = finance; FISMA = federal government.",
+      "PCI DSS is contractual, not legal."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Families of law: common law, civil, customary, religious, mixed.",
+      "Branches: criminal, civil, administrative; standards of proof.",
+      "Key laws: CFAA, ECPA, DMCA, HIPAA, GLBA, SOX, FISMA, CAN-SPAM, Godfrain, GDPR, NIS 2.",
+      "International investigations: jurisdiction, mutual assistance, Budapest Convention."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c3-q01",
+      "m5c3-q06"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m5c3-l2",
+   "title": "Intellectual property and privacy",
+   "minutes": 35,
+   "illustration": "assets/illustrations/m5c3_l2_cadenas.svg",
+   "illustrationAlt": "Drawing of a light bulb protected by a small padlock, next to an identity card with a silhouette in which some lines are hidden.",
+   "objectives": [
+    "Tell apart patent, copyright, trademark and trade secret.",
+    "Apply the principles of personal data protection (OECD, GDPR).",
+    "Identify controller, processor and data protection officer.",
+    "Govern data transfers outside the European Union."
+   ],
+   "references": [
+    {
+     "title": "OECD Guidelines on the Protection of Privacy and Transborder Flows of Personal Data (1980, revised in 2013)",
+     "kind": "general"
+    },
+    {
+     "title": "Regulation (EU) 2016/679 (GDPR), Articles 5, 28, 37 and Chapter V",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Protecting creations"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Protection",
+       "What it protects",
+       "Duration (general rule)",
+       "Example"
+      ],
+      [
+       "Patent",
+       "A new, inventive and industrially applicable invention",
+       "20 years from filing",
+       "A compression process"
+      ],
+      [
+       "Copyright",
+       "The expression of a work (text, source code, image), not the idea",
+       "Life of the author + 70 years (EU, United States for most works)",
+       "The code of a piece of software"
+      ],
+      [
+       "Trademark",
+       "A sign that distinguishes products or services",
+       "Renewable without limit as long as it is used and renewed (10 years per period in the EU)",
+       "A logo, a name"
+      ],
+      [
+       "Trade secret",
+       "Valuable information kept secret",
+       "As long as the secret is protected",
+       "A recipe, an internal algorithm"
+      ]
+     ]
+    },
+    {
+     "type": "diagram",
+     "title": "Four ways to protect a creation",
+     "alt": "Four-cell table: a patent protects an invention for about 20 years; copyright protects the expression of a work; a trademark protects a distinctive sign and is renewed; a trade secret protects information as long as it stays secret.",
+     "diagram": {
+      "type": "quadrant",
+      "xLabel": "Protection",
+      "yLabel": "Subject and duration",
+      "cells": [
+       {
+        "emoji": "⚙️",
+        "label": "Patent",
+        "detail": "invention, ~20 years",
+        "tone": "orange"
+       },
+       {
+        "emoji": "✍️",
+        "label": "Copyright",
+        "detail": "expression, life + 70 years",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🏷️",
+        "label": "Trademark",
+        "detail": "sign, renewable",
+        "tone": "pink"
+       },
+       {
+        "emoji": "🤫",
+        "label": "Trade secret",
+        "detail": "as long as it stays secret",
+        "tone": "violet"
+       }
+      ]
+     }
+    },
+    {
+     "type": "memo",
+     "text": "Patent = invention, published in exchange for a monopoly. Trade secret = nothing is published, protection lasts as long as the secret holds."
+    },
+    {
+     "type": "practice",
+     "title": "Protecting a trade secret",
+     "items": [
+      "Non-disclosure agreements (NDAs) with employees and partners.",
+      "Access control based on need to know.",
+      "Classification and labeling of documents.",
+      "Data loss prevention (DLP) and monitoring of exfiltration.",
+      "Reminder of obligations when an employee leaves."
+     ]
+    },
+    {
+     "type": "risk",
+     "title": "Licenses and piracy",
+     "text": "Using software beyond its license (number of workstations, commercial use) or copying code without respecting its license, including open source, exposes the organization to lawsuits. An inventory of software and licenses is part of compliance."
+    },
+    {
+     "type": "heading",
+     "text": "Protecting people: privacy"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "OECD principles (1980)",
+       "GDPR principles (Art. 5)"
+      ],
+      [
+       "Collection limitation",
+       "Lawfulness, fairness, transparency"
+      ],
+      [
+       "Data quality",
+       "Purpose limitation"
+      ],
+      [
+       "Purpose specification",
+       "Data minimization"
+      ],
+      [
+       "Use limitation",
+       "Accuracy"
+      ],
+      [
+       "Security safeguards",
+       "Storage limitation"
+      ],
+      [
+       "Openness",
+       "Integrity and confidentiality"
+      ],
+      [
+       "Individual participation",
+       "Accountability"
+      ],
+      [
+       "Accountability",
+       ""
+      ]
+     ]
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Role (GDPR)",
+       "Responsibility"
+      ],
+      [
+       "Controller (responsable de traitement)",
+       "Determines the purposes and means of processing; is accountable for compliance"
+      ],
+      [
+       "Processor (sous-traitant)",
+       "Processes data on behalf of the controller, under a contract (Art. 28)"
+      ],
+      [
+       "DPO, data protection officer",
+       "Advises, monitors compliance, contact point for the authority; mandatory in some cases (Art. 37)"
+      ],
+      [
+       "Data subject",
+       "Has rights: access, rectification, erasure, objection, portability…"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Transfers outside the EU"
+    },
+    {
+     "type": "definition",
+     "title": "Personal data transfers",
+     "text": "A transfer outside the European Economic Area is only allowed if the country offers an adequate level of protection (Commission adequacy decision) or with appropriate safeguards: standard contractual clauses, binding corporate rules. The EU–US Privacy Shield was invalidated in 2020 (Schrems II ruling); it was replaced in 2023 by the EU–US Data Privacy Framework.",
+     "kind": "general"
+    },
+    {
+     "type": "trainerNote",
+     "text": "Privacy and security complement each other: privacy cannot be protected without security, but excessive security (unlimited monitoring of employees) can infringe privacy. Minimization and proportionality guide both."
+    },
+    {
+     "type": "socCase",
+     "title": "Case: the new analytics tool",
+     "kind": "example",
+     "text": "A fictitious retailer wants to entrust the analysis of its customer files to a provider hosted outside the EU. The DPO checks the purpose, reduces the data to the strict minimum (no dates of birth), has a processing contract compliant with Article 28 signed, relies on standard contractual clauses and carries out a data protection impact assessment (DPIA) because the processing concerns a large number of people."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "DPO: I check purpose and minimization before any new processing.",
+      "Lawyer: I protect inventions by patent or by secrecy depending on the strategy.",
+      "CISO: I put in place the security measures that the GDPR requires to be \"appropriate to the risk\".",
+      "Developer: I respect the licenses of the libraries I integrate."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Copyright protects the expression, not the idea.",
+      "Patent: 20 years, publication; trade secret: no publication, unlimited duration as long as it is kept.",
+      "Controller = decides; processor = carries out.",
+      "Privacy Shield invalidated in 2020; Data Privacy Framework since 2023.",
+      "Minimization: collect only what is necessary."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Patent, copyright, trademark, trade secret.",
+      "OECD and GDPR principles.",
+      "Roles: controller, processor, DPO, data subject.",
+      "Transfers: adequacy, standard clauses, binding corporate rules."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c3-q11",
+      "m5c3-q16"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m5c3-l3",
+   "title": "Liability, compliance and ethics",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m5c3_l3_boussole.svg",
+   "illustrationAlt": "Drawing of a compass whose needle points to the word \"ethics\", lying on a compliance checklist with ticked boxes.",
+   "objectives": [
+    "Explain due care and due diligence.",
+    "Recognize negligence and liability toward third parties.",
+    "Describe the elements of an effective compliance program.",
+    "Apply ethical principles in professional decisions."
+   ],
+   "references": [
+    {
+     "title": "(ISC)², Code of Ethics (four canons), example of a professional code of ethics",
+     "kind": "general"
+    },
+    {
+     "title": "RFC 1087, Ethics and the Internet (Internet Activities Board, 1989)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Care and diligence"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Concept",
+       "Meaning",
+       "Example"
+      ],
+      [
+       "Due care (prudence raisonnable)",
+       "Doing what a reasonable and prudent person would do: putting the expected measures in place",
+       "Installing patches, training staff"
+      ],
+      [
+       "Due diligence (diligence raisonnable)",
+       "Investigating, verifying and continuously checking that the measures are suitable and work",
+       "Assessing a supplier, auditing, monitoring"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "Due diligence = think and verify before and during. Due care = act as you should."
+    },
+    {
+     "type": "definition",
+     "title": "Negligence and the prudent person rule",
+     "text": "An organization that does not take the measures a prudent person would have taken in the same situation can be judged negligent and liable for the damage. Executives can be held personally liable if they have not exercised due care.",
+     "kind": "general"
+    },
+    {
+     "type": "important",
+     "title": "Liability toward third parties",
+     "text": "If a poorly protected system is used to attack other organizations (botnet relay, leak of a partner's data), the organization may be held liable toward those third parties. Contracts with suppliers and partners specify security obligations, audits and notifications."
+    },
+    {
+     "type": "heading",
+     "text": "A compliance program"
+    },
+    {
+     "type": "practice",
+     "title": "Essential elements",
+     "items": [
+      "A designated compliance officer, with the necessary authority and resources.",
+      "An inventory of obligations: laws, regulations, contracts, standards.",
+      "Written policies and procedures, approved by senior management.",
+      "Staff training and awareness.",
+      "Regular internal and external audits.",
+      "A reporting channel and known disciplinary rules.",
+      "Tracked corrective actions and a report to senior management."
+     ]
+    },
+    {
+     "type": "diagram",
+     "title": "The compliance loop",
+     "alt": "Five-step cycle: identify the obligations, write the policies, implement and train, check and audit, correct and report, with the compliance officer at the center.",
+     "diagram": {
+      "type": "cycle",
+      "center": "👔 Compliance\nofficer",
+      "nodes": [
+       {
+        "emoji": "📚",
+        "label": "Obligations",
+        "detail": "laws, contracts, standards",
+        "tone": "blue"
+       },
+       {
+        "emoji": "📜",
+        "label": "Policies",
+        "detail": "approved",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🎓",
+        "label": "Implementation",
+        "detail": "measures, training",
+        "tone": "green"
+       },
+       {
+        "emoji": "🔍",
+        "label": "Monitoring",
+        "detail": "audits",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🛠️",
+        "label": "Correction",
+        "detail": "actions, report",
+        "tone": "pink"
+       }
+      ]
+     }
+    },
+    {
+     "type": "heading",
+     "text": "Professional ethics"
+    },
+    {
+     "type": "text",
+     "text": "Security professionals have access to significant information and powers. The codes of ethics of certification bodies govern their conduct; every candidate must know and respect the code of their own certification body."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Example: the four canons of the (ISC)² code",
+       "In practice"
+      ],
+      [
+       "Protect society, the common good, necessary public trust and confidence, and the infrastructure",
+       "Do not put the public at risk"
+      ],
+      [
+       "Act honorably, honestly, justly, responsibly, and legally",
+       "Respect the law and tell the truth"
+      ],
+      [
+       "Provide diligent and competent service to principals",
+       "Do not accept an assignment beyond your skills"
+      ],
+      [
+       "Advance and protect the profession",
+       "Share, train, do not harm the reputation of the profession"
+      ]
+     ]
+    },
+    {
+     "type": "practice",
+     "title": "Unethical behavior (based on RFC 1087)",
+     "items": [
+      "Seeking to gain unauthorized access to the resources of the Internet.",
+      "Disrupting the intended use of the Internet.",
+      "Wasting resources (people, capacity, computers).",
+      "Destroying the integrity of computer-based information.",
+      "Compromising the privacy of users."
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "Faced with an exam dilemma, choose the answer that protects society and people first, that stays legal and honest, and that goes through the proper channels (management, compliance, authorities) rather than through a personal action such as a \"hack back\" or an unsupervised public disclosure."
+    },
+    {
+     "type": "socCase",
+     "title": "Case: the consultant's dilemma",
+     "kind": "example",
+     "text": "During a simulated audit, a consultant discovers that a client is hiding a personal data breach from its regulator. Rather than publishing the information on social media, the consultant documents it, informs the client's senior management in writing and reminds them of their notification obligations, then consults their own legal department on what to do next if nothing is done."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "Compliance officer: I report to senior management on the status of obligations.",
+      "Executive: I can be held personally liable if I neglect security.",
+      "Auditor: I stay independent and report what I find, even if it is uncomfortable.",
+      "Analyst: I never use my access for personal purposes."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Due care = act; due diligence = verify.",
+      "Negligence = not doing what a prudent person would have done.",
+      "An effective compliance program has a designated owner, audits and disciplinary rules.",
+      "Ethics: protect society first, stay legal, go through the proper channels."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Due care and due diligence; negligence; liability toward third parties.",
+      "Compliance program: owner, inventory, policies, training, audits, reporting, corrections.",
+      "Codes of ethics and unethical behavior.",
+      "Deciding: society, legality, honesty, proper channels."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c3-q21",
+      "m5c3-q25"
+     ]
+    }
+   ]
+  }
+ ]
+}
