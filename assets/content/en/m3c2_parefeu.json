@@ -1,0 +1,741 @@
+{
+ "lessons": [
+  {
+   "id": "m3c2-l1",
+   "title": "Firewalls, DMZ and filtering rules",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m3c2_l1_parefeu.svg",
+   "illustrationAlt": "Drawing of a brick wall with a guarded door: on the left an Internet cloud, on the right a company network; a green arrow passes through the door, a red arrow is stopped by the wall.",
+   "objectives": [
+    "Tell apart the types of firewall: packet filtering, stateful, application proxy, next-generation and WAF.",
+    "Write a filtering policy with default deny and ordered rules.",
+    "Place exposed servers in a DMZ.",
+    "Know the role of NAT and its limits for security."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-41 Rev. 1, Guidelines on Firewalls and Firewall Policy",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "What is a firewall for?"
+    },
+    {
+     "type": "text",
+     "text": "A firewall controls the flows between two zones of different trust, for example the Internet and the internal network. It applies a written policy: whatever is not explicitly allowed must be denied. It replaces neither patches nor monitoring: it is one layer of defense in depth."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Type",
+       "OSI layers",
+       "What it sees",
+       "Limit"
+      ],
+      [
+       "Packet filtering (stateless)",
+       "3 and 4",
+       "Addresses, ports, protocol, packet by packet",
+       "Does not track connections; broad return rules"
+      ],
+      [
+       "Stateful firewall",
+       "3 and 4",
+       "The same fields + the state of each connection",
+       "Does not read application content"
+      ],
+      [
+       "Application proxy",
+       "7",
+       "The content of the protocol (HTTP, SMTP…)",
+       "Slower; one proxy per protocol"
+      ],
+      [
+       "Next-generation firewall (NGFW)",
+       "3 to 7",
+       "Applications, users, built-in IPS, TLS inspection",
+       "Cost, complexity, performance"
+      ],
+      [
+       "Web application firewall (WAF)",
+       "7",
+       "HTTP requests to a web application",
+       "Protects the web only"
+      ]
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "Stateful firewall (pare-feu à états)",
+     "text": "Firewall that keeps in memory a table of ongoing connections. A response is only accepted if it matches a connection opened from the inside, which avoids opening broad return rules.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Writing the rules"
+    },
+    {
+     "type": "diagram",
+     "title": "The path of a packet through the rule list",
+     "alt": "Four-step diagram: the packet arrives, it is compared with the rules from top to bottom, the first matching rule applies, and if none matches the final rule denies everything.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "📨",
+        "label": "Packet",
+        "detail": "source, destination, port",
+        "tone": "blue"
+       },
+       {
+        "emoji": "📜",
+        "label": "Rules read",
+        "detail": "from top to bottom",
+        "tone": "violet"
+       },
+       {
+        "emoji": "✅",
+        "label": "1st match",
+        "detail": "it applies, processing stops",
+        "tone": "green"
+       },
+       {
+        "emoji": "⛔",
+        "label": "Final deny",
+        "detail": "everything else is denied",
+        "tone": "red"
+       }
+      ]
+     }
+    },
+    {
+     "type": "important",
+     "title": "Default deny and rule order",
+     "text": "The last rule denies everything (deny all). The most specific rules go at the top: a broad rule placed too early hides the ones below. Each rule has an owner, a justification and a review date."
+    },
+    {
+     "type": "memo",
+     "text": "Firewall: \"Whatever is not allowed is forbidden\", and the first matching rule wins."
+    },
+    {
+     "type": "practice",
+     "title": "Filtering good practices",
+     "items": [
+      "Filter outbound traffic too: a workstation has no business reaching the Internet on any port.",
+      "Deny inbound internal or private source addresses coming from the Internet (anti-spoofing).",
+      "Log denials and sensitive rules, and send the logs to the SIEM.",
+      "Review the rules at least once a year and remove those no longer used.",
+      "Protect firewall administration: dedicated network, strong authentication."
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "The DMZ"
+    },
+    {
+     "type": "definition",
+     "title": "DMZ, demilitarized zone (zone démilitarisée)",
+     "text": "Subnet placed between the Internet and the internal network, where the servers that must be reached from outside are installed (web, email, public DNS). If one of them is compromised, the attacker is not yet inside the internal network.",
+     "kind": "general"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Architecture",
+       "Principle",
+       "Strength"
+      ],
+      [
+       "A three-legged firewall",
+       "One firewall with three interfaces: Internet, DMZ, internal",
+       "Simple and inexpensive"
+      ],
+      [
+       "Two firewalls (DMZ in between)",
+       "An external firewall, the DMZ, then an internal firewall",
+       "Two barriers; ideally from two different manufacturers"
+      ],
+      [
+       "Bastion host",
+       "Hardened exposed server, sole passage point for a service",
+       "Reduced surface, closely monitored"
+      ]
+     ]
+    },
+    {
+     "type": "risk",
+     "title": "Forbidden flow: from the DMZ to the inside",
+     "text": "A DMZ server must not be able to open a connection to the internal network, except for a precise, justified flow (for example to a database on a given port). Otherwise, compromising the web server becomes a springboard to the whole information system."
+    },
+    {
+     "type": "heading",
+     "text": "NAT: useful, but not a protection"
+    },
+    {
+     "type": "text",
+     "text": "Network address translation (NAT) lets many workstations use a single public address and hides internal addresses. It complicates some attacks, but it is not a security control: only the filtering policy decides what gets through."
+    },
+    {
+     "type": "trainerNote",
+     "text": "Classic trick question: \"which firewall protects against SQL injection?\". Packet filtering or a stateful firewall does not read HTTP content: a WAF or an application proxy is needed, on top of secure code."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: a forgotten \"temporary\" rule",
+     "kind": "example",
+     "text": "During a review, the analyst finds an \"ANY to test-server, all ports\" rule, created two years earlier for troubleshooting. The test server no longer gets patches and the logs show regular scans from the Internet. The rule is removed, the server isolated, and the change procedure now requires an expiry date on every temporary rule."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: every rule must have a business owner; otherwise, it is removed at review.",
+      "SOC analyst: outbound denials from a server are often the first sign of malware.",
+      "Auditor: I ask for the last rule review and look for \"any any\" rules.",
+      "Network administrator: I test every rule change before putting it into production."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "NAT is not a firewall.",
+      "Stateful firewall = tracks connections (layer 4); it does not read application content.",
+      "The final implicit rule is \"deny all\", not \"allow all\".",
+      "Servers reachable from the Internet go in the DMZ, never in the internal network."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Types: packet (stateless), stateful, application proxy, NGFW, WAF.",
+      "Default deny, specific rules at the top, first match applied.",
+      "DMZ: exposed servers isolated from the inside; three-legged or two-firewall architecture.",
+      "Filter outbound too, log, review the rules."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m3c2-q02",
+      "m3c2-q05"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m3c2-l2",
+   "title": "Detecting and blocking: IDS, IPS and network access control",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m3c2_l2_ids.svg",
+   "illustrationAlt": "Drawing of a surveillance camera watching a flow of packets, next to a lifting barrier that stops a red packet.",
+   "objectives": [
+    "Tell apart IDS and IPS, network (NIDS) and host (HIDS).",
+    "Compare signature-based detection and anomaly detection.",
+    "Interpret false positives and false negatives.",
+    "Explain network access control with 802.1X."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-94, Guide to Intrusion Detection and Prevention Systems (IDPS)",
+     "kind": "general"
+    },
+    {
+     "title": "IEEE 802.1X, port-based network access control",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Seeing or blocking"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "",
+       "IDS (detection)",
+       "IPS (prevention)"
+      ],
+      [
+       "Position",
+       "Out of band: copy of the traffic (mirror port, TAP)",
+       "Inline: traffic passes through it"
+      ],
+      [
+       "Action",
+       "Alert",
+       "Alert and block"
+      ],
+      [
+       "Main risk",
+       "An attack succeeds while the alert is being read",
+       "A false positive blocks legitimate activity"
+      ],
+      [
+       "Failure",
+       "No effect on traffic",
+       "Can cut the network (plan the failure behavior)"
+      ]
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "IPS, intrusion prevention system (système de prévention d'intrusion)",
+     "text": "Device or software placed inline in the traffic, which analyzes flows and blocks those that match an attack.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Network or host"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "",
+       "NIDS / NIPS",
+       "HIDS / HIPS"
+      ],
+      [
+       "Where",
+       "On a network segment",
+       "On the workstation or server"
+      ],
+      [
+       "Sees",
+       "The traffic passing on the segment",
+       "The host's logs, files, processes, decrypted traffic"
+      ],
+      [
+       "Does not see",
+       "Encrypted content, traffic on other segments",
+       "What happens on other machines"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "How to detect"
+    },
+    {
+     "type": "diagram",
+     "title": "Two detection methods",
+     "alt": "Four-cell table: signature-based detection is accurate on known attacks but blind to new attacks; anomaly detection spots the unknown but produces more false positives.",
+     "diagram": {
+      "type": "quadrant",
+      "xLabel": "Method",
+      "yLabel": "Effect",
+      "cells": [
+       {
+        "emoji": "🔖",
+        "label": "Signatures",
+        "detail": "patterns of known attacks",
+        "tone": "blue"
+       },
+       {
+        "emoji": "📈",
+        "label": "Anomalies",
+        "detail": "deviation from a baseline",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🎯",
+        "label": "Few false positives",
+        "detail": "but blind to zero-days",
+        "tone": "green"
+       },
+       {
+        "emoji": "🔔",
+        "label": "Spots the unknown",
+        "detail": "but more false positives",
+        "tone": "orange"
+       }
+      ]
+     }
+    },
+    {
+     "type": "important",
+     "title": "False positives and false negatives",
+     "text": "A false positive is an alert without a real attack: it wears analysts out. A false negative is an attack without an alert: it is the most dangerous. Tuning an IDS means finding the right balance between the two."
+    },
+    {
+     "type": "memo",
+     "text": "IDS = camera (it watches and warns). IPS = guard at the door (it watches and stops)."
+    },
+    {
+     "type": "heading",
+     "text": "Decoys"
+    },
+    {
+     "type": "text",
+     "text": "A honeypot is a fake, isolated system with no legitimate use: any connection to it is suspicious. A network of honeypots is called a honeynet. They are used to detect early and to study attackers' techniques, without ever being connected to real data."
+    },
+    {
+     "type": "heading",
+     "text": "Network access control (NAC) and 802.1X"
+    },
+    {
+     "type": "diagram",
+     "title": "802.1X: three actors",
+     "alt": "Three-step diagram: the workstation (supplicant) plugs in, the switch or Wi-Fi access point (authenticator) relays the request, the RADIUS server (authentication server) accepts or refuses, then the port opens.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "💻",
+        "label": "Supplicant",
+        "detail": "the workstation",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🔀",
+        "label": "Authenticator",
+        "detail": "switch or Wi-Fi access point",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🗄️",
+        "label": "RADIUS server",
+        "detail": "accepts or refuses",
+        "tone": "green"
+       },
+       {
+        "emoji": "🚪",
+        "label": "Port open",
+        "detail": "in the right VLAN",
+        "tone": "turquoise"
+       }
+      ]
+     }
+    },
+    {
+     "type": "definition",
+     "title": "802.1X",
+     "text": "IEEE port-based access control standard: until the device is authenticated (with EAP, against a RADIUS server), the switch port or Wi-Fi access only lets authentication through.",
+     "kind": "general"
+    },
+    {
+     "type": "trainerNote",
+     "text": "NAC often goes further than 802.1X: it checks the state of the workstation (up-to-date antivirus, patches, encryption) before admitting it, and places non-compliant devices in a quarantine VLAN."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: the honeypot speaks",
+     "kind": "example",
+     "text": "A decoy server named like a file server receives, on a Sunday, SMB connection attempts from a workstation in the accounting department. No legitimate user knows this server. The analyst isolates the workstation through the NAC, collects its memory and discovers a network discovery tool launched by malware."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "SOC analyst: a poorly tuned IDS produces thousands of alerts; I want rules suited to our network.",
+      "Architect: I place a NIDS behind the external firewall and in front of the sensitive zones.",
+      "Auditor: I check that signatures are up to date and that alerts are handled.",
+      "CISO: an inline IPS must have a chosen failure mode (fail open or fail closed) according to criticality."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "IDS = passive (alerts); IPS = inline (blocks).",
+      "Signatures do not detect an unknown attack (zero-day).",
+      "False negative = undetected attack: the most serious case.",
+      "802.1X: supplicant, authenticator, authentication server (RADIUS)."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "IDS out of band (alerts), IPS inline (blocks); network (NIDS) or host (HIDS).",
+      "Signatures: accurate but blind to the unknown. Anomalies: spot the unknown, more false positives.",
+      "Honeypots: isolated decoys, any connection is suspicious.",
+      "802.1X and NAC: authenticate and check the device before opening the network to it."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m3c2-q11",
+      "m3c2-q14"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m3c2-l3",
+   "title": "VPN, segmentation and wireless networks",
+   "minutes": 35,
+   "illustration": "assets/illustrations/m3c2_l3_wifi.svg",
+   "illustrationAlt": "Drawing of a Wi-Fi access point with a padlock, sending waves toward a laptop, and a pipe linking the laptop to the company building.",
+   "objectives": [
+    "Compare site-to-site VPN and remote access VPN, IPsec and TLS.",
+    "Explain the risk of split tunneling.",
+    "Segment a network with VLANs, subnets and microsegmentation.",
+    "Choose the right Wi-Fi security and recognize wireless attacks."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-77 Rev. 1, Guide to IPsec VPNs",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-153, Guidelines for Securing Wireless Local Area Networks (WLANs)",
+     "kind": "general"
+    },
+    {
+     "title": "IEEE 802.11i, wireless network security (basis of WPA2)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "VPNs"
+    },
+    {
+     "type": "definition",
+     "title": "VPN, virtual private network (réseau privé virtuel)",
+     "text": "Encrypted and authenticated tunnel across an untrusted network, such as the Internet, that connects a user or a site to the company network.",
+     "kind": "general"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Type",
+       "Use",
+       "Common technology"
+      ],
+      [
+       "Site to site",
+       "Connect two offices permanently",
+       "IPsec in tunnel mode between two gateways"
+      ],
+      [
+       "Remote access",
+       "An employee traveling or working remotely",
+       "TLS VPN (client or browser) or IPsec with a client"
+      ],
+      [
+       "Clientless (TLS portal)",
+       "Access to a few web applications",
+       "HTTPS portal"
+      ]
+     ]
+    },
+    {
+     "type": "risk",
+     "title": "Split tunneling",
+     "text": "With split tunneling, only the traffic to the company goes through the VPN; the rest goes straight out to the Internet. It is faster, but the workstation is both connected to the internal network and exposed without the company's protections. A full tunnel sends all traffic through the VPN."
+    },
+    {
+     "type": "practice",
+     "title": "Securing remote access",
+     "items": [
+      "Mandatory multi-factor authentication on the VPN.",
+      "Fast patching of the VPN gateway: it is an exposed and heavily targeted device.",
+      "Check the state of the workstation before connection (NAC).",
+      "Give access only to the applications needed, not to the whole network."
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Segmenting the network"
+    },
+    {
+     "type": "text",
+     "text": "A \"flat\" network, where everyone sees everything, lets an attacker move freely once inside. Segmenting means splitting the network into zones and controlling the flows between them."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Technique",
+       "Principle",
+       "Example"
+      ],
+      [
+       "VLAN",
+       "Separate logical networks on the same switches (layer 2)",
+       "Guest VLAN, server VLAN, telephony VLAN"
+      ],
+      [
+       "Subnets and filtering",
+       "Separate IP zones, flows filtered by a firewall or ACLs",
+       "The guest VLAN only reaches the Internet"
+      ],
+      [
+       "Microsegmentation",
+       "Rules at the level of each workload (server, container)",
+       "The web server only talks to its database"
+      ],
+      [
+       "Physical isolation (air gap)",
+       "No link with other networks",
+       "Critical industrial systems"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "A VLAN is not a firewall",
+     "text": "VLANs separate traffic, but routing between VLANs must be filtered, otherwise the separation protects nothing. Disabling unused ports, not using the native VLAN for users and prohibiting automatic trunk negotiation limit VLAN hopping."
+    },
+    {
+     "type": "heading",
+     "text": "Wireless networks"
+    },
+    {
+     "type": "diagram",
+     "title": "How Wi-Fi security evolved",
+     "alt": "Bars showing the increasing strength of Wi-Fi protocols: WEP very weak, WPA with TKIP weak, WPA2 with AES-CCMP solid, WPA3 with SAE the strongest.",
+     "diagram": {
+      "type": "bars",
+      "unit": "/ 4",
+      "bars": [
+       {
+        "label": "WEP (RC4): broken",
+        "value": 1,
+        "tone": "red"
+       },
+       {
+        "label": "WPA (TKIP): retired",
+        "value": 2,
+        "tone": "orange"
+       },
+       {
+        "label": "WPA2 (AES-CCMP)",
+        "value": 3,
+        "tone": "blue"
+       },
+       {
+        "label": "WPA3 (SAE)",
+        "value": 4,
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Mode",
+       "Authentication",
+       "Use"
+      ],
+      [
+       "Personal (PSK / SAE)",
+       "A passphrase shared by everyone",
+       "Home, small office"
+      ],
+      [
+       "Enterprise",
+       "802.1X with EAP and a RADIUS server, individual credentials for everyone",
+       "Enterprise: individual revocation, traceability"
+      ]
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "WPA3 and SAE",
+     "text": "WPA3 replaces the WPA2-Personal key exchange based on the passphrase with SAE (Simultaneous Authentication of Equals), which resists offline dictionary attacks on a captured handshake.",
+     "kind": "general"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Wireless attack",
+       "Description",
+       "Countermeasure"
+      ],
+      [
+       "Rogue access point",
+       "Unauthorized access point plugged into the internal network",
+       "Wireless detection (WIDS), 802.1X on network jacks"
+      ],
+      [
+       "Evil twin",
+       "Fake access point imitating the name of a legitimate network",
+       "802.1X with server certificate verification, VPN"
+      ],
+      [
+       "Deauthentication",
+       "Forged frames that disconnect clients",
+       "Protected management frames (802.11w), mandatory in WPA3"
+      ],
+      [
+       "Wardriving",
+       "Searching for Wi-Fi networks while moving around",
+       "Strong encryption, suitable transmit power"
+      ],
+      [
+       "Bluejacking / bluesnarfing",
+       "Unsolicited messages / data theft over Bluetooth",
+       "Bluetooth disabled or not discoverable, controlled pairing"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "Enterprise Wi-Fi: WPA3 (or at least WPA2) in Enterprise mode, 802.1X, verified server certificate, separate guest network."
+    },
+    {
+     "type": "trainerNote",
+     "text": "Hiding the network name (SSID) or filtering MAC addresses are not protections: the SSID shows up in the traffic and a MAC address is easy to copy. In the exam, these are frequent distractors."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: one access point too many",
+     "kind": "example",
+     "text": "The wireless detection system reports an unknown access point broadcasting the guest network name, with a very strong signal in the lobby. On an isolated test bench, the team reproduces the scenario and checks that company workstations refuse to connect to it, because they require the RADIUS server's certificate. Security removes the device and a reminder is sent: never enter your credentials on an unexpected Wi-Fi login page."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "Architect: I segment by sensitivity and filter every crossing between zones.",
+      "SOC analyst: VPN connections from two countries within an hour deserve an alert.",
+      "Auditor: I check that WEP and WPA are absent and that the guest network is separated.",
+      "CISO: the VPN gateway is a critical exposed asset: patches come first."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Split tunneling = Internet traffic outside the VPN: risk of a bridge between the Internet and the inside.",
+      "VLAN = logical separation; routing between VLANs must be filtered.",
+      "WEP is broken; WPA (TKIP) is retired; WPA2 uses AES-CCMP; WPA3 uses SAE.",
+      "Hiding the SSID and filtering MACs do not really protect."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Site-to-site VPN (IPsec tunnel) or remote access (TLS or IPsec); MFA; avoid split tunneling.",
+      "Segmentation: VLANs, filtered subnets, microsegmentation, physical isolation.",
+      "Wi-Fi: WPA3 or WPA2 Enterprise with 802.1X; WEP and WPA to be banned.",
+      "Attacks: rogue access point, evil twin, deauthentication, Bluetooth."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m3c2-q22",
+      "m3c2-q27"
+     ]
+    }
+   ]
+  }
+ ]
+}

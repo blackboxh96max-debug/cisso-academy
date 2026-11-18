@@ -1,0 +1,651 @@
+{
+ "lessons": [
+  {
+   "id": "m3c4-l1",
+   "title": "Access control in the cloud and in hybrid environments",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m3c4_l1_nuage.svg",
+   "illustrationAlt": "Drawing of a cloud linked to a small building by a bridge, with an identity card lying in the middle of the bridge.",
+   "objectives": [
+    "Apply the shared responsibility model to access control.",
+    "Explain identity federation and conditional access between on-premises and cloud.",
+    "Name the control tools: CASB, CSPM, CIEM, just-in-time privileged access.",
+    "Monitor access: cloud audit logs, access reviews, behavioral alerts."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-210, General Access Control Guidance for Cloud Systems (2020)",
+     "url": "https://csrc.nist.gov/news/2020/nist-publishes-sp-800-210-ac-guidance-for-cloud",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-207, Zero Trust Architecture",
+     "url": "https://csrc.nist.gov/pubs/sp/800/207/final",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Identity becomes the perimeter"
+    },
+    {
+     "type": "text",
+     "text": "In the cloud, resources are no longer behind the company firewall: they can be reached from the Internet, and identity decides who accesses them. A single access key forgotten in a code repository or an administration account without strong authentication is enough to expose everything."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Model",
+       "The provider manages",
+       "The customer always manages"
+      ],
+      [
+       "IaaS (infrastructure)",
+       "Buildings, hardware, virtualization",
+       "Systems, applications, data, identities and rights"
+      ],
+      [
+       "PaaS (platform)",
+       "Plus the operating system and runtime environment",
+       "Applications, data, identities and rights"
+      ],
+      [
+       "SaaS (software)",
+       "Almost the whole stack",
+       "Data, user accounts, rights and configuration"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Identities stay with the customer",
+     "text": "Whatever the model, managing accounts, rights and their review remains the customer's responsibility. Most cloud leaks come from configuration errors or overly broad rights, not from a flaw at the provider."
+    },
+    {
+     "type": "heading",
+     "text": "Linking on-premises and cloud"
+    },
+    {
+     "type": "definition",
+     "title": "Identity federation (fédération d'identités)",
+     "text": "The company's identity provider (IdP) authenticates the user, then passes an assertion to the cloud service using SAML or OpenID Connect. The user has only one account, and disabling it in the directory also cuts access to the cloud.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Conditional access (accès conditionnel)",
+     "text": "Rule that grants, denies or tightens access according to context: managed device or not, country, risk level of the sign-in. Example: multi-factor authentication required outside the company network.",
+     "kind": "general"
+    },
+    {
+     "type": "diagram",
+     "title": "A federated sign-in",
+     "alt": "Five-step diagram: the user opens the cloud application; they are redirected to the company's identity provider; it checks identity and context (multi-factor, device); it returns a signed assertion; the application grants the rights planned for that role.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "👤",
+        "label": "User",
+        "detail": "opens the cloud application",
+        "tone": "blue"
+       },
+       {
+        "emoji": "↪️",
+        "label": "Redirect",
+        "detail": "to the identity provider",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🔐",
+        "label": "Check",
+        "detail": "multi-factor, device, context",
+        "tone": "orange"
+       },
+       {
+        "emoji": "📜",
+        "label": "Signed assertion",
+        "detail": "SAML or OpenID Connect",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "✅",
+        "label": "Access",
+        "detail": "role rights, logged",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "heading",
+     "text": "The control tools"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Tool",
+       "Role"
+      ],
+      [
+       "CASB, cloud access security broker",
+       "See and control the use of cloud services, including unapproved ones (shadow IT)"
+      ],
+      [
+       "CSPM, cloud security posture management",
+       "Detect configuration errors: public storage, open ports, disabled logs"
+      ],
+      [
+       "CIEM, cloud infrastructure entitlement management",
+       "Spot excessive or unused rights of people and services"
+      ],
+      [
+       "Just-in-time privileged access",
+       "Grant an administration role for a limited time, after approval"
+      ]
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "Workload identity (identité de charge de travail)",
+     "text": "Identity assigned to an application or a service (not to a person) to access other resources. Managed identities, with automatically rotated secrets, are preferred over permanent access keys copied into code.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Monitoring access"
+    },
+    {
+     "type": "practice",
+     "title": "Access monitoring",
+     "kind": "practice",
+     "items": [
+      "Enable and centralize cloud audit logs (sign-ins, rights changes, key creation) in the SIEM.",
+      "Alert on suspicious signals: sign-in from an unusual country, \"impossible travel\", creation of an administration account, disabling of logging.",
+      "Review rights regularly with business owners and remove those no longer used.",
+      "Protect emergency (\"break glass\") accounts: few in number, monitored and tested."
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "Exam reflex: in the cloud, the customer remains responsible for identities, rights and data. The provider secures the infrastructure it manages."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: an access key published by mistake",
+     "kind": "example",
+     "text": "Simulated exercise: in the lab, a fictitious access key for a test cloud account is pushed to a public code repository. The audit logs show calls from an unknown address a few minutes later. The analyst disables the key, lists the actions performed with it, checks that no resource was created and recommends replacing permanent keys with managed identities."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: requires federation, multi-factor authentication and just-in-time access for cloud administration.",
+      "SOC manager: cloud audit logs must reach the SIEM, with alerts on rights changes.",
+      "Auditor: checks access reviews and the split of responsibilities set out in the contract.",
+      "Risk manager: considers configuration error the top cloud risk."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Shared responsibility: identities and data always stay with the customer.",
+      "CASB: use of cloud services; CSPM: configuration; CIEM: rights.",
+      "Federation passes an assertion; the cloud service does not see the password.",
+      "A permanent access key in code is a major risk: prefer managed identities."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "In the cloud, identity is the perimeter.",
+      "IaaS, PaaS, SaaS: the customer keeps identities, rights and data.",
+      "Federation (SAML, OpenID Connect) and conditional access link on-premises and cloud.",
+      "CASB, CSPM, CIEM, just-in-time access, managed identities.",
+      "Audit logs to the SIEM, alerts, access reviews."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m3c4-q01",
+      "m3c4-q04"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m3c4-l2",
+   "title": "Data storage architectures and strategies",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m3c4_l2_stockage.svg",
+   "illustrationAlt": "Drawing of three shelves: a disk array, a filing cabinet and a bucket full of small labeled objects.",
+   "objectives": [
+    "Tell apart direct-attached storage, network-attached storage (NAS), storage area network (SAN) and object storage.",
+    "Name the protections specific to SANs: zoning and LUN masking.",
+    "Choose between synchronous and asynchronous replication, snapshot and backup.",
+    "Secure storage: encryption, administration, immutability, public exposure."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-209, Security Guidelines for Storage Infrastructure (2020)",
+     "url": "https://www.nist.gov/news-events/news/2020/10/security-guidelines-storage-infrastructure-nist-sp-800-209",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Where does the data live?"
+    },
+    {
+     "type": "text",
+     "text": "Storage is not just disks: it is an infrastructure with its networks, administration consoles and copies. Attackers know it: ransomware first tries to destroy backups and snapshots before encrypting."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Architecture",
+       "Access",
+       "Typical use",
+       "Watch point"
+      ],
+      [
+       "DAS, direct-attached storage",
+       "Disk connected to a single server",
+       "Standalone server, workstation",
+       "No sharing; loss if the server fails"
+      ],
+      [
+       "NAS, network-attached storage",
+       "Files, over SMB or NFS",
+       "File shares",
+       "Rights on shares, encryption of exchanges"
+      ],
+      [
+       "SAN, storage area network",
+       "Blocks, over Fibre Channel or iSCSI",
+       "Databases, virtualization",
+       "Zoning, LUN masking, separate network"
+      ],
+      [
+       "Object storage",
+       "Objects in buckets, through a web API",
+       "Cloud, archives, backups",
+       "Buckets made public by mistake"
+      ]
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "Zoning and LUN masking (zonage et masquage de LUN)",
+     "text": "In a SAN, zoning limits which servers see which storage ports; LUN masking limits which servers see which logical volumes (LUNs). Together, they prevent a server from reading another server's volumes.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Copying data: the right tools"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Technique",
+       "What it does",
+       "Limit"
+      ],
+      [
+       "Synchronous replication",
+       "Each write is confirmed on both sites",
+       "Limited distance, latency; also replicates errors"
+      ],
+      [
+       "Asynchronous replication",
+       "Copy with a slight delay",
+       "Some data lost in a disaster"
+      ],
+      [
+       "Snapshot",
+       "Image of the volume at a point in time, very fast",
+       "Often on the same device: it is not a backup"
+      ],
+      [
+       "Backup",
+       "Separate copy, kept according to a policy",
+       "Must be tested and protected (offline or immutable)"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Replication is not backup",
+     "text": "Replication also copies deletions and files encrypted by ransomware. Only a separate backup, with several versions and an offline or immutable copy, lets you go back."
+    },
+    {
+     "type": "diagram",
+     "title": "Storage tiers",
+     "alt": "Three-step diagram: hot storage, fast and expensive, for data used every day; warm storage for less frequently accessed data; archive, slow and inexpensive, for long-term retention and compliance.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🔥",
+        "label": "Hot",
+        "detail": "SSD, immediate access",
+        "tone": "red"
+       },
+       {
+        "emoji": "🌤️",
+        "label": "Warm",
+        "detail": "disks, less frequent access",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🧊",
+        "label": "Archive",
+        "detail": "tape or cloud archive, long-term retention",
+        "tone": "blue"
+       }
+      ]
+     }
+    },
+    {
+     "type": "heading",
+     "text": "Securing the storage infrastructure"
+    },
+    {
+     "type": "practice",
+     "title": "The key measures (NIST SP 800-209)",
+     "kind": "practice",
+     "items": [
+      "Isolate storage administration consoles and require multi-factor authentication.",
+      "Encrypt data at rest and manage keys separately, so they can be destroyed at end of life.",
+      "Keep at least one immutable (WORM) or offline copy of backups.",
+      "Regularly check that no object storage bucket is public without a reason.",
+      "Log sensitive operations: snapshot deletion, retention changes, access creation."
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "In the exam: NAS = files; SAN = blocks; object = web API and buckets. Zoning and LUN masking are the access controls of the SAN."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: snapshots deleted in the middle of the night",
+     "kind": "example",
+     "text": "Simulated exercise: at 3 a.m., the logs of a fictitious storage array in the lab show the deletion of all snapshots by an administration account. The analyst recognizes a classic sign of ransomware preparation, isolates the account, alerts the response team and checks that the immutable backup copy is intact."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: requires an immutable or offline copy and separate storage administration accounts.",
+      "SOC manager: snapshot deletion or retention changes must trigger a priority alert.",
+      "Auditor: checks restore tests, not just the existence of backups.",
+      "Risk manager: chooses synchronous or asynchronous according to acceptable data loss (RPO) and the distance between sites."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "NAS: files (SMB, NFS); SAN: blocks (Fibre Channel, iSCSI).",
+      "A snapshot on the same device is not a backup.",
+      "Replication also copies errors and ransomware encryption.",
+      "Synchronous replication: no loss, but limited distance; asynchronous: small loss possible."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "DAS, NAS, SAN, object: four ways to store, four attack surfaces.",
+      "SAN: zoning and LUN masking.",
+      "Replication, snapshots and backups do not protect in the same way.",
+      "Encryption, isolated administration, immutable copy, non-public buckets, logging."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m3c4-q08",
+      "m3c4-q10"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m3c4-l3",
+   "title": "Telephony: from the telephone network to voice over IP",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m3c4_l3_telephone.svg",
+   "illustrationAlt": "Drawing of an old rotary phone connected by a wire to a modern IP phone, with a small padlock on the wire.",
+   "objectives": [
+    "Describe the public switched telephone network, the private branch exchange (PBX) and voice over IP.",
+    "Recognize the attacks: toll fraud, eavesdropping, caller ID spoofing, vishing, denial of service.",
+    "Name the SIP and RTP protocols and their secure versions.",
+    "Apply the measures: separate voice network, encryption, session border controller, PBX hardening."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-58, Security Considerations for Voice Over IP Systems",
+     "url": "https://csrc.nist.gov/pubs/sp/800/58/final",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Why telephony remains a security topic"
+    },
+    {
+     "type": "text",
+     "text": "Voice today almost always travels over IP networks. It therefore inherits network attacks, while keeping risks specific to the telephone: hijacked premium-rate calls, spoofed numbers, manipulation by voice. A poorly protected PBX can cost a fortune in a single night."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Element",
+       "Role",
+       "Main risk"
+      ],
+      [
+       "PSTN, public switched telephone network",
+       "The operators' historical network",
+       "Eavesdropping on the line, old signaling"
+      ],
+      [
+       "PBX, private branch exchange",
+       "The company's telephone switch",
+       "Premium-rate call fraud, forgotten maintenance access"
+      ],
+      [
+       "VoIP, voice over IP",
+       "Voice carried in IP packets",
+       "All network attacks, plus eavesdropping on the streams"
+      ],
+      [
+       "Voicemail",
+       "Recorded messages",
+       "Default codes, listening to sensitive messages"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "A bit of history: phreaking"
+    },
+    {
+     "type": "text",
+     "text": "In the 1960s and 1970s, \"phreakers\" hijacked the telephone network by whistling a 2,600 Hz tone that was also used to control the switches: signaling traveled in the same channel as the voice (in-band signaling). Operators then separated signaling from voice (out-of-band signaling, SS7). SS7 has its own weaknesses: it was designed for a closed, trusted network and, if poorly filtered, makes it possible to locate a subscriber or intercept SMS messages."
+    },
+    {
+     "type": "definition",
+     "title": "War dialing",
+     "text": "Automatically calling series of numbers to find modems or forgotten maintenance access. It is the ancestor of port scanning.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Voice over IP"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Protocol",
+       "Role",
+       "Protected version"
+      ],
+      [
+       "SIP",
+       "Set up, modify and end calls (signaling), port 5060",
+       "SIP over TLS, port 5061"
+      ],
+      [
+       "RTP",
+       "Carry the voice itself (media)",
+       "SRTP, encrypted and authenticated"
+      ]
+     ]
+    },
+    {
+     "type": "diagram",
+     "title": "Protecting a voice over IP call",
+     "alt": "Four-step diagram: the IP phone is placed in a separate voice network; SIP signaling goes over TLS; voice goes over SRTP; a session border controller (SBC) filters exchanges with the operator.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "☎️",
+        "label": "Separate voice network",
+        "detail": "voice VLAN",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🔏",
+        "label": "SIP over TLS",
+        "detail": "encrypted signaling",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🔊",
+        "label": "SRTP",
+        "detail": "encrypted voice",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "🧱",
+        "label": "Session border controller",
+        "detail": "filters the edge",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "heading",
+     "text": "The attacks to know"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Attack",
+       "Principle"
+      ],
+      [
+       "Toll fraud",
+       "Using the PBX to place premium-rate or international calls at the company's expense"
+      ],
+      [
+       "Caller ID spoofing",
+       "Displaying a fake caller number, for example the bank's"
+      ],
+      [
+       "Vishing",
+       "Voice phishing; today sometimes with a cloned voice"
+      ],
+      [
+       "Eavesdropping",
+       "Capturing unencrypted RTP streams and reconstructing the conversation"
+      ],
+      [
+       "TDoS, telephony denial of service",
+       "Flooding lines with calls, for example those of a call center"
+      ],
+      [
+       "SPIT",
+       "Automated advertising or malicious calls over voice over IP"
+      ]
+     ]
+    },
+    {
+     "type": "practice",
+     "title": "The measures",
+     "kind": "practice",
+     "items": [
+      "Separate the voice network from the data network (voice VLAN) and filter between the two.",
+      "Encrypt signaling (SIP over TLS) and voice (SRTP).",
+      "Place a session border controller (SBC) at the edge, facing the operator.",
+      "Harden the PBX: change default codes, close maintenance access, block unneeded premium-rate destinations, monitor call volumes at night.",
+      "Train employees on vishing: call back on a known number before any sensitive action."
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "In the exam: SIP = signaling, RTP = voice; SRTP encrypts the voice. Toll fraud targets the PBX; caller ID spoofing is used for vishing. In-band signals made phreaking possible."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: international calls at night",
+     "kind": "example",
+     "text": "Simulated exercise: the dashboard of the lab's fictitious PBX shows hundreds of calls to premium-rate numbers between 2 a.m. and 4 a.m., from a voicemail extension. The analyst suspects toll fraud through a voicemail code left at its default value, blocks international destinations, changes the code, and adds an alert on call volume outside business hours."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: telephony is part of the security scope; it is included in audits and tests.",
+      "SOC manager: PBX and session border controller call logs must reach the SIEM.",
+      "Auditor: checks default codes, maintenance access and the separation of the voice network.",
+      "Risk manager: toll fraud adds up fast; sets the acceptable cost limit and the related alerts."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "SIP sets up the call; RTP carries the voice.",
+      "SRTP encrypts the voice; SIP over TLS encrypts signaling.",
+      "Phreaking exploited in-band signaling (2,600 Hz).",
+      "The displayed number can be spoofed: it does not prove the caller's identity.",
+      "War dialing looks for modems; vishing manipulates a person."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "PSTN, PBX, VoIP, voicemail: each has its risks.",
+      "Phreaking: in-band signaling; SS7: out-of-band signaling, to be filtered.",
+      "SIP (signaling, TLS) and RTP (voice, SRTP).",
+      "Toll fraud, caller ID spoofing, vishing, eavesdropping, TDoS, SPIT.",
+      "Voice VLAN, encryption, SBC, hardened PBX, awareness."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m3c4-q15",
+      "m3c4-q17"
+     ]
+    }
+   ]
+  }
+ ]
+}
