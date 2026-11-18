@@ -86,7 +86,7 @@ void main() {
     await tester.runAsync(state.refresh);
     await tester.pumpWidget(CissoAcademyApp(state: state));
     await tester.pumpAndSettle();
-    await tester.tap(find.byTooltip('Assistant : poser une question'));
+    await tester.tap(find.byTooltip('Chatbot : poser une question'));
     await tester.pumpAndSettle();
     expect(find.byType(AssistantPage), findsOneWidget);
 

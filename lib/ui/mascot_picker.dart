@@ -38,7 +38,7 @@ class _MascotList extends StatelessWidget {
       children: [
         Text('Choisis ta mascotte', style: Hand.subtitle(context, Tone.violet)),
         Text(
-          'Elle t\'accompagne dans l\'assistant : elle écoute, réfléchit et '
+          'Elle t\'accompagne dans le chatbot : elle écoute, réfléchit et '
           'te montre la réponse.',
           style: Hand.sansText(context, size: 14),
         ),
