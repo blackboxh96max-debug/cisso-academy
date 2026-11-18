@@ -121,7 +121,20 @@ void main() {
         );
     await tester.pumpAndSettle();
     expect(find.text(q.prompt), findsOneWidget);
-    await tester.tap(find.text(q.choices[q.correct.single]));
+    // Les choix sont mélangés : la bonne réponse peut être sous l'écran.
+    final right = find.text(q.choices[q.correct.single]);
+    await tester.scrollUntilVisible(
+      right,
+      200,
+      scrollable: find
+          .descendant(
+            of: find.byType(QuizPage),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(right);
     await tester.pump();
     await tester.scrollUntilVisible(
       find.text('Valider'),
