@@ -189,9 +189,9 @@ class _ChaptersByModuleState extends State<_ChaptersByModule> {
                         g.fullTitle,
                         style: TextStyle(
                           fontFamily: Hand.title,
-                          fontSize: 21,
+                          fontSize: Hand.tsize(21),
                           height: 1.1,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: Hand.titleWeight,
                           color: c.ink,
                         ),
                       ),
@@ -253,7 +253,7 @@ class _ChaptersByModuleState extends State<_ChaptersByModule> {
                       ch.title,
                       style: TextStyle(
                         fontFamily: Hand.body,
-                        fontSize: 20,
+                        fontSize: Hand.bsize(20),
                         height: 1.2,
                         color: c.ink,
                       ),
@@ -587,13 +587,13 @@ class _IndexCard extends StatelessWidget {
                               style: big
                                   ? TextStyle(
                                       fontFamily: Hand.title,
-                                      fontSize: 34,
-                                      fontWeight: FontWeight.w700,
+                                      fontSize: Hand.tsize(34),
+                                      fontWeight: Hand.titleWeight,
                                       color: paper.ink,
                                       height: 1.1,
                                     )
                                   : Hand.noteText(context)
-                                        .copyWith(fontSize: 19),
+                                        .copyWith(fontSize: Hand.bsize(19)),
                             ),
                             if (english != null) ...[
                               const SizedBox(height: 8),
@@ -671,8 +671,8 @@ class _MasteredBurst extends StatelessWidget {
           '🏆 Carte maîtrisée !',
           style: TextStyle(
             fontFamily: Hand.title,
-            fontSize: 32,
-            fontWeight: FontWeight.w700,
+            fontSize: Hand.tsize(32),
+            fontWeight: Hand.titleWeight,
             color: green.ink,
           ),
         ),

@@ -75,8 +75,8 @@ class SectionTitle extends StatelessWidget {
                   text,
                   style: TextStyle(
                     fontFamily: Hand.title,
-                    fontSize: 26,
-                    fontWeight: FontWeight.w700,
+                    fontSize: Hand.tsize(26),
+                    fontWeight: Hand.titleWeight,
                     color: c.ink,
                   ),
                 ),

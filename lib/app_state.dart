@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/widgets.dart';
+import 'package:material_ui/material_ui.dart' show ThemeMode;
 
 import 'data/progress_store.dart';
 import 'logic/assistant.dart';
@@ -166,6 +167,26 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Thème de l'application (polices, couleurs, dessins, tableaux).
+  String get lookId => _look;
+  String _look = 'cahier';
+
+  Future<void> setLook(String id) async {
+    _look = id;
+    await store.setSetting('look', id);
+    notifyListeners();
+  }
+
+  /// Clair, sombre ou selon l'appareil.
+  ThemeMode get brightnessMode => _brightness;
+  ThemeMode _brightness = ThemeMode.system;
+
+  Future<void> setBrightnessMode(ThemeMode mode) async {
+    _brightness = mode;
+    await store.setSetting('brightness', mode.name);
+    notifyListeners();
+  }
+
   /// Mascotte choisie pour l'assistant (identifiant du personnage).
   String get mascotId => _mascot;
   String _mascot = 'cybi';
@@ -189,6 +210,12 @@ class AppState extends ChangeNotifier {
       _ => CourseView.mile2,
     };
     _mascot = await store.setting('mascot') ?? 'cybi';
+    _look = await store.setting('look') ?? 'cahier';
+    final brightness = await store.setting('brightness');
+    _brightness = ThemeMode.values.firstWhere(
+      (m) => m.name == brightness,
+      orElse: () => ThemeMode.system,
+    );
     final menu = await store.setting('menuMode');
     _menuMode = MenuMode.values.firstWhere(
       (m) => m.name == menu,

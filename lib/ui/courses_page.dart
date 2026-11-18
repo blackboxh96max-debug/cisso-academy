@@ -293,11 +293,11 @@ class _ModuleBanner extends StatelessWidget {
                   children: [
                     Text(
                       'Module ${module.number}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: Hand.title,
-                        fontSize: 30,
+                        fontSize: Hand.tsize(30),
                         height: 1,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: Hand.titleWeight,
                         color: Colors.white,
                       ),
                     ),
@@ -348,7 +348,7 @@ class _ModuleBanner extends StatelessWidget {
                       ),
                     ),
                   ),
-                  child: const Padding(
+                  child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
                     child: Text(
                       '🧠 Carte du module',
@@ -412,8 +412,8 @@ class _ChapterCard extends StatelessWidget {
         number,
         style: TextStyle(
           fontFamily: Hand.title,
-          fontSize: 22,
-          fontWeight: FontWeight.w700,
+          fontSize: Hand.tsize(22),
+          fontWeight: Hand.titleWeight,
           color: open ? Colors.white : paper.inkSoft,
         ),
       ),
@@ -426,7 +426,7 @@ class _ChapterCard extends StatelessWidget {
           chapter.title,
           style: TextStyle(
             fontFamily: Hand.body,
-            fontSize: 21,
+            fontSize: Hand.bsize(21),
             height: 1.2,
             color: open ? paper.ink : paper.inkSoft,
           ),

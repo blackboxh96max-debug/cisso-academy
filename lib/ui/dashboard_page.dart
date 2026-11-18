@@ -17,6 +17,7 @@ import 'lesson_page.dart';
 import 'notebook/hand_drawn.dart';
 import 'notebook/page_kit.dart';
 import 'notebook/note_box.dart';
+import 'notebook/look.dart';
 import 'notebook/palette.dart';
 import 'notebook/typography.dart';
 import 'quiz_hub_page.dart';
@@ -186,7 +187,13 @@ class _WelcomeCard extends StatelessWidget {
       onTap: onOpen,
       borderRadius: BorderRadius.circular(14),
       child: HandBox(
-        fill: const Color(0xFFFFF3B0),
+        // Fond opaque : la carte est posée sur le dégradé.
+        fill: Color.alphaBlend(
+          toneColors(Tone.yellow, Theme.of(context).brightness).fill,
+          Theme.of(context).brightness == Brightness.dark
+              ? paper.card
+              : const Color(0xFFFFFDF0),
+        ),
         stroke: toneBright(Tone.yellow),
         strokeWidth: 2.4,
         seed: 21,
@@ -206,8 +213,8 @@ class _WelcomeCard extends StatelessWidget {
                     r.title,
                     style: TextStyle(
                       fontFamily: Hand.title,
-                      fontSize: 26,
-                      fontWeight: FontWeight.w700,
+                      fontSize: Hand.tsize(26),
+                      fontWeight: Hand.titleWeight,
                       color: paper.ink,
                       height: 1.1,
                     ),
@@ -222,12 +229,14 @@ class _WelcomeCard extends StatelessWidget {
       ),
     );
     return HandBox(
-      gradient: const LinearGradient(
+      gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: [Color(0xFF2563EB), Color(0xFF7C3AED), Color(0xFFDB2777)],
+        colors: AppLook.active.heroGradient,
       ),
-      stroke: const Color(0xFF4C1D95),
+      stroke: AppLook.active == AppLook.cahier
+          ? const Color(0xFF4C1D95)
+          : toneColors(Tone.violet, Theme.of(context).brightness).ink,
       strokeWidth: 2.4,
       seed: 17,
       child: LayoutBuilder(
@@ -237,10 +246,10 @@ class _WelcomeCard extends StatelessWidget {
             children: [
               Text(
                 'Bonjour et bonne révision !',
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: Hand.title,
-                  fontSize: 38,
-                  fontWeight: FontWeight.w700,
+                  fontSize: Hand.tsize(38),
+                  fontWeight: Hand.titleWeight,
                   color: onGradient,
                   height: 1,
                 ),
@@ -249,13 +258,13 @@ class _WelcomeCard extends StatelessWidget {
               Text(
                 encouragement(stats),
                 style: Hand.bodyText(context)
-                    .copyWith(fontSize: 19, color: onGradient),
+                    .copyWith(fontSize: Hand.bsize(19), color: onGradient),
               ),
               const SizedBox(height: 4),
               Text(
                 '✨ ${quoteOfTheDay(AppScope.of(context).now())}',
                 style: Hand.noteText(context).copyWith(
-                  fontSize: 16,
+                  fontSize: Hand.bsize(16),
                   color: onGradient.withValues(alpha: 0.92),
                 ),
               ),
@@ -321,10 +330,10 @@ class _ProgressRing extends StatelessWidget {
             children: [
               Text(
                 '${(v * 100).round()} %',
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: Hand.title,
-                  fontSize: 34,
-                  fontWeight: FontWeight.w700,
+                  fontSize: Hand.tsize(34),
+                  fontWeight: Hand.titleWeight,
                   color: Colors.white,
                   height: 1,
                 ),
@@ -491,10 +500,10 @@ class _ModuleCardsState extends State<_ModuleCards> {
                                             maxLines: 1,
                                             overflow: TextOverflow.fade,
                                             softWrap: false,
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                               fontFamily: Hand.title,
-                                              fontSize: 26,
-                                              fontWeight: FontWeight.w700,
+                                              fontSize: Hand.tsize(26),
+                                              fontWeight: Hand.titleWeight,
                                               color: Colors.white,
                                             ),
                                           ),
@@ -570,7 +579,7 @@ class _DailyGoal extends StatelessWidget {
             reached
                 ? '🎉 Objectif atteint : ${stats.answersToday} réponses aujourd\'hui !'
                 : '$done / $dailyAnswerGoal réponses aujourd\'hui',
-            style: Hand.noteText(context).copyWith(fontSize: 20),
+            style: Hand.noteText(context).copyWith(fontSize: Hand.bsize(20)),
           ),
           const SizedBox(height: 6),
           ClipRRect(
@@ -823,8 +832,8 @@ class _DomainRadar extends StatelessWidget {
                 titlePositionPercentageOffset: 0.12,
                 titleTextStyle: TextStyle(
                   fontFamily: Hand.title,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
+                  fontSize: Hand.tsize(18),
+                  fontWeight: Hand.titleWeight,
                   color: paper.ink,
                 ),
                 getTitle: (i, _) => RadarChartTitle(text: 'D${i + 1}'),
@@ -914,10 +923,10 @@ class _AnswersPie extends StatelessWidget {
                           color: green.ink,
                           radius: 32,
                           title: ok == 0 ? '' : '$ok',
-                          titleStyle: const TextStyle(
+                          titleStyle: TextStyle(
                             fontFamily: Hand.title,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
+                            fontSize: Hand.tsize(20),
+                            fontWeight: Hand.titleWeight,
                             color: Colors.white,
                           ),
                         ),
@@ -926,10 +935,10 @@ class _AnswersPie extends StatelessWidget {
                           color: red.ink,
                           radius: 32,
                           title: ko == 0 ? '' : '$ko',
-                          titleStyle: const TextStyle(
+                          titleStyle: TextStyle(
                             fontFamily: Hand.title,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
+                            fontSize: Hand.tsize(20),
+                            fontWeight: Hand.titleWeight,
                             color: Colors.white,
                           ),
                         ),
@@ -946,8 +955,8 @@ class _AnswersPie extends StatelessWidget {
                         '${(ok / seen * 100).round()} % de réussite',
                         style: TextStyle(
                           fontFamily: Hand.title,
-                          fontSize: 28,
-                          fontWeight: FontWeight.w700,
+                          fontSize: Hand.tsize(28),
+                          fontWeight: Hand.titleWeight,
                           color: paper.ink,
                         ),
                       ),
@@ -1007,8 +1016,9 @@ class _ChapterMastery extends StatelessWidget {
                         Expanded(
                           child: Text(
                             c.chapter.title,
-                            style: Hand.bodyText(context)
-                                .copyWith(fontSize: 18, height: 1.2),
+                            style: Hand.bodyText(
+                              context,
+                            ).copyWith(fontSize: Hand.bsize(18), height: 1.2),
                           ),
                         ),
                         Sticker(
@@ -1176,7 +1186,7 @@ class _WeakSpots extends StatelessWidget {
                                 TextSpan(
                                   text: c.concept,
                                   style: Hand.bodyText(context).copyWith(
-                                    fontSize: 18,
+                                    fontSize: Hand.bsize(18),
                                     height: 1.2,
                                     color: c.recurrent
                                         ? toneColors(Tone.red, brightness).ink
@@ -1257,8 +1267,9 @@ class _Empty extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: Text(
         text,
-        style: Hand.noteText(context)
-            .copyWith(fontSize: 16, color: Paper.of(context).inkSoft),
+        style: Hand.noteText(
+          context,
+        ).copyWith(fontSize: Hand.bsize(16), color: Paper.of(context).inkSoft),
       ),
     );
   }

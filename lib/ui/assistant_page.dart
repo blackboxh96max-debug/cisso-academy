@@ -335,8 +335,8 @@ class _Welcome extends StatelessWidget {
               '🤖 Pose ta question',
               style: TextStyle(
                 fontFamily: Hand.title,
-                fontSize: 26,
-                fontWeight: FontWeight.w700,
+                fontSize: Hand.tsize(26),
+                fontWeight: Hand.titleWeight,
                 color: c.ink,
               ),
             ),
@@ -552,7 +552,7 @@ class _TermCard extends StatelessWidget {
                       : '${term.acronym} · ${term.termFr}',
                   style: TextStyle(
                     fontFamily: Hand.body,
-                    fontSize: 20,
+                    fontSize: Hand.bsize(20),
                     height: 1.15,
                     color: c.ink,
                   ),
@@ -724,7 +724,7 @@ class _HitCard extends StatelessWidget {
               p.title,
               style: TextStyle(
                 fontFamily: Hand.body,
-                fontSize: big ? 20 : 18,
+                fontSize: Hand.bsize(big ? 20 : 18),
                 height: 1.15,
                 color: paper.ink,
               ),

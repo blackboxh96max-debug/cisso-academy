@@ -78,13 +78,13 @@ class AboutPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 '🛡️ $appName',
                 style: TextStyle(
                   fontFamily: Hand.title,
-                  fontSize: 34,
+                  fontSize: Hand.tsize(34),
                   height: 1.1,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: Hand.titleWeight,
                   color: Colors.white,
                 ),
               ),
@@ -99,9 +99,9 @@ class AboutPage extends StatelessWidget {
               Text(
                 'Créée par $appAuthor',
                 key: const Key('about-author'),
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: Hand.body,
-                  fontSize: 24,
+                  fontSize: Hand.bsize(24),
                   height: 1.1,
                   color: Colors.white,
                 ),

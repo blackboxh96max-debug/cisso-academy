@@ -3,7 +3,9 @@ import 'dart:ui' as ui;
 
 import 'package:material_ui/material_ui.dart';
 
+import 'look.dart';
 import 'palette.dart';
+import 'typography.dart';
 
 /// Contour de rectangle arrondi « tracé au stylo » : légères irrégularités,
 /// identiques d'un affichage à l'autre (graine fixe).
@@ -13,10 +15,15 @@ Path wobblyRect(
   double wobble = 1.6,
   int seed = 7,
 }) {
+  wobble *= AppLook.active.wobble;
+  final rad = min(radius, min(r.width, r.height) / 2);
+  // Thèmes à traits nets : rectangle arrondi régulier.
+  if (wobble == 0) {
+    return Path()..addRRect(RRect.fromRectAndRadius(r, Radius.circular(rad)));
+  }
   final rng = Random(seed);
   double j() => (rng.nextDouble() - 0.5) * 2 * wobble;
   final path = Path();
-  final rad = min(radius, min(r.width, r.height) / 2);
   final pts = <Offset>[];
   void edge(Offset a, Offset b) {
     final len = (b - a).distance;
@@ -55,6 +62,12 @@ Path wobblyRect(
 
 /// Trait légèrement ondulé entre deux points (flèches, soulignements).
 Path wobblyLine(Offset a, Offset b, {double wobble = 1.2, int seed = 3}) {
+  wobble *= AppLook.active.wobble;
+  if (wobble == 0) {
+    return Path()
+      ..moveTo(a.dx, a.dy)
+      ..lineTo(b.dx, b.dy);
+  }
   final rng = Random(seed);
   final len = (b - a).distance;
   final n = max(2, (len / 30).round());
@@ -123,15 +136,18 @@ class HandBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final paper = Paper.of(context);
+    final look = AppLook.active;
     return CustomPaint(
       painter: _HandBoxPainter(
         fill: fill ?? paper.card,
         stroke: stroke ?? paper.inkSoft,
         gradient: gradient,
         seed: seed,
-        strokeWidth: strokeWidth,
-        shadow: shadow,
-        radius: radius,
+        // Les thèmes à traits nets ont un contour plus fin.
+        strokeWidth: look.wobble == 0 ? strokeWidth * 0.75 : strokeWidth,
+        shadow: shadow && look.shadow,
+        radius: radius * look.radius / 16,
+        look: look,
       ),
       child: Padding(padding: padding, child: child),
     );
@@ -147,8 +163,10 @@ class _HandBoxPainter extends CustomPainter {
     required this.strokeWidth,
     required this.shadow,
     required this.radius,
+    required this.look,
   });
 
+  final AppLook look;
   final Color fill;
   final Color stroke;
   final Gradient? gradient;
@@ -188,7 +206,8 @@ class _HandBoxPainter extends CustomPainter {
       old.fill != fill ||
       old.stroke != stroke ||
       old.seed != seed ||
-      old.gradient != gradient;
+      old.gradient != gradient ||
+      old.look != look;
 }
 
 /// Soulignement manuscrit sous un titre.
@@ -247,7 +266,10 @@ class NotebookPaper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final paper = Paper.of(context);
-    return CustomPaint(painter: _PaperPainter(paper, lines), child: child);
+    return CustomPaint(
+      painter: _PaperPainter(paper, lines && AppLook.active.ruled),
+      child: child,
+    );
   }
 }
 
@@ -302,7 +324,7 @@ class Sticker extends StatelessWidget {
       child: Text(
         text,
         style: TextStyle(
-          fontFamily: 'Nunito',
+          fontFamily: Hand.sans,
           fontSize: 12,
           fontWeight: FontWeight.w700,
           color: c.ink,

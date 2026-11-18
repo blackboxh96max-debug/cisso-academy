@@ -55,7 +55,8 @@ Glossaire : 339 termes.
 
 | Élément | État | Preuve |
 |---|---|---|
-| Polices manuscrites embarquées hors ligne (Caveat, Patrick Hand, Kalam) + Nunito et JetBrains Mono, licences OFL incluses | Fait | `assets/fonts/`, `pubspec.yaml` |
+| Polices embarquées hors ligne (Caveat, Patrick Hand, Kalam, Nunito, JetBrains Mono, Lora, Atkinson Hyperlegible), licences OFL incluses | Fait | `assets/fonts/`, `pubspec.yaml` |
+| Cinq thèmes au choix (Cahier, Classique, Moderne, Terminal cyber, Lecture confort) : polices, couleurs, émojis, tracé des dessins, tableaux ; mode clair/sombre | Fait | `lib/ui/notebook/look.dart`, `lib/ui/look_picker.dart`, `test/look_test.dart` |
 | Code couleur fixe (bleu définitions, violet important, vert bonnes pratiques, orange à retenir, rouge risques, jaune notes, turquoise exemples, rose pièges) | Fait | `lib/ui/notebook/palette.dart` |
 | Papier crème ligné, encadrés à contour dessiné à la main, post-it pour notes et mémos | Fait | `lib/ui/notebook/` + captures |
 | Nouveaux blocs de leçon : note du formateur, mémorisation, important, bonne pratique, risque, schéma, illustration, petit test | Fait | `test/content_test.dart`, `test/widget_test.dart` |

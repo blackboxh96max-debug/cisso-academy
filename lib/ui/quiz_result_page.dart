@@ -77,11 +77,11 @@ class QuizResultPage extends StatelessWidget {
               Text(passed ? '🏆' : '💪', style: const TextStyle(fontSize: 44)),
               Text(
                 '${session.score}/100',
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: Hand.title,
-                  fontSize: 64,
+                  fontSize: Hand.tsize(64),
                   height: 1,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: Hand.titleWeight,
                   color: Colors.white,
                 ),
               ),
@@ -170,7 +170,7 @@ class QuizResultPage extends StatelessWidget {
               passed,
               isExam,
             ),
-            style: Hand.bodyText(context).copyWith(fontSize: 18),
+            style: Hand.bodyText(context).copyWith(fontSize: Hand.bsize(18)),
             bullet: '✓',
           ),
         ),

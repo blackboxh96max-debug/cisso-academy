@@ -109,8 +109,8 @@ class NotePanel extends StatelessWidget {
                         title,
                         style: TextStyle(
                           fontFamily: Hand.title,
-                          fontSize: 28,
-                          fontWeight: FontWeight.w700,
+                          fontSize: Hand.tsize(28),
+                          fontWeight: Hand.titleWeight,
                           color: c.ink,
                         ),
                       ),
@@ -347,9 +347,9 @@ class HandStat extends StatelessWidget {
             value,
             style: TextStyle(
               fontFamily: Hand.title,
-              fontSize: 36,
+              fontSize: Hand.tsize(36),
               height: 1.1,
-              fontWeight: FontWeight.w700,
+              fontWeight: Hand.titleWeight,
               color: c.ink,
             ),
           ),

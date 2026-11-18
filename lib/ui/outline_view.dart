@@ -137,11 +137,11 @@ class _OutlineBanner extends StatelessWidget {
               Expanded(
                 child: Text(
                   module.label,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: Hand.title,
-                    fontSize: 30,
+                    fontSize: Hand.tsize(30),
                     height: 1,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: Hand.titleWeight,
                     color: Colors.white,
                   ),
                 ),
@@ -233,8 +233,8 @@ class _SectionCard extends StatelessWidget {
                   '${section.number}',
                   style: TextStyle(
                     fontFamily: Hand.title,
-                    fontSize: 19,
-                    fontWeight: FontWeight.w700,
+                    fontSize: Hand.tsize(19),
+                    fontWeight: Hand.titleWeight,
                     color: missing ? paper.inkSoft : Colors.white,
                   ),
                 ),
@@ -248,7 +248,7 @@ class _SectionCard extends StatelessWidget {
                       '$word ${section.number} · ${section.titleFr}',
                       style: TextStyle(
                         fontFamily: Hand.body,
-                        fontSize: 19,
+                        fontSize: Hand.bsize(19),
                         height: 1.2,
                         color: missing ? paper.inkSoft : paper.ink,
                       ),

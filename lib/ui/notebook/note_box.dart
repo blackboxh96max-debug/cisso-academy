@@ -4,6 +4,7 @@ import 'package:material_ui/material_ui.dart';
 
 import '../find_highlight.dart';
 import 'hand_drawn.dart';
+import 'look.dart';
 import 'palette.dart';
 import 'typography.dart';
 
@@ -98,8 +99,8 @@ class NoteBox extends StatelessWidget {
                 title!,
                 style: TextStyle(
                   fontFamily: Hand.title,
-                  fontSize: 26,
-                  fontWeight: FontWeight.w700,
+                  fontSize: Hand.tsize(26),
+                  fontWeight: Hand.titleWeight,
                   height: 1.1,
                   color: c.ink,
                 ),
@@ -110,7 +111,7 @@ class NoteBox extends StatelessWidget {
         ],
       ),
     );
-    if (sticky) {
+    if (sticky && AppLook.active.tilt) {
       box = Transform.rotate(
         angle: (seed.isEven ? -1 : 1) * 0.6 * pi / 180,
         child: Stack(

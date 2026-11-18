@@ -6,6 +6,7 @@ import '../logic/quiz_engine.dart';
 import '../models/content.dart';
 import 'notebook/diagrams.dart';
 import 'notebook/hand_drawn.dart';
+import 'notebook/look_table.dart';
 import 'notebook/note_box.dart';
 import 'notebook/palette.dart';
 import 'notebook/typography.dart';
@@ -605,7 +606,7 @@ class _SidePanel extends StatelessWidget {
                     '${i + 1}. $h',
                     style: TextStyle(
                       fontFamily: Hand.body,
-                      fontSize: 18,
+                      fontSize: Hand.bsize(18),
                       color: paper.ink,
                     ),
                   ),
@@ -633,7 +634,10 @@ class _References extends StatelessWidget {
         children: [
           Text(
             '📚 Ressources',
-            style: Hand.subtitle(context, Tone.blue).copyWith(fontSize: 26),
+            style: Hand.subtitle(
+              context,
+              Tone.blue,
+            ).copyWith(fontSize: Hand.tsize(26)),
           ),
           const SizedBox(height: 6),
           for (final r in references)
@@ -811,7 +815,7 @@ class NotebookBlock extends StatelessWidget {
           seed: seed,
           child: FindText(
             block.text ?? '',
-            style: Hand.noteText(context).copyWith(fontSize: 19),
+            style: Hand.noteText(context).copyWith(fontSize: Hand.bsize(19)),
           ),
         );
       case BlockType.important:
@@ -875,7 +879,8 @@ class NotebookBlock extends StatelessWidget {
                 const SizedBox(height: 10),
                 FindText(
                   block.text!,
-                  style: Hand.noteText(context).copyWith(fontSize: 16),
+                  style: Hand.noteText(context)
+                      .copyWith(fontSize: Hand.bsize(16)),
                 ),
               ],
             ],
@@ -899,7 +904,8 @@ class NotebookBlock extends StatelessWidget {
                 FindText(
                   block.text!,
                   textAlign: TextAlign.center,
-                  style: Hand.noteText(context).copyWith(fontSize: 16),
+                  style: Hand.noteText(context)
+                      .copyWith(fontSize: Hand.bsize(16)),
                 ),
             ],
           ),
@@ -931,7 +937,7 @@ class _Viewpoint extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final i = item.indexOf(':');
-    final body = Hand.bodyText(context).copyWith(fontSize: 19);
+    final body = Hand.bodyText(context).copyWith(fontSize: Hand.bsize(19));
     if (i < 0) return FindText(item, style: body);
     final emoji = switch (item.substring(0, i).trim().toLowerCase()) {
       final r when r.contains('rssi') => '🧭',
@@ -1010,8 +1016,8 @@ class _StepsDiagram extends StatelessWidget {
                   '${i + 1}',
                   style: TextStyle(
                     fontFamily: Hand.title,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w700,
+                    fontSize: Hand.tsize(22),
+                    fontWeight: Hand.titleWeight,
                     color: toneColors(tones[i % tones.length], brightness).ink,
                   ),
                 ),
@@ -1022,7 +1028,8 @@ class _StepsDiagram extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 3),
                   child: FindText(
                     step.replaceFirst(RegExp(r'^\d+\.\s*'), ''),
-                    style: Hand.bodyText(context).copyWith(fontSize: 19),
+                    style: Hand.bodyText(context)
+                        .copyWith(fontSize: Hand.bsize(19)),
                   ),
                 ),
               ),
@@ -1057,41 +1064,28 @@ class _HandTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (rows.isEmpty) return const SizedBox.shrink();
-    final paper = Paper.of(context);
-    final head = toneColors(Tone.blue, Theme.of(context).brightness);
+    final look = LookTable(context);
     final header = rows.first;
     return LayoutBuilder(
       builder: (context, constraints) {
         final minWidth = header.length * 170.0;
         final table = Table(
-          border: TableBorder.symmetric(
-            inside: BorderSide(color: paper.rule, width: 1.2),
-          ),
+          border: look.border,
           defaultVerticalAlignment: TableCellVerticalAlignment.top,
           children: [
             TableRow(
-              decoration: BoxDecoration(
-                color: head.fill,
-                borderRadius: BorderRadius.circular(8),
-              ),
+              decoration: look.headerDecoration,
               children: [
                 for (final h in header)
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: FindText(
-                      h,
-                      style: TextStyle(
-                        fontFamily: Hand.title,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w700,
-                        color: head.ink,
-                      ),
-                    ),
+                    child: FindText(h, style: look.headerStyle),
                   ),
               ],
             ),
-            for (final r in rows.skip(1))
+            for (final (k, r) in rows.skip(1).indexed)
               TableRow(
+                decoration: look.row(k),
                 children: [
                   for (final (i, cell) in r.indexed)
                     Padding(
@@ -1139,7 +1133,7 @@ class _MiniQuizState extends State<_MiniQuiz> {
   Widget build(BuildContext context) {
     final library = AppScope.of(context).library;
     final brightness = Theme.of(context).brightness;
-    final body = Hand.bodyText(context).copyWith(fontSize: 19);
+    final body = Hand.bodyText(context).copyWith(fontSize: Hand.bsize(19));
     final animate = animationsOn(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1213,7 +1207,7 @@ class _MiniQuizState extends State<_MiniQuiz> {
                           child: Text(
                             '${ok ? '🎉 Bravo ! ' : '🤔 Pas tout à fait. '}${q.explanation}',
                             style: Hand.noteText(context).copyWith(
-                              fontSize: 17,
+                              fontSize: Hand.bsize(17),
                               color: ok
                                   ? toneColors(Tone.green, brightness).ink
                                   : toneColors(Tone.red, brightness).ink,
@@ -1276,9 +1270,10 @@ class _MiniChoice extends StatelessWidget {
             Expanded(
               child: Text(
                 text,
-                style: Hand.bodyText(
-                  context,
-                ).copyWith(fontSize: 18, color: result == null ? null : color),
+                style: Hand.bodyText(context).copyWith(
+                  fontSize: Hand.bsize(18),
+                  color: result == null ? null : color,
+                ),
               ),
             ),
           ],

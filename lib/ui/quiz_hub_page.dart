@@ -152,12 +152,12 @@ class _QuizHubPageState extends State<QuizHubPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+                        Text(
                           'Préparation examen',
                           style: TextStyle(
                             fontFamily: Hand.title,
-                            fontSize: 28,
-                            fontWeight: FontWeight.w700,
+                            fontSize: Hand.tsize(28),
+                            fontWeight: Hand.titleWeight,
                             color: Colors.white,
                           ),
                         ),
@@ -165,7 +165,7 @@ class _QuizHubPageState extends State<QuizHubPage> {
                           'Les questions de ta formation en anglais et en '
                           'français : ${library.examPrep.lots.length} séance(s), '
                           '${library.examPrep.questions.length} questions',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: Hand.sans,
                             fontSize: 14,
                             fontWeight: FontWeight.w700,

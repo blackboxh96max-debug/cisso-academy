@@ -5,7 +5,9 @@ import '../app_state.dart';
 import '../models/content.dart';
 import 'about_page.dart';
 import 'mascot.dart';
+import 'look_picker.dart';
 import 'mascot_picker.dart';
+import 'notebook/look.dart';
 import 'notebook/palette.dart';
 import 'widgets.dart';
 
@@ -145,6 +147,26 @@ void showSettings(BuildContext context) {
               ),
               value: state.animationsSetting,
               onChanged: (v) => state.setAnimations(v),
+            ),
+            ListTile(
+              key: const Key('settings-look'),
+              contentPadding: EdgeInsets.zero,
+              leading: SizedBox(
+                width: 40,
+                child: Center(
+                  child: Text(
+                    AppLook.byId(state.lookId).preview,
+                    style: const TextStyle(fontSize: 26),
+                  ),
+                ),
+              ),
+              title: const Text('Thème de l\'application'),
+              subtitle: Text(
+                '${AppLook.byId(state.lookId).name} · écriture, couleurs, '
+                'émojis, dessins, tableaux',
+              ),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => showLookPicker(ctx),
             ),
             ListTile(
               key: const Key('settings-mascot'),
