@@ -54,7 +54,14 @@ class _LessonPageState extends State<LessonPage> {
   /// Position dans la liste des blocs trouvés (-1 : aucun encore montré).
   int _current = -1;
 
-  Lesson get lesson => widget.lesson;
+  /// La leçon affichée : sa version anglaise si l'apprenant lit en anglais
+  /// et qu'elle existe, sinon la version française.
+  Lesson get lesson {
+    final state = AppScope.read(context);
+    return state.lessonsInEnglish
+        ? state.library.englishLesson(widget.lesson.id) ?? widget.lesson
+        : widget.lesson;
+  }
 
   List<String> get _words =>
       _finding ? findWords(_findController.text) : const [];
@@ -183,6 +190,12 @@ class _LessonPageState extends State<LessonPage> {
   Widget build(BuildContext context) {
     final state = AppScope.of(context);
     final read = state.readLessons.contains(lesson.id);
+    final translated = state.library.englishLesson(lesson.id) != null;
+    // Leçon en anglais (traduite) ; « pending » : l'anglais est choisi mais
+    // cette leçon n'est pas encore traduite.
+    final english = state.lessonsInEnglish && translated;
+    final pending = state.lessonsInEnglish && !translated;
+    String t(String fr, String en) => english ? en : fr;
     final chapter = state.library.chapters.firstWhere(
       (c) => c.lessons.any((l) => l.id == lesson.id),
     );
@@ -207,6 +220,7 @@ class _LessonPageState extends State<LessonPage> {
       state.terms,
       lesson,
       termHomes(state.library, state.terms),
+      english: english,
     );
     // Leçons de toute la formation, dans l'ordre de la vue choisie (livre
     // MILE2 ou 5 modules) : on enchaîne sans repasser par le menu.
@@ -234,13 +248,18 @@ class _LessonPageState extends State<LessonPage> {
               children: [
                 Sticker(text: '$placeEmoji ${place.label}', tone: placeTone),
                 Sticker(
-                  text: 'Leçon ${place.number}/${place.total}',
+                  text:
+                      '${t('Leçon', 'Lesson')} ${place.number}/${place.total}',
                   tone: Tone.yellow,
                 ),
                 Sticker(
-                  text: 'Chapitre ${chapterNumber(state.library, chapter)}',
+                  text:
+                      '${t('Chapitre', 'Chapter')} '
+                      '${chapterNumber(state.library, chapter)}',
                   tone: Tone.blue,
                 ),
+                if (english)
+                  const Sticker(text: '🇬🇧 English', tone: Tone.violet),
                 Sticker(text: '⏱ ${lesson.minutes} min', tone: Tone.green),
               ],
             ),
@@ -252,6 +271,18 @@ class _LessonPageState extends State<LessonPage> {
                   context,
                   size: 13,
                 ).copyWith(color: paper.inkSoft, fontWeight: FontWeight.w600),
+              ),
+            ],
+            if (pending) ...[
+              const SizedBox(height: 10),
+              Text(
+                '🇬🇧 English version coming soon: this lesson is still in '
+                'French.',
+                key: const Key('lesson-english-pending'),
+                style: Hand.sansText(
+                  context,
+                  size: 13.5,
+                ).copyWith(color: paper.inkSoft, fontStyle: FontStyle.italic),
               ),
             ],
             const SizedBox(height: 12),
@@ -266,7 +297,10 @@ class _LessonPageState extends State<LessonPage> {
             const SizedBox(height: 28),
             Center(
               child: read
-                  ? const Sticker(text: '✔ Leçon terminée', tone: Tone.green)
+                  ? Sticker(
+                      text: t('✔ Leçon terminée', '✔ Lesson completed'),
+                      tone: Tone.green,
+                    )
                   : FilledButton.icon(
                       onPressed: () async {
                         await AppScope.read(context).markLessonRead(lesson.id);
@@ -280,8 +314,11 @@ class _LessonPageState extends State<LessonPage> {
                       icon: const Icon(Icons.check),
                       label: Text(
                         next != null
-                            ? 'J\'ai terminé : leçon suivante'
-                            : 'J\'ai terminé cette leçon',
+                            ? t(
+                                'J\'ai terminé : leçon suivante',
+                                'Done: next lesson',
+                              )
+                            : t('J\'ai terminé cette leçon', 'Done'),
                       ),
                     ),
             ),
@@ -336,6 +373,21 @@ class _LessonPageState extends State<LessonPage> {
             icon: Icon(_finding ? Icons.search_off : Icons.find_in_page),
             onPressed: _toggleFind,
           ),
+          if (translated || state.lessonsInEnglish)
+            TextButton(
+              key: const Key('lesson-language'),
+              onPressed: () =>
+                  state.setLessonsInEnglish(!state.lessonsInEnglish),
+              child: Tooltip(
+                message: state.lessonsInEnglish
+                    ? 'Lire en français'
+                    : 'Lire en anglais (mots-clés traduits en français)',
+                child: Text(
+                  state.lessonsInEnglish ? 'FR' : 'EN',
+                  style: const TextStyle(fontWeight: FontWeight.w800),
+                ),
+              ),
+            ),
           const AssistantAction(),
           const SearchAction(),
         ],
@@ -343,32 +395,35 @@ class _LessonPageState extends State<LessonPage> {
       ),
       body: FindHighlight(
         words: _words,
-        child: TermPlan(
-          plan: plan,
-          child: TermLinks(
-            lesson: lesson,
-            reveal: _reveal,
-            child: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(
-                horizontal: width < 600 ? 0 : 20,
-                vertical: width < 600 ? 0 : 16,
-              ),
-              child: Center(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(maxWidth: wide ? 1240 : 880),
-                  child: wide
-                      ? Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              width: 300,
-                              child: _SidePanel(lesson: lesson),
-                            ),
-                            const SizedBox(width: 24),
-                            Expanded(child: shadowedPage),
-                          ],
-                        )
-                      : shadowedPage,
+        child: LessonLanguage(
+          english: english,
+          child: TermPlan(
+            plan: plan,
+            child: TermLinks(
+              lesson: lesson,
+              reveal: _reveal,
+              child: SingleChildScrollView(
+                padding: EdgeInsets.symmetric(
+                  horizontal: width < 600 ? 0 : 20,
+                  vertical: width < 600 ? 0 : 16,
+                ),
+                child: Center(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(maxWidth: wide ? 1240 : 880),
+                    child: wide
+                        ? Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 300,
+                                child: _SidePanel(lesson: lesson),
+                              ),
+                              const SizedBox(width: 24),
+                              Expanded(child: shadowedPage),
+                            ],
+                          )
+                        : shadowedPage,
+                  ),
                 ),
               ),
             ),
@@ -473,15 +528,26 @@ class LessonNavigation extends StatelessWidget {
 Map<Object, List<TermMatch>> termPlan(
   TermIndex terms,
   Lesson lesson,
-  Map<String, TermHome> homes,
-) {
+  Map<String, TermHome> homes, {
+  bool english = false,
+}) {
   final translated = <String>{};
   final plan = <Object, List<TermMatch>>{};
+  // En anglais, une leçon qui définit « Accountability (traçabilité) » donne
+  // sa propre traduction du terme, qui prime sur celle du glossaire
+  // (« responsabilité finale »).
+  final own = <String, String>{
+    if (english)
+      for (final b in lesson.blocks)
+        if (b.type == BlockType.definition && b.title != null)
+          if (_ownFrench(terms, b.title!) case (final id, final fr)) id: fr,
+  };
   for (final (index, b) in lesson.blocks.indexed) {
     final linked = <String>{};
     List<TermMatch> pick(String text, {bool translate = true}) => [
-      for (final m in terms.findLinks(text))
+      for (final m in terms.findLinks(text, english: english))
         if (m.copyWith(
+              label: own[m.term.id],
               translate: translate && m.translate && translated.add(m.term.id),
               link:
                   !_definedHere(homes[m.term.id], lesson, index) &&
@@ -516,6 +582,39 @@ Map<Object, List<TermMatch>> termPlan(
     }
   }
   return plan;
+}
+
+/// Langue du texte de la leçon affichée, pour les étiquettes des blocs
+/// (« Définition » / « Definition »…). Absente : français.
+class LessonLanguage extends InheritedWidget {
+  const LessonLanguage({
+    super.key,
+    required this.english,
+    required super.child,
+  });
+
+  final bool english;
+
+  static bool isEnglish(BuildContext context) =>
+      context.dependOnInheritedWidgetOfExactType<LessonLanguage>()?.english ??
+      false;
+
+  @override
+  bool updateShouldNotify(LessonLanguage old) => old.english != english;
+}
+
+/// [fr] ou [en] selon la langue de la leçon affichée.
+String lessonText(BuildContext context, String fr, String en) =>
+    LessonLanguage.isEnglish(context) ? en : fr;
+
+/// « Accountability (traçabilité) » → (identifiant du terme, « traçabilité »).
+(String, String)? _ownFrench(TermIndex terms, String title) {
+  final open = title.lastIndexOf('(');
+  final close = title.lastIndexOf(')');
+  if (open <= 0 || close < open) return null;
+  final term = terms.lookup(title);
+  if (term == null) return null;
+  return (term.id, title.substring(open + 1, close).trim());
 }
 
 bool _definedHere(TermHome? home, Lesson lesson, int block) =>
@@ -599,7 +698,7 @@ class _Objectives extends StatelessWidget {
     return NoteBox(
       tone: Tone.blue,
       emoji: '🎯',
-      label: 'Objectifs de la leçon',
+      label: lessonText(context, 'Objectifs de la leçon', 'Lesson objectives'),
       seed: 2,
       child: HandBullets(lesson.objectives, bullet: '☐'),
     );
@@ -627,7 +726,7 @@ class _SidePanel extends StatelessWidget {
         NoteBox(
           tone: Tone.yellow,
           emoji: '🗂️',
-          label: 'Sommaire',
+          label: lessonText(context, 'Sommaire', 'Contents'),
           sticky: true,
           seed: 4,
           child: Column(
@@ -667,7 +766,7 @@ class _References extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '📚 Ressources',
+            lessonText(context, '📚 Ressources', '📚 Resources'),
             style: Hand.subtitle(
               context,
               Tone.blue,
@@ -686,7 +785,9 @@ class _References extends StatelessWidget {
                     ),
                     if (r.url != null)
                       TextSpan(
-                        text: '\n${r.url} (en ligne)',
+                        text:
+                            '\n${r.url} '
+                            '${lessonText(context, '(en ligne)', '(online)')}',
                         style: Hand.sansText(
                           context,
                           size: 12.5,
@@ -712,12 +813,21 @@ class NotebookBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
+    final inEnglish = LessonLanguage.isEnglish(context);
+    String t(String fr, String en) => inEnglish ? en : fr;
     final source = block.kind == null
         ? null
-        : Sticker(text: block.kind!.label, tone: _sourceTone(block.kind!));
+        : Sticker(
+            text: inEnglish ? block.kind!.labelEn : block.kind!.label,
+            tone: _sourceTone(block.kind!),
+          );
     final body = Hand.bodyText(context);
-    final english = block.type == BlockType.definition && block.title != null
-        ? AppScope.of(context).terms.englishFor(block.title!)
+    // Sous le titre d'une définition : le terme dans l'autre langue.
+    final terms = AppScope.of(context).terms;
+    final other = block.type == BlockType.definition && block.title != null
+        ? (inEnglish
+              ? terms.frenchFor(block.title!)
+              : terms.englishFor(block.title!))
         : null;
 
     switch (block.type) {
@@ -756,15 +866,15 @@ class NotebookBlock extends StatelessWidget {
       case BlockType.definition:
         return NoteBox(
           tone: Tone.blue,
-          label: 'Définition',
+          label: t('Définition', 'Definition'),
           title: block.title,
           trailing: source,
           seed: seed,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (english != null) ...[
-                EnTag(english),
+              if (other != null) ...[
+                EnTag(other, code: inEnglish ? 'FR' : 'EN'),
                 const SizedBox(height: 6),
               ],
               BilingualText(
@@ -778,7 +888,7 @@ class NotebookBlock extends StatelessWidget {
       case BlockType.socCase:
         return NoteBox(
           tone: Tone.turquoise,
-          label: 'Exemple professionnel',
+          label: t('Exemple professionnel', 'Professional example'),
           title: block.title,
           trailing: source,
           seed: seed,
@@ -792,7 +902,7 @@ class NotebookBlock extends StatelessWidget {
         return NoteBox(
           tone: Tone.violet,
           emoji: '👥',
-          label: block.title ?? 'Points de vue',
+          label: block.title ?? t('Points de vue', 'Points of view'),
           seed: seed,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -815,7 +925,7 @@ class NotebookBlock extends StatelessWidget {
         return NoteBox(
           tone: Tone.blue,
           emoji: '🖼️',
-          label: 'Schéma explicatif',
+          label: t('Schéma explicatif', 'Explanatory diagram'),
           title: block.title,
           seed: seed,
           child: _StepsDiagram(block),
@@ -823,7 +933,7 @@ class NotebookBlock extends StatelessWidget {
       case BlockType.pitfalls:
         return NoteBox(
           tone: Tone.pink,
-          label: 'Attention à l\'examen',
+          label: t('Attention à l\'examen', 'Exam pitfalls'),
           seed: seed,
           child: HandBullets(
             block.items,
@@ -835,7 +945,7 @@ class NotebookBlock extends StatelessWidget {
       case BlockType.summary:
         return NoteBox(
           tone: Tone.orange,
-          label: block.title ?? 'À retenir',
+          label: block.title ?? t('À retenir', 'Key points'),
           seed: seed,
           child: HandBullets(
             block.items,
@@ -848,7 +958,7 @@ class NotebookBlock extends StatelessWidget {
         return NoteBox(
           tone: Tone.yellow,
           emoji: '✏️',
-          label: block.title ?? 'Note du formateur',
+          label: block.title ?? t('Note du formateur', 'Trainer\'s note'),
           sticky: true,
           seed: seed,
           child: BilingualText(
@@ -861,7 +971,7 @@ class NotebookBlock extends StatelessWidget {
       case BlockType.memo:
         return NoteBox(
           tone: Tone.yellow,
-          label: block.title ?? 'Mémorisation',
+          label: block.title ?? t('Mémorisation', 'Memory aid'),
           sticky: true,
           seed: seed,
           child: BilingualText(
@@ -882,7 +992,7 @@ class NotebookBlock extends StatelessWidget {
       case BlockType.practice:
         return NoteBox(
           tone: Tone.green,
-          label: block.title ?? 'Bonne pratique',
+          label: block.title ?? t('Bonne pratique', 'Good practice'),
           trailing: source,
           seed: seed,
           child: block.items.isNotEmpty
@@ -901,7 +1011,7 @@ class NotebookBlock extends StatelessWidget {
       case BlockType.risk:
         return NoteBox(
           tone: Tone.red,
-          label: block.title ?? 'Risque',
+          label: block.title ?? t('Risque', 'Risk'),
           seed: seed,
           child: block.items.isNotEmpty
               ? HandBullets(
@@ -920,7 +1030,7 @@ class NotebookBlock extends StatelessWidget {
         return NoteBox(
           tone: Tone.blue,
           emoji: '🖼️',
-          label: 'Schéma explicatif',
+          label: t('Schéma explicatif', 'Explanatory diagram'),
           title: block.title,
           seed: seed,
           child: Column(
@@ -969,7 +1079,7 @@ class NotebookBlock extends StatelessWidget {
         return NoteBox(
           tone: Tone.pink,
           emoji: '📝',
-          label: block.title ?? 'Petit test',
+          label: block.title ?? t('Petit test', 'Quick quiz'),
           seed: seed,
           child: _MiniQuiz(block.questionIds),
         );
@@ -998,7 +1108,7 @@ class _Viewpoint extends StatelessWidget {
       return Text.rich(_planSpan(context, planKey, opinion, body));
     }
     final emoji = switch (role.toLowerCase()) {
-      final r when r.contains('rssi') => '🧭',
+      final r when r.contains('rssi') || r.contains('ciso') => '🧭',
       final r when r.contains('soc') => '🖥️',
       final r when r.contains('audit') => '🔎',
       final r when r.contains('risk') || r.contains('risque') => '⚖️',
@@ -1020,7 +1130,7 @@ class _Viewpoint extends StatelessWidget {
                 ).ink,
               ),
             ),
-            const TextSpan(text: ' : '),
+            TextSpan(text: lessonText(context, ' : ', ': ')),
             _planSpan(context, planKey, opinion, body),
           ],
           style: body,

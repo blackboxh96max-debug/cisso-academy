@@ -8,6 +8,8 @@ class TermMatch {
     this.end, {
     this.translate = true,
     this.link = false,
+    this.french = false,
+    this.label,
   });
 
   final GlossaryTerm term;
@@ -22,12 +24,35 @@ class TermMatch {
   /// Rendre le terme cliquable (info-bulle et lien vers sa définition).
   final bool link;
 
-  TermMatch copyWith({bool? translate, bool? link}) => TermMatch(
+  /// Texte anglais : la traduction ajoutée est le terme français.
+  final bool french;
+
+  /// Traduction propre à la leçon (celle de sa définition), à la place de
+  /// celle du glossaire.
+  final String? label;
+
+  /// La traduction à ajouter entre parenthèses après le terme.
+  /// En français, la majuscule initiale d'un nom commun tombe au fil du
+  /// texte (« Vulnérabilité » → « vulnérabilité ») ; un sigle la garde.
+  String get translation {
+    if (label != null) return label!;
+    if (!french) return term.termEn;
+    final fr = term.termFr;
+    final common =
+        fr.length > 1 &&
+        fr[1] == fr[1].toLowerCase() &&
+        fr[1] != fr[1].toUpperCase();
+    return common ? fr[0].toLowerCase() + fr.substring(1) : fr;
+  }
+
+  TermMatch copyWith({bool? translate, bool? link, String? label}) => TermMatch(
     term,
     start,
     end,
     translate: translate ?? this.translate,
     link: link ?? this.link,
+    french: french,
+    label: label ?? this.label,
   );
 }
 
@@ -134,6 +159,22 @@ class TermIndex {
     return t.termEn;
   }
 
+  /// Le terme français à afficher sous [label] (titre anglais), ou `null`
+  /// s'il est inconnu ou déjà présent dans le libellé.
+  /// Un titre qui donne déjà le français entre parenthèses (« Asset
+  /// (actif) ») n'en reçoit pas d'autre.
+  String? frenchFor(String label) {
+    if (label.contains('(')) return null;
+    final t = lookup(label);
+    if (t == null) return null;
+    final folded = fold(label);
+    if (folded.contains(fold(t.termFr)) ||
+        fold(t.termFr).trim() == fold(t.termEn).trim()) {
+      return null;
+    }
+    return t.termFr;
+  }
+
   /// Termes du glossaire présents dans [text], sans chevauchement.
   /// [skip] contient les identifiants déjà annotés (première occurrence
   /// seulement) ; il est complété au passage.
@@ -179,7 +220,10 @@ class TermIndex {
   /// (sigle en majuscules seulement), sans chevauchement. `translate` dit si
   /// l'équivalent anglais peut être ajouté (nom français, différent de
   /// l'anglais, qui n'est pas déjà écrit dans le texte).
-  List<TermMatch> findLinks(String text) {
+  ///
+  /// Pour un texte anglais ([english]), c'est l'inverse : le français est
+  /// ajouté après le nom anglais d'un terme, s'il n'est pas déjà écrit.
+  List<TermMatch> findLinks(String text, {bool english = false}) {
     final folded = fold(text);
     final taken = List<bool>.filled(folded.length, false);
     final out = <TermMatch>[];
@@ -218,11 +262,17 @@ class TermIndex {
             i,
             stop,
             link: true,
-            translate:
-                kind == _KeyKind.french &&
-                fr.length >= 4 &&
-                fr != en &&
-                !folded.contains(en),
+            french: english,
+            translate: english
+                ? kind == _KeyKind.english &&
+                      !_vagueInEnglish.contains(en) &&
+                      fr.length >= 3 &&
+                      fr != en &&
+                      !folded.contains(fr)
+                : kind == _KeyKind.french &&
+                      fr.length >= 4 &&
+                      fr != en &&
+                      !folded.contains(en),
           ),
         );
         found.add(term.id);
@@ -233,6 +283,11 @@ class TermIndex {
     return out;
   }
 }
+
+/// Mots anglais trop vagues pour recevoir le français sans contexte :
+/// « standard » désigne une norme interne dans la pyramide documentaire,
+/// mais aussi n'importe quelle norme (« ISO standard »).
+const _vagueInEnglish = {'standard'};
 
 /// Les noms qu'un titre de définition peut donner à un terme :
 /// « SLE, Single Loss Expectancy (perte unitaire) » → « SLE »,

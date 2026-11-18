@@ -107,6 +107,14 @@ class ContentLoader {
       );
     }
     final data = jsonDecode(await read('$root/$file')) as Map<String, dynamic>;
+    final fileEn = json['fileEn'] as String?;
+    final english = fileEn == null
+        ? const <Lesson>[]
+        : ((jsonDecode(await read('$root/$fileEn'))
+                      as Map<String, dynamic>)['lessons']
+                  as List)
+              .map((l) => Lesson.fromJson(l as Map<String, dynamic>))
+              .toList();
     return Chapter(
       id: id,
       moduleId: moduleId,
@@ -128,11 +136,15 @@ class ContentLoader {
       mindMap: data['mindMap'] == null
           ? null
           : MindNode.fromJson(data['mindMap'] as Map<String, dynamic>),
+      lessonsEn: {for (final l in english) l.id: l},
     );
   }
 
   /// Vérifie la cohérence du contenu ; lève [FormatException] sinon.
   static void validate(ContentLibrary library) {
+    for (final c in library.chapters) {
+      if (c.lessonsEn.isNotEmpty) validateEnglish(c);
+    }
     final domainIds = library.domains.map((d) => d.id).toSet();
     final lessonIds = library.lessons.map((l) => l.id).toSet();
     for (final view in CourseView.values) {
@@ -318,6 +330,66 @@ class ContentLoader {
     }
   }
 }
+
+/// Vérifie que la version anglaise d'un chapitre reprend chaque leçon bloc
+/// pour bloc : mêmes types, mêmes listes, mêmes schémas ; seuls les textes
+/// changent. Lève [FormatException] sinon.
+void validateEnglish(Chapter chapter) {
+  final fr = {for (final l in chapter.lessons) l.id};
+  if (!fr.containsAll(chapter.lessonsEn.keys) ||
+      !chapter.lessonsEn.keys.toSet().containsAll(fr)) {
+    throw FormatException('${chapter.id} : leçons anglaises incomplètes');
+  }
+  for (final l in chapter.lessons) {
+    final en = chapter.lessonsEn[l.id]!;
+    final where = '${chapter.id} ${l.id} (anglais)';
+    if (en.blocks.length != l.blocks.length ||
+        en.objectives.length != l.objectives.length ||
+        en.references.length != l.references.length ||
+        en.illustration != l.illustration ||
+        en.minutes != l.minutes) {
+      throw FormatException('$where : structure différente');
+    }
+    for (final (i, a) in l.blocks.indexed) {
+      final b = en.blocks[i];
+      final same =
+          a.type == b.type &&
+          a.kind == b.kind &&
+          a.asset == b.asset &&
+          (a.title == null) == (b.title == null) &&
+          (a.text == null) == (b.text == null) &&
+          a.items.length == b.items.length &&
+          a.rows.length == b.rows.length &&
+          [for (final r in a.rows) r.length].join(',') ==
+              [for (final r in b.rows) r.length].join(',') &&
+          a.questionIds.join(',') == b.questionIds.join(',') &&
+          jsonEncode(diagramSkeleton(a.diagram)) ==
+              jsonEncode(diagramSkeleton(b.diagram));
+      if (!same) throw FormatException('$where : bloc $i différent');
+    }
+  }
+}
+
+/// Un schéma sans ses textes traduisibles (libellés, détails, axes).
+Object? diagramSkeleton(Object? node) => switch (node) {
+  Map() => {
+    for (final MapEntry(:key, :value) in node.entries)
+      key: _diagramTexts.contains(key) ? '' : diagramSkeleton(value),
+  },
+  List() => [for (final v in node) diagramSkeleton(v)],
+  _ => node,
+};
+
+const _diagramTexts = {
+  'label',
+  'detail',
+  'center',
+  'title',
+  'text',
+  'xLabel',
+  'yLabel',
+  'unit',
+};
 
 /// Une question de la formation de l'apprenant, au format des QCM de
 /// chapitre : le français d'abord, l'anglais de l'examen en dessous.

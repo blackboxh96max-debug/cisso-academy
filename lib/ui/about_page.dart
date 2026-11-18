@@ -119,6 +119,12 @@ List<Widget> _appSection(BuildContext context) {
   final stats = <(String, String)>[
     ('📘', '${library.modules.length} modules, ${chapters.length} chapitres'),
     ('📖', '${library.lessons.length} leçons'),
+    if (library.chapters.any((c) => c.lessonsEn.isNotEmpty))
+      (
+        '🇬🇧',
+        '${library.chapters.fold<int>(0, (n, c) => n + c.lessonsEn.length)} '
+            'leçons aussi en anglais (bouton EN), mots-clés suivis du français',
+      ),
     ('❓', '${library.examQuestions.length} questions de QCM originales'),
     ('🃏', '${library.flashcards.length} flashcards'),
     (
@@ -486,6 +492,8 @@ const appNews = <(String, List<String>)>[
   (
     '18/11/2026',
     [
+      'Version anglaise des leçons du module 1 : bouton EN dans la leçon, '
+          'chaque mot-clé suivi de sa traduction française.',
       'L\'assistant s\'appelle maintenant « Chatbot ».',
       'Page À propos : menu avec L\'application, L\'examen (format, '
           'seuil, 11 domaines et leur poids) et Nouveautés.',

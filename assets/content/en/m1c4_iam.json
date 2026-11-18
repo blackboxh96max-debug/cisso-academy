@@ -1,0 +1,735 @@
+{
+ "lessons": [
+  {
+   "id": "m1c4-l1",
+   "title": "Identify, authenticate, authorize, account",
+   "minutes": 25,
+   "illustration": "assets/illustrations/m1c4_l1_cles.svg",
+   "illustrationAlt": "Drawing of a key ring with three objects: a \"password\" speech bubble, a phone and a fingerprint.",
+   "objectives": [
+    "Tell apart identification, authentication, authorization and accountability (IAAA).",
+    "Place an authentication method in the right factor and recognize genuine MFA.",
+    "Interpret the error rates of a biometric system (FAR, FRR, CER).",
+    "Apply current recommendations on passwords and phishing-resistant MFA."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-63B, Digital Identity Guidelines: authentication and authenticator lifecycle management",
+     "kind": "general"
+    },
+    {
+     "title": "ISO/IEC 27002:2022, controls 5.17 (authentication information) and 8.5 (secure authentication)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Four questions, in order"
+    },
+    {
+     "type": "text",
+     "text": "Every access to a system answers four successive questions. Who do you claim to be? Can you prove it? What are you allowed to do? What did you do? English-language textbooks call this IAAA: Identification, Authentication, Authorization, Accountability."
+    },
+    {
+     "type": "diagram",
+     "title": "The IAAA chain",
+     "alt": "Four-step diagram: identification (I claim an identity), authentication (I prove it), authorization (the system grants rights), accountability (my actions are logged and bind me).",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🙋",
+        "label": "Identification",
+        "detail": "\"I am alice\"",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🔑",
+        "label": "Authentication",
+        "detail": "I prove it",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🚦",
+        "label": "Authorization",
+        "detail": "what I am allowed to do",
+        "tone": "green"
+       },
+       {
+        "emoji": "📜",
+        "label": "Accountability",
+        "detail": "what I did",
+        "tone": "orange"
+       }
+      ]
+     },
+     "text": "Accountability only exists if the identity is unique: a shared \"admin\" account breaks the chain."
+    },
+    {
+     "type": "definition",
+     "title": "Identification",
+     "text": "Claiming an identity, for example typing a username or presenting a badge. On its own, it proves nothing.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Authentication",
+     "text": "Checking that the claimed identity is the right one, using one or more factors.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Authorization (autorisation)",
+     "text": "Deciding which resources and actions are allowed for an authenticated identity.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Accountability (traçabilité)",
+     "text": "Being able to link every action to a person, thanks to unique identities and protected logs. It enables attribution and non-repudiation. Note: in governance, the same English word \"accountability\" means the ultimate accountability of management (see the Governance chapter).",
+     "kind": "general"
+    },
+    {
+     "type": "trainerNote",
+     "text": "In the exam, a question that talks about a \"username\" is about identification, not authentication. And a log without unique identities proves nothing: it is accountability that suffers."
+    },
+    {
+     "type": "heading",
+     "text": "Authentication factors"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Factor",
+       "Principle",
+       "Examples"
+      ],
+      [
+       "Knowledge (something you know)",
+       "A memorized secret",
+       "Password, PIN code, answer to a question"
+      ],
+      [
+       "Possession (something you have)",
+       "An object you hold",
+       "FIDO2 security key, smart card, phone with an authenticator app"
+      ],
+      [
+       "Inherence (something you are)",
+       "A biometric characteristic",
+       "Fingerprint, face, iris, voice"
+      ]
+     ]
+    },
+    {
+     "type": "text",
+     "text": "Some materials add context elements (location, time, typing behavior). They mainly serve to adjust the level of trust, for example in conditional access, rather than being a factor in their own right.",
+     "kind": "general"
+    },
+    {
+     "type": "important",
+     "title": "Genuine MFA or not?",
+     "text": "Multi-factor authentication combines at least two factors from DIFFERENT categories. A password plus a PIN code are two knowledge elements: that is not MFA."
+    },
+    {
+     "type": "memo",
+     "text": "\"KNOW, HAVE, ARE\": something you KNOW, something you HAVE, something you ARE. Two different words = MFA; the same word twice = not MFA."
+    },
+    {
+     "type": "heading",
+     "text": "Biometrics and its errors"
+    },
+    {
+     "type": "definition",
+     "title": "FRR, False Rejection Rate (taux de faux rejets), Type I error",
+     "text": "Proportion of legitimate people wrongly refused. A high FRR annoys users.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "FAR, False Acceptance Rate (taux de fausses acceptations), Type II error",
+     "text": "Proportion of impostors wrongly accepted. It is the most dangerous error for security.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "CER or EER, Crossover Error Rate (taux d'erreur égal)",
+     "text": "Point where FAR and FRR are equal as the sensitivity is adjusted. The lower this rate, the more accurate the biometric system: it is the criterion for comparing products.",
+     "kind": "general"
+    },
+    {
+     "type": "diagram",
+     "title": "Tuning the sensitivity of a biometric reader",
+     "alt": "Bar chart comparing two fictitious settings of a reader: lenient setting with 5 percent false acceptances and 2 percent false rejections; strict setting with 1 percent false acceptances and 6 percent false rejections.",
+     "diagram": {
+      "type": "bars",
+      "unit": " %",
+      "bars": [
+       {
+        "label": "FAR lenient",
+        "value": 5,
+        "tone": "red"
+       },
+       {
+        "label": "FRR lenient",
+        "value": 2,
+        "tone": "blue"
+       },
+       {
+        "label": "FAR strict",
+        "value": 1,
+        "tone": "red"
+       },
+       {
+        "label": "FRR strict",
+        "value": 6,
+        "tone": "blue"
+       }
+      ]
+     },
+     "text": "Example figures: tightening the setting lowers the FAR but raises the FRR. You cannot reduce both at the same time."
+    },
+    {
+     "type": "memo",
+     "title": "Type I or Type II?",
+     "text": "Type I = the Insider is wrongly refused (false rejection, FRR). Type II = the impostor gets through (false acceptance, FAR)."
+    },
+    {
+     "type": "heading",
+     "text": "Passwords and MFA today"
+    },
+    {
+     "type": "practice",
+     "title": "Current good practices",
+     "kind": "general",
+     "items": [
+      "Favor length (passphrases) over arbitrary complexity rules.",
+      "Do not force periodic changes without a reason; change immediately in case of compromise.",
+      "Reject passwords already found in known breach lists.",
+      "Store passwords hashed with a salt and a slow algorithm designed for that purpose.",
+      "Prefer phishing-resistant MFA: FIDO2 keys or passkeys (WebAuthn)."
+     ]
+    },
+    {
+     "type": "risk",
+     "title": "Common attacks",
+     "items": [
+      "Password spraying: a few common passwords tried against many accounts, to stay below the lockout thresholds.",
+      "Credential stuffing: username / password pairs stolen elsewhere, replayed against your services.",
+      "MFA fatigue: push notifications sent in bursts until the victim accepts.",
+      "Real-time phishing (adversary-in-the-middle): a fake site relays the password and the one-time code."
+     ]
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: 400 failures, 1 success",
+     "kind": "example",
+     "text": "The SIEM reports 400 failed logins in ten minutes, spread over 380 different accounts, with a single password tried per account, from a few hosting-provider addresses. One account ends up succeeding. The analyst recognizes password spraying: no account was locked because each one suffered only a single attempt. The analyst kills the sessions of the compromised account, forces a password change, checks that no mail forwarding rule was created and proposes extending MFA to the accounts that did not have it."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: phishing-resistant MFA is my priority for privileged accounts and remote access.",
+      "SOC manager: I detect failures spread over many accounts, not only repeated failures on one account.",
+      "Auditor: I check that there are no shared accounts and that authentication logs are protected.",
+      "Risk manager: an Internet-facing account without MFA is a risk to treat first."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Username = identification; password = authentication.",
+      "Two elements of the same factor do not make MFA.",
+      "FAR (Type II) is the most serious error for security; low CER = more accurate system.",
+      "Accountability requires unique identities: no shared accounts."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "IAAA: identify, authenticate, authorize, account.",
+      "Factors: knowledge, possession, inherence; MFA = at least two different categories.",
+      "Biometrics: FRR (Type I), FAR (Type II), CER to compare.",
+      "Length, lists of compromised passwords, no forced rotation without a reason, phishing-resistant MFA."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m1c4-q03",
+      "m1c4-q06"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m1c4-l2",
+   "title": "Access control models",
+   "minutes": 25,
+   "illustration": "assets/illustrations/m1c4_l2_portes.svg",
+   "illustrationAlt": "Drawing of three doors of different colors with labels: a lock, a role badge and a \"secret\" label.",
+   "objectives": [
+    "Tell apart DAC, MAC, RBAC, rule-based access control and ABAC.",
+    "Apply least privilege, need to know and implicit deny.",
+    "Remember the rules of the Bell-LaPadula (confidentiality) and Biba (integrity) models."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-162, Guide to Attribute Based Access Control (ABAC)",
+     "kind": "general"
+    },
+    {
+     "title": "ISO/IEC 27002:2022, controls 5.15 (access control) and 5.18 (access rights)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Who decides on access?"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Model",
+       "Who decides?",
+       "How",
+       "Example"
+      ],
+      [
+       "DAC, discretionary",
+       "The owner of the resource",
+       "Access control lists (ACLs) the owner edits themselves",
+       "Sharing a Windows folder with a colleague"
+      ],
+      [
+       "MAC, mandatory",
+       "The system, according to a central policy",
+       "Classification labels on objects, clearances on subjects",
+       "Military systems, SELinux in strict mode"
+      ],
+      [
+       "RBAC, role-based",
+       "The organization, through business roles",
+       "Rights are given to the role, people are given roles",
+       "\"SOC analyst L1\" role with read access to the SIEM"
+      ],
+      [
+       "Rule-based",
+       "The administrator, through global rules",
+       "Rules that apply to everyone, regardless of identity",
+       "Firewall rules, access hours"
+      ],
+      [
+       "ABAC, attribute-based",
+       "A policy engine",
+       "Combination of attributes of the subject, the resource, the action and the context",
+       "\"The department's doctors, on duty, from a managed device\""
+      ]
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "The keyword that gives the model away: \"owner\" → DAC; \"label\" or \"clearance\" → MAC; \"job\" or \"function\" → RBAC; \"firewall\" or \"time of day\" → rules; \"context\" or \"attributes\" → ABAC."
+    },
+    {
+     "type": "diagram",
+     "title": "An ABAC decision",
+     "alt": "Five-step diagram: the attributes of the subject, the resource, the action and the context are sent to the policy decision point (PDP), which returns permit or deny to the policy enforcement point (PEP).",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🧑‍⚕️",
+        "label": "Subject",
+        "detail": "role, department, clearance",
+        "tone": "blue"
+       },
+       {
+        "emoji": "📁",
+        "label": "Resource",
+        "detail": "classification, owner",
+        "tone": "violet"
+       },
+       {
+        "emoji": "✍️",
+        "label": "Action",
+        "detail": "read, modify",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "🌍",
+        "label": "Context",
+        "detail": "time, place, device",
+        "tone": "orange"
+       },
+       {
+        "emoji": "⚖️",
+        "label": "Decision",
+        "detail": "the PDP decides, the PEP enforces",
+        "tone": "green"
+       }
+      ]
+     },
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Principles that apply everywhere"
+    },
+    {
+     "type": "definition",
+     "title": "Least privilege (moindre privilège)",
+     "text": "Each identity receives only the rights strictly needed for its job, and only for as long as needed.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Need to know (besoin d'en connaître)",
+     "text": "Even with a sufficient clearance, you only access information if your job requires it.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Implicit deny (refus par défaut)",
+     "text": "Everything that is not explicitly allowed is forbidden. The last rule of a well-configured firewall denies everything else.",
+     "kind": "practice"
+    },
+    {
+     "type": "heading",
+     "text": "Two formal models to know"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Model",
+       "Protects",
+       "Read rule",
+       "Write rule"
+      ],
+      [
+       "Bell-LaPadula",
+       "Confidentiality",
+       "No read up",
+       "No write down"
+      ],
+      [
+       "Biba",
+       "Integrity",
+       "No read down",
+       "No write up"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "title": "Bell-LaPadula or Biba?",
+     "text": "Bell-LaPadula keeps secrets: you do not read above, you do not leak below. Biba is its mirror for integrity: you do not get dirty with what is below, you do not pollute what is above."
+    },
+    {
+     "type": "important",
+     "title": "Key point",
+     "text": "In a MAC model, users cannot share a resource on their own initiative, even if they created it. That is the essential difference with DAC."
+    },
+    {
+     "type": "risk",
+     "title": "Privilege creep",
+     "text": "Without regular review, an employee who changes role keeps their old rights (privilege creep). RBAC limits this risk if roles are removed at every move."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: the role that is too broad",
+     "kind": "example",
+     "text": "During an investigation, the SOC finds that an intern's account was able to read the HR folders. Cause: the \"Head office user\" role had given access to the HR share since an old migration. The SOC manager asks for the role to be revised (RBAC), for implicit deny to be applied on the share and for an access review by the owner of the HR data."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: I prefer RBAC because it is simple to review, complemented by ABAC for sensitive access.",
+      "SOC manager: my L1 analysts read the alerts; only L3 can isolate a server.",
+      "Auditor: I compare the actual rights with the approved roles.",
+      "Risk manager: every unnecessary right increases the impact of a compromised account."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "DAC: the owner decides; MAC: the system decides according to labels.",
+      "Rule-based access control is not RBAC (role-based).",
+      "Bell-LaPadula = confidentiality; Biba = integrity.",
+      "Need to know comes on top of clearance, it does not replace it."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "DAC, MAC, RBAC, rules, ABAC: remember who decides.",
+      "Least privilege, need to know, implicit deny.",
+      "Bell-LaPadula: no read up, no write down. Biba: no read down, no write up."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m1c4-q11",
+      "m1c4-q16"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m1c4-l3",
+   "title": "Identity life cycle, SSO, federation and privileged access",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m1c4_l3_federation.svg",
+   "illustrationAlt": "Drawing of a central badge linked by arrows to three applications: a single badge opens several doors.",
+   "objectives": [
+    "Describe the joiner, mover, leaver cycle and the access review.",
+    "Tell apart SSO, federation, SAML 2.0, OAuth 2.0 and OpenID Connect.",
+    "Explain how Kerberos works and its weak points.",
+    "Know the privileged access management (PAM) measures."
+   ],
+   "references": [
+    {
+     "title": "ISO/IEC 27002:2022, controls 5.16 (identity management), 5.18 (access rights) and 8.2 (privileged access rights)",
+     "kind": "general"
+    },
+    {
+     "title": "RFC 6749, The OAuth 2.0 Authorization Framework",
+     "kind": "general"
+    },
+    {
+     "title": "RFC 4120, The Kerberos Network Authentication Service (V5)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Joiner, mover, leaver"
+    },
+    {
+     "type": "diagram",
+     "title": "The life cycle of an identity",
+     "alt": "Four-step cycle: joiner (creation of the account and roles), mover (adding and removing rights), periodic access review, leaver (immediate deactivation), then back to the start for the next person.",
+     "diagram": {
+      "type": "cycle",
+      "center": "🪪 Unique\nidentity",
+      "nodes": [
+       {
+        "emoji": "👋",
+        "label": "Joiner",
+        "detail": "account and roles",
+        "tone": "green"
+       },
+       {
+        "emoji": "🔀",
+        "label": "Mover",
+        "detail": "add and remove",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🔍",
+        "label": "Review",
+        "detail": "recertify the rights",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🚪",
+        "label": "Leaver",
+        "detail": "disable at once",
+        "tone": "red"
+       }
+      ]
+     },
+     "kind": "practice"
+    },
+    {
+     "type": "text",
+     "text": "This is the JML process (Joiner, Mover, Leaver). Automatic provisioning from the HR system reduces oversights: when the HR record changes, the rights follow."
+    },
+    {
+     "type": "definition",
+     "title": "Access review or recertification (revue des accès)",
+     "text": "Periodic check in which the manager or the data owner confirms, or removes, each right held by their teams.",
+     "kind": "practice"
+    },
+    {
+     "type": "heading",
+     "text": "SSO and federation"
+    },
+    {
+     "type": "definition",
+     "title": "Single sign-on, SSO (authentification unique)",
+     "text": "A single authentication gives access to several applications. Convenient and fewer passwords, but a compromised account opens everything: MFA becomes essential.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Identity federation (fédération d'identités)",
+     "text": "Trust relationship between organizations: an identity provider (IdP) authenticates the user, a service provider (SP) accepts its decision.",
+     "kind": "general"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Protocol",
+       "Used to",
+       "What is exchanged",
+       "Typical use"
+      ],
+      [
+       "SAML 2.0",
+       "Authenticate and federate",
+       "Signed XML assertions",
+       "Enterprise SSO to web applications"
+      ],
+      [
+       "OAuth 2.0",
+       "Delegate an authorization",
+       "Access tokens",
+       "An application accesses your files without knowing your password"
+      ],
+      [
+       "OpenID Connect",
+       "Authenticate, on top of OAuth 2.0",
+       "Identity token (ID token, in JWT format)",
+       "\"Sign in with…\" on the web and on mobile"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Key point",
+     "text": "OAuth 2.0 is an authorization protocol, not an authentication protocol. To know WHO the user is, OpenID Connect is added on top."
+    },
+    {
+     "type": "memo",
+     "text": "SAML = \"Signed Assertions for the enterprise\". OAuth = \"Authorize\". OIDC = \"OAuth + IDentity\"."
+    },
+    {
+     "type": "heading",
+     "text": "Kerberos"
+    },
+    {
+     "type": "diagram",
+     "title": "Kerberos in four steps",
+     "alt": "Four-step diagram: the client authenticates to the authentication service (AS), which gives it a TGT; the client presents the TGT to the ticket-granting service (TGS), which gives it a service ticket; the client presents that ticket to the target server.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "💻",
+        "label": "Client",
+        "detail": "asks to authenticate",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🏛️",
+        "label": "AS",
+        "detail": "issues the TGT",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🎫",
+        "label": "TGS",
+        "detail": "issues the service ticket",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🖥️",
+        "label": "Service",
+        "detail": "accepts the ticket",
+        "tone": "green"
+       }
+      ]
+     },
+     "text": "The KDC (key distribution center) combines the AS and the TGS. In Active Directory, these are the domain controllers.",
+     "kind": "general"
+    },
+    {
+     "type": "risk",
+     "title": "Weak points of Kerberos",
+     "items": [
+      "The KDC is a single point of failure and a prime target: it must be made redundant and protected.",
+      "Clocks must be synchronized: too large a gap makes authentication fail.",
+      "A stolen ticket can be replayed until it expires (pass-the-ticket attack).",
+      "Service accounts with a weak password expose their tickets to offline cracking (Kerberoasting)."
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Privileged access"
+    },
+    {
+     "type": "practice",
+     "title": "PAM, Privileged Access Management measures",
+     "kind": "practice",
+     "items": [
+      "Administration accounts separate from office accounts.",
+      "Password vault with automatic rotation after use.",
+      "Just-in-time access: the right is granted for a limited time, after approval.",
+      "Recording of administration sessions and alerts sent to the SOC.",
+      "Dedicated administration workstations and phishing-resistant MFA."
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "In almost every serious intrusion, the attacker looks for a privileged account. A SOC that monitors administrator logins (unusual time, new device, new country) often detects the attack before the encryption."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: impossible travel",
+     "kind": "example",
+     "text": "An administrator's account logs in from Lyon at 9:02, then from another continent at 9:15. No plane makes that trip in 13 minutes: it is an \"impossible travel\" alert. The analyst checks the device and token used, revokes the active sessions and tokens, resets the password and MFA factors, then looks for any account creation or rights change since 9:15."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: SSO with strong MFA for everyone, PAM for administrators, quarterly review of sensitive access.",
+      "SOC manager: the logs of the IdP and of the domain controllers are my most valuable sources.",
+      "Auditor: I check that every HR departure led to the account being disabled, with the date.",
+      "Risk manager: the identity provider concentrates risk; its availability and security are critical."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "OAuth 2.0 authorizes, OpenID Connect authenticates.",
+      "SAML exchanges XML assertions; OIDC exchanges JWT tokens.",
+      "Kerberos: TGT issued by the AS, service ticket issued by the TGS.",
+      "When an employee leaves, the account is disabled immediately, not necessarily deleted at once (logs and data may be needed)."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Joiner, mover, leaver, and regular access review.",
+      "SSO = one authentication, several applications; federation = trust between IdP and SP.",
+      "SAML (assertions), OAuth 2.0 (delegated authorization), OIDC (identity).",
+      "Kerberos: KDC, AS, TGS, tickets, synchronized clocks.",
+      "PAM: separate accounts, vault, just-in-time, recorded sessions."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m1c4-q21",
+      "m1c4-q24"
+     ]
+    }
+   ]
+  }
+ ]
+}
