@@ -1,0 +1,666 @@
+{
+ "lessons": [
+  {
+   "id": "m4c2-l1",
+   "title": "Securing databases",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m4c2_l1_base.svg",
+   "illustrationAlt": "Drawing of a cylinder-shaped database surrounded by a padlock, with a magnifying glass watching the queries and three small windows that each show only part of the data.",
+   "objectives": [
+    "Apply least privilege to the accounts and applications that access a database.",
+    "Explain aggregation, inference and polyinstantiation.",
+    "Use views, stored procedures and encryption to limit exposure.",
+    "Monitor the activity of a database."
+   ],
+   "references": [
+    {
+     "title": "CIS Benchmarks for database management systems",
+     "kind": "general"
+    },
+    {
+     "title": "OWASP Database Security Cheat Sheet",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "The database, a priority target"
+    },
+    {
+     "type": "text",
+     "text": "Databases concentrate the most valuable information: customers, payroll, health, trade secrets. An attacker almost always tries to reach them. Protecting them combines access control, hardening, encryption, backups and monitoring."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Measure",
+       "Goal",
+       "Example"
+      ],
+      [
+       "Named accounts and least privilege",
+       "Everyone accesses only what they must",
+       "The application reads orders, without administration rights"
+      ],
+      [
+       "Views",
+       "Show only some of the columns or rows",
+       "Support sees the customer's name, not their IBAN"
+      ],
+      [
+       "Stored procedures",
+       "Allow only planned operations",
+       "\"create_order\" instead of direct access to the tables"
+      ],
+      [
+       "Encryption",
+       "Protect sensitive files and columns",
+       "Transparent data encryption (TDE), encrypted \"card number\" column"
+      ],
+      [
+       "Database activity monitoring (DAM)",
+       "See and alert on suspicious queries",
+       "Mass extraction at 3 a.m."
+      ],
+      [
+       "Hardening",
+       "Reduce the attack surface",
+       "Default accounts removed, database not exposed to the Internet"
+      ]
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "View, database (vue)",
+     "text": "Virtual table built by a query, which presents only part of the data. Granting access to a view rather than to the table applies least privilege.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Three threats specific to databases"
+    },
+    {
+     "type": "diagram",
+     "title": "Aggregation, inference and their countermeasure",
+     "alt": "Four-cell table: aggregation combines low-sensitivity data to obtain sensitive information; inference deduces hidden information from accessible data; polyinstantiation presents different versions according to clearance level; context control limits combinations of queries.",
+     "diagram": {
+      "type": "quadrant",
+      "xLabel": "Threat",
+      "yLabel": "Countermeasure",
+      "cells": [
+       {
+        "emoji": "🧩",
+        "label": "Aggregation",
+        "detail": "small pieces → secret",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🕵️",
+        "label": "Inference",
+        "detail": "deduce what is hidden",
+        "tone": "red"
+       },
+       {
+        "emoji": "🪞",
+        "label": "Polyinstantiation",
+        "detail": "one version per level",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🎛️",
+        "label": "Context control",
+        "detail": "limit combinations",
+        "tone": "blue"
+       }
+      ]
+     }
+    },
+    {
+     "type": "definition",
+     "title": "Aggregation (agrégation)",
+     "text": "Combination of several low-sensitivity pieces of data that, put together, reveal sensitive information. Example: the delivery addresses and order dates of a military supplier reveal the movements of a unit.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Inference (inférence)",
+     "text": "Deduction of information you have no access to from data you do have access to. Example: the total payroll of a two-person department and the salary of one of them reveal the salary of the other.",
+     "kind": "general"
+    },
+    {
+     "type": "important",
+     "title": "Polyinstantiation",
+     "text": "Polyinstantiation means keeping several versions of the same record according to clearance level. An uncleared user sees a harmless version (\"ship on exercise\") instead of a refusal that would betray the existence of secret information. It is a countermeasure to inference."
+    },
+    {
+     "type": "memo",
+     "text": "Aggregation = add up to know. Inference = deduce to know. Polyinstantiation = show another version to hide that there is a secret."
+    },
+    {
+     "type": "heading",
+     "text": "Transaction integrity"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "ACID property",
+       "Meaning"
+      ],
+      [
+       "Atomicity",
+       "All or nothing: a transaction is either fully done or fully canceled"
+      ],
+      [
+       "Consistency",
+       "The database moves from one valid state to another valid state"
+      ],
+      [
+       "Isolation",
+       "Simultaneous transactions do not interfere with each other"
+      ],
+      [
+       "Durability",
+       "A committed transaction survives a failure"
+      ]
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "Questions on aggregation and inference look alike. Ask yourself: is the person gathering a lot of data (aggregation) or reasoning from a few pieces (inference)? And remember that polyinstantiation answers inference."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: a nighttime extraction",
+     "kind": "example",
+     "text": "On a demonstration database, the activity monitoring tool (DAM) raises an alert: at 3 a.m., the website's service account runs a \"SELECT *\" query on the whole customer table, whereas it usually reads only one order at a time. The analyst disables the account, discovers an SQL injection in a form, and the team restricts the account to stored procedures."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "Database administrator: I remove default accounts and separate administration accounts from application accounts.",
+      "SOC analyst: a query that returns thousands of rows at once deserves an alert.",
+      "Auditor: I check who has administration rights and whether access to sensitive data is logged.",
+      "CISO: sensitive databases are never exposed directly to the Internet."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Aggregation ≠ inference: gathering or deducing.",
+      "Polyinstantiation is a countermeasure to inference.",
+      "Views limit what a user sees: least privilege.",
+      "ACID = atomicity, consistency, isolation, durability."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Least privilege, views, stored procedures, encryption, hardening, monitoring (DAM).",
+      "Aggregation: gathering harmless data; inference: deducing hidden data.",
+      "Polyinstantiation: one version per clearance level.",
+      "ACID guarantees transaction integrity."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m4c2-q02",
+      "m4c2-q05"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m4c2-l2",
+   "title": "Classifying data and managing its life cycle",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m4c2_l2_etiquettes.svg",
+   "illustrationAlt": "Drawing of three folders with colored labels: green public, yellow internal, red confidential, and a circular arrow going from creation to destruction.",
+   "objectives": [
+    "Classify data according to its sensitivity.",
+    "Tell apart the roles: owner, custodian, user, controller and processor.",
+    "Describe the data life cycle, from creation to destruction.",
+    "Protect data in its three states: at rest, in transit, in use."
+   ],
+   "references": [
+    {
+     "title": "ISO/IEC 27001:2022, Annex A, controls 5.12 (classification) and 5.13 (labeling)",
+     "kind": "general"
+    },
+    {
+     "title": "Regulation (EU) 2016/679, General Data Protection Regulation (GDPR)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Why classify?"
+    },
+    {
+     "type": "text",
+     "text": "You cannot protect everything at the same level: it would be too expensive and too restrictive. Classification indicates the value and sensitivity of each piece of information, so the right measures can be applied to it: encryption, access, retention, destruction."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Level (company example)",
+       "Impact of disclosure",
+       "Examples"
+      ],
+      [
+       "Public",
+       "None",
+       "Website, press releases"
+      ],
+      [
+       "Internal",
+       "Low",
+       "Directory, internal procedures"
+      ],
+      [
+       "Confidential",
+       "Significant",
+       "Contracts, customer data, payroll"
+      ],
+      [
+       "Secret / restricted",
+       "Severe",
+       "Ongoing mergers, trade secrets"
+      ]
+     ]
+    },
+    {
+     "type": "text",
+     "text": "In the public and military sectors, other scales are found, for example: Unclassified, Confidential, Secret, Top Secret. The principle is the same: the more severe the impact of a disclosure, the higher the level."
+    },
+    {
+     "type": "important",
+     "title": "The owner classifies",
+     "text": "The data owner (a business manager) decides on its classification and on who can access it. The custodian (often the IT team) applies the protections day to day: backups, rights, encryption. Security advises, but does not classify in place of the business."
+    },
+    {
+     "type": "heading",
+     "text": "The roles"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Role",
+       "Responsibility"
+      ],
+      [
+       "Data owner",
+       "Classifies, decides on access, is accountable for protection"
+      ],
+      [
+       "Custodian",
+       "Implements the protections: backups, rights, encryption"
+      ],
+      [
+       "User",
+       "Uses the data according to the rules"
+      ],
+      [
+       "Controller (GDPR)",
+       "Determines the purposes and means of processing personal data"
+      ],
+      [
+       "Processor (GDPR)",
+       "Processes personal data on behalf of the controller"
+      ],
+      [
+       "DPO, data protection officer",
+       "Advises on and monitors GDPR compliance"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "The life cycle"
+    },
+    {
+     "type": "diagram",
+     "title": "From creation to destruction",
+     "alt": "Six-stage cycle: create, store, use, share, archive, destroy, then back to the creation of new data.",
+     "diagram": {
+      "type": "cycle",
+      "center": "🏷️ Classification\nat every stage",
+      "nodes": [
+       {
+        "emoji": "✏️",
+        "label": "Create",
+        "detail": "classify on creation",
+        "tone": "blue"
+       },
+       {
+        "emoji": "💾",
+        "label": "Store",
+        "detail": "encrypt at rest",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🖥️",
+        "label": "Use",
+        "detail": "access on a need basis",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "📤",
+        "label": "Share",
+        "detail": "encrypt in transit",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🗄️",
+        "label": "Archive",
+        "detail": "retention period",
+        "tone": "green"
+       },
+       {
+        "emoji": "🗑️",
+        "label": "Destroy",
+        "detail": "suitable method",
+        "tone": "red"
+       }
+      ]
+     }
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Data state",
+       "Typical protection"
+      ],
+      [
+       "At rest (stored)",
+       "Encryption of disks, databases, backups"
+      ],
+      [
+       "In transit (on the network)",
+       "TLS, VPN, IPsec"
+      ],
+      [
+       "In use (in memory)",
+       "Access control, isolation, confidential computing enclaves"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "Three states: at rest (disk), in transit (network), in use (memory). Each has its own protection."
+    },
+    {
+     "type": "trainerNote",
+     "text": "Remember the difference in vocabulary: owner = responsibility and decision; custodian = technical implementation. A question asking \"who decides on the classification\" expects the owner, never the administrator."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: a mislabeled file",
+     "kind": "example",
+     "text": "In an exercise, a payroll spreadsheet labeled \"Internal\" is sent to a contractor. The data loss prevention tool does not block it, because it relies on the label. The investigation shows that the file had been created from an \"Internal\" template. The payroll owner reclassifies the template as \"Confidential\" and a rule now detects social security numbers whatever the labeling."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "Business owner: I decide who needs my data and for how long.",
+      "Administrator (custodian): I apply the rights and check the backups.",
+      "Auditor: I check that every piece of sensitive data has an owner and a retention period.",
+      "DPO: I make sure that personal data has a purpose and a legal basis."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "The owner classifies; the custodian protects.",
+      "Data must be protected in all three states, not only at rest.",
+      "A classification is reviewed: information can become public (for example after an announcement).",
+      "Controller = decides; processor = carries out on its behalf."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Classify according to the impact of disclosure; label and protect accordingly.",
+      "Owner, custodian, user; controller, processor, DPO.",
+      "Life cycle: create, store, use, share, archive, destroy.",
+      "Three states: at rest, in transit, in use."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m4c2-q11",
+      "m4c2-q13"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m4c2-l3",
+   "title": "Preventing leaks and destroying data",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m4c2_l3_destruction.svg",
+   "illustrationAlt": "Drawing of a hard drive going into a shredder, next to a document in which some digits are hidden by asterisks.",
+   "objectives": [
+    "Explain the role of a data loss prevention (DLP) solution.",
+    "Tell apart masking, tokenization, pseudonymization and anonymization.",
+    "Choose a suitable erasure method: clear, purge, destroy.",
+    "Apply the main GDPR principles to personal data."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-88 Rev. 2, Guidelines for Media Sanitization (2025)",
+     "url": "https://csrc.nist.gov/pubs/sp/800/88/r2/final",
+     "kind": "general"
+    },
+    {
+     "title": "Regulation (EU) 2016/679 (GDPR), Article 5 (principles) and Article 33 (breach notification)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Preventing leaks (DLP)"
+    },
+    {
+     "type": "definition",
+     "title": "DLP, data loss prevention (prévention des fuites de données)",
+     "text": "Set of tools and rules that spot sensitive data (by its content or its label) and prevent or report its unauthorized exit: email, USB drive, cloud, printing.",
+     "kind": "general"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Where",
+       "What DLP monitors"
+      ],
+      [
+       "On the workstation (endpoint)",
+       "Copying to a USB drive, printing, uploading"
+      ],
+      [
+       "On the network",
+       "Outgoing email and web traffic"
+      ],
+      [
+       "In the cloud",
+       "Public shares, SaaS applications (often through a CASB)"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Reducing data exposure"
+    },
+    {
+     "type": "diagram",
+     "title": "Four techniques, four levels of reversibility",
+     "alt": "Four-cell table: masking hides part of a piece of data on display; tokenization replaces the data with a token, reversible through a vault; pseudonymization replaces the identity but remains personal data; anonymization makes re-identification impossible and falls outside the scope of the GDPR.",
+     "diagram": {
+      "type": "quadrant",
+      "xLabel": "Technique",
+      "yLabel": "Reversible?",
+      "cells": [
+       {
+        "emoji": "🎭",
+        "label": "Masking",
+        "detail": "**** **** **** 1234",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🎟️",
+        "label": "Tokenization",
+        "detail": "token ↔ secure vault",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🥸",
+        "label": "Pseudonymization",
+        "detail": "reversible with a key: GDPR applies",
+        "tone": "orange"
+       },
+       {
+        "emoji": "👻",
+        "label": "Anonymization",
+        "detail": "irreversible: outside GDPR",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "important",
+     "title": "Pseudonymizing is not anonymizing",
+     "text": "Pseudonymized data (the name replaced by an identifier, with a lookup table) remains personal data: the GDPR applies. Only truly anonymized data, from which nobody can re-identify the person, falls outside the scope of the GDPR. Anonymization is difficult: cross-referencing several datasets is often enough to re-identify."
+    },
+    {
+     "type": "heading",
+     "text": "Erasing for good"
+    },
+    {
+     "type": "text",
+     "text": "Deleting a file or formatting a disk does not erase the data: it remains readable with recovery tools. This is data remanence. NIST SP 800-88 distinguishes three levels of media sanitization."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Level (NIST SP 800-88)",
+       "Principle",
+       "Example",
+       "Reuse"
+      ],
+      [
+       "Clear",
+       "Protects against simple recovery",
+       "Overwriting of the data by software",
+       "Yes, internally"
+      ],
+      [
+       "Purge",
+       "Protects against laboratory recovery",
+       "Disk secure erase command, cryptographic erase, degaussing",
+       "Depending on the media"
+      ],
+      [
+       "Destroy",
+       "The media can no longer be used",
+       "Shredding, disintegration, incineration",
+       "No"
+      ]
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "Crypto-shredding, cryptographic erase (effacement cryptographique)",
+     "text": "Destruction of the key that encrypted data: without the key, the encrypted data becomes unreadable. Very useful in the cloud, where physical disks cannot be destroyed.",
+     "kind": "general"
+    },
+    {
+     "type": "risk",
+     "title": "Degaussing and SSDs",
+     "text": "Degaussing erases magnetic media such as traditional hard drives and tapes, but it is ineffective on SSDs and USB drives, which store data in flash memory. For them, use the manufacturer's secure erase, cryptographic erase or physical destruction."
+    },
+    {
+     "type": "heading",
+     "text": "Personal data: the essentials of the GDPR"
+    },
+    {
+     "type": "practice",
+     "title": "Principles to apply",
+     "items": [
+      "Lawfulness, fairness, transparency: a legal basis and clear information for individuals.",
+      "Purpose limitation: collect for a specific purpose.",
+      "Data minimization: collect only what is necessary.",
+      "Accuracy and storage limitation: up-to-date data, kept as long as necessary.",
+      "Integrity and confidentiality: appropriate security measures.",
+      "Data breach: notification to the supervisory authority within 72 hours of becoming aware of it, unless the risk to individuals is unlikely."
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "GDPR: \"Less, for less time, better protected\": minimize, limit retention, secure."
+    },
+    {
+     "type": "trainerNote",
+     "text": "For destruction questions, look at two clues: the type of media (magnetic or flash) and what happens to the media (reused internally, resold, thrown away). The further the media leaves your control, the stronger the method must be."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: resold disks",
+     "kind": "example",
+     "text": "During a simulated audit, a batch of decommissioned computers sold to a recycler is tested: on two disks that had simply been formatted, customer files are recovered in a few minutes. The SOC opens an incident, the DPO assesses whether notification is needed, and the procedure now requires a certified purge, with an erasure certificate for each disk."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "DPO: I prefer data that was never collected: minimization is the best protection.",
+      "SOC analyst: a DLP alert on a mass transfer to a personal mailbox has priority.",
+      "Auditor: I ask for the erasure certificates of decommissioned media.",
+      "CISO: in the cloud, I rely on encryption with my own keys and on cryptographic erase."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Formatting or deleting ≠ erasing: remanence.",
+      "Degaussing is ineffective on SSDs and flash memory.",
+      "Pseudonymization = still personal data.",
+      "GDPR notification to the authority: 72 hours."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "DLP on the workstation, the network and the cloud.",
+      "Masking, tokenization, pseudonymization (reversible), anonymization (irreversible).",
+      "NIST SP 800-88: clear, purge, destroy; cryptographic erase.",
+      "GDPR: minimization, storage limitation, security, notification within 72 hours."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m4c2-q21",
+      "m4c2-q24"
+     ]
+    }
+   ]
+  }
+ ]
+}

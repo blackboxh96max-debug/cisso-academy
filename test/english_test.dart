@@ -32,9 +32,9 @@ void main() {
     ],
   ];
 
-  test('modules 1 à 3 : chaque leçon a sa version anglaise', () {
+  test('modules 1 à 4 : chaque leçon a sa version anglaise', () {
     for (final c in library.chapters.where(
-      (c) => const {'m1', 'm2', 'm3'}.contains(c.moduleId),
+      (c) => const {'m1', 'm2', 'm3', 'm4'}.contains(c.moduleId),
     )) {
       expect(
         c.lessonsEn.keys.toSet(),

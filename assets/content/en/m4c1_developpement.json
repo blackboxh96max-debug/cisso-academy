@@ -1,0 +1,678 @@
+{
+ "lessons": [
+  {
+   "id": "m4c1-l1",
+   "title": "A secure development life cycle",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m4c1_l1_cycle.svg",
+   "illustrationAlt": "Drawing of a wheel with six colored spokes representing the stages of development, with a small shield at the center of the wheel.",
+   "objectives": [
+    "Name the stages of a secure software development life cycle (secure SDLC).",
+    "Explain the value of addressing security as early as possible (shift left).",
+    "Carry out simple threat modeling with STRIDE.",
+    "Separate the development, test and production environments."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-218, Secure Software Development Framework (SSDF)",
+     "kind": "general"
+    },
+    {
+     "title": "OWASP SAMM (Software Assurance Maturity Model)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Security at every stage"
+    },
+    {
+     "type": "text",
+     "text": "Secure software is not obtained by adding a test at the end. Security is built into every stage of the development cycle: from requirements to maintenance. The earlier a defect is found, the less it costs to fix."
+    },
+    {
+     "type": "diagram",
+     "title": "The secure development life cycle",
+     "alt": "Six-stage cycle around security: requirements, design, development, testing, deployment, maintenance, then back to requirements.",
+     "diagram": {
+      "type": "cycle",
+      "center": "🛡️ Security\nat every stage",
+      "nodes": [
+       {
+        "emoji": "📝",
+        "label": "Requirements",
+        "detail": "security needs, compliance",
+        "tone": "blue"
+       },
+       {
+        "emoji": "📐",
+        "label": "Design",
+        "detail": "threat modeling",
+        "tone": "violet"
+       },
+       {
+        "emoji": "⌨️",
+        "label": "Development",
+        "detail": "secure coding, code review",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "🧪",
+        "label": "Testing",
+        "detail": "SAST, DAST, penetration tests",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🚀",
+        "label": "Deployment",
+        "detail": "hardened configuration, signing",
+        "tone": "green"
+       },
+       {
+        "emoji": "🔧",
+        "label": "Maintenance",
+        "detail": "patches, monitoring, retirement",
+        "tone": "pink"
+       }
+      ]
+     }
+    },
+    {
+     "type": "definition",
+     "title": "Shift left (décalage à gauche)",
+     "text": "Practice of addressing security as early as possible in the development cycle (requirements, design, coding) rather than at the end. DevSecOps applies it by automating checks in the continuous integration and deployment pipeline.",
+     "kind": "general"
+    },
+    {
+     "type": "memo",
+     "text": "A defect costs little on paper, more in the code, a lot in production: securing early means saving money."
+    },
+    {
+     "type": "heading",
+     "text": "Modeling threats"
+    },
+    {
+     "type": "text",
+     "text": "Threat modeling happens during design: you draw the application (data flows, trust boundaries), ask what can go wrong, then choose the controls. The STRIDE model helps you forget nothing."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Letter",
+       "Threat",
+       "Property attacked",
+       "Typical control"
+      ],
+      [
+       "S",
+       "Spoofing (usurpation d'identité)",
+       "Authentication",
+       "MFA, certificates"
+      ],
+      [
+       "T",
+       "Tampering (altération)",
+       "Integrity",
+       "Signatures, integrity checks"
+      ],
+      [
+       "R",
+       "Repudiation (répudiation)",
+       "Non-repudiation",
+       "Protected logs, signatures"
+      ],
+      [
+       "I",
+       "Information disclosure (divulgation d'information)",
+       "Confidentiality",
+       "Encryption, access control"
+      ],
+      [
+       "D",
+       "Denial of service (déni de service)",
+       "Availability",
+       "Rate limiting, redundancy"
+      ],
+      [
+       "E",
+       "Elevation of privilege (élévation de privilèges)",
+       "Authorization",
+       "Least privilege, server-side checks"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Security requirements from the start",
+     "text": "Security needs (authentication, logging, encryption, compliance) must be written alongside the functional needs. A requirement forgotten at the start becomes a design flaw, very costly to fix later."
+    },
+    {
+     "type": "heading",
+     "text": "Environments and changes"
+    },
+    {
+     "type": "practice",
+     "title": "Organizational good practices",
+     "items": [
+      "Separate development, test and production; developers have no write access to production.",
+      "Never use real production data in testing; use fictitious or anonymized data.",
+      "Send every release to production through change management (approval, planned rollback).",
+      "Have the code reviewed by another person before merging.",
+      "Remove debug accounts, comments and functions before going into production."
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "Exam questions often contrast \"adding security at the end\" with \"building it in from the requirements\". The right answer is almost always the earliest one. Also remember that separating environments is an application of separation of duties."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: a debug back door",
+     "kind": "example",
+     "text": "On a simulated internal application, the analyst notices access to a \"/debug\" page that displays the server's variables, including a database password. The page had been added during development and never removed. The SOC triggers a password rotation, the team removes the page, and the pre-production checklist now includes a search for debug functions."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "Developer: threat modeling saves me from discovering flaws in production.",
+      "Architect: I draw the trust boundaries before writing the first line of code.",
+      "Auditor: I check that developers have no write access to production.",
+      "CISO: every project has security requirements approved before development starts."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Security starts with requirements, not with testing.",
+      "STRIDE: each letter matches an attacked security property.",
+      "Production data in testing = potential leak.",
+      "A developer who deploys alone to production violates separation of duties."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Secure SDLC: requirements, design, development, testing, deployment, maintenance.",
+      "Shift left and DevSecOps: secure early and automate.",
+      "STRIDE: spoofing, tampering, repudiation, information disclosure, denial of service, elevation of privilege.",
+      "Separate environments, fictitious data in testing, change management, code review."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m4c1-q02",
+      "m4c1-q05"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m4c1-l2",
+   "title": "Application flaws and the OWASP Top 10",
+   "minutes": 35,
+   "illustration": "assets/illustrations/m4c1_l2_injection.svg",
+   "illustrationAlt": "Drawing of a web form whose field contains an apostrophe and suspicious text, with a syringe stinging a database; next to it, a funnel-shaped filter holds back the suspicious text.",
+   "objectives": [
+    "Name the main categories of the OWASP Top 10.",
+    "Explain SQL injection, XSS, CSRF and broken access control.",
+    "Choose the right countermeasure: parameterized queries, output encoding, anti-CSRF tokens, server-side checks.",
+    "Recognize buffer overflow and race conditions."
+   ],
+   "references": [
+    {
+     "title": "OWASP Top 10:2025 (top10.owasp.org/2025), with mapping to the 2021 edition",
+     "kind": "general"
+    },
+    {
+     "title": "OWASP Cheat Sheet Series (prevention sheets)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "The OWASP Top 10"
+    },
+    {
+     "type": "text",
+     "text": "OWASP (Open Worldwide Application Security Project) is an open community that regularly publishes a list of the ten most critical risk categories for web applications. Here is the 2025 edition, with the mapping to the 2021 edition, still widely cited in training materials."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "2025 rank",
+       "Category (2025)",
+       "2021 mapping",
+       "Example"
+      ],
+      [
+       "A01",
+       "Broken Access Control",
+       "A01, and absorbs A10 SSRF",
+       "Changing the ID in the URL to see someone else's account"
+      ],
+      [
+       "A02",
+       "Security Misconfiguration",
+       "A05 (moves up to 2nd place)",
+       "Detailed error pages, default accounts"
+      ],
+      [
+       "A03",
+       "Software Supply Chain Failures",
+       "Broadens A06 Vulnerable and Outdated Components",
+       "Unpatched library, malicious package, compromised pipeline"
+      ],
+      [
+       "A04",
+       "Cryptographic Failures",
+       "A02",
+       "Sensitive data in cleartext, weak algorithms"
+      ],
+      [
+       "A05",
+       "Injection (including XSS)",
+       "A03",
+       "SQL injection, command injection"
+      ],
+      [
+       "A06",
+       "Insecure Design",
+       "A04",
+       "No limit on the number of password reset attempts"
+      ],
+      [
+       "A07",
+       "Authentication Failures",
+       "A07 (renamed)",
+       "No MFA, sessions without expiry"
+      ],
+      [
+       "A08",
+       "Software or Data Integrity Failures",
+       "A08",
+       "Unsigned update"
+      ],
+      [
+       "A09",
+       "Security Logging and Alerting Failures",
+       "A09 (renamed: \"alerting\" instead of \"monitoring\")",
+       "Attack undetected for lack of logs or alerts"
+      ],
+      [
+       "A10",
+       "Mishandling of Exceptional Conditions",
+       "New in 2025",
+       "Unhandled error that opens access or reveals internal details"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "2021 or 2025?",
+     "text": "Many training materials still cite the 2021 edition. Remember both: in 2025, misconfiguration moves up to 2nd place, vulnerable components become the software supply chain (A03), SSRF joins access control (A01) and a new category appears for the handling of errors and exceptional cases (A10). Always read the year given in the question."
+    },
+    {
+     "type": "heading",
+     "text": "Injections"
+    },
+    {
+     "type": "definition",
+     "title": "SQL injection (injection SQL)",
+     "text": "Attack in which data entered by the user is interpreted as part of the SQL query, making it possible to read, modify or delete data. Main countermeasure: parameterized queries (prepared statements).",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Cross-site scripting (XSS)",
+     "text": "Injection of a script into a web page, which then runs in other users' browsers. It can be stored (saved on the server), reflected (sent back in the response) or DOM-based. Main countermeasure: output encoding of data, supplemented by a content security policy (CSP).",
+     "kind": "general"
+    },
+    {
+     "type": "diagram",
+     "title": "Four flaws, four countermeasures",
+     "alt": "Four-cell table matching each flaw with its countermeasure: SQL injection and parameterized queries, XSS and output encoding, CSRF and anti-CSRF token, broken access control and server-side check on every request.",
+     "diagram": {
+      "type": "quadrant",
+      "xLabel": "Flaw",
+      "yLabel": "Countermeasure",
+      "cells": [
+       {
+        "emoji": "💉",
+        "label": "SQL injection",
+        "detail": "parameterized queries",
+        "tone": "red"
+       },
+       {
+        "emoji": "📜",
+        "label": "XSS",
+        "detail": "output encoding + CSP",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🎣",
+        "label": "CSRF",
+        "detail": "anti-CSRF token, SameSite",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🚪",
+        "label": "Broken access",
+        "detail": "server-side check",
+        "tone": "blue"
+       }
+      ]
+     }
+    },
+    {
+     "type": "important",
+     "title": "Validate on input, encode on output",
+     "text": "Any data coming from outside is suspect. It is validated on the server side with an allow list (expected format, length, type), and encoded according to context when it is displayed. Validation in the browser improves convenience, but an attacker easily bypasses it."
+    },
+    {
+     "type": "memo",
+     "text": "SQL → parameterize. XSS → encode. CSRF → token. Access → check on the server side. \"The client always lies\"."
+    },
+    {
+     "type": "heading",
+     "text": "Other flaws to know"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Flaw",
+       "Principle",
+       "Countermeasure"
+      ],
+      [
+       "CSRF, cross-site request forgery",
+       "A malicious site makes a logged-in user's browser send a request",
+       "Anti-CSRF token, SameSite cookies, reauthentication for sensitive actions"
+      ],
+      [
+       "IDOR, insecure direct object reference",
+       "Changing an identifier gives access to someone else's data",
+       "Check authorization on the server side for each object"
+      ],
+      [
+       "Buffer overflow",
+       "Writing more data than the planned memory area, up to executing code",
+       "Length checks, memory-safe languages, system protections (ASLR, DEP)"
+      ],
+      [
+       "Race condition (TOCTOU)",
+       "The state changes between the check and the use",
+       "Atomic operations, locks"
+      ],
+      [
+       "SSRF",
+       "The server is led to call an address chosen by the attacker",
+       "Allow list of destinations, filtering of internal addresses"
+      ]
+     ]
+    },
+    {
+     "type": "risk",
+     "title": "Mishandled errors (A10:2025)",
+     "text": "An unexpected error can leave an operation half done, open access (fail open) or reveal details. An error that displays the SQL query, the server version or a stack trace gives the attacker a map of the application. In production, show the user a generic message and keep the details in the logs."
+    },
+    {
+     "type": "trainerNote",
+     "text": "Exam classic: \"what is the best defense against SQL injection?\". The answer is the parameterized query. The WAF and input validation help, but they are not the main countermeasure."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: apostrophes in the logs",
+     "kind": "example",
+     "text": "On an isolated demonstration application, the WAF logs requests containing \"' OR 1=1 --\" in the search field, then a response much larger than usual. The analyst concludes that an injection succeeded. The fix (parameterized query) is deployed, and the database access logs are used to measure the data exposed."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "Developer: I use parameterized queries and my framework's automatic encoding.",
+      "SOC analyst: a sudden rise in 500 errors on a form can signal an injection attempt.",
+      "Auditor: I check that access controls are done on the server side, not just in the interface.",
+      "CISO: the OWASP Top 10 serves as a minimum baseline for the security requirements of web projects."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "SQL injection → parameterized queries (not \"escaping apostrophes by hand\").",
+      "XSS → output encoding; the victim is the user's browser.",
+      "CSRF exploits the victim's already open session.",
+      "Client-side validation = convenience, never security.",
+      "Check the edition cited: A10 = SSRF in 2021, exceptional conditions in 2025."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "OWASP Top 10:2025: access (with SSRF), configuration, supply chain, crypto, injection, design, authentication, integrity, logging and alerting, exceptional conditions.",
+      "SQL injection: parameterized queries. XSS: output encoding and CSP. CSRF: token.",
+      "Validate on the server side with an allow list; generic error messages.",
+      "Buffer overflow, TOCTOU, IDOR, SSRF: know how to recognize them."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m4c1-q11",
+      "m4c1-q14"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m4c1-l3",
+   "title": "Testing code and securing the software chain",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m4c1_l3_pipeline.svg",
+   "illustrationAlt": "Drawing of a conveyor belt carrying boxes of code through three checkpoint gates marked analysis, tests and signature, up to a server.",
+   "objectives": [
+    "Tell apart SAST, DAST, IAST, SCA and fuzzing.",
+    "Place automatic checks in a CI/CD pipeline.",
+    "Manage dependencies with a software bill of materials (SBOM).",
+    "Protect software integrity: code signing, secrets out of the code."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-218, Secure Software Development Framework (SSDF)",
+     "kind": "general"
+    },
+    {
+     "title": "OWASP Application Security Verification Standard (ASVS)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "The families of tests"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Method",
+       "How",
+       "When",
+       "Strength",
+       "Limit"
+      ],
+      [
+       "SAST, static analysis",
+       "Reads the source code without running it",
+       "During development",
+       "Early, shows the faulty line",
+       "False positives; does not see the real configuration"
+      ],
+      [
+       "DAST, dynamic analysis",
+       "Attacks the running application, from the outside",
+       "In testing or pre-production",
+       "Sees the real behavior",
+       "Does not show the line of code; late"
+      ],
+      [
+       "IAST, interactive analysis",
+       "Agent in the application during tests",
+       "During tests",
+       "Links the attack to the code",
+       "Depends on test coverage"
+      ],
+      [
+       "SCA, software composition analysis",
+       "Inventories libraries and their known vulnerabilities",
+       "Continuously",
+       "Spots vulnerable components",
+       "Does not see flaws in in-house code"
+      ],
+      [
+       "Fuzzing",
+       "Sends random or malformed data in bulk",
+       "In testing",
+       "Finds crashes and edge cases",
+       "Slow; results to analyze"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "SAST = read the code (white box, at rest). DAST = attack the application (black box, running)."
+    },
+    {
+     "type": "heading",
+     "text": "A secure CI/CD pipeline"
+    },
+    {
+     "type": "diagram",
+     "title": "The automatic checks in the pipeline",
+     "alt": "Five-step diagram: the developer pushes the code, static analysis and secret scanning run, dependency analysis produces the software bill of materials, dynamic analysis tests the application in pre-production, then the artifact is signed before deployment.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "⌨️",
+        "label": "Commit",
+        "detail": "code review",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🔍",
+        "label": "SAST + secrets",
+        "detail": "on every merge",
+        "tone": "violet"
+       },
+       {
+        "emoji": "📦",
+        "label": "SCA + SBOM",
+        "detail": "known dependencies",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🧪",
+        "label": "DAST",
+        "detail": "in pre-production",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "✍️",
+        "label": "Signing",
+        "detail": "then deployment",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "definition",
+     "title": "SBOM, software bill of materials (nomenclature logicielle)",
+     "text": "Structured list of all the components of a piece of software (libraries, versions, suppliers). It tells you within minutes whether a newly published vulnerability affects your applications.",
+     "kind": "general"
+    },
+    {
+     "type": "important",
+     "title": "The software supply chain",
+     "text": "A modern application is mostly made of code written by others. A vulnerable component, a malicious package or a compromised update affects everyone who uses it. You need to inventory (SBOM), monitor (SCA), choose reliable sources and verify signatures."
+    },
+    {
+     "type": "heading",
+     "text": "Integrity and secrets"
+    },
+    {
+     "type": "practice",
+     "title": "Protecting the delivered software",
+     "items": [
+      "Sign code and updates; verify the signature before installation.",
+      "Never write a password or a key in the code: use a secrets vault.",
+      "Automatically scan every commit for secrets; in case of a leak, revoke and replace the secret.",
+      "Protect the pipeline itself: accounts with MFA, minimal rights, logs.",
+      "Secure APIs: authentication, per-object authorization, rate limiting, input validation."
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "Code signing (signature du code)",
+     "text": "Digital signature applied by the publisher to software or an update. It proves the origin (authenticity) and that the code has not been modified (integrity), but not that it is free of flaws.",
+     "kind": "general"
+    },
+    {
+     "type": "trainerNote",
+     "text": "Remember that no method is enough on its own: SAST and DAST are complementary, and manual penetration testing finds logic flaws that tools miss. In the exam, an answer that combines several methods is often the best."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: a key in the repository",
+     "kind": "example",
+     "text": "The secret scanning tool flags a cloud access key in a commit pushed to a demonstration repository. Even if the commit is deleted, the key remains in the history: the SOC revokes it immediately, checks the cloud provider's logs to make sure it was not used, and the developer switches to the secrets vault."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "Developer: SAST results arrive in my merge request, and I fix them before merging.",
+      "SOC analyst: the SBOM tells me right away which applications are affected by a new CVE.",
+      "Auditor: I check that production deployments are signed and traced.",
+      "CISO: the pipeline is a critical asset: whoever controls it controls the delivered code."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "SAST = source code, without running it; DAST = running application.",
+      "A signature proves origin and integrity, not the absence of flaws.",
+      "Removing a secret from the code is not enough: it must be revoked.",
+      "SCA covers third-party components, not in-house code."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "SAST, DAST, IAST, SCA, fuzzing, penetration testing: complementary methods.",
+      "CI/CD: automatic checks at every stage, protected pipeline.",
+      "SBOM and SCA to keep dependencies under control.",
+      "Code signing, secrets in a vault, API security."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m4c1-q21",
+      "m4c1-q24"
+     ]
+    }
+   ]
+  }
+ ]
+}
