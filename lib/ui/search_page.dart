@@ -352,7 +352,7 @@ class _ResultTile extends StatelessWidget {
                       result.title,
                       style: TextStyle(
                         fontFamily: Hand.body,
-                        fontSize: 20,
+                        fontSize: Hand.bsize(20),
                         height: 1.15,
                         color: paper.ink,
                       ),

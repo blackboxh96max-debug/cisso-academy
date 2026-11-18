@@ -49,11 +49,11 @@ class ChapterPage extends StatelessWidget {
               const SizedBox(height: 4),
               Text(
                 chapter.title,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: Hand.title,
-                  fontSize: 36,
+                  fontSize: Hand.tsize(36),
                   height: 1.05,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: Hand.titleWeight,
                   color: Colors.white,
                 ),
               ),
@@ -183,7 +183,7 @@ class _WhitePill extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: Hand.sans,
           fontSize: 12.5,
           fontWeight: FontWeight.w700,
@@ -227,8 +227,8 @@ class _LessonCard extends StatelessWidget {
                 '${index + 1}',
                 style: TextStyle(
                   fontFamily: Hand.title,
-                  fontSize: 28,
-                  fontWeight: FontWeight.w700,
+                  fontSize: Hand.tsize(28),
+                  fontWeight: Hand.titleWeight,
                   color: c.ink,
                 ),
               ),
@@ -263,7 +263,7 @@ class _LessonCard extends StatelessWidget {
                     lesson.title,
                     style: TextStyle(
                       fontFamily: Hand.body,
-                      fontSize: 21,
+                      fontSize: Hand.bsize(21),
                       height: 1.2,
                       color: paper.ink,
                     ),

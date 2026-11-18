@@ -215,7 +215,7 @@ class TermCard extends StatelessWidget {
             style: Hand.subtitle(
               context,
               Tone.violet,
-            ).copyWith(fontSize: compact ? 24 : 28),
+            ).copyWith(fontSize: Hand.tsize(compact ? 24 : 28)),
           ),
           if (!sameName) EnTag(term.termEn),
           const SizedBox(height: 8),

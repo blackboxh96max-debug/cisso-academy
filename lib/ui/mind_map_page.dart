@@ -12,6 +12,7 @@ import '../models/content.dart';
 import 'course_view_bar.dart';
 import 'notebook/hand_drawn.dart';
 import 'notebook/page_kit.dart';
+import 'notebook/look.dart';
 import 'notebook/palette.dart';
 import 'notebook/typography.dart';
 
@@ -654,30 +655,30 @@ class _MindLayout {
 }
 
 class _Styles {
-  static const center = TextStyle(
+  static TextStyle get center => TextStyle(
     letterSpacing: 0,
     wordSpacing: 0,
     fontFamily: Hand.title,
-    fontSize: 26,
+    fontSize: Hand.tsize(26),
     height: 1.1,
-    fontWeight: FontWeight.w700,
+    fontWeight: Hand.titleWeight,
   );
-  static const branch = TextStyle(
+  static TextStyle get branch => TextStyle(
     letterSpacing: 0,
     wordSpacing: 0,
     fontFamily: Hand.title,
-    fontSize: 23,
+    fontSize: Hand.tsize(23),
     height: 1.1,
-    fontWeight: FontWeight.w700,
+    fontWeight: Hand.titleWeight,
   );
-  static const leaf = TextStyle(
+  static TextStyle get leaf => TextStyle(
     letterSpacing: 0,
     wordSpacing: 0,
     fontFamily: Hand.body,
-    fontSize: 17,
+    fontSize: Hand.bsize(17),
     height: 1.25,
   );
-  static const en = TextStyle(
+  static TextStyle get en => TextStyle(
     letterSpacing: 0,
     wordSpacing: 0,
     fontFamily: Hand.sans,
@@ -685,11 +686,11 @@ class _Styles {
     height: 1.3,
     fontStyle: FontStyle.italic,
   );
-  static const detail = TextStyle(
+  static TextStyle get detail => TextStyle(
     letterSpacing: 0,
     wordSpacing: 0,
     fontFamily: Hand.note,
-    fontSize: 13.5,
+    fontSize: Hand.bsize(13.5),
     height: 1.35,
   );
 }
@@ -805,14 +806,14 @@ class _MindNodeCard extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(60),
-            gradient: const LinearGradient(
+            gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [Color(0xFF2563EB), Color(0xFF7C3AED), Color(0xFFDB2777)],
+              colors: AppLook.active.heroGradient,
             ),
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFF7C3AED).withValues(alpha: 0.35),
+                color: AppLook.active.heroGradient[1].withValues(alpha: 0.35),
                 blurRadius: 16,
                 offset: const Offset(0, 6),
               ),

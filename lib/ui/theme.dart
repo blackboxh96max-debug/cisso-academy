@@ -2,13 +2,23 @@ import 'package:material_ui/material_ui.dart';
 
 import '../models/content.dart';
 
+import 'notebook/look.dart';
 import 'notebook/palette.dart';
 
-const _seed = Color(0xFF2F64C8);
+final _themes = <(String, Brightness), ThemeData>{};
 
-ThemeData buildTheme(Brightness brightness) {
-  final paper = brightness == Brightness.dark ? Paper.dark : Paper.light;
-  final base = ColorScheme.fromSeed(seedColor: _seed, brightness: brightness);
+/// Thème Material d'un thème de l'application, construit une seule fois.
+ThemeData cachedTheme(AppLook look, Brightness brightness) =>
+    _themes[(look.id, brightness)] ??= buildTheme(brightness, look);
+
+/// Thème Material du thème de lecture [look] (le cahier par défaut).
+ThemeData buildTheme(Brightness brightness, [AppLook look = AppLook.cahier]) {
+  if (look.darkOnly) brightness = Brightness.dark;
+  final paper = look.paper(brightness);
+  final base = ColorScheme.fromSeed(
+    seedColor: look.seed,
+    brightness: brightness,
+  );
   final scheme = base.copyWith(
     surface: paper.background,
     onSurface: paper.ink,
@@ -18,7 +28,7 @@ ThemeData buildTheme(Brightness brightness) {
   return ThemeData(
     colorScheme: scheme,
     useMaterial3: true,
-    fontFamily: 'Nunito',
+    fontFamily: look.sansFont,
     scaffoldBackgroundColor: paper.background,
     visualDensity: VisualDensity.standard,
     appBarTheme: AppBarTheme(
@@ -26,33 +36,33 @@ ThemeData buildTheme(Brightness brightness) {
       foregroundColor: paper.ink,
       surfaceTintColor: Colors.transparent,
       titleTextStyle: TextStyle(
-        fontFamily: 'Caveat',
-        fontSize: 30,
-        fontWeight: FontWeight.w700,
+        fontFamily: look.titleFont,
+        fontSize: 30 * look.titleScale,
+        fontWeight: look.titleWeight,
         color: paper.ink,
       ),
     ),
     navigationBarTheme: NavigationBarThemeData(
       backgroundColor: paper.page,
-      indicatorColor: toneColors(Tone.yellow, brightness).fill,
+      indicatorColor: look.colors(Tone.yellow, brightness).fill,
     ),
     navigationRailTheme: NavigationRailThemeData(
       backgroundColor: paper.page,
-      indicatorColor: toneColors(Tone.yellow, brightness).fill,
+      indicatorColor: look.colors(Tone.yellow, brightness).fill,
     ),
     cardTheme: CardThemeData(
       elevation: 0,
       color: paper.card,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(look.radius),
         side: BorderSide(color: scheme.outlineVariant),
       ),
       margin: EdgeInsets.zero,
     ),
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
-        textStyle: const TextStyle(
-          fontFamily: 'Nunito',
+        textStyle: TextStyle(
+          fontFamily: look.sansFont,
           fontWeight: FontWeight.w700,
           fontSize: 15,
         ),
@@ -61,8 +71,8 @@ ThemeData buildTheme(Brightness brightness) {
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
-        textStyle: const TextStyle(
-          fontFamily: 'Nunito',
+        textStyle: TextStyle(
+          fontFamily: look.sansFont,
           fontWeight: FontWeight.w700,
           fontSize: 15,
         ),

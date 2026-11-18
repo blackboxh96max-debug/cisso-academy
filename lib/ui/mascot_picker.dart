@@ -129,7 +129,7 @@ class _MascotTile extends StatelessWidget {
                 style: Hand.subtitle(
                   context,
                   Tone.violet,
-                ).copyWith(fontSize: 24),
+                ).copyWith(fontSize: Hand.tsize(24)),
               ),
               Text(
                 character.species,

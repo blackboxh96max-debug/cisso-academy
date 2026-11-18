@@ -114,7 +114,7 @@ class _GlossaryPageState extends State<GlossaryPage> {
                         t.termFr,
                         style: TextStyle(
                           fontFamily: Hand.body,
-                          fontSize: 21,
+                          fontSize: Hand.bsize(21),
                           color: c.ink,
                         ),
                       ),

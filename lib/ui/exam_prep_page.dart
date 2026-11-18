@@ -8,6 +8,7 @@ import '../logic/study_groups.dart';
 import 'bilingual.dart';
 import 'course_view_bar.dart';
 import 'notebook/hand_drawn.dart';
+import 'notebook/look_table.dart';
 import 'notebook/note_box.dart';
 import 'notebook/page_kit.dart';
 import 'notebook/palette.dart';
@@ -204,10 +205,10 @@ class _ExamPrepPageState extends State<ExamPrepPage> {
                       children: [
                         Text(
                           '$emoji  ${g.fullTitle}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: Hand.title,
-                            fontSize: 22,
-                            fontWeight: FontWeight.w700,
+                            fontSize: Hand.tsize(22),
+                            fontWeight: Hand.titleWeight,
                             color: Colors.white,
                           ),
                         ),
@@ -318,7 +319,7 @@ class _PrepRow extends StatelessWidget {
                         title,
                         style: TextStyle(
                           fontFamily: Hand.body,
-                          fontSize: 20,
+                          fontSize: Hand.bsize(20),
                           height: 1.15,
                           color: paper.ink,
                         ),
@@ -389,7 +390,7 @@ class _BiText extends StatelessWidget {
           ),
           style: TextStyle(
             fontFamily: Hand.body,
-            fontSize: size,
+            fontSize: Hand.bsize(size),
             height: 1.3,
             fontWeight: bold ? FontWeight.w700 : FontWeight.w400,
             color: englishColor(context),
@@ -405,7 +406,7 @@ class _BiText extends StatelessWidget {
           ),
           style: TextStyle(
             fontFamily: Hand.note,
-            fontSize: size - 3,
+            fontSize: Hand.bsize(size - 3),
             height: 1.35,
             color: paper.ink,
           ),
@@ -583,8 +584,8 @@ class _PrepQuizPageState extends State<PrepQuizPage> {
                   '${PrepQuestion.letter(i)}.',
                   style: TextStyle(
                     fontFamily: Hand.title,
-                    fontSize: 26,
-                    fontWeight: FontWeight.w700,
+                    fontSize: Hand.tsize(26),
+                    fontWeight: Hand.titleWeight,
                     color: colors?.ink ?? paper.ink,
                   ),
                 ),
@@ -615,16 +616,16 @@ class _PrepQuizPageState extends State<PrepQuizPage> {
             children: [
               Text(
                 '$_good / $total',
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: Hand.title,
-                  fontSize: 54,
-                  fontWeight: FontWeight.w700,
+                  fontSize: Hand.tsize(54),
+                  fontWeight: Hand.titleWeight,
                   color: Colors.white,
                 ),
               ),
               Text(
                 '$pct % de bonnes réponses',
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: Hand.sans,
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
@@ -869,30 +870,30 @@ class PrepSheetPage extends StatelessWidget {
     List<String> header,
     List<List<String>> rows,
   ) {
-    final paper = Paper.of(context);
+    final look = LookTable(context);
     final style = Hand.sansText(context, size: 14);
     return Table(
       columnWidths: header.length == 3
           ? const {0: FixedColumnWidth(36)}
           : const {},
-      border: TableBorder(
-        horizontalInside: BorderSide(color: paper.ink.withValues(alpha: 0.15)),
-      ),
+      border: look.border,
       children: [
         TableRow(
+          decoration: look.headerDecoration,
           children: [
             for (final h in header)
               Padding(
                 padding: const EdgeInsets.all(6),
                 child: Text(
                   h,
-                  style: style.copyWith(fontWeight: FontWeight.w800),
+                  style: look.headerStyle.copyWith(fontSize: Hand.tsize(19)),
                 ),
               ),
           ],
         ),
-        for (final r in rows)
+        for (final (k, r) in rows.indexed)
           TableRow(
+            decoration: look.row(k),
             children: [
               for (final (i, cell) in r.indexed)
                 Padding(

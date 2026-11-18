@@ -65,11 +65,11 @@ class RevisionSheetPage extends StatelessWidget {
                   children: [
                     Text(
                       titles.isEmpty ? chapter.title : titles.first,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: Hand.title,
-                        fontSize: 32,
+                        fontSize: Hand.tsize(32),
                         height: 1.05,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: Hand.titleWeight,
                         color: Colors.white,
                       ),
                     ),
@@ -109,7 +109,7 @@ class RevisionSheetPage extends StatelessWidget {
                         ),
                         child: Text(
                           '${i + 1}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: Hand.sans,
                             fontWeight: FontWeight.w800,
                             fontSize: 13,
@@ -125,7 +125,7 @@ class RevisionSheetPage extends StatelessWidget {
                             line,
                             matches[i],
                             Hand.bodyText(context).copyWith(
-                              fontSize: 19,
+                              fontSize: Hand.bsize(19),
                               color: i.isEven
                                   ? paper.ink
                                   : toneColors(

@@ -5,6 +5,7 @@ import 'app_state.dart';
 import 'content/content_loader.dart';
 import 'data/store_factory.dart';
 import 'ui/home_shell.dart';
+import 'ui/notebook/look.dart';
 import 'ui/theme.dart';
 
 Future<void> main() async {
@@ -25,12 +26,22 @@ class CissoAcademyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppScope(
       state: state,
-      child: MaterialApp(
-        title: 'CISSO Academy',
-        debugShowCheckedModeBanner: false,
-        theme: buildTheme(Brightness.light),
-        darkTheme: buildTheme(Brightness.dark),
-        home: const HomeShell(),
+      child: ListenableBuilder(
+        listenable: state,
+        // Garde le même écran d'accueil : changer de thème ne ferme rien.
+        child: const HomeShell(),
+        builder: (context, home) {
+          final look = AppLook.byId(state.lookId);
+          AppLook.active = look;
+          return MaterialApp(
+            title: 'CISSO Academy',
+            debugShowCheckedModeBanner: false,
+            theme: cachedTheme(look, Brightness.light),
+            darkTheme: cachedTheme(look, Brightness.dark),
+            themeMode: look.darkOnly ? ThemeMode.dark : state.brightnessMode,
+            home: home,
+          );
+        },
       ),
     );
   }

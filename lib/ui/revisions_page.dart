@@ -266,11 +266,11 @@ class _RevisionsPageState extends State<RevisionsPage> {
                         children: [
                           Text(
                             '$emoji  $title',
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontFamily: Hand.title,
-                              fontSize: 24,
+                              fontSize: Hand.tsize(24),
                               height: 1.1,
-                              fontWeight: FontWeight.w700,
+                              fontWeight: Hand.titleWeight,
                               color: Colors.white,
                             ),
                           ),
@@ -492,7 +492,7 @@ class _Row extends StatelessWidget {
           title,
           style: TextStyle(
             fontFamily: Hand.body,
-            fontSize: 20,
+            fontSize: Hand.bsize(20),
             height: 1.15,
             color: paper.ink,
           ),
@@ -572,7 +572,7 @@ class _WhiteButton extends StatelessWidget {
             const SizedBox(width: 5),
             Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: Hand.sans,
                 fontSize: 13,
                 fontWeight: FontWeight.w800,

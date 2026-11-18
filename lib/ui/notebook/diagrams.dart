@@ -128,8 +128,8 @@ class _NodeCard extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: Hand.title,
-                  fontSize: 23,
-                  fontWeight: FontWeight.w700,
+                  fontSize: Hand.tsize(23),
+                  fontWeight: Hand.titleWeight,
                   height: 1.05,
                   color: c.ink,
                 ),
@@ -256,8 +256,8 @@ class _CycleDiagram extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: Hand.title,
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
+                      fontSize: Hand.tsize(24),
+                      fontWeight: Hand.titleWeight,
                       color: paper.ink,
                     ),
                   ),
@@ -267,7 +267,8 @@ class _CycleDiagram extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 6),
                 child: Text(
                   '↻ puis on recommence au début',
-                  style: Hand.noteText(context).copyWith(fontSize: 17),
+                  style: Hand.noteText(context)
+                      .copyWith(fontSize: Hand.bsize(17)),
                 ),
               ),
             ],
@@ -306,8 +307,8 @@ class _CycleDiagram extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: Hand.title,
-                            fontSize: 26,
-                            fontWeight: FontWeight.w700,
+                            fontSize: Hand.tsize(26),
+                            fontWeight: Hand.titleWeight,
                             color: paper.ink,
                           ),
                         ),
@@ -451,7 +452,7 @@ class _MatrixDiagram extends StatelessWidget {
                   '${data['yLabel'] ?? 'Vraisemblance'} →',
                   style: TextStyle(
                     fontFamily: Hand.title,
-                    fontSize: 22,
+                    fontSize: Hand.tsize(22),
                     color: paper.ink,
                   ),
                 ),
@@ -494,7 +495,7 @@ class _MatrixDiagram extends StatelessWidget {
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontFamily: Hand.body,
-                                    fontSize: cell < 64 ? 11 : 13,
+                                    fontSize: Hand.bsize(cell < 64 ? 11 : 13),
                                     height: 1.1,
                                     color: paper.ink,
                                   ),
@@ -510,7 +511,7 @@ class _MatrixDiagram extends StatelessWidget {
                     '${data['xLabel'] ?? 'Impact'} →',
                     style: TextStyle(
                       fontFamily: Hand.title,
-                      fontSize: 22,
+                      fontSize: Hand.tsize(22),
                       color: paper.ink,
                     ),
                   ),
@@ -584,8 +585,8 @@ class _BarsDiagram extends StatelessWidget {
                   fmt((bars[v.toInt()]['value'] as num)),
                   style: TextStyle(
                     fontFamily: Hand.title,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700,
+                    fontSize: Hand.tsize(20),
+                    fontWeight: Hand.titleWeight,
                     color: paper.ink,
                   ),
                 ),
@@ -651,7 +652,7 @@ class _QuadrantDiagram extends StatelessWidget {
     final paper = Paper.of(context);
     final label = TextStyle(
       fontFamily: Hand.title,
-      fontSize: 22,
+      fontSize: Hand.tsize(22),
       color: paper.ink,
     );
     Widget cell(int i) => Expanded(
