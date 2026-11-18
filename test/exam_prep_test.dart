@@ -7,6 +7,7 @@ import 'package:cisso_academy/export/pdf_export.dart';
 import 'package:cisso_academy/main.dart';
 import 'package:cisso_academy/models/content.dart';
 import 'package:cisso_academy/ui/exam_prep_page.dart';
+import 'package:cisso_academy/ui/notebook/hand_drawn.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 
@@ -36,6 +37,24 @@ void main() {
     expect(lot.questions[2].choices[3].en, r'$40,000');
     expect(lot.questions[2].formula, contains('100,000 × 40%'));
     expect(lot.keywords.map((k) => k.term), contains('CAN-SPAM'));
+  });
+
+  test('le lot du 18/11/2026 (questions 11 et 12) est fidèle', () {
+    final lot = library.examPrep.lots.firstWhere(
+      (l) => l.id == 'prep-2026-11-18',
+    );
+    expect(lot.questions, hasLength(5));
+    expect(lot.questions.map((q) => q.correctLetter).join(), 'CBACD');
+    expect(lot.parts.map((p) => p.title.en).last, 'Cryptography');
+    // Empreinte SHA-256 de « Hello » (vérifiée avec sha256sum).
+    expect(lot.questions[2].formula, contains('185f8db32271fe25'));
+    expect(lot.questions[1].choices.map((c) => c.en), [
+      'ITIL',
+      'COBIT',
+      'PCI-DSS',
+      'CSA CCM',
+    ]);
+    expect(lot.keywords.map((k) => k.term), contains('COBIT'));
   });
 
   test('les questions de préparation restent hors des statistiques', () {
@@ -92,13 +111,20 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Préparation examen'));
     await tester.pumpAndSettle();
-    final lotRow = find.textContaining('Gestion des risques et conformité');
+    final lotRow = find.textContaining(
+      RegExp(r' · Gestion des risques et conformité$'),
+    );
     await tester.scrollUntilVisible(lotRow, 200);
     expect(lotRow, findsOne);
 
-    await tester.ensureVisible(find.text('S\'entraîner').first);
+    // Le bouton de la séance du 16/11.
+    final practice = find.descendant(
+      of: find.ancestor(of: lotRow, matching: find.byType(HandBox)).first,
+      matching: find.text('S\'entraîner'),
+    );
+    await tester.ensureVisible(practice);
     await tester.pumpAndSettle();
-    await tester.tap(find.text('S\'entraîner').first);
+    await tester.tap(practice);
     await tester.pumpAndSettle();
     expect(
       find.textContaining('What is a vulnerability?', findRichText: true),
