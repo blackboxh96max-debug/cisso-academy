@@ -925,5 +925,24 @@
    "front": "Forward secrecy",
    "back": "Ephemeral keys (ECDHE): future theft of the server key does not decrypt the past."
   }
+ ],
+ "revisionSheet": [
+  "# Revision sheet: cryptography, signatures, certificates and PKI",
+  "Services: confidentiality (encryption), integrity (hashing, MAC, signature), authentication (MAC, signature, certificate), non-repudiation (signature only).",
+  "Kerckhoffs: public algorithm, only the key is secret. Never a homemade algorithm.",
+  "Symmetric: one shared key, fast, n(n-1)/2 keys. AES (128-bit blocks, 128/192/256-bit keys), ChaCha20. DES, 3DES and RC4 are broken or withdrawn.",
+  "Modes: avoid ECB (visible patterns); CBC (unpredictable IV); CTR (unique counter); GCM (encrypts and authenticates).",
+  "Asymmetric: key pair, slow, 2n keys. RSA (factoring), ECC (short keys), Diffie-Hellman (shared secret, must be authenticated).",
+  "Encrypt for Bob: Bob's public key. Sign: my private key. Verify: the sender's public key.",
+  "Hybrid: asymmetric for the session key, symmetric for the data (TLS, messaging).",
+  "Hashing: fixed size, one-way, collision-resistant. SHA-2/SHA-3 yes; MD5/SHA-1 no. Collision in 2 to the power of n/2 attempts (birthday attack).",
+  "Passwords: unique salt (not secret) + slow function (Argon2, scrypt, bcrypt, PBKDF2).",
+  "HMAC: integrity + authentication, no non-repudiation. Signature: integrity + authentication + non-repudiation, no confidentiality.",
+  "X.509 certificate: identity + public key + validity + key usages, signed by the CA. Never a private key.",
+  "PKI: offline root CA, intermediate CAs, RA (verifies, does not sign), CRL (periodic list), OCSP (online).",
+  "Key life cycle: generation, distribution, storage (HSM), use, rotation, revocation, destruction. Escrow: encryption yes, signing never.",
+  "Stolen private key: revoke the certificate AND generate a new key pair. Forward secrecy: ephemeral keys (ECDHE), TLS 1.3.",
+  "Attacks: brute force, man-in-the-middle, downgrade, side channels, collisions. Quantum: Shor threatens RSA/ECC, AES-256 remains strong; NIST standards FIPS 203/204/205 (2024).",
+  "Pairs not to confuse: symmetric/asymmetric; hashing/encryption; MAC/signature; CA/RA; CRL/OCSP; public key/private key."
  ]
 }

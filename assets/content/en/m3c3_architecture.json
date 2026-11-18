@@ -748,5 +748,24 @@
    "front": "ZTNA / SASE",
    "back": "Per-application access / networking and security delivered as a cloud service."
   }
+ ],
+ "revisionSheet": [
+  "# Revision sheet: secure architecture, defense in depth and Zero Trust",
+  "Defense in depth: independent, different, layered controls; administrative, technical and physical families.",
+  "Principles: least privilege, secure by default, fail secure, economy of mechanism, complete mediation, open design, separation of privilege, reduced attack surface.",
+  "Fail secure (block on failure) for information; fail safe (open) when lives are at stake: people first.",
+  "Avoid single points of failure: redundancy, vendor diversity, several trained people.",
+  "TCB: the hardware, software and firmware that security depends on; keep it small.",
+  "Reference monitor: always invoked, tamperproof, verifiable; implemented by the security kernel.",
+  "Bell-LaPadula (confidentiality): no read up, no write down (* property).",
+  "Biba (integrity): no read down, no write up.",
+  "Clark-Wilson: well-formed transactions, separation of duties, auditing. Brewer-Nash: Chinese Wall, conflicts of interest.",
+  "Trusted hardware: protection rings (0 kernel, 3 applications), TPM, Secure Boot, HSM. VM escape: the hypervisor is part of the TCB.",
+  "Zero Trust: no implicit trust based on the network; verify explicitly, least privilege per session, assume breach.",
+  "NIST SP 800-207: the PDP (policy engine and policy administrator) decides, the PEP enforces.",
+  "CISA: pillars identity, devices, networks, applications and workloads, data; cross-cutting: visibility, automation, governance.",
+  "Cloud: shared responsibility; in IaaS, PaaS or SaaS, the customer remains responsible for its data and access.",
+  "ZTNA: per-application access (the evolution of VPN). SASE: networking and security functions delivered as a cloud service.",
+  "Pairs not to confuse: BLP/Biba; PDP/PEP; fail secure/fail safe; IaaS/PaaS/SaaS; VPN/ZTNA."
  ]
 }

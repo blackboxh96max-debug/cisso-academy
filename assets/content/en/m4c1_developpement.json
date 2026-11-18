@@ -776,5 +776,24 @@
    "front": "CI/CD pipeline",
    "back": "A critical asset: MFA, minimal rights, integrity, logs."
   }
+ ],
+ "revisionSheet": [
+  "# Revision sheet: secure development and OWASP",
+  "Secure SDLC: requirements, design, development, testing, deployment, maintenance; security starts with the requirements.",
+  "Shift left: secure as early as possible; DevSecOps: automated checks in the CI/CD pipeline.",
+  "Threat modeling at design time; STRIDE = spoofing, tampering, repudiation, information disclosure, denial of service, elevation of privilege.",
+  "Organization: separate dev/test/prod environments, fictitious data in test, change management, code review (separation of duties).",
+  "Before production: remove debugging and test accounts, generic error messages, no secrets in the code.",
+  "OWASP Top 10:2025: A01 access control (absorbs SSRF), A02 misconfiguration, A03 software supply chain, A04 cryptography, A05 injection, A06 design, A07 authentication, A08 integrity, A09 logging and alerting, A10 exceptional conditions.",
+  "2021 edition (still cited): A01 access, A02 cryptography, A03 injection, A04 design, A05 configuration, A06 components, A07 identification and authentication, A08 integrity, A09 logging and monitoring, A10 SSRF.",
+  "SQL injection → parameterized queries. XSS (stored, reflected, DOM) → output encoding + CSP. CSRF → anti-CSRF token, SameSite.",
+  "IDOR → server-side authorization for every object. SSRF → allowlist of destinations.",
+  "Validate input on the server side (allowlist), encode output; client-side validation is only a convenience.",
+  "Buffer overflow → length checks, memory-safe languages, ASLR, DEP. TOCTOU → atomic operations, locks.",
+  "Testing: SAST (code, without execution), DAST (running application), IAST (agent), SCA (third-party components), fuzzing, manual penetration testing.",
+  "Software supply chain: SBOM, SCA, trusted sources, code signing (origin + integrity, not the absence of flaws), protected pipeline.",
+  "Secrets: vault; exposed secret = revoke, replace, check how it was used.",
+  "APIs: authentication, object-level authorization, rate limiting, input validation.",
+  "Pairs not to confuse: SAST/DAST; XSS/CSRF; validation/encoding; signature/quality; SCA/SAST."
  ]
 }

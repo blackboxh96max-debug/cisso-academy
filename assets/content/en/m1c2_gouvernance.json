@@ -1256,5 +1256,22 @@
    "front": "KRI",
    "back": "Key risk indicator showing how a risk evolves, before the incident."
   }
+ ],
+ "revisionSheet": [
+  "# Revision sheet: security governance and management",
+  "Governance: direct and control (executive management, board). Management: plan and execute (CISO, CIO, teams).",
+  "Executive management bears final accountability; the CISO leads, advises and reports.",
+  "Accountability cannot be delegated; responsibility can.",
+  "Due diligence = knowing (finding out, assessing); due care = doing (acting, maintaining). Knowing without acting = negligence.",
+  "ISO/IEC 27014: information security governance. NIST CSF 2.0: Govern function.",
+  "Having the CISO report outside the IT department limits conflicts of interest.",
+  "Classification: protection proportionate to impact; reviewed periodically.",
+  "Owner: classifies and authorizes; custodian: implements; user: complies.",
+  "Least privilege (rights) and need to know (information) apply together.",
+  "Separation of duties (against individual fraud, defeated by collusion), job rotation, mandatory vacations (detective).",
+  "Employee leaving: accounts disabled immediately. Job change: rights no longer needed are removed.",
+  "Awareness (everyone), training (roles), education (experts).",
+  "KPI = performance (MTTD, MTTR); KRI = how a risk evolves.",
+  "Pairs not to confuse: governance/management; accountability/responsibility; due diligence/due care; owner/custodian; least privilege/need to know; KPI/KRI."
  ]
 }

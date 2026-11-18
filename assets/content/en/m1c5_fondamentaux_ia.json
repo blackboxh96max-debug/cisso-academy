@@ -1099,5 +1099,23 @@
    "front": "Regulation (EU) 2024/1689",
    "back": "Risk-based approach: prohibited, high risk, transparency, minimal."
   }
+ ],
+ "revisionSheet": [
+  "# Revision sheet: fundamentals, evaluation criteria and AI",
+  "CIA: confidentiality, integrity, availability. DAD: disclosure, alteration, destruction.",
+  "Authenticity, non-repudiation (digital signature), accountability. Parker: + possession, utility.",
+  "Principles: defense in depth, least privilege, need to know, separation of duties, fail secure.",
+  "Information security: every form (paper, people); IT security: systems and networks.",
+  "Evaluation: functionality (what the product does) and assurance (confidence that it does it well).",
+  "TCSEC (Orange Book): confidentiality; D, C1, C2, B1, B2, B3, A1.",
+  "ITSEC (1991): functionality and assurance separated; E0 to E6.",
+  "Common Criteria (ISO/IEC 15408): TOE, PP (the need), ST (the product), EAL1 to EAL7.",
+  "The certificate applies to one version and one configuration. EAL = rigor, not the number of functions.",
+  "Certification (evaluation), then accreditation or authorization (risk acceptance).",
+  "AI in the SOC: anomaly detection, triage, assistance; false positives; the analyst decides.",
+  "Attacks: poisoning (training), evasion, extraction, membership inference, prompt injection (use).",
+  "NIST AI RMF 1.0 (2023): Govern, Map, Measure, Manage. NIST AI 100-2: taxonomy of attacks.",
+  "ISO/IEC 42001:2023: AI management. Regulation (EU) 2024/1689: risk-based approach.",
+  "Measures: inventory, no sensitive data without approval, content read = untrusted, human in the loop."
  ]
 }

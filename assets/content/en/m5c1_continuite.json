@@ -806,5 +806,22 @@
    "front": "Maintenance",
    "back": "Annual review, major changes, lessons learned, off-site copies."
   }
+ ],
+ "revisionSheet": [
+  "# Revision sheet: business continuity and recovery",
+  "BCP: continuity of the whole business; DRP: bringing systems and data back into service (part of the BCP); IRP: response to security incidents.",
+  "Top priority: the safety of people. First success factor: management support.",
+  "BIA first: critical processes, dependencies, impacts over time, priorities, approval by management.",
+  "MTD (tolerable downtime), RTO (back in service), WRT (work resumed), RPO (data lost); RTO + WRT ≤ MTD.",
+  "RPO → frequency of backups or replication; RTO → type of site and solution.",
+  "Sites: mirror (immediate), hot (hours), warm (days), cold (weeks), mobile, reciprocal agreement (unreliable), cloud; keep the backup site at a distance.",
+  "Backups: full; incremental (fast, restore = full + all of them); differential (restore = full + the latest); off-site, protected, tested.",
+  "RAID 0 (no redundancy), 1 (mirroring), 5 (parity, 1 disk, min. 3), 6 (double parity, 2 disks), 10; RAID is not a backup.",
+  "Redundancy: clusters and failover, load balancing, UPS, generator, dual power supplies and links.",
+  "Availability ≈ MTBF / (MTBF + repair time).",
+  "Plan: activation and authority, teams and alternates, priorities, communication (spokesperson), return to the primary site (least critical first).",
+  "Tests: checklist review, tabletop exercise, simulation, parallel, full interruption (management approval).",
+  "Maintenance: annual review and at each major change, lessons learned, training, off-site and offline copies.",
+  "Pairs not to confuse: BCP/DRP; RTO/RPO; incremental/differential; RAID/backup; parallel/full interruption."
  ]
 }

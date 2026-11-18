@@ -839,5 +839,23 @@
    "front": "Evil twin",
    "back": "A rogue access point with the same name. Countermeasure: 802.1X with a verified server certificate."
   }
+ ],
+ "revisionSheet": [
+  "# Revision sheet: firewalls, IDS/IPS, VPN, segmentation and wireless",
+  "Firewalls: stateless (packets, 3-4), stateful (connections), application proxy (7), NGFW (applications, users, IPS), WAF (web, 7).",
+  "Rules: default deny; read from top to bottom; the first match applies; specific rules at the top; an owner and reviews.",
+  "Filter outbound traffic too; inbound, refuse internal source addresses coming from the Internet; log denials.",
+  "NAT: hides internal addresses, it is not a security control.",
+  "DMZ: exposed servers isolated; a three-legged firewall or two firewalls (two vendors); bastion host; no DMZ-to-internal flows except specific ones.",
+  "IDS: out of band, alerts. IPS: inline, blocks (risk: a blocking false positive, an outage). NIDS: segment; HIDS: host.",
+  "Signatures: precise, blind to zero-days. Anomalies: spot the unknown, more false positives, a learning period is needed.",
+  "False positive: alert with no attack (fatigue). False negative: attack with no alert (the most serious). Tune the IDS.",
+  "Honeypot / honeynet: isolated decoys, any connection is suspicious.",
+  "802.1X: supplicant (workstation), authenticator (switch, access point), authentication server (RADIUS), with EAP. NAC: compliance, quarantine.",
+  "VPN: site to site (IPsec tunnel); remote access (TLS or IPsec) with MFA; avoid split tunneling; patch the VPN gateway first.",
+  "Segmentation: VLANs (filter routing between VLANs, prevent VLAN hopping), filtered subnets, microsegmentation, physical isolation.",
+  "Wi-Fi: WEP broken, WPA (TKIP) withdrawn, WPA2 (AES-CCMP), WPA3 (SAE, protected management frames). Enterprise = 802.1X; Personal = passphrase.",
+  "Wireless attacks: rogue access point, evil twin (countermeasure: verified server certificate), deauthentication, wardriving, bluejacking, bluesnarfing.",
+  "False friends: hiding the SSID, MAC filtering, NAT: no real protection."
  ]
 }

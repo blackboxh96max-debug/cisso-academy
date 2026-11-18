@@ -123,6 +123,18 @@ class ContentLoader {
         Question.fromJson(q as Map<String, dynamic>, id),
     ];
     validateEnglishQuestions(id, questions, questionsEn);
+    final revisionSheet = (data['revisionSheet'] as List? ?? const [])
+        .cast<String>();
+    final revisionSheetEn = (dataEn['revisionSheet'] as List? ?? const [])
+        .cast<String>();
+    if (revisionSheetEn.isNotEmpty &&
+        (revisionSheetEn.length != revisionSheet.length ||
+            [
+              for (final (i, l) in revisionSheet.indexed)
+                l.startsWith('# ') != revisionSheetEn[i].startsWith('# '),
+            ].any((d) => d))) {
+      throw FormatException('$id : la fiche anglaise diffère du français');
+    }
     final flashcardsEn = {
       for (final f in dataEn['flashcards'] as List? ?? const [])
         (f as Map<String, dynamic>)['id'] as String: FlashcardEn.fromJson(f),
@@ -153,8 +165,8 @@ class ContentLoader {
       flashcards: [
         for (final f in flashcards) f.withEnglish(flashcardsEn[f.id]),
       ],
-      revisionSheet: (data['revisionSheet'] as List? ?? const [])
-          .cast<String>(),
+      revisionSheet: revisionSheet,
+      revisionSheetEn: revisionSheetEn,
       mindMap: data['mindMap'] == null
           ? null
           : MindNode.fromJson(data['mindMap'] as Map<String, dynamic>),

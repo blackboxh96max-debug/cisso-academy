@@ -749,5 +749,21 @@
    "front": "War dialing",
    "back": "Calling series of numbers to find modems."
   }
+ ],
+ "revisionSheet": [
+  "# Revision sheet: cloud access, storage and telephony",
+  "Cloud: identity is the perimeter. IaaS, PaaS, SaaS: the customer keeps identities, rights, data.",
+  "Federation (SAML, OpenID Connect): signed assertion, no password sent. Conditional access depending on the context.",
+  "CASB (usage), CSPM (configuration), CIEM (permissions), just-in-time access, managed identities.",
+  "Monitoring: audit logs sent to the SIEM, impossible travel, logging being disabled, access reviews.",
+  "DAS (direct), NAS (files, SMB/NFS), SAN (blocks, Fibre Channel/iSCSI), object (web API, buckets).",
+  "SAN: zoning (ports) and LUN masking (volumes).",
+  "Synchronous replication (no loss, limited distance) or asynchronous (small loss).",
+  "Snapshot ≠ backup; replication ≠ backup. Immutable or offline copy.",
+  "NIST SP 800-209: isolated administration, encryption, immutability, logging.",
+  "PSTN, PBX, VoIP, voicemail. Phreaking: 2,600 Hz, in-band signaling. SS7: out of band, must be filtered.",
+  "SIP (signaling, 5060; TLS 5061); RTP (voice); SRTP (encrypted voice).",
+  "Attacks: toll fraud, caller ID spoofing, vishing, eavesdropping, TDoS, SPIT, war dialing.",
+  "Measures: voice VLAN, SIP over TLS, SRTP, SBC, hardened PBX, alerts on night-time calls, callback to a known number."
  ]
 }

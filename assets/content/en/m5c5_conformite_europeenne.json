@@ -1086,5 +1086,22 @@
    "front": "Directive or regulation",
    "back": "Directive: transposed. Regulation: applies directly."
   }
+ ],
+ "revisionSheet": [
+  "# Revision sheet: European governance and compliance",
+  "Actors: Commission (texts), ENISA (advice, certification, cooperation), national authorities (supervision, sanctions), CSIRTs (incidents).",
+  "NIS 2 networks: Cooperation Group (strategy), CSIRTs network (technical), EU-CyCLONe (crises).",
+  "Regulation 2019/881: permanent mandate for ENISA, European certification (basic, substantial, high), EUCC.",
+  "Cyber solidarity (2025/38): alert system, emergency mechanism and reserve, incident review.",
+  "NIS 2 (Directive 2022/2555): transposition October 17, 2024, applies from October 18, 2024; essential and important entities.",
+  "DORA (Regulation 2022/2554): finance, since January 17, 2025; ICT risk, incidents, testing (TLPT at least every 3 years), third-party providers, sharing.",
+  "CRA (Regulation 2024/2847): digital products; reporting from September 11, 2026, most obligations on December 11, 2027.",
+  "CER (Directive 2022/2557): resilience of critical entities; GDPR: personal data; Regulation 2024/1689: AI.",
+  "Article 21: ten measures (risk, incidents, continuity, suppliers, development and vulnerabilities, effectiveness, hygiene and training, cryptography, HR and access, multifactor).",
+  "Article 23: early warning 24 h, notification 72 h, final report one month later. GDPR: 72 h.",
+  "Matrix: requirements → measures (ISO/IEC 27001, NIST CSF 2.0) → shared evidence.",
+  "Article 20: management approves, oversees, gets trained, answers for failures.",
+  "NIS 2 fines: €10M / 2% (essential), €7M / 1.4% (important). GDPR: up to €20M / 4%.",
+  "Texts checked on November 17, 2026; some obligations apply in stages: check the consolidated version on EUR-Lex before quoting a date."
  ]
 }

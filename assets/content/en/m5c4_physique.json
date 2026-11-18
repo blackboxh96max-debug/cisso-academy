@@ -954,5 +954,24 @@
    "front": "Gaseous agents",
    "back": "Halon phased out (Montreal); FM-200, Inergen; CO2 is dangerous."
   }
+ ],
+ "revisionSheet": [
+  "# Revision sheet: physical and environmental security",
+  "Priority: the safety of people comes before that of property (emergency exits, fail-safe).",
+  "Site: natural hazards, neighborhood, emergency services, multiple power and telecom feeds, discretion.",
+  "Server room: in the center of the building, with no windows, neither in the basement nor under the roof, away from water; walls from the true floor to the true ceiling.",
+  "Defense in depth: perimeter (fence, lighting, bollards), building (reception, badges), zones, room (mantrap), rack (lock).",
+  "Fences, commonly cited benchmarks: ≈1 m (3-4 ft) passersby, ≈2 m (6-7 ft) hard to climb, ≈2.4 m (8 ft) with barbed wire for the determined intruder. A barrier only delays.",
+  "CPTED: natural surveillance, natural access control, territorial reinforcement, maintenance.",
+  "Protection chain: deter, delay, detect, assess, respond.",
+  "Access: keys, codes, badges (log, revocation), biometrics, guards (the most flexible), mantrap (one door at a time). Tailgating and piggybacking. Visitors: register, badge, escort.",
+  "Detection: magnetic contact, passive infrared, beam, vibration, volumetric; CCTV that is watched, retained, announced.",
+  "Fail-safe = unlocks (people); fail-secure = stays locked (property).",
+  "Power: spike (brief peak), surge (prolonged overvoltage), sag (brief dip), brownout (prolonged undervoltage), fault (brief outage), blackout (prolonged outage), inrush, EMI/RFI noise. Surge protector, power conditioner, UPS (minutes), generator (hours), dual feed.",
+  "Climate: 18 to 27 °C (64 to 81 °F, ASHRAE); humidity ≈40 to 60% (low = static, high = corrosion); positive pressure; leak sensors.",
+  "Fire: triangle (fuel, oxygen, heat) and tetrahedron (+ chain reaction). U.S. classes A, B, C electrical, D, K; Europe A, B, C gas, D, F.",
+  "Detectors: ionization (flaming fires), photoelectric (smoldering fires), fixed or rate-of-rise heat, flame.",
+  "Sprinklers: wet pipe, dry pipe, pre-action (server room), deluge. Gas: halon (production stopped, Montreal), FM-200, Inergen; CO2 is dangerous for people.",
+  "Equipment: inventory, anti-theft, laptop encryption, clean desk, protected cabling, TEMPEST, secure disposal."
  ]
 }

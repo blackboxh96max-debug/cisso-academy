@@ -1214,5 +1214,21 @@
    "front": "Risk register",
    "back": "List of risks with owner, inherent and residual level, treatment, due date and review."
   }
+ ],
+ "revisionSheet": [
+  "# Revision sheet: risk management",
+  "Risk = likelihood × impact. A threat exploits a vulnerability of an asset and produces an impact.",
+  "Inherent risk (before controls) → controls → residual risk (after controls).",
+  "Appetite: level of risk accepted by management. Tolerance: acceptable deviation around the appetite.",
+  "ISO/IEC 27005: context → assessment (identification, analysis, evaluation) → treatment → acceptance, with continuous communication and monitoring.",
+  "NIST SP 800-30: prepare, conduct, communicate, maintain. NIST SP 800-39: organization, mission/business processes, information system.",
+  "SLE = AV × EF. ALE = SLE × ARO. Once every N years: ARO = 1/N.",
+  "Value of a control = ALE before − ALE after − annual cost.",
+  "Treatment: mitigate, transfer (share), avoid, accept. Ignoring is not an option.",
+  "Accountability is never transferred.",
+  "Control functions: preventive, detective, corrective, recovery, deterrent, compensating.",
+  "Control types: administrative, technical, physical.",
+  "The risk owner accepts the residual risk, in writing, and the acceptance is reviewed.",
+  "Pairs not to confuse: threat/vulnerability; SLE/ALE; compensating/corrective; appetite/tolerance; transfer/acceptance."
  ]
 }

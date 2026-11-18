@@ -1310,5 +1310,22 @@
    "front": "PAM",
    "back": "Separate admin accounts, vault, just-in-time access, recorded sessions."
   }
+ ],
+ "revisionSheet": [
+  "# Revision sheet: IAM, authentication and access control",
+  "IAAA: identification (claim) → authentication (prove) → authorization (rights) → accountability (logs, unique identities).",
+  "Factors: knowledge, possession, inherence. MFA = at least two different categories.",
+  "Biometrics: FRR = Type I (wrongly refused); FAR = Type II (impostor accepted, the most serious); low CER/EER = more accurate.",
+  "Passwords: length, rejecting compromised passwords, no forced rotation without a reason, slow salted hashing.",
+  "Phishing-resistant MFA: FIDO2, passkeys. Against MFA fatigue: number matching, rate limiting and alerting.",
+  "Attacks: brute force, password spraying, credential stuffing, MFA fatigue, real-time phishing.",
+  "Models: DAC (owner), MAC (labels), RBAC (roles), rule-based (firewall, time of day), ABAC (attributes, PDP/PEP).",
+  "Principles: least privilege, need to know, default deny, separation of duties.",
+  "Bell-LaPadula (confidentiality): no read up, no write down. Biba (integrity): no read down, no write up.",
+  "Life cycle: joiner, mover, leaver (JML) + access reviews; disable immediately on departure.",
+  "SSO (one authentication, several applications); federation (IdP ↔ SP); SAML (XML assertions); OAuth 2.0 (authorization); OIDC (identity, JWT).",
+  "Kerberos: KDC = AS + TGS; TGT, then service ticket; synchronized clocks; pass-the-ticket and Kerberoasting risks.",
+  "PAM: separate accounts, vault, rotation, just-in-time, recorded sessions.",
+  "Pairs not to confuse: identification/authentication; FAR/FRR; DAC/MAC; rule-based/role-based; Bell-LaPadula/Biba; OAuth/OIDC; AS/TGS."
  ]
 }

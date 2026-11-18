@@ -754,5 +754,22 @@
    "front": "MTTD / MTTR",
    "back": "Mean time to detect / to respond."
   }
+ ],
+ "revisionSheet": [
+  "# Revision sheet: security operations, logging, SIEM and SOC",
+  "Controls on people: separation of duties and dual control (preventive), job rotation and mandatory vacations (detective), least privilege.",
+  "Separation of duties: weakness = collusion. Dual control: two people at the same time for the same action.",
+  "Change management: request → impact analysis → approval → testing and rollback → implementation → review. Emergency: recorded and regularized.",
+  "Baseline configuration and drift detection; asset inventory with an owner; watch out for shadow IT.",
+  "Log: authentications, accounts and rights, configuration, security tools being stopped, sensitive data, network boundaries.",
+  "A useful log: synchronized time (NTP), integrity (centralization, immutable storage), defined retention.",
+  "SIEM: collection → normalization → enrichment → correlation → alerting.",
+  "False positive = alert with no attack; false negative = attack with no alert (the worst). Tune the rules without creating false negatives.",
+  "UEBA: behavior; SOAR: response automation; EDR/XDR: detection and response on endpoints and multiple sources.",
+  "SOC: L1 triages, L2 investigates and contains, L3 handles complex cases, hunting and detection engineering. Playbooks for consistency.",
+  "IOC = known trace; IOA = behavior. Hunting = proactive, starts from a hypothesis. MITRE ATT&CK = map of techniques.",
+  "Metrics: MTTD (detection), MTTR (response), false positive rate, ATT&CK coverage, connected sources.",
+  "The SOC is mainly a detective control, with a corrective part (containment).",
+  "Pairs not to confuse: separation of duties/dual control; false positive/false negative; SIEM/SOAR; IOC/IOA; triage/hunting; MTTD/MTTR."
  ]
 }

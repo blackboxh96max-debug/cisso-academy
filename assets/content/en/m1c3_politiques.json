@@ -1281,5 +1281,20 @@
    "front": "ANSSI",
    "back": "IT hygiene guide (42 measures), EBIOS Risk Manager method."
   }
+ ],
+ "revisionSheet": [
+  "# Revision sheet: policies, standards and frameworks",
+  "Policy (why, management) → internal standard (what, measurable) → baseline (minimum) → procedure (how). Guideline = non-mandatory advice.",
+  "Policies: general, issue-specific, system-specific (NIST SP 800-12).",
+  "Exception: justified, temporary, compensated, approved, recorded, reviewed.",
+  "27000 vocabulary; 27001 ISMS requirements (certifiable); 27002 controls; 27005 risks; 27014 governance; 27017/27018 cloud; 27035 incidents; 27037 evidence; 27701 privacy.",
+  "27001:2022: clauses 4 Context, 5 Leadership, 6 Planning, 7 Support, 8 Operation, 9 Performance evaluation, 10 Improvement.",
+  "Annex A 2022: 93 controls in 4 themes (37 / 8 / 14 / 34). 2013 version: 114 controls, 14 domains. Transition ended on 10/31/2025.",
+  "SoA is mandatory and justifies inclusions and exclusions. 3-year certificate + surveillance audits.",
+  "NIST CSF 2.0: Govern, Identify, Protect, Detect, Respond, Recover; not certifiable.",
+  "SP 800-53: catalog of controls. COBIT: IT governance. ITIL: services.",
+  "PCI DSS: payment cards. SOC 2 (AICPA): Type I design, Type II effectiveness over a period.",
+  "ANSSI: IT hygiene guide (42 measures), EBIOS Risk Manager.",
+  "Pairs not to confuse: 27001/27002; standard/guideline; policy/procedure; SOC 2/SOC; Type I/Type II; COBIT/ITIL."
  ]
 }

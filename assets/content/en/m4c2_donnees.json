@@ -764,5 +764,21 @@
    "front": "GDPR: 72 hours",
    "back": "Notification to the authority; minimization, storage limitation."
   }
+ ],
+ "revisionSheet": [
+  "# Revision sheet: databases and data protection",
+  "Databases: named accounts, least privilege, views, stored procedures, encryption (TDE, columns, backups), hardening, DAM, never exposed on the Internet.",
+  "Aggregation: gathering harmless data → sensitive information. Inference: deducing hidden data. Polyinstantiation: one version per level, a countermeasure against inference.",
+  "ACID: atomicity (all or nothing), consistency, isolation, durability.",
+  "Classification based on the impact of disclosure (public, internal, confidential, secret); decided by the owner; reviewed over time.",
+  "Roles: owner (decides), custodian (implements), user; GDPR: controller (purposes), processor (on the controller's behalf), DPO (advice, monitoring).",
+  "Life cycle: create, store, use, share, archive, destroy; classify at creation.",
+  "Three states: at rest (disk encryption), in transit (TLS, VPN), in use (isolation, enclaves).",
+  "DLP: endpoint, network, cloud; relies on content and labels; blocks or alerts.",
+  "Masking (display), tokenization (token + vault), pseudonymization (reversible, GDPR applies), anonymization (irreversible, outside the GDPR).",
+  "Remanence: deleting or formatting does not erase.",
+  "NIST SP 800-88: clear, purge, destroy. Cryptographic erasure: destroy the key. Degaussing: magnetic media only, not SSDs.",
+  "GDPR: lawfulness, purpose limitation, minimization, accuracy, storage limitation, security; breach notified to the authority within 72 hours.",
+  "Pairs not to confuse: aggregation/inference; owner/custodian; controller/processor; pseudonymization/anonymization; clear/purge/destroy."
  ]
 }

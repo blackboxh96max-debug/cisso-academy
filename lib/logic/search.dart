@@ -270,7 +270,7 @@ class SearchIndex {
                 chapterId: c.id,
               ),
               const [],
-              c.revisionSheet.skip(1).toList(),
+              [...c.revisionSheet.skip(1), ...c.revisionSheetEn.skip(1)],
             ),
           );
         }

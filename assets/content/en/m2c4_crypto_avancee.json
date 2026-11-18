@@ -782,5 +782,23 @@
    "front": "Lightweight cryptography",
    "back": "For constrained devices: Ascon (NIST)."
   }
+ ],
+ "revisionSheet": [
+  "# Revision sheet: history of cryptography, quantum and innovations",
+  "Substitution: replace (Caesar, Atbash, Vigenère). Transposition: move (scytale). Code: codebook of words. Steganography: hide the existence of the message.",
+  "Monoalphabetic: broken by frequency analysis (Al-Kindi, 9th century). Polyalphabetic: Vigenère (repeating key, Kasiski 1863), Enigma (rotors, procedural errors).",
+  "One-time pad (Vernam 1917, Shannon 1949): random key, as long as the message, secret, never reused.",
+  "Kerckhoffs (1883): only the secrecy of the key matters. Base64 is not encryption.",
+  "Modern milestones: Diffie-Hellman 1976, DES and RSA 1977, AES 2001.",
+  "Shor: breaks RSA, ECC, Diffie-Hellman. Grover: symmetric security roughly halved (AES-256 remains strong).",
+  "Harvest now, decrypt later: long-lived secrets are already exposed.",
+  "PQC = new classical algorithms; QKD = keys using photons (BB84), an authenticated channel is required.",
+  "NIST 2024: FIPS 203 ML-KEM (keys), FIPS 204 ML-DSA (signatures), FIPS 205 SLH-DSA (hash-based signatures).",
+  "Migration: inventory, priorities based on how long data must stay secret, agility, hybrid modes, testing.",
+  "Data at rest (AES), in transit (TLS), in use (homomorphic, MPC, enclaves).",
+  "Homomorphic: computing on encrypted data. MPC: computing together without revealing yourself. ZKP: proving without revealing.",
+  "Blockchain: integrity, traceability, timestamping; no confidentiality, no guarantee that the data entered is correct.",
+  "Lightweight cryptography (Ascon), FPE (SP 800-38G), AEAD (AES-GCM, ChaCha20-Poly1305), Ed25519.",
+  "Not to confuse: QKD and PQC; Shor and Grover; steganography and encryption; homomorphic and hashing."
  ]
 }

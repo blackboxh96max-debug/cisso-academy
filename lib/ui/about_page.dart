@@ -494,6 +494,8 @@ const appNews = <(String, List<String>)>[
     [
       'Flashcards bilingues : le recto et le verso de chaque carte en '
           'anglais, avec le français juste en dessous (aussi dans le PDF).',
+      'Fiches de révision bilingues : chaque point en anglais, avec le '
+          'français juste en dessous (aussi dans le PDF et la copie).',
       'QCM bilingues : chaque question du module 1, ses réponses et sa '
           'correction s\'affichent en anglais, avec le français juste en '
           'dessous. Les modules 2 à 5 suivent.',

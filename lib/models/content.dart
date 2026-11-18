@@ -504,6 +504,7 @@ class Chapter {
     this.questions = const [],
     this.flashcards = const [],
     this.revisionSheet = const [],
+    this.revisionSheetEn = const [],
     this.mindMap,
     this.lessonsEn = const {},
   });
@@ -524,6 +525,13 @@ class Chapter {
 
   /// Fiche de révision du chapitre (lignes de texte).
   final List<String> revisionSheet;
+
+  /// Fiche de révision anglaise, ligne pour ligne (vide si non traduite).
+  final List<String> revisionSheetEn;
+
+  /// Version anglaise de la ligne [i] de la fiche, s'il y en a une.
+  String? revisionLineEn(int i) =>
+      i < revisionSheetEn.length ? revisionSheetEn[i] : null;
 
   /// Carte mentale du chapitre (racine = titre du chapitre).
   final MindNode? mindMap;

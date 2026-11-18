@@ -763,5 +763,22 @@
    "front": "Notifications",
    "back": "GDPR: 72 h; NIS 2: 24 h, 72 h, one month."
   }
+ ],
+ "revisionSheet": [
+  "# Revision sheet: incidents, investigation and response",
+  "Event (observable occurrence), alert (notification from a tool), incident (actual harm or threat to security).",
+  "NIST SP 800-61 Rev. 2 life cycle: preparation; detection and analysis; containment, eradication and recovery; post-incident activity. Six-step variant: preparation, identification, containment, eradication, recovery, lessons learned. Rev. 3: aligned with NIST CSF 2.0.",
+  "Preparation: approved policy, multidisciplinary CSIRT, playbooks, up-to-date contacts, centralized timestamped logs (NTP), response kit, exercises.",
+  "Triage: severity = impact × urgency; escalation to management, legal, authorities based on criteria written in advance; document everything with the time.",
+  "Order of volatility (RFC 3227): registers and cache, RAM, temporary files, disk, remote logs, archives. Isolate and capture memory before shutting down.",
+  "Integrity: write blocker, bit-by-bit image, SHA-256 hash before and after, analysis on a copy, original sealed, photos.",
+  "Chain of custody: who, when, where, how, why; any break weakens the evidence.",
+  "Evidence: best (original), secondary (copy), direct, circumstantial, corroborating, hearsay (exception: records kept in the normal course of business). Admissible if relevant, authentic, reliable, lawful, complete.",
+  "Locard: every contact leaves a trace. MOM: motive, opportunity, means. Enticement (honeypot) is legal; entrapment is illegal.",
+  "Containment: short term (isolate, block, disable), long term (segment, rebuild), controlled monitoring (management decision).",
+  "Eradication and recovery: root cause, door closed, persistence removed, credentials reset, backup from before the compromise, increased monitoring.",
+  "Lessons learned: prompt, factual timeline, blameless, MTTD and costs, actions with an owner and a deadline, playbooks and detections updated.",
+  "Notifications: GDPR Art. 33, authority within 72 h; Art. 34, individuals if high risk; NIS 2 Art. 23, early warning 24 h, notification 72 h, final report one month.",
+  "Pairs not to confuse: event/incident; contain/eradicate; memory/disk; original/copy; enticement/entrapment."
  ]
 }
