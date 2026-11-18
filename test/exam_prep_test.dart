@@ -60,6 +60,28 @@ void main() {
     expect(lot.keywords.map((k) => k.term), contains('COBIT'));
   });
 
+  test('le lot du module 5 (sécurité des données) est fidèle', () {
+    final lot = library.examPrep.lots.firstWhere(
+      (l) => l.id == 'prep-2026-11-18-m5',
+    );
+    expect(lot.questions, hasLength(20));
+    // 15 questions du corrigé, puis les 5 du test de validation.
+    expect(
+      lot.questions.map((q) => q.correctLetter).join(),
+      'DACBABBAABAABAB'
+      'BCBAC',
+    );
+    expect(lot.parts.map((p) => p.questions.length), [15, 5]);
+    expect(lot.questions[13].choices.first.en, 'Cryptographic erasure');
+    expect(lot.keywords.map((k) => k.term), contains('Legal Hold'));
+    // Rattachées aux chapitres données, lois et stockage cloud.
+    expect(lot.questions.map((q) => q.chapterId).toSet(), {
+      'm4c2',
+      'm5c3',
+      'm3c4',
+    });
+  });
+
   test('les questions de la formation complètent le QCM de leur chapitre, '
       'hors examen blanc', () {
     for (final p in library.examPrep.questions) {
