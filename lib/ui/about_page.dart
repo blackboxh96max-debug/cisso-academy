@@ -510,7 +510,7 @@ const appNews = <(String, List<String>)>[
           'sans répétition.',
       'Préparation examen : séance du 18/11 (référentiels et cryptographie).',
       '5 thèmes au choix et mode clair ou sombre.',
-      'Menu de gauche toujours visible, réductible ou masquable.',
+      'Menu de gauche toujours visible, avec un bouton Masquer tout en bas.',
       'Menu de gauche : l\'entrée Examen est retirée, la rubrique L\'examen '
           'se trouve dans À propos.',
       'QCM du module 5 (sécurité des données) : 20 questions de ta formation '

@@ -301,29 +301,16 @@ void main() {
     expect(rail, findsOneWidget);
     expect(find.text(appFooterText), findsOneWidget);
 
-    // Les boutons du menu sont sur sa poignée, pas parmi ses entrées.
-    for (final tip in ['Étendre le menu', 'Masquer le menu']) {
-      expect(
-        find.descendant(of: rail, matching: find.byTooltip(tip)),
-        findsNothing,
-      );
-      expect(
-        find.descendant(
-          of: find.byKey(const Key('menu-handle')),
-          matching: find.byTooltip(tip),
-        ),
-        findsOneWidget,
-      );
-    }
-
-    // Étendre puis réduire.
-    await tester.tap(find.byTooltip('Étendre le menu'));
-    await tester.pumpAndSettle();
-    expect(state.menuMode, MenuMode.expanded);
-    expect(tester.widget<NavigationRail>(rail).extended, isTrue);
-    expect(find.byType(LessonPage), findsOneWidget);
-    await tester.tap(find.byTooltip('Réduire le menu'));
-    await tester.pumpAndSettle();
+    // Pas de bouton pour étendre ou réduire : seulement « Masquer », tout
+    // en bas du menu, sous ses entrées.
+    expect(find.byTooltip('Étendre le menu'), findsNothing);
+    expect(find.byTooltip('Réduire le menu'), findsNothing);
+    final hide = find.byKey(const Key('menu-hide'));
+    expect(hide, findsOneWidget);
+    expect(
+      tester.getTopLeft(hide).dy,
+      greaterThan(tester.getBottomLeft(rail).dy - 1),
+    );
     expect(tester.widget<NavigationRail>(rail).extended, isFalse);
 
     // Masquer : une languette permet de le rouvrir.
