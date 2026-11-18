@@ -450,297 +450,6 @@
    "advice": "Révise les réponses anglaises en premier, puis utilise les traductions françaises pour vérifier que tu as bien compris. C'est la meilleure façon de te préparer à des questions d'examen formulées différemment."
   },
   {
-   "id": "prep-2026-11-18",
-   "date": "2026-11-18",
-   "title": {
-    "en": "Frameworks & Cryptography",
-    "fr": "Référentiels et cryptographie"
-   },
-   "source": "Questions de la formation de l'apprenant",
-   "parts": [
-    {
-     "title": {
-      "en": "Risk Management & Compliance: frameworks (questions 11-12)",
-      "fr": "Gestion des risques et conformité : référentiels (questions 11 et 12)"
-     },
-     "questions": [
-      {
-       "id": "prep-2026-11-18-q01",
-       "chapterId": "m1c2",
-       "prompt": {
-        "en": "What is a key benefit of implementing a security controls framework?",
-        "fr": "Quel est l'un des principaux avantages de la mise en place d'un cadre de contrôles de sécurité ?"
-       },
-       "choices": [
-        {
-         "en": "It eliminates all cyber risk",
-         "fr": "Il élimine tous les risques cyber"
-        },
-        {
-         "en": "It removes the need for monitoring",
-         "fr": "Il supprime le besoin de surveillance"
-        },
-        {
-         "en": "It helps align controls, governance, risk management, and compliance expectations",
-         "fr": "Il permet d'aligner les contrôles de sécurité, la gouvernance, la gestion des risques et les exigences de conformité"
-        },
-        {
-         "en": "It replaces business objectives with technical objectives",
-         "fr": "Il remplace les objectifs métier par des objectifs techniques"
-        }
-       ],
-       "correct": 2,
-       "explanation": {
-        "en": "A security controls framework provides a structured approach to managing information security. It helps organizations ensure that security controls support business objectives, manage risks, establish governance, and meet compliance requirements.",
-        "fr": "Un cadre de contrôles de sécurité fournit une approche structurée pour gérer la sécurité de l'information : les contrôles soutiennent les objectifs de l'entreprise, maîtrisent les risques, établissent une gouvernance et respectent les exigences réglementaires. Aucun framework ne supprime tous les risques, la surveillance reste indispensable, et la sécurité soutient les objectifs métier sans les remplacer."
-       }
-      },
-      {
-       "id": "prep-2026-11-18-q02",
-       "chapterId": "m1c2",
-       "prompt": {
-        "en": "Which framework is specifically described as helping organizations govern and manage enterprise IT while aligning IT strategy with business goals?",
-        "fr": "Quel référentiel aide spécifiquement les organisations à gouverner et à gérer l'informatique d'entreprise (IT), tout en alignant la stratégie informatique sur les objectifs métiers ?"
-       },
-       "choices": [
-        {
-         "en": "ITIL",
-         "fr": "ITIL"
-        },
-        {
-         "en": "COBIT",
-         "fr": "COBIT"
-        },
-        {
-         "en": "PCI-DSS",
-         "fr": "PCI-DSS"
-        },
-        {
-         "en": "CSA CCM",
-         "fr": "CSA CCM"
-        }
-       ],
-       "correct": 1,
-       "explanation": {
-        "en": "COBIT stands for Control Objectives for Information and Related Technologies. It provides a framework for IT governance and management, helping organizations create value, manage risks, and ensure that IT supports business goals.",
-        "fr": "COBIT (Control Objectives for Information and Related Technologies) est un référentiel de gouvernance et de gestion informatique : créer de la valeur, gérer les risques et garantir que l'informatique soutient les objectifs de l'entreprise. ITIL concerne la gestion des services IT, PCI-DSS les données de cartes de paiement, CSA CCM les contrôles de sécurité du Cloud."
-       }
-      }
-     ]
-    },
-    {
-     "title": {
-      "en": "Cryptography",
-      "fr": "Cryptographie"
-     },
-     "questions": [
-      {
-       "id": "prep-2026-11-18-q03",
-       "chapterId": "m2c2",
-       "prompt": {
-        "en": "What is the primary purpose of a hash function?",
-        "fr": "Quel est l'objectif principal d'une fonction de hachage ?"
-       },
-       "choices": [
-        {
-         "en": "To create a fixed-length digest from data using a one-way operation",
-         "fr": "Créer une empreinte de longueur fixe à partir des données, par une opération à sens unique"
-        },
-        {
-         "en": "To encrypt data so it can be decrypted with a private key",
-         "fr": "Chiffrer les données pour qu'elles puissent être déchiffrées avec une clé privée"
-        },
-        {
-         "en": "To exchange symmetric keys out of band",
-         "fr": "Échanger des clés symétriques hors bande"
-        },
-        {
-         "en": "To hide a message inside an image file",
-         "fr": "Cacher un message dans un fichier image"
-        }
-       ],
-       "correct": 0,
-       "formula": "SHA-256(\"Hello\") = 185f8db32271fe25f561a6fc938b2e264306ec304eda518007d1764826381969 (64 caractères hexadécimaux = 256 bits, quelle que soit la taille de l'entrée)",
-       "explanation": {
-        "en": "A hash function turns data of any size into a fixed-length digest. It is a one-way operation: the original data cannot practically be recovered from the hash. Hashing = integrity.",
-        "fr": "Une fonction de hachage transforme des données de n'importe quelle taille en une empreinte de longueur fixe (hash, message digest). C'est une opération à sens unique : on ne peut pratiquement pas retrouver les données d'origine. B décrit le chiffrement asymétrique, C la distribution de clés, D la stéganographie. Piège : chiffrement = réversible avec une clé ; hachage = sens unique ; encodage = réversible, sans objectif de sécurité."
-       }
-      },
-      {
-       "id": "prep-2026-11-18-q04",
-       "chapterId": "m2c2",
-       "prompt": {
-        "en": "Which security property ensures that data has not been altered or modified without authorization?",
-        "fr": "Quelle propriété de sécurité garantit que les données n'ont pas été altérées ou modifiées sans autorisation ?"
-       },
-       "choices": [
-        {
-         "en": "Confidentiality",
-         "fr": "Confidentialité"
-        },
-        {
-         "en": "Availability",
-         "fr": "Disponibilité"
-        },
-        {
-         "en": "Integrity",
-         "fr": "Intégrité"
-        },
-        {
-         "en": "Non-repudiation",
-         "fr": "Non-répudiation"
-        }
-       ],
-       "correct": 2,
-       "explanation": {
-        "en": "Integrity ensures that data has not been modified, altered or deleted without authorization.",
-        "fr": "L'intégrité garantit que les données n'ont pas été modifiées, altérées ou supprimées sans autorisation. Exemple : un attaquant change le montant d'un virement de 100 € à 1 000 €."
-       }
-      },
-      {
-       "id": "prep-2026-11-18-q05",
-       "chapterId": "m2c2",
-       "prompt": {
-        "en": "Scenario: Two systems need confidentiality for large volumes of data, but they also need a practical way to exchange keys securely. Which approach is commonly used?",
-        "fr": "Scénario : deux systèmes ont besoin de confidentialité pour de gros volumes de données, et d'un moyen pratique d'échanger des clés de façon sûre. Quelle approche est couramment utilisée ?"
-       },
-       "choices": [
-        {
-         "en": "Only hashing the data before transmission",
-         "fr": "Seulement hacher les données avant la transmission"
-        },
-        {
-         "en": "Using no encryption and relying on network segmentation",
-         "fr": "Ne rien chiffrer et compter sur la segmentation du réseau"
-        },
-        {
-         "en": "Using a one-time pad without secure pad distribution",
-         "fr": "Utiliser un masque jetable (one-time pad) sans distribution sûre du masque"
-        },
-        {
-         "en": "A hybrid system that uses asymmetric methods for key exchange and symmetric encryption for data",
-         "fr": "Un système hybride : méthodes asymétriques pour l'échange de clés, chiffrement symétrique pour les données"
-        }
-       ],
-       "correct": 3,
-       "explanation": {
-        "en": "Hybrid cryptography: asymmetric cryptography (public/private keys) securely establishes a session key, then symmetric encryption (e.g. AES) uses it to encrypt large volumes of data quickly.",
-        "fr": "Cryptographie hybride : l'asymétrique (clé publique / clé privée) établit une clé de session de façon sûre, puis le symétrique (par exemple AES) chiffre rapidement les données avec cette clé. Le hachage n'apporte pas la confidentialité, la segmentation seule ne chiffre rien, et le one-time pad exige une distribution sûre du masque. En TLS 1.3, la clé est établie par Diffie-Hellman éphémère (ECDHE) plutôt que par un simple chiffrement RSA."
-       }
-      }
-     ]
-    }
-   ],
-   "tables": [
-    {
-     "title": {
-      "en": "The 4 frameworks to remember",
-      "fr": "Les 4 référentiels à mémoriser"
-     },
-     "rows": [
-      [
-       "COBIT",
-       "Gouvernance IT, alignement sur les objectifs métiers"
-      ],
-      [
-       "ITIL",
-       "Gestion des services informatiques"
-      ],
-      [
-       "PCI-DSS",
-       "Sécurité des données de cartes de paiement"
-      ],
-      [
-       "CSA CCM",
-       "Contrôles de sécurité du Cloud"
-      ]
-     ]
-    },
-    {
-     "title": {
-      "en": "CIA triad",
-      "fr": "Triade CIA"
-     },
-     "rows": [
-      [
-       "Confidentiality",
-       "Protéger contre les accès non autorisés (chiffrement)"
-      ],
-      [
-       "Integrity",
-       "Garantir que les données ne sont pas altérées (hachage)"
-      ],
-      [
-       "Availability",
-       "Garantir l'accès aux ressources (redondance, sauvegardes)"
-      ]
-     ]
-    },
-    {
-     "title": {
-      "en": "Hash algorithms",
-      "fr": "Algorithmes de hachage"
-     },
-     "rows": [
-      [
-       "MD5",
-       "128 bits, vulnérable aux collisions"
-      ],
-      [
-       "SHA-1",
-       "160 bits, vulnérable aux collisions"
-      ],
-      [
-       "SHA-256",
-       "256 bits, largement utilisé"
-      ],
-      [
-       "SHA-512",
-       "512 bits"
-      ]
-     ]
-    }
-   ],
-   "keywords": [
-    {
-     "term": "Security Controls Framework",
-     "en": "Alignment",
-     "fr": "Alignement"
-    },
-    {
-     "term": "COBIT",
-     "en": "Governance",
-     "fr": "Gouvernance"
-    },
-    {
-     "term": "ITIL",
-     "en": "Services",
-     "fr": "Services"
-    },
-    {
-     "term": "PCI-DSS",
-     "en": "Payment Cards",
-     "fr": "Cartes de paiement"
-    },
-    {
-     "term": "CSA CCM",
-     "en": "Cloud",
-     "fr": "Cloud"
-    },
-    {
-     "term": "Hashing",
-     "en": "Integrity",
-     "fr": "Intégrité"
-    },
-    {
-     "term": "Hybrid cryptography",
-     "en": "Asymmetric key exchange + symmetric data",
-     "fr": "Échange de clé asymétrique + données en symétrique"
-    }
-   ],
-   "advice": "Si une question parle d'« Enterprise IT Governance » ou d'« Aligning IT Strategy with Business Goals », pense immédiatement à COBIT. Et retiens qu'un framework aligne contrôles, gouvernance, risques et conformité, mais ne supprime jamais tous les risques. En cryptographie : hachage = intégrité (sens unique), chiffrement = confidentialité (réversible avec une clé), hybride = le meilleur des deux mondes."
-  },
-  {
    "id": "prep-2026-11-18-crypto",
    "date": "2026-11-18",
    "title": {
@@ -1302,6 +1011,297 @@
     }
    ],
    "advice": "Repère le mot-clé : « same key » = symétrique (AES), « public/private » = asymétrique (RSA), « one-way » = hachage, « binds a public key to an identity » = certificat. Le secret à protéger est toujours la clé privée."
+  },
+  {
+   "id": "prep-2026-11-18",
+   "date": "2026-11-18",
+   "title": {
+    "en": "Frameworks & Cryptography",
+    "fr": "Référentiels et cryptographie"
+   },
+   "source": "Questions de la formation de l'apprenant",
+   "parts": [
+    {
+     "title": {
+      "en": "Risk Management & Compliance: frameworks (questions 11-12)",
+      "fr": "Gestion des risques et conformité : référentiels (questions 11 et 12)"
+     },
+     "questions": [
+      {
+       "id": "prep-2026-11-18-q01",
+       "chapterId": "m1c2",
+       "prompt": {
+        "en": "What is a key benefit of implementing a security controls framework?",
+        "fr": "Quel est l'un des principaux avantages de la mise en place d'un cadre de contrôles de sécurité ?"
+       },
+       "choices": [
+        {
+         "en": "It eliminates all cyber risk",
+         "fr": "Il élimine tous les risques cyber"
+        },
+        {
+         "en": "It removes the need for monitoring",
+         "fr": "Il supprime le besoin de surveillance"
+        },
+        {
+         "en": "It helps align controls, governance, risk management, and compliance expectations",
+         "fr": "Il permet d'aligner les contrôles de sécurité, la gouvernance, la gestion des risques et les exigences de conformité"
+        },
+        {
+         "en": "It replaces business objectives with technical objectives",
+         "fr": "Il remplace les objectifs métier par des objectifs techniques"
+        }
+       ],
+       "correct": 2,
+       "explanation": {
+        "en": "A security controls framework provides a structured approach to managing information security. It helps organizations ensure that security controls support business objectives, manage risks, establish governance, and meet compliance requirements.",
+        "fr": "Un cadre de contrôles de sécurité fournit une approche structurée pour gérer la sécurité de l'information : les contrôles soutiennent les objectifs de l'entreprise, maîtrisent les risques, établissent une gouvernance et respectent les exigences réglementaires. Aucun framework ne supprime tous les risques, la surveillance reste indispensable, et la sécurité soutient les objectifs métier sans les remplacer."
+       }
+      },
+      {
+       "id": "prep-2026-11-18-q02",
+       "chapterId": "m1c2",
+       "prompt": {
+        "en": "Which framework is specifically described as helping organizations govern and manage enterprise IT while aligning IT strategy with business goals?",
+        "fr": "Quel référentiel aide spécifiquement les organisations à gouverner et à gérer l'informatique d'entreprise (IT), tout en alignant la stratégie informatique sur les objectifs métiers ?"
+       },
+       "choices": [
+        {
+         "en": "ITIL",
+         "fr": "ITIL"
+        },
+        {
+         "en": "COBIT",
+         "fr": "COBIT"
+        },
+        {
+         "en": "PCI-DSS",
+         "fr": "PCI-DSS"
+        },
+        {
+         "en": "CSA CCM",
+         "fr": "CSA CCM"
+        }
+       ],
+       "correct": 1,
+       "explanation": {
+        "en": "COBIT stands for Control Objectives for Information and Related Technologies. It provides a framework for IT governance and management, helping organizations create value, manage risks, and ensure that IT supports business goals.",
+        "fr": "COBIT (Control Objectives for Information and Related Technologies) est un référentiel de gouvernance et de gestion informatique : créer de la valeur, gérer les risques et garantir que l'informatique soutient les objectifs de l'entreprise. ITIL concerne la gestion des services IT, PCI-DSS les données de cartes de paiement, CSA CCM les contrôles de sécurité du Cloud."
+       }
+      }
+     ]
+    },
+    {
+     "title": {
+      "en": "Cryptography",
+      "fr": "Cryptographie"
+     },
+     "questions": [
+      {
+       "id": "prep-2026-11-18-q03",
+       "chapterId": "m2c2",
+       "prompt": {
+        "en": "What is the primary purpose of a hash function?",
+        "fr": "Quel est l'objectif principal d'une fonction de hachage ?"
+       },
+       "choices": [
+        {
+         "en": "To create a fixed-length digest from data using a one-way operation",
+         "fr": "Créer une empreinte de longueur fixe à partir des données, par une opération à sens unique"
+        },
+        {
+         "en": "To encrypt data so it can be decrypted with a private key",
+         "fr": "Chiffrer les données pour qu'elles puissent être déchiffrées avec une clé privée"
+        },
+        {
+         "en": "To exchange symmetric keys out of band",
+         "fr": "Échanger des clés symétriques hors bande"
+        },
+        {
+         "en": "To hide a message inside an image file",
+         "fr": "Cacher un message dans un fichier image"
+        }
+       ],
+       "correct": 0,
+       "formula": "SHA-256(\"Hello\") = 185f8db32271fe25f561a6fc938b2e264306ec304eda518007d1764826381969 (64 caractères hexadécimaux = 256 bits, quelle que soit la taille de l'entrée)",
+       "explanation": {
+        "en": "A hash function turns data of any size into a fixed-length digest. It is a one-way operation: the original data cannot practically be recovered from the hash. Hashing = integrity.",
+        "fr": "Une fonction de hachage transforme des données de n'importe quelle taille en une empreinte de longueur fixe (hash, message digest). C'est une opération à sens unique : on ne peut pratiquement pas retrouver les données d'origine. B décrit le chiffrement asymétrique, C la distribution de clés, D la stéganographie. Piège : chiffrement = réversible avec une clé ; hachage = sens unique ; encodage = réversible, sans objectif de sécurité."
+       }
+      },
+      {
+       "id": "prep-2026-11-18-q04",
+       "chapterId": "m2c2",
+       "prompt": {
+        "en": "Which security property ensures that data has not been altered or modified without authorization?",
+        "fr": "Quelle propriété de sécurité garantit que les données n'ont pas été altérées ou modifiées sans autorisation ?"
+       },
+       "choices": [
+        {
+         "en": "Confidentiality",
+         "fr": "Confidentialité"
+        },
+        {
+         "en": "Availability",
+         "fr": "Disponibilité"
+        },
+        {
+         "en": "Integrity",
+         "fr": "Intégrité"
+        },
+        {
+         "en": "Non-repudiation",
+         "fr": "Non-répudiation"
+        }
+       ],
+       "correct": 2,
+       "explanation": {
+        "en": "Integrity ensures that data has not been modified, altered or deleted without authorization.",
+        "fr": "L'intégrité garantit que les données n'ont pas été modifiées, altérées ou supprimées sans autorisation. Exemple : un attaquant change le montant d'un virement de 100 € à 1 000 €."
+       }
+      },
+      {
+       "id": "prep-2026-11-18-q05",
+       "chapterId": "m2c2",
+       "prompt": {
+        "en": "Scenario: Two systems need confidentiality for large volumes of data, but they also need a practical way to exchange keys securely. Which approach is commonly used?",
+        "fr": "Scénario : deux systèmes ont besoin de confidentialité pour de gros volumes de données, et d'un moyen pratique d'échanger des clés de façon sûre. Quelle approche est couramment utilisée ?"
+       },
+       "choices": [
+        {
+         "en": "Only hashing the data before transmission",
+         "fr": "Seulement hacher les données avant la transmission"
+        },
+        {
+         "en": "Using no encryption and relying on network segmentation",
+         "fr": "Ne rien chiffrer et compter sur la segmentation du réseau"
+        },
+        {
+         "en": "Using a one-time pad without secure pad distribution",
+         "fr": "Utiliser un masque jetable (one-time pad) sans distribution sûre du masque"
+        },
+        {
+         "en": "A hybrid system that uses asymmetric methods for key exchange and symmetric encryption for data",
+         "fr": "Un système hybride : méthodes asymétriques pour l'échange de clés, chiffrement symétrique pour les données"
+        }
+       ],
+       "correct": 3,
+       "explanation": {
+        "en": "Hybrid cryptography: asymmetric cryptography (public/private keys) securely establishes a session key, then symmetric encryption (e.g. AES) uses it to encrypt large volumes of data quickly.",
+        "fr": "Cryptographie hybride : l'asymétrique (clé publique / clé privée) établit une clé de session de façon sûre, puis le symétrique (par exemple AES) chiffre rapidement les données avec cette clé. Le hachage n'apporte pas la confidentialité, la segmentation seule ne chiffre rien, et le one-time pad exige une distribution sûre du masque. En TLS 1.3, la clé est établie par Diffie-Hellman éphémère (ECDHE) plutôt que par un simple chiffrement RSA."
+       }
+      }
+     ]
+    }
+   ],
+   "tables": [
+    {
+     "title": {
+      "en": "The 4 frameworks to remember",
+      "fr": "Les 4 référentiels à mémoriser"
+     },
+     "rows": [
+      [
+       "COBIT",
+       "Gouvernance IT, alignement sur les objectifs métiers"
+      ],
+      [
+       "ITIL",
+       "Gestion des services informatiques"
+      ],
+      [
+       "PCI-DSS",
+       "Sécurité des données de cartes de paiement"
+      ],
+      [
+       "CSA CCM",
+       "Contrôles de sécurité du Cloud"
+      ]
+     ]
+    },
+    {
+     "title": {
+      "en": "CIA triad",
+      "fr": "Triade CIA"
+     },
+     "rows": [
+      [
+       "Confidentiality",
+       "Protéger contre les accès non autorisés (chiffrement)"
+      ],
+      [
+       "Integrity",
+       "Garantir que les données ne sont pas altérées (hachage)"
+      ],
+      [
+       "Availability",
+       "Garantir l'accès aux ressources (redondance, sauvegardes)"
+      ]
+     ]
+    },
+    {
+     "title": {
+      "en": "Hash algorithms",
+      "fr": "Algorithmes de hachage"
+     },
+     "rows": [
+      [
+       "MD5",
+       "128 bits, vulnérable aux collisions"
+      ],
+      [
+       "SHA-1",
+       "160 bits, vulnérable aux collisions"
+      ],
+      [
+       "SHA-256",
+       "256 bits, largement utilisé"
+      ],
+      [
+       "SHA-512",
+       "512 bits"
+      ]
+     ]
+    }
+   ],
+   "keywords": [
+    {
+     "term": "Security Controls Framework",
+     "en": "Alignment",
+     "fr": "Alignement"
+    },
+    {
+     "term": "COBIT",
+     "en": "Governance",
+     "fr": "Gouvernance"
+    },
+    {
+     "term": "ITIL",
+     "en": "Services",
+     "fr": "Services"
+    },
+    {
+     "term": "PCI-DSS",
+     "en": "Payment Cards",
+     "fr": "Cartes de paiement"
+    },
+    {
+     "term": "CSA CCM",
+     "en": "Cloud",
+     "fr": "Cloud"
+    },
+    {
+     "term": "Hashing",
+     "en": "Integrity",
+     "fr": "Intégrité"
+    },
+    {
+     "term": "Hybrid cryptography",
+     "en": "Asymmetric key exchange + symmetric data",
+     "fr": "Échange de clé asymétrique + données en symétrique"
+    }
+   ],
+   "advice": "Si une question parle d'« Enterprise IT Governance » ou d'« Aligning IT Strategy with Business Goals », pense immédiatement à COBIT. Et retiens qu'un framework aligne contrôles, gouvernance, risques et conformité, mais ne supprime jamais tous les risques. En cryptographie : hachage = intégrité (sens unique), chiffrement = confidentialité (réversible avec une clé), hybride = le meilleur des deux mondes."
   }
  ]
 }
