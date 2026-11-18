@@ -203,7 +203,7 @@ class _LessonPageState extends State<LessonPage> {
     final width = MediaQuery.sizeOf(context).width;
     final wide = width >= 1100;
     final paper = Paper.of(context);
-    final plan = _termPlan(
+    final plan = termPlan(
       state.terms,
       lesson,
       termHomes(state.library, state.terms),
@@ -346,6 +346,8 @@ class _LessonPageState extends State<LessonPage> {
         child: TermPlan(
           plan: plan,
           child: TermLinks(
+            lesson: lesson,
+            reveal: _reveal,
             child: SingleChildScrollView(
               padding: EdgeInsets.symmetric(
                 horizontal: width < 600 ? 0 : 20,
@@ -461,49 +463,81 @@ class LessonNavigation extends StatelessWidget {
 
 /// Repère, dans l'ordre de lecture, les termes du glossaire de la leçon :
 /// - l'équivalent anglais est ajouté à la première apparition du terme dans
-///   la leçon ;
-/// - le terme est cliquable à sa première apparition dans chaque partie (entre
-///   deux titres), sauf s'il est défini dans cette leçon même.
-Map<Object, List<TermMatch>> _termPlan(
+///   la leçon (pas dans les tableaux, pour garder des cellules courtes) ;
+/// - le terme est cliquable (info-bulle) à sa première apparition dans chaque
+///   bloc : paragraphe, élément de liste, étape, cellule de tableau… Seul le
+///   bloc « Définition » qui le définit ne le rend pas cliquable.
+///
+/// Clés du plan : le bloc, (bloc, numéro d'élément) pour une liste, et
+/// (bloc, ligne, colonne) pour une cellule de tableau.
+Map<Object, List<TermMatch>> termPlan(
   TermIndex terms,
   Lesson lesson,
   Map<String, TermHome> homes,
 ) {
   final translated = <String>{};
-  final linked = <String>{};
   final plan = <Object, List<TermMatch>>{};
-  List<TermMatch> pick(String text) => [
-    for (final m in terms.findLinks(text))
-      if (m.copyWith(
-            translate: m.translate && translated.add(m.term.id),
-            link:
-                homes[m.term.id]?.lesson.id != lesson.id &&
-                linked.add(m.term.id),
-          )
-          case final k when k.translate || k.link)
-        k,
-  ];
-  for (final b in lesson.blocks) {
+  for (final (index, b) in lesson.blocks.indexed) {
+    final linked = <String>{};
+    List<TermMatch> pick(String text, {bool translate = true}) => [
+      for (final m in terms.findLinks(text))
+        if (m.copyWith(
+              translate: translate && m.translate && translated.add(m.term.id),
+              link:
+                  !_definedHere(homes[m.term.id], lesson, index) &&
+                  linked.add(m.term.id),
+            )
+            case final k when k.translate || k.link)
+          k,
+    ];
     switch (b.type) {
-      case BlockType.heading:
-        linked.clear();
-      case BlockType.text ||
-          BlockType.definition ||
-          BlockType.important ||
-          BlockType.socCase ||
-          BlockType.trainerNote ||
-          BlockType.risk ||
-          BlockType.practice:
+      case BlockType.heading || BlockType.miniQuiz || BlockType.illustration:
+        break;
+      case BlockType.table:
+        for (final (r, row) in b.rows.indexed.skip(1)) {
+          linked.clear();
+          for (final (c, cell) in row.indexed) {
+            plan[(b, r, c)] = pick(cell, translate: false);
+          }
+        }
+      case BlockType.steps:
+        for (final (i, item) in b.items.indexed) {
+          plan[(b, i)] = pick(stepText(item));
+        }
+      case BlockType.viewpoints:
+        for (final (i, item) in b.items.indexed) {
+          plan[(b, i)] = pick(viewpointParts(item).$2);
+        }
+      default:
         if (b.text != null) plan[b] = pick(b.text!);
         for (final (i, item) in b.items.indexed) {
           plan[(b, i)] = pick(item);
         }
-      default:
-        break;
     }
   }
   return plan;
 }
+
+bool _definedHere(TermHome? home, Lesson lesson, int block) =>
+    home != null && home.lesson.id == lesson.id && home.block == block;
+
+/// Texte d'une étape, sans son numéro (« 2. Contenir » → « Contenir »).
+String stepText(String item) => item.replaceFirst(RegExp(r'^\d+\.\s*'), '');
+
+/// Un point de vue « Rôle : avis » → (rôle, avis) ; sans « : », pas de rôle.
+(String?, String) viewpointParts(String item) {
+  final i = item.indexOf(':');
+  if (i < 0) return (null, item);
+  return (item.substring(0, i).trim(), item.substring(i + 1).trim());
+}
+
+/// Texte d'un élément du plan [key], avec ses mots-clés cliquables.
+InlineSpan _planSpan(
+  BuildContext context,
+  Object key,
+  String text,
+  TextStyle style,
+) => bilingualSpan(context, text, TermPlan.matchesFor(context, key), style);
 
 class _LessonHeader extends StatelessWidget {
   const _LessonHeader({required this.lesson, required this.tone});
@@ -713,7 +747,11 @@ class NotebookBlock extends StatelessWidget {
       case BlockType.bullets:
         return Padding(
           padding: const EdgeInsets.only(top: 12),
-          child: HandBullets(block.items),
+          child: HandBullets(
+            block.items,
+            itemSpan: (i, item, style) =>
+                _planSpan(context, (block, i), item, style),
+          ),
         );
       case BlockType.definition:
         return NoteBox(
@@ -758,7 +796,10 @@ class NotebookBlock extends StatelessWidget {
           seed: seed,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [for (final item in block.items) _Viewpoint(item)],
+            children: [
+              for (final (i, item) in block.items.indexed)
+                _Viewpoint(item, planKey: (block, i)),
+            ],
           ),
         );
       case BlockType.table:
@@ -767,7 +808,7 @@ class NotebookBlock extends StatelessWidget {
           child: HandBox(
             padding: const EdgeInsets.all(10),
             seed: seed,
-            child: _HandTable(rows: block.rows),
+            child: _HandTable(block: block),
           ),
         );
       case BlockType.steps:
@@ -777,21 +818,31 @@ class NotebookBlock extends StatelessWidget {
           label: 'Schéma explicatif',
           title: block.title,
           seed: seed,
-          child: _StepsDiagram(block.items),
+          child: _StepsDiagram(block),
         );
       case BlockType.pitfalls:
         return NoteBox(
           tone: Tone.pink,
           label: 'Attention à l\'examen',
           seed: seed,
-          child: HandBullets(block.items, bullet: '✗'),
+          child: HandBullets(
+            block.items,
+            bullet: '✗',
+            itemSpan: (i, item, style) =>
+                _planSpan(context, (block, i), item, style),
+          ),
         );
       case BlockType.summary:
         return NoteBox(
           tone: Tone.orange,
           label: block.title ?? 'À retenir',
           seed: seed,
-          child: HandBullets(block.items, bullet: '★'),
+          child: HandBullets(
+            block.items,
+            bullet: '★',
+            itemSpan: (i, item, style) =>
+                _planSpan(context, (block, i), item, style),
+          ),
         );
       case BlockType.trainerNote:
         return NoteBox(
@@ -813,9 +864,11 @@ class NotebookBlock extends StatelessWidget {
           label: block.title ?? 'Mémorisation',
           sticky: true,
           seed: seed,
-          child: FindText(
+          child: BilingualText(
             block.text ?? '',
+            planKey: block,
             style: Hand.noteText(context).copyWith(fontSize: Hand.bsize(19)),
+            selectable: false,
           ),
         );
       case BlockType.important:
@@ -877,10 +930,12 @@ class NotebookBlock extends StatelessWidget {
               DiagramView(data: block.diagram!, alt: block.alt ?? ''),
               if (block.text != null) ...[
                 const SizedBox(height: 10),
-                FindText(
+                BilingualText(
                   block.text!,
+                  planKey: block,
                   style: Hand.noteText(context)
                       .copyWith(fontSize: Hand.bsize(16)),
+                  selectable: false,
                 ),
               ],
             ],
@@ -930,16 +985,19 @@ Tone _sourceTone(SourceKind kind) => switch (kind) {
 };
 
 class _Viewpoint extends StatelessWidget {
-  const _Viewpoint(this.item);
+  const _Viewpoint(this.item, {required this.planKey});
 
   final String item;
+  final Object planKey;
 
   @override
   Widget build(BuildContext context) {
-    final i = item.indexOf(':');
+    final (role, opinion) = viewpointParts(item);
     final body = Hand.bodyText(context).copyWith(fontSize: Hand.bsize(19));
-    if (i < 0) return FindText(item, style: body);
-    final emoji = switch (item.substring(0, i).trim().toLowerCase()) {
+    if (role == null) {
+      return Text.rich(_planSpan(context, planKey, opinion, body));
+    }
+    final emoji = switch (role.toLowerCase()) {
       final r when r.contains('rssi') => '🧭',
       final r when r.contains('soc') => '🖥️',
       final r when r.contains('audit') => '🔎',
@@ -953,7 +1011,7 @@ class _Viewpoint extends StatelessWidget {
           children: [
             TextSpan(text: '$emoji  '),
             TextSpan(
-              text: item.substring(0, i).trim(),
+              text: role,
               style: body.copyWith(
                 fontWeight: FontWeight.w700,
                 color: toneColors(
@@ -962,13 +1020,8 @@ class _Viewpoint extends StatelessWidget {
                 ).ink,
               ),
             ),
-            TextSpan(
-              children: highlightSpans(
-                ' : ${item.substring(i + 1).trim()}',
-                FindHighlight.of(context),
-                highlightStyle(context),
-              ),
-            ),
+            const TextSpan(text: ' : '),
+            _planSpan(context, planKey, opinion, body),
           ],
           style: body,
         ),
@@ -979,9 +1032,11 @@ class _Viewpoint extends StatelessWidget {
 
 /// Étapes numérotées reliées par des flèches manuscrites.
 class _StepsDiagram extends StatelessWidget {
-  const _StepsDiagram(this.items);
+  const _StepsDiagram(this.block);
 
-  final List<String> items;
+  final LessonBlock block;
+
+  List<String> get items => block.items;
 
   @override
   Widget build(BuildContext context) {
@@ -1026,10 +1081,13 @@ class _StepsDiagram extends StatelessWidget {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 3),
-                  child: FindText(
-                    step.replaceFirst(RegExp(r'^\d+\.\s*'), ''),
-                    style: Hand.bodyText(context)
-                        .copyWith(fontSize: Hand.bsize(19)),
+                  child: Text.rich(
+                    _planSpan(
+                      context,
+                      (block, i),
+                      stepText(step),
+                      Hand.bodyText(context).copyWith(fontSize: Hand.bsize(19)),
+                    ),
                   ),
                 ),
               ),
@@ -1057,9 +1115,11 @@ class _StepsDiagram extends StatelessWidget {
 
 /// Tableau du cahier : police sans-serif pour la lisibilité.
 class _HandTable extends StatelessWidget {
-  const _HandTable({required this.rows});
+  const _HandTable({required this.block});
 
-  final List<List<String>> rows;
+  final LessonBlock block;
+
+  List<List<String>> get rows => block.rows;
 
   @override
   Widget build(BuildContext context) {
@@ -1090,14 +1150,18 @@ class _HandTable extends StatelessWidget {
                   for (final (i, cell) in r.indexed)
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: FindText(
-                        cell,
-                        style: i == 0
-                            ? Hand.sansText(
-                                context,
-                                size: 14,
-                              ).copyWith(fontWeight: FontWeight.w700)
-                            : Hand.sansText(context, size: 14),
+                      child: Text.rich(
+                        _planSpan(
+                          context,
+                          (block, k + 1, i),
+                          cell,
+                          i == 0
+                              ? Hand.sansText(
+                                  context,
+                                  size: 14,
+                                ).copyWith(fontWeight: FontWeight.w700)
+                              : Hand.sansText(context, size: 14),
+                        ),
                       ),
                     ),
                 ],

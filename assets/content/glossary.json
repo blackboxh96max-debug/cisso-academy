@@ -839,7 +839,8 @@
   "fr": "MITRE ATT&CK",
   "definition": "Base de connaissances publique des tactiques et techniques observées chez les attaquants.",
   "example": "Carte de couverture des règles du SOC.",
-  "kind": "general"
+  "kind": "general",
+  "acronym": "ATT&CK"
  },
  {
   "id": "symmetric-encryption",
@@ -861,7 +862,7 @@
   "id": "aes",
   "en": "Advanced Encryption Standard",
   "fr": "Standard de chiffrement avancé",
-  "acronym": "AES",
+  "acronym": "AES / AES-128 / AES-256",
   "definition": "Algorithme de chiffrement symétrique par blocs de 128 bits, avec des clés de 128, 192 ou 256 bits.",
   "example": "AES-256-GCM dans TLS.",
   "kind": "general"
@@ -1292,7 +1293,7 @@
   "id": "snmp",
   "en": "Simple Network Management Protocol",
   "fr": "Protocole simple de gestion de réseau",
-  "acronym": "SNMP",
+  "acronym": "SNMP / SNMPv1 / SNMPv2c / SNMPv3",
   "definition": "Protocole de supervision des équipements ; seule la version 3 est sécurisée.",
   "example": "Supervision des commutateurs en SNMPv3.",
   "kind": "general"
@@ -2242,7 +2243,7 @@
   "id": "bcp",
   "en": "Business Continuity Plan",
   "fr": "Plan de continuité d'activité",
-  "acronym": "BCP",
+  "acronym": "BCP / PCA",
   "definition": "Plan qui permet à l'organisation de poursuivre ses activités essentielles pendant et après une crise (PCA).",
   "example": "Activation du PCA après l'incendie d'un site.",
   "kind": "general"
@@ -2251,7 +2252,7 @@
   "id": "drp",
   "en": "Disaster Recovery Plan",
   "fr": "Plan de reprise d'activité",
-  "acronym": "DRP",
+  "acronym": "DRP / PRA",
   "definition": "Plan de remise en service des systèmes informatiques et des données après un sinistre (PRA).",
   "example": "Bascule des serveurs sur le site de secours.",
   "kind": "general"
@@ -2420,7 +2421,7 @@
   "id": "csirt",
   "en": "Computer Security Incident Response Team",
   "fr": "Équipe de réponse aux incidents de sécurité",
-  "acronym": "CSIRT",
+  "acronym": "CSIRT / CERT",
   "definition": "Équipe chargée de traiter les incidents de sécurité, avec l'appui du juridique, de la communication et des RH.",
   "example": "Le CSIRT suspend le compte compromis.",
   "kind": "general"
@@ -2631,7 +2632,8 @@
   "fr": "Loi CAN-SPAM",
   "definition": "Loi américaine de 2003 sur les courriels commerciaux : pas d'objet trompeur, adresse postale, désinscription respectée sous 10 jours ouvrables.",
   "example": "Lien de désinscription dans chaque courriel.",
-  "kind": "general"
+  "kind": "general",
+  "acronym": "CAN-SPAM"
  },
  {
   "id": "godfrain-law",
@@ -3032,7 +3034,7 @@
   "id": "common-criteria",
   "en": "Common Criteria",
   "fr": "Critères communs",
-  "acronym": "CC",
+  "acronym": "CC / ISO/IEC 15408",
   "definition": "Norme ISO/IEC 15408 d'évaluation de la sécurité des produits, avec les niveaux d'assurance EAL1 à EAL7.",
   "example": "Une carte à puce certifiée EAL5.",
   "kind": "general"
@@ -3059,7 +3061,7 @@
   "id": "evaluation-assurance-level",
   "en": "Evaluation Assurance Level",
   "fr": "Niveau d'assurance de l'évaluation",
-  "acronym": "EAL",
+  "acronym": "EAL / EAL1 / EAL2 / EAL3 / EAL4 / EAL5 / EAL6 / EAL7",
   "definition": "Niveau de rigueur d'une évaluation selon les Critères communs, de EAL1 à EAL7.",
   "example": "EAL7 : conception vérifiée formellement.",
   "kind": "general"
@@ -3343,6 +3345,969 @@
   "fr": "Responsabilité des organes de direction",
   "definition": "Obligation pour la direction d'approuver et de superviser les mesures de cybersécurité, avec une responsabilité en cas de manquement (NIS 2, article 20).",
   "example": "Le conseil d'administration approuve la politique de sécurité.",
+  "kind": "general"
+ },
+ {
+  "id": "iso-27000",
+  "en": "ISO/IEC 27000",
+  "fr": "ISO/IEC 27000",
+  "acronym": "ISO 27000",
+  "definition": "Vue d'ensemble et vocabulaire de la famille de normes ISO/IEC 27000, consacrée au système de management de la sécurité de l'information (SMSI).",
+  "example": "Avant de rédiger sa politique, l'équipe aligne son vocabulaire (actif, menace, risque) sur ISO/IEC 27000.",
+  "kind": "general"
+ },
+ {
+  "id": "iso-27001",
+  "en": "ISO/IEC 27001",
+  "fr": "ISO/IEC 27001",
+  "acronym": "ISO 27001",
+  "definition": "Norme qui fixe les exigences d'un système de management de la sécurité de l'information (SMSI). C'est sur elle qu'une organisation peut être certifiée.",
+  "example": "Un hébergeur fictif fait certifier son SMSI ISO/IEC 27001 par un organisme accrédité.",
+  "kind": "general"
+ },
+ {
+  "id": "iso-27002",
+  "en": "ISO/IEC 27002",
+  "fr": "ISO/IEC 27002",
+  "acronym": "ISO 27002",
+  "definition": "Guide de mise en œuvre des mesures de sécurité : il détaille les mesures de l'annexe A de l'ISO/IEC 27001. Il n'est pas certifiable.",
+  "example": "Pour rédiger sa règle de sauvegarde, l'équipe suit les recommandations de l'ISO/IEC 27002.",
+  "kind": "general"
+ },
+ {
+  "id": "iso-27005",
+  "en": "ISO/IEC 27005",
+  "fr": "ISO/IEC 27005",
+  "acronym": "ISO 27005",
+  "definition": "Lignes directrices pour gérer les risques liés à la sécurité de l'information, au service d'un SMSI ISO/IEC 27001 : contexte, appréciation, traitement, acceptation, communication et surveillance.",
+  "example": "L'appréciation annuelle des risques suit le processus de l'ISO/IEC 27005.",
+  "kind": "general"
+ },
+ {
+  "id": "iso-27014",
+  "en": "ISO/IEC 27014",
+  "fr": "ISO/IEC 27014",
+  "definition": "Norme sur la gouvernance de la sécurité de l'information : le rôle de la direction pour orienter, évaluer, surveiller et rendre compte.",
+  "example": "Le comité de direction valide chaque année les objectifs de sécurité, comme le recommande l'ISO/IEC 27014.",
+  "kind": "general"
+ },
+ {
+  "id": "iso-27035",
+  "en": "ISO/IEC 27035",
+  "fr": "ISO/IEC 27035",
+  "definition": "Norme de gestion des incidents de sécurité de l'information : planifier et préparer, détecter et signaler, évaluer et décider, répondre, tirer les leçons.",
+  "example": "Le plan de réponse aux incidents reprend les phases de l'ISO/IEC 27035.",
+  "kind": "general"
+ },
+ {
+  "id": "iso-27037",
+  "en": "ISO/IEC 27037",
+  "fr": "ISO/IEC 27037",
+  "definition": "Lignes directrices pour identifier, collecter, acquérir et préserver les preuves numériques.",
+  "example": "L'analyste copie le disque avec un bloqueur d'écriture et calcule son empreinte, comme le décrit l'ISO/IEC 27037.",
+  "kind": "general"
+ },
+ {
+  "id": "iso-27701",
+  "en": "ISO/IEC 27701",
+  "fr": "ISO/IEC 27701",
+  "definition": "Norme de management de la protection de la vie privée : elle organise la gestion des informations personnelles en lien avec le SMSI.",
+  "example": "Un sous-traitant de paie s'appuie sur l'ISO/IEC 27701 pour démontrer sa gestion des données personnelles.",
+  "kind": "general"
+ },
+ {
+  "id": "iso-27017",
+  "en": "ISO/IEC 27017",
+  "fr": "ISO/IEC 27017",
+  "definition": "Mesures de sécurité propres aux services cloud, pour le fournisseur comme pour le client.",
+  "example": "Le contrat cloud précise qui gère les journaux, en s'appuyant sur l'ISO/IEC 27017.",
+  "kind": "general"
+ },
+ {
+  "id": "iso-42001",
+  "en": "ISO/IEC 42001",
+  "fr": "ISO/IEC 42001",
+  "definition": "Norme qui fixe les exigences d'un système de management de l'intelligence artificielle, certifiable, sur le modèle de l'ISO/IEC 27001.",
+  "example": "Une entreprise fictive encadre ses projets d'IA (inventaire, risques, supervision humaine) selon l'ISO/IEC 42001.",
+  "kind": "general"
+ },
+ {
+  "id": "iso-22301",
+  "en": "ISO 22301",
+  "fr": "ISO 22301",
+  "definition": "Norme qui fixe les exigences d'un système de management de la continuité d'activité, certifiable.",
+  "example": "Le PCA de la banque fictive est audité selon l'ISO 22301.",
+  "kind": "general"
+ },
+ {
+  "id": "iso-31000",
+  "en": "ISO 31000",
+  "fr": "ISO 31000",
+  "definition": "Principes et lignes directrices du management du risque, pour tout type de risque et d'organisation. Elle n'est pas certifiable.",
+  "example": "La direction des risques utilise le vocabulaire de l'ISO 31000 pour tous les risques, cyber ou non.",
+  "kind": "general"
+ },
+ {
+  "id": "nist",
+  "en": "National Institute of Standards and Technology",
+  "fr": "Institut national des normes et de la technologie (États-Unis)",
+  "acronym": "NIST",
+  "definition": "Agence américaine qui publie notamment les guides SP 800, les normes FIPS et le cadre de cybersécurité CSF, très utilisés dans le monde.",
+  "example": "L'équipe s'appuie sur le NIST SP 800-61 pour son plan de réponse aux incidents.",
+  "kind": "general"
+ },
+ {
+  "id": "nist-sp-800-30",
+  "en": "NIST SP 800-30",
+  "fr": "NIST SP 800-30",
+  "definition": "Guide du NIST pour conduire une évaluation des risques : préparer, conduire, communiquer, maintenir.",
+  "example": "L'analyste suit le NIST SP 800-30 pour évaluer les risques d'une nouvelle application.",
+  "kind": "general"
+ },
+ {
+  "id": "nist-sp-800-39",
+  "en": "NIST SP 800-39",
+  "fr": "NIST SP 800-39",
+  "definition": "Guide du NIST sur la gestion des risques à l'échelle de l'organisation, sur trois niveaux : organisation, mission et processus, système d'information.",
+  "example": "La direction fixe l'appétence au risque au niveau 1 ; les projets l'appliquent au niveau 3.",
+  "kind": "general"
+ },
+ {
+  "id": "nist-sp-800-53",
+  "en": "NIST SP 800-53",
+  "fr": "NIST SP 800-53",
+  "definition": "Catalogue du NIST de mesures de sécurité et de protection de la vie privée pour les systèmes d'information, classées par familles (contrôle d'accès, audit, réponse aux incidents…).",
+  "example": "L'auditeur vérifie la famille AC (contrôle d'accès) du NIST SP 800-53.",
+  "kind": "general"
+ },
+ {
+  "id": "nist-sp-800-61",
+  "en": "NIST SP 800-61",
+  "fr": "NIST SP 800-61",
+  "definition": "Guide du NIST sur la gestion et la réponse aux incidents de sécurité.",
+  "example": "Le SOC organise ses playbooks à partir du NIST SP 800-61.",
+  "kind": "general"
+ },
+ {
+  "id": "nist-sp-800-88",
+  "en": "NIST SP 800-88",
+  "fr": "NIST SP 800-88",
+  "definition": "Guide du NIST sur l'effacement des supports, en trois niveaux : effacer (clear), purger (purge), détruire (destroy).",
+  "example": "Avant de revendre des disques, l'équipe les purge selon le NIST SP 800-88.",
+  "kind": "general"
+ },
+ {
+  "id": "nist-sp-800-207",
+  "en": "NIST SP 800-207",
+  "fr": "NIST SP 800-207",
+  "definition": "Guide du NIST sur l'architecture Zero Trust : ses principes et ses composants, comme le point de décision (PDP) et le point d'application (PEP).",
+  "example": "Le projet Zero Trust de l'entreprise reprend les composants du NIST SP 800-207.",
+  "kind": "general"
+ },
+ {
+  "id": "nist-sp-800-34",
+  "en": "NIST SP 800-34",
+  "fr": "NIST SP 800-34",
+  "definition": "Guide du NIST pour planifier la continuité (contingence) des systèmes d'information.",
+  "example": "Le plan de secours du serveur de paie suit le NIST SP 800-34.",
+  "kind": "general"
+ },
+ {
+  "id": "fips",
+  "en": "Federal Information Processing Standards",
+  "fr": "Normes fédérales de traitement de l'information (États-Unis)",
+  "acronym": "FIPS",
+  "definition": "Normes publiées par le NIST : par exemple FIPS 197 (AES), FIPS 140-3 (modules cryptographiques), FIPS 203 à 205 (cryptographie post-quantique).",
+  "example": "Un client public exige un module cryptographique validé FIPS 140-3.",
+  "kind": "general"
+ },
+ {
+  "id": "eucc",
+  "en": "EU Common Criteria-based cybersecurity certification scheme",
+  "fr": "Schéma européen de certification fondé sur les critères communs",
+  "acronym": "EUCC",
+  "definition": "Schéma européen de certification de produits, adopté au titre du règlement européen sur la cybersécurité ; il reprend les Critères communs (ISO/IEC 15408).",
+  "example": "Un fabricant fictif fait certifier son pare-feu selon l'EUCC pour le vendre dans toute l'Union.",
+  "kind": "general"
+ },
+ {
+  "id": "cis-benchmarks",
+  "en": "CIS Benchmarks",
+  "fr": "Guides de durcissement CIS",
+  "acronym": "CIS",
+  "definition": "Guides de configuration sécurisée publiés par le Center for Internet Security pour les systèmes et logiciels courants.",
+  "example": "Le scan hebdomadaire compare la configuration des serveurs aux benchmarks CIS.",
+  "kind": "general"
+ },
+ {
+  "id": "ml-kem",
+  "en": "Module-Lattice-Based Key-Encapsulation Mechanism",
+  "fr": "Encapsulation de clés sur réseaux euclidiens modulaires",
+  "acronym": "ML-KEM / CRYSTALS-Kyber",
+  "definition": "Mécanisme post-quantique d'établissement de clé, normalisé en 2024 (FIPS 203), issu de CRYSTALS-Kyber.",
+  "example": "Un navigateur combine ECDHE et ML-KEM pour se protéger d'un futur ordinateur quantique.",
+  "kind": "general"
+ },
+ {
+  "id": "ml-dsa",
+  "en": "Module-Lattice-Based Digital Signature Algorithm",
+  "fr": "Signature numérique sur réseaux euclidiens modulaires",
+  "acronym": "ML-DSA / CRYSTALS-Dilithium",
+  "definition": "Algorithme de signature post-quantique, normalisé en 2024 (FIPS 204), issu de CRYSTALS-Dilithium.",
+  "example": "Une autorité de certification teste des certificats signés en ML-DSA.",
+  "kind": "general"
+ },
+ {
+  "id": "slh-dsa",
+  "en": "Stateless Hash-Based Digital Signature Algorithm",
+  "fr": "Signature sans état à base de hachage",
+  "acronym": "SLH-DSA",
+  "definition": "Algorithme de signature post-quantique fondé uniquement sur des fonctions de hachage, normalisé en 2024 (FIPS 205), issu de SPHINCS+.",
+  "example": "Un fabricant signe ses micrologiciels en SLH-DSA, plus lent mais très prudent.",
+  "kind": "general"
+ },
+ {
+  "id": "sha-2",
+  "en": "SHA-2 family",
+  "fr": "Famille SHA-2",
+  "acronym": "SHA-2 / SHA-256 / SHA-384 / SHA-512",
+  "definition": "Famille de fonctions de hachage du NIST (FIPS 180-4) : SHA-224, SHA-256, SHA-384 et SHA-512. SHA-256 donne une empreinte de 256 bits et reste recommandée.",
+  "example": "L'empreinte SHA-256 du fichier téléchargé est comparée à celle publiée par l'éditeur.",
+  "kind": "general"
+ },
+ {
+  "id": "sha-3",
+  "en": "SHA-3 family",
+  "fr": "Famille SHA-3",
+  "acronym": "SHA-3",
+  "definition": "Fonctions de hachage normalisées en 2015 (FIPS 202), construites sur Keccak. Elles complètent SHA-2 avec une conception différente.",
+  "example": "Un projet choisit SHA-3 pour ne pas dépendre de la seule famille SHA-2.",
+  "kind": "general"
+ },
+ {
+  "id": "sha-1",
+  "en": "Secure Hash Algorithm 1",
+  "fr": "Algorithme SHA-1",
+  "acronym": "SHA-1",
+  "definition": "Fonction de hachage de 160 bits, cassée : des collisions ont été produites en pratique en 2017. Elle ne doit plus servir à signer.",
+  "example": "Les certificats signés en SHA-1 sont refusés par les navigateurs.",
+  "kind": "general"
+ },
+ {
+  "id": "md5",
+  "en": "Message Digest 5",
+  "fr": "Algorithme MD5",
+  "acronym": "MD5",
+  "definition": "Fonction de hachage de 128 bits, cassée : on fabrique facilement des collisions. Elle ne doit plus servir à la sécurité.",
+  "example": "Un ancien script stocke des mots de passe en MD5 : il faut migrer vers Argon2id.",
+  "kind": "general"
+ },
+ {
+  "id": "ecb",
+  "en": "Electronic Codebook",
+  "fr": "Mode dictionnaire",
+  "acronym": "ECB",
+  "definition": "Mode de chiffrement par blocs où chaque bloc est chiffré seul : deux blocs identiques donnent deux blocs chiffrés identiques, ce qui laisse voir des motifs. À éviter.",
+  "example": "Une image chiffrée en ECB laisse encore deviner sa silhouette.",
+  "kind": "general"
+ },
+ {
+  "id": "gcm",
+  "en": "Galois/Counter Mode",
+  "fr": "Mode Galois/Compteur",
+  "acronym": "GCM / AES-GCM",
+  "definition": "Mode d'AES qui chiffre et authentifie en une seule opération (chiffrement authentifié). Le même nonce ne doit jamais être réutilisé avec la même clé.",
+  "example": "TLS 1.3 utilise AES-GCM pour chiffrer et vérifier chaque enregistrement.",
+  "kind": "general"
+ },
+ {
+  "id": "aead",
+  "en": "Authenticated Encryption with Associated Data",
+  "fr": "Chiffrement authentifié avec données associées",
+  "acronym": "AEAD",
+  "definition": "Chiffrement qui protège à la fois la confidentialité et l'intégrité, et authentifie aussi des données laissées en clair (en-têtes). Exemples : AES-GCM, ChaCha20-Poly1305.",
+  "example": "Toute modification d'un message chiffré en AEAD est détectée au déchiffrement.",
+  "kind": "general"
+ },
+ {
+  "id": "chacha20-poly1305",
+  "en": "ChaCha20-Poly1305",
+  "fr": "ChaCha20-Poly1305",
+  "acronym": "ChaCha20",
+  "definition": "Chiffrement par flot ChaCha20 associé à l'authentificateur Poly1305 : un chiffrement authentifié rapide même sans accélération matérielle, utilisé notamment par TLS 1.3.",
+  "example": "Un téléphone sans instructions AES matérielles négocie ChaCha20-Poly1305.",
+  "kind": "general"
+ },
+ {
+  "id": "ecdhe",
+  "en": "Elliptic Curve Diffie-Hellman Ephemeral",
+  "fr": "Diffie-Hellman éphémère sur courbes elliptiques",
+  "acronym": "ECDHE",
+  "definition": "Échange de clés Diffie-Hellman sur courbes elliptiques, avec une nouvelle clé à chaque session : c'est ce qui apporte la confidentialité persistante.",
+  "example": "Même si la clé privée du serveur fuit, les sessions TLS passées en ECDHE restent protégées.",
+  "kind": "general"
+ },
+ {
+  "id": "key-recovery",
+  "en": "Key recovery",
+  "fr": "Recouvrement de clés",
+  "definition": "Procédure qui permet de retrouver une clé de chiffrement perdue, par exemple à partir d'une copie séquestrée, pour récupérer les données.",
+  "example": "Un salarié part sans rendre son mot de passe : la clé de son disque est recouvrée depuis le séquestre.",
+  "kind": "general"
+ },
+ {
+  "id": "ip",
+  "en": "Internet Protocol",
+  "fr": "Protocole Internet",
+  "acronym": "IP",
+  "definition": "Protocole de la couche réseau qui adresse et achemine les paquets d'une machine à l'autre (IPv4, IPv6).",
+  "example": "Le SIEM rapproche les connexions provenant de la même adresse IP.",
+  "kind": "general"
+ },
+ {
+  "id": "icmp",
+  "en": "Internet Control Message Protocol",
+  "fr": "Protocole de messages de contrôle d'Internet",
+  "acronym": "ICMP",
+  "definition": "Protocole de messages d'erreur et de diagnostic d'IP (ping, destination inaccessible). Il sert aussi à la reconnaissance et à certains dénis de service.",
+  "example": "Le pare-feu limite les messages ICMP venant d'Internet.",
+  "kind": "general"
+ },
+ {
+  "id": "http",
+  "en": "Hypertext Transfer Protocol",
+  "fr": "Protocole de transfert hypertexte",
+  "acronym": "HTTP",
+  "definition": "Protocole du web. Il circule en clair (port 80) : identifiants et contenus peuvent être lus sur le réseau.",
+  "example": "Le formulaire de connexion en HTTP est redirigé vers HTTPS.",
+  "kind": "general"
+ },
+ {
+  "id": "https",
+  "en": "HTTP Secure",
+  "fr": "HTTP sécurisé",
+  "acronym": "HTTPS",
+  "definition": "HTTP protégé par TLS (port 443) : le serveur est authentifié par son certificat et les échanges sont chiffrés.",
+  "example": "Le navigateur affiche une alerte quand le certificat HTTPS a expiré.",
+  "kind": "general"
+ },
+ {
+  "id": "dhcp",
+  "en": "Dynamic Host Configuration Protocol",
+  "fr": "Protocole de configuration dynamique des hôtes",
+  "acronym": "DHCP",
+  "definition": "Protocole qui attribue automatiquement une adresse IP et les paramètres réseau aux appareils (UDP 67 et 68). Un serveur DHCP pirate peut détourner le trafic.",
+  "example": "Le commutateur bloque les réponses DHCP qui ne viennent pas du serveur autorisé.",
+  "kind": "general"
+ },
+ {
+  "id": "rdp",
+  "en": "Remote Desktop Protocol",
+  "fr": "Protocole de bureau à distance",
+  "acronym": "RDP",
+  "definition": "Protocole de Microsoft pour prendre la main sur un poste à distance (port 3389). Exposé sur Internet, il est une porte d'entrée fréquente des rançongiciels.",
+  "example": "Le RDP n'est accessible qu'à travers le VPN, avec authentification multifacteur.",
+  "kind": "general"
+ },
+ {
+  "id": "telnet",
+  "en": "Telnet",
+  "fr": "Telnet",
+  "definition": "Ancien protocole d'administration à distance qui circule en clair (port 23). Il est à remplacer par SSH.",
+  "example": "L'audit trouve un commutateur encore administré en Telnet.",
+  "kind": "general"
+ },
+ {
+  "id": "ftp",
+  "en": "File Transfer Protocol",
+  "fr": "Protocole de transfert de fichiers",
+  "acronym": "FTP",
+  "definition": "Protocole de transfert de fichiers qui circule en clair (ports 20 et 21), identifiants compris.",
+  "example": "Le partenaire envoie ses fichiers par FTP : on lui demande de passer à SFTP.",
+  "kind": "general"
+ },
+ {
+  "id": "sftp",
+  "en": "SSH File Transfer Protocol",
+  "fr": "Transfert de fichiers sécurisé par SSH",
+  "acronym": "SFTP",
+  "definition": "Transfert de fichiers à travers une session SSH chiffrée (port 22).",
+  "example": "Les relevés bancaires sont déposés en SFTP avec une authentification par clé.",
+  "kind": "general"
+ },
+ {
+  "id": "ftps",
+  "en": "FTP Secure",
+  "fr": "FTP sécurisé par TLS",
+  "acronym": "FTPS",
+  "definition": "FTP protégé par TLS, soit dès la connexion (port 990), soit après une commande de passage en TLS.",
+  "example": "Un ancien logiciel métier ne sait faire que du FTP : on active FTPS.",
+  "kind": "general"
+ },
+ {
+  "id": "smtp",
+  "en": "Simple Mail Transfer Protocol",
+  "fr": "Protocole simple de transfert de courrier",
+  "acronym": "SMTP",
+  "definition": "Protocole d'envoi et de relais des courriels (port 25 entre serveurs, 587 pour la soumission par les clients).",
+  "example": "Le serveur SMTP refuse de relayer les courriels d'expéditeurs inconnus.",
+  "kind": "general"
+ },
+ {
+  "id": "imap",
+  "en": "Internet Message Access Protocol",
+  "fr": "Protocole d'accès aux messages Internet",
+  "acronym": "IMAP / IMAPS",
+  "definition": "Protocole de lecture des courriels qui restent sur le serveur (port 143 ; 993 en IMAPS, protégé par TLS).",
+  "example": "La messagerie mobile se synchronise en IMAPS.",
+  "kind": "general"
+ },
+ {
+  "id": "pop3",
+  "en": "Post Office Protocol 3",
+  "fr": "Protocole de bureau de poste, version 3",
+  "acronym": "POP3 / POP3S",
+  "definition": "Protocole qui télécharge les courriels sur le poste (port 110 ; 995 en POP3S, protégé par TLS).",
+  "example": "Un ancien client de messagerie relève encore les courriels en POP3.",
+  "kind": "general"
+ },
+ {
+  "id": "starttls",
+  "en": "STARTTLS",
+  "fr": "STARTTLS",
+  "definition": "Commande qui fait passer une connexion en clair (SMTP, LDAP, IMAP) en connexion chiffrée par TLS, sur le même port.",
+  "example": "Le serveur de courrier annonce STARTTLS et chiffre les échanges avec les autres serveurs.",
+  "kind": "general"
+ },
+ {
+  "id": "ldap",
+  "en": "Lightweight Directory Access Protocol",
+  "fr": "Protocole léger d'accès aux annuaires",
+  "acronym": "LDAP / LDAPS",
+  "definition": "Protocole d'interrogation d'un annuaire (port 389). LDAPS le protège par TLS (port 636).",
+  "example": "L'application authentifie ses utilisateurs auprès de l'annuaire en LDAPS.",
+  "kind": "general"
+ },
+ {
+  "id": "smb",
+  "en": "Server Message Block",
+  "fr": "Protocole de partage de fichiers de Windows",
+  "acronym": "SMB",
+  "definition": "Protocole de partage de fichiers et d'imprimantes (port 445). L'ancienne version SMBv1 est à désactiver.",
+  "example": "Le pare-feu bloque le port 445 depuis Internet.",
+  "kind": "general"
+ },
+ {
+  "id": "ike",
+  "en": "Internet Key Exchange",
+  "fr": "Échange de clés Internet",
+  "acronym": "IKE",
+  "definition": "Protocole qui négocie les associations de sécurité et les clés d'IPsec (UDP 500, et 4500 en traversée de NAT).",
+  "example": "Le tunnel IPsec ne monte pas : les journaux IKE montrent une erreur de certificat.",
+  "kind": "general"
+ },
+ {
+  "id": "rtp",
+  "en": "Real-time Transport Protocol",
+  "fr": "Protocole de transport en temps réel",
+  "acronym": "RTP",
+  "definition": "Protocole qui transporte la voix et la vidéo sur IP. Il n'est pas chiffré ; SRTP le protège.",
+  "example": "Une capture réseau permet de réécouter un appel transporté en RTP.",
+  "kind": "general"
+ },
+ {
+  "id": "ss7",
+  "en": "Signalling System No. 7",
+  "fr": "Système de signalisation n° 7",
+  "acronym": "SS7",
+  "definition": "Protocoles de signalisation des réseaux téléphoniques. Conçus sans authentification, ils permettent à un opérateur malveillant d'intercepter des SMS ou de localiser un abonné.",
+  "example": "Des codes à usage unique envoyés par SMS ont été interceptés grâce à SS7.",
+  "kind": "general"
+ },
+ {
+  "id": "pstn",
+  "en": "Public Switched Telephone Network",
+  "fr": "Réseau téléphonique commuté",
+  "acronym": "RTC",
+  "definition": "Le réseau téléphonique classique, à commutation de circuits.",
+  "example": "Le standard téléphonique est relié au RTC par une passerelle.",
+  "kind": "general"
+ },
+ {
+  "id": "tdos",
+  "en": "Telephony Denial of Service",
+  "fr": "Déni de service téléphonique",
+  "acronym": "TDoS",
+  "definition": "Saturation des lignes d'un centre d'appels ou d'un service d'urgence par des appels automatisés.",
+  "example": "Un centre d'appels fictif reçoit des milliers d'appels automatiques en une heure.",
+  "kind": "general"
+ },
+ {
+  "id": "spit",
+  "en": "Spam over Internet Telephony",
+  "fr": "Spam sur téléphonie IP",
+  "acronym": "SPIT",
+  "definition": "Appels automatisés non sollicités sur la téléphonie IP.",
+  "example": "Le standard filtre les appels SPIT venant de numéros inconnus.",
+  "kind": "general"
+ },
+ {
+  "id": "dos",
+  "en": "Denial of Service",
+  "fr": "Déni de service",
+  "acronym": "DoS",
+  "definition": "Attaque qui rend un service indisponible en le saturant ou en le faisant planter.",
+  "example": "Une requête mal formée fait planter le serveur web : c'est un déni de service.",
+  "kind": "general"
+ },
+ {
+  "id": "ddos",
+  "en": "Distributed Denial of Service",
+  "fr": "Déni de service distribué",
+  "acronym": "DDoS",
+  "definition": "Déni de service lancé depuis de nombreuses machines à la fois, souvent un réseau de machines zombies.",
+  "example": "L'opérateur absorbe une attaque DDoS de plusieurs centaines de gigabits par seconde.",
+  "kind": "general"
+ },
+ {
+  "id": "nids",
+  "en": "Network-based Intrusion Detection System",
+  "fr": "Système de détection d'intrusion réseau",
+  "acronym": "NIDS",
+  "definition": "IDS qui analyse le trafic d'un segment réseau, à partir d'une copie du trafic (port miroir ou TAP).",
+  "example": "Le NIDS repère un balayage de ports dans la zone des serveurs.",
+  "kind": "general"
+ },
+ {
+  "id": "nips",
+  "en": "Network-based Intrusion Prevention System",
+  "fr": "Système de prévention d'intrusion réseau",
+  "acronym": "NIPS",
+  "definition": "IPS placé en coupure sur le réseau : il peut bloquer le trafic malveillant qu'il détecte.",
+  "example": "Le NIPS coupe une tentative d'exploitation d'une faille connue.",
+  "kind": "general"
+ },
+ {
+  "id": "hips",
+  "en": "Host-based Intrusion Prevention System",
+  "fr": "Système de prévention d'intrusion sur l'hôte",
+  "acronym": "HIPS",
+  "definition": "Agent installé sur une machine qui surveille son activité et bloque les actions malveillantes.",
+  "example": "Le HIPS du serveur empêche un processus inconnu de modifier les services.",
+  "kind": "general"
+ },
+ {
+  "id": "wids",
+  "en": "Wireless Intrusion Detection System",
+  "fr": "Système de détection d'intrusion sans fil",
+  "acronym": "WIDS",
+  "definition": "Système qui surveille les ondes Wi-Fi pour repérer les points d'accès pirates et les attaques sans fil.",
+  "example": "Le WIDS signale un réseau qui imite le Wi-Fi de l'entreprise.",
+  "kind": "general"
+ },
+ {
+  "id": "wep",
+  "en": "Wired Equivalent Privacy",
+  "fr": "Confidentialité équivalente au filaire",
+  "acronym": "WEP",
+  "definition": "Premier chiffrement du Wi-Fi, cassé : sa clé se retrouve en quelques minutes. À ne plus utiliser.",
+  "example": "L'audit trouve une ancienne imprimante encore connectée en WEP.",
+  "kind": "general"
+ },
+ {
+  "id": "wpa",
+  "en": "Wi-Fi Protected Access",
+  "fr": "Accès Wi-Fi protégé (première version)",
+  "acronym": "WPA",
+  "definition": "Correctif transitoire de WEP, fondé sur TKIP, aujourd'hui retiré.",
+  "example": "L'audit demande de retirer le réseau WPA des invités.",
+  "kind": "general"
+ },
+ {
+  "id": "wpa2",
+  "en": "Wi-Fi Protected Access 2",
+  "fr": "Accès Wi-Fi protégé, version 2",
+  "acronym": "WPA2",
+  "definition": "Sécurité Wi-Fi fondée sur AES-CCMP. En mode Personnel (PSK), une phrase secrète faible peut être cassée hors ligne après capture de la poignée de main.",
+  "example": "Le réseau des invités passe de WPA2-Personnel à WPA3.",
+  "kind": "general"
+ },
+ {
+  "id": "tkip",
+  "en": "Temporal Key Integrity Protocol",
+  "fr": "Protocole d'intégrité de clé temporelle",
+  "acronym": "TKIP",
+  "definition": "Protocole de chiffrement de WPA, conçu pour fonctionner sur le matériel WEP ; il est aujourd'hui déconseillé.",
+  "example": "Le contrôleur Wi-Fi refuse désormais les clients TKIP.",
+  "kind": "general"
+ },
+ {
+  "id": "ccmp",
+  "en": "Counter Mode CBC-MAC Protocol",
+  "fr": "Chiffrement CCMP du Wi-Fi",
+  "acronym": "CCMP / AES-CCMP",
+  "definition": "Protocole de chiffrement de WPA2, fondé sur AES ; il assure la confidentialité et l'intégrité des trames.",
+  "example": "Le réseau de l'entreprise n'accepte que AES-CCMP.",
+  "kind": "general"
+ },
+ {
+  "id": "ssid",
+  "en": "Service Set Identifier",
+  "fr": "Nom de réseau Wi-Fi",
+  "acronym": "SSID",
+  "definition": "Nom d'un réseau Wi-Fi. Le masquer ne protège pas : il circule quand même dans les trames.",
+  "example": "Le réseau des invités a un SSID distinct du réseau interne.",
+  "kind": "general"
+ },
+ {
+  "id": "psk",
+  "en": "Pre-Shared Key",
+  "fr": "Clé pré-partagée",
+  "acronym": "PSK",
+  "definition": "Secret commun configuré à l'avance sur tous les appareils, comme la phrase secrète d'un Wi-Fi personnel.",
+  "example": "Quand un prestataire part, la PSK du Wi-Fi atelier doit être changée partout.",
+  "kind": "general"
+ },
+ {
+  "id": "sae",
+  "en": "Simultaneous Authentication of Equals",
+  "fr": "Authentification simultanée des pairs",
+  "acronym": "SAE",
+  "definition": "Échange de clé de WPA3-Personnel qui résiste aux attaques par dictionnaire hors ligne et apporte la confidentialité persistante.",
+  "example": "Capturer la connexion d'un client WPA3 ne permet plus de tester des mots de passe hors ligne.",
+  "kind": "general"
+ },
+ {
+  "id": "eap",
+  "en": "Extensible Authentication Protocol",
+  "fr": "Protocole d'authentification extensible",
+  "acronym": "EAP",
+  "definition": "Cadre d'authentification utilisé par 802.1X, avec plusieurs méthodes (EAP-TLS avec certificats, PEAP…).",
+  "example": "Les portables de l'entreprise s'authentifient au Wi-Fi en EAP-TLS.",
+  "kind": "general"
+ },
+ {
+  "id": "saas",
+  "en": "Software as a Service",
+  "fr": "Logiciel en tant que service",
+  "acronym": "SaaS",
+  "definition": "Modèle cloud où le fournisseur gère toute l'application ; le client reste responsable de ses données, de ses utilisateurs et de leurs droits.",
+  "example": "La messagerie de l'entreprise est un service SaaS.",
+  "kind": "general"
+ },
+ {
+  "id": "paas",
+  "en": "Platform as a Service",
+  "fr": "Plateforme en tant que service",
+  "acronym": "PaaS",
+  "definition": "Modèle cloud où le client déploie son code sur une plateforme gérée par le fournisseur (systèmes, environnement d'exécution).",
+  "example": "L'équipe publie son application web sur un service PaaS sans gérer de serveur.",
+  "kind": "general"
+ },
+ {
+  "id": "iaas",
+  "en": "Infrastructure as a Service",
+  "fr": "Infrastructure en tant que service",
+  "acronym": "IaaS",
+  "definition": "Modèle cloud où le client loue machines virtuelles, réseau et stockage, et gère lui-même système d'exploitation et applications.",
+  "example": "Le client IaaS doit appliquer lui-même les correctifs de ses machines virtuelles.",
+  "kind": "general"
+ },
+ {
+  "id": "vm",
+  "en": "Virtual Machine",
+  "fr": "Machine virtuelle",
+  "acronym": "VM",
+  "definition": "Ordinateur simulé par un hyperviseur, isolé des autres machines virtuelles du même hôte.",
+  "example": "Chaque environnement de test tourne dans sa propre VM.",
+  "kind": "general"
+ },
+ {
+  "id": "api",
+  "en": "Application Programming Interface",
+  "fr": "Interface de programmation",
+  "acronym": "API",
+  "definition": "Point d'entrée qu'un logiciel expose à d'autres programmes. Une API doit être authentifiée, autorisée et limitée en débit.",
+  "example": "L'application mobile interroge l'API de la banque fictive.",
+  "kind": "general"
+ },
+ {
+  "id": "acl",
+  "en": "Access Control List",
+  "fr": "Liste de contrôle d'accès",
+  "acronym": "ACL",
+  "definition": "Liste des sujets autorisés sur une ressource et de leurs droits (lecture, écriture…), ou liste de règles de filtrage d'un routeur.",
+  "example": "L'ACL du dossier RH n'accorde la lecture qu'au service RH.",
+  "kind": "general"
+ },
+ {
+  "id": "ci-cd",
+  "en": "Continuous Integration / Continuous Delivery",
+  "fr": "Intégration et déploiement continus",
+  "acronym": "CI/CD",
+  "definition": "Chaîne automatisée qui compile, teste et déploie le code à chaque modification. Elle doit elle-même être protégée (secrets, droits, signature).",
+  "example": "La chaîne CI/CD bloque le déploiement si l'analyse SAST trouve une faille critique.",
+  "kind": "general"
+ },
+ {
+  "id": "iast",
+  "en": "Interactive Application Security Testing",
+  "fr": "Test interactif de sécurité des applications",
+  "acronym": "IAST",
+  "definition": "Analyse par un agent placé dans l'application en cours de test, qui observe le code pendant son exécution.",
+  "example": "Pendant les tests fonctionnels, l'agent IAST signale une requête SQL construite par concaténation.",
+  "kind": "general"
+ },
+ {
+  "id": "jwt",
+  "en": "JSON Web Token",
+  "fr": "Jeton web JSON",
+  "acronym": "JWT",
+  "definition": "Jeton signé qui transporte des informations d'identité ou d'autorisation. Il faut vérifier sa signature, son émetteur et sa date d'expiration.",
+  "example": "L'API refuse un JWT dont la signature ne correspond pas.",
+  "kind": "general"
+ },
+ {
+  "id": "csp",
+  "en": "Content Security Policy",
+  "fr": "Politique de sécurité du contenu",
+  "acronym": "CSP",
+  "definition": "En-tête HTTP qui indique au navigateur quelles sources de scripts et de contenus il peut charger ; il limite l'effet d'un XSS.",
+  "example": "La CSP du site n'autorise que les scripts de son propre domaine.",
+  "kind": "general"
+ },
+ {
+  "id": "cisa",
+  "en": "Cybersecurity and Infrastructure Security Agency",
+  "fr": "Agence américaine de cybersécurité et de sécurité des infrastructures",
+  "acronym": "CISA",
+  "definition": "Agence américaine de cybersécurité ; elle tient notamment le catalogue KEV des vulnérabilités exploitées.",
+  "example": "Une faille ajoutée au catalogue de la CISA est corrigée en priorité.",
+  "kind": "general"
+ },
+ {
+  "id": "dsi",
+  "en": "IT department",
+  "fr": "Direction des systèmes d'information",
+  "acronym": "DSI",
+  "definition": "Direction qui conçoit, exploite et fait évoluer le système d'information. Le RSSI travaille avec elle sans en être forcément rattaché.",
+  "example": "La DSI planifie la migration ; le RSSI en valide les exigences de sécurité.",
+  "kind": "general"
+ },
+ {
+  "id": "kdc",
+  "en": "Key Distribution Center",
+  "fr": "Centre de distribution de clés",
+  "acronym": "KDC",
+  "definition": "Composant central de Kerberos : il regroupe le service d'authentification (AS) et le service d'octroi de tickets (TGS).",
+  "example": "Dans Active Directory, chaque contrôleur de domaine joue le rôle de KDC.",
+  "kind": "general"
+ },
+ {
+  "id": "tgs",
+  "en": "Ticket-Granting Service",
+  "fr": "Service d'octroi de tickets",
+  "acronym": "TGS",
+  "definition": "Partie du KDC de Kerberos qui délivre les tickets d'accès aux services, sur présentation du ticket d'octroi (TGT).",
+  "example": "Pour ouvrir un partage de fichiers, le poste demande un ticket de service au TGS.",
+  "kind": "general"
+ },
+ {
+  "id": "safeguard-value",
+  "en": "Value of a safeguard",
+  "fr": "Valeur d'un contrôle",
+  "definition": "Valeur = ALE avant le contrôle − ALE après le contrôle − coût annuel du contrôle. Si le résultat est positif, le contrôle est rentable.",
+  "example": "ALE 50 000 € avant, 10 000 € après, coût 15 000 € par an : valeur 25 000 €.",
+  "kind": "general"
+ },
+ {
+  "id": "responsibility",
+  "en": "Responsibility",
+  "fr": "Responsabilité d'exécution",
+  "definition": "Charge de réaliser une tâche. Elle peut être déléguée, contrairement à la responsabilité finale (accountability).",
+  "example": "L'administrateur est chargé d'appliquer les correctifs ; la direction en reste responsable au final.",
+  "kind": "general"
+ },
+ {
+  "id": "implicit-deny",
+  "en": "Implicit deny",
+  "fr": "Refus par défaut",
+  "definition": "Tout ce qui n'est pas explicitement autorisé est interdit.",
+  "example": "La dernière règle d'un pare-feu bien configuré refuse tout le reste.",
+  "kind": "general"
+ },
+ {
+  "id": "access-review",
+  "en": "Access review",
+  "fr": "Revue des accès",
+  "definition": "Contrôle périodique où le responsable ou le propriétaire des données confirme, ou retire, chaque droit de ses équipes. On parle aussi de recertification.",
+  "example": "Chaque trimestre, le chef comptable confirme les droits de son équipe sur le logiciel de paie.",
+  "kind": "general"
+ },
+ {
+  "id": "identity-federation",
+  "en": "Identity federation",
+  "fr": "Fédération d'identités",
+  "definition": "Relation de confiance entre organisations : un fournisseur d'identité (IdP) authentifie l'utilisateur, et un fournisseur de service accepte sa décision (SAML, OpenID Connect).",
+  "example": "Les salariés se connectent au service cloud avec leur compte d'entreprise.",
+  "kind": "general"
+ },
+ {
+  "id": "authenticity",
+  "en": "Authenticity",
+  "fr": "Authenticité",
+  "definition": "Garantie que l'information ou l'interlocuteur est bien ce qu'il prétend être : l'expéditeur d'un message est le vrai expéditeur.",
+  "example": "La signature numérique prouve l'authenticité d'une facture électronique.",
+  "kind": "general"
+ },
+ {
+  "id": "toe",
+  "en": "Target of Evaluation",
+  "fr": "Cible d'évaluation",
+  "acronym": "TOE",
+  "definition": "Dans les Critères communs, le produit, ou la partie du produit, qui est évalué.",
+  "example": "Le micrologiciel d'un pare-feu, dans une configuration donnée.",
+  "kind": "general"
+ },
+ {
+  "id": "indirect-prompt-injection",
+  "en": "Indirect prompt injection",
+  "fr": "Injection d'instructions indirecte",
+  "definition": "Les instructions malveillantes ne viennent pas de l'utilisateur mais d'un contenu que le modèle lit (page web, courriel, document). Un assistant qui peut agir est alors détourné.",
+  "example": "Un courriel piégé demande à l'assistant de transférer la boîte de réception.",
+  "kind": "general"
+ },
+ {
+  "id": "emergency-change",
+  "en": "Emergency change",
+  "fr": "Changement d'urgence",
+  "definition": "Changement appliqué sans attendre le circuit normal, par exemple pour corriger une faille exploitée. Il reste tracé, approuvé par une personne habilitée, puis régularisé et revu après coup.",
+  "example": "Un correctif critique est installé la nuit, puis présenté au comité des changements suivant.",
+  "kind": "general"
+ },
+ {
+  "id": "asset-inventory",
+  "en": "Asset inventory",
+  "fr": "Inventaire des actifs",
+  "definition": "Liste à jour du matériel, des logiciels, des données et des services, avec leur propriétaire et leur criticité. On ne protège pas ce qu'on ne connaît pas.",
+  "example": "Le scan découvre un serveur absent de l'inventaire des actifs.",
+  "kind": "general"
+ },
+ {
+  "id": "correlation",
+  "en": "Correlation",
+  "fr": "Corrélation",
+  "definition": "Rapprochement de plusieurs événements, parfois de sources différentes, pour reconnaître un scénario d'attaque.",
+  "example": "Dix échecs puis une réussite sur le même compte, suivis d'une connexion VPN depuis un nouveau pays.",
+  "kind": "general"
+ },
+ {
+  "id": "triage",
+  "en": "Triage",
+  "fr": "Triage",
+  "definition": "Première analyse d'une alerte : est-elle fondée, quelle est sa gravité, faut-il escalader ? Il s'appuie sur le contexte et sur un playbook.",
+  "example": "L'analyste N1 classe l'alerte en faux positif après avoir vérifié l'actif concerné.",
+  "kind": "general"
+ },
+ {
+  "id": "confidential-computing",
+  "en": "Confidential computing",
+  "fr": "Informatique confidentielle",
+  "definition": "Protection des données pendant leur traitement, grâce à des enclaves matérielles (environnements d'exécution de confiance) : même l'administrateur de la machine ne voit pas les données traitées.",
+  "example": "Une banque fictive analyse des données sensibles dans une enclave chez son fournisseur cloud.",
+  "kind": "general"
+ },
+ {
+  "id": "workload-identity",
+  "en": "Workload identity",
+  "fr": "Identité de charge de travail",
+  "definition": "Identité attribuée à une application ou à un service, et non à une personne, pour accéder à d'autres ressources. On préfère des identités gérées, aux secrets renouvelés automatiquement.",
+  "example": "La fonction cloud lit le stockage avec son identité gérée, sans clé copiée dans le code.",
+  "kind": "general"
+ },
+ {
+  "id": "war-dialing",
+  "en": "War dialing",
+  "fr": "Composition automatique",
+  "definition": "Appeler automatiquement des séries de numéros pour trouver des modems ou des accès de maintenance oubliés. C'est l'ancêtre du balayage de ports.",
+  "example": "Un vieux modem de maintenance répond sur une ligne oubliée du standard.",
+  "kind": "general"
+ },
+ {
+  "id": "timing-attack",
+  "en": "Timing attack",
+  "fr": "Attaque temporelle",
+  "definition": "Attaque par canal auxiliaire qui mesure le temps de réponse d'un programme pour en déduire un secret. Parade : des comparaisons en temps constant.",
+  "example": "Une comparaison de mot de passe qui s'arrête à la première différence répond plus lentement quand le début est juste.",
+  "kind": "general"
+ },
+ {
+  "id": "race-condition",
+  "en": "Race condition",
+  "fr": "Situation de concurrence",
+  "definition": "Défaut où le résultat dépend de l'ordre d'opérations simultanées ; l'attaquant agit entre la vérification et l'utilisation (TOCTOU). Parade : opérations atomiques, verrouillage.",
+  "example": "Un fichier est remplacé par un lien entre le contrôle de ses droits et son ouverture.",
+  "kind": "general"
+ },
+ {
+  "id": "compliance-evidence",
+  "en": "Compliance evidence",
+  "fr": "Preuve de conformité",
+  "definition": "Éléments vérifiables attendus par une autorité ou un auditeur : politiques approuvées, analyses de risque, comptes rendus de tests, registres d'incidents, preuves de formation, contrats.",
+  "example": "Une mesure sans trace écrite est difficile à démontrer lors d'un contrôle.",
+  "kind": "general"
+ },
+ {
+  "id": "des",
+  "en": "Data Encryption Standard",
+  "fr": "Standard de chiffrement de données",
+  "acronym": "DES / 3DES",
+  "definition": "Ancien chiffrement symétrique par blocs de 64 bits avec une clé effective de 56 bits, trop courte : il se casse par force brute. Le triple DES (3DES) est lui aussi retiré.",
+  "example": "Un ancien terminal de paiement fictif chiffre encore en DES : il doit être remplacé.",
+  "kind": "general"
+ },
+ {
+  "id": "rc4",
+  "en": "RC4",
+  "fr": "RC4",
+  "definition": "Ancien chiffrement par flot, rapide mais affaibli par des biais statistiques ; il est interdit dans TLS et a été utilisé par WEP.",
+  "example": "Le scan signale un serveur qui accepte encore RC4.",
+  "kind": "general"
+ },
+ {
+  "id": "password-hashing",
+  "en": "Password hashing function",
+  "fr": "Fonction de hachage de mots de passe",
+  "acronym": "Argon2id / Argon2 / bcrypt / scrypt / PBKDF2",
+  "definition": "Fonction volontairement lente et paramétrable, utilisée avec un sel, pour stocker les mots de passe : Argon2id, scrypt, bcrypt ou PBKDF2. Elle ralentit fortement les attaques par dictionnaire.",
+  "example": "Les mots de passe des clients sont stockés en Argon2id avec un sel par compte.",
+  "kind": "general"
+ },
+ {
+  "id": "irp",
+  "en": "Incident Response Plan",
+  "fr": "Plan de réponse aux incidents",
+  "acronym": "IRP",
+  "definition": "Document qui décrit qui fait quoi en cas d'incident de sécurité : rôles, critères d'escalade, contacts, étapes de réponse et communication.",
+  "example": "Le plan de réponse aux incidents donne le numéro d'astreinte du CSIRT.",
+  "kind": "general"
+ },
+ {
+  "id": "das",
+  "en": "Direct-Attached Storage",
+  "fr": "Stockage à attachement direct",
+  "acronym": "DAS",
+  "definition": "Disques reliés directement à un serveur, sans passer par le réseau.",
+  "example": "Le serveur de sauvegarde utilise une baie DAS branchée en direct.",
+  "kind": "general"
+ },
+ {
+  "id": "message-authentication-code",
+  "en": "Message Authentication Code",
+  "fr": "Code d'authentification de message",
+  "acronym": "MAC",
+  "definition": "Valeur calculée sur un message avec une clé secrète partagée : le destinataire, qui a la même clé, vérifie que le message n'a pas changé et qu'il vient d'un détenteur de la clé. Il n'apporte pas la non-répudiation.",
+  "example": "HMAC-SHA-256 protège l'intégrité des messages échangés entre deux serveurs.",
   "kind": "general"
  }
 ]
