@@ -700,5 +700,484 @@
    "illustration": "assets/illustrations/m1c3_l3_boite.svg",
    "illustrationAlt": "Drawing of an open toolbox containing colored cards: each framework is a tool."
   }
+ ],
+ "questions": [
+  {
+   "id": "m1c3-q01",
+   "prompt": "Which document expresses senior management's security intentions and principles in general terms?",
+   "choices": [
+    "The procedure",
+    "The baseline",
+    "The guideline",
+    "The policy"
+   ],
+   "explanation": "The policy, approved by senior management, sets the principles and gives authority to the other documents.",
+   "whyNot": {
+    "0": "The procedure describes the steps of a task, the \"how\".",
+    "1": "The baseline sets a minimum configuration for a type of system.",
+    "2": "The guideline is a non-mandatory recommendation."
+   }
+  },
+  {
+   "id": "m1c3-q02",
+   "prompt": "Which of these documents is NOT mandatory?",
+   "choices": [
+    "The policy",
+    "The guideline",
+    "The procedure",
+    "The internal standard"
+   ],
+   "explanation": "The guideline gives advice; it is recommended but not mandatory.",
+   "whyNot": {
+    "0": "The policy applies to everyone.",
+    "2": "The procedure describes the mandatory way to carry out a task.",
+    "3": "The internal standard sets mandatory, measurable requirements."
+   }
+  },
+  {
+   "id": "m1c3-q03",
+   "prompt": "\"Passwords for privileged accounts have at least 16 characters.\" This text is typically:",
+   "choices": [
+    "A policy",
+    "A guideline",
+    "A procedure",
+    "An internal standard"
+   ],
+   "explanation": "It is a precise, measurable requirement: it belongs to an internal standard, which derives from the policy.",
+   "whyNot": {
+    "0": "A policy stays general and avoids technical details that change often.",
+    "1": "The text is mandatory, not a recommendation.",
+    "2": "A procedure would describe the steps to, for example, change a password."
+   }
+  },
+  {
+   "id": "m1c3-q04",
+   "prompt": "A minimum hardened configuration imposed on all production Linux servers is called:",
+   "choices": [
+    "An issue-specific policy",
+    "A guideline",
+    "A baseline",
+    "An exception"
+   ],
+   "explanation": "A baseline sets the minimum mandatory security level for a type of system.",
+   "whyNot": {
+    "0": "An issue-specific policy addresses a topic in general terms, not a detailed configuration.",
+    "1": "A guideline would not be imposed.",
+    "3": "An exception is an authorized deviation from a requirement, the opposite of an imposed minimum."
+   }
+  },
+  {
+   "id": "m1c3-q05",
+   "prompt": "Which document describes step by step how to isolate a compromised workstation from the EDR console?",
+   "choices": [
+    "A guideline",
+    "An internal standard",
+    "A procedure (or playbook)",
+    "A policy"
+   ],
+   "explanation": "The procedure describes the \"how\": the precise steps of a task. In the SOC, it is often called a playbook.",
+   "whyNot": {
+    "0": "A guideline advises; it does not describe a mandatory course of action.",
+    "1": "The internal standard sets a requirement, not the operating method.",
+    "3": "The policy gives the principles, not the steps."
+   }
+  },
+  {
+   "id": "m1c3-q06",
+   "prompt": "A policy governing the use of USB drives across the whole company is a policy that is:",
+   "choices": [
+    "General (program)",
+    "System-specific",
+    "Issue-specific",
+    "About business continuity"
+   ],
+   "explanation": "It addresses a specific topic for the whole organization: it is an issue-specific policy.",
+   "whyNot": {
+    "0": "The general policy defines the security program as a whole.",
+    "1": "A system-specific policy sets the rules of a given system.",
+    "3": "Business continuity is a different topic."
+   }
+  },
+  {
+   "id": "m1c3-q07",
+   "prompt": "What conditions must a valid exception to a security standard meet? (2 answers)",
+   "choices": [
+    "Be limited in time and reviewed when it expires",
+    "Be approved by the risk owner, with compensating measures",
+    "Remain confidential and kept out of any register",
+    "Be granted verbally by the technical team"
+   ],
+   "explanation": "An exception is justified, temporary, compensated, approved by an authorized person and tracked in a register.",
+   "whyNot": {
+    "2": "A hidden exception prevents the risk from being tracked; it must be recorded.",
+    "3": "A verbal exception from the technical team has neither a record nor sufficient authority."
+   }
+  },
+  {
+   "id": "m1c3-q08",
+   "prompt": "Why do we avoid writing detailed technical settings in the security policy?",
+   "choices": [
+    "Because a policy is not mandatory and can be ignored",
+    "Because the policy must remain stable while settings change often",
+    "Because senior management must not know these settings",
+    "Because the law forbids putting technical details in it"
+   ],
+   "explanation": "A policy approved by senior management must last. Technical details change often; they are placed in standards and procedures to avoid having the policy reapproved at each change.",
+   "whyNot": {
+    "0": "The policy is mandatory.",
+    "2": "It is not about hiding anything from senior management.",
+    "3": "No law imposes this split: it is a good practice."
+   }
+  },
+  {
+   "id": "m1c3-q09",
+   "prompt": "Who approves the information security policy?",
+   "choices": [
+    "The firewall vendor",
+    "Senior management",
+    "Every employee",
+    "The network administrator"
+   ],
+   "explanation": "The policy commits the organization: it is approved by senior management, which gives it its authority.",
+   "whyNot": {
+    "0": "An external vendor has no authority over the policy.",
+    "2": "Employees read and comply with it; they do not approve it.",
+    "3": "The administrator applies the measures; they do not commit the organization."
+   }
+  },
+  {
+   "id": "m1c3-q10",
+   "prompt": "A SOC analyst follows the instruction \"in case of a ransomware alert, call the systems on-call, then isolate the workstation, then open an incident\". Which document is the analyst applying?",
+   "choices": [
+    "A guideline",
+    "A policy",
+    "A procedure",
+    "A baseline"
+   ],
+   "explanation": "An ordered series of steps to carry out is a procedure.",
+   "whyNot": {
+    "0": "A guideline would not be a mandatory instruction.",
+    "1": "The policy does not detail steps.",
+    "3": "A baseline describes a minimum configuration, not a response to an alert."
+   }
+  },
+  {
+   "id": "m1c3-q11",
+   "prompt": "Against which standard does an organization get its information security management system certified?",
+   "choices": [
+    "ISO/IEC 27005",
+    "ISO/IEC 27001",
+    "ISO/IEC 27002",
+    "ISO/IEC 27000"
+   ],
+   "explanation": "ISO/IEC 27001 contains the ISMS requirements: it is the certification standard.",
+   "whyNot": {
+    "0": "ISO/IEC 27005 guides risk management.",
+    "2": "ISO/IEC 27002 is a guide to implementing controls; you do not get certified against it.",
+    "3": "ISO/IEC 27000 gives the overview and vocabulary."
+   }
+  },
+  {
+   "id": "m1c3-q12",
+   "prompt": "How many controls does Annex A of ISO/IEC 27001:2022 contain?",
+   "choices": [
+    "133",
+    "42",
+    "114",
+    "93"
+   ],
+   "explanation": "The 2022 version has 93 controls grouped into 4 themes.",
+   "whyNot": {
+    "0": "133 was the number of controls in the 2005 version.",
+    "1": "42 is the number of measures in ANSSI's hygiene guide.",
+    "2": "114 controls was the 2013 version."
+   }
+  },
+  {
+   "id": "m1c3-q13",
+   "prompt": "What are the four themes of Annex A of ISO/IEC 27001:2022?",
+   "choices": [
+    "Govern, identify, protect, detect",
+    "Organizational, people, physical, technological",
+    "Confidentiality, integrity, availability, accountability",
+    "Prevention, detection, response, recovery"
+   ],
+   "explanation": "The 93 controls are grouped into organizational (37), people (8), physical (14) and technological (34) controls.",
+   "whyNot": {
+    "0": "These are NIST CSF functions.",
+    "2": "These are security properties, not the themes of Annex A.",
+    "3": "These are control functions, not the themes of Annex A."
+   }
+  },
+  {
+   "id": "m1c3-q14",
+   "prompt": "Which ISO/IEC 27001 document lists the Annex A controls, states which are applied and justifies the exclusions?",
+   "choices": [
+    "The risk register",
+    "The information security policy",
+    "The Statement of Applicability (SoA)",
+    "The certification audit report"
+   ],
+   "explanation": "The Statement of Applicability is mandatory and justifies the inclusion or exclusion of each control.",
+   "whyNot": {
+    "0": "The risk register lists the risks; the SoA follows from it.",
+    "1": "The policy sets the principles, not the status of each control.",
+    "3": "The audit report records conformity; it does not decide on the controls."
+   }
+  },
+  {
+   "id": "m1c3-q15",
+   "prompt": "How long is an ISO/IEC 27001 certificate valid, and what happens in the meantime?",
+   "choices": [
+    "Unlimited, as long as no incident occurs",
+    "5 years, with a single midpoint audit",
+    "3 years, with surveillance audits",
+    "1 year, with no intermediate check"
+   ],
+   "explanation": "The certificate is valid for three years; surveillance audits take place during this period, followed by a recertification audit.",
+   "whyNot": {
+    "0": "The certificate is never unlimited.",
+    "1": "The standard duration is three years, not five.",
+    "3": "Validity is three years, and surveillance audits take place."
+   }
+  },
+  {
+   "id": "m1c3-q16",
+   "prompt": "In ISO/IEC 27001:2022, which clauses cover management review and corrective action? (2 answers)",
+   "choices": [
+    "Clause 7, Support",
+    "Clause 4, Context",
+    "Clause 9, Performance evaluation (management review)",
+    "Clause 10, Improvement (nonconformities and corrective action)"
+   ],
+   "explanation": "Management review and internal audit are in clause 9; nonconformities and corrective action in clause 10.",
+   "whyNot": {
+    "0": "Clause 7 covers resources, competence, communication and documented information.",
+    "1": "Clause 4 covers context, interested parties and scope."
+   }
+  },
+  {
+   "id": "m1c3-q17",
+   "prompt": "Which standard gives guidelines for identifying, collecting and preserving digital evidence?",
+   "choices": [
+    "ISO/IEC 27035",
+    "ISO/IEC 27037",
+    "ISO/IEC 27017",
+    "ISO/IEC 27014"
+   ],
+   "explanation": "ISO/IEC 27037 covers the identification, collection, acquisition and preservation of digital evidence.",
+   "whyNot": {
+    "0": "ISO/IEC 27035 covers incident management as a whole.",
+    "2": "ISO/IEC 27017 covers security controls for the cloud.",
+    "3": "ISO/IEC 27014 covers governance."
+   }
+  },
+  {
+   "id": "m1c3-q18",
+   "prompt": "Which standard in the 27000 family covers information security incident management?",
+   "choices": [
+    "ISO/IEC 27002",
+    "ISO/IEC 27005",
+    "ISO/IEC 27035",
+    "ISO/IEC 27701"
+   ],
+   "explanation": "ISO/IEC 27035 describes incident management: preparation, detection, assessment, response, lessons learned.",
+   "whyNot": {
+    "0": "ISO/IEC 27002 describes security controls in general.",
+    "1": "ISO/IEC 27005 covers risk management.",
+    "3": "ISO/IEC 27701 covers privacy protection."
+   }
+  },
+  {
+   "id": "m1c3-q19",
+   "prompt": "An organization excludes from its SoA the control on outsourced development, because it neither develops nor has any software developed. This exclusion is:",
+   "choices": [
+    "Forbidden: all Annex A controls are mandatory",
+    "Possible if it is justified in the SoA",
+    "Possible without justification",
+    "Possible only with ANSSI's agreement"
+   ],
+   "explanation": "Annex A controls are to be considered, not all applied: an exclusion is allowed if it is justified, for example by the absence of the risk.",
+   "whyNot": {
+    "0": "The standard requires considering each control and justifying the choices, not applying all of them.",
+    "2": "Every exclusion must be justified in the SoA.",
+    "3": "ISO certification does not depend on ANSSI; the certification body performs the audit."
+   }
+  },
+  {
+   "id": "m1c3-q20",
+   "prompt": "By what date did organizations certified to ISO/IEC 27001:2013 have to move to the 2022 version?",
+   "choices": [
+    "October 31, 2025",
+    "No date: both versions remain valid",
+    "December 31, 2023",
+    "January 1, 2027"
+   ],
+   "explanation": "The three-year transition period ended on October 31, 2025; 2013 certificates are no longer valid after that date.",
+   "whyNot": {
+    "1": "Certificates to the 2013 version expired at the end of the transition.",
+    "2": "This date does not match the end of the transition.",
+    "3": "The transition ended before this date."
+   }
+  },
+  {
+   "id": "m1c3-q21",
+   "prompt": "How many functions does the NIST Cybersecurity Framework 2.0 have?",
+   "choices": [
+    "4",
+    "6",
+    "7",
+    "5"
+   ],
+   "explanation": "CSF 2.0 has six functions: Govern, Identify, Protect, Detect, Respond, Recover. Govern was added in 2.0.",
+   "whyNot": {
+    "0": "Four functions does not match any version of the CSF.",
+    "2": "There is no seventh function.",
+    "3": "Five functions was version 1.1, without Govern."
+   }
+  },
+  {
+   "id": "m1c3-q22",
+   "prompt": "In NIST CSF 2.0, which function does writing correlation rules in the SIEM belong to?",
+   "choices": [
+    "Recover",
+    "Detect",
+    "Protect",
+    "Identify"
+   ],
+   "explanation": "Correlation rules are used to spot suspicious events: Detect function.",
+   "whyNot": {
+    "0": "Recover concerns returning to normal after the incident.",
+    "2": "Protect concerns the measures that prevent the incident.",
+    "3": "Identify concerns the inventory of assets, risks and context."
+   }
+  },
+  {
+   "id": "m1c3-q23",
+   "prompt": "Which statement about the NIST Cybersecurity Framework is correct?",
+   "choices": [
+    "It replaces PCI DSS for card data",
+    "It is required by law for all European companies",
+    "It is a certifiable standard like ISO/IEC 27001",
+    "It is a voluntary framework for describing and improving one's cybersecurity level"
+   ],
+   "explanation": "The CSF is a voluntary, non-certifiable framework, used to assess a current level, set a target and prioritize.",
+   "whyNot": {
+    "0": "PCI DSS is still required for card data.",
+    "1": "It is not a European legal obligation.",
+    "2": "There is no official CSF certification."
+   }
+  },
+  {
+   "id": "m1c3-q24",
+   "prompt": "An online store stores payment card numbers. Which framework do the card networks impose on it?",
+   "choices": [
+    "ITIL",
+    "PCI DSS",
+    "ISO/IEC 27014",
+    "COBIT"
+   ],
+   "explanation": "PCI DSS applies to any entity that stores, processes or transmits payment card data.",
+   "whyNot": {
+    "0": "ITIL describes service management good practices.",
+    "2": "ISO/IEC 27014 covers security governance.",
+    "3": "COBIT is an IT governance framework, not mandatory."
+   }
+  },
+  {
+   "id": "m1c3-q25",
+   "prompt": "A customer wants to know whether its cloud provider's controls actually worked over the past year. Which document is the most suitable?",
+   "choices": [
+    "A SOC 2 Type I report",
+    "The sales brochure",
+    "The provider's security policy",
+    "A SOC 2 Type II report"
+   ],
+   "explanation": "Type II assesses the operating effectiveness of controls over a period; Type I only describes their design at a point in time.",
+   "whyNot": {
+    "0": "Type I does not cover operation over a period.",
+    "1": "A sales document provides no audit assurance.",
+    "2": "A policy states intentions; it does not prove effectiveness."
+   }
+  },
+  {
+   "id": "m1c3-q26",
+   "prompt": "Which framework / use pairings are correct? (2 answers)",
+   "choices": [
+    "PCI DSS: European law on personal data",
+    "NIST SP 800-53: detailed catalog of security and privacy controls",
+    "ITIL: IT service management (incidents, changes)",
+    "COBIT: catalog of technical controls of the US government"
+   ],
+   "explanation": "ITIL describes IT service management; NIST SP 800-53 is a detailed catalog of controls.",
+   "whyNot": {
+    "0": "PCI DSS is an industry standard for payment cards; the European law on personal data is the GDPR.",
+    "3": "COBIT is an IT governance and management framework, published by ISACA."
+   }
+  },
+  {
+   "id": "m1c3-q27",
+   "prompt": "How many measures does ANSSI's IT hygiene guide contain?",
+   "choices": [
+    "114",
+    "10",
+    "42",
+    "93"
+   ],
+   "explanation": "ANSSI's IT hygiene guide proposes 42 measures.",
+   "whyNot": {
+    "0": "114 was the number of Annex A controls in 2013.",
+    "1": "10 does not match this guide.",
+    "3": "93 is the number of Annex A controls in ISO/IEC 27001:2022."
+   }
+  },
+  {
+   "id": "m1c3-q28",
+   "prompt": "Which risk analysis method is published by ANSSI?",
+   "choices": [
+    "OCTAVE Allegro",
+    "STRIDE",
+    "EBIOS Risk Manager",
+    "FAIR (Factor Analysis of Information Risk)"
+   ],
+   "explanation": "EBIOS Risk Manager is ANSSI's method for assessing and treating digital risks.",
+   "whyNot": {
+    "0": "OCTAVE was developed by the Software Engineering Institute (Carnegie Mellon).",
+    "1": "STRIDE is a threat modeling method from Microsoft.",
+    "3": "FAIR is a quantitative risk analysis method promoted by the FAIR Institute."
+   }
+  },
+  {
+   "id": "m1c3-q29",
+   "prompt": "A company wants a recognized certification of its management system, and a method to present its level simply to senior management. Which combination is the most consistent?",
+   "choices": [
+    "ISO/IEC 27001 for certification, NIST CSF to present the level",
+    "NIST CSF for certification, ITIL to present the level",
+    "PCI DSS for certification, COBIT for the level",
+    "ISO/IEC 27002 for certification, SOC 2 for the level"
+   ],
+   "explanation": "ISO/IEC 27001 is certifiable; the CSF, with its six functions, is handy for describing a current and target level.",
+   "whyNot": {
+    "1": "The NIST CSF is not certifiable.",
+    "2": "PCI DSS only concerns card data; it does not certify an ISMS.",
+    "3": "You do not get certified against ISO/IEC 27002, and SOC 2 is an audit report for customers, not an internal management tool."
+   }
+  },
+  {
+   "id": "m1c3-q30",
+   "prompt": "In the context of frameworks, what does \"SOC 2\" refer to?",
+   "choices": [
+    "An audit report on a service provider's controls (AICPA)",
+    "The second version of the NIST Cybersecurity Framework",
+    "A level 2 Security Operations Center (SOC)",
+    "An ISO standard dedicated to security monitoring"
+   ],
+   "explanation": "SOC 2 is an audit report defined by the AICPA on a service provider's controls, unrelated to a Security Operations Center.",
+   "whyNot": {
+    "1": "The current version of the NIST CSF is 2.0; it is not SOC 2.",
+    "2": "This is the classic trap: SOC 2 is not a SOC level.",
+    "3": "It is not an ISO standard."
+   }
+  }
  ]
 }

@@ -282,8 +282,13 @@ class SearchIndex {
                 chapterId: c.id,
                 questionId: q.id,
               ),
-              [q.prompt],
-              [...q.choices, q.explanation],
+              [q.prompt, ?q.en?.prompt],
+              [
+                ...q.choices,
+                q.explanation,
+                ...?q.en?.choices,
+                ?q.en?.explanation,
+              ],
             ),
           );
         }

@@ -8,6 +8,7 @@ import 'notebook/note_box.dart';
 import 'notebook/page_kit.dart';
 import 'notebook/palette.dart';
 import 'notebook/typography.dart';
+import 'bilingual.dart';
 import 'quiz_page.dart';
 import 'widgets.dart';
 
@@ -207,7 +208,11 @@ class QuizResultPage extends StatelessWidget {
                       ),
                       initiallyExpanded: !byId[q.id]!.correct && isExam,
                       children: [
-                        Text(q.prompt, style: Hand.bodyText(context)),
+                        BiLines(
+                          en: q.en?.prompt,
+                          fr: q.prompt,
+                          style: Hand.bodyText(context),
+                        ),
                         const SizedBox(height: 8),
                         QuestionCorrection(
                           question: q,

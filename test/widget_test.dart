@@ -627,7 +627,7 @@ void main() {
       4,
       (i) => i,
     ).firstWhere((i) => !single.correct.contains(i));
-    await tester.tap(find.text(single.choices[wrong]));
+    await tester.tap(find.text('🇫🇷 ${single.choices[wrong]}'));
     await tester.pump();
     await tester.tap(find.text('Valider'));
     await tester.pumpAndSettle();
@@ -643,7 +643,7 @@ void main() {
 
     // Question 2 : toutes les bonnes réponses.
     for (final c in multiple.correct) {
-      await tester.tap(find.text(multiple.choices[c]));
+      await tester.tap(find.text('🇫🇷 ${multiple.choices[c]}'));
       await tester.pump();
     }
     await tester.tap(find.text('Valider'));
@@ -682,7 +682,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Valider'), findsNothing);
     expect(find.textContaining('⏱'), findsOneWidget);
-    await tester.tap(find.text(q.choices[q.correct.first]));
+    await tester.tap(find.text('🇫🇷 ${q.choices[q.correct.first]}'));
     await tester.pump();
     expect(find.text('Bonne réponse'), findsNothing);
     await tester.tap(find.text('Voir le résultat'));

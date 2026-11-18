@@ -67,11 +67,13 @@ void main() {
       final q = chapter.questions.singleWhere((q) => q.id == p.id);
       expect(q.fromTraining, isTrue);
       expect(q.correct, {p.correct});
-      // Le français d'abord, l'anglais de l'examen en dessous.
-      expect(q.prompt, startsWith(p.prompt.fr));
-      expect(q.prompt, contains(p.prompt.en));
+      // L'anglais de l'examen et le français, affichés ensemble.
+      expect(q.prompt, p.prompt.fr);
+      expect(q.en!.prompt, p.prompt.en);
       expect(q.choices, hasLength(p.choices.length));
+      expect(q.en!.choices, [for (final c in p.choices) c.en]);
       expect(q.explanation, contains(p.explanation.fr));
+      expect(q.en!.explanation, contains(p.explanation.en));
       expect(library.examQuestions.map((e) => e.id), isNot(contains(p.id)));
     }
     // Lot du 16/11 : questions 1 à 5 dans le chapitre « risques ».
@@ -120,9 +122,10 @@ void main() {
           ),
         );
     await tester.pumpAndSettle();
-    expect(find.text(q.prompt), findsOneWidget);
+    expect(find.text('🇫🇷 ${q.prompt}'), findsOneWidget);
+    expect(find.text('🇬🇧 ${q.en!.prompt}'), findsOneWidget);
     // Les choix sont mélangés : la bonne réponse peut être sous l'écran.
-    final right = find.text(q.choices[q.correct.single]);
+    final right = find.text('🇬🇧 ${q.en!.choices[q.correct.single]}');
     await tester.scrollUntilVisible(
       right,
       200,

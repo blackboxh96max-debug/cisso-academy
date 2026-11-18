@@ -675,5 +675,484 @@
    "illustration": "assets/illustrations/m1c2_l3_badge.svg",
    "illustrationAlt": "Drawing of an employee badge with a stylized photo, linked to a key and an exit door."
   }
+ ],
+ "questions": [
+  {
+   "id": "m1c2-q01",
+   "prompt": "The board of directors sets risk appetite and approves the security budget. This activity belongs to:",
+   "choices": [
+    "Operational management",
+    "Governance",
+    "SOC operations",
+    "External audit"
+   ],
+   "explanation": "Setting direction, risk appetite and resources, then overseeing, is the role of governance.",
+   "whyNot": {
+    "0": "Management implements the direction; it does not set it.",
+    "2": "The SOC operates detection and response measures; it does not set strategy.",
+    "3": "External audit verifies independently; it does not run the organization."
+   }
+  },
+  {
+   "id": "m1c2-q02",
+   "prompt": "Who bears ultimate responsibility for information security in a company?",
+   "choices": [
+    "The CISO",
+    "Senior management",
+    "The CIO",
+    "The SOC manager"
+   ],
+   "explanation": "Ultimate responsibility (accountability) belongs to senior management, which sets the objectives and allocates resources. The CISO steers and advises.",
+   "whyNot": {
+    "0": "The CISO steers the program and reports, but is not ultimately accountable.",
+    "2": "The CIO runs the information system; the CIO is not ultimately accountable for the organization's security.",
+    "3": "The SOC manager is in charge of detection and response, not of overall accountability."
+   }
+  },
+  {
+   "id": "m1c2-q03",
+   "prompt": "A company entrusts patching to a managed service provider. What remains with the company?",
+   "choices": [
+    "Only legal responsibility, not operational responsibility",
+    "Nothing: responsibility is transferred by the contract",
+    "Accountability for the result",
+    "Responsibility for carrying out the patching"
+   ],
+   "explanation": "The task (responsibility) is delegated to the provider, but the company remains accountable for the result (accountability).",
+   "whyNot": {
+    "0": "This split makes no sense here: the company remains accountable for the overall result, including the operational result toward its customers.",
+    "1": "Accountability cannot be transferred by contract.",
+    "3": "Carrying out the work is precisely what was delegated to the provider."
+   }
+  },
+  {
+   "id": "m1c2-q04",
+   "prompt": "Before choosing a hosting provider, a company examines its certifications, audit reports and past incidents. It is exercising:",
+   "choices": [
+    "Separation of duties",
+    "Risk acceptance",
+    "Due diligence",
+    "Due care"
+   ],
+   "explanation": "Getting informed and assessing before deciding is due diligence.",
+   "whyNot": {
+    "0": "Separation of duties splits a sensitive task among several people.",
+    "1": "No risk is being accepted here: the company is getting informed.",
+    "3": "Due care means acting and maintaining reasonable measures, not investigating."
+   }
+  },
+  {
+   "id": "m1c2-q05",
+   "prompt": "A company has known for six months that an exposed server has a critical flaw, but does nothing. An incident occurs. Which principle did it mainly fail?",
+   "choices": [
+    "Need to know",
+    "Due care",
+    "Due diligence",
+    "Job rotation"
+   ],
+   "explanation": "It knew about the risk (diligence took place) but did not act reasonably: this is a lack of due care, comparable to negligence.",
+   "whyNot": {
+    "0": "Need to know limits access to information; it is not at issue.",
+    "2": "The flaw was known: the effort to find out was made.",
+    "3": "Job rotation is an anti-fraud measure unrelated to this case."
+   }
+  },
+  {
+   "id": "m1c2-q06",
+   "prompt": "Why is it often recommended that the CISO should not report to the CIO?",
+   "choices": [
+    "To give the CISO access to administrator passwords",
+    "Because the law forbids this reporting line in every country",
+    "So that the CISO can manage the IT budget",
+    "To avoid a conflict of interest when the CISO must report IT department shortcomings"
+   ],
+   "explanation": "The CISO oversees and sometimes challenges the IT department's choices (deadlines, patches, exceptions). An independent reporting line protects the CISO's freedom to report risks.",
+   "whyNot": {
+    "0": "The reporting line has nothing to do with access to accounts; the CISO does not need these passwords anyway.",
+    "1": "There is no general legal ban: it is an organizational good practice.",
+    "2": "Managing the IT budget is not the goal; the security budget can in any case remain separate."
+   }
+  },
+  {
+   "id": "m1c2-q07",
+   "prompt": "Which actor independently verifies that security controls exist and work?",
+   "choices": [
+    "The data custodian",
+    "The risk owner",
+    "The SOC",
+    "Internal audit"
+   ],
+   "explanation": "Internal audit provides senior management with independent assurance on the effectiveness of controls.",
+   "whyNot": {
+    "0": "The custodian applies the measures; it cannot audit itself.",
+    "1": "The owner decides how its risks are treated; it is not the independent verification body.",
+    "2": "The SOC operates detective controls; it is not independent of how they work."
+   }
+  },
+  {
+   "id": "m1c2-q08",
+   "prompt": "Which of these activities belong to security governance? (2 answers)",
+   "choices": [
+    "Configuring the SIEM correlation rules",
+    "Tracking major risks and the progress of the security plan in the executive committee",
+    "Approving the information security policy",
+    "Applying monthly patches to servers"
+   ],
+   "explanation": "Approving the policy and overseeing risks and the action plan are direction and oversight activities: governance.",
+   "whyNot": {
+    "0": "Configuring the SIEM is an operational activity (management, operations).",
+    "3": "Applying patches is an operations task."
+   }
+  },
+  {
+   "id": "m1c2-q09",
+   "prompt": "Which ISO standard specifically addresses information security governance?",
+   "choices": [
+    "ISO/IEC 27035",
+    "ISO/IEC 27005",
+    "ISO 22301",
+    "ISO/IEC 27014"
+   ],
+   "explanation": "ISO/IEC 27014 provides the principles and processes of information security governance.",
+   "whyNot": {
+    "0": "ISO/IEC 27035 covers security incident management.",
+    "1": "ISO/IEC 27005 covers information security risk management.",
+    "2": "ISO 22301 covers business continuity."
+   }
+  },
+  {
+   "id": "m1c2-q10",
+   "prompt": "At night, the SOC confirms active ransomware on a critical server. What allows the on-call analyst to isolate the server without waiting for senior management?",
+   "choices": [
+    "The verbal agreement of a colleague on the on-call team",
+    "The maintenance contract signed with the server's supplier",
+    "A response procedure approved in advance by senior management",
+    "The analyst's technical expertise and seniority"
+   ],
+   "explanation": "Governance delegates in advance, in an approved procedure, the power to act in defined cases. The analyst can thus act quickly and legitimately.",
+   "whyNot": {
+    "0": "A verbal agreement between peers is not a delegation of authority.",
+    "1": "The maintenance contract gives no decision-making power over the business.",
+    "3": "Expertise does not give the authority to stop a business activity."
+   }
+  },
+  {
+   "id": "m1c2-q11",
+   "prompt": "Who decides the classification level of a payroll file?",
+   "choices": [
+    "The file server administrator",
+    "The data owner (for example the HR director)",
+    "The CISO",
+    "Each user who opens it"
+   ],
+   "explanation": "The data owner, a business manager, sets the classification and decides on access.",
+   "whyNot": {
+    "0": "The administrator is the custodian: they apply the owner's decisions.",
+    "2": "The CISO defines the classification framework and advises, but does not classify each piece of information in place of the business.",
+    "3": "Users respect the classification; they do not set it."
+   }
+  },
+  {
+   "id": "m1c2-q12",
+   "prompt": "The IT team backs up and restores the customer database according to the rules set by the sales director. What is its role?",
+   "choices": [
+    "Custodian",
+    "Owner",
+    "Auditor",
+    "User"
+   ],
+   "explanation": "The custodian applies, day to day, the measures decided by the owner: backups, rights, encryption.",
+   "whyNot": {
+    "1": "The owner is the sales director, who sets the rules.",
+    "2": "The auditor verifies independently; the auditor does not run the backups.",
+    "3": "The user uses the data for their work; they do not administer it."
+   }
+  },
+  {
+   "id": "m1c2-q13",
+   "prompt": "What is the main purpose of information classification?",
+   "choices": [
+    "Sorting files by creation date and by department",
+    "Giving each piece of information protection proportionate to its impact",
+    "Reducing the number of servers and file shares",
+    "Encrypting all company data in the same way"
+   ],
+   "explanation": "Classification makes it possible to strongly protect what is sensitive without needlessly burdening the rest.",
+   "whyNot": {
+    "0": "Security classification is not about organizing documents by date.",
+    "2": "Classification does not aim to reduce the number of systems.",
+    "3": "Encrypting everything is neither the goal nor always relevant; the level determines the measures."
+   }
+  },
+  {
+   "id": "m1c2-q14",
+   "prompt": "In the US government scheme often cited in the exam, what is the highest level?",
+   "choices": [
+    "Confidential",
+    "Top Secret",
+    "Sensitive But Unclassified",
+    "Secret"
+   ],
+   "explanation": "The order is: Top Secret, Secret, Confidential, then Sensitive But Unclassified and Unclassified.",
+   "whyNot": {
+    "0": "Confidential is the third classified level.",
+    "2": "SBU is sensitive but unclassified information.",
+    "3": "Secret is below Top Secret."
+   }
+  },
+  {
+   "id": "m1c2-q15",
+   "prompt": "An analyst cleared at \"Confidential\" level asks to read a colleague's internal investigation file, classified \"Confidential\", out of curiosity. Which principle justifies a refusal?",
+   "choices": [
+    "Job rotation",
+    "Separation of duties",
+    "Due diligence",
+    "Need to know"
+   ],
+   "explanation": "The clearance level is enough, but access must also be necessary for the job: that is need to know.",
+   "whyNot": {
+    "0": "Job rotation concerns changes of position.",
+    "1": "Separation of duties splits a sensitive operation among several people.",
+    "2": "Due diligence concerns the organization's effort to know its risks."
+   }
+  },
+  {
+   "id": "m1c2-q16",
+   "prompt": "A marketing intern is given administrator rights on their workstation \"to save time\". Which principle is violated?",
+   "choices": [
+    "Classification",
+    "Job rotation",
+    "Due care",
+    "Least privilege"
+   ],
+   "explanation": "Least privilege requires granting only the rights needed for the job. A marketing intern does not need administrator rights.",
+   "whyNot": {
+    "0": "Classification concerns information, not the rights on a workstation.",
+    "1": "Job rotation has nothing to do with this case.",
+    "2": "Due care is a general principle of organizational prudence; the specific principle violated here is least privilege."
+   }
+  },
+  {
+   "id": "m1c2-q17",
+   "prompt": "What are the responsibilities of the data owner? (2 answers)",
+   "choices": [
+    "Configuring the ACLs on the file server",
+    "Setting the classification of the information",
+    "Performing daily backups",
+    "Approving requests for access to the information"
+   ],
+   "explanation": "The owner decides: classification and access. The custodian carries out: backups and technical configuration.",
+   "whyNot": {
+    "0": "Configuring ACLs is a custodian task, according to the owner's decisions.",
+    "2": "Backups are a custodian task."
+   }
+  },
+  {
+   "id": "m1c2-q18",
+   "prompt": "Information classified \"Confidential\" 5 years ago concerns a product that has since been publicly launched. What should be done?",
+   "choices": [
+    "Reclassify it to a higher level as a precaution",
+    "Leave it \"Confidential\": a classification is permanent",
+    "Ask the owner to reclassify it to a lower level",
+    "Delete it immediately"
+   ],
+   "explanation": "Classification must be reviewed periodically. The owner can declassify information that has become public, which avoids costly and useless protections.",
+   "whyNot": {
+    "0": "Overclassifying for no reason increases costs and trivializes the high levels.",
+    "1": "A classification is not permanent: it follows the value of the information.",
+    "3": "Deletion depends on the retention rules, not on declassification."
+   }
+  },
+  {
+   "id": "m1c2-q19",
+   "prompt": "For a SOC, what is the classification of the data affected by an incident used for?",
+   "choices": [
+    "Choosing the most suitable investigation tool",
+    "Assessing the severity of the incident and the notification obligations",
+    "Calculating the retention period of the SIEM logs",
+    "Designating the analyst who will handle the ticket first"
+   ],
+   "explanation": "The more sensitive the affected data, the greater the impact; classification helps set the severity and know whether to alert senior management, the DPO or an authority.",
+   "whyNot": {
+    "0": "The choice of tool depends on the technical nature of the incident, not on classification.",
+    "2": "Log retention is set by a separate policy.",
+    "3": "Assigning an analyst depends mainly on severity and availability; classification feeds severity but designates no one."
+   }
+  },
+  {
+   "id": "m1c2-q20",
+   "prompt": "Since the 2021 reform, how many levels does France's national defense secrecy classification have?",
+   "choices": [
+    "One",
+    "Three: Confidentiel défense, Secret, Très Secret",
+    "Four",
+    "Two: Secret and Très Secret"
+   ],
+   "explanation": "Since July 1, 2021, the \"Confidentiel défense\" level has been abolished; Secret and Très Secret remain.",
+   "whyNot": {
+    "0": "There are two levels, not just one.",
+    "1": "That was the organization before the 2021 reform.",
+    "2": "France has never had four levels of national defense secrecy under this regime."
+   }
+  },
+  {
+   "id": "m1c2-q21",
+   "prompt": "In an ERP, the person who creates a new supplier cannot approve its first payment. Which principle is applied?",
+   "choices": [
+    "Need to know",
+    "Job rotation",
+    "Mandatory vacation",
+    "Separation of duties"
+   ],
+   "explanation": "Splitting a sensitive operation between two people prevents fraud by a single person: that is separation of duties.",
+   "whyNot": {
+    "0": "Need to know limits access to information.",
+    "1": "Rotation moves people between positions over time.",
+    "2": "Mandatory vacation requires an absence in order to detect fraud."
+   }
+  },
+  {
+   "id": "m1c2-q22",
+   "prompt": "From a security point of view, what is the main objective of requiring accountants to take two consecutive weeks of vacation?",
+   "choices": [
+    "Reducing payroll costs during periods of low activity",
+    "Respecting the principle of separation of duties",
+    "Allowing a replacement to uncover possible fraud",
+    "Improving their productivity when they return from vacation"
+   ],
+   "explanation": "During the absence, a replacement handles the files: fraud that required daily intervention is likely to surface. It is a detective control.",
+   "whyNot": {
+    "0": "It is not a cost-cutting measure.",
+    "1": "Separation of duties is a different principle: it splits an operation among several people.",
+    "3": "Well-being is a side benefit, not the security objective."
+   }
+  },
+  {
+   "id": "m1c2-q23",
+   "prompt": "Which situation makes it possible to bypass separation of duties?",
+   "choices": [
+    "Collusion between two people",
+    "An awareness campaign",
+    "Job rotation",
+    "Data encryption"
+   ],
+   "explanation": "If the two people who must intervene agree with each other, separation of duties no longer protects: that is collusion.",
+   "whyNot": {
+    "1": "Awareness does not bypass the measure.",
+    "2": "Rotation rather helps detect long-lasting collusion.",
+    "3": "Encryption has no effect on separation of duties."
+   }
+  },
+  {
+   "id": "m1c2-q24",
+   "prompt": "An employee leaves the company on Friday. Which measure is the most urgent?",
+   "choices": [
+    "Disable their accounts and access as soon as they leave",
+    "Archive their emails in six months",
+    "Send them the security policy",
+    "Have them fill in a satisfaction survey"
+   ],
+   "explanation": "An account left active after someone leaves (orphan account) is a classic entry point. Disabling must be immediate.",
+   "whyNot": {
+    "1": "Archiving is about retention, not protection against access.",
+    "2": "The policy must be known beforehand, during employment; on departure, the confidentiality obligations are rather recalled.",
+    "3": "An HR survey has no effect on the access risk."
+   }
+  },
+  {
+   "id": "m1c2-q25",
+   "prompt": "A simulated phishing campaign sent to all staff is an example of:",
+   "choices": [
+    "Training",
+    "Education",
+    "Corrective control",
+    "Awareness"
+   ],
+   "explanation": "It targets all staff and seeks to change behaviors: it is awareness.",
+   "whyNot": {
+    "0": "Training provides a skill tied to a job, for example a SIEM workshop for analysts.",
+    "1": "Education deepens understanding over time, for example a degree program.",
+    "2": "It is not a measure that repairs an incident."
+   }
+  },
+  {
+   "id": "m1c2-q26",
+   "prompt": "\"Number of Internet-facing servers missing a critical patch for more than 30 days.\" What type of indicator is this?",
+   "choices": [
+    "SLA",
+    "KRI",
+    "KPI",
+    "RTO"
+   ],
+   "explanation": "This indicator signals an increase in exposure, before the incident: it is a key risk indicator (KRI).",
+   "whyNot": {
+    "0": "An SLA is a contractual service level commitment.",
+    "2": "A KPI measures the performance of a process, for example the average time to patch.",
+    "3": "The RTO is the maximum acceptable downtime, in business continuity."
+   }
+  },
+  {
+   "id": "m1c2-q27",
+   "prompt": "Which indicators measure the performance of the SOC (KPIs)? (2 answers)",
+   "choices": [
+    "Number of privileged accounts without MFA",
+    "Mean time to detect an incident (MTTD)",
+    "Mean time to resolve an incident (MTTR)",
+    "Number of critical suppliers not assessed"
+   ],
+   "explanation": "MTTD and MTTR measure the effectiveness of the detection and response process: they are SOC KPIs.",
+   "whyNot": {
+    "0": "This number signals a risk exposure: it is rather a KRI.",
+    "3": "This number measures a third-party exposure: it is rather a KRI."
+   }
+  },
+  {
+   "id": "m1c2-q28",
+   "prompt": "Besides detecting fraud, what benefit does job rotation bring?",
+   "choices": [
+    "It reduces each employee's clearances to zero",
+    "It reduces dependence on a single person for a critical task",
+    "It removes the need to log employees' actions",
+    "It replaces separation of duties in sensitive processes"
+   ],
+   "explanation": "Several people know how to do a critical task: the organization depends less on a single expert.",
+   "whyNot": {
+    "0": "People keep the clearances needed for their current position.",
+    "2": "Logging is still needed to trace actions.",
+    "3": "Rotation complements separation of duties; it does not replace it."
+   }
+  },
+  {
+   "id": "m1c2-q29",
+   "prompt": "An employee has changed department three times in five years and kept all their former rights. What is this phenomenon called and which measure prevents it?",
+   "choices": [
+    "Identity theft; multi-factor authentication (MFA)",
+    "Privilege escalation; antivirus and patches on their workstation",
+    "Privilege creep; review of rights at each move",
+    "Collusion; mandatory vacation and job rotation"
+   ],
+   "explanation": "Rights accumulate with each move. It is prevented by removing unneeded rights at every change of position and by reviewing rights regularly.",
+   "whyNot": {
+    "0": "There is no identity theft: it really is the employee who holds the rights.",
+    "1": "Privilege escalation is an attack technique; here the rights were legitimately granted and then never removed.",
+    "3": "Collusion is an agreement between people; that is not the case here."
+   }
+  },
+  {
+   "id": "m1c2-q30",
+   "prompt": "When is a new employee asked to sign a non-disclosure agreement (NDA)?",
+   "choices": [
+    "Only when they leave the company",
+    "After their first security incident",
+    "When they arrive, before accessing sensitive information",
+    "Only if they work in the SOC or the IT department"
+   ],
+   "explanation": "The confidentiality commitment is signed on arrival, before the person accesses sensitive information.",
+   "whyNot": {
+    "0": "On departure, the obligations are recalled; they must exist beforehand.",
+    "1": "Waiting for an incident is too late.",
+    "3": "Anyone who accesses sensitive information is concerned, not only the SOC."
+   }
+  }
  ]
 }

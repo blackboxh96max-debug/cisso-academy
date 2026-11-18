@@ -295,6 +295,7 @@ class Question {
     required this.whyNot,
     required this.kind,
     this.fromTraining = false,
+    this.en,
   });
 
   final String id;
@@ -320,7 +321,28 @@ class Question {
   /// pas dans les examens blancs.
   final bool fromTraining;
 
+  /// Version anglaise, affichée au-dessus du français : l'anglais pour
+  /// s'entraîner comme à l'examen, le français pour comprendre.
+  final QuestionEn? en;
+
   bool get isMultiple => correct.length > 1;
+
+  /// La même question avec sa version anglaise.
+  Question withEnglish(QuestionEn? english) => Question(
+    id: id,
+    chapterId: chapterId,
+    domainId: domainId,
+    level: level,
+    concept: concept,
+    prompt: prompt,
+    choices: choices,
+    correct: correct,
+    explanation: explanation,
+    whyNot: whyNot,
+    kind: kind,
+    fromTraining: fromTraining,
+    en: english,
+  );
 
   factory Question.fromJson(Map<String, dynamic> json, String chapterId) {
     final whyNotRaw = json['whyNot'] as Map<String, dynamic>? ?? const {};
@@ -336,6 +358,31 @@ class Question {
       explanation: json['explanation'] as String,
       whyNot: whyNotRaw.map((k, v) => MapEntry(int.parse(k), v as String)),
       kind: SourceKind.parse(json['kind'] as String? ?? 'general'),
+    );
+  }
+}
+
+/// Textes anglais d'une question, dans le même ordre que le français.
+class QuestionEn {
+  const QuestionEn({
+    required this.prompt,
+    required this.choices,
+    required this.explanation,
+    this.whyNot = const {},
+  });
+
+  final String prompt;
+  final List<String> choices;
+  final String explanation;
+  final Map<int, String> whyNot;
+
+  factory QuestionEn.fromJson(Map<String, dynamic> json) {
+    final whyNotRaw = json['whyNot'] as Map<String, dynamic>? ?? const {};
+    return QuestionEn(
+      prompt: json['prompt'] as String,
+      choices: (json['choices'] as List).cast<String>(),
+      explanation: json['explanation'] as String,
+      whyNot: whyNotRaw.map((k, v) => MapEntry(int.parse(k), v as String)),
     );
   }
 }

@@ -492,6 +492,9 @@ const appNews = <(String, List<String>)>[
   (
     '18/11/2026',
     [
+      'QCM bilingues : chaque question du module 1, ses réponses et sa '
+          'correction s\'affichent en anglais, avec le français juste en '
+          'dessous. Les modules 2 à 5 suivent.',
       'Version anglaise de toutes les leçons (modules 1 à 5) : bouton EN dans la '
           'leçon, chaque mot-clé suivi de sa traduction française.',
       'L\'assistant s\'appelle maintenant « Chatbot ».',

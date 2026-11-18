@@ -108,13 +108,21 @@ class ContentLoader {
     }
     final data = jsonDecode(await read('$root/$file')) as Map<String, dynamic>;
     final fileEn = json['fileEn'] as String?;
-    final english = fileEn == null
-        ? const <Lesson>[]
-        : ((jsonDecode(await read('$root/$fileEn'))
-                      as Map<String, dynamic>)['lessons']
-                  as List)
-              .map((l) => Lesson.fromJson(l as Map<String, dynamic>))
-              .toList();
+    final dataEn = fileEn == null
+        ? const <String, dynamic>{}
+        : jsonDecode(await read('$root/$fileEn')) as Map<String, dynamic>;
+    final english = (dataEn['lessons'] as List? ?? const [])
+        .map((l) => Lesson.fromJson(l as Map<String, dynamic>))
+        .toList();
+    final questionsEn = {
+      for (final q in dataEn['questions'] as List? ?? const [])
+        (q as Map<String, dynamic>)['id'] as String: QuestionEn.fromJson(q),
+    };
+    final questions = [
+      for (final q in data['questions'] as List)
+        Question.fromJson(q as Map<String, dynamic>, id),
+    ];
+    validateEnglishQuestions(id, questions, questionsEn);
     return Chapter(
       id: id,
       moduleId: moduleId,
@@ -125,9 +133,7 @@ class ContentLoader {
       lessons: (data['lessons'] as List)
           .map((l) => Lesson.fromJson(l as Map<String, dynamic>))
           .toList(),
-      questions: (data['questions'] as List)
-          .map((q) => Question.fromJson(q as Map<String, dynamic>, id))
-          .toList(),
+      questions: [for (final q in questions) q.withEnglish(questionsEn[q.id])],
       flashcards: (data['flashcards'] as List)
           .map((f) => Flashcard.fromJson(f as Map<String, dynamic>, id))
           .toList(),
@@ -391,10 +397,32 @@ const _diagramTexts = {
   'unit',
 };
 
+/// Vérifie que chaque question anglaise répond à une question française de
+/// même forme : mêmes choix, mêmes explications des mauvais choix.
+void validateEnglishQuestions(
+  String chapterId,
+  List<Question> questions,
+  Map<String, QuestionEn> english,
+) {
+  final byId = {for (final q in questions) q.id: q};
+  for (final MapEntry(key: id, value: en) in english.entries) {
+    final fr = byId[id];
+    if (fr == null) {
+      throw FormatException('$chapterId : question anglaise inconnue $id');
+    }
+    if (en.choices.length != fr.choices.length ||
+        !en.whyNot.keys.toSet().containsAll(fr.whyNot.keys) ||
+        !fr.whyNot.keys.toSet().containsAll(en.whyNot.keys)) {
+      throw FormatException('$id : la version anglaise diffère du français');
+    }
+  }
+}
+
 /// Une question de la formation de l'apprenant, au format des QCM de
-/// chapitre : le français d'abord, l'anglais de l'examen en dessous.
+/// chapitre : l'anglais de l'examen au-dessus, le français pour comprendre.
 Question trainingQuestion(PrepQuestion q, Chapter chapter, PrepLot? lot) {
-  String both(Bi b) => b.en.trim() == b.fr.trim() ? b.fr : '${b.fr}\n${b.en}';
+  String withFormula(String text) =>
+      q.formula == null ? text : '$text\n\n${q.formula}';
   return Question(
     id: q.id,
     chapterId: chapter.id,
@@ -403,16 +431,17 @@ Question trainingQuestion(PrepQuestion q, Chapter chapter, PrepLot? lot) {
     concept: lot == null
         ? 'Question de ta formation'
         : 'Question de ta formation · ${lot.title.fr}',
-    prompt: both(q.prompt),
-    choices: [for (final c in q.choices) both(c)],
+    prompt: q.prompt.fr,
+    choices: [for (final c in q.choices) c.fr],
     correct: {q.correct},
-    explanation: [
-      q.explanation.fr,
-      if (q.formula != null) q.formula!,
-      if (q.explanation.en.trim() != q.explanation.fr.trim()) q.explanation.en,
-    ].join('\n\n'),
+    explanation: withFormula(q.explanation.fr),
     whyNot: const {},
     kind: SourceKind.general,
+    en: QuestionEn(
+      prompt: q.prompt.en,
+      choices: [for (final c in q.choices) c.en],
+      explanation: withFormula(q.explanation.en),
+    ),
     fromTraining: true,
   );
 }

@@ -731,5 +731,482 @@
     }
    ]
   }
+ ],
+ "questions": [
+  {
+   "id": "m1c4-q01",
+   "prompt": "A user types their username \"j.martin\" on the login page. Which step are they performing?",
+   "choices": [
+    "Accountability",
+    "Authorization",
+    "Authentication",
+    "Identification"
+   ],
+   "explanation": "Claiming an identity, without proving it, is identification.",
+   "whyNot": {
+    "0": "Accountability then links their actions to their identity.",
+    "1": "Authorization comes later, when the system decides on their rights.",
+    "2": "Authentication starts when they prove the identity, for example with their password."
+   }
+  },
+  {
+   "id": "m1c4-q02",
+   "prompt": "A FIDO2 security key plugged in via USB belongs to which factor?",
+   "choices": [
+    "Inherence",
+    "Possession",
+    "Location",
+    "Knowledge"
+   ],
+   "explanation": "The key is an object the user holds: it is a possession factor.",
+   "whyNot": {
+    "0": "Inherence covers biometric characteristics.",
+    "2": "Location is a context element, not the factor of this key.",
+    "3": "Knowledge covers memorized secrets (password, PIN)."
+   }
+  },
+  {
+   "id": "m1c4-q03",
+   "prompt": "Which of these combinations is genuine multifactor authentication?",
+   "choices": [
+    "Two different passwords",
+    "Password and security question",
+    "Password and PIN",
+    "Password and fingerprint"
+   ],
+   "explanation": "MFA combines factors from different categories: knowledge (password) and inherence (fingerprint).",
+   "whyNot": {
+    "0": "Two passwords are still a single factor, knowledge.",
+    "1": "The security question is also a knowledge element.",
+    "2": "Password and PIN are two knowledge elements."
+   }
+  },
+  {
+   "id": "m1c4-q04",
+   "prompt": "A fingerprint reader lets in an unregistered person. What type of error has occurred?",
+   "choices": [
+    "A false rejection (FRR, type I error)",
+    "The equal error rate (CER, or EER)",
+    "A false acceptance (FAR, type II)",
+    "An error that occurred during enrollment"
+   ],
+   "explanation": "Accepting an impostor is a false acceptance, the type II error, the most dangerous for security.",
+   "whyNot": {
+    "0": "A false rejection refuses a legitimate person.",
+    "1": "The CER is the point where FAR and FRR are equal, not a one-off error.",
+    "3": "Enrollment is the initial registration of fingerprints; that is not what happened here."
+   }
+  },
+  {
+   "id": "m1c4-q05",
+   "prompt": "To compare the accuracy of two biometric readers, which indicator is used?",
+   "choices": [
+    "The highest FRR",
+    "The highest FAR",
+    "The lowest CER (or EER)",
+    "The shortest reading time"
+   ],
+   "explanation": "The equal error rate sums up accuracy: the lower it is, the more accurate the system.",
+   "whyNot": {
+    "0": "A high FRR means many rejections of legitimate users.",
+    "1": "A high FAR means many impostors accepted.",
+    "3": "Speed is a convenience criterion, not an accuracy one."
+   }
+  },
+  {
+   "id": "m1c4-q06",
+   "prompt": "Which measure complies with current password recommendations (for example NIST SP 800-63B)?",
+   "choices": [
+    "Rejecting passwords found in known breach lists",
+    "Requiring an uppercase letter, a digit and a symbol whatever the length",
+    "Forcing a change every 30 days",
+    "Sending a password hint by email"
+   ],
+   "explanation": "Current recommendations favor length and rejecting compromised or overly common passwords.",
+   "whyNot": {
+    "1": "Arbitrary composition rules are discouraged in favor of length.",
+    "2": "Periodic changes without reason lead to predictable passwords; passwords are changed upon compromise.",
+    "3": "Hints make the attacker's job easier."
+   }
+  },
+  {
+   "id": "m1c4-q07",
+   "prompt": "Which authentication methods best resist a phishing site that relays the login in real time? (2 answers)",
+   "choices": [
+    "Passkey (WebAuthn) bound to the domain name",
+    "One-time code from an app",
+    "FIDO2 security key",
+    "One-time code received by SMS"
+   ],
+   "explanation": "FIDO2 and passkeys bind the signature to the real domain name: a fake site cannot obtain a valid response for the real one.",
+   "whyNot": {
+    "1": "An app code can also be relayed by the attacker while it is valid.",
+    "3": "An SMS code can be entered on the fake site and relayed immediately."
+   }
+  },
+  {
+   "id": "m1c4-q08",
+   "prompt": "The SIEM shows a single password attempt on each of 500 accounts, from the same source, within a few minutes. What is this?",
+   "choices": [
+    "Password spraying",
+    "MFA fatigue (notification bombing)",
+    "A brute-force attack on a single account",
+    "A Kerberos ticket replay (pass-the-ticket)"
+   ],
+   "explanation": "Few attempts on many accounts, to stay under lockout thresholds: this is spraying.",
+   "whyNot": {
+    "1": "MFA fatigue consists of sending bursts of push notifications.",
+    "2": "Brute force targets one account with many attempts.",
+    "3": "Ticket replay does not involve password attempts."
+   }
+  },
+  {
+   "id": "m1c4-q09",
+   "prompt": "Why are shared accounts (\"admin\" used by five people) a problem?",
+   "choices": [
+    "They slow down logins",
+    "They prevent backups",
+    "They are forbidden by all operating systems",
+    "They prevent attributing an action to a person"
+   ],
+   "explanation": "Without a unique identity, logs cannot show who did what: accountability is lost.",
+   "whyNot": {
+    "0": "Sharing has no effect on speed.",
+    "1": "Backups do not depend on this.",
+    "2": "Systems allow it technically; it is a bad practice."
+   }
+  },
+  {
+   "id": "m1c4-q10",
+   "prompt": "A user reports dozens of MFA notifications they did not request. Which measures reduce this risk? (2 answers)",
+   "choices": [
+    "Enabling number matching (typing the number shown on screen)",
+    "Limiting the number of notifications and alerting the SOC beyond a threshold",
+    "Increasing session lifetime",
+    "Disabling MFA for this user"
+   ],
+   "explanation": "Number matching prevents reflex approval, and limiting with an alert stops and reports the burst.",
+   "whyNot": {
+    "2": "Longer sessions do not prevent the attack and extend the use of a stolen session.",
+    "3": "Removing MFA would leave the account protected only by the password, which the attacker already has."
+   }
+  },
+  {
+   "id": "m1c4-q11",
+   "prompt": "An employee shares her folder with a colleague herself by changing the permissions. Which model is at work?",
+   "choices": [
+    "RBAC",
+    "DAC",
+    "Rule-based control",
+    "MAC"
+   ],
+   "explanation": "In discretionary access control (DAC), the owner decides the rights on their resources.",
+   "whyNot": {
+    "0": "In RBAC, rights follow the roles defined by the organization.",
+    "2": "Rule-based control applies global rules, like a firewall.",
+    "3": "In MAC, the system enforces access according to labels; the user cannot share freely."
+   }
+  },
+  {
+   "id": "m1c4-q12",
+   "prompt": "In which model are rights assigned to functions such as \"accountant\" or \"tier 1 SOC analyst\"?",
+   "choices": [
+    "ABAC",
+    "DAC",
+    "RBAC",
+    "MAC"
+   ],
+   "explanation": "RBAC assigns rights to roles, then roles to people.",
+   "whyNot": {
+    "0": "ABAC combines attributes; a role can be one of them, but the model described here is RBAC.",
+    "1": "DAC lets the owner decide.",
+    "3": "MAC relies on classification labels."
+   }
+  },
+  {
+   "id": "m1c4-q13",
+   "prompt": "A military system compares a document's \"Secret\" label with the user's clearance, and the user cannot change anything. Which model?",
+   "choices": [
+    "MAC",
+    "RBAC",
+    "DAC",
+    "Rule-based control"
+   ],
+   "explanation": "Mandatory access control (MAC) enforces access according to labels and clearances defined centrally.",
+   "whyNot": {
+    "1": "RBAC reasons in roles, not in classification levels.",
+    "2": "In DAC, the owner could change the rights.",
+    "3": "Rule-based control applies general rules without comparing clearance and classification."
+   }
+  },
+  {
+   "id": "m1c4-q14",
+   "prompt": "\"Cardiology department doctors can read their patients' records, while on duty, from a managed device.\" Which model best expresses this rule?",
+   "choices": [
+    "DAC",
+    "MAC",
+    "RBAC alone",
+    "ABAC"
+   ],
+   "explanation": "The rule combines attributes of the subject (job, department), the resource (patient) and the context (time, device): this is ABAC.",
+   "whyNot": {
+    "0": "No owner decides case by case here.",
+    "1": "Classification labels are not involved.",
+    "2": "RBAC alone cannot take time or device into account."
+   }
+  },
+  {
+   "id": "m1c4-q15",
+   "prompt": "An analyst cleared \"Confidential\" requests a \"Confidential\" file from an investigation they are not part of. Which principle justifies the refusal?",
+   "choices": [
+    "Least privilege",
+    "Default deny",
+    "Separation of duties",
+    "Need to know"
+   ],
+   "explanation": "The clearance is sufficient, but their mission does not require it: this is need to know.",
+   "whyNot": {
+    "0": "Least privilege concerns the extent of the rights granted; here the deciding criterion is the link with the mission.",
+    "1": "Default deny concerns what is not explicitly allowed.",
+    "2": "Separation of duties splits a sensitive task among several people."
+   }
+  },
+  {
+   "id": "m1c4-q16",
+   "prompt": "Which model protects confidentiality with the rules \"no read up, no write down\"?",
+   "choices": [
+    "Brewer-Nash",
+    "Clark-Wilson",
+    "Biba",
+    "Bell-LaPadula"
+   ],
+   "explanation": "Bell-LaPadula prevents reading above one's level and copying information down to a lower level.",
+   "whyNot": {
+    "0": "Brewer-Nash (Chinese Wall) prevents conflicts of interest.",
+    "1": "Clark-Wilson protects integrity through well-formed transactions and separation of duties.",
+    "2": "Biba protects integrity with the opposite rules."
+   }
+  },
+  {
+   "id": "m1c4-q17",
+   "prompt": "In the Biba model, which statements are correct? (2 answers)",
+   "choices": [
+    "It protects confidentiality",
+    "It forbids reading data at a lower integrity level",
+    "It forbids reading data at a higher level",
+    "It protects integrity"
+   ],
+   "explanation": "Biba protects integrity: no read down, no write up.",
+   "whyNot": {
+    "0": "Confidentiality is the purpose of Bell-LaPadula.",
+    "2": "Forbidding reading up is a Bell-LaPadula rule."
+   }
+  },
+  {
+   "id": "m1c4-q18",
+   "prompt": "A firewall's last rule blocks all traffic not allowed by a previous rule. Which principle is applied?",
+   "choices": [
+    "Default deny",
+    "Job rotation",
+    "Defense in depth",
+    "Need to know"
+   ],
+   "explanation": "Everything not explicitly permitted is forbidden: this is default deny (implicit deny).",
+   "whyNot": {
+    "1": "Job rotation concerns staff.",
+    "2": "Defense in depth stacks several layers of protection.",
+    "3": "Need to know concerns a person's access to information."
+   }
+  },
+  {
+   "id": "m1c4-q19",
+   "prompt": "After three department changes, an employee keeps all their former rights. Which measure best fixes this problem?",
+   "choices": [
+    "An access review and removal of rights at each transfer",
+    "Increasing their password length and enabling MFA",
+    "Giving them a unique, named administrator role",
+    "Enabling full disk encryption on their workstation"
+   ],
+   "explanation": "Privilege accumulation is handled by removing rights at transfers and through regular reviews.",
+   "whyNot": {
+    "1": "The password has no effect on the extent of rights.",
+    "2": "An administrator role would make the problem worse.",
+    "3": "Encryption protects data at rest, not access rights."
+   }
+  },
+  {
+   "id": "m1c4-q20",
+   "prompt": "Which statement correctly distinguishes rule-based control from role-based control?",
+   "choices": [
+    "Rule-based control lets the resource owner decide the rights",
+    "Rule-based control compares classification labels with clearances",
+    "Rule-based control applies the same rules to everyone, whatever their function",
+    "They are two different names for the same model"
+   ],
+   "explanation": "Rule-based control (firewall, time windows) applies the same rules to everyone; RBAC depends on the function.",
+   "whyNot": {
+    "0": "That is the principle of DAC.",
+    "1": "Labels characterize MAC.",
+    "3": "The two acronyms look alike (RBAC), but the models are different."
+   }
+  },
+  {
+   "id": "m1c4-q21",
+   "prompt": "Which protocol is designed to delegate authorization, for example letting an application access your files without knowing your password?",
+   "choices": [
+    "Kerberos",
+    "LDAP",
+    "OAuth 2.0",
+    "SAML 2.0"
+   ],
+   "explanation": "OAuth 2.0 issues access tokens that represent a delegated authorization.",
+   "whyNot": {
+    "0": "Kerberos authenticates within a domain using tickets.",
+    "1": "LDAP is a directory access protocol.",
+    "3": "SAML 2.0 is mainly used for authentication and federation through XML assertions."
+   }
+  },
+  {
+   "id": "m1c4-q22",
+   "prompt": "Which protocol adds an authentication layer (identity token) on top of OAuth 2.0?",
+   "choices": [
+    "RADIUS (network access)",
+    "OpenID Connect",
+    "Kerberos (tickets)",
+    "SAML 2.0 (XML assertions)"
+   ],
+   "explanation": "OpenID Connect builds on OAuth 2.0 and provides an ID token, in JWT format, that describes the authenticated user.",
+   "whyNot": {
+    "0": "RADIUS is a network authentication protocol, unrelated to OAuth.",
+    "2": "Kerberos works with tickets, not on top of OAuth.",
+    "3": "SAML 2.0 is a separate standard, based on XML."
+   }
+  },
+  {
+   "id": "m1c4-q23",
+   "prompt": "In a SAML federation, which party authenticates the user and issues the assertion?",
+   "choices": [
+    "The identity provider (IdP)",
+    "The service provider (SP)",
+    "The firewall",
+    "The browser"
+   ],
+   "explanation": "The identity provider authenticates the user and issues a signed assertion that the service provider accepts.",
+   "whyNot": {
+    "1": "The SP consumes the assertion; it does not issue it.",
+    "2": "The firewall plays no part in SAML.",
+    "3": "The browser often carries the assertion but does not issue it."
+   }
+  },
+  {
+   "id": "m1c4-q24",
+   "prompt": "In Kerberos, which component issues the ticket-granting ticket (TGT)?",
+   "choices": [
+    "The ticket-granting service (TGS)",
+    "The client",
+    "The authentication service (AS)",
+    "The file server"
+   ],
+   "explanation": "The client authenticates to the AS, which gives it the TGT; it will then present this TGT to the TGS.",
+   "whyNot": {
+    "0": "The TGS issues service tickets in exchange for the TGT.",
+    "1": "The client requests tickets; it does not issue them.",
+    "3": "The file server receives a service ticket; it does not issue any."
+   }
+  },
+  {
+   "id": "m1c4-q25",
+   "prompt": "A workstation's clock and the domain controller's clock are 20 minutes apart. What is the likely consequence with Kerberos?",
+   "choices": [
+    "Authentication fails, because tickets are timestamped",
+    "None, because Kerberos ignores time",
+    "The workstation takes over the domain controller role",
+    "The user's password is sent in cleartext"
+   ],
+   "explanation": "Kerberos timestamps its exchanges to limit replay; beyond the configured tolerance, authentication is refused.",
+   "whyNot": {
+    "1": "Time is, on the contrary, essential to Kerberos.",
+    "2": "A clock skew does not change a machine's role.",
+    "3": "Kerberos does not send the password over the network."
+   }
+  },
+  {
+   "id": "m1c4-q26",
+   "prompt": "Which statements about Kerberos weaknesses are correct? (2 answers)",
+   "choices": [
+    "A stolen ticket can be replayed until it expires",
+    "The KDC is a single point of failure that should be made redundant",
+    "Kerberos only works with biometrics",
+    "Kerberos transmits passwords in cleartext"
+   ],
+   "explanation": "The KDC concentrates trust and availability; a stolen ticket remains usable while it is valid (pass-the-ticket).",
+   "whyNot": {
+    "2": "Kerberos does not require any particular factor.",
+    "3": "The password is used to derive a key; it does not travel in cleartext."
+   }
+  },
+  {
+   "id": "m1c4-q27",
+   "prompt": "An administrator leaves the company tonight. Which action is the priority?",
+   "choices": [
+    "Changing the guest Wi-Fi password",
+    "Disabling their accounts and revoking their access and sessions as soon as they leave",
+    "Waiting for the next quarterly access review",
+    "Immediately deleting all their data and mailbox"
+   ],
+   "explanation": "Immediately disabling the accounts and revoking sessions closes access; data is retained according to the applicable rules.",
+   "whyNot": {
+    "0": "Guest Wi-Fi is not an administrator's most critical access.",
+    "2": "Waiting for the review leaves an active account without an owner.",
+    "3": "Deleting everything right away can destroy useful data or evidence."
+   }
+  },
+  {
+   "id": "m1c4-q28",
+   "prompt": "Which measure belongs to privileged access management (PAM)?",
+   "choices": [
+    "An antivirus with behavioral analysis on workstations",
+    "A clean desk and locked screen policy",
+    "An administrator password vault with rotation after use",
+    "A weekly backup of administration servers"
+   ],
+   "explanation": "The vault, just-in-time access and session recording are typical PAM measures.",
+   "whyNot": {
+    "0": "Antivirus protects against malware.",
+    "1": "Clean desk is a physical and organizational security measure.",
+    "3": "Backup relates to availability."
+   }
+  },
+  {
+   "id": "m1c4-q29",
+   "prompt": "What are the effects of SSO on security? (2 answers)",
+   "choices": [
+    "It removes the need for authentication",
+    "Fewer passwords to remember, so less reuse",
+    "It makes MFA unnecessary",
+    "A compromised account gives access to all connected applications"
+   ],
+   "explanation": "SSO reduces password fatigue but concentrates risk on a single authentication, which must therefore be strong.",
+   "whyNot": {
+    "0": "The user still authenticates, just once.",
+    "2": "MFA becomes, on the contrary, essential on the SSO account."
+   }
+  },
+  {
+   "id": "m1c4-q30",
+   "prompt": "The same account logs in from Paris and then, 10 minutes later, from another continent. Which detection is triggered?",
+   "choices": [
+    "Kerberoasting",
+    "Password spraying",
+    "MFA fatigue",
+    "Impossible travel"
+   ],
+   "explanation": "Two logins too far apart for such a short time indicate impossible travel: credentials or tokens were probably stolen.",
+   "whyNot": {
+    "0": "Kerberoasting targets service account tickets.",
+    "1": "Spraying targets many accounts with few attempts each.",
+    "2": "MFA fatigue shows up as bursts of notifications."
+   }
+  }
  ]
 }
