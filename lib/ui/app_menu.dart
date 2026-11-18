@@ -2,7 +2,6 @@ import 'package:material_ui/material_ui.dart';
 
 import '../app_info.dart';
 import '../app_state.dart';
-import '../models/content.dart';
 import 'about_page.dart';
 import 'assistant_page.dart';
 import 'mascot.dart';
@@ -11,14 +10,13 @@ import 'mascot_picker.dart';
 import 'notebook/look.dart';
 import 'notebook/palette.dart';
 import 'search_page.dart';
-import 'widgets.dart';
 
 /// Les actions générales de l'application : réglages, examen, à propos,
 /// réinitialisation. Elles sont proposées dans le menu ⋮ de l'accueil, dans
 /// le menu de gauche (tiroir sur téléphone, rail sur grand écran).
 enum AppAction {
   search('Recherche', Icons.search),
-  assistant('Assistant (chatbot)', Icons.forum_outlined),
+  assistant('Chatbot', Icons.forum_outlined),
   settings('Réglages', Icons.settings_outlined),
   exam('À propos de l\'examen', Icons.info_outline),
   about('À propos de l\'application', Icons.shield_outlined),
@@ -31,7 +29,7 @@ enum AppAction {
   /// Libellé court, pour le rail latéral.
   String get short => switch (this) {
     AppAction.search => 'Recherche',
-    AppAction.assistant => 'Assistant',
+    AppAction.assistant => 'Chatbot',
     AppAction.settings => 'Réglages',
     AppAction.exam => 'Examen',
     AppAction.about => 'À propos',
@@ -42,12 +40,14 @@ enum AppAction {
   bool get opensPage =>
       this == AppAction.search ||
       this == AppAction.assistant ||
+      this == AppAction.exam ||
       this == AppAction.about;
 
   /// La page ouverte par l'action, s'il y en a une.
   Widget? get page => switch (this) {
     AppAction.search => const SearchPage(),
     AppAction.assistant => const AssistantPage(),
+    AppAction.exam => const AboutPage(initialSection: AboutSection.exam),
     AppAction.about => const AboutPage(),
     _ => null,
   };
@@ -57,7 +57,7 @@ enum AppAction {
       context,
     ).push(MaterialPageRoute<void>(builder: (_) => page!)),
     AppAction.settings => showSettings(context),
-    AppAction.exam => showExamInfo(context),
+    AppAction.exam => openAbout(context, section: AboutSection.exam),
     AppAction.about => openAbout(context),
     AppAction.reset => confirmReset(context),
   };
@@ -198,7 +198,7 @@ void showSettings(BuildContext context) {
                 width: 40,
                 child: Mascot(mood: MascotMood.idle, size: 40),
               ),
-              title: const Text('Mascotte de l\'assistant'),
+              title: const Text('Mascotte du chatbot'),
               subtitle: Text(
                 '${mascotById(state.mascotId).name}, '
                 '${mascotById(state.mascotId).species}',
@@ -244,45 +244,4 @@ Future<void> confirmReset(BuildContext context) async {
   if (ok == true && context.mounted) {
     await AppScope.read(context).resetProgress();
   }
-}
-
-/// Paramètres de l'examen CISSO.
-void showExamInfo(BuildContext context) {
-  final info = AppScope.read(context).library.examInfo;
-  showDialog<void>(
-    context: context,
-    builder: (ctx) => AlertDialog(
-      title: const Text('L\'examen CISSO'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SourceBadge(SourceKind.official),
-          const SizedBox(height: 12),
-          Text(
-            '${info.questionCount} questions à choix multiples, '
-            '${info.durationMinutes} minutes, seuil de réussite '
-            '${info.passingScore}/100.',
-          ),
-          const SizedBox(height: 8),
-          Text(
-            'Source : ${info.source}, vérifiée le ${info.verifiedOn}. '
-            'Vérifiez toujours ces paramètres sur le site de MILE2 avant '
-            'de vous inscrire.',
-          ),
-          const SizedBox(height: 8),
-          const Text(
-            'Les questions de l\'application sont originales : '
-            'elles ne reproduisent pas les questions de l\'examen.',
-          ),
-        ],
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(ctx),
-          child: const Text('Fermer'),
-        ),
-      ],
-    ),
-  );
 }

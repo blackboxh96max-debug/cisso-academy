@@ -28,7 +28,7 @@ class AssistantAction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => IconButton(
-    tooltip: 'Assistant : poser une question',
+    tooltip: 'Chatbot : poser une question',
     icon: const Icon(Icons.forum_outlined),
     onPressed: () => openAssistant(context),
   );
@@ -213,7 +213,7 @@ class _AssistantPageState extends State<AssistantPage> {
     return Scaffold(
       backgroundColor: paper.background,
       appBar: AppBar(
-        title: const Text('Assistant'),
+        title: const Text('Chatbot'),
         actions: [
           IconButton(
             tooltip: 'Changer de mascotte',

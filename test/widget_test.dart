@@ -17,6 +17,7 @@ import 'package:cisso_academy/ui/mind_map_page.dart';
 import 'package:cisso_academy/ui/quiz_page.dart';
 import 'package:cisso_academy/ui/quiz_result_page.dart';
 import 'package:cisso_academy/ui/search_page.dart';
+import 'package:cisso_academy/ui/about_page.dart';
 import 'package:cisso_academy/ui/assistant_page.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
@@ -84,9 +85,60 @@ void main() {
       findsOneWidget,
     );
     expect(
-      find.text('${library.examQuestions.length} questions de QCM'),
+      find.text('${library.examQuestions.length} questions de QCM originales'),
       findsOneWidget,
     );
+    // Menu de la page : rubrique « L'examen ».
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('about-menu')),
+      -300,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await tester.tap(find.text('L\'examen'));
+    await tester.pumpAndSettle();
+    final info = library.examInfo;
+    expect(find.byKey(const Key('about-exam')), findsOneWidget);
+    expect(
+      find.text('Seuil de réussite : ${info.passingScore}/100.'),
+      findsOneWidget,
+    );
+    expect(
+      find.textContaining('${info.questionCount} questions à choix multiples'),
+      findsOneWidget,
+    );
+    final domainsTable = find.byKey(const Key('about-domains'));
+    await tester.scrollUntilVisible(
+      domainsTable,
+      300,
+      scrollable: find.byType(Scrollable).last,
+    );
+    for (final d in library.domains) {
+      expect(
+        find.descendant(of: domainsTable, matching: find.text(d.nameFr)),
+        findsOneWidget,
+      );
+    }
+    expect(library.domains.fold<int>(0, (n, d) => n + d.weight), 100);
+    final source = find.byKey(const Key('about-exam-source'));
+    await tester.scrollUntilVisible(
+      source,
+      300,
+      scrollable: find.byType(Scrollable).last,
+    );
+    expect(
+      tester.widget<Text>(source).data,
+      contains('vérifiée le 16/11/2026'),
+    );
+    // Rubrique « Nouveautés » : la plus récente en premier.
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('about-menu')),
+      -300,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await tester.tap(find.text('Nouveautés'));
+    await tester.pumpAndSettle();
+    expect(find.text(appNews.first.$1), findsOneWidget);
+    expect(tester.takeException(), isNull);
     // La version affichée est celle du pubspec.
     final pubspec = await tester.runAsync(
       () => File('pubspec.yaml').readAsString(),
@@ -192,6 +244,12 @@ void main() {
     );
     await tester.pumpAndSettle();
     expect(find.text('Créée par $appAuthor'), findsOneWidget);
+    // « À propos de l'examen » ouvre la page À propos sur sa rubrique.
+    await tester.tap(
+      find.descendant(of: rail, matching: find.byTooltip(AppAction.exam.label)),
+    );
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('about-exam')), findsOneWidget);
     // Recherche et assistant s'ouvrent depuis le menu, à côté de lui.
     for (final (a, page) in [
       (AppAction.search, SearchPage),
