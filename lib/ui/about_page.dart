@@ -492,8 +492,8 @@ const appNews = <(String, List<String>)>[
   (
     '18/11/2026',
     [
-      'Version anglaise des leçons du module 1 : bouton EN dans la leçon, '
-          'chaque mot-clé suivi de sa traduction française.',
+      'Version anglaise des leçons des modules 1 et 2 : bouton EN dans la '
+          'leçon, chaque mot-clé suivi de sa traduction française.',
       'L\'assistant s\'appelle maintenant « Chatbot ».',
       'Page À propos : menu avec L\'application, L\'examen (format, '
           'seuil, 11 domaines et leur poids) et Nouveautés.',

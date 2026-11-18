@@ -1,0 +1,827 @@
+{
+ "lessons": [
+  {
+   "id": "m2c2-l1",
+   "title": "Encryption: symmetric, asymmetric and hybrid",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m2c2_l1_cadenas.svg",
+   "illustrationAlt": "Drawing of a closed padlock between two keys: an identical blue key on both sides for symmetric, a green and orange key pair for asymmetric.",
+   "objectives": [
+    "Link each cryptographic mechanism to the security service it provides.",
+    "Compare symmetric and asymmetric encryption (speed, number of keys, uses).",
+    "Choose a suitable encryption mode and avoid ECB.",
+    "Explain why real protocols use hybrid encryption."
+   ],
+   "references": [
+    {
+     "title": "NIST FIPS 197, Advanced Encryption Standard (AES)",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-38A (block cipher modes) and SP 800-38D (GCM mode)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "What is cryptography for?"
+    },
+    {
+     "type": "text",
+     "text": "Cryptography transforms data so that it can only be read, modified without detection, or attributed by the right people. It does not protect everything: it does not guarantee availability and it is only as good as the protection of its keys."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Service",
+       "Question asked",
+       "Typical mechanism"
+      ],
+      [
+       "Confidentiality",
+       "Who can read?",
+       "Encryption (AES, RSA for a small piece of data)"
+      ],
+      [
+       "Integrity",
+       "Has the content changed?",
+       "Hashing, MAC, signature"
+      ],
+      [
+       "Authentication",
+       "Who sent it?",
+       "MAC, signature, certificate"
+      ],
+      [
+       "Non-repudiation",
+       "Can the sender deny it?",
+       "Digital signature (private key held by the sender alone)"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Kerckhoffs's principle (principe de Kerckhoffs)",
+     "text": "A cryptographic system must remain secure even if everything except the key is public. So public, proven algorithms are used, never a secret \"home-made\" algorithm."
+    },
+    {
+     "type": "heading",
+     "text": "Symmetric encryption"
+    },
+    {
+     "type": "definition",
+     "title": "Symmetric encryption (chiffrement symétrique)",
+     "text": "The same secret key is used to encrypt and decrypt. It is fast and suited to large volumes, but the key must be transmitted securely. For n people who all want to communicate in pairs, n(n-1)/2 keys are needed.",
+     "kind": "general"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Algorithm",
+       "Status",
+       "To remember"
+      ],
+      [
+       "AES",
+       "Current standard",
+       "128-bit blocks, 128, 192 or 256-bit keys"
+      ],
+      [
+       "ChaCha20",
+       "Recommended",
+       "Stream cipher, fast on mobile, used in TLS 1.3"
+      ],
+      [
+       "3DES",
+       "Retired",
+       "Old, slow, small 64-bit blocks"
+      ],
+      [
+       "DES",
+       "Broken",
+       "56-bit key, can be found by brute force"
+      ],
+      [
+       "RC4",
+       "Broken",
+       "Statistical biases, prohibited in TLS"
+      ]
+     ]
+    },
+    {
+     "type": "diagram",
+     "title": "Block cipher modes",
+     "alt": "Two-by-two grid. ECB: each block encrypted on its own, patterns remain visible, to be avoided. CBC: each block depends on the previous one, needs an unpredictable initialization vector. CTR: turns the block cipher into a stream, the counter must never repeat. GCM: encrypts and authenticates, recommended.",
+     "diagram": {
+      "type": "quadrant",
+      "xLabel": "Security",
+      "yLabel": "Modern use",
+      "cells": [
+       {
+        "emoji": "🧩",
+        "label": "CBC",
+        "detail": "chaining, unpredictable IV",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🏆",
+        "label": "GCM",
+        "detail": "encrypts AND authenticates",
+        "tone": "green"
+       },
+       {
+        "emoji": "🚫",
+        "label": "ECB",
+        "detail": "visible patterns: avoid",
+        "tone": "red"
+       },
+       {
+        "emoji": "🔢",
+        "label": "CTR",
+        "detail": "counter never reused",
+        "tone": "orange"
+       }
+      ]
+     }
+    },
+    {
+     "type": "risk",
+     "title": "The ECB trap",
+     "text": "In ECB mode, two identical blocks give two identical encrypted blocks. An image encrypted in ECB still lets you guess its shape. An auditor who sees \"AES-ECB\" in a configuration must report it."
+    },
+    {
+     "type": "heading",
+     "text": "Asymmetric encryption"
+    },
+    {
+     "type": "definition",
+     "title": "Asymmetric encryption (chiffrement asymétrique)",
+     "text": "Each person has a pair of mathematically linked keys: a public key, shared with everyone, and a private key, kept secret. What is encrypted with the public key can only be decrypted with the matching private key. It takes 2 keys per person, so 2n keys, but it is much slower than symmetric encryption.",
+     "kind": "general"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Algorithm",
+       "Based on",
+       "Use"
+      ],
+      [
+       "RSA",
+       "Difficulty of factoring a large number",
+       "Encryption of small data, signature"
+      ],
+      [
+       "Diffie-Hellman (DH, ECDH)",
+       "Discrete logarithm",
+       "Agree on a shared secret without transmitting it"
+      ],
+      [
+       "Elliptic curves (ECC)",
+       "Discrete logarithm on a curve",
+       "Same security as RSA with much shorter keys"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "\"To hide, I use the recipient's PUBLIC key. To sign, I use MY PRIVATE key.\" The private key never leaves its owner."
+    },
+    {
+     "type": "heading",
+     "text": "The best of both: hybrid encryption"
+    },
+    {
+     "type": "diagram",
+     "title": "Hybrid encryption (how TLS and encrypted messaging work)",
+     "alt": "Four-step diagram: the sender generates a random symmetric session key, encrypts the message with this key using AES, protects the session key with the recipient's public key or a Diffie-Hellman exchange, then the recipient recovers the session key with their private key and decrypts the message.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🎲",
+        "label": "Session key",
+        "detail": "random, symmetric",
+        "tone": "blue"
+       },
+       {
+        "emoji": "📦",
+        "label": "Encrypted message",
+        "detail": "with AES: fast",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🔐",
+        "label": "Protected key",
+        "detail": "public key or DH",
+        "tone": "green"
+       },
+       {
+        "emoji": "🔓",
+        "label": "Recipient",
+        "detail": "recovers the key, decrypts",
+        "tone": "orange"
+       }
+      ]
+     },
+     "kind": "practice"
+    },
+    {
+     "type": "trainerNote",
+     "text": "Remember the logic rather than the names: asymmetric solves the key distribution problem, symmetric solves the speed problem. The two are combined everywhere: HTTPS, VPN, encrypted messaging."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: the scan that finds weak suites",
+     "kind": "example",
+     "text": "The weekly configuration scan reports that an internal server still accepts TLS connections with 3DES and RC4. The L1 analyst opens a vulnerability ticket, the system team disables these suites and keeps AES-GCM and ChaCha20. The SOC adds a rule that alerts if a device negotiates a retired suite again. The scan is run on the company's own estate, with its agreement, as part of the vulnerability management program."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: I set a cryptographic policy (allowed algorithms and key sizes) and have it reviewed regularly.",
+      "Architect: I never develop my own algorithm; I use recognized, maintained libraries.",
+      "Auditor: I check the inventory of cryptographic uses and the absence of retired algorithms.",
+      "SOC analyst: encryption also hides attackers' traffic; I rely on metadata and endpoint logs."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Encryption provides confidentiality, not availability nor, on its own, non-repudiation.",
+      "Symmetric: n(n-1)/2 keys. Asymmetric: 2n keys. 10 people = 45 symmetric keys, 20 asymmetric keys.",
+      "To send a secret to Bob: Bob's PUBLIC key. Never the sender's private key.",
+      "Diffie-Hellman establishes a shared secret but authenticates no one: without authentication, it is exposed to man-in-the-middle attacks.",
+      "ECB is to be avoided; GCM encrypts and authenticates."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Services: confidentiality, integrity, authentication, non-repudiation.",
+      "Symmetric (AES, ChaCha20): fast, one shared key, n(n-1)/2 keys.",
+      "Asymmetric (RSA, ECC, DH): key pair, slow, 2n keys, solves distribution.",
+      "Hybrid: asymmetric carries a session key, symmetric encrypts the data."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m2c2-q03",
+      "m2c2-q04"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m2c2-l2",
+   "title": "Hashing, MAC and digital signature",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m2c2_l2_empreinte.svg",
+   "illustrationAlt": "Drawing of a sheet of text going through a grinder and coming out as a fingerprint, next to a signature stamp.",
+   "objectives": [
+    "List the properties of a hash function and recognize obsolete algorithms.",
+    "Store a password correctly (salt and slow function).",
+    "Tell apart hashing, MAC and signature by the services they provide.",
+    "Describe how a digital signature is created and verified."
+   ],
+   "references": [
+    {
+     "title": "NIST FIPS 180-4 (SHA-2) and FIPS 202 (SHA-3)",
+     "kind": "general"
+    },
+    {
+     "title": "NIST FIPS 186-5, Digital Signature Standard",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-63B, Digital Identity Guidelines: storage of memorized secrets",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "The fingerprint of a message"
+    },
+    {
+     "type": "definition",
+     "title": "Hash function (fonction de hachage)",
+     "text": "Function that turns a message of any size into a fixed-size fingerprint (digest). It has no key and cannot be decrypted: it is not encryption.",
+     "kind": "general"
+    },
+    {
+     "type": "practice",
+     "title": "The expected properties",
+     "kind": "general",
+     "items": [
+      "One-way: impossible to recover the message from the hash.",
+      "Second preimage resistance: impossible to find another message with the same hash as a given message.",
+      "Collision resistance: impossible to find any two messages with the same hash.",
+      "Avalanche effect: changing a single character completely changes the hash."
+     ]
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Algorithm",
+       "Size",
+       "Status"
+      ],
+      [
+       "MD5",
+       "128 bits",
+       "Easy collisions: ban for security uses"
+      ],
+      [
+       "SHA-1",
+       "160 bits",
+       "Collisions demonstrated: retired for signatures"
+      ],
+      [
+       "SHA-256 / SHA-512 (SHA-2 family)",
+       "256 / 512 bits",
+       "Recommended"
+      ],
+      [
+       "SHA-3",
+       "224 to 512 bits",
+       "Recommended, construction different from SHA-2"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "The birthday attack",
+     "text": "Finding a collision is much easier than finding a preimage: for an n-bit hash, about 2 to the power n/2 attempts are enough. That is why a 128-bit hash offers only about 64 bits of security against collisions."
+    },
+    {
+     "type": "heading",
+     "text": "Storing passwords"
+    },
+    {
+     "type": "practice",
+     "title": "The right recipe",
+     "kind": "practice",
+     "items": [
+      "Never store a password in clear text, nor reversibly encrypted.",
+      "Add a random salt unique to each account: two identical passwords give two different hashes and precomputed tables (rainbow tables) become useless.",
+      "Use a deliberately slow, tunable function: Argon2, scrypt, bcrypt or PBKDF2.",
+      "The salt is not secret: it is stored next to the hash."
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "MAC: integrity with a key"
+    },
+    {
+     "type": "definition",
+     "title": "MAC and HMAC",
+     "text": "A message authentication code (MAC) is computed with a shared secret key. HMAC combines a hash function and that key. The recipient, who has the same key, checks that the message has not changed and that it really comes from someone who holds the key.",
+     "kind": "general"
+    },
+    {
+     "type": "risk",
+     "title": "Why a MAC is not enough as proof",
+     "text": "Both parties have the same key: either one could have computed the MAC. A MAC therefore cannot prove to a third party who the author is. It does not provide non-repudiation."
+    },
+    {
+     "type": "heading",
+     "text": "The digital signature"
+    },
+    {
+     "type": "diagram",
+     "title": "Sign then verify",
+     "alt": "Five-step diagram: the sender computes the document's hash, encrypts this hash with their private key, which forms the signature, sends the document and the signature, the recipient recomputes the hash and verifies the signature with the sender's public key; if the two hashes are equal, the signature is valid.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "📄",
+        "label": "Hash",
+        "detail": "SHA-256 of the document",
+        "tone": "blue"
+       },
+       {
+        "emoji": "✍️",
+        "label": "Signature",
+        "detail": "with the sender's PRIVATE key",
+        "tone": "violet"
+       },
+       {
+        "emoji": "📨",
+        "label": "Sending",
+        "detail": "document + signature",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "🔎",
+        "label": "Verification",
+        "detail": "with the sender's PUBLIC key",
+        "tone": "orange"
+       },
+       {
+        "emoji": "✅",
+        "label": "Comparison",
+        "detail": "equal hashes = valid",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Mechanism",
+       "Integrity",
+       "Authentication",
+       "Non-repudiation",
+       "Confidentiality"
+      ],
+      [
+       "Hash alone",
+       "Yes (if the hash is protected)",
+       "No",
+       "No",
+       "No"
+      ],
+      [
+       "MAC / HMAC",
+       "Yes",
+       "Yes (key holder)",
+       "No",
+       "No"
+      ],
+      [
+       "Digital signature",
+       "Yes",
+       "Yes",
+       "Yes",
+       "No"
+      ],
+      [
+       "Encryption",
+       "No, except authenticated mode",
+       "No",
+       "No",
+       "Yes"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "\"Hash = fingerprint, MAC = fingerprint + shared secret, signature = fingerprint + private key.\" Only the signature prevents the sender from denying."
+    },
+    {
+     "type": "trainerNote",
+     "text": "A signature hides nothing: the signed document remains readable. If you want confidentiality AND non-repudiation, you sign with your private key, then encrypt for the recipient."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: the binary that no longer matches",
+     "kind": "example",
+     "text": "The EDR reports that an administration utility was updated on three servers, but its digital signature is no longer valid and its SHA-256 hash does not match the one published by the vendor. The L2 analyst blocks the hash in the EDR, isolates the servers and searches for the same hash across the whole estate. The investigation shows that the file came from an unofficial download mirror."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "Developer: I only store salted hashes produced by Argon2 or bcrypt.",
+      "Lawyer: only a signature linked to an identified person can serve as proof of commitment.",
+      "SOC analyst: a file's hash is the simplest indicator of compromise to share.",
+      "Auditor: MD5 and SHA-1 in a signing application are a nonconformity."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Hashing is not encryption: it cannot be \"decrypted\".",
+      "You sign with your PRIVATE key; you verify with the sender's PUBLIC key.",
+      "A MAC does not provide non-repudiation, a signature does.",
+      "The salt is not secret; it defeats precomputed tables and hides identical passwords.",
+      "Collision: two different messages, same hash. The birthday attack makes it easier."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Hashing: fixed size, one-way, collision-resistant. SHA-2 or SHA-3, not MD5 nor SHA-1.",
+      "Passwords: unique salt + slow function (Argon2, scrypt, bcrypt, PBKDF2).",
+      "MAC: integrity + authentication through a shared key, without non-repudiation.",
+      "Signature: hash signed with the private key; integrity, authentication, non-repudiation."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m2c2-q15",
+      "m2c2-q17"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m2c2-l3",
+   "title": "Certificates, PKI and key management",
+   "minutes": 35,
+   "illustration": "assets/illustrations/m2c2_l3_chaine.svg",
+   "illustrationAlt": "Drawing of three certificates linked by a chain: a root certificate with a crown at the top, an intermediate certificate in the middle, a website's certificate at the bottom.",
+   "objectives": [
+    "Describe the content of an X.509 certificate and the chain of trust.",
+    "Tell apart the roles of the certificate authority and the registration authority.",
+    "Choose between CRL and OCSP to check revocation.",
+    "Apply the key life cycle and recognize the main attacks."
+   ],
+   "references": [
+    {
+     "title": "IETF RFC 5280, X.509 certificate and CRL profile",
+     "kind": "general"
+    },
+    {
+     "title": "IETF RFC 6960 (OCSP) and RFC 8446 (TLS 1.3)",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-57 Part 1, Recommendation for Key Management",
+     "kind": "general"
+    },
+    {
+     "title": "NIST FIPS 203, 204 and 205: first post-quantum cryptography standards (2024)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "The certificate: an identity card for a public key"
+    },
+    {
+     "type": "text",
+     "text": "A public key alone does not say who it belongs to. An attacker could publish their own key while pretending to be a bank. The certificate solves this problem: a trusted authority attests, with its signature, that a public key really belongs to an identity."
+    },
+    {
+     "type": "practice",
+     "title": "What an X.509 certificate contains",
+     "kind": "general",
+     "items": [
+      "The subject (domain name, person, organization) and its public key.",
+      "The issuer: the certificate authority that signed it.",
+      "The validity period (start and end) and a serial number.",
+      "The allowed uses (signature, encryption, server authentication…).",
+      "The certificate authority's signature over the whole."
+     ]
+    },
+    {
+     "type": "important",
+     "title": "What a certificate never contains",
+     "text": "The private key. It stays with its owner, ideally in a hardware module. A certificate is public by nature."
+    },
+    {
+     "type": "heading",
+     "text": "Public key infrastructure (PKI)"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Component",
+       "Role"
+      ],
+      [
+       "Certificate authority (CA)",
+       "Signs the certificates; its private key is the PKI's most precious asset"
+      ],
+      [
+       "Registration authority (RA)",
+       "Checks the requester's identity before the CA signs; it does not sign itself"
+      ],
+      [
+       "Root CA",
+       "Top of the trust, self-signed, kept offline"
+      ],
+      [
+       "Intermediate CA",
+       "Signs certificates day to day; can be revoked without touching the root"
+      ],
+      [
+       "Certificate revocation list (CRL)",
+       "Signed, periodic list of revoked certificates"
+      ],
+      [
+       "OCSP",
+       "Online query of the status of a single certificate, in near real time"
+      ]
+     ]
+    },
+    {
+     "type": "diagram",
+     "title": "The chain of trust",
+     "alt": "Four-step diagram: the root CA, present in the browser's trust store, signs the intermediate CA; the intermediate CA signs the site's certificate; the browser receives the site's certificate and walks up the chain, checking each signature, validity and revocation up to the root.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "👑",
+        "label": "Root CA",
+        "detail": "offline, trust store",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🏢",
+        "label": "Intermediate CA",
+        "detail": "signed by the root",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🌐",
+        "label": "Site certificate",
+        "detail": "signed by the intermediate",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "🧭",
+        "label": "Browser",
+        "detail": "checks signatures, dates, revocation, name",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "memo",
+     "text": "\"The RA checks, the CA signs, the CRL lists, OCSP answers.\""
+    },
+    {
+     "type": "heading",
+     "text": "The key life cycle"
+    },
+    {
+     "type": "diagram",
+     "title": "Life cycle of a key",
+     "alt": "Six-step cycle around the words protection and traceability: generation with good randomness, secure distribution, protected storage for example in an HSM, use for the intended purpose, rotation when due, then revocation or destruction.",
+     "diagram": {
+      "type": "cycle",
+      "center": "🛡️ Protection\nand traceability",
+      "nodes": [
+       {
+        "emoji": "🎲",
+        "label": "Generation",
+        "detail": "good randomness, right size",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🚚",
+        "label": "Distribution",
+        "detail": "secure channel",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🗄️",
+        "label": "Storage",
+        "detail": "HSM, key vault",
+        "tone": "green"
+       },
+       {
+        "emoji": "⚙️",
+        "label": "Use",
+        "detail": "one purpose per key",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "🔄",
+        "label": "Rotation",
+        "detail": "when due or after an incident",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🗑️",
+        "label": "Revocation, destruction",
+        "detail": "secure erasure",
+        "tone": "red"
+       }
+      ]
+     },
+     "kind": "practice"
+    },
+    {
+     "type": "definition",
+     "title": "HSM, Hardware Security Module (module matériel de sécurité)",
+     "text": "Hardened hardware device that generates, stores and uses keys without ever exposing them in clear text. Operations are carried out inside; the private key never leaves.",
+     "kind": "practice"
+    },
+    {
+     "type": "definition",
+     "title": "Key escrow and key recovery (séquestre et recouvrement de clés)",
+     "text": "Keeping a protected copy of an ENCRYPTION key makes it possible to recover the data if the key is lost. A private SIGNATURE key is never escrowed: if someone else holds a copy, non-repudiation disappears.",
+     "kind": "practice"
+    },
+    {
+     "type": "definition",
+     "title": "Forward secrecy (confidentialité persistante)",
+     "text": "Each session uses an ephemeral key, obtained through an ephemeral Diffie-Hellman exchange (DHE or ECDHE). If the server's private key is stolen later, recorded past sessions remain unreadable. TLS 1.3 requires it.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Attacks to know"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Attack",
+       "Principle",
+       "Countermeasure"
+      ],
+      [
+       "Brute force",
+       "Try every key",
+       "Long enough keys (AES-128 at least)"
+      ],
+      [
+       "Man in the middle",
+       "Sit in between and present your own key",
+       "Verified certificates, authenticated exchange"
+      ],
+      [
+       "Downgrade",
+       "Force a weak version or suite",
+       "Disable old versions and suites"
+      ],
+      [
+       "Side channel",
+       "Measure time, power consumption, radiation",
+       "Constant-time implementations, HSM"
+      ],
+      [
+       "Collision / birthday",
+       "Two documents, same hash",
+       "SHA-2 or SHA-3"
+      ],
+      [
+       "Quantum computer (future)",
+       "Shor's algorithm would break RSA and ECC",
+       "Migrate to post-quantum cryptography (ML-KEM, ML-DSA)"
+      ]
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "The quantum risk mainly concerns asymmetric cryptography. For symmetric cryptography, the expected effect is to halve the security in bits: AES-256 is still considered solid. The immediate danger is \"harvest now, decrypt later\" for data that must stay secret for a long time."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: the certificate alert in the lab",
+     "kind": "example",
+     "text": "Simulated exercise in the training lab: a test workstation receives, on a fictitious internal portal, a certificate signed by an unknown authority. The lab proxy logs the event and the SIEM raises an \"untrusted certificate\" alert. The analyst compares the hash of the presented certificate with the expected one, finds that an interception device was placed in the test segment, and applies the playbook: segment isolation, evidence preserved, and a reminder to users never to ignore a certificate warning."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: a CA's private key is a critical asset; its compromise would invalidate every certificate it has signed.",
+      "Operations: an expired certificate is one of the most common causes of outages; I keep an inventory with expiry alerts.",
+      "Auditor: I check the root key generation ceremony, dual control and traceability.",
+      "Risk manager: data that must be protected for more than ten years must be part of the post-quantum migration plan."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "The RA checks the identity, but it is the CA that signs.",
+      "CRL = periodic list; OCSP = online answer for one certificate.",
+      "The root CA stays offline; intermediates sign day to day.",
+      "An encryption key is escrowed, never a signing key.",
+      "Compromised private key: revoke the certificate AND generate a new key pair."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "X.509 certificate: binds an identity to a public key, signed by a CA.",
+      "PKI: offline root CA, intermediate CAs, RA, CRL and OCSP.",
+      "Key life cycle: generation, distribution, storage (HSM), use, rotation, revocation and destruction.",
+      "Attacks: brute force, man in the middle, downgrade, side channels, collisions; prepare for post-quantum."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m2c2-q22",
+      "m2c2-q27"
+     ]
+    }
+   ]
+  }
+ ]
+}

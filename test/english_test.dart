@@ -32,9 +32,10 @@ void main() {
     ],
   ];
 
-  test('module 1 : chaque leçon a sa version anglaise', () {
-    final module = library.modules.firstWhere((m) => m.id == 'm1');
-    for (final c in module.chapters) {
+  test('modules 1 et 2 : chaque leçon a sa version anglaise', () {
+    for (final c in library.chapters.where(
+      (c) => c.moduleId == 'm1' || c.moduleId == 'm2',
+    )) {
       expect(
         c.lessonsEn.keys.toSet(),
         c.lessons.map((l) => l.id).toSet(),

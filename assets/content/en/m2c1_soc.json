@@ -1,0 +1,656 @@
+{
+ "lessons": [
+  {
+   "id": "m2c1-l1",
+   "title": "Principles of security operations",
+   "minutes": 25,
+   "illustration": "assets/illustrations/m2c1_l1_engrenages.svg",
+   "illustrationAlt": "Drawing of two gears turning together, one marked with a padlock, the other with a wrench: security day to day.",
+   "objectives": [
+    "Apply separation of duties, job rotation, mandatory vacation and dual control.",
+    "Describe a change management process, including in an emergency.",
+    "Explain the role of configuration baselines and of the asset inventory."
+   ],
+   "references": [
+    {
+     "title": "ISO/IEC 27002:2022, controls 5.3 (segregation of duties), 5.9 (inventory of assets), 8.9 (configuration management) and 8.32 (change management)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Security day to day"
+    },
+    {
+     "type": "text",
+     "text": "Security operations cover everything that keeps security running every day: controlling the people who act on systems, governing changes, knowing your assets and configurations, monitoring and reacting. A perfect policy is useless if these daily actions are not carried out."
+    },
+    {
+     "type": "heading",
+     "text": "Controls on people"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Control",
+       "Principle",
+       "What it prevents or reveals"
+      ],
+      [
+       "Separation of duties",
+       "A sensitive task is split between several people",
+       "Fraud carried out alone (creating a supplier AND paying it)"
+      ],
+      [
+       "Dual control (two-person control)",
+       "Two people must act together, at the same time",
+       "A lone action on a critical asset (master key, safe)"
+      ],
+      [
+       "Job rotation",
+       "People regularly change roles",
+       "Long-running fraud and dependence on a single person"
+      ],
+      [
+       "Mandatory vacation",
+       "Required absence of several consecutive days",
+       "Fraud that needs daily presence to stay hidden"
+      ],
+      [
+       "Least privilege",
+       "Only the rights needed",
+       "The damage from a compromised account or a mistake"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Key point",
+     "text": "Separation of duties forces collusion in order to commit fraud: two people have to agree. Job rotation and mandatory vacation, for their part, mainly serve to DETECT fraud that is already in place."
+    },
+    {
+     "type": "memo",
+     "text": "\"Separate to prevent, rotate to discover.\" Separation of duties and dual control = preventive; rotation and mandatory vacation = detective."
+    },
+    {
+     "type": "heading",
+     "text": "Change management"
+    },
+    {
+     "type": "diagram",
+     "title": "The path of a change",
+     "alt": "Six-step diagram: change request, impact and risk analysis, approval by the change advisory board, testing and rollback plan, implementation during a planned window, review and documentation update.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "📝",
+        "label": "Request",
+        "detail": "who, what, why",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🔍",
+        "label": "Analysis",
+        "detail": "impact and risk",
+        "tone": "violet"
+       },
+       {
+        "emoji": "✅",
+        "label": "Approval",
+        "detail": "change advisory board",
+        "tone": "green"
+       },
+       {
+        "emoji": "🧪",
+        "label": "Test",
+        "detail": "and rollback plan",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "🚀",
+        "label": "Implementation",
+        "detail": "planned window",
+        "tone": "orange"
+       },
+       {
+        "emoji": "📚",
+        "label": "Review",
+        "detail": "documentation up to date",
+        "tone": "pink"
+       }
+      ]
+     },
+     "kind": "practice"
+    },
+    {
+     "type": "definition",
+     "title": "Emergency change (changement d'urgence)",
+     "text": "Change applied without waiting for the normal process, for example to fix an exploited flaw. It is still tracked, approved by an authorized person, then regularized and reviewed afterward.",
+     "kind": "practice"
+    },
+    {
+     "type": "trainerNote",
+     "text": "In the SOC, an undeclared change often looks like an attack: a newly opened port, a service account created, a firewall rule modified. The change calendar is one of the first documents to check during triage."
+    },
+    {
+     "type": "heading",
+     "text": "Configurations and assets"
+    },
+    {
+     "type": "definition",
+     "title": "Configuration baseline (configuration de référence)",
+     "text": "Approved and documented configuration state of a system, used as a point of comparison. Any deviation (drift) must be explained by an approved change.",
+     "kind": "practice"
+    },
+    {
+     "type": "definition",
+     "title": "Asset inventory (inventaire des actifs)",
+     "text": "Up-to-date list of hardware, software, data and services, with their owner and criticality. You cannot protect what you do not know.",
+     "kind": "practice"
+    },
+    {
+     "type": "practice",
+     "title": "Good practices",
+     "kind": "practice",
+     "items": [
+      "Harden systems from a recognized guide, then freeze that configuration as the baseline.",
+      "Automatically detect configuration drift and match it against approved changes.",
+      "Reconcile the asset inventory with what the network, the EDR and the SIEM see: an unknown workstation is an alert.",
+      "Plan a rollback for every significant change."
+     ]
+    },
+    {
+     "type": "risk",
+     "title": "Shadow IT (informatique de l'ombre)",
+     "text": "A server or cloud service set up outside official channels is neither inventoried, nor patched, nor monitored. It is a classic entry point for an attacker."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: the port that opens at night",
+     "kind": "example",
+     "text": "At 2:10 a.m., the L1 analyst sees a server exposing a new administration port. The analyst checks the change calendar: no change planned. The alert is escalated to L2, who discovers that a contractor changed the configuration without a request. It was not an attack, but the deviation is handled as an incident: return to the baseline, reminder of the process to the contractor, and a new rule to detect drift."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: change management is my first safety net against mistakes and backdoors.",
+      "SOC manager: without a change calendar, my analysts lose hours on false alerts.",
+      "Auditor: I take a sample of changes and check the request, approval, test and review.",
+      "Risk manager: an asset missing from the inventory is a risk that has never been assessed."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Separation of duties (two people for two steps) ≠ dual control (two people at the same time for one action).",
+      "Job rotation and mandatory vacation are mainly DETECTIVE controls.",
+      "An emergency change does not escape the process: it is regularized afterward.",
+      "Collusion is the weak point of separation of duties."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Controls on people: separation of duties, dual control, rotation, mandatory vacation, least privilege.",
+      "Change management: request, analysis, approval, test, implementation, review.",
+      "Configuration baseline and asset inventory: know in order to protect and detect deviations."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m2c1-q02",
+      "m2c1-q05"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m2c1-l2",
+   "title": "Logging and SIEM",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m2c1_l2_entonnoir.svg",
+   "illustrationAlt": "Drawing of a funnel: at the top, many small sheets of logs; at the bottom, a single alert bell.",
+   "objectives": [
+    "Choose what to log and protect the logs (clock, integrity, retention).",
+    "Describe how a SIEM works, from collection to alert.",
+    "Tell apart true and false positives, true and false negatives.",
+    "Place UEBA and SOAR in relation to the SIEM."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-92, Guide to Computer Security Log Management",
+     "kind": "general"
+    },
+    {
+     "title": "ISO/IEC 27002:2022, controls 8.15 (logging), 8.16 (monitoring activities) and 8.17 (clock synchronization)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Logging well"
+    },
+    {
+     "type": "text",
+     "text": "A log is the record of an event: a login, a command, a change of rights, a blocked file. Without logs, there is no investigation, no detection and no evidence. But logging everything, without sorting, drowns the useful information and is expensive."
+    },
+    {
+     "type": "practice",
+     "title": "What to log first",
+     "kind": "practice",
+     "items": [
+      "Successful and failed authentications, especially on privileged accounts and remote access.",
+      "Creation, deletion and modification of accounts, groups and rights.",
+      "Configuration changes and shutdowns of security services (antivirus, EDR, logging itself).",
+      "Access to sensitive data and large exports.",
+      "Network traffic at the boundaries: firewall, proxy, DNS, VPN."
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Three conditions for a log to be useful",
+     "text": "1. Clocks are synchronized (NTP), otherwise a timeline cannot be rebuilt. 2. Logs are protected against modification (central forwarding, write-once storage, hashes). 3. The retention period is defined, according to investigation needs and legal obligations."
+    },
+    {
+     "type": "memo",
+     "text": "\"Time, Integrity, Retention\": a log with the wrong time, that can be modified or that is deleted too early proves nothing."
+    },
+    {
+     "type": "heading",
+     "text": "The SIEM, from collection to alert"
+    },
+    {
+     "type": "diagram",
+     "title": "The path of an event through a SIEM",
+     "alt": "Five-step diagram: log collection, normalization into a common format, enrichment with context, correlation according to rules, alert sent to the SOC for triage.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "📥",
+        "label": "Collection",
+        "detail": "agents, syslog, API",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🧹",
+        "label": "Normalization",
+        "detail": "a common format",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🏷️",
+        "label": "Enrichment",
+        "detail": "asset, user, reputation",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "🔗",
+        "label": "Correlation",
+        "detail": "rules and scenarios",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🚨",
+        "label": "Alert",
+        "detail": "triage by the SOC",
+        "tone": "red"
+       }
+      ]
+     }
+    },
+    {
+     "type": "definition",
+     "title": "SIEM, Security Information and Event Management (gestion des informations et des événements de sécurité)",
+     "text": "Platform that centralizes logs, normalizes them, correlates them and produces alerts. It is also used to search the history and keep records for investigations.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Correlation (corrélation)",
+     "text": "Linking several events, sometimes from different sources, to recognize a scenario. Example: ten failures then a success on the same account, followed by a VPN connection from a new country.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Good alert or false alert?"
+    },
+    {
+     "type": "diagram",
+     "title": "The four outcomes of a detection",
+     "alt": "Two-by-two grid. Real attack without an alert: false negative, the most dangerous. Real attack with an alert: true positive. No attack and no alert: true negative. No attack but an alert: false positive, which wears analysts out.",
+     "diagram": {
+      "type": "quadrant",
+      "xLabel": "Alert raised",
+      "yLabel": "Real attack",
+      "cells": [
+       {
+        "emoji": "🙈",
+        "label": "False negative",
+        "detail": "missed attack: the worst",
+        "tone": "red"
+       },
+       {
+        "emoji": "🎯",
+        "label": "True positive",
+        "detail": "good detection",
+        "tone": "green"
+       },
+       {
+        "emoji": "😴",
+        "label": "True negative",
+        "detail": "nothing to report",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🔔",
+        "label": "False positive",
+        "detail": "noise, alert fatigue",
+        "tone": "orange"
+       }
+      ]
+     }
+    },
+    {
+     "type": "trainerNote",
+     "text": "A SOC that receives thousands of false positives ends up ignoring the real ones. Tuning a rule is not a weakness: it is what makes alerts credible. But be careful, tuning that is too strict creates false negatives."
+    },
+    {
+     "type": "heading",
+     "text": "Around the SIEM"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Tool",
+       "Role",
+       "Example"
+      ],
+      [
+       "UEBA",
+       "Analysis of user and machine behavior, detection of deviations from the usual",
+       "An accountant who suddenly downloads 10 GB at 3 a.m."
+      ],
+      [
+       "SOAR",
+       "Orchestration and automation of the response, using playbooks",
+       "Isolate a workstation and block an address as soon as an alert is confirmed"
+      ],
+      [
+       "EDR / XDR",
+       "Detection and response on endpoints (EDR), extended to several sources (XDR)",
+       "Stop a suspicious encryption process on a workstation"
+      ]
+     ]
+    },
+    {
+     "type": "risk",
+     "title": "Erased logs",
+     "text": "An attacker who obtains administration rights often tries to erase local logs to hide their tracks. Real-time forwarding to a central SIEM, and an alert when logs are cleared, defeat this technique."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: the clock that runs late",
+     "kind": "example",
+     "text": "During an investigation, the team rebuilds the timeline of an intrusion. The firewall logs place the suspicious connection at 2:02 p.m., the server logs at 1:55 p.m.: the server was no longer synchronized. It takes hours to realign the events. Measures taken: NTP mandatory on all systems, an alert on clock drift, and a check of each source's time when it is connected to the SIEM."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: I fund the SIEM to detect fast, not to store terabytes that nobody reads.",
+      "SOC manager: every rule must have a purpose, a handling procedure and a tracked false-positive rate.",
+      "Auditor: I check the retention period, the protection of logs and clock synchronization.",
+      "Risk manager: a false negative on a critical scenario is a residual risk to document."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "False positive = alert without an attack; false negative = attack without an alert (the most dangerous).",
+      "The SIEM detects and correlates; SOAR automates the response.",
+      "Without clock synchronization, correlation and the timeline are distorted.",
+      "Logs must have their integrity protected: a log that can be modified has no value as evidence."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Log what is useful: authentications, rights, configuration, sensitive data, network boundaries.",
+      "Synchronized time, protected integrity, defined retention.",
+      "SIEM: collection, normalization, enrichment, correlation, alert.",
+      "True/false positive, true/false negative; UEBA, SOAR, EDR/XDR around the SIEM."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m2c1-q12",
+      "m2c1-q14"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m2c1-l3",
+   "title": "The SOC: organization, triage, hunting and indicators",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m2c1_l3_soc.svg",
+   "illustrationAlt": "Drawing of a monitoring desk with three screens: a curve, a map and a red alert, with a headset in front.",
+   "objectives": [
+    "Describe how a SOC is organized (levels 1, 2 and 3) and its roles.",
+    "Carry out the triage of an alert with a playbook.",
+    "Tell apart IOC and IOA, and place threat hunting and MITRE ATT&CK.",
+    "Monitor a SOC with indicators such as MTTD and MTTR."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-61 Rev. 3, Incident Response Recommendations and Considerations for Cybersecurity Risk Management",
+     "kind": "general"
+    },
+    {
+     "title": "MITRE ATT&CK, knowledge base of attack tactics and techniques",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "How a SOC is organized"
+    },
+    {
+     "type": "diagram",
+     "title": "The path of an alert",
+     "alt": "Four-step diagram: the alert arrives, the level 1 analyst sorts and qualifies it, the level 2 analyst investigates and contains, level 3 handles complex cases, hunting and detection engineering.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🚨",
+        "label": "Alert",
+        "detail": "SIEM, EDR, user",
+        "tone": "red"
+       },
+       {
+        "emoji": "🧑‍💻",
+        "label": "Level 1",
+        "detail": "sort and qualify",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🕵️",
+        "label": "Level 2",
+        "detail": "investigate, contain",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🧠",
+        "label": "Level 3",
+        "detail": "complex cases, hunting",
+        "tone": "green"
+       }
+      ]
+     },
+     "text": "Around them: the detection engineer (rules), the threat intelligence analyst (CTI) and the SOC manager."
+    },
+    {
+     "type": "definition",
+     "title": "Triage",
+     "text": "First analysis of an alert: is it founded, how severe is it, should it be escalated? Triage relies on context (asset, user, history) and on a playbook.",
+     "kind": "practice"
+    },
+    {
+     "type": "definition",
+     "title": "Playbook, also called runbook",
+     "text": "Written procedure that describes step by step how to handle a type of alert: checks, decisions, containment actions, people to notify. It makes handling fast and consistent.",
+     "kind": "practice"
+    },
+    {
+     "type": "memo",
+     "text": "The 3 triage questions: \"Is it real? Is it serious? Who do I hand it over to?\""
+    },
+    {
+     "type": "heading",
+     "text": "Detecting better: indicators and hunting"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Concept",
+       "What it is",
+       "Example"
+      ],
+      [
+       "IOC (indicator of compromise)",
+       "Trace of an attack that is already known",
+       "Hash of a malicious file, IP address of a command server"
+      ],
+      [
+       "IOA (indicator of attack)",
+       "Behavior that reveals an ongoing attack, whatever the tool",
+       "A word processor that launches a command interpreter"
+      ],
+      [
+       "Threat hunting",
+       "Proactive search, starting from a hypothesis, for attacks that the alerts did not see",
+       "\"Is an attacker using scheduled tasks to persist?\""
+      ],
+      [
+       "MITRE ATT&CK",
+       "Public base of tactics and techniques observed among attackers",
+       "Measure which techniques our rules cover"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Key point",
+     "text": "An IOC (address, hash) is easy to change: the attacker changes address in a few minutes. A behavior (IOA, ATT&CK technique) is much harder for them to change. Detecting behaviors hinders the attacker more."
+    },
+    {
+     "type": "trainerNote",
+     "text": "Hunting starts with a hypothesis, not with an alert. If the hunt finds something, a new detection rule is derived from it: that is how the SOC improves."
+    },
+    {
+     "type": "heading",
+     "text": "Steering a SOC"
+    },
+    {
+     "type": "diagram",
+     "title": "Average SOC times (example)",
+     "alt": "Bar chart with example figures: mean time to detect 6 hours, mean time to qualify 1 hour, mean time to respond 4 hours.",
+     "diagram": {
+      "type": "bars",
+      "unit": " h",
+      "bars": [
+       {
+        "label": "MTTD",
+        "value": 6,
+        "tone": "orange"
+       },
+       {
+        "label": "Qualification",
+        "value": 1,
+        "tone": "blue"
+       },
+       {
+        "label": "MTTR",
+        "value": 4,
+        "tone": "green"
+       }
+      ]
+     },
+     "text": "Example figures. MTTD: mean time between the start of an incident and its detection. MTTR: mean time to respond to it (contain and remediate). The lower they go, the better."
+    },
+    {
+     "type": "practice",
+     "title": "Other useful indicators",
+     "kind": "practice",
+     "items": [
+      "False-positive rate per rule, to know what to tune.",
+      "Coverage of the priority ATT&CK techniques by at least one tested rule.",
+      "Share of critical sources connected to the SIEM without collection gaps.",
+      "Number of pending alerts and time to pick them up."
+     ]
+    },
+    {
+     "type": "risk",
+     "title": "Alert fatigue",
+     "text": "Too many unreliable alerts exhaust analysts: they work fast, skip steps, and a real attack goes unnoticed. Tuning, automation and task rotation are the remedies."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: the macro that launches PowerShell",
+     "kind": "example",
+     "text": "The EDR reports that a word-processing document launched PowerShell on an assistant's workstation. The L1 applies the \"execution from a document\" playbook: checks the email sender, the file hash and the outbound connections. The connection to an unknown address confirms the alert. The L1 isolates the workstation through the EDR and escalates to L2, who finds the same email in 12 other mailboxes, deletes it everywhere and blocks the domain. L3 turns the case into a hunting rule on the matching ATT&CK technique."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: I track MTTD and MTTR every month and compare them with the targets set with management.",
+      "SOC manager: my playbooks are reviewed after every significant incident.",
+      "Auditor: I check that every critical alert was handled, with a timestamp and a decision.",
+      "Risk manager: the SOC shortens incidents, and therefore their impact; it is a detective and corrective control."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "IOC = known trace (address, hash); IOA = attack behavior.",
+      "Threat hunting is proactive and starts from a hypothesis; triage reacts to an alert.",
+      "MTTD measures detection, MTTR the response.",
+      "The SOC is mainly a detective control, with a corrective part (containment)."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "L1 sorts, L2 investigates and contains, L3 handles the complex cases, hunts and improves detection.",
+      "Playbooks for fast and consistent handling.",
+      "IOC, IOA, threat hunting, MITRE ATT&CK.",
+      "Indicators: MTTD, MTTR, false positives, coverage, connected sources."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m2c1-q21",
+      "m2c1-q24"
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -37,10 +37,10 @@
     {
       "id": "m2", "number": 2, "title": "Opérations de sécurité et cryptographie", "titleEn": "Security Operations and Cryptography",
       "chapters": [
-        {"id": "m2c1", "title": "Opérations de sécurité, journalisation, SIEM et SOC", "titleEn": "Security Operations, Logging, SIEM and SOC", "domains": ["operations-security"], "file": "m2c1_soc.json"},
-        {"id": "m2c2", "title": "Cryptographie, signatures, certificats et PKI", "titleEn": "Cryptography, Digital Signatures, Certificates and PKI", "domains": ["cryptography"], "file": "m2c2_crypto.json"},
-        {"id": "m2c3", "title": "Gestion des vulnérabilités et des correctifs", "titleEn": "Vulnerability and Patch Management", "domains": ["operations-security"], "file": "m2c3_vulnerabilites.json"},
-        {"id": "m2c4", "title": "Cryptographie : histoire, quantique et innovations", "titleEn": "Cryptography: History, Quantum and Advancements", "domains": ["cryptography"], "file": "m2c4_crypto_avancee.json"}
+        {"id": "m2c1", "title": "Opérations de sécurité, journalisation, SIEM et SOC", "titleEn": "Security Operations, Logging, SIEM and SOC", "domains": ["operations-security"], "file": "m2c1_soc.json", "fileEn": "en/m2c1_soc.json"},
+        {"id": "m2c2", "title": "Cryptographie, signatures, certificats et PKI", "titleEn": "Cryptography, Digital Signatures, Certificates and PKI", "domains": ["cryptography"], "file": "m2c2_crypto.json", "fileEn": "en/m2c2_crypto.json"},
+        {"id": "m2c3", "title": "Gestion des vulnérabilités et des correctifs", "titleEn": "Vulnerability and Patch Management", "domains": ["operations-security"], "file": "m2c3_vulnerabilites.json", "fileEn": "en/m2c3_vulnerabilites.json"},
+        {"id": "m2c4", "title": "Cryptographie : histoire, quantique et innovations", "titleEn": "Cryptography: History, Quantum and Advancements", "domains": ["cryptography"], "file": "m2c4_crypto_avancee.json", "fileEn": "en/m2c4_crypto_avancee.json"}
       ]
     },
     {
