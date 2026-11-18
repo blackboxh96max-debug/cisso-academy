@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:material_ui/material_ui.dart';
 
 import '../app_state.dart';
@@ -13,6 +16,11 @@ import 'notebook/note_box.dart';
 import 'notebook/page_kit.dart';
 import 'notebook/palette.dart';
 import 'notebook/typography.dart';
+import 'theme.dart';
+import 'widgets.dart';
+import '../logic/quiz_engine.dart';
+
+part 'prep_exam.dart';
 
 /// Ouvre la préparation à l'examen.
 void openExamPrep(BuildContext context) =>
@@ -63,7 +71,9 @@ class _ExamPrepPageState extends State<ExamPrepPage> {
           child: Text(
             'Elles sont rangées à part des questions de l\'application : '
             'elles ne comptent ni dans tes statistiques ni dans les examens '
-            'blancs. ${prep.lots.length} séance(s), ${all.length} question(s).',
+            'blancs de l\'onglet QCM, mais elles ont leur propre examen blanc '
+            'ci-dessous. ${prep.lots.length} séance(s), ${all.length} '
+            'question(s).',
             style: Hand.noteText(context),
           ),
         ),
@@ -78,6 +88,10 @@ class _ExamPrepPageState extends State<ExamPrepPage> {
               onPressed: () => _practice(context, 'Toutes les séances', all),
             ),
           ),
+        if (all.isNotEmpty) ...[
+          const SizedBox(height: 4),
+          _PrepExamBox(questions: all),
+        ],
         const SizedBox(height: 14),
         SegmentedButton<_View>(
           showSelectedIcon: false,

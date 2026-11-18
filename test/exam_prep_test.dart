@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:cisso_academy/app_state.dart';
 import 'package:cisso_academy/content/content_loader.dart';
@@ -193,5 +194,121 @@ void main() {
     await tester.tap(find.text('Fiche').first);
     await tester.pumpAndSettle();
     expect(find.text('Question 1'), findsOneWidget);
+  });
+
+  test('examen blanc de la formation : tailles et tirage', () {
+    expect(prepExamSizes(0, 100), isEmpty);
+    expect(prepExamSizes(15, 100), [15]);
+    expect(prepExamSizes(60, 100), [20, 50, 60]);
+    expect(prepExamSizes(250, 100), [20, 50, 100]);
+    final all = library.examPrep.questions;
+    final drawn = drawPrepExam(all, 5, Random(1));
+    expect(drawn, hasLength(5));
+    expect(drawn.toSet(), hasLength(5));
+    expect(all.toSet().containsAll(drawn), isTrue);
+  });
+
+  testWidgets('examen blanc de la formation : correction à la fin', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(400, 860) * 2;
+    tester.view.devicePixelRatio = 2;
+    addTearDown(tester.view.reset);
+    final state = AppState(library: library, store: MemoryProgressStore());
+    await tester.runAsync(state.refresh);
+    await tester.pumpWidget(CissoAcademyApp(state: state));
+    await tester.pumpAndSettle();
+    await tester.tap(
+      find.descendant(
+        of: find.byType(NavigationBar),
+        matching: find.text('QCM'),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Préparation examen'));
+    await tester.pumpAndSettle();
+    final start = find.text('Démarrer l\'examen blanc');
+    await tester.scrollUntilVisible(
+      start,
+      200,
+      scrollable: find
+          .descendant(
+            of: find.byType(ExamPrepPage),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(start);
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 500));
+    expect(find.byType(PrepExamPage), findsOneWidget);
+    expect(find.byKey(const Key('prep-exam-timer')), findsOneWidget);
+    final page = tester.widget<PrepExamPage>(find.byType(PrepExamPage));
+    final n = page.questions.length;
+    expect(n, library.examPrep.questions.length);
+    // Durée au rythme de l'examen réel.
+    expect(
+      page.timeLimit,
+      Duration(seconds: (library.examInfo.secondsPerQuestion * n).round()),
+    );
+
+    // Bonne réponse à la première question : aucune correction affichée.
+    final q = page.questions.first;
+    final good = find.textContaining(
+      q.choices[q.correct].en,
+      findRichText: true,
+      skipOffstage: false,
+    );
+    await tester.ensureVisible(good.first);
+    await tester.pump(const Duration(milliseconds: 300));
+    await tester.tap(good.first);
+    await tester.pump(const Duration(milliseconds: 300));
+    expect(find.textContaining('Bonne réponse'), findsNothing);
+
+    final finish = find.text('Terminer l\'examen', skipOffstage: false);
+    await tester.ensureVisible(finish);
+    await tester.pump(const Duration(milliseconds: 300));
+    await tester.tap(finish);
+    await tester.pump(const Duration(milliseconds: 500));
+    // Questions sans réponse : confirmation.
+    expect(find.text('Terminer l\'examen ?'), findsOneWidget);
+    final confirm = find.widgetWithText(FilledButton, 'Terminer');
+    expect(confirm, findsOneWidget);
+    await tester.tap(confirm);
+    await tester.pump(const Duration(milliseconds: 500));
+    final score = tester.widget<Text>(find.byKey(const Key('prep-exam-score')));
+    expect(score.data, startsWith('1 / $n'));
+    expect(find.text('📚 À retravailler'), findsOneWidget);
+    expect(find.text('Par chapitre'), findsOneWidget);
+    // Toujours hors statistiques.
+    final answers = await tester.runAsync(state.store.answers);
+    expect(answers, isEmpty);
+  });
+
+  testWidgets('examen blanc de la formation : fin au temps écoulé', (
+    tester,
+  ) async {
+    final state = AppState(library: library, store: MemoryProgressStore());
+    await tester.runAsync(state.refresh);
+    await tester.pumpWidget(
+      AppScope(
+        state: state,
+        child: MaterialApp(
+          home: PrepExamPage(
+            questions: library.examPrep.questions.take(3).toList(),
+            timeLimit: const Duration(seconds: 2),
+            passingScore: 62,
+          ),
+        ),
+      ),
+    );
+    expect(find.byKey(const Key('prep-exam-timer')), findsOneWidget);
+    // Le chronomètre compare l'heure réelle : on laisse passer le temps.
+    await tester.runAsync(() => Future.delayed(const Duration(seconds: 3)));
+    await tester.pump(const Duration(seconds: 1));
+    await tester.pump(const Duration(seconds: 1));
+    expect(find.textContaining('(temps écoulé)'), findsOneWidget);
+    expect(find.text('Correction'), findsOneWidget);
   });
 }
