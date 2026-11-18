@@ -854,5 +854,480 @@
   "Compliance program: designated officer, inventory of obligations, policies, training, audits, reporting, disciplinary rules, corrections.",
   "Ethics: codes of ethics (e.g., the (ISC)² canons: society, honesty and legality, competent service, profession); RFC 1087; never counterattack; intended channels.",
   "Pairs not to confuse: common law/civil law; criminal/civil; ECPA/SCA; patent/trade secret; controller/processor; due care/due diligence."
+ ],
+ "questions": [
+  {
+   "id": "m5c3-q01",
+   "prompt": "Which legal system relies mainly on judges' decisions and precedent?",
+   "choices": [
+    "Customary law",
+    "Common law",
+    "Codified civil law",
+    "Religious law"
+   ],
+   "explanation": "In common law, case law makes the law; in civil law, the codes do.",
+   "whyNot": {
+    "0": "It relies on customs.",
+    "2": "It relies on written codes.",
+    "3": "It relies on religious texts."
+   }
+  },
+  {
+   "id": "m5c3-q02",
+   "prompt": "Which branch of law deals with offenses against society and can lead to prison?",
+   "choices": [
+    "Criminal law",
+    "Contract law",
+    "Civil law",
+    "Administrative law"
+   ],
+   "explanation": "Criminal law punishes harm to society; civil law compensates for a loss.",
+   "whyNot": {
+    "1": "A branch of civil law.",
+    "2": "It aims at compensation between parties.",
+    "3": "It concerns regulators."
+   }
+  },
+  {
+   "id": "m5c3-q03",
+   "prompt": "In the American tradition, which standard of proof does a criminal trial require?",
+   "choices": [
+    "No particular standard",
+    "Preponderance of the evidence",
+    "Beyond a reasonable doubt",
+    "Mere suspicion"
+   ],
+   "explanation": "Criminal cases require more than civil cases, where a preponderance of the evidence is enough.",
+   "whyNot": {
+    "0": "False.",
+    "1": "That is the civil standard.",
+    "3": "Not enough."
+   }
+  },
+  {
+   "id": "m5c3-q04",
+   "prompt": "Which U.S. law targets the intentional interception of electronic communications while they are being transmitted?",
+   "choices": [
+    "HIPAA, on health data",
+    "The Digital Millennium Copyright Act (DMCA)",
+    "The Sarbanes-Oxley Act (SOX)",
+    "The Electronic Communications Privacy Act (ECPA)"
+   ],
+   "explanation": "The ECPA (Wiretap Act) governs interception in transit; the Stored Communications Act covers stored communications.",
+   "whyNot": {
+    "0": "Health data.",
+    "1": "Copyright.",
+    "2": "Financial reporting."
+   }
+  },
+  {
+   "id": "m5c3-q05",
+   "prompt": "Which law requires U.S. public companies to have internal controls over financial reporting?",
+   "choices": [
+    "GLBA (customers of financial institutions)",
+    "HIPAA (health data)",
+    "Sarbanes-Oxley (SOX)",
+    "CAN-SPAM (commercial email)"
+   ],
+   "explanation": "SOX (2002) followed the accounting scandals and aims at reliable financial statements.",
+   "whyNot": {
+    "0": "Data of financial institutions' customers.",
+    "1": "Health.",
+    "3": "Commercial email."
+   }
+  },
+  {
+   "id": "m5c3-q06",
+   "prompt": "Why is PCI DSS not a law?",
+   "choices": [
+    "Because it is a standard imposed by contract",
+    "Because it was repealed and replaced by the GDPR",
+    "Because it is optional for all companies",
+    "Because it only applies to European merchants"
+   ],
+   "explanation": "Merchants are bound by it through their card acceptance contracts.",
+   "whyNot": {
+    "1": "It is in force.",
+    "2": "It is mandatory by contract.",
+    "3": "It is international."
+   }
+  },
+  {
+   "id": "m5c3-q07",
+   "prompt": "Which practice does the CAN-SPAM Act require of senders of commercial email?",
+   "choices": [
+    "Hiding the sender's postal address to protect their privacy",
+    "Honoring opt-out requests within the required time frame (10 business days)",
+    "Blocking any opt-out for 90 days after sign-up",
+    "Using catchy subject lines, even misleading ones, to increase open rates"
+   ],
+   "explanation": "It also requires a valid postal address and prohibits misleading subject lines.",
+   "whyNot": {
+    "0": "The address must be included.",
+    "2": "Prohibited.",
+    "3": "Prohibited."
+   }
+  },
+  {
+   "id": "m5c3-q08",
+   "prompt": "In France, which law punishes fraudulent access to, or remaining in, an automated data processing system?",
+   "choices": [
+    "The ISO/IEC 27001 standard on the ISMS",
+    "The Godfrain Act (Criminal Code, Art. 323-1 et seq.)",
+    "The Digital Millennium Copyright Act (DMCA)",
+    "The U.S. CAN-SPAM Act on email"
+   ],
+   "explanation": "It also punishes hindering the operation of a system and altering data.",
+   "whyNot": {
+    "0": "A voluntary standard, not a criminal law.",
+    "2": "A U.S. copyright law.",
+    "3": "A U.S. email law."
+   }
+  },
+  {
+   "id": "m5c3-q09",
+   "prompt": "Which international treaty aims to harmonize computer offenses and make cooperation between states easier?",
+   "choices": [
+    "The PCI DSS standard of the payment card networks",
+    "The General Data Protection Regulation (GDPR)",
+    "The (ISC)² Code of Ethics",
+    "The Budapest Convention on Cybercrime (2001)"
+   ],
+   "explanation": "Adopted within the Council of Europe, it is open to non-European states.",
+   "whyNot": {
+    "0": "A contractual standard.",
+    "1": "Data protection, not offenses.",
+    "2": "A code of ethics."
+   }
+  },
+  {
+   "id": "m5c3-q10",
+   "prompt": "After an intrusion, the company files a complaint and seeks compensation for its loss. Which legal avenues are being used? (several answers)",
+   "choices": [
+    "A simple notification to the antivirus vendor",
+    "Criminal proceedings against the perpetrator",
+    "A patent proceeding",
+    "A civil action for damages"
+   ],
+   "explanation": "Both avenues can coexist for the same facts.",
+   "whyNot": {
+    "0": "That is not a legal avenue.",
+    "2": "Unrelated."
+   }
+  },
+  {
+   "id": "m5c3-q11",
+   "prompt": "Which protection grants an exclusive right of exploitation for about 20 years over an invention, in exchange for its publication?",
+   "choices": [
+    "The patent",
+    "The trade secret",
+    "Copyright",
+    "The trademark"
+   ],
+   "explanation": "The invention is published; when the term ends, it falls into the public domain.",
+   "whyNot": {
+    "1": "Nothing is published.",
+    "2": "It protects the expression of a work.",
+    "3": "It protects a distinctive sign."
+   }
+  },
+  {
+   "id": "m5c3-q12",
+   "prompt": "What does copyright protect?",
+   "choices": [
+    "A new and inventive industrial process",
+    "The expression of a work, not the idea",
+    "The idea itself, whatever its form",
+    "A product name or a commercial logo"
+   ],
+   "explanation": "Two programs can implement the same idea without copying each other.",
+   "whyNot": {
+    "0": "That is the patent.",
+    "2": "Ideas are not protected.",
+    "3": "That is the trademark."
+   }
+  },
+  {
+   "id": "m5c3-q13",
+   "prompt": "How long does the protection of a trade secret last?",
+   "choices": [
+    "10 years, with no possible renewal",
+    "20 years from filing",
+    "The life of the author plus 70 years",
+    "As long as the information remains secret"
+   ],
+   "explanation": "Reasonable measures are required: NDAs, access control, labeling.",
+   "whyNot": {
+    "0": "Inaccurate.",
+    "1": "Patent.",
+    "2": "Copyright."
+   }
+  },
+  {
+   "id": "m5c3-q14",
+   "prompt": "Which protection can last indefinitely if it is used and renewed?",
+   "choices": [
+    "The patent",
+    "None",
+    "The trademark",
+    "Copyright"
+   ],
+   "explanation": "It is renewed in periods (10 years in the EU).",
+   "whyNot": {
+    "0": "Limited duration.",
+    "1": "The trademark allows it.",
+    "3": "Limited duration."
+   }
+  },
+  {
+   "id": "m5c3-q15",
+   "prompt": "Who determines the purposes and means of processing personal data?",
+   "choices": [
+    "The hosting provider, alone",
+    "The processor",
+    "The controller",
+    "The data subject"
+   ],
+   "explanation": "The processor acts on the controller's behalf, under a contract.",
+   "whyNot": {
+    "0": "It is generally a processor.",
+    "1": "It carries out the processing.",
+    "3": "They have rights, not this role."
+   }
+  },
+  {
+   "id": "m5c3-q16",
+   "prompt": "Which GDPR principle requires collecting only the data needed for the purpose?",
+   "choices": [
+    "Portability",
+    "Data minimization",
+    "Storage limitation",
+    "Transparency only"
+   ],
+   "explanation": "Less data, less risk.",
+   "whyNot": {
+    "0": "A right of the individual.",
+    "2": "It concerns duration, not quantity.",
+    "3": "A separate principle."
+   }
+  },
+  {
+   "id": "m5c3-q17",
+   "prompt": "How can personal data be lawfully transferred to a country without an adequacy decision?",
+   "choices": [
+    "With no particular condition, as long as the customer is informed",
+    "It is always prohibited, with no possible exception",
+    "Only with the verbal consent of each customer concerned",
+    "With appropriate safeguards, such as standard contractual clauses"
+   ],
+   "explanation": "Standard clauses or binding corporate rules, with a risk assessment.",
+   "whyNot": {
+    "0": "The GDPR regulates these transfers.",
+    "1": "Mechanisms exist.",
+    "2": "Not enough."
+   }
+  },
+  {
+   "id": "m5c3-q18",
+   "prompt": "What became of the Privacy Shield between the EU and the United States?",
+   "choices": [
+    "Replaced in 2021 by the Safe Harbor, which is more protective",
+    "Invalidated in 2020, replaced in 2023 by the Data Privacy Framework",
+    "Incorporated into the PCI DSS standard for payment data",
+    "Still in force, with no change since 2016"
+   ],
+   "explanation": "The Safe Harbor itself had been invalidated in 2015.",
+   "whyNot": {
+    "0": "The Safe Harbor came earlier.",
+    "2": "Unrelated.",
+    "3": "Invalidated."
+   }
+  },
+  {
+   "id": "m5c3-q19",
+   "prompt": "Which of these are among the OECD privacy principles? (several answers)",
+   "choices": [
+    "Collection limitation",
+    "Individual participation",
+    "Purpose specification",
+    "Mandatory publication of the data"
+   ],
+   "explanation": "The eight principles also include data quality, use limitation, security safeguards, openness and accountability.",
+   "whyNot": {
+    "3": "Contrary to privacy."
+   }
+  },
+  {
+   "id": "m5c3-q20",
+   "prompt": "What is the role of the data protection officer (DPO)?",
+   "choices": [
+    "Administering the firewalls and network access",
+    "Advising, monitoring and liaising with the supervisory authority",
+    "Negotiating the sale of customer files to partners",
+    "Developing the applications that process the data"
+   ],
+   "explanation": "It is mandatory in certain cases set out in Article 37 of the GDPR.",
+   "whyNot": {
+    "0": "A separate technical role.",
+    "2": "Absurd.",
+    "3": "Unrelated."
+   }
+  },
+  {
+   "id": "m5c3-q21",
+   "prompt": "What does due care mean?",
+   "choices": [
+    "Transferring all risks to an insurer",
+    "Buying the most expensive security tool on the market",
+    "Implementing the measures a prudent person would take",
+    "Doing nothing as long as no incident has occurred"
+   ],
+   "explanation": "Doing what is right: patches, training, suitable controls.",
+   "whyNot": {
+    "0": "That is only one treatment option.",
+    "1": "Cost does not make for prudence.",
+    "3": "That is negligence."
+   }
+  },
+  {
+   "id": "m5c3-q22",
+   "prompt": "Assessing a supplier's security before signing, then auditing it every year, falls under what?",
+   "choices": [
+    "Due diligence",
+    "Negligence (lack of care)",
+    "Copyright on the contract",
+    "Entrapment"
+   ],
+   "explanation": "Finding out and checking continuously.",
+   "whyNot": {
+    "1": "It is the opposite.",
+    "2": "Unrelated.",
+    "3": "Unrelated."
+   }
+  },
+  {
+   "id": "m5c3-q23",
+   "prompt": "A company does not apply a critical patch that has been known for a year, and a leak results. How should this be described?",
+   "choices": [
+    "Good practice, because the patch could have broken a service",
+    "Force majeure, because the attack was unforeseeable",
+    "Formal risk acceptance by management",
+    "Negligence, for lack of due care"
+   ],
+   "explanation": "A prudent person would have fixed or compensated for the flaw.",
+   "whyNot": {
+    "0": "No.",
+    "1": "The event was foreseeable.",
+    "2": "There is no documented decision."
+   }
+  },
+  {
+   "id": "m5c3-q24",
+   "prompt": "Which element is essential to an effective compliance program?",
+   "choices": [
+    "Removing disciplinary rules",
+    "Letting each department define its own legal obligations",
+    "A designated compliance officer",
+    "Avoiding internal audits"
+   ],
+   "explanation": "They oversee and report; audits and disciplinary rules complete the setup.",
+   "whyNot": {
+    "0": "It weakens the program.",
+    "1": "Inconsistent.",
+    "3": "Audits are essential."
+   }
+  },
+  {
+   "id": "m5c3-q25",
+   "prompt": "Faced with an ethical dilemma, which priority should be kept according to the usual codes of ethics?",
+   "choices": [
+    "Act alone without telling anyone",
+    "Choose the most profitable option",
+    "Satisfy your employer first, whatever they ask",
+    "Protect society and the common good, while staying lawful and honest"
+   ],
+   "explanation": "For example, the first canon of (ISC)² is the protection of society.",
+   "whyNot": {
+    "0": "The intended channels are used.",
+    "1": "That is not an ethical criterion.",
+    "2": "Not at the expense of the law or of society."
+   }
+  },
+  {
+   "id": "m5c3-q26",
+   "prompt": "An analyst discovers that an external site is attacking their company. Which response is ethical and lawful?",
+   "choices": [
+    "Block, document and report through the intended channels",
+    "Publish the attacker's data on social media",
+    "Launch a counterattack to take the site down",
+    "Ignore the attack as long as it does not succeed"
+   ],
+   "explanation": "A counterattack is generally illegal and can hit innocent third parties.",
+   "whyNot": {
+    "1": "Legal risk.",
+    "2": "Illegal.",
+    "3": "Lack of diligence."
+   }
+  },
+  {
+   "id": "m5c3-q27",
+   "prompt": "According to RFC 1087, which activities are unethical? (several answers)",
+   "choices": [
+    "Seeking unauthorized access",
+    "Compromising users' privacy",
+    "Wasting resources",
+    "Applying patches"
+   ],
+   "explanation": "It also cites disrupting the intended use of the Internet and destroying the integrity of information.",
+   "whyNot": {
+    "3": "That is good practice."
+   }
+  },
+  {
+   "id": "m5c3-q28",
+   "prompt": "Why must executives get involved in security?",
+   "choices": [
+    "It is not necessary: the CISO alone bears all the responsibility",
+    "Because the law forbids technicians from making security decisions",
+    "Because security is free if management supports it",
+    "Because they can be held liable if they do not exercise due care"
+   ],
+   "explanation": "Governance and accountability go all the way up to management.",
+   "whyNot": {
+    "0": "It is necessary.",
+    "1": "False.",
+    "2": "False."
+   }
+  },
+  {
+   "id": "m5c3-q29",
+   "prompt": "A poorly protected server is used as a relay to attack a partner. What legal risk does the organization face?",
+   "choices": [
+    "None, since it is itself a victim of the attack",
+    "Losing its patents on the server's software",
+    "Being held liable toward that third party",
+    "Only a fine under the CAN-SPAM Act"
+   ],
+   "explanation": "A failure of due care can make it liable.",
+   "whyNot": {
+    "0": "It can be both a victim and liable.",
+    "1": "Unrelated.",
+    "3": "Unrelated."
+   }
+  },
+  {
+   "id": "m5c3-q30",
+   "prompt": "Which elements are part of a compliance program? (several answers)",
+   "choices": [
+    "Staff training",
+    "Having no written policy",
+    "An inventory of legal and contractual obligations",
+    "Regular audits"
+   ],
+   "explanation": "Along with a designated officer, policies, a reporting channel and tracked corrections.",
+   "whyNot": {
+    "1": "Written policies are essential."
+   }
+  }
  ]
 }

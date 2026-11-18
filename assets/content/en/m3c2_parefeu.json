@@ -857,5 +857,483 @@
   "Wi-Fi: WEP broken, WPA (TKIP) withdrawn, WPA2 (AES-CCMP), WPA3 (SAE, protected management frames). Enterprise = 802.1X; Personal = passphrase.",
   "Wireless attacks: rogue access point, evil twin (countermeasure: verified server certificate), deauthentication, wardriving, bluejacking, bluesnarfing.",
   "False friends: hiding the SSID, MAC filtering, NAT: no real protection."
+ ],
+ "questions": [
+  {
+   "id": "m3c2-q01",
+   "prompt": "What should the last rule of a well-configured firewall be?",
+   "choices": [
+    "Deny all",
+    "Allow web traffic",
+    "Allow all",
+    "Log without deciding"
+   ],
+   "explanation": "Whatever is not explicitly allowed is denied: the final rule is \"deny all\".",
+   "whyNot": {
+    "1": "Web traffic must be allowed by an explicit rule, higher up.",
+    "2": "Allowing everything defeats the purpose of the firewall.",
+    "3": "A rule must decide; logging is added to the decision."
+   }
+  },
+  {
+   "id": "m3c2-q02",
+   "prompt": "Which type of firewall keeps track of open connections so that it only accepts expected replies?",
+   "choices": [
+    "Stateful firewall",
+    "Stateless packet filtering",
+    "DNS server",
+    "Hub"
+   ],
+   "explanation": "The stateful firewall keeps a connection table and accepts the replies that match it.",
+   "whyNot": {
+    "1": "Without state, each packet is judged on its own, with no memory of connections.",
+    "2": "A DNS server resolves names; it does not filter traffic.",
+    "3": "A hub filters nothing."
+   }
+  },
+  {
+   "id": "m3c2-q03",
+   "prompt": "Where should the company's public web server be placed?",
+   "choices": [
+    "In the internal network, near the workstations",
+    "In a DMZ",
+    "In the administrators' VLAN",
+    "Directly on the Internet with no firewall"
+   ],
+   "explanation": "Servers reachable from the Internet go in a DMZ, isolated from the internal network.",
+   "whyNot": {
+    "0": "Its compromise would open the internal network directly.",
+    "2": "The administrators' VLAN is one of the most sensitive zones.",
+    "3": "Without a firewall, it would be exposed on all its ports."
+   }
+  },
+  {
+   "id": "m3c2-q04",
+   "prompt": "Which control can block a SQL injection sent in an allowed HTTPS request to the website?",
+   "choices": [
+    "Packet filtering on port 443",
+    "A dedicated VLAN",
+    "A web application firewall (WAF)",
+    "NAT"
+   ],
+   "explanation": "The WAF reads the HTTP content (layer 7) and recognizes injection patterns. The other controls only see addresses and ports.",
+   "whyNot": {
+    "0": "It allows or denies port 443 without reading the request.",
+    "1": "A VLAN separates traffic but does not read requests.",
+    "3": "NAT translates addresses; it does not read the content."
+   }
+  },
+  {
+   "id": "m3c2-q05",
+   "prompt": "A rule \"allow the whole internal network to the Internet\" is placed at the top, above a rule \"deny workstation X to the Internet\". What happens to workstation X?",
+   "choices": [
+    "The firewall reports a conflict and blocks everything",
+    "It is blocked, because the most specific rule always wins",
+    "It is allowed, because the first matching rule applies",
+    "It depends on the time of day"
+   ],
+   "explanation": "Rules are read from top to bottom and the first match applies: the broad rule hides the specific one.",
+   "whyNot": {
+    "0": "The firewall does not arbitrate: it applies the order.",
+    "1": "Most firewalls apply the first matching rule, not the most specific one.",
+    "3": "There is no notion of time in these rules."
+   }
+  },
+  {
+   "id": "m3c2-q06",
+   "prompt": "A colleague says: \"We have NAT, so we don't need filtering rules.\" What is the right answer?",
+   "choices": [
+    "NAT hides addresses but does not replace filtering",
+    "NAT replaces the IDS by reporting suspicious connections",
+    "They are right, because NAT blocks every attack coming from the Internet",
+    "NAT encrypts traffic between the internal network and the Internet"
+   ],
+   "explanation": "NAT translates addresses; only the filtering policy decides what gets through, inbound and outbound.",
+   "whyNot": {
+    "1": "NAT detects nothing.",
+    "2": "Port forwarding and outbound traffic get through despite NAT.",
+    "3": "NAT encrypts nothing."
+   }
+  },
+  {
+   "id": "m3c2-q07",
+   "prompt": "Why also filter outbound traffic?",
+   "choices": [
+    "To limit exfiltration and connections to a C2 server",
+    "To speed up Internet access by reducing the number of flows",
+    "Because inbound filtering has become useless with TLS",
+    "To avoid having to log inbound connections"
+   ],
+   "explanation": "A workstation or server only needs a few outbound flows; blocking the rest hinders exfiltration and remote control.",
+   "whyNot": {
+    "1": "Filtering does not speed up traffic.",
+    "2": "Inbound filtering remains essential.",
+    "3": "On the contrary, outbound denials must be logged."
+   }
+  },
+  {
+   "id": "m3c2-q08",
+   "prompt": "What is the main advantage of a DMZ placed between two firewalls from different vendors?",
+   "choices": [
+    "It makes network address translation (NAT) unnecessary",
+    "It removes the need to patch the firewalls",
+    "A flaw specific to one vendor is not enough to get through both barriers",
+    "It doubles the available bandwidth to the Internet"
+   ],
+   "explanation": "Two different firewalls force the attacker to exploit two separate flaws: this is defense in depth applied to the perimeter.",
+   "whyNot": {
+    "0": "NAT is an addressing matter, independent of this.",
+    "1": "Patches are still needed on both.",
+    "3": "Adding a device does not increase bandwidth."
+   }
+  },
+  {
+   "id": "m3c2-q09",
+   "prompt": "The web server in the DMZ must read an internal database. Which rule is the most appropriate?",
+   "choices": [
+    "Place the database in the DMZ, next to the web server, with no filtering",
+    "Allow only the web server to the database, on its port, with logging",
+    "Allow the whole internal network to the DMZ and vice versa, all ports",
+    "Allow the DMZ to the whole internal network, to avoid blockages"
+   ],
+   "explanation": "A precise flow (source, destination, port), justified and logged, limits the use of the web server as a stepping stone.",
+   "whyNot": {
+    "0": "Sensitive data would be exposed next to the public servers.",
+    "2": "Broad rules in both directions defeat the DMZ.",
+    "3": "That is exactly the stepping stone to avoid."
+   }
+  },
+  {
+   "id": "m3c2-q10",
+   "prompt": "During an audit, which finding about a firewall is the most worrying?",
+   "choices": [
+    "Logging of denied connections",
+    "Documented rules, each with an owner",
+    "An annual rule review by the CISO",
+    "An \"any to any\" rule created for a test two years ago"
+   ],
+   "explanation": "A forgotten permissive rule opens the network wide. The other three findings are good practices.",
+   "whyNot": {
+    "0": "That is a good practice.",
+    "1": "That is a good practice.",
+    "2": "That is a good practice."
+   }
+  },
+  {
+   "id": "m3c2-q11",
+   "prompt": "What is the main difference between an IDS and an IPS?",
+   "choices": [
+    "The IDS detects and alerts; the IPS is inline and can block",
+    "The IDS encrypts; the IPS decrypts",
+    "The IDS is hardware; the IPS is always software",
+    "There is no difference"
+   ],
+   "explanation": "The IDS watches a copy of the traffic and alerts; the IPS sits inline and blocks.",
+   "whyNot": {
+    "1": "Neither of them is meant to encrypt.",
+    "2": "Both exist in hardware and software form.",
+    "3": "Their position and action differ."
+   }
+  },
+  {
+   "id": "m3c2-q12",
+   "prompt": "What is a real attack that triggers no alert called?",
+   "choices": [
+    "A false negative",
+    "A true negative",
+    "A false positive",
+    "A true positive"
+   ],
+   "explanation": "False negative: there is an attack, but the tool says \"nothing\". It is the most dangerous case.",
+   "whyNot": {
+    "1": "True negative: no attack and no alert.",
+    "2": "False positive: an alert with no attack.",
+    "3": "True positive: a correctly detected attack."
+   }
+  },
+  {
+   "id": "m3c2-q13",
+   "prompt": "What is a honeypot?",
+   "choices": [
+    "A backup server isolated from the production network",
+    "An isolated decoy system with no legitimate use",
+    "A free VPN offered to visitors",
+    "An antivirus installed on exposed servers"
+   ],
+   "explanation": "Any connection to a honeypot is suspicious, since nobody has a legitimate reason to connect to it.",
+   "whyNot": {
+    "0": "A backup server contains real data.",
+    "2": "A VPN connects networks.",
+    "3": "An antivirus protects a workstation."
+   }
+  },
+  {
+   "id": "m3c2-q14",
+   "prompt": "What is the main drawback of signature-only detection?",
+   "choices": [
+    "It prevents logging",
+    "It only works on Wi-Fi",
+    "It produces a huge number of false positives",
+    "It does not detect an unknown attack (zero-day)"
+   ],
+   "explanation": "A signature describes a known attack: a new attack does not have a signature yet.",
+   "whyNot": {
+    "0": "It has no link with logging.",
+    "1": "Signatures apply to every type of traffic.",
+    "2": "That is rather the drawback of anomaly detection."
+   }
+  },
+  {
+   "id": "m3c2-q15",
+   "prompt": "Traffic to a server is encrypted end to end with TLS. Which tool will best see an attack in the content?",
+   "choices": [
+    "A hub",
+    "A NIDS on the network segment",
+    "NAT",
+    "A HIDS installed on the server"
+   ],
+   "explanation": "The HIDS watches the host, where the traffic is decrypted, as well as its logs and processes. The NIDS only sees the encrypted stream.",
+   "whyNot": {
+    "0": "A hub detects nothing.",
+    "1": "Without decryption, the NIDS cannot see the content.",
+    "2": "NAT detects nothing."
+   }
+  },
+  {
+   "id": "m3c2-q16",
+   "prompt": "In 802.1X, what is the role of the switch or the Wi-Fi access point?",
+   "choices": [
+    "Authenticator, which relays the request to the authentication server",
+    "Certificate authority, which signs the certificates",
+    "Authentication server, which checks the credentials",
+    "Supplicant, which presents its credentials"
+   ],
+   "explanation": "The supplicant is the workstation; the authenticator is the switch or access point; the authentication server is usually RADIUS.",
+   "whyNot": {
+    "1": "A certificate authority can issue certificates, but it is not an 802.1X role.",
+    "2": "The authentication server is the RADIUS server.",
+    "3": "The supplicant is the workstation."
+   }
+  },
+  {
+   "id": "m3c2-q17",
+   "prompt": "Which risk is specific to an IPS compared with an IDS?",
+   "choices": [
+    "A false positive or an outage can block legitimate traffic",
+    "It never raises an alert; it blocks silently",
+    "It cannot use signatures, only anomalies",
+    "It cannot see the traffic, because it only receives a copy"
+   ],
+   "explanation": "Sitting inline, the IPS acts on the real traffic: its mistakes and outages have a direct effect.",
+   "whyNot": {
+    "1": "It also raises alerts.",
+    "2": "IPSs make wide use of signatures.",
+    "3": "It sees all the traffic since it is inline."
+   }
+  },
+  {
+   "id": "m3c2-q18",
+   "prompt": "An IDS produces 5,000 alerts a day, almost all false positives, and the analysts no longer read them. What is the best response?",
+   "choices": [
+    "Disable the IDS until the team has more time",
+    "Tune the rules to the environment and prioritize the alerts",
+    "Ignore alerts at night and on weekends to reduce the workload",
+    "Add a second, identical IDS to confirm each alert"
+   ],
+   "explanation": "Tuning reduces the noise without losing detection; alert fatigue creates \"human\" false negatives.",
+   "whyNot": {
+    "0": "All detection would be lost.",
+    "2": "Attacks also happen at night.",
+    "3": "It would double the noise."
+   }
+  },
+  {
+   "id": "m3c2-q19",
+   "prompt": "A laptop without recent patches connects to the wired network. What can a NAC solution do?",
+   "choices": [
+    "Nothing, because NAC only looks at the workstation's IP address",
+    "Check the device's posture and quarantine it",
+    "Disable the workstation's firewall to install the patches",
+    "Delete the operating system of the noncompliant workstation"
+   ],
+   "explanation": "NAC checks the identity and compliance of the device before opening the network to it, and can quarantine it.",
+   "whyNot": {
+    "0": "NAC precisely checks identity and posture.",
+    "2": "That would be the opposite of the goal.",
+    "3": "There is no destructive action of this kind."
+   }
+  },
+  {
+   "id": "m3c2-q20",
+   "prompt": "Which statements about anomaly detection are correct? (several answers)",
+   "choices": [
+    "It compares traffic to a baseline of normal behavior",
+    "It requires a period of learning normal behavior",
+    "It can spot an attack that is still unknown",
+    "It never produces false positives"
+   ],
+   "explanation": "Anomaly detection learns what is normal, then reports deviations: it spots the unknown, at the cost of false positives.",
+   "whyNot": {
+    "3": "It often produces more of them than signatures do."
+   }
+  },
+  {
+   "id": "m3c2-q21",
+   "prompt": "Which VPN permanently connects two of the company's offices?",
+   "choices": [
+    "A remote access VPN",
+    "A clientless web portal",
+    "A site-to-site VPN",
+    "A honeypot"
+   ],
+   "explanation": "A site-to-site VPN connects two gateways, often with IPsec in tunnel mode.",
+   "whyNot": {
+    "0": "Remote access concerns a single user.",
+    "1": "The clientless portal serves a few web applications.",
+    "3": "A honeypot is a decoy."
+   }
+  },
+  {
+   "id": "m3c2-q22",
+   "prompt": "Which Wi-Fi protocol is broken and must no longer be used?",
+   "choices": [
+    "WEP",
+    "WPA3",
+    "802.1X",
+    "WPA2 with AES"
+   ],
+   "explanation": "WEP, based on RC4, can be cracked in a few minutes.",
+   "whyNot": {
+    "1": "WPA3 is the most recent standard.",
+    "2": "802.1X is an authentication method, not a broken encryption.",
+    "3": "WPA2 with AES-CCMP is still acceptable."
+   }
+  },
+  {
+   "id": "m3c2-q23",
+   "prompt": "What is the main benefit of segmenting a network?",
+   "choices": [
+    "Removing the need for passwords in each zone",
+    "Making Internet access faster for the workstations",
+    "Speeding up backups by reducing traffic",
+    "Limiting an attacker's movements and the scope of an incident"
+   ],
+   "explanation": "An attacker who compromises one zone cannot see everything else: the compromise is contained.",
+   "whyNot": {
+    "0": "Segmentation does not replace authentication.",
+    "1": "That is not its purpose.",
+    "2": "That is not its purpose."
+   }
+  },
+  {
+   "id": "m3c2-q24",
+   "prompt": "Why is split tunneling a risk?",
+   "choices": [
+    "It encrypts the traffic twice, which weakens the encryption",
+    "It prevents the workstation from reaching internal applications",
+    "It disables multifactor authentication on the gateway",
+    "The workstation connects the internal network to the Internet without protection"
+   ],
+   "explanation": "The workstation becomes a possible bridge between the Internet and the internal network.",
+   "whyNot": {
+    "0": "It does not encrypt twice.",
+    "1": "Internal applications remain reachable through the tunnel.",
+    "2": "It has no link with MFA."
+   }
+  },
+  {
+   "id": "m3c2-q25",
+   "prompt": "Why prefer Enterprise mode (802.1X) over Personal mode for a company's Wi-Fi?",
+   "choices": [
+    "It is easier to install and maintain",
+    "Individual credentials: revocation and traceability",
+    "It uses no encryption, so it is faster",
+    "It avoids having to deploy a RADIUS server"
+   ],
+   "explanation": "With a shared passphrase, an employee leaving forces you to change it everywhere; in Enterprise mode, you revoke a single account.",
+   "whyNot": {
+    "0": "It is more complex, but more secure.",
+    "2": "It encrypts the traffic.",
+    "3": "On the contrary, it relies on a RADIUS server."
+   }
+  },
+  {
+   "id": "m3c2-q26",
+   "prompt": "A rogue access point broadcasts the same network name as the company Wi-Fi. Which measure best prevents workstations from connecting to it?",
+   "choices": [
+    "Filtering the allowed MAC addresses on the access points",
+    "802.1X with verification of the authentication server's certificate",
+    "Increasing the transmit power of the legitimate access points",
+    "Hiding the SSID so that the rogue access point does not know it"
+   ],
+   "explanation": "The workstation refuses a server whose certificate is not the expected one: the rogue access point cannot pass itself off as the network.",
+   "whyNot": {
+    "0": "A MAC address can be copied.",
+    "2": "The rogue access point can be closer and stronger.",
+    "3": "A hidden SSID is easily discovered in the traffic."
+   }
+  },
+  {
+   "id": "m3c2-q27",
+   "prompt": "What does SAE bring to WPA3-Personal?",
+   "choices": [
+    "It disables protected management frames (PMF)",
+    "It replaces 802.1X and RADIUS in Enterprise mode",
+    "It resists offline dictionary attacks",
+    "It removes encryption to speed up the connection"
+   ],
+   "explanation": "With SAE, capturing the exchange is no longer enough to test passwords offline.",
+   "whyNot": {
+    "0": "On the contrary, WPA3 makes protected management frames mandatory.",
+    "1": "SAE concerns Personal mode.",
+    "3": "WPA3 encrypts the traffic."
+   }
+  },
+  {
+   "id": "m3c2-q28",
+   "prompt": "Guest workstations and servers are in two different VLANs, but the router routes freely between them. What can be concluded?",
+   "choices": [
+    "The VLANs should be removed and a single network restored",
+    "The separation is ineffective as long as inter-VLAN routing is not filtered",
+    "The separation is sufficient, since the VLANs are different",
+    "The problem comes from the guest Wi-Fi, not from routing"
+   ],
+   "explanation": "A VLAN separates traffic at layer 2; without filtering at the routing level, guests can reach the servers.",
+   "whyNot": {
+    "0": "VLANs are useful; they must be complemented by filtering.",
+    "2": "Free routing defeats the separation.",
+    "3": "The problem is routing, not the medium."
+   }
+  },
+  {
+   "id": "m3c2-q29",
+   "prompt": "In a virtualized data center, the web server should only be able to talk to its database. Which approach fits best?",
+   "choices": [
+    "Split tunneling on administration connections",
+    "Hiding the SSID of the administration network",
+    "A single large VLAN for all the data center's servers",
+    "Microsegmentation, with rules specific to each workload"
+   ],
+   "explanation": "Microsegmentation applies rules as close as possible to each server, even within the same subnet.",
+   "whyNot": {
+    "0": "Split tunneling concerns VPNs.",
+    "1": "The SSID concerns Wi-Fi.",
+    "2": "All the servers would see one another."
+   }
+  },
+  {
+   "id": "m3c2-q30",
+   "prompt": "Which measures strengthen a remote access VPN? (several answers)",
+   "choices": [
+    "One account shared by all remote workers",
+    "Multifactor authentication",
+    "Access limited to the applications needed",
+    "Fast patching of the VPN gateway"
+   ],
+   "explanation": "MFA, patching of the exposed gateway and least privilege greatly reduce the risk.",
+   "whyNot": {
+    "0": "A shared account removes traceability and individual revocation."
+   }
+  }
  ]
 }

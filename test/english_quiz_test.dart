@@ -12,10 +12,15 @@ import 'helpers.dart';
 const _officialNames = {
   'Sensitive But Unclassified',
   'FAIR (Factor Analysis of Information Risk)',
+  'Cross-site scripting (XSS)',
 };
 
-/// Modules dont les QCM de chapitre sont déjà traduits.
-const _translatedModules = ['m1'];
+/// Nombre de questions de chaque module. Un module est traduit en entier ou
+/// pas du tout : chaque PR de traduction n'ajoute que ses fichiers anglais.
+const _moduleQuestions = {'m1': 135, 'm2': 111, 'm3': 111, 'm4': 91, 'm5': 145};
+
+/// Modules dont la traduction des QCM est déjà livrée.
+const _minimumTranslated = ['m1', 'm2', 'm3', 'm4', 'm5'];
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -24,11 +29,11 @@ void main() {
   setUpAll(() async => library = await loadRealContent());
 
   Iterable<Chapter> translated() => library.chapters.where(
-    (c) => _translatedModules.any((m) => c.id.startsWith(m)),
+    (c) => c.questions.any((q) => !q.fromTraining && q.en != null),
   );
 
-  test('QCM du module 1 : chaque question a sa version anglaise', () {
-    var count = 0;
+  test('QCM traduits : chaque question a sa version anglaise', () {
+    final count = <String, int>{};
     for (final c in translated()) {
       for (final q in c.questions.where((q) => !q.fromTraining)) {
         final en = q.en;
@@ -47,10 +52,14 @@ void main() {
               t,
         ];
         expect(same, isEmpty, reason: q.id);
-        count++;
+        count.update(c.moduleId, (n) => n + 1, ifAbsent: () => 1);
       }
     }
-    expect(count, 135);
+    // Chaque module commencé est traduit en entier, chapitre par chapitre.
+    for (final MapEntry(key: module, value: n) in count.entries) {
+      expect(n, _moduleQuestions[module], reason: module);
+    }
+    expect(count.keys, containsAll(_minimumTranslated));
   });
 
   test('QCM anglais : orthographe américaine', () {

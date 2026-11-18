@@ -767,5 +767,483 @@
   "Cloud: shared responsibility; in IaaS, PaaS or SaaS, the customer remains responsible for its data and access.",
   "ZTNA: per-application access (the evolution of VPN). SASE: networking and security functions delivered as a cloud service.",
   "Pairs not to confuse: BLP/Biba; PDP/PEP; fail secure/fail safe; IaaS/PaaS/SaaS; VPN/ZTNA."
+ ],
+ "questions": [
+  {
+   "id": "m3c3-q01",
+   "prompt": "What is defense in depth?",
+   "choices": [
+    "A single, very powerful firewall placed at the network entrance",
+    "Storing backups in a protected underground room",
+    "Systematic encryption of every disk in the fleet",
+    "Independent, layered controls that compensate for one another"
+   ],
+   "explanation": "Several layers of different kinds: if one gives way, the others stop or detect the attacker.",
+   "whyNot": {
+    "0": "A single control is a single point of failure.",
+    "1": "A play on words with no connection.",
+    "2": "Encryption is only one layer among others."
+   }
+  },
+  {
+   "id": "m3c3-q02",
+   "prompt": "A service account only needs to read one table. Which principle requires giving it only that right?",
+   "choices": [
+    "Least privilege",
+    "Economy of mechanism",
+    "Open design",
+    "Fail safe"
+   ],
+   "explanation": "Least privilege gives just the rights needed, for just the time needed.",
+   "whyNot": {
+    "1": "Economy of mechanism asks you to keep things simple.",
+    "2": "Open design concerns the secrecy of the design.",
+    "3": "Fail safe concerns behavior in the event of a failure."
+   }
+  },
+  {
+   "id": "m3c3-q03",
+   "prompt": "Employee awareness training is a control from which family?",
+   "choices": [
+    "Physical",
+    "Technical",
+    "Cryptographic",
+    "Administrative"
+   ],
+   "explanation": "Policies, awareness training and procedures are administrative controls.",
+   "whyNot": {
+    "0": "Physical controls protect premises and equipment.",
+    "1": "Technical controls are implemented through technology.",
+    "2": "That is not a control family in this classification."
+   }
+  },
+  {
+   "id": "m3c3-q04",
+   "prompt": "In the event of a fire, the badge-controlled doors of a room open automatically. Which principle applies?",
+   "choices": [
+    "Fail safe, because the safety of people comes first",
+    "Least privilege, because only authorized badges are accepted",
+    "Complete mediation, because every passage is checked",
+    "Fail secure, because the information in the room is protected first"
+   ],
+   "explanation": "Human life always comes first: exits must open in an emergency.",
+   "whyNot": {
+    "1": "Least privilege concerns rights.",
+    "2": "Complete mediation concerns checking every access.",
+    "3": "Fail secure would keep the doors locked: unacceptable for people."
+   }
+  },
+  {
+   "id": "m3c3-q05",
+   "prompt": "A vendor claims its product is secure \"because nobody knows its algorithm\". Which principle is violated?",
+   "choices": [
+    "Least privilege: everyone should have only the rights they need",
+    "Separation of privilege: a sensitive action requires several conditions",
+    "Open design: security must not rely on the secrecy of the design",
+    "Secure by default: the delivered configuration must be the most secure one"
+   ],
+   "explanation": "Security through obscurity does not hold up: only the key should remain secret (Kerckhoffs).",
+   "whyNot": {
+    "0": "Least privilege concerns rights.",
+    "1": "Separation of privilege requires several conditions.",
+    "3": "Secure by default concerns the delivered configuration."
+   }
+  },
+  {
+   "id": "m3c3-q06",
+   "prompt": "A firewall fails. To protect the information, which behavior is preferable?",
+   "choices": [
+    "Let all traffic through",
+    "Restart in test mode",
+    "Disable logging",
+    "Block traffic (fail secure)"
+   ],
+   "explanation": "Fail secure blocks access rather than opening it in the event of a failure.",
+   "whyNot": {
+    "0": "That is fail open: the protection disappears.",
+    "1": "A test mode is not a secure failure behavior.",
+    "2": "Logs are valuable during an incident."
+   }
+  },
+  {
+   "id": "m3c3-q07",
+   "prompt": "Which action most directly reduces the attack surface of a server?",
+   "choices": [
+    "Adding a logon screen with a legal warning",
+    "Uninstalling unneeded services and closing unneeded ports",
+    "Renaming the server to make it less visible",
+    "Adding RAM to better withstand attacks"
+   ],
+   "explanation": "Fewer exposed services, fewer possible flaws.",
+   "whyNot": {
+    "0": "No effect on security.",
+    "2": "That is obscurity, not a real reduction.",
+    "3": "No effect on exposure."
+   }
+  },
+  {
+   "id": "m3c3-q08",
+   "prompt": "A single administrator knows the passwords of all the network devices. Which risks follow? (several answers)",
+   "choices": [
+    "Better traceability of actions",
+    "A single point of failure if this person is absent",
+    "No separation of duties or mutual oversight",
+    "Higher risk if this person acts maliciously"
+   ],
+   "explanation": "A single person who is both indispensable and all-powerful combines availability, fraud and knowledge-loss risks.",
+   "whyNot": {
+    "0": "Traceability is not improved; it depends on the logs, not on the number of people."
+   }
+  },
+  {
+   "id": "m3c3-q09",
+   "prompt": "Which option best illustrates true defense in depth?",
+   "choices": [
+    "A policy of long passwords, changed every month",
+    "An up-to-date antivirus installed on every workstation",
+    "Three identical firewalls from the same vendor, placed in series",
+    "MFA, network segmentation, EDR on the workstations and offline backups"
+   ],
+   "explanation": "Different controls, at different layers, that do not share the same weaknesses.",
+   "whyNot": {
+    "0": "A single administrative layer.",
+    "1": "A single layer, even if repeated.",
+    "2": "Three identical products share the same flaw."
+   }
+  },
+  {
+   "id": "m3c3-q10",
+   "prompt": "A new device is delivered with all services enabled and a well-known administrator password. Which principle is not followed?",
+   "choices": [
+    "Open design",
+    "Complete mediation",
+    "Secure by default",
+    "Brewer-Nash"
+   ],
+   "explanation": "The delivered configuration should be the most secure one: services closed, a unique password to change.",
+   "whyNot": {
+    "0": "Open design concerns the secrecy of the design.",
+    "1": "Complete mediation concerns checking every access.",
+    "3": "Brewer-Nash concerns conflicts of interest."
+   }
+  },
+  {
+   "id": "m3c3-q11",
+   "prompt": "What does the trusted computing base (TCB) refer to?",
+   "choices": [
+    "The list of users considered trustworthy",
+    "The internal network protected by the perimeter firewall",
+    "The service contract signed with the cloud provider",
+    "The hardware and software components on which security depends"
+   ],
+   "explanation": "If an element of the TCB is compromised, the security policy is no longer guaranteed.",
+   "whyNot": {
+    "0": "The TCB is technical, not a list of people.",
+    "1": "The internal network is not trusted in itself.",
+    "2": "A contract is not a technical component."
+   }
+  },
+  {
+   "id": "m3c3-q12",
+   "prompt": "Under Bell-LaPadula, can a user cleared for \"confidential\" read a \"secret\" document?",
+   "choices": [
+    "Yes, but they cannot print it",
+    "Yes, if they are in a hurry",
+    "No, because Biba forbids it",
+    "No: no read up"
+   ],
+   "explanation": "The Bell-LaPadula simple security rule forbids reading above your clearance level.",
+   "whyNot": {
+    "0": "Reading itself is forbidden.",
+    "1": "Urgency does not change the rule.",
+    "2": "The rule comes from Bell-LaPadula, which protects confidentiality."
+   }
+  },
+  {
+   "id": "m3c3-q13",
+   "prompt": "Which model forbids writing to data with a higher integrity level?",
+   "choices": [
+    "Biba",
+    "The OSI model",
+    "Brewer-Nash",
+    "Bell-LaPadula"
+   ],
+   "explanation": "Biba protects integrity: no read down, no write up.",
+   "whyNot": {
+    "1": "The OSI model describes networks.",
+    "2": "Brewer-Nash deals with conflicts of interest.",
+    "3": "Bell-LaPadula protects confidentiality."
+   }
+  },
+  {
+   "id": "m3c3-q14",
+   "prompt": "What does the Bell-LaPadula star (*) property mean?",
+   "choices": [
+    "No read up",
+    "No write down",
+    "No write up",
+    "No access without MFA"
+   ],
+   "explanation": "Forbidding writing down prevents copying a secret into a less protected document.",
+   "whyNot": {
+    "0": "That is the simple security rule.",
+    "2": "That is a Biba rule.",
+    "3": "MFA is not part of the model."
+   }
+  },
+  {
+   "id": "m3c3-q15",
+   "prompt": "Which model requires that accounting data only be modified by well-formed transactions, with separation of duties?",
+   "choices": [
+    "Brewer-Nash",
+    "Bell-LaPadula",
+    "Clark-Wilson",
+    "Take-Grant"
+   ],
+   "explanation": "Clark-Wilson protects commercial integrity through controlled transformation programs and separation of duties.",
+   "whyNot": {
+    "0": "Brewer-Nash concerns conflicts of interest.",
+    "1": "Bell-LaPadula concerns confidentiality.",
+    "3": "Take-Grant describes how rights are passed on, not well-formed transactions."
+   }
+  },
+  {
+   "id": "m3c3-q16",
+   "prompt": "Which model is also called the \"Chinese Wall\"?",
+   "choices": [
+    "Clark-Wilson",
+    "Brewer-Nash",
+    "Biba",
+    "Bell-LaPadula"
+   ],
+   "explanation": "Brewer-Nash prevents access to competing companies' data after viewing a client's data.",
+   "whyNot": {
+    "0": "Clark-Wilson concerns well-formed transactions.",
+    "2": "Biba concerns integrity.",
+    "3": "Bell-LaPadula concerns confidentiality."
+   }
+  },
+  {
+   "id": "m3c3-q17",
+   "prompt": "Which properties are required of a reference monitor?",
+   "choices": [
+    "Hosted in the cloud so that it is always available",
+    "Installed on each workstation and able to be disabled by the administrator",
+    "Always invoked, tamperproof and small enough to be verified",
+    "Fast, free, open source and easy to update"
+   ],
+   "explanation": "It checks every access, cannot be modified and must be possible to analyze completely.",
+   "whyNot": {
+    "0": "Its location is not a property of the concept.",
+    "1": "It precisely must not be possible to bypass it.",
+    "3": "These are not security properties."
+   }
+  },
+  {
+   "id": "m3c3-q18",
+   "prompt": "Which component measures the boot process and protects the disk encryption keys inside the machine?",
+   "choices": [
+    "The firewall",
+    "The WAF",
+    "The DNS server",
+    "The TPM"
+   ],
+   "explanation": "The TPM stores keys and records the boot measurements to detect a modification.",
+   "whyNot": {
+    "0": "The firewall filters network traffic.",
+    "1": "The WAF protects web applications.",
+    "2": "DNS resolves names."
+   }
+  },
+  {
+   "id": "m3c3-q19",
+   "prompt": "What is a virtual machine escape (VM escape)?",
+   "choices": [
+    "The live migration of a VM to another physical host",
+    "Exploiting a hypervisor flaw to break out of a VM",
+    "Deleting an unneeded VM to reduce the attack surface",
+    "Backing up a VM as a snapshot"
+   ],
+   "explanation": "The hypervisor is part of the TCB: a flaw compromises the isolation between all the VMs.",
+   "whyNot": {
+    "0": "Migration is a normal operation.",
+    "2": "That is routine administration.",
+    "3": "That is a backup."
+   }
+  },
+  {
+   "id": "m3c3-q20",
+   "prompt": "A laboratory wants to prevent validated experiment results from being modified based on unverified raw data. Which model fits best?",
+   "choices": [
+    "Biba",
+    "Brewer-Nash",
+    "None, it is an availability problem",
+    "Bell-LaPadula"
+   ],
+   "explanation": "This is about integrity: a less reliable source is not allowed to contaminate more reliable data.",
+   "whyNot": {
+    "1": "There is no conflict of interest.",
+    "2": "It is an integrity problem.",
+    "3": "Bell-LaPadula protects confidentiality, not integrity."
+   }
+  },
+  {
+   "id": "m3c3-q21",
+   "prompt": "Which phrase sums up Zero Trust?",
+   "choices": [
+    "Remove all passwords",
+    "Never trust, always verify",
+    "Trust everything inside the internal network",
+    "Block the Internet"
+   ],
+   "explanation": "No implicit trust: every access is explicitly verified.",
+   "whyNot": {
+    "0": "Zero Trust strengthens authentication; it does not remove it.",
+    "2": "That is the perimeter model that Zero Trust challenges.",
+    "3": "Zero Trust controls access; it does not cut everything off."
+   }
+  },
+  {
+   "id": "m3c3-q22",
+   "prompt": "In the NIST Zero Trust architecture, which component decides whether to grant access?",
+   "choices": [
+    "The access switch",
+    "The policy enforcement point (PEP)",
+    "The DNS server",
+    "The policy decision point (PDP)"
+   ],
+   "explanation": "The PDP (policy engine and policy administrator) decides; the PEP enforces the decision in front of the resource.",
+   "whyNot": {
+    "0": "The switch does not evaluate the Zero Trust policy.",
+    "1": "The PEP enforces the decision; it does not make it.",
+    "2": "DNS does not make access decisions."
+   }
+  },
+  {
+   "id": "m3c3-q23",
+   "prompt": "In a SaaS service, who remains responsible for managing accounts and access rights?",
+   "choices": [
+    "The provider",
+    "The customer",
+    "Nobody",
+    "The browser vendor"
+   ],
+   "explanation": "In every cloud model, data and access remain the customer's responsibility.",
+   "whyNot": {
+    "0": "The provider manages the application, not who accesses it on the customer's side.",
+    "2": "Responsibility never disappears.",
+    "3": "The browser plays no role in access management."
+   }
+  },
+  {
+   "id": "m3c3-q24",
+   "prompt": "Why is the perimeter security model no longer enough?",
+   "choices": [
+    "Because the Internet has become too slow to go through a perimeter",
+    "Because perimeter firewalls are no longer sold",
+    "Because encrypting traffic leaving the network is prohibited",
+    "Because users and attackers are also outside the network"
+   ],
+   "explanation": "Remote work, the cloud and credential theft make network location an unreliable criterion for trust.",
+   "whyNot": {
+    "0": "Unrelated.",
+    "1": "Firewalls are still useful.",
+    "2": "False."
+   }
+  },
+  {
+   "id": "m3c3-q25",
+   "prompt": "Which elements are among the pillars of the CISA Zero Trust Maturity Model? (several answers)",
+   "choices": [
+    "Printers",
+    "Identity",
+    "Devices",
+    "Data"
+   ],
+   "explanation": "The five pillars are: identity, devices, networks, applications and workloads, data.",
+   "whyNot": {
+    "0": "Printers are devices, but they do not form a separate pillar."
+   }
+  },
+  {
+   "id": "m3c3-q26",
+   "prompt": "In an IaaS model, who applies the operating system patches on the virtual machines?",
+   "choices": [
+    "The processor manufacturer",
+    "The customer",
+    "The cloud provider",
+    "Nobody, it is automatic"
+   ],
+   "explanation": "In IaaS, the provider manages the hardware and virtualization; the guest system is the customer's responsibility.",
+   "whyNot": {
+    "0": "It does not manage the customer's systems.",
+    "2": "It manages the infrastructure below the hypervisor.",
+    "3": "Nothing is automatic without configuration by the customer."
+   }
+  },
+  {
+   "id": "m3c3-q27",
+   "prompt": "What does ZTNA offer compared with a classic remote access VPN?",
+   "choices": [
+    "The user accesses the whole internal network, as if they were in the office",
+    "It replaces encryption with network address translation (NAT)",
+    "It removes authentication, replaced by the device's IP address",
+    "The user only accesses authorized applications, based on their context"
+   ],
+   "explanation": "ZTNA grants per-application access, decided according to identity and context, instead of broad network access.",
+   "whyNot": {
+    "0": "That is the classic drawback of the VPN.",
+    "1": "NAT does not replace encryption.",
+    "2": "It strengthens authentication."
+   }
+  },
+  {
+   "id": "m3c3-q28",
+   "prompt": "Which measure most directly applies the \"assume breach\" principle?",
+   "choices": [
+    "Removing internal logging to reduce the volume of data",
+    "Microsegmenting and monitoring to limit and spot an intruder already inside",
+    "Opening internal flows to simplify administration and troubleshooting",
+    "Trusting headquarters workstations, already protected by the perimeter"
+   ],
+   "explanation": "If the attacker is already inside, you limit what they can reach and detect them quickly.",
+   "whyNot": {
+    "0": "Detection would be lost.",
+    "2": "That makes lateral movement easier.",
+    "3": "That is implicit trust."
+   }
+  },
+  {
+   "id": "m3c3-q29",
+   "prompt": "A vendor promises \"Zero Trust in a single box\". What is the best response?",
+   "choices": [
+    "Buy the box immediately to become Zero Trust compliant as quickly as possible",
+    "Point out that Zero Trust is a strategy, and assess what the product covers",
+    "Replace the SOC with this box, since it covers the whole Zero Trust strategy",
+    "Refuse every market solution and develop everything in-house to keep control"
+   ],
+   "explanation": "No single product delivers Zero Trust; each solution is assessed against the pillars.",
+   "whyNot": {
+    "0": "That confuses a tool with a strategy.",
+    "2": "Human monitoring remains essential.",
+    "3": "Products help, without being enough on their own."
+   }
+  },
+  {
+   "id": "m3c3-q30",
+   "prompt": "A cloud storage bucket containing customer data is left open to the public by mistake. Who is responsible?",
+   "choices": [
+    "The customer, who manages the configuration and access to its data",
+    "The cloud provider, which hosts the storage",
+    "The company's Internet service provider",
+    "Nobody, it is a technical failure"
+   ],
+   "explanation": "Configuring access to the data is always the customer's job in the shared responsibility model.",
+   "whyNot": {
+    "1": "The provider supplies the settings; it does not decide to make the data public.",
+    "2": "The ISP plays no role here.",
+    "3": "It is a human error, not a failure."
+   }
+  }
  ]
 }

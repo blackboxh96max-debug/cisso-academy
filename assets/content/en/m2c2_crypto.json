@@ -944,5 +944,483 @@
   "Stolen private key: revoke the certificate AND generate a new key pair. Forward secrecy: ephemeral keys (ECDHE), TLS 1.3.",
   "Attacks: brute force, man-in-the-middle, downgrade, side channels, collisions. Quantum: Shor threatens RSA/ECC, AES-256 remains strong; NIST standards FIPS 203/204/205 (2024).",
   "Pairs not to confuse: symmetric/asymmetric; hashing/encryption; MAC/signature; CA/RA; CRL/OCSP; public key/private key."
+ ],
+ "questions": [
+  {
+   "id": "m2c2-q01",
+   "prompt": "Which security service does encryption provide first and foremost?",
+   "choices": [
+    "Non-repudiation",
+    "Availability",
+    "Accountability",
+    "Confidentiality"
+   ],
+   "explanation": "Encryption makes data unreadable to anyone without the key: this is confidentiality.",
+   "whyNot": {
+    "0": "Non-repudiation comes from the digital signature.",
+    "1": "Encryption does not guarantee availability; a lost key can even reduce it.",
+    "2": "Accountability comes from logging."
+   }
+  },
+  {
+   "id": "m2c2-q02",
+   "prompt": "What characterizes symmetric encryption?",
+   "choices": [
+    "A different key for each block, made public",
+    "The same secret key to encrypt and decrypt",
+    "A pair of public and private keys",
+    "No key at all"
+   ],
+   "explanation": "In symmetric encryption, the sender and the recipient share the same secret key.",
+   "whyNot": {
+    "0": "Encryption keys are not made public.",
+    "2": "The key pair characterizes asymmetric encryption.",
+    "3": "Without a key, it is hashing, not encryption."
+   }
+  },
+  {
+   "id": "m2c2-q03",
+   "prompt": "Ten people all want to communicate in pairs using symmetric encryption. How many keys are needed?",
+   "choices": [
+    "20",
+    "10",
+    "100",
+    "45"
+   ],
+   "explanation": "Formula n(n-1)/2: 10 × 9 / 2 = 45 keys.",
+   "whyNot": {
+    "0": "20 is the number of keys in asymmetric encryption (2n).",
+    "1": "10 does not cover all the pairs.",
+    "2": "100 would count each person with themselves and each pair twice."
+   }
+  },
+  {
+   "id": "m2c2-q04",
+   "prompt": "Alice wants to send a confidential document to Bob using asymmetric encryption. Which key does she use to encrypt?",
+   "choices": [
+    "Bob's private key",
+    "Alice's public key",
+    "Alice's private key",
+    "Bob's public key"
+   ],
+   "explanation": "Only Bob's private key can decrypt what is encrypted with Bob's public key.",
+   "whyNot": {
+    "0": "Alice does not have Bob's private key, which must never be shared.",
+    "1": "Bob does not have Alice's private key and could not decrypt.",
+    "2": "Encrypting with your private key amounts to signing: anyone can decrypt with Alice's public key."
+   }
+  },
+  {
+   "id": "m2c2-q05",
+   "prompt": "Why is ECB mode not recommended?",
+   "choices": [
+    "It is far too slow for real-world use",
+    "It requires a 512-bit key",
+    "It only works with the RSA algorithm",
+    "Two identical plaintext blocks give two identical ciphertext blocks"
+   ],
+   "explanation": "ECB encrypts each block independently: the patterns of the message remain visible.",
+   "whyNot": {
+    "0": "ECB is fast; its problem is the leaking of patterns.",
+    "1": "ECB works with the algorithm's usual key sizes.",
+    "2": "ECB is a mode of symmetric block ciphers such as AES."
+   }
+  },
+  {
+   "id": "m2c2-q06",
+   "prompt": "Why does TLS combine asymmetric and symmetric encryption?",
+   "choices": [
+    "To double the effective key size and strengthen the encryption",
+    "Because symmetric encryption cannot encrypt text",
+    "Asymmetric encryption establishes a session key, symmetric encryption encrypts the data quickly",
+    "Because asymmetric encryption is faster for large volumes of data"
+   ],
+   "explanation": "Hybrid encryption combines the easy key distribution of asymmetric encryption with the speed of symmetric encryption.",
+   "whyNot": {
+    "0": "The goal is not the key size.",
+    "1": "Symmetric encryption encrypts any type of data.",
+    "3": "Asymmetric encryption is much slower."
+   }
+  },
+  {
+   "id": "m2c2-q07",
+   "prompt": "According to Kerckhoffs's principle, what should the security of an encryption system rely on?",
+   "choices": [
+    "On the secrecy of the key only",
+    "On the secrecy of the algorithm",
+    "On the number of servers",
+    "On a password shared by everyone"
+   ],
+   "explanation": "The algorithm can be public; only the key must remain secret.",
+   "whyNot": {
+    "1": "A secret algorithm is not proven and often ends up being discovered.",
+    "2": "The number of servers has nothing to do with cryptographic strength.",
+    "3": "A secret shared by everyone is no longer a secret."
+   }
+  },
+  {
+   "id": "m2c2-q08",
+   "prompt": "Which encryption algorithms are recommended today? (2 answers)",
+   "choices": [
+    "AES-256 in GCM mode",
+    "ChaCha20",
+    "DES",
+    "RC4"
+   ],
+   "explanation": "AES (in an authenticated mode) and ChaCha20 are the current choices, notably in TLS 1.3.",
+   "whyNot": {
+    "2": "DES has a 56-bit key, which brute force can find.",
+    "3": "RC4 has exploitable biases and is prohibited in TLS."
+   }
+  },
+  {
+   "id": "m2c2-q09",
+   "prompt": "What is the weakness of a Diffie-Hellman exchange that is not authenticated?",
+   "choices": [
+    "It does not produce any usable shared secret",
+    "It is exposed to a man-in-the-middle attack",
+    "It reveals the private key of each participant",
+    "It only works with the ECB encryption mode"
+   ],
+   "explanation": "Diffie-Hellman establishes a shared secret but does not prove the identity of the other party; an attacker can insert themselves in between. It is authenticated with certificates or signatures.",
+   "whyNot": {
+    "0": "The exchange does produce a shared secret.",
+    "2": "The exchange does not reveal the secret values.",
+    "3": "Diffie-Hellman is not a block cipher mode."
+   }
+  },
+  {
+   "id": "m2c2-q10",
+   "prompt": "What is the main advantage of elliptic curve cryptography (ECC) over RSA?",
+   "choices": [
+    "It is a symmetric algorithm, and therefore faster",
+    "It resists future quantum computers",
+    "Equivalent security with much shorter keys",
+    "It works without any private key to protect"
+   ],
+   "explanation": "ECC offers comparable security with smaller keys, and therefore lighter computations and exchanges.",
+   "whyNot": {
+    "0": "ECC is asymmetric.",
+    "1": "Shor's algorithm would also threaten ECC.",
+    "3": "ECC is asymmetric: it uses a key pair."
+   }
+  },
+  {
+   "id": "m2c2-q11",
+   "prompt": "Which property describes a hash function?",
+   "choices": [
+    "On its own, it guarantees the confidentiality of the message",
+    "Its output is always the same size as the input message",
+    "It is decrypted with the sender's public key",
+    "It produces a fixed-size digest and cannot be reversed"
+   ],
+   "explanation": "A hash function produces a fixed-size, one-way digest.",
+   "whyNot": {
+    "0": "The message remains readable: hashing hides nothing.",
+    "1": "The output always has the same size, whatever the input.",
+    "2": "A digest cannot be decrypted."
+   }
+  },
+  {
+   "id": "m2c2-q12",
+   "prompt": "What is a collision for a hash function?",
+   "choices": [
+    "Two different messages that have the same digest",
+    "A key used twice",
+    "Two different digests for the same message",
+    "A digest that is too long"
+   ],
+   "explanation": "A collision is two different inputs that produce the same digest.",
+   "whyNot": {
+    "1": "Key reuse is a different problem.",
+    "2": "A hash function is deterministic: the same message always gives the same digest.",
+    "3": "Length is not a collision."
+   }
+  },
+  {
+   "id": "m2c2-q13",
+   "prompt": "What is the best way to store the passwords of an application?",
+   "choices": [
+    "Hashed with a unique salt and a slow function such as Argon2 or bcrypt",
+    "Hashed with MD5 without salt",
+    "Encrypted with AES using a key stored on the same server",
+    "In plaintext in a database protected by a firewall"
+   ],
+   "explanation": "A unique salt and a deliberately slow function make dictionary and precomputed table attacks very costly.",
+   "whyNot": {
+    "1": "MD5 is fast and, without salt, vulnerable to precomputed tables.",
+    "2": "Reversible encryption with the key right next to it offers no protection if the server is compromised.",
+    "3": "A leak of the database would expose all the passwords."
+   }
+  },
+  {
+   "id": "m2c2-q14",
+   "prompt": "What are the effects of a unique salt per account? (2 answers)",
+   "choices": [
+    "The salt must remain secret to be effective",
+    "The password becomes decryptable by the administrator",
+    "Two users with the same password have different digests",
+    "Precomputed tables (rainbow tables) become useless"
+   ],
+   "explanation": "The salt makes each digest unique: precomputed tables no longer work and identical passwords cannot be spotted.",
+   "whyNot": {
+    "0": "The salt is not secret: it is stored with the digest.",
+    "1": "Hashing remains one-way; nothing becomes decryptable."
+   }
+  },
+  {
+   "id": "m2c2-q15",
+   "prompt": "With which key does a sender sign a document?",
+   "choices": [
+    "Their private key",
+    "The recipient's public key",
+    "A shared session key",
+    "Their public key"
+   ],
+   "explanation": "You sign with your own private key; everyone verifies with the matching public key.",
+   "whyNot": {
+    "1": "The recipient's public key is used to encrypt for them.",
+    "2": "A shared key would give a MAC, without non-repudiation.",
+    "3": "The public key is used to verify, not to sign."
+   }
+  },
+  {
+   "id": "m2c2-q16",
+   "prompt": "Which services does a digital signature provide? (2 answers)",
+   "choices": [
+    "The integrity of the document",
+    "Non-repudiation",
+    "The confidentiality of the document",
+    "The availability of the document"
+   ],
+   "explanation": "The signature guarantees that the document has not changed and that the sender cannot deny signing it (as well as authentication of the origin).",
+   "whyNot": {
+    "2": "The signed document remains readable; it must also be encrypted.",
+    "3": "The signature has no effect on availability."
+   }
+  },
+  {
+   "id": "m2c2-q17",
+   "prompt": "Why does an HMAC not provide non-repudiation?",
+   "choices": [
+    "Because the key is shared by both parties",
+    "Because it is slower than a digital signature",
+    "Because it does not use any hash function",
+    "Because it encrypts the message instead of signing it"
+   ],
+   "explanation": "With a shared key, nothing proves to a third party which of the holders produced the code.",
+   "whyNot": {
+    "1": "Speed has nothing to do with non-repudiation; HMAC is actually fast.",
+    "2": "HMAC is in fact based on a hash function.",
+    "3": "An HMAC does not encrypt the message."
+   }
+  },
+  {
+   "id": "m2c2-q18",
+   "prompt": "Why should MD5 and SHA-1 no longer be used for digital signatures?",
+   "choices": [
+    "Their digests are too long",
+    "They require a secret key",
+    "They do not work on binary files",
+    "Practical collisions have been demonstrated"
+   ],
+   "explanation": "Feasible collisions make it possible to craft two documents with the same digest, and therefore to transfer a signature from one to the other.",
+   "whyNot": {
+    "0": "On the contrary, their digests are short (128 and 160 bits).",
+    "1": "They are keyless hash functions.",
+    "2": "They process any type of data."
+   }
+  },
+  {
+   "id": "m2c2-q19",
+   "prompt": "For a 128-bit digest, roughly how many attempts does a birthday attack need to find a collision?",
+   "choices": [
+    "2 to the power of 256",
+    "2 to the power of 128",
+    "2 to the power of 16",
+    "2 to the power of 64"
+   ],
+   "explanation": "A collision takes about 2 to the power of n/2 attempts: for 128 bits, about 2 to the power of 64.",
+   "whyNot": {
+    "0": "This figure exceeds the size of the digest.",
+    "1": "2 to the power of 128 corresponds to a preimage search, not a collision.",
+    "2": "That would be far too few."
+   }
+  },
+  {
+   "id": "m2c2-q20",
+   "prompt": "You download an administration tool. How do you check that it has not been modified?",
+   "choices": [
+    "Open it on a test workstation to see whether it works normally",
+    "Rename the file before running it, to avoid detection",
+    "Check that the file size matches the one stated on the download page",
+    "Compare its SHA-256 hash with the one published by the vendor over a trusted channel, or verify its signature"
+   ],
+   "explanation": "A verified hash or signature guarantees that the file is the one published by the vendor.",
+   "whyNot": {
+    "0": "A trojanized file often works normally.",
+    "1": "The name proves nothing.",
+    "2": "A modified file can keep the same size."
+   }
+  },
+  {
+   "id": "m2c2-q21",
+   "prompt": "What does a valid X.509 certificate guarantee?",
+   "choices": [
+    "That the site's data is encrypted and backed up",
+    "That the matching private key has been published",
+    "That a public key belongs to an identity, as attested by a CA",
+    "That the website presenting it is free of flaws"
+   ],
+   "explanation": "The certificate binds an identity to a public key; the CA attests to it with its signature.",
+   "whyNot": {
+    "0": "The certificate has nothing to do with backups.",
+    "1": "The private key never appears in a certificate.",
+    "3": "A certificate says nothing about the security of the site itself."
+   }
+  },
+  {
+   "id": "m2c2-q22",
+   "prompt": "Which mechanism checks online, in near real time, whether a specific certificate is revoked?",
+   "choices": [
+    "HSM (hardware security module)",
+    "CSR (certificate signing request)",
+    "CRL (published revocation list)",
+    "OCSP (online status protocol)"
+   ],
+   "explanation": "OCSP queries a server about the status of a given certificate.",
+   "whyNot": {
+    "0": "An HSM protects keys; it does not publish the status of certificates.",
+    "1": "A CSR is a certificate request.",
+    "2": "The CRL is a complete list published periodically."
+   }
+  },
+  {
+   "id": "m2c2-q23",
+   "prompt": "What is the role of a registration authority (RA)?",
+   "choices": [
+    "Holding users' private keys in escrow",
+    "Encrypting web traffic between clients and servers",
+    "Verifying the requester's identity before the certificate is issued",
+    "Signing the certificates issued by the PKI"
+   ],
+   "explanation": "The RA checks the identity; the CA signs.",
+   "whyNot": {
+    "0": "Private keys stay with their owners.",
+    "1": "Traffic encryption is done by TLS, not by the RA.",
+    "3": "Signing is the role of the CA."
+   }
+  },
+  {
+   "id": "m2c2-q24",
+   "prompt": "Why is the root CA kept offline, with day-to-day signing entrusted to intermediate CAs?",
+   "choices": [
+    "To protect the root key and to be able to revoke an intermediate",
+    "To speed up certificate verification in browsers",
+    "Because a root CA is technically not allowed to sign certificates",
+    "To avoid having to issue certificates to internal servers"
+   ],
+   "explanation": "The root key is the top of the chain of trust: keeping it offline reduces the risk, and a compromised intermediate can be revoked.",
+   "whyNot": {
+    "1": "Performance is not the reason.",
+    "2": "The root signs the intermediates.",
+    "3": "Intermediates do in fact sign certificates."
+   }
+  },
+  {
+   "id": "m2c2-q25",
+   "prompt": "What is an HSM?",
+   "choices": [
+    "A hardware module that protects and uses keys",
+    "A list of revoked certificates published by the CA",
+    "End-to-end encrypted messaging software",
+    "A hashing algorithm designed for passwords"
+   ],
+   "explanation": "The HSM protects keys physically and logically; operations take place inside it.",
+   "whyNot": {
+    "1": "This describes a CRL.",
+    "2": "It is not a messaging tool.",
+    "3": "It is not an algorithm."
+   }
+  },
+  {
+   "id": "m2c2-q26",
+   "prompt": "The private key of a web server has been stolen. Which actions are necessary? (2 answers)",
+   "choices": [
+    "Only change the server's name",
+    "Extend the validity of the current certificate",
+    "Generate a new key pair and obtain a new certificate",
+    "Have the associated certificate revoked"
+   ],
+   "explanation": "The compromised certificate must be revoked and replaced by a certificate bound to a new key pair.",
+   "whyNot": {
+    "0": "The name changes nothing about the stolen key.",
+    "1": "Extending a compromised certificate extends the risk."
+   }
+  },
+  {
+   "id": "m2c2-q27",
+   "prompt": "Which key must never be placed in escrow?",
+   "choices": [
+    "An expired session key",
+    "A data encryption key",
+    "A public key",
+    "A person's private signing key"
+   ],
+   "explanation": "If a third party holds a copy of the signing key, the person can deny having signed: non-repudiation is lost.",
+   "whyNot": {
+    "0": "An expired session key does not need to be kept.",
+    "1": "Escrow of encryption keys is precisely what allows data to be recovered.",
+    "2": "A public key is public: escrow is not an issue."
+   }
+  },
+  {
+   "id": "m2c2-q28",
+   "prompt": "What does forward secrecy guarantee?",
+   "choices": [
+    "That stored passwords are salted and hashed",
+    "That a future theft of the private key does not expose past sessions",
+    "That the server's certificates never expire",
+    "That connection logs are kept and signed"
+   ],
+   "explanation": "With ephemeral keys (DHE, ECDHE), each session has its own key, independent of the long-term private key.",
+   "whyNot": {
+    "0": "Salting concerns password storage.",
+    "2": "Certificates always expire.",
+    "3": "Log retention is a different topic."
+   }
+  },
+  {
+   "id": "m2c2-q29",
+   "prompt": "During a simulated exercise, a test workstation shows an \"untrusted certificate\" warning on an internal portal. What is the best response?",
+   "choices": [
+    "Disable certificate verification in the workstation's browser",
+    "Click \"continue\" so as not to block the team's work",
+    "Do not proceed, report it to the SOC and check the fingerprint of the certificate presented",
+    "Delete the workstation's certificate store and restart"
+   ],
+   "explanation": "An untrusted certificate can reveal an interception. Stop, report and verify.",
+   "whyNot": {
+    "0": "Disabling verification removes the protection.",
+    "1": "Ignoring the warning exposes you to interception.",
+    "3": "Deleting the store would break every connection without solving the problem."
+   }
+  },
+  {
+   "id": "m2c2-q30",
+   "prompt": "Which algorithms would a sufficiently powerful quantum computer threaten most directly?",
+   "choices": [
+    "AES-256",
+    "RSA and elliptic curves",
+    "Password derivation functions",
+    "SHA-3"
+   ],
+   "explanation": "Shor's algorithm would break the factoring and discrete logarithm problems that RSA and ECC rely on. In 2024, NIST published the first post-quantum standards (FIPS 203, 204 and 205).",
+   "whyNot": {
+    "0": "For symmetric encryption, the expected effect (Grover's algorithm) halves the security in bits: AES-256 remains strong.",
+    "2": "They rely on hashing, which is much less affected.",
+    "3": "Hash functions are much less affected."
+   }
+  }
  ]
 }

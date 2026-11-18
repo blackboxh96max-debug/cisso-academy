@@ -771,5 +771,481 @@
   "Metrics: MTTD (detection), MTTR (response), false positive rate, ATT&CK coverage, connected sources.",
   "The SOC is mainly a detective control, with a corrective part (containment).",
   "Pairs not to confuse: separation of duties/dual control; false positive/false negative; SIEM/SOAR; IOC/IOA; triage/hunting; MTTD/MTTR."
+ ],
+ "questions": [
+  {
+   "id": "m2c1-q01",
+   "prompt": "In a company, the same person can create a supplier and approve its payment. Which principle is not being followed?",
+   "choices": [
+    "Need to know",
+    "Defense in depth",
+    "Separation of duties",
+    "Job rotation"
+   ],
+   "explanation": "Splitting sensitive steps among several people prevents fraud committed by one person alone: this is separation of duties.",
+   "whyNot": {
+    "0": "Need to know concerns access to information.",
+    "1": "Defense in depth stacks layers of technical and organizational protection.",
+    "3": "Rotation moves people between positions; it does not split the steps."
+   }
+  },
+  {
+   "id": "m2c1-q02",
+   "prompt": "Which control mainly serves to DETECT a fraud that requires its perpetrator to be present every day?",
+   "choices": [
+    "Mandatory vacations",
+    "Separation of duties",
+    "Least privilege",
+    "Dual control"
+   ],
+   "explanation": "During mandatory leave, a replacement takes over the position and may discover the anomalies.",
+   "whyNot": {
+    "1": "Separation of duties is mainly preventive.",
+    "2": "Least privilege limits rights; it does not reveal fraud.",
+    "3": "Dual control is preventive: two people act together."
+   }
+  },
+  {
+   "id": "m2c1-q03",
+   "prompt": "Opening the encryption key safe requires two people present at the same time, each with their own code. What is this control called?",
+   "choices": [
+    "Need to know",
+    "Dual control (two-person control)",
+    "Job rotation",
+    "Separation of duties"
+   ],
+   "explanation": "Two people must act together, at the same moment, on the same action: this is dual control.",
+   "whyNot": {
+    "0": "Need to know limits access to information.",
+    "2": "Rotation moves people between positions over time.",
+    "3": "Separation of duties assigns different steps to different people."
+   }
+  },
+  {
+   "id": "m2c1-q04",
+   "prompt": "What is the main weakness of separation of duties?",
+   "choices": [
+    "Collusion between several people",
+    "It is prohibited by ISO/IEC 27001",
+    "It requires vacations",
+    "It prevents any delegation"
+   ],
+   "explanation": "If the people involved agree among themselves, they can get around the control: this is collusion.",
+   "whyNot": {
+    "1": "Separation of duties is, on the contrary, a recommended measure.",
+    "2": "Mandatory vacations are a different measure.",
+    "3": "It frames delegation without prohibiting it."
+   }
+  },
+  {
+   "id": "m2c1-q05",
+   "prompt": "Which step must come before implementing a major change in production?",
+   "choices": [
+    "Deleting the server's old logs",
+    "Disabling the antivirus to avoid blockages",
+    "Informing customers once the change is complete",
+    "Impact analysis, approval and a rollback plan"
+   ],
+   "explanation": "A controlled change is analyzed, approved and tested, with a way to roll back.",
+   "whyNot": {
+    "0": "Deleting the logs destroys traceability.",
+    "1": "Disabling the antivirus weakens security.",
+    "2": "Informing after the fact does not replace prior approval."
+   }
+  },
+  {
+   "id": "m2c1-q06",
+   "prompt": "An actively exploited flaw requires an immediate fix, without waiting for the next change board meeting. What should be done?",
+   "choices": [
+    "Fix it directly in production, with no ticket or record, to go faster",
+    "Wait for the next change advisory board meeting despite the exploitation",
+    "Let each administrator decide alone, based on their own assessment",
+    "Apply an emergency change approved by an authorized person, recorded, then reviewed afterward"
+   ],
+   "explanation": "The emergency change is fast-tracked but remains approved, recorded and regularized.",
+   "whyNot": {
+    "0": "An unrecorded change breaks change management and complicates investigations.",
+    "1": "Waiting lets the exploitation continue.",
+    "2": "An isolated, uncontrolled decision creates a risk of error and malicious action."
+   }
+  },
+  {
+   "id": "m2c1-q07",
+   "prompt": "A tool compares the configuration of the servers to their approved state every night and reports any differences. Which concept is being used?",
+   "choices": [
+    "An internal penetration test run every night",
+    "A quantitative risk analysis based on ALE",
+    "A business continuity plan and its failover tests",
+    "A baseline configuration and drift detection"
+   ],
+   "explanation": "The baseline configuration is the approved state; any difference (drift) must match an authorized change.",
+   "whyNot": {
+    "0": "A penetration test simulates a one-off attack.",
+    "1": "Quantitative analysis puts figures on risks.",
+    "2": "The continuity plan aims at resuming business."
+   }
+  },
+  {
+   "id": "m2c1-q08",
+   "prompt": "Why is the asset inventory a prerequisite for security operations?",
+   "choices": [
+    "Because you cannot protect or monitor what you do not know about",
+    "Because it automatically encrypts the assets' data",
+    "Because it replaces the firewall for the listed assets",
+    "Because it removes the vulnerabilities of the listed systems"
+   ],
+   "explanation": "Without an inventory, systems are left without patches, without monitoring and without an owner.",
+   "whyNot": {
+    "1": "The inventory does not encrypt anything.",
+    "2": "The inventory does not filter any traffic.",
+    "3": "The inventory helps find vulnerabilities; it does not remove them."
+   }
+  },
+  {
+   "id": "m2c1-q09",
+   "prompt": "Which of these controls are mainly DETECTIVE? (2 answers)",
+   "choices": [
+    "Job rotation",
+    "Mandatory vacations",
+    "Dual control",
+    "Separation of duties"
+   ],
+   "explanation": "Rotation and mandatory vacations bring another person into the position, who may discover a fraud.",
+   "whyNot": {
+    "2": "Dual control prevents a person from acting alone: it is preventive.",
+    "3": "Separation of duties prevents fraud by one person: it is preventive."
+   }
+  },
+  {
+   "id": "m2c1-q10",
+   "prompt": "The SOC discovers an unknown server, installed by a business team and exposed to the Internet. Which actions are the priority? (2 answers)",
+   "choices": [
+    "Immediately delete all its data without telling anyone",
+    "Check its exposure and vulnerabilities, then connect it to monitoring",
+    "Identify it and add it to the inventory with an owner",
+    "Ignore it since it is not official"
+   ],
+   "explanation": "A shadow asset must be known, assessed and monitored; the decision to keep or remove it is made afterward with its owner.",
+   "whyNot": {
+    "0": "A sudden deletion can destroy business data and evidence.",
+    "3": "Ignoring it leaves a door open."
+   }
+  },
+  {
+   "id": "m2c1-q11",
+   "prompt": "Why must the clocks (NTP) of all systems that produce logs be synchronized?",
+   "choices": [
+    "To encrypt the logs with a time-based key",
+    "To speed up traffic on the internal network",
+    "To be able to correlate events and rebuild a reliable timeline",
+    "To reduce the volume of logs stored in the SIEM"
+   ],
+   "explanation": "Clocks that are out of sync distort correlation and the timeline of an investigation.",
+   "whyNot": {
+    "0": "Encryption is a different measure.",
+    "1": "Synchronization does not speed up the network.",
+    "3": "The volume does not depend on the time."
+   }
+  },
+  {
+   "id": "m2c1-q12",
+   "prompt": "A real attack takes place, but no alert is raised. What is this?",
+   "choices": [
+    "A false negative",
+    "A true negative",
+    "A true positive",
+    "A false positive"
+   ],
+   "explanation": "An undetected attack is a false negative: it is the most dangerous case.",
+   "whyNot": {
+    "1": "A true negative is the absence of an alert when there is no attack.",
+    "2": "A true positive is a correctly detected attack.",
+    "3": "A false positive is an alert with no attack."
+   }
+  },
+  {
+   "id": "m2c1-q13",
+   "prompt": "A rule generates 300 alerts a day, 299 of which concern a legitimate backup tool. What is the problem and the right response?",
+   "choices": [
+    "True positives; immediately isolate the backup server",
+    "False positives; tune the rule in a documented way",
+    "True negatives; change nothing, the rule works as intended",
+    "False negatives; delete the rule to reduce the noise"
+   ],
+   "explanation": "Alerts with no attack are false positives; the rule is tuned in a documented way, not deleted.",
+   "whyNot": {
+    "0": "The tool is legitimate: isolating the server would be a mistake.",
+    "2": "Useless alerts wear analysts out: action is needed.",
+    "3": "These are extra alerts, not missed attacks; deleting the rule would create false negatives."
+   }
+  },
+  {
+   "id": "m2c1-q14",
+   "prompt": "In a SIEM, which step converts logs in different formats into a common format?",
+   "choices": [
+    "Encryption",
+    "Correlation",
+    "Archiving",
+    "Normalization"
+   ],
+   "explanation": "Normalization puts the fields (date, user, address) into a common format to allow searching and correlation.",
+   "whyNot": {
+    "0": "Encryption protects confidentiality.",
+    "1": "Correlation links events that have already been normalized.",
+    "2": "Archiving retains the logs."
+   }
+  },
+  {
+   "id": "m2c1-q15",
+   "prompt": "Which measure best protects the logs against a malicious administrator who wants to erase their tracks?",
+   "choices": [
+    "Compress and archive the logs every night on the same server",
+    "Keep the logs only on the local server, with rights restricted to the administrator",
+    "Reduce the retention period to 24 hours to limit exposure",
+    "Send them in real time to a centralized SIEM, on immutable storage, managed by another team"
+   ],
+   "explanation": "Immediate centralization, separation of duties and write-once storage preserve the integrity of the logs.",
+   "whyNot": {
+    "0": "Compression does not protect against modification.",
+    "1": "A local administrator can erase local logs.",
+    "2": "Short retention destroys useful evidence."
+   }
+  },
+  {
+   "id": "m2c1-q16",
+   "prompt": "Which statements about SOAR are correct? (2 answers)",
+   "choices": [
+    "It orchestrates several tools (EDR, firewall, email)",
+    "It makes analysts unnecessary",
+    "It automates response actions using playbooks",
+    "It replaces logging"
+   ],
+   "explanation": "SOAR orchestrates the tools and automates repetitive response tasks; analysts keep the decision on complex cases.",
+   "whyNot": {
+    "1": "It relieves analysts but does not replace them.",
+    "3": "SOAR relies on alerts and logs; it does not replace them."
+   }
+  },
+  {
+   "id": "m2c1-q17",
+   "prompt": "A tool reports that an accountant is downloading 10 GB of data at 3 a.m. for the first time. What type of analysis produced this alert?",
+   "choices": [
+    "Antivirus signature analysis on the workstation",
+    "User and entity behavior analytics (UEBA)",
+    "A test restore of the night's backups",
+    "An authenticated vulnerability scan of the workstation"
+   ],
+   "explanation": "UEBA learns the usual behavior and reports significant deviations.",
+   "whyNot": {
+    "0": "A signature recognizes a known file, not unusual behavior.",
+    "2": "A restore test checks the backups.",
+    "3": "A vulnerability scan looks for flaws."
+   }
+  },
+  {
+   "id": "m2c1-q18",
+   "prompt": "Which event is the MOST important to log and monitor?",
+   "choices": [
+    "Printing a test page on a network printer",
+    "Adding an account to the domain administrators group",
+    "Opening the Start menu on a workstation",
+    "A user changing their desktop wallpaper"
+   ],
+   "explanation": "Changes to privileged accounts and groups are critical security events.",
+   "whyNot": {
+    "0": "A test page is not a critical event.",
+    "2": "This event has no security value.",
+    "3": "The wallpaper has no security value."
+   }
+  },
+  {
+   "id": "m2c1-q19",
+   "prompt": "Which conditions give a log evidential value during an investigation? (2 answers)",
+   "choices": [
+    "Integrity protection (immutable storage, hashes)",
+    "Reliable timestamps, from synchronized clocks",
+    "A proprietary file format",
+    "A different color for each source"
+   ],
+   "explanation": "A reliable log must be correctly dated and must not have been modifiable.",
+   "whyNot": {
+    "2": "The format provides no guarantee of integrity.",
+    "3": "The display has no effect on evidential value."
+   }
+  },
+  {
+   "id": "m2c1-q20",
+   "prompt": "Which correlation rule is the most relevant for detecting a compromised account?",
+   "choices": [
+    "An alert for every successful logon, whatever the account",
+    "An alert for every scheduled restart of a production server",
+    "Several failures, one success, then a logon from an unusual country",
+    "An alert for every print job started by a user"
+   ],
+   "explanation": "Correlation combines several weak signals to recognize a credible scenario.",
+   "whyNot": {
+    "0": "One alert per logon would produce a flood of false positives.",
+    "1": "A scheduled restart is expected.",
+    "3": "Print jobs do not signal an account compromise."
+   }
+  },
+  {
+   "id": "m2c1-q21",
+   "prompt": "What is the main role of a level 1 SOC analyst?",
+   "choices": [
+    "Developing and testing business applications",
+    "Negotiating the company's cyber insurance contracts",
+    "Triaging and qualifying alerts, then escalating if needed",
+    "Writing the security policy and getting it approved"
+   ],
+   "explanation": "Level 1 receives the alerts, checks whether they are founded, assesses their severity and escalates.",
+   "whyNot": {
+    "0": "Development is not a SOC mission.",
+    "1": "Insurance falls under risk management.",
+    "3": "The policy falls under governance (CISO, executive management)."
+   }
+  },
+  {
+   "id": "m2c1-q22",
+   "prompt": "What does MTTD measure?",
+   "choices": [
+    "The number of rules in the SIEM",
+    "The log retention period",
+    "The average time to restore a backup",
+    "The average time between the start of an incident and its detection"
+   ],
+   "explanation": "MTTD (Mean Time To Detect): the average time to detect an incident.",
+   "whyNot": {
+    "0": "The number of rules is not a time.",
+    "1": "Retention is a storage period, not a detection time.",
+    "2": "Restoring falls under continuity; the response time is the MTTR."
+   }
+  },
+  {
+   "id": "m2c1-q23",
+   "prompt": "Which of these is an indicator of attack (IOA) rather than an indicator of compromise (IOC)?",
+   "choices": [
+    "A word processor that launches a command interpreter",
+    "The IP address of a known command server",
+    "The SHA-256 hash of a known malicious file",
+    "A malicious domain name listed by a vendor"
+   ],
+   "explanation": "An IOA describes attack behavior, independent of the tool used; the others are known traces (IOCs).",
+   "whyNot": {
+    "1": "A known address is an IOC.",
+    "2": "A known hash is an IOC.",
+    "3": "A listed domain is an IOC."
+   }
+  },
+  {
+   "id": "m2c1-q24",
+   "prompt": "What characterizes threat hunting?",
+   "choices": [
+    "A proactive, hypothesis-driven search for undetected attacks",
+    "An annual compliance audit run by an outside firm",
+    "Buying lists of malicious addresses from a vendor",
+    "Handling SIEM alerts in the order they arrive"
+   ],
+   "explanation": "Hunting starts from a hypothesis and actively looks for what the alerts missed.",
+   "whyNot": {
+    "1": "An audit checks compliance; it does not look for an attacker.",
+    "2": "Indicator lists feed detection; that is not hunting.",
+    "3": "Handling alerts is triage, a reactive activity."
+   }
+  },
+  {
+   "id": "m2c1-q25",
+   "prompt": "How does a SOC most often use MITRE ATT&CK?",
+   "choices": [
+    "To calculate the ALE of attack scenarios",
+    "To encrypt and sign its logs before archiving",
+    "To certify the skills of its analysts",
+    "To map the techniques its rules detect"
+   ],
+   "explanation": "ATT&CK describes attackers' tactics and techniques; the SOC uses it to map its detection coverage and guide hunting.",
+   "whyNot": {
+    "0": "ALE belongs to quantitative risk analysis.",
+    "1": "ATT&CK has no encryption role.",
+    "2": "ATT&CK is not a certification program."
+   }
+  },
+  {
+   "id": "m2c1-q26",
+   "prompt": "Which indicators help steer a SOC? (2 answers)",
+   "choices": [
+    "The false positive rate per rule",
+    "MTTR (mean time to respond)",
+    "The number of wallpapers deployed",
+    "The number of pages in the security policy"
+   ],
+   "explanation": "Detection and response times, and the quality of the rules, measure the effectiveness of the SOC.",
+   "whyNot": {
+    "2": "This indicator has no link to security.",
+    "3": "The length of a policy does not measure operational effectiveness."
+   }
+  },
+  {
+   "id": "m2c1-q27",
+   "prompt": "What is the main benefit of a playbook for a SOC?",
+   "choices": [
+    "Replacing the SIEM for log collection",
+    "Avoiding any escalation to levels 2 and 3",
+    "Removing the need to keep logs",
+    "Handling each type of alert quickly and consistently"
+   ],
+   "explanation": "The playbook describes the checks and actions to carry out: every analyst handles the case the same way, without missing a step.",
+   "whyNot": {
+    "0": "The playbook relies on the SIEM; it does not replace it.",
+    "1": "The playbook precisely defines when to escalate.",
+    "2": "Logs remain essential for analysis."
+   }
+  },
+  {
+   "id": "m2c1-q28",
+   "prompt": "The EDR reports that a document launched PowerShell, which contacts an unknown address. Which immediate actions are appropriate? (2 answers)",
+   "choices": [
+    "Restart the workstation to clear the memory",
+    "Isolate the workstation from the network through the EDR",
+    "Close the alert because the user says they did nothing",
+    "Search for the same email or file on the other workstations and mailboxes"
+   ],
+   "explanation": "Contain by isolating the workstation, then measure the scope by looking for the same indicators elsewhere.",
+   "whyNot": {
+    "0": "Restarting erases useful evidence in memory.",
+    "2": "The user usually does not see the malicious execution: their opinion is not enough."
+   }
+  },
+  {
+   "id": "m2c1-q29",
+   "prompt": "What is the main danger of alert fatigue?",
+   "choices": [
+    "A real attack drowned in the noise and handled too quickly",
+    "Logs too small to be usable",
+    "A firewall so strict that it blocks legitimate traffic",
+    "A rise in the cost of SIEM licenses"
+   ],
+   "explanation": "Overwhelmed analysts skip steps and end up missing a real alert.",
+   "whyNot": {
+    "1": "The size of the logs is not the issue.",
+    "2": "Alert fatigue affects analysts, not the firewall.",
+    "3": "Cost is not the main danger."
+   }
+  },
+  {
+   "id": "m2c1-q30",
+   "prompt": "In the classification of controls, how is a SOC mainly described?",
+   "choices": [
+    "A purely deterrent control, by its mere presence",
+    "A physical control, like a surveillance camera",
+    "A purely compensating control, for lack of patches",
+    "A detective control, with a corrective part during containment"
+   ],
+   "explanation": "The SOC detects incidents and helps correct them by containing them quickly.",
+   "whyNot": {
+    "0": "Its presence may deter, but that is not its main role.",
+    "1": "The SOC is a technical and organizational control, not a physical one.",
+    "2": "It can compensate for a weakness, but its primary function is detection."
+   }
+  }
  ]
 }

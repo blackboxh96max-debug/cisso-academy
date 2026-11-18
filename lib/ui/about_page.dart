@@ -496,9 +496,9 @@ const appNews = <(String, List<String>)>[
           'anglais, avec le français juste en dessous (aussi dans le PDF).',
       'Fiches de révision bilingues : chaque point en anglais, avec le '
           'français juste en dessous (aussi dans le PDF et la copie).',
-      'QCM bilingues : chaque question du module 1, ses réponses et sa '
-          'correction s\'affichent en anglais, avec le français juste en '
-          'dessous. Les modules 2 à 5 suivent.',
+      'QCM bilingues : chaque question des modules 1 à 5, ses réponses et '
+          'sa correction s\'affichent en anglais, avec le français juste en '
+          'dessous.',
       'Version anglaise de toutes les leçons (modules 1 à 5) : bouton EN dans la '
           'leçon, chaque mot-clé suivi de sa traduction française.',
       'L\'assistant s\'appelle maintenant « Chatbot ».',
@@ -515,6 +515,10 @@ const appNews = <(String, List<String>)>[
       'Préparation examen : séance du 18/11 (référentiels et cryptographie).',
       '5 thèmes au choix et mode clair ou sombre.',
       'Menu de gauche toujours visible, réductible ou masquable.',
+      'Menu de gauche : l\'entrée Examen est retirée, la rubrique L\'examen '
+          'se trouve dans À propos.',
+      'QCM du module 5 (sécurité des données) : 20 questions de ta formation '
+          'ajoutées, avec corrigé en anglais et en français.',
     ],
   ),
   (

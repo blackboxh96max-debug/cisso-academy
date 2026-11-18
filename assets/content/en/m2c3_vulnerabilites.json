@@ -889,5 +889,482 @@
   "Zero-day: no patch → work around, filter, isolate, detect. End of life: replace, or isolate with an exception.",
   "Scan (lists), penetration test (proves), audit (compares), Red Team (tests detection and response). Black, gray, white box.",
   "Pairs not to confuse: CVE/CWE; CVSS/EPSS; scan/pentest; virtual patch/patch; distributed/installed."
+ ],
+ "questions": [
+  {
+   "id": "m2c3-q01",
+   "prompt": "What is a vulnerability?",
+   "choices": [
+    "The amount of an expected annual loss",
+    "An exploitable weakness in a system or process",
+    "A malicious person seeking to cause harm",
+    "A patch published by the software vendor"
+   ],
+   "explanation": "The vulnerability is the weakness; the threat is what can exploit it.",
+   "whyNot": {
+    "0": "That is a financial measure of risk (ALE).",
+    "2": "A malicious person is a threat source.",
+    "3": "The patch is what removes the vulnerability."
+   }
+  },
+  {
+   "id": "m2c3-q02",
+   "prompt": "What is a CVE identifier used for?",
+   "choices": [
+    "Classifying the main types of weaknesses",
+    "Uniquely identifying a specific vulnerability",
+    "Encrypting the scan reports that are exchanged",
+    "Rating the technical severity of a flaw"
+   ],
+   "explanation": "A CVE (CVE-year-number) lets everyone talk about the same vulnerability.",
+   "whyNot": {
+    "0": "Types of weaknesses are classified by the CWE.",
+    "2": "The CVE has no encryption role.",
+    "3": "Severity is given by the CVSS."
+   }
+  },
+  {
+   "id": "m2c3-q03",
+   "prompt": "\"SQL injection\" corresponds to which concept?",
+   "choices": [
+    "A type of weakness listed in the CWE",
+    "An entry in the CISA KEV catalog",
+    "A CVSS technical severity score",
+    "A CVE identifier assigned to a product"
+   ],
+   "explanation": "The CWE classifies families of weaknesses; a CVE is a concrete case in a given product.",
+   "whyNot": {
+    "1": "The KEV lists exploited CVEs, not types of weaknesses.",
+    "2": "The CVSS is a numerical score.",
+    "3": "A CVE identifies a specific flaw in a product, not a family."
+   }
+  },
+  {
+   "id": "m2c3-q04",
+   "prompt": "With CVSS v3.1, which severity matches a score of 9.1?",
+   "choices": [
+    "Medium",
+    "Low",
+    "High",
+    "Critical"
+   ],
+   "explanation": "9.0 to 10.0 = critical; 7.0 to 8.9 = high; 4.0 to 6.9 = medium; 0.1 to 3.9 = low.",
+   "whyNot": {
+    "0": "Medium ranges from 4.0 to 6.9.",
+    "1": "Low ranges from 0.1 to 3.9.",
+    "2": "High ranges from 7.0 to 8.9."
+   }
+  },
+  {
+   "id": "m2c3-q05",
+   "prompt": "Why is the CVSS base score not enough to prioritize a fix?",
+   "choices": [
+    "It changes every day and is therefore not stable enough to decide on",
+    "It ignores exposure, asset criticality and actual exploitation",
+    "It is confidential and reserved for the vendor of the software concerned",
+    "It only applies to password-related vulnerabilities"
+   ],
+   "explanation": "The CVSS base score measures technical severity; priority also depends on the company's context and the actual threat.",
+   "whyNot": {
+    "0": "The base score is stable; that is not the problem.",
+    "2": "CVSS scores are public.",
+    "3": "The CVSS applies to every type of software vulnerability."
+   }
+  },
+  {
+   "id": "m2c3-q06",
+   "prompt": "What does the KEV catalog published by CISA contain?",
+   "choices": [
+    "The monthly patches published by Microsoft",
+    "The default passwords of network devices",
+    "Every vulnerability published worldwide",
+    "Vulnerabilities whose real-world exploitation is confirmed"
+   ],
+   "explanation": "KEV = Known Exploited Vulnerabilities: flaws that are already exploited, and therefore a priority.",
+   "whyNot": {
+    "0": "The KEV covers all vendors and does not distribute patches.",
+    "1": "It is not a list of passwords.",
+    "2": "That would be the NVD; the KEV keeps only a small part of it."
+   }
+  },
+  {
+   "id": "m2c3-q07",
+   "prompt": "What does the EPSS score measure?",
+   "choices": [
+    "The number of assets in the fleet affected by the flaw",
+    "The estimated probability that a CVE will be exploited in the next 30 days",
+    "The average time the company takes to fix a flaw",
+    "The technical severity of a flaw, from 0 to 10"
+   ],
+   "explanation": "EPSS, published by FIRST, complements the CVSS with an estimate of the probability of exploitation.",
+   "whyNot": {
+    "0": "EPSS knows nothing about your fleet.",
+    "2": "Time to fix is an internal indicator.",
+    "3": "Technical severity is measured by the CVSS."
+   }
+  },
+  {
+   "id": "m2c3-q08",
+   "prompt": "What is the main advantage of an authenticated scan?",
+   "choices": [
+    "It does not require any authorization from the owner of the systems",
+    "It replaces a targeted manual penetration test",
+    "It sees the versions actually installed and produces fewer false positives",
+    "It is invisible to the SOC and leaves no trace"
+   ],
+   "explanation": "Logged on to the system, the scanner reads versions and configurations instead of guessing them from the network.",
+   "whyNot": {
+    "0": "Every scan must be authorized.",
+    "1": "It lists the flaws but does not exploit them.",
+    "3": "A scan must be known to the SOC, not hidden."
+   }
+  },
+  {
+   "id": "m2c3-q09",
+   "prompt": "Before launching a vulnerability scan, which elements are essential? (2 answers)",
+   "choices": [
+    "A defined scope and time window",
+    "Disabling the SIEM during the scan",
+    "The scanner vendor's approval",
+    "Written authorization from the owner of the systems"
+   ],
+   "explanation": "The scan is authorized, bounded and scheduled; the SOC is warned so that it does not mistake the scan for an attack.",
+   "whyNot": {
+    "1": "The SOC is warned; monitoring is not disabled.",
+    "2": "The scanner vendor does not need to authorize your scans."
+   }
+  },
+  {
+   "id": "m2c3-q10",
+   "prompt": "What is the main difference between a vulnerability scan and a penetration test?",
+   "choices": [
+    "There is no difference: they are two names for the same activity",
+    "Unlike the scan, the penetration test does not require authorization",
+    "The scan lists the flaws; the penetration test exploits them",
+    "The scan is always manual, the penetration test always automated"
+   ],
+   "explanation": "The scan is automated and broad; the penetration test is manual, targeted and demonstrates exploitation.",
+   "whyNot": {
+    "0": "The goals and methods differ.",
+    "1": "The penetration test requires written authorization.",
+    "3": "The scan is usually automated."
+   }
+  },
+  {
+   "id": "m2c3-q11",
+   "prompt": "Which step follows remediation in the vulnerability management cycle?",
+   "choices": [
+    "Buying a new scanner",
+    "Verification by a new scan",
+    "Deleting the logs",
+    "Discovery"
+   ],
+   "explanation": "You check that the fix is effective before closing.",
+   "whyNot": {
+    "0": "Changing tools is not a step in the cycle.",
+    "2": "The logs are retained.",
+    "3": "Discovery opens the cycle."
+   }
+  },
+  {
+   "id": "m2c3-q12",
+   "prompt": "Which vulnerability should be handled FIRST?",
+   "choices": [
+    "CVSS 5.0 on an internal printer",
+    "CVSS 8.1 on an Internet-facing VPN gateway, listed in the KEV",
+    "CVSS 3.1 on a development server",
+    "CVSS 9.8 on an isolated test workstation, with no known exploit"
+   ],
+   "explanation": "An actively exploited flaw on an exposed asset carries the highest risk, even if its score is a little lower.",
+   "whyNot": {
+    "0": "Medium severity on a low-criticality internal asset.",
+    "2": "Low severity.",
+    "3": "High score, but an isolated asset and no exploitation: lower risk."
+   }
+  },
+  {
+   "id": "m2c3-q13",
+   "prompt": "Which criteria, besides the CVSS, go into risk-based prioritization? (2 answers)",
+   "choices": [
+    "Evidence or probability of exploitation (KEV, EPSS)",
+    "The number of letters in the server's name",
+    "The exposure of the asset (Internet, poorly protected segment)",
+    "The color of the scanner's interface"
+   ],
+   "explanation": "Exposure, exploitation and asset criticality turn a technical score into a priority.",
+   "whyNot": {
+    "1": "A server's name has no link to risk.",
+    "3": "The interface has no link to risk."
+   }
+  },
+  {
+   "id": "m2c3-q14",
+   "prompt": "What is a virtual patch?",
+   "choices": [
+    "A patch installed only in a virtual machine",
+    "A remediation exception granted with no end date",
+    "A WAF or IPS rule that blocks exploitation without touching the system",
+    "A patch downloaded from an unofficial site"
+   ],
+   "explanation": "The virtual patch is a temporary compensating measure while waiting for the real fix.",
+   "whyNot": {
+    "0": "The word \"virtual\" does not refer to virtualization here.",
+    "1": "An exception with no date is bad practice.",
+    "3": "That is a risk, not a security measure."
+   }
+  },
+  {
+   "id": "m2c3-q15",
+   "prompt": "Who must approve a remediation exception for a critical vulnerability?",
+   "choices": [
+    "The (business) risk owner, with the advice of security",
+    "The vendor of the vulnerability scanner",
+    "Any system administrator on the team",
+    "The analyst who found the flaw during the scan"
+   ],
+   "explanation": "Accepting a risk is the job of the person accountable for it, informed by security.",
+   "whyNot": {
+    "1": "The vendor has no authority over your risks.",
+    "2": "The administrator implements; they do not own the business risk.",
+    "3": "The analyst reports; they do not decide to accept the risk."
+   }
+  },
+  {
+   "id": "m2c3-q16",
+   "prompt": "Which elements must a well-managed remediation exception include? (2 answers)",
+   "choices": [
+    "An expiration or review date",
+    "Stopping the scans on this asset",
+    "Removing the asset from the inventory",
+    "Compensating measures"
+   ],
+   "explanation": "The exception is justified, compensated and limited in time.",
+   "whyNot": {
+    "1": "Scanning continues in order to track the risk.",
+    "2": "Removing the asset from the inventory would make it invisible."
+   }
+  },
+  {
+   "id": "m2c3-q17",
+   "prompt": "An old, forgotten server no longer serves any purpose and has critical vulnerabilities. What is the best option?",
+   "choices": [
+    "Raise its CVSS score",
+    "Hide it in another network without saying so",
+    "Decommission it",
+    "Accept it"
+   ],
+   "explanation": "A useless system is decommissioned: it is the safest and cheapest way to remove the risk.",
+   "whyNot": {
+    "0": "The score changes nothing about the risk.",
+    "1": "A hidden, unmanaged system remains a risk.",
+    "3": "Accepting a pointless risk makes no sense."
+   }
+  },
+  {
+   "id": "m2c3-q18",
+   "prompt": "Which indicator best reveals a dangerous delay in remediation?",
+   "choices": [
+    "The total number of vulnerabilities found by the scans",
+    "The number of scanners bought and deployed in the year",
+    "The share of critical vulnerabilities not fixed within the set deadline",
+    "The average size of the scan reports sent to the teams"
+   ],
+   "explanation": "Missed deadlines on critical flaws measure the risk actually left open.",
+   "whyNot": {
+    "0": "The total depends mainly on the size of the fleet and on coverage.",
+    "1": "The number of tools is not a result.",
+    "3": "The size of a report is not a risk indicator."
+   }
+  },
+  {
+   "id": "m2c3-q19",
+   "prompt": "The scanner reports a critical flaw on a server, but the team says it applied a patch backported by the vendor without changing the version number. What should be done?",
+   "choices": [
+    "Close the alert without checking, since the team says so",
+    "Delete the scanner's detection rule for all the servers in the fleet",
+    "Check that the patch is present before concluding it is a false positive",
+    "Reinstall the server immediately from a fresh image"
+   ],
+   "explanation": "A false positive is demonstrated with evidence; it is documented, then tuned.",
+   "whyNot": {
+    "0": "Closing without evidence can leave a real flaw open.",
+    "1": "Deleting the rule everywhere would hide real cases.",
+    "3": "Reinstalling is disproportionate before checking."
+   }
+  },
+  {
+   "id": "m2c3-q20",
+   "prompt": "What is every vulnerability management program built on?",
+   "choices": [
+    "Trust in the vendors",
+    "A single annual scan",
+    "An up-to-date asset inventory",
+    "Buying a firewall"
+   ],
+   "explanation": "You can neither scan nor fix an asset you do not know about.",
+   "whyNot": {
+    "0": "Trust does not replace verification.",
+    "1": "An annual scan leaves months of flaws invisible.",
+    "3": "A firewall does not replace vulnerability management."
+   }
+  },
+  {
+   "id": "m2c3-q21",
+   "prompt": "Why test a patch before deploying it across the whole fleet?",
+   "choices": [
+    "Because patches are always malicious",
+    "To check that it does not break a critical service",
+    "To delay the fix as long as possible",
+    "Because the law prohibits patches"
+   ],
+   "explanation": "Testing limits the risk of an outage; it must remain proportionate to the urgency.",
+   "whyNot": {
+    "0": "Official patches are not malicious, but their source must be checked.",
+    "2": "Testing must not be used as an excuse for delay.",
+    "3": "No law prohibits patches."
+   }
+  },
+  {
+   "id": "m2c3-q22",
+   "prompt": "A zero-day flaw is being exploited and no patch exists. Which response is the most appropriate?",
+   "choices": [
+    "Wait for the patch to be published without changing anything",
+    "Publish the flaw on social media to raise the alarm",
+    "Work around, filter or isolate, and strengthen detection",
+    "Uninstall the antivirus to avoid conflicts"
+   ],
+   "explanation": "Without a patch, you reduce exposure and monitor until the patch is published.",
+   "whyNot": {
+    "0": "Doing nothing leaves the door open.",
+    "1": "That is not a protective measure.",
+    "3": "That would reduce protection."
+   }
+  },
+  {
+   "id": "m2c3-q23",
+   "prompt": "An operating system is no longer maintained by its vendor (end of life). What is the main risk?",
+   "choices": [
+    "It becomes faster",
+    "It can no longer be backed up",
+    "New flaws will no longer be fixed",
+    "It loses its keyboard license"
+   ],
+   "explanation": "Without patches, every new flaw stays open: replace it, or isolate it with compensating measures.",
+   "whyNot": {
+    "0": "End of life has no effect on speed.",
+    "1": "Backups remain possible.",
+    "3": "That is not a real effect."
+   }
+  },
+  {
+   "id": "m2c3-q24",
+   "prompt": "Which elements reduce the risk of a patch deployment? (2 answers)",
+   "choices": [
+    "Deploying to the whole fleet at once without testing",
+    "Deleting backups to free up space",
+    "Deploying in waves, starting with a pilot group",
+    "A tested rollback plan"
+   ],
+   "explanation": "Waves and rollback let you move fast without risking everything.",
+   "whyNot": {
+    "0": "A problem would hit the whole fleet at once.",
+    "1": "Backups are the last safety net if something fails."
+   }
+  },
+  {
+   "id": "m2c3-q25",
+   "prompt": "How should an urgent patch be handled with respect to change management?",
+   "choices": [
+    "It is applied by any administrator, with no record",
+    "It is completely exempt from the change management process",
+    "It waits for the next monthly change board meeting",
+    "It follows the emergency change procedure, recorded and reviewed"
+   ],
+   "explanation": "A patch is a change; urgency speeds up the process without removing it.",
+   "whyNot": {
+    "0": "The lack of a record prevents oversight and investigation.",
+    "1": "No change is exempt from the process.",
+    "2": "Waiting a month would be too long for an emergency."
+   }
+  },
+  {
+   "id": "m2c3-q26",
+   "prompt": "After a patch has been deployed, what must be done?",
+   "choices": [
+    "Erase the installation logs to free up space",
+    "Close the ticket without any further check",
+    "Disable automatic updates on the workstations",
+    "Check that it is actually installed and that the vulnerability is gone"
+   ],
+   "explanation": "A distributed patch is not necessarily installed (failure, missing restart).",
+   "whyNot": {
+    "0": "The logs serve as evidence.",
+    "1": "Without verification, the flaw may remain open.",
+    "2": "That would prevent future fixes."
+   }
+  },
+  {
+   "id": "m2c3-q27",
+   "prompt": "Which exercise is mainly intended to test the defense team's ability to detect and respond?",
+   "choices": [
+    "A Red Team exercise",
+    "A vulnerability scan",
+    "A policy review",
+    "A compliance audit"
+   ],
+   "explanation": "The Red Team simulates a realistic, stealthy adversary to test the Blue Team.",
+   "whyNot": {
+    "1": "The scan lists known flaws.",
+    "2": "A policy review is a document review.",
+    "3": "The audit compares against a framework."
+   }
+  },
+  {
+   "id": "m2c3-q28",
+   "prompt": "A tester receives the source code, the network diagrams and accounts. What type of test is this?",
+   "choices": [
+    "Gray box",
+    "Blind test",
+    "Black box",
+    "White box"
+   ],
+   "explanation": "In a white-box test, the tester has all the information.",
+   "whyNot": {
+    "0": "In a gray-box test, they have part of it (often an account).",
+    "1": "A blind test gives little or no information.",
+    "2": "In a black-box test, they know nothing."
+   }
+  },
+  {
+   "id": "m2c3-q29",
+   "prompt": "Which elements must appear in the rules of engagement of a penetration test? (2 answers)",
+   "choices": [
+    "The director's personal password",
+    "Permission to test the company's customers without their consent",
+    "Emergency contacts and prohibited techniques",
+    "The authorized scope and dates"
+   ],
+   "explanation": "The rules of engagement set the limits of the test: what, when, how, and who to call if there is a problem.",
+   "whyNot": {
+    "0": "A personal secret is never handed over.",
+    "1": "Third-party systems can only be tested with their own authorization."
+   }
+  },
+  {
+   "id": "m2c3-q30",
+   "prompt": "Where should patches be downloaded from?",
+   "choices": [
+    "From the vendor's official sources, checking their signature",
+    "From an attachment received by email",
+    "From a USB stick found in the parking lot",
+    "From an anonymous forum offering a faster version"
+   ],
+   "explanation": "A fake patch is a classic vector for malware.",
+   "whyNot": {
+    "1": "An attachment is a phishing vector.",
+    "2": "A found USB stick is a classic attack vector.",
+    "3": "An anonymous source can distribute a trojanized file."
+   }
+  }
  ]
 }

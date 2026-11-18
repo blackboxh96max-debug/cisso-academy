@@ -11,15 +11,15 @@ import 'notebook/look.dart';
 import 'notebook/palette.dart';
 import 'search_page.dart';
 
-/// Les actions générales de l'application : réglages, examen, à propos,
+/// Les actions générales de l'application : réglages, à propos (application et
+/// examen),
 /// réinitialisation. Elles sont proposées dans le menu ⋮ de l'accueil, dans
 /// le menu de gauche (tiroir sur téléphone, rail sur grand écran).
 enum AppAction {
   search('Recherche', Icons.search),
   assistant('Chatbot', Icons.forum_outlined),
   settings('Réglages', Icons.settings_outlined),
-  exam('À propos de l\'examen', Icons.info_outline),
-  about('À propos de l\'application', Icons.shield_outlined),
+  about('À propos', Icons.shield_outlined),
   reset('Réinitialiser ma progression', Icons.restart_alt);
 
   const AppAction(this.label, this.icon);
@@ -31,7 +31,6 @@ enum AppAction {
     AppAction.search => 'Recherche',
     AppAction.assistant => 'Chatbot',
     AppAction.settings => 'Réglages',
-    AppAction.exam => 'Examen',
     AppAction.about => 'À propos',
     AppAction.reset => 'Réinitialiser',
   };
@@ -40,14 +39,12 @@ enum AppAction {
   bool get opensPage =>
       this == AppAction.search ||
       this == AppAction.assistant ||
-      this == AppAction.exam ||
       this == AppAction.about;
 
   /// La page ouverte par l'action, s'il y en a une.
   Widget? get page => switch (this) {
     AppAction.search => const SearchPage(),
     AppAction.assistant => const AssistantPage(),
-    AppAction.exam => const AboutPage(initialSection: AboutSection.exam),
     AppAction.about => const AboutPage(),
     _ => null,
   };
@@ -57,7 +54,6 @@ enum AppAction {
       context,
     ).push(MaterialPageRoute<void>(builder: (_) => page!)),
     AppAction.settings => showSettings(context),
-    AppAction.exam => openAbout(context, section: AboutSection.exam),
     AppAction.about => openAbout(context),
     AppAction.reset => confirmReset(context),
   };

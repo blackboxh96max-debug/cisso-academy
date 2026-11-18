@@ -780,5 +780,477 @@
   "Lessons learned: prompt, factual timeline, blameless, MTTD and costs, actions with an owner and a deadline, playbooks and detections updated.",
   "Notifications: GDPR Art. 33, authority within 72 h; Art. 34, individuals if high risk; NIS 2 Art. 23, early warning 24 h, notification 72 h, final report one month.",
   "Pairs not to confuse: event/incident; contain/eradicate; memory/disk; original/copy; enticement/entrapment."
+ ],
+ "questions": [
+  {
+   "id": "m5c2-q01",
+   "prompt": "Which of these cases is a security incident, and not just an event?",
+   "choices": [
+    "A compromised account used to download customer data",
+    "A user logging on normally in the morning",
+    "A file being opened by its owner",
+    "An antivirus update"
+   ],
+   "explanation": "An incident harms, or threatens to harm, security; the other cases are normal events.",
+   "whyNot": {
+    "1": "A normal event.",
+    "2": "A normal event.",
+    "3": "A normal event."
+   }
+  },
+  {
+   "id": "m5c2-q02",
+   "prompt": "What is the first phase of the incident response life cycle?",
+   "choices": [
+    "Eradication",
+    "Lessons learned",
+    "Containment",
+    "Preparation"
+   ],
+   "explanation": "The team, tools and procedures are prepared before any incident.",
+   "whyNot": {
+    "0": "It comes after containment.",
+    "1": "It is the last phase.",
+    "2": "It comes after detection."
+   }
+  },
+  {
+   "id": "m5c2-q03",
+   "prompt": "What is a CSIRT?",
+   "choices": [
+    "A standardized log format for SIEMs",
+    "A type of application firewall for websites",
+    "An encryption protocol for emergency communications",
+    "The team responsible for responding to security incidents"
+   ],
+   "explanation": "Computer Security Incident Response Team: a multidisciplinary response team.",
+   "whyNot": {
+    "0": "Unrelated.",
+    "1": "Unrelated.",
+    "2": "Unrelated."
+   }
+  },
+  {
+   "id": "m5c2-q04",
+   "prompt": "In what order are these actions carried out?",
+   "choices": [
+    "Contain, eradicate, recover",
+    "Recover, eradicate, contain",
+    "Eradicate, recover, contain",
+    "Recover, contain, eradicate"
+   ],
+   "explanation": "First limit the damage, then remove the cause, then restore service.",
+   "whyNot": {
+    "1": "Reversed order.",
+    "2": "Eradicating without containing lets the attack spread.",
+    "3": "Recovering first exposes you to reinfection."
+   }
+  },
+  {
+   "id": "m5c2-q05",
+   "prompt": "Which elements belong to the preparation phase? (several answers)",
+   "choices": [
+    "Writing playbooks for each type of incident",
+    "Keeping on-call and authority contacts up to date",
+    "Synchronizing log time (NTP)",
+    "Restoring the infected server"
+   ],
+   "explanation": "Everything that makes it possible to react quickly and well is prepared before the incident.",
+   "whyNot": {
+    "3": "That is recovery, during the incident."
+   }
+  },
+  {
+   "id": "m5c2-q06",
+   "prompt": "Why synchronize the time of all systems to a single source?",
+   "choices": [
+    "To save disk space on the log server",
+    "To rebuild a reliable timeline by correlating the logs",
+    "To encrypt the logs with a time-based key",
+    "To speed up traffic on the internal network"
+   ],
+   "explanation": "Without a common time, events from several sources cannot be put in order.",
+   "whyNot": {
+    "0": "Unrelated.",
+    "2": "Unrelated.",
+    "3": "Unrelated."
+   }
+  },
+  {
+   "id": "m5c2-q07",
+   "prompt": "Which criteria determine the severity of an incident? (several answers)",
+   "choices": [
+    "The brand of the computers",
+    "Ongoing spread",
+    "The sensitivity of the data affected",
+    "The impact on the business"
+   ],
+   "explanation": "Impact (data, business, number of systems) and urgency (spread, exfiltration).",
+   "whyNot": {
+    "0": "Unrelated."
+   }
+  },
+  {
+   "id": "m5c2-q08",
+   "prompt": "When are the criteria for escalation to management and legal decided?",
+   "choices": [
+    "During the incident, case by case",
+    "Only after the incident",
+    "In advance, in the policy and playbooks",
+    "Never, the technical team handles everything alone"
+   ],
+   "explanation": "Written criteria avoid hesitation and oversights in the middle of a crisis.",
+   "whyNot": {
+    "0": "A source of errors and delays.",
+    "1": "Too late.",
+    "3": "Management and legal must be involved."
+   }
+  },
+  {
+   "id": "m5c2-q09",
+   "prompt": "Why should the analyst record every action with the exact time from the very start?",
+   "choices": [
+    "It is not useful as long as the incident is not closed",
+    "For the timeline, the evidence and the lessons learned",
+    "To slow down the attacker, who can see the team's notes",
+    "To meet the action quota set by the SOC manager"
+   ],
+   "explanation": "The notes serve the investigation, legal obligations and improvement.",
+   "whyNot": {
+    "0": "It is essential.",
+    "2": "Unrelated.",
+    "3": "Unrelated."
+   }
+  },
+  {
+   "id": "m5c2-q10",
+   "prompt": "According to NIST SP 800-61 Rev. 2, which phase groups containment, eradication and recovery?",
+   "choices": [
+    "A single phase: containment, eradication and recovery",
+    "Preparation, before any incident",
+    "Post-incident activity (lessons learned)",
+    "Detection and analysis of the incident"
+   ],
+   "explanation": "The four-phase model brings these three actions together in the third phase.",
+   "whyNot": {
+    "1": "First phase.",
+    "2": "Fourth phase.",
+    "3": "Second phase."
+   }
+  },
+  {
+   "id": "m5c2-q11",
+   "prompt": "What should be collected first on a machine that is powered on?",
+   "choices": [
+    "Paper documents",
+    "The hard disk",
+    "The RAM",
+    "Tape backups"
+   ],
+   "explanation": "RAM disappears at shutdown; it is more volatile than the disk.",
+   "whyNot": {
+    "0": "Not volatile.",
+    "1": "Less volatile than memory.",
+    "3": "The least volatile."
+   }
+  },
+  {
+   "id": "m5c2-q12",
+   "prompt": "What is a write blocker used for?",
+   "choices": [
+    "Speeding up the copy of a large disk",
+    "Encrypting a disk image before transporting it",
+    "Reading a medium without being able to modify it",
+    "Securely wiping a disk"
+   ],
+   "explanation": "It guarantees that the original is not altered during acquisition.",
+   "whyNot": {
+    "0": "Unrelated.",
+    "1": "Unrelated.",
+    "3": "It is the opposite."
+   }
+  },
+  {
+   "id": "m5c2-q13",
+   "prompt": "What must the chain of custody of a piece of evidence show?",
+   "choices": [
+    "The list of software installed on the medium",
+    "Who collected and held it, when, where, how and why",
+    "The name and address of the presumed attacker",
+    "Only the price and brand of the seized equipment"
+   ],
+   "explanation": "It proves that the evidence could not have been altered between collection and court.",
+   "whyNot": {
+    "0": "That is not its role.",
+    "2": "Not necessarily known.",
+    "3": "Unrelated."
+   }
+  },
+  {
+   "id": "m5c2-q14",
+   "prompt": "Why compute the SHA-256 hash of a disk image?",
+   "choices": [
+    "To prove later that the image has not been modified",
+    "To speed up analysis in the forensic tool",
+    "To encrypt the image before sending it",
+    "To compress the image and save space"
+   ],
+   "explanation": "An identical hash before and after analysis demonstrates integrity.",
+   "whyNot": {
+    "1": "Unrelated.",
+    "2": "A hash does not encrypt.",
+    "3": "A hash does not compress."
+   }
+  },
+  {
+   "id": "m5c2-q15",
+   "prompt": "What does the investigator carry out their analysis on?",
+   "choices": [
+    "On the user's production workstation",
+    "On a bit-by-bit copy, with the original kept sealed",
+    "On a screenshot",
+    "Directly on the original disk"
+   ],
+   "explanation": "The original is preserved; another copy can be made if needed.",
+   "whyNot": {
+    "0": "Risk of alteration.",
+    "2": "Not enough.",
+    "3": "Risk of modifying the evidence."
+   }
+  },
+  {
+   "id": "m5c2-q16",
+   "prompt": "What is \"best evidence\"?",
+   "choices": [
+    "The most recent evidence collected on the system",
+    "The longest and most detailed testimony",
+    "A copy certified as true by a bailiff",
+    "The original of a document or medium"
+   ],
+   "explanation": "The original is preferred over a copy when it is available.",
+   "whyNot": {
+    "0": "Unrelated.",
+    "1": "Unrelated.",
+    "2": "That is secondary evidence."
+   }
+  },
+  {
+   "id": "m5c2-q17",
+   "prompt": "A honeypot attracts attackers who connect to it of their own accord. What is this, legally?",
+   "choices": [
+    "Entrapment, which is illegal",
+    "Offensive hacking",
+    "Enticement, which is generally legal",
+    "A counterattack"
+   ],
+   "explanation": "Leaving an attractive target forces no one to commit an offense.",
+   "whyNot": {
+    "0": "Entrapment pushes someone to commit an offense they would not otherwise have committed.",
+    "1": "Nothing attacks the adversary.",
+    "3": "No action is taken toward the attacker."
+   }
+  },
+  {
+   "id": "m5c2-q18",
+   "prompt": "Which qualities must evidence have to be admissible? (several answers)",
+   "choices": [
+    "Authentic and reliable",
+    "Lawfully obtained",
+    "Written in English",
+    "Relevant"
+   ],
+   "explanation": "Relevance, authenticity, reliability, lawfulness and completeness.",
+   "whyNot": {
+    "2": "Language does not determine admissibility."
+   }
+  },
+  {
+   "id": "m5c2-q19",
+   "prompt": "What does Locard's exchange principle say when applied to digital forensics?",
+   "choices": [
+    "Only the original of a piece of evidence is admissible in court",
+    "Every contact leaves a trace: the attacker leaves traces in the system and takes some away",
+    "The machine must always be shut down before collecting traces",
+    "Digital evidence never degrades, unlike physical evidence"
+   ],
+   "explanation": "That is why traces are sought even when the attacker believes they have erased them.",
+   "whyNot": {
+    "0": "That is the best evidence rule.",
+    "2": "Shutting down erases memory.",
+    "3": "It is easily altered."
+   }
+  },
+  {
+   "id": "m5c2-q20",
+   "prompt": "Why avoid shutting down a compromised machine immediately?",
+   "choices": [
+    "Because the attacker would be notified of the shutdown by email",
+    "Because the law forbids it during an investigation",
+    "Because the RAM, with processes and connections, would be lost",
+    "Because the disk would be automatically wiped at shutdown"
+   ],
+   "explanation": "Isolate it from the network and capture the memory when possible.",
+   "whyNot": {
+    "0": "Unrelated.",
+    "1": "It is not a legal rule.",
+    "3": "The disk remains."
+   }
+  },
+  {
+   "id": "m5c2-q21",
+   "prompt": "Which action is short-term containment?",
+   "choices": [
+    "Buying a new SIEM",
+    "Writing the lessons-learned report",
+    "Isolating an infected workstation from the network through the EDR",
+    "Training users the following year"
+   ],
+   "explanation": "It stops the spread immediately.",
+   "whyNot": {
+    "0": "That is not a containment action.",
+    "1": "After the incident.",
+    "3": "A long-term improvement."
+   }
+  },
+  {
+   "id": "m5c2-q22",
+   "prompt": "What must be done before putting a cleaned server back into service?",
+   "choices": [
+    "Pay the ransom to avoid another attack",
+    "Close the entry point and reset the compromised credentials",
+    "Delete the logs to start again from a clean base",
+    "Nothing more, cleaning the server is enough"
+   ],
+   "explanation": "Otherwise the attacker comes back the same way or with the same credentials.",
+   "whyNot": {
+    "0": "Unrelated and discouraged.",
+    "2": "They are evidence.",
+    "3": "Risk of reinfection."
+   }
+  },
+  {
+   "id": "m5c2-q23",
+   "prompt": "From which backup should you restore after a compromise?",
+   "choices": [
+    "The one kept on the infected server itself",
+    "A verified backup from before the compromise",
+    "The most recent one, whatever it is, to lose as little data as possible",
+    "None: the current state of the cleaned server is kept"
+   ],
+   "explanation": "The most recent backup may contain the backdoor.",
+   "whyNot": {
+    "0": "It may be infected.",
+    "2": "Risk of restoring the compromise.",
+    "3": "The current state is compromised."
+   }
+  },
+  {
+   "id": "m5c2-q24",
+   "prompt": "What is the spirit of a good lessons-learned review?",
+   "choices": [
+    "Finding someone to blame and punish as an example",
+    "Writing a public report for the press",
+    "Closing the case as quickly as possible to move on",
+    "Understanding and improving, without looking for a culprit"
+   ],
+   "explanation": "A blameless approach encourages transparency and real fixes.",
+   "whyNot": {
+    "0": "It discourages transparency.",
+    "1": "That is not its purpose.",
+    "2": "The lessons are lost."
+   }
+  },
+  {
+   "id": "m5c2-q25",
+   "prompt": "Letting an attacker act under observation to understand the attack requires what?",
+   "choices": [
+    "Nothing in particular, it is a technical decision for the SOC",
+    "The attacker's written consent, for legal reasons",
+    "Shutting down all production systems beforehand",
+    "A decision by management and legal, because the risk is high"
+   ],
+   "explanation": "The damage can get worse during the observation.",
+   "whyNot": {
+    "0": "A weighty decision.",
+    "1": "Absurd.",
+    "2": "That would be the opposite of observation."
+   }
+  },
+  {
+   "id": "m5c2-q26",
+   "prompt": "Which actions normally follow a lessons-learned review? (several answers)",
+   "choices": [
+    "Updating the playbooks",
+    "Assigning each action to an owner with a deadline",
+    "Deleting the timeline",
+    "Creating new detection rules"
+   ],
+   "explanation": "The lessons must turn into tracked actions.",
+   "whyNot": {
+    "2": "The timeline is useful for the audit and what follows."
+   }
+  },
+  {
+   "id": "m5c2-q27",
+   "prompt": "Within what time frame must the supervisory authority be notified of a personal data breach that poses a risk?",
+   "choices": [
+    "The regulation sets no deadline",
+    "One month after discovering the breach",
+    "One week after the incident is fully resolved",
+    "No later than 72 hours after becoming aware of it"
+   ],
+   "explanation": "GDPR, Article 33; the notification can be completed in stages.",
+   "whyNot": {
+    "0": "The deadline is set by the regulation.",
+    "1": "Too late.",
+    "2": "The clock starts when you become aware, not at resolution."
+   }
+  },
+  {
+   "id": "m5c2-q28",
+   "prompt": "For a significant incident, which deadlines does NIS 2 set for the entities concerned?",
+   "choices": [
+    "Early warning within 24 h, notification within 72 h, final report within one month",
+    "A single notification within 7 days, with no final report",
+    "No deadline: notification remains optional",
+    "An annual report of all incidents, with no notification"
+   ],
+   "explanation": "Directive (EU) 2022/2555, Article 23.",
+   "whyNot": {
+    "1": "Inaccurate.",
+    "2": "It is an obligation.",
+    "3": "Inaccurate."
+   }
+  },
+  {
+   "id": "m5c2-q29",
+   "prompt": "Which metric measures the time between the start of an incident and its detection?",
+   "choices": [
+    "The RPO",
+    "The MTTD",
+    "The MTBF",
+    "The RTO"
+   ],
+   "explanation": "Mean Time To Detect: the average time to detection.",
+   "whyNot": {
+    "0": "Acceptable data loss.",
+    "2": "Reliability of a component.",
+    "3": "Time to restore service."
+   }
+  },
+  {
+   "id": "m5c2-q30",
+   "prompt": "Which factors guide the choice of a containment strategy? (several answers)",
+   "choices": [
+    "The availability of the service for the business",
+    "The color of the attacker's logo",
+    "The need to preserve evidence",
+    "The risk of spread"
+   ],
+   "explanation": "Damage, evidence, continuity, resources and effectiveness are weighed.",
+   "whyNot": {
+    "1": "Unrelated."
+   }
+  }
  ]
 }

@@ -823,5 +823,483 @@
   "Tests: checklist review, tabletop exercise, simulation, parallel, full interruption (management approval).",
   "Maintenance: annual review and at each major change, lessons learned, training, off-site and offline copies.",
   "Pairs not to confuse: BCP/DRP; RTO/RPO; incremental/differential; RAID/backup; parallel/full interruption."
+ ],
+ "questions": [
+  {
+   "id": "m5c1-q01",
+   "prompt": "What is the main difference between a BCP and a DRP?",
+   "choices": [
+    "The DRP covers the whole organization, and the BCP only IT",
+    "The BCP only concerns fires, the DRP all other crises",
+    "The BCP covers all business activity; the DRP, IT recovery",
+    "They are two synonyms for exactly the same document"
+   ],
+   "explanation": "The DRP is a technical component of the BCP.",
+   "whyNot": {
+    "0": "It is the other way around.",
+    "1": "The BCP covers every type of disaster.",
+    "3": "They differ in scope."
+   }
+  },
+  {
+   "id": "m5c1-q02",
+   "prompt": "What is the absolute priority in a continuity plan?",
+   "choices": [
+    "The safety of people",
+    "Protecting the equipment",
+    "Restoring the data",
+    "Communicating with the press"
+   ],
+   "explanation": "Human life comes before property, data and systems.",
+   "whyNot": {
+    "1": "After people.",
+    "2": "Important, but after people.",
+    "3": "After people."
+   }
+  },
+  {
+   "id": "m5c1-q03",
+   "prompt": "Which activity must be carried out before choosing recovery strategies?",
+   "choices": [
+    "The business impact analysis (BIA)",
+    "Buying a hot site",
+    "The full interruption test",
+    "Writing the press release"
+   ],
+   "explanation": "The BIA sets the priorities and objectives (MTD, RTO, RPO) from which the strategies follow.",
+   "whyNot": {
+    "1": "A site is chosen only once the RTO is known.",
+    "2": "Tests come after the plan.",
+    "3": "Unrelated."
+   }
+  },
+  {
+   "id": "m5c1-q04",
+   "prompt": "Management agrees to lose at most 2 hours of data entry. Which metric does this set?",
+   "choices": [
+    "The RPO",
+    "The MTD",
+    "The MTBF",
+    "The RTO"
+   ],
+   "explanation": "The RPO is the acceptable data loss, measured in time; here it requires a backup or replication at least every 2 hours.",
+   "whyNot": {
+    "1": "The MTD is the tolerable downtime.",
+    "2": "The MTBF measures reliability.",
+    "3": "The RTO is the time to restore service."
+   }
+  },
+  {
+   "id": "m5c1-q05",
+   "prompt": "Which relationship must hold between RTO, WRT and MTD?",
+   "choices": [
+    "RTO = RPO",
+    "RTO + WRT ≤ MTD",
+    "MTD + WRT ≤ RTO",
+    "WRT ≥ MTD"
+   ],
+   "explanation": "The time to restore service plus the time to resume work must not exceed the maximum tolerable downtime.",
+   "whyNot": {
+    "0": "They measure different things.",
+    "2": "The MTD is the upper bound.",
+    "3": "The WRT is only part of the MTD."
+   }
+  },
+  {
+   "id": "m5c1-q06",
+   "prompt": "A process has an RTO of 2 hours. Which decision does this figure mainly guide?",
+   "choices": [
+    "How often backups are taken",
+    "How long logs are kept",
+    "The choice of antivirus",
+    "The type of recovery site and solution"
+   ],
+   "explanation": "A short RTO requires a fast recovery solution (hot site, replication, failover).",
+   "whyNot": {
+    "0": "It is the RPO that sets the backup frequency.",
+    "1": "Unrelated.",
+    "2": "Unrelated."
+   }
+  },
+  {
+   "id": "m5c1-q07",
+   "prompt": "What is the most important factor for the success of a continuity program?",
+   "choices": [
+    "The choice of backup software",
+    "The color of the binders",
+    "Management support and commitment",
+    "The number of pages in the plan"
+   ],
+   "explanation": "Management sets the priorities, approves the MTDs and allocates the resources.",
+   "whyNot": {
+    "0": "Useful but secondary.",
+    "1": "Unrelated.",
+    "3": "A long plan is not an effective plan."
+   }
+  },
+  {
+   "id": "m5c1-q08",
+   "prompt": "During a BIA, which elements must be identified for each critical process? (several answers)",
+   "choices": [
+    "The impact of the interruption over time",
+    "The brand of the monitors",
+    "The dependencies: applications, people, suppliers, premises",
+    "The maximum tolerable downtime"
+   ],
+   "explanation": "The BIA links processes, dependencies, impacts and recovery objectives.",
+   "whyNot": {
+    "1": "Of no interest for continuity."
+   }
+  },
+  {
+   "id": "m5c1-q09",
+   "prompt": "The MTD for invoicing is 48 h and the WRT is estimated at 12 h. What is the maximum RTO that can be set?",
+   "choices": [
+    "12 h",
+    "36 h",
+    "60 h",
+    "48 h"
+   ],
+   "explanation": "RTO + WRT ≤ MTD, so RTO ≤ 48 − 12 = 36 h.",
+   "whyNot": {
+    "0": "Possible, but not the maximum.",
+    "2": "It would exceed the MTD.",
+    "3": "The WRT must be subtracted."
+   }
+  },
+  {
+   "id": "m5c1-q10",
+   "prompt": "A phishing attack compromises three accounts, with no loss of site or system. Which plan applies first?",
+   "choices": [
+    "The disaster recovery plan at the backup site",
+    "No plan",
+    "The incident response plan",
+    "The evacuation plan"
+   ],
+   "explanation": "A security incident without a disaster falls under incident response; the BCP can be activated if the impact worsens.",
+   "whyNot": {
+    "0": "No site is lost.",
+    "1": "A plan exists for this case.",
+    "3": "No physical danger."
+   }
+  },
+  {
+   "id": "m5c1-q11",
+   "prompt": "Which backup site already has the hardware, network and software, and can take over within a few hours?",
+   "choices": [
+    "The cold site",
+    "The hot site",
+    "The warm site",
+    "A reciprocal agreement"
+   ],
+   "explanation": "The hot site is ready; what is mainly missing is the latest data.",
+   "whyNot": {
+    "0": "The cold site only has the premises and power.",
+    "2": "The warm site takes days.",
+    "3": "Uncertain availability."
+   }
+  },
+  {
+   "id": "m5c1-q12",
+   "prompt": "Which site is the cheapest but the slowest to make operational?",
+   "choices": [
+    "The cold site",
+    "The mirror site",
+    "Recovery in the cloud",
+    "The hot site"
+   ],
+   "explanation": "It only provides the premises, electricity and air conditioning: everything has to be installed.",
+   "whyNot": {
+    "1": "The most expensive.",
+    "2": "Fast.",
+    "3": "Fast but expensive."
+   }
+  },
+  {
+   "id": "m5c1-q13",
+   "prompt": "Full backup on Sunday, incremental backups Monday to Saturday. Failure on Thursday morning. What must be restored?",
+   "choices": [
+    "The full backup, then only Wednesday's incremental",
+    "Only the full backup",
+    "The full backup, then Monday's, Tuesday's and Wednesday's incrementals",
+    "Only Wednesday's incremental"
+   ],
+   "explanation": "Each incremental only contains the changes since the previous backup: the whole chain is needed.",
+   "whyNot": {
+    "0": "That would be the case with differentials.",
+    "1": "Three days would be lost.",
+    "3": "The base and the previous days would be missing."
+   }
+  },
+  {
+   "id": "m5c1-q14",
+   "prompt": "Full backup on Sunday, differential backups every day. Failure on Thursday morning. What must be restored?",
+   "choices": [
+    "The full backup, then Wednesday's differential",
+    "Only the full backup",
+    "Only Wednesday's differential",
+    "The full backup, then all the differentials"
+   ],
+   "explanation": "The differential contains all the changes since the last full backup.",
+   "whyNot": {
+    "1": "Three days would be lost.",
+    "2": "The base is missing.",
+    "3": "Unnecessary: the latest one contains the earlier ones."
+   }
+  },
+  {
+   "id": "m5c1-q15",
+   "prompt": "Which RAID level offers no redundancy?",
+   "choices": [
+    "RAID 5",
+    "RAID 1",
+    "RAID 0",
+    "RAID 6"
+   ],
+   "explanation": "RAID 0 stripes data for performance: losing one disk loses everything.",
+   "whyNot": {
+    "0": "Parity.",
+    "1": "Mirroring.",
+    "3": "Double parity."
+   }
+  },
+  {
+   "id": "m5c1-q16",
+   "prompt": "How many disks can fail at the same time without data loss in RAID 6?",
+   "choices": [
+    "None",
+    "One",
+    "All but one",
+    "Two"
+   ],
+   "explanation": "Double parity tolerates the loss of two disks.",
+   "whyNot": {
+    "0": "That is RAID 0.",
+    "1": "That is RAID 5.",
+    "2": "No."
+   }
+  },
+  {
+   "id": "m5c1-q17",
+   "prompt": "Why does RAID 1 not protect against ransomware?",
+   "choices": [
+    "Because RAID 1 itself encrypts the data it stores",
+    "Because RAID 1 is always offline, and therefore never up to date",
+    "Because RAID 1 actually has only one disk",
+    "Because the encryption is copied onto both disks"
+   ],
+   "explanation": "RAID protects against hardware failure, not against a logical change; backups are needed.",
+   "whyNot": {
+    "0": "It does not encrypt.",
+    "1": "It is online.",
+    "2": "It has at least two disks."
+   }
+  },
+  {
+   "id": "m5c1-q18",
+   "prompt": "What is the main drawback of a reciprocal agreement between two companies?",
+   "choices": [
+    "It has no drawback if it is signed by both management teams",
+    "It costs more than a fully dedicated mirror site",
+    "It is hard to enforce and capacity may be lacking",
+    "It is prohibited by law between two private companies"
+   ],
+   "explanation": "Cheap, but unreliable: capacity, confidentiality, a disaster affecting both.",
+   "whyNot": {
+    "0": "It has several.",
+    "1": "On the contrary, it is inexpensive.",
+    "3": "It is allowed."
+   }
+  },
+  {
+   "id": "m5c1-q19",
+   "prompt": "A device has an MTBF of 990 hours and a mean time to repair of 10 hours. What is its approximate availability?",
+   "choices": [
+    "1%",
+    "99.9%",
+    "99%",
+    "90%"
+   ],
+   "explanation": "990 / (990 + 10) = 0.99.",
+   "whyNot": {
+    "0": "Confusion with unavailability.",
+    "1": "That would require a repair time of about 1 hour.",
+    "3": "Calculation error."
+   }
+  },
+  {
+   "id": "m5c1-q20",
+   "prompt": "Which device supplies power during a short outage, long enough to start the generator?",
+   "choices": [
+    "The backup router",
+    "The uninterruptible power supply (UPS)",
+    "The redundant firewall",
+    "The RAID disk array"
+   ],
+   "explanation": "The UPS covers minutes; the generator covers long outages.",
+   "whyNot": {
+    "0": "Unrelated.",
+    "2": "Unrelated.",
+    "3": "Protects the disks, not the power."
+   }
+  },
+  {
+   "id": "m5c1-q21",
+   "prompt": "Which test is the least costly and the least risky?",
+   "choices": [
+    "Simulating a disaster with the teams",
+    "Full interruption of production",
+    "The parallel test at the backup site",
+    "The checklist review"
+   ],
+   "explanation": "Everyone rereads their part of the plan, without involving any systems.",
+   "whyNot": {
+    "0": "Heavier than a review.",
+    "1": "The riskiest.",
+    "2": "Involves the backup site."
+   }
+  },
+  {
+   "id": "m5c1-q22",
+   "prompt": "Which test brings up the systems at the backup site while production continues at the primary site?",
+   "choices": [
+    "The tabletop exercise",
+    "The full interruption",
+    "The parallel test",
+    "The checklist review"
+   ],
+   "explanation": "It checks the backup site without stopping business operations.",
+   "whyNot": {
+    "0": "Discussion only.",
+    "1": "Production is stopped.",
+    "3": "No system is started."
+   }
+  },
+  {
+   "id": "m5c1-q23",
+   "prompt": "What must be obtained before a full interruption test?",
+   "choices": [
+    "Nothing in particular, it is a test",
+    "Management approval",
+    "The opinion of the main customers",
+    "A new antivirus at the backup site"
+   ],
+   "explanation": "It is the riskiest test: it can cause a real interruption.",
+   "whyNot": {
+    "0": "Such a test requires formal approval.",
+    "2": "Not required.",
+    "3": "Unrelated."
+   }
+  },
+  {
+   "id": "m5c1-q24",
+   "prompt": "How does a tabletop exercise (or walk-through) work?",
+   "choices": [
+    "The teams meet and work through a scenario together, step by step",
+    "The power to the primary data center is actually cut",
+    "All the backups are restored directly into production",
+    "Everyone reads their part of the plan alone at home, without a meeting"
+   ],
+   "explanation": "It reveals inconsistencies and gaps with no risk to production.",
+   "whyNot": {
+    "1": "That would be a real interruption.",
+    "2": "Risky and off topic.",
+    "3": "That is the checklist review."
+   }
+  },
+  {
+   "id": "m5c1-q25",
+   "prompt": "When returning to the primary site, which functions are moved back first?",
+   "choices": [
+    "The most critical ones",
+    "All of them at the same time",
+    "None, everything stays at the backup site",
+    "The least critical ones"
+   ],
+   "explanation": "The stability of the primary site is checked with the least sensitive functions before the critical ones are brought back.",
+   "whyNot": {
+    "0": "Vital functions would be put at risk on an unproven site.",
+    "1": "Too risky.",
+    "2": "The backup site is not meant to last."
+   }
+  },
+  {
+   "id": "m5c1-q26",
+   "prompt": "Which event must trigger an update of the continuity plan?",
+   "choices": [
+    "A minor browser update",
+    "The arrival of an intern with no role in the plan",
+    "The deployment of a new critical application",
+    "A wallpaper change"
+   ],
+   "explanation": "Any major change to the information system, the premises or the organization must be reflected in the plan.",
+   "whyNot": {
+    "0": "A minor change.",
+    "1": "No effect on the plan.",
+    "3": "Unrelated."
+   }
+  },
+  {
+   "id": "m5c1-q27",
+   "prompt": "Why keep copies of the plan off-site and outside the information system?",
+   "choices": [
+    "Because the disaster can make the plan inaccessible",
+    "To reduce the number of pages of the plan kept on the server",
+    "To comply with the company's brand guidelines and archiving",
+    "Because the plan is confidential and must be destroyed after each test"
+   ],
+   "explanation": "A plan stored only on the server hit by the disaster is useless.",
+   "whyNot": {
+    "1": "Unrelated.",
+    "2": "Unrelated.",
+    "3": "It must be protected, not destroyed."
+   }
+  },
+  {
+   "id": "m5c1-q28",
+   "prompt": "Who should have the authority to declare a disaster and activate the plan?",
+   "choices": [
+    "The backup site provider",
+    "A designated member of management (and their deputies)",
+    "Any employee who witnesses the disaster",
+    "The media, once the disaster is made public"
+   ],
+   "explanation": "Activation commits costs and decisions: the authority and the criteria are defined in advance.",
+   "whyNot": {
+    "0": "It carries out the contract; it does not decide.",
+    "2": "Risk of unjustified activations.",
+    "3": "Unrelated."
+   }
+  },
+  {
+   "id": "m5c1-q29",
+   "prompt": "Why appoint a single spokesperson in the crisis communication plan?",
+   "choices": [
+    "To replace the crisis team with a single person",
+    "To avoid contradictory messages",
+    "Because the law prohibits other employees from speaking",
+    "So that nobody else in the company is informed"
+   ],
+   "explanation": "A consistent message protects the company's image and avoids leaks or mistakes.",
+   "whyNot": {
+    "0": "The spokesperson is part of the crisis team.",
+    "2": "Unrelated.",
+    "3": "Staff must be informed."
+   }
+  },
+  {
+   "id": "m5c1-q30",
+   "prompt": "Which actions follow a test of the plan? (several answers)",
+   "choices": [
+    "Training people on the weak points",
+    "Deleting the results to avoid the audit",
+    "Writing a lessons-learned report",
+    "Correcting the plan based on the gaps found"
+   ],
+   "explanation": "The test is there to improve: lessons learned, correction, training.",
+   "whyNot": {
+    "1": "The results are evidence that is useful for the audit."
+   }
+  }
  ]
 }

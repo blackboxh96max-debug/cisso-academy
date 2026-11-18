@@ -765,5 +765,342 @@
   "SIP (signaling, 5060; TLS 5061); RTP (voice); SRTP (encrypted voice).",
   "Attacks: toll fraud, caller ID spoofing, vishing, eavesdropping, TDoS, SPIT, war dialing.",
   "Measures: voice VLAN, SIP over TLS, SRTP, SBC, hardened PBX, alerts on night-time calls, callback to a known number."
+ ],
+ "questions": [
+  {
+   "id": "m3c4-q01",
+   "prompt": "In SaaS, who remains responsible for user accounts and rights?",
+   "choices": [
+    "The customer",
+    "The network operator",
+    "The hardware manufacturer",
+    "The provider"
+   ],
+   "explanation": "Whatever the model, the customer manages its identities, rights and data.",
+   "whyNot": {
+    "1": "It carries the traffic.",
+    "2": "It plays no part in rights.",
+    "3": "It manages the application and infrastructure, not the rights granted by the customer."
+   }
+  },
+  {
+   "id": "m3c4-q02",
+   "prompt": "What does the identity provider send to the cloud service during a federated logon?",
+   "choices": [
+    "The user's password",
+    "A copy of the directory",
+    "The user's private key",
+    "A signed assertion"
+   ],
+   "explanation": "With SAML or OpenID Connect, the service receives a signed assertion and never sees the password.",
+   "whyNot": {
+    "0": "That is precisely what federation avoids.",
+    "1": "Only the useful information is sent.",
+    "2": "A private key never leaves its holder."
+   }
+  },
+  {
+   "id": "m3c4-q03",
+   "prompt": "Which tool detects cloud storage made public by mistake?",
+   "choices": [
+    "A cloud access security broker (CASB)",
+    "A cloud security posture management tool (CSPM)",
+    "An identity provider (IdP)",
+    "A session border controller (SBC)"
+   ],
+   "explanation": "The CSPM compares the cloud configuration with best practices and reports deviations.",
+   "whyNot": {
+    "0": "It controls how users use cloud services.",
+    "2": "It authenticates users.",
+    "3": "It protects the edge of the telephony system."
+   }
+  },
+  {
+   "id": "m3c4-q04",
+   "prompt": "Requiring multifactor authentication only outside the company network falls under what?",
+   "choices": [
+    "Separation of duties",
+    "LUN masking",
+    "Identity federation",
+    "Conditional access"
+   ],
+   "explanation": "The decision depends on the context of the connection: location, device, risk.",
+   "whyNot": {
+    "0": "It splits an operation between two people.",
+    "1": "It is a SAN storage control.",
+    "2": "It links two identity domains, without any context rule."
+   }
+  },
+  {
+   "id": "m3c4-q05",
+   "prompt": "How should a cloud application preferably access another resource?",
+   "choices": [
+    "With a key copied into the code",
+    "With an account shared by the team",
+    "With an administrator's account",
+    "With a managed identity"
+   ],
+   "explanation": "A managed identity renews its secrets automatically, with no permanent key to protect.",
+   "whyNot": {
+    "0": "A key in the code often ends up published.",
+    "1": "A shared account makes it impossible to know who is acting.",
+    "2": "Excessive rights and lost traceability."
+   }
+  },
+  {
+   "id": "m3c4-q06",
+   "prompt": "Which tool spots excessive or unused rights of cloud accounts?",
+   "choices": [
+    "Cloud infrastructure entitlement management (CIEM)",
+    "The intrusion detection system",
+    "The cloud access security broker (CASB)",
+    "Security posture management (CSPM)"
+   ],
+   "explanation": "CIEM analyzes the permissions actually used in order to apply least privilege.",
+   "whyNot": {
+    "1": "It detects attacks on the network.",
+    "2": "It controls the use of cloud services.",
+    "3": "It targets configuration errors in resources."
+   }
+  },
+  {
+   "id": "m3c4-q07",
+   "prompt": "Which signal in the cloud audit logs should alert the SOC?",
+   "choices": [
+    "A document opened by its author",
+    "Logging being disabled",
+    "A dashboard being viewed",
+    "A usual morning logon"
+   ],
+   "explanation": "An attacker often disables logging to hide their actions.",
+   "whyNot": {
+    "0": "An author viewing their own document is normal.",
+    "2": "Viewing a dashboard is a routine activity.",
+    "3": "An expected logon, at the usual time and from the usual place."
+   }
+  },
+  {
+   "id": "m3c4-q08",
+   "prompt": "What is the main difference between a NAS and a SAN?",
+   "choices": [
+    "NAS: files; SAN: blocks",
+    "None, they are two names for the same thing",
+    "NAS: objects; SAN: tapes",
+    "NAS: blocks; SAN: files"
+   ],
+   "explanation": "The NAS shares files (SMB, NFS); the SAN provides blocks (Fibre Channel, iSCSI).",
+   "whyNot": {
+    "1": "They are two different architectures.",
+    "2": "Neither is defined that way.",
+    "3": "It is the other way around."
+   }
+  },
+  {
+   "id": "m3c4-q09",
+   "prompt": "Which control prevents a server from seeing another server's volumes in a SAN?",
+   "choices": [
+    "LUN masking",
+    "Synchronous replication",
+    "Tiered storage",
+    "Deduplication"
+   ],
+   "explanation": "LUN masking limits the volumes visible to each server; zoning limits the ports.",
+   "whyNot": {
+    "1": "It copies writes to a second site.",
+    "2": "It moves data according to how it is used.",
+    "3": "It removes duplicates to save space."
+   }
+  },
+  {
+   "id": "m3c4-q10",
+   "prompt": "Why is a snapshot not a backup?",
+   "choices": [
+    "It is always encrypted by default",
+    "It often depends on the same device",
+    "It contains no real data",
+    "It is far too slow to create"
+   ],
+   "explanation": "If the storage array is lost or compromised, its snapshots are too.",
+   "whyNot": {
+    "0": "Encryption is not the issue.",
+    "2": "It does allow you to return to a previous state.",
+    "3": "On the contrary, it is very fast."
+   }
+  },
+  {
+   "id": "m3c4-q11",
+   "prompt": "Why does replication not protect against ransomware?",
+   "choices": [
+    "It disables the site's antivirus",
+    "It only copies the metadata",
+    "It also copies the encrypted files",
+    "It only works with tapes"
+   ],
+   "explanation": "Replication reproduces every write, including the ransomware's; versioned, immutable backups are needed.",
+   "whyNot": {
+    "0": "It has no effect on the antivirus.",
+    "1": "It copies the data itself.",
+    "3": "It works between disks or storage arrays."
+   }
+  },
+  {
+   "id": "m3c4-q12",
+   "prompt": "When should synchronous replication be preferred?",
+   "choices": [
+    "When no data loss is acceptable",
+    "When the sites are thousands of kilometers apart",
+    "When ten years of history must be kept",
+    "When bandwidth is very low"
+   ],
+   "explanation": "Each write is confirmed on both sites: a near-zero RPO, at the cost of a limited distance.",
+   "whyNot": {
+    "1": "Latency makes synchronous replication hard over long distances.",
+    "2": "That is the role of archiving.",
+    "3": "On the contrary, it requires a fast link."
+   }
+  },
+  {
+   "id": "m3c4-q13",
+   "prompt": "Which risk is typical of object storage in the cloud?",
+   "choices": [
+    "An unplugged Fibre Channel cable",
+    "A worn tape read head",
+    "Misconfigured zoning in the SAN",
+    "A bucket made public by mistake"
+   ],
+   "explanation": "Many leaks come from buckets accessible to anyone on the Internet.",
+   "whyNot": {
+    "0": "That is a SAN risk.",
+    "1": "That is a tape risk.",
+    "2": "That is a SAN risk."
+   }
+  },
+  {
+   "id": "m3c4-q14",
+   "prompt": "Which copy best protects backups against ransomware?",
+   "choices": [
+    "A snapshot on the same storage array",
+    "A live synchronous replica",
+    "An immutable or offline copy",
+    "A network share accessible to everyone"
+   ],
+   "explanation": "A copy that can be neither modified nor deleted remains usable after the attack.",
+   "whyNot": {
+    "0": "It can be deleted along with the storage array.",
+    "1": "It reproduces the encryption.",
+    "3": "The ransomware will be able to encrypt it too."
+   }
+  },
+  {
+   "id": "m3c4-q15",
+   "prompt": "In a voice over IP call, which protocol carries the voice?",
+   "choices": [
+    "RTP",
+    "SNMP",
+    "SIP",
+    "DNS"
+   ],
+   "explanation": "SIP sets up and ends the call; RTP carries the voice.",
+   "whyNot": {
+    "1": "It is used to monitor devices.",
+    "2": "It handles signaling.",
+    "3": "It resolves names."
+   }
+  },
+  {
+   "id": "m3c4-q16",
+   "prompt": "Which protocol encrypts the voice of a voice over IP call?",
+   "choices": [
+    "H.323 without encryption",
+    "SRTP",
+    "SS7",
+    "SIP over TLS"
+   ],
+   "explanation": "SRTP is the encrypted, authenticated version of RTP.",
+   "whyNot": {
+    "0": "Without encryption, nothing is protected.",
+    "2": "That is carrier signaling.",
+    "3": "It protects the signaling, not the voice."
+   }
+  },
+  {
+   "id": "m3c4-q17",
+   "prompt": "Hundreds of premium-rate calls go out from the PBX at night. Which attack is this?",
+   "choices": [
+    "Toll fraud",
+    "War dialing",
+    "Eavesdropping on RTP streams",
+    "Telephony denial of service (TDoS)"
+   ],
+   "explanation": "The attacker uses the PBX to place expensive calls at the company's expense.",
+   "whyNot": {
+    "1": "It looks for modems by calling series of numbers.",
+    "2": "It captures conversations.",
+    "3": "It floods the lines to make the service unavailable, without placing premium-rate calls."
+   }
+  },
+  {
+   "id": "m3c4-q18",
+   "prompt": "What did phreakers exploit with the 2,600 Hz tone?",
+   "choices": [
+    "Voice mail over IP",
+    "The Wi-Fi access of the exchanges",
+    "The weak encryption of SRTP",
+    "In-band signaling"
+   ],
+   "explanation": "Signaling traveled in the same channel as the voice: a well-chosen tone could control the exchange.",
+   "whyNot": {
+    "0": "Voice over IP appeared much later.",
+    "1": "Wi-Fi did not exist.",
+    "2": "SRTP is much more recent."
+   }
+  },
+  {
+   "id": "m3c4-q19",
+   "prompt": "A call displays the bank's number. What can be concluded?",
+   "choices": [
+    "That the carrier has verified the caller",
+    "That the call is encrypted with SRTP",
+    "That the call really comes from the bank",
+    "Nothing: the number can be spoofed"
+   ],
+   "explanation": "The displayed number is easy to fake; you must call back on a known number.",
+   "whyNot": {
+    "0": "That is not guaranteed everywhere.",
+    "1": "The display has no link with encryption.",
+    "2": "The displayed number proves nothing."
+   }
+  },
+  {
+   "id": "m3c4-q20",
+   "prompt": "Which device filters voice over IP exchanges with the carrier, at the edge of the network?",
+   "choices": [
+    "The Fibre Channel switch",
+    "The cloud access security broker",
+    "The session border controller (SBC)",
+    "The identity provider"
+   ],
+   "explanation": "For voice, the SBC plays the role of an application firewall at the edge.",
+   "whyNot": {
+    "0": "It connects servers to SAN storage.",
+    "1": "It controls the use of cloud services.",
+    "3": "It authenticates users."
+   }
+  },
+  {
+   "id": "m3c4-q21",
+   "prompt": "Which TWO measures reduce the risk of toll fraud on a PBX?",
+   "choices": [
+    "Changing the default codes",
+    "Switching the SAN to synchronous replication",
+    "Making the recordings bucket public",
+    "Blocking unneeded premium-rate destinations"
+   ],
+   "explanation": "Default codes and open expensive destinations are the two doors to fraud.",
+   "whyNot": {
+    "1": "Storage has no link with fraud.",
+    "2": "That would be a data leak."
+   }
+  }
  ]
 }

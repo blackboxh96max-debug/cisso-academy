@@ -739,6 +739,797 @@
     }
    ],
    "advice": "Si une question parle d'« Enterprise IT Governance » ou d'« Aligning IT Strategy with Business Goals », pense immédiatement à COBIT. Et retiens qu'un framework aligne contrôles, gouvernance, risques et conformité, mais ne supprime jamais tous les risques. En cryptographie : hachage = intégrité (sens unique), chiffrement = confidentialité (réversible avec une clé), hybride = le meilleur des deux mondes."
+  },
+  {
+   "id": "prep-2026-11-18-m5",
+   "date": "2026-11-18",
+   "title": {
+    "en": "Data Security Management",
+    "fr": "Gestion de la sécurité des données"
+   },
+   "source": "Questions de la formation de l'apprenant",
+   "parts": [
+    {
+     "title": {
+      "en": "Module 5: Data Security Management (questions 1-15)",
+      "fr": "Module 5 : gestion de la sécurité des données (questions 1 à 15)"
+     },
+     "questions": [
+      {
+       "chapterId": "m4c2",
+       "prompt": {
+        "en": "Which stage of the data lifecycle involves permanently removing data when it is no longer needed?",
+        "fr": "Quelle étape du cycle de vie des données implique la suppression définitive des données lorsqu'elles ne sont plus nécessaires ?"
+       },
+       "choices": [
+        {
+         "en": "Create",
+         "fr": "Créer"
+        },
+        {
+         "en": "Store",
+         "fr": "Stocker"
+        },
+        {
+         "en": "Archive",
+         "fr": "Archiver"
+        },
+        {
+         "en": "Destroy",
+         "fr": "Détruire"
+        }
+       ],
+       "correct": 3,
+       "explanation": {
+        "en": "Destroy is the last stage of the data lifecycle: data is securely deleted when it is no longer needed and no retention obligation applies. Create, Store and Archive are earlier stages, where the data still exists.",
+        "fr": "Détruire (Destroy) est la dernière étape du cycle de vie : les données sont supprimées de manière sécurisée lorsqu'elles ne sont plus nécessaires et qu'aucune obligation de conservation ne s'y oppose. Créer, Stocker et Archiver sont des étapes antérieures, où la donnée existe encore."
+       },
+       "id": "prep-2026-11-18-m5-q01"
+      },
+      {
+       "chapterId": "m4c2",
+       "prompt": {
+        "en": "Which process identifies where data exists, how it flows, who accesses it, and which systems process it?",
+        "fr": "Quel processus identifie où les données existent, comment elles circulent, qui y accède et quels systèmes les traitent ?"
+       },
+       "choices": [
+        {
+         "en": "Data mapping",
+         "fr": "Cartographie des données"
+        },
+        {
+         "en": "Tokenization",
+         "fr": "Tokenisation"
+        },
+        {
+         "en": "Hashing",
+         "fr": "Hachage"
+        },
+        {
+         "en": "Dual control",
+         "fr": "Double contrôle"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "Data mapping shows where data is stored, how it flows, who accesses it and which systems process it. Tokenization and hashing transform data, and dual control requires two people for a sensitive action.",
+        "fr": "La cartographie des données (data mapping) indique où les données sont stockées, comment elles circulent, qui y accède et quels systèmes les traitent. La tokenisation et le hachage transforment les données, et le double contrôle exige deux personnes pour une action sensible."
+       },
+       "id": "prep-2026-11-18-m5-q02"
+      },
+      {
+       "chapterId": "m4c2",
+       "prompt": {
+        "en": "Which of the following is one of the five Ws of data access?",
+        "fr": "Lequel des éléments suivants est l'un des cinq W de l'accès aux données ?"
+       },
+       "choices": [
+        {
+         "en": "Width",
+         "fr": "Largeur"
+        },
+        {
+         "en": "Warranty",
+         "fr": "Garantie"
+        },
+        {
+         "en": "Why",
+         "fr": "Pourquoi"
+        },
+        {
+         "en": "Weight",
+         "fr": "Poids"
+        }
+       ],
+       "correct": 2,
+       "explanation": {
+        "en": "The five Ws are Who, What, When, Where and Why. Width, Warranty and Weight start with W but are not among these questions.",
+        "fr": "Les cinq W sont Who (qui), What (quoi), When (quand), Where (où) et Why (pourquoi). Largeur, Garantie et Poids commencent par W en anglais, mais ne font pas partie de ces questions."
+       },
+       "id": "prep-2026-11-18-m5-q03"
+      },
+      {
+       "chapterId": "m5c3",
+       "prompt": {
+        "en": "Which term describes the person to whom personal data relates?",
+        "fr": "Quel terme désigne la personne à laquelle se rapportent les données personnelles ?"
+       },
+       "choices": [
+        {
+         "en": "Processor",
+         "fr": "Sous-traitant (processor)"
+        },
+        {
+         "en": "Data subject",
+         "fr": "Personne concernée"
+        },
+        {
+         "en": "Data custodian",
+         "fr": "Dépositaire des données"
+        },
+        {
+         "en": "Certificate authority",
+         "fr": "Autorité de certification"
+        }
+       ],
+       "correct": 1,
+       "explanation": {
+        "en": "The data subject is the natural person to whom the personal data relates. The processor handles data on behalf of the controller, the custodian looks after it technically, and a certificate authority issues certificates.",
+        "fr": "La personne concernée (data subject) est la personne physique à laquelle se rapportent les données personnelles. Le sous-traitant traite les données pour le compte du responsable, le dépositaire en assure la garde technique et l'autorité de certification délivre des certificats."
+       },
+       "id": "prep-2026-11-18-m5-q04"
+      },
+      {
+       "chapterId": "m5c3",
+       "prompt": {
+        "en": "Which entity determines the purposes and means of processing personal data?",
+        "fr": "Quelle entité détermine les finalités et les moyens du traitement des données personnelles ?"
+       },
+       "choices": [
+        {
+         "en": "Controller",
+         "fr": "Responsable du traitement (controller)"
+        },
+        {
+         "en": "Processor",
+         "fr": "Sous-traitant (processor)"
+        },
+        {
+         "en": "Data subject",
+         "fr": "Personne concernée"
+        },
+        {
+         "en": "Auditor",
+         "fr": "Auditeur"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "The data controller determines the purposes and means of processing personal data. The processor acts on the controller's instructions, the data subject is the person the data is about, and the auditor checks.",
+        "fr": "Le responsable du traitement (data controller) détermine les finalités et les moyens du traitement des données personnelles. Le sous-traitant agit sur ses instructions, la personne concernée est celle dont parlent les données et l'auditeur contrôle."
+       },
+       "id": "prep-2026-11-18-m5-q05"
+      },
+      {
+       "chapterId": "m5c3",
+       "prompt": {
+        "en": "Which term describes health information linked to an identifiable individual?",
+        "fr": "Quel terme désigne les informations de santé liées à une personne identifiable ?"
+       },
+       "choices": [
+        {
+         "en": "PII",
+         "fr": "PII"
+        },
+        {
+         "en": "PHI",
+         "fr": "PHI"
+        },
+        {
+         "en": "DRM",
+         "fr": "DRM"
+        },
+        {
+         "en": "SAN",
+         "fr": "SAN"
+        }
+       ],
+       "correct": 1,
+       "explanation": {
+        "en": "PHI (Protected Health Information) is health information associated with an identifiable person, for example a medical record, a diagnosis or a medical history. PII is any personal information, DRM protects digital content and a SAN is a storage network.",
+        "fr": "PHI (Protected Health Information) désigne les informations de santé associées à une personne identifiable, par exemple un dossier médical, un diagnostic ou un historique médical. PII désigne toute information personnelle, DRM protège des contenus numériques et un SAN est un réseau de stockage."
+       },
+       "id": "prep-2026-11-18-m5-q06"
+      },
+      {
+       "chapterId": "m4c2",
+       "prompt": {
+        "en": "What is the difference between sensitivity and criticality?",
+        "fr": "Quelle est la différence entre sensibilité et criticité ?"
+       },
+       "choices": [
+        {
+         "en": "Sensitivity is about storage cost, while criticality is about encryption",
+         "fr": "La sensibilité concerne le coût de stockage, tandis que la criticité concerne le chiffrement"
+        },
+        {
+         "en": "Sensitivity is about the harm caused by disclosure or modification, while criticality is about importance to operations",
+         "fr": "La sensibilité concerne les dommages causés par la divulgation ou la modification, tandis que la criticité concerne l'importance pour les opérations"
+        },
+        {
+         "en": "Sensitivity applies only to public data, while criticality applies only to archived data",
+         "fr": "La sensibilité ne s'applique qu'aux données publiques, tandis que la criticité ne concerne que les données archivées"
+        },
+        {
+         "en": "There is no difference",
+         "fr": "Il n'y a aucune différence"
+        }
+       ],
+       "correct": 1,
+       "explanation": {
+        "en": "Sensitivity measures the consequences of unauthorized disclosure or modification. Criticality measures how important the data is to the organization's operations. The other answers mix in unrelated notions.",
+        "fr": "La sensibilité (sensitivity) mesure les conséquences d'une divulgation ou d'une modification non autorisée. La criticité (criticality) mesure l'importance des données pour les opérations de l'organisation. Les autres réponses mélangent des notions sans rapport."
+       },
+       "id": "prep-2026-11-18-m5-q07"
+      },
+      {
+       "chapterId": "m4c2",
+       "prompt": {
+        "en": "Which security method replaces sensitive data with a non-sensitive substitute?",
+        "fr": "Quelle méthode de sécurité remplace les données sensibles par un substitut non sensible ?"
+       },
+       "choices": [
+        {
+         "en": "Tokenization",
+         "fr": "Tokenisation"
+        },
+        {
+         "en": "Degaussing",
+         "fr": "Démagnétisation (degaussing)"
+        },
+        {
+         "en": "Replication",
+         "fr": "Réplication"
+        },
+        {
+         "en": "Hash collision",
+         "fr": "Collision de hachage"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "Tokenization replaces sensitive data with a substitute called a token; the original value is kept in a secure mapping system. Example: a card number replaced by a token. Degaussing erases magnetic media, replication copies data and a hash collision is a weakness of a hash function.",
+        "fr": "La tokenisation remplace une donnée sensible par un substitut appelé jeton (token) ; la valeur d'origine est conservée dans un système de correspondance sécurisé. Exemple : un numéro de carte bancaire remplacé par un jeton. La démagnétisation efface un support magnétique, la réplication copie les données et la collision est une faiblesse d'une fonction de hachage."
+       },
+       "id": "prep-2026-11-18-m5-q08"
+      },
+      {
+       "chapterId": "m4c2",
+       "prompt": {
+        "en": "Which control hides or alters sensitive data so that users can work with realistic data without seeing the original values?",
+        "fr": "Quel contrôle masque ou modifie des données sensibles afin que les utilisateurs puissent travailler avec des données réalistes sans voir les valeurs d'origine ?"
+       },
+       "choices": [
+        {
+         "en": "Data masking",
+         "fr": "Masquage des données"
+        },
+        {
+         "en": "Data remanence",
+         "fr": "Rémanence des données"
+        },
+        {
+         "en": "Clipping level",
+         "fr": "Niveau de seuil (clipping level)"
+        },
+        {
+         "en": "Federation",
+         "fr": "Fédération"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "Data masking hides or transforms the original data while keeping a realistic look. Example: 4532 9876 1234 5678 becomes XXXX XXXX XXXX 5678. Remanence is data left behind after deletion, a clipping level is an alert threshold and federation shares identities.",
+        "fr": "Le masquage des données (data masking) masque ou transforme les données d'origine tout en conservant une apparence réaliste. Exemple : 4532 9876 1234 5678 devient XXXX XXXX XXXX 5678. La rémanence désigne les données qui subsistent après effacement, le clipping level est un seuil d'alerte et la fédération partage des identités."
+       },
+       "id": "prep-2026-11-18-m5-q09"
+      },
+      {
+       "chapterId": "m4c2",
+       "prompt": {
+        "en": "What is the purpose of DLP?",
+        "fr": "Quel est le but de la DLP ?"
+       },
+       "choices": [
+        {
+         "en": "To issue digital certificates",
+         "fr": "Délivrer des certificats numériques"
+        },
+        {
+         "en": "To detect or prevent unauthorized movement of sensitive data",
+         "fr": "Détecter ou empêcher les mouvements non autorisés de données sensibles"
+        },
+        {
+         "en": "To replicate all encryption",
+         "fr": "Répliquer tout le chiffrement"
+        },
+        {
+         "en": "To manage physical locks",
+         "fr": "Gérer les serrures physiques"
+        }
+       ],
+       "correct": 1,
+       "explanation": {
+        "en": "DLP (Data Loss Prevention) detects and blocks unauthorized transfers, disclosures or extractions of sensitive data. Certificates come from a PKI, and locks are physical security.",
+        "fr": "La DLP (Data Loss Prevention) détecte et empêche les transferts, divulgations ou extractions non autorisés de données sensibles. Les certificats relèvent d'une PKI et les serrures de la sécurité physique."
+       },
+       "id": "prep-2026-11-18-m5-q10"
+      },
+      {
+       "chapterId": "m3c4",
+       "prompt": {
+        "en": "Which storage model commonly uses buckets and metadata?",
+        "fr": "Quel modèle de stockage utilise couramment des compartiments (buckets) et des métadonnées ?"
+       },
+       "choices": [
+        {
+         "en": "Object storage",
+         "fr": "Stockage objet"
+        },
+        {
+         "en": "Direct-attached storage",
+         "fr": "Stockage à attachement direct (DAS)"
+        },
+        {
+         "en": "Tape-only storage",
+         "fr": "Stockage uniquement sur bande"
+        },
+        {
+         "en": "Physical filing cabinet",
+         "fr": "Armoire à dossiers physique"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "Object storage stores objects in containers called buckets, together with metadata. Direct-attached storage is a disk connected to one server, and tape and filing cabinets have no buckets.",
+        "fr": "Le stockage objet (object storage) range des objets dans des conteneurs appelés buckets, avec des métadonnées (metadata). Le DAS est un disque relié à un seul serveur, et la bande ou l'armoire n'ont pas de buckets."
+       },
+       "id": "prep-2026-11-18-m5-q11"
+      },
+      {
+       "chapterId": "m4c2",
+       "prompt": {
+        "en": "Which statement best describes a retention policy?",
+        "fr": "Quelle affirmation décrit le mieux une politique de conservation (retention policy) ?"
+       },
+       "choices": [
+        {
+         "en": "It defines how long different types of data must be kept",
+         "fr": "Elle définit la durée pendant laquelle les différents types de données doivent être conservés"
+        },
+        {
+         "en": "It replaces all access control",
+         "fr": "Elle remplace tout le contrôle d'accès"
+        },
+        {
+         "en": "It requires all data to be kept indefinitely",
+         "fr": "Elle exige que toutes les données soient conservées indéfiniment"
+        },
+        {
+         "en": "It applies only to deleted files",
+         "fr": "Elle ne s'applique qu'aux fichiers supprimés"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "A data retention policy defines how long each category of data must be kept, for example invoices for a period set by legal obligations. It does not replace access control and does not keep everything forever.",
+        "fr": "Une politique de conservation (data retention policy) définit combien de temps chaque catégorie de données doit être conservée, par exemple les factures pendant une durée fixée par les obligations légales. Elle ne remplace pas le contrôle d'accès et ne garde pas tout indéfiniment."
+       },
+       "id": "prep-2026-11-18-m5-q12"
+      },
+      {
+       "chapterId": "m5c3",
+       "prompt": {
+        "en": "What is a legal hold?",
+        "fr": "Qu'est-ce qu'une conservation juridique (legal hold) ?"
+       },
+       "choices": [
+        {
+         "en": "A normal backup schedule",
+         "fr": "Un calendrier de sauvegarde normal"
+        },
+        {
+         "en": "A process that suspends deletion because data must be preserved",
+         "fr": "Un processus qui suspend la suppression parce que les données doivent être conservées"
+        },
+        {
+         "en": "A type of encryption key",
+         "fr": "Un type de clé de chiffrement"
+        },
+        {
+         "en": "A public cloud storage bucket",
+         "fr": "Un bucket de stockage cloud public"
+        }
+       ],
+       "correct": 1,
+       "explanation": {
+        "en": "A legal hold suspends the deletion of data that must be preserved for legal proceedings or an investigation. Even if the normal retention period has passed, data under a legal hold must be kept.",
+        "fr": "La conservation juridique (legal hold) suspend la suppression des données qui doivent être préservées pour une procédure judiciaire ou une enquête. Attention : même si la durée normale de conservation est dépassée, les données soumises à un legal hold doivent être conservées."
+       },
+       "id": "prep-2026-11-18-m5-q13"
+      },
+      {
+       "chapterId": "m4c2",
+       "prompt": {
+        "en": "Which method destroys the encryption key so that the encrypted data becomes unreadable?",
+        "fr": "Quelle méthode détruit la clé de chiffrement pour que les données chiffrées deviennent illisibles ?"
+       },
+       "choices": [
+        {
+         "en": "Cryptographic erasure",
+         "fr": "Effacement cryptographique"
+        },
+        {
+         "en": "Role-based access control",
+         "fr": "Contrôle d'accès basé sur les rôles"
+        },
+        {
+         "en": "Social engineering",
+         "fr": "Ingénierie sociale"
+        },
+        {
+         "en": "Data federation",
+         "fr": "Fédération des données"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "Cryptographic erasure destroys the encryption key so that the encrypted data becomes permanently unreadable, provided no other usable copy of the key exists. The other answers do not destroy anything.",
+        "fr": "L'effacement cryptographique (cryptographic erasure) détruit la clé de chiffrement afin de rendre les données chiffrées définitivement illisibles, à condition qu'aucune autre copie exploitable de la clé n'existe. Les autres réponses ne détruisent rien."
+       },
+       "id": "prep-2026-11-18-m5-q14"
+      },
+      {
+       "chapterId": "m4c2",
+       "prompt": {
+        "en": "Why can backups create a data security risk?",
+        "fr": "Pourquoi les sauvegardes peuvent-elles créer un risque pour la sécurité des données ?"
+       },
+       "choices": [
+        {
+         "en": "Backups never contain sensitive data",
+         "fr": "Les sauvegardes ne contiennent jamais de données sensibles"
+        },
+        {
+         "en": "Backups can contain large volumes of sensitive historical data",
+         "fr": "Les sauvegardes peuvent contenir de grands volumes de données historiques sensibles"
+        },
+        {
+         "en": "Backups cannot be encrypted",
+         "fr": "Les sauvegardes ne peuvent pas être chiffrées"
+        },
+        {
+         "en": "Backups eliminate retention requirements",
+         "fr": "Les sauvegardes suppriment les exigences de conservation"
+        }
+       ],
+       "correct": 1,
+       "explanation": {
+        "en": "Backups can hold large amounts of sensitive historical data. They must therefore be protected by encryption, access control and retention policies. Backups can be encrypted and remain subject to retention rules.",
+        "fr": "Les sauvegardes peuvent contenir de grandes quantités de données historiques sensibles. Elles doivent donc être protégées par le chiffrement, le contrôle d'accès et les politiques de conservation. Elles peuvent être chiffrées et restent soumises aux règles de conservation."
+       },
+       "id": "prep-2026-11-18-m5-q15"
+      }
+     ]
+    },
+    {
+     "title": {
+      "en": "Validation test (5 questions)",
+      "fr": "Test de validation (5 questions)"
+     },
+     "questions": [
+      {
+       "chapterId": "m4c2",
+       "prompt": {
+        "en": "Which technique replaces sensitive data with non-sensitive substitutes?",
+        "fr": "Quelle technique remplace les données sensibles par des substituts non sensibles ?"
+       },
+       "choices": [
+        {
+         "en": "Data Masking",
+         "fr": "Masquage des données"
+        },
+        {
+         "en": "Tokenization",
+         "fr": "Tokenisation"
+        },
+        {
+         "en": "Hashing",
+         "fr": "Hachage"
+        },
+        {
+         "en": "Encryption",
+         "fr": "Chiffrement"
+        }
+       ],
+       "correct": 1,
+       "explanation": {
+        "en": "Tokenization replaces the value with a token; the original is kept in a secure mapping system. Masking hides the value for display, hashing is one-way, and encryption transforms the data itself.",
+        "fr": "La tokenisation remplace la valeur par un jeton ; l'original est conservé dans un système de correspondance sécurisé. Le masquage cache la valeur à l'affichage, le hachage est à sens unique et le chiffrement transforme la donnée elle-même."
+       },
+       "id": "prep-2026-11-18-m5-q16"
+      },
+      {
+       "chapterId": "m5c3",
+       "prompt": {
+        "en": "What does a Legal Hold prevent?",
+        "fr": "Qu'empêche une conservation juridique (Legal Hold) ?"
+       },
+       "choices": [
+        {
+         "en": "Unauthorized access",
+         "fr": "Les accès non autorisés"
+        },
+        {
+         "en": "Data encryption",
+         "fr": "Le chiffrement des données"
+        },
+        {
+         "en": "Deletion of data required for legal purposes",
+         "fr": "La suppression de données nécessaires à des fins juridiques"
+        },
+        {
+         "en": "Data classification",
+         "fr": "La classification des données"
+        }
+       ],
+       "correct": 2,
+       "explanation": {
+        "en": "A legal hold suspends the deletion of data that must be preserved for legal proceedings or an investigation, even beyond the normal retention period.",
+        "fr": "La conservation juridique suspend la suppression des données à préserver pour une procédure judiciaire ou une enquête, même au-delà de la durée normale de conservation."
+       },
+       "id": "prep-2026-11-18-m5-q17"
+      },
+      {
+       "chapterId": "m4c2",
+       "prompt": {
+        "en": "Which factor measures the operational importance of data?",
+        "fr": "Quel critère mesure l'importance opérationnelle des données ?"
+       },
+       "choices": [
+        {
+         "en": "Sensitivity",
+         "fr": "Sensibilité"
+        },
+        {
+         "en": "Criticality",
+         "fr": "Criticité"
+        },
+        {
+         "en": "Confidentiality",
+         "fr": "Confidentialité"
+        },
+        {
+         "en": "Anonymization",
+         "fr": "Anonymisation"
+        }
+       ],
+       "correct": 1,
+       "explanation": {
+        "en": "Criticality measures how important data is to operations. Sensitivity measures the harm caused by disclosure or modification.",
+        "fr": "La criticité mesure l'importance des données pour les opérations. La sensibilité mesure les dommages causés par une divulgation ou une modification."
+       },
+       "id": "prep-2026-11-18-m5-q18"
+      },
+      {
+       "chapterId": "m4c2",
+       "prompt": {
+        "en": "What is the main purpose of DLP?",
+        "fr": "Quel est le but principal de la DLP ?"
+       },
+       "choices": [
+        {
+         "en": "Prevent unauthorized data disclosure",
+         "fr": "Empêcher la divulgation non autorisée de données"
+        },
+        {
+         "en": "Increase storage capacity",
+         "fr": "Augmenter la capacité de stockage"
+        },
+        {
+         "en": "Create encryption keys",
+         "fr": "Créer des clés de chiffrement"
+        },
+        {
+         "en": "Archive all files",
+         "fr": "Archiver tous les fichiers"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "DLP (Data Loss Prevention) detects and blocks unauthorized transfers, disclosures or extractions of sensitive data.",
+        "fr": "La DLP (Data Loss Prevention) détecte et empêche les transferts, divulgations ou extractions non autorisés de données sensibles."
+       },
+       "id": "prep-2026-11-18-m5-q19"
+      },
+      {
+       "chapterId": "m4c2",
+       "prompt": {
+        "en": "Which technique makes encrypted data unreadable by destroying its encryption key?",
+        "fr": "Quelle technique rend des données chiffrées illisibles en détruisant leur clé de chiffrement ?"
+       },
+       "choices": [
+        {
+         "en": "Data Masking",
+         "fr": "Masquage des données"
+        },
+        {
+         "en": "Tokenization",
+         "fr": "Tokenisation"
+        },
+        {
+         "en": "Cryptographic Erasure",
+         "fr": "Effacement cryptographique"
+        },
+        {
+         "en": "Replication",
+         "fr": "Réplication"
+        }
+       ],
+       "correct": 2,
+       "explanation": {
+        "en": "Cryptographic erasure destroys the key, so the encrypted data can no longer be read, provided no other copy of the key exists.",
+        "fr": "L'effacement cryptographique détruit la clé : les données chiffrées ne peuvent plus être lues, à condition qu'aucune autre copie de la clé n'existe."
+       },
+       "id": "prep-2026-11-18-m5-q20"
+      }
+     ]
+    }
+   ],
+   "tables": [
+    {
+     "title": {
+      "en": "Five Ws of data access",
+      "fr": "Les cinq W de l'accès aux données"
+     },
+     "rows": [
+      [
+       "Who",
+       "Qui ?"
+      ],
+      [
+       "What",
+       "Quoi ?"
+      ],
+      [
+       "When",
+       "Quand ?"
+      ],
+      [
+       "Where",
+       "Où ?"
+      ],
+      [
+       "Why",
+       "Pourquoi ?"
+      ]
+     ]
+    },
+    {
+     "title": {
+      "en": "Sensitivity vs criticality",
+      "fr": "Sensibilité ou criticité"
+     },
+     "rows": [
+      [
+       "Sensitivity",
+       "Conséquences d'une divulgation ou modification non autorisée"
+      ],
+      [
+       "Criticality",
+       "Importance des données pour les opérations"
+      ]
+     ]
+    },
+    {
+     "title": {
+      "en": "Protecting the value",
+      "fr": "Protéger la valeur"
+     },
+     "rows": [
+      [
+       "Tokenization",
+       "Remplace par un jeton ; l'original est conservé à part"
+      ],
+      [
+       "Data Masking",
+       "Cache ou transforme : XXXX XXXX XXXX 5678"
+      ],
+      [
+       "Cryptographic Erasure",
+       "Détruit la clé : données chiffrées illisibles"
+      ]
+     ]
+    }
+   ],
+   "keywords": [
+    {
+     "term": "Data Lifecycle",
+     "en": "Create, store, use, share, archive, destroy",
+     "fr": "Cycle de vie des données"
+    },
+    {
+     "term": "Data Mapping",
+     "en": "Where data is and how it flows",
+     "fr": "Cartographie des données"
+    },
+    {
+     "term": "Five Ws",
+     "en": "Who, What, When, Where, Why",
+     "fr": "Les cinq questions d'accès"
+    },
+    {
+     "term": "Data Subject",
+     "en": "The person the data is about",
+     "fr": "Personne concernée"
+    },
+    {
+     "term": "Data Controller",
+     "en": "Decides purposes and means",
+     "fr": "Responsable du traitement"
+    },
+    {
+     "term": "PHI",
+     "en": "Protected Health Information",
+     "fr": "Informations de santé protégées"
+    },
+    {
+     "term": "Sensitivity",
+     "en": "Harm if disclosed or modified",
+     "fr": "Sensibilité"
+    },
+    {
+     "term": "Criticality",
+     "en": "Importance to operations",
+     "fr": "Criticité"
+    },
+    {
+     "term": "Tokenization",
+     "en": "Substitute token",
+     "fr": "Tokenisation"
+    },
+    {
+     "term": "Data Masking",
+     "en": "Realistic but hidden values",
+     "fr": "Masquage des données"
+    },
+    {
+     "term": "DLP",
+     "en": "Data Loss Prevention",
+     "fr": "Prévention des pertes de données"
+    },
+    {
+     "term": "Object Storage",
+     "en": "Buckets and metadata",
+     "fr": "Stockage objet"
+    },
+    {
+     "term": "Data Retention",
+     "en": "How long data is kept",
+     "fr": "Conservation des données"
+    },
+    {
+     "term": "Legal Hold",
+     "en": "Deletion suspended",
+     "fr": "Conservation juridique"
+    },
+    {
+     "term": "Cryptographic Erasure",
+     "en": "Destroy the key",
+     "fr": "Effacement cryptographique"
+    }
+   ],
+   "advice": "Un legal hold l'emporte sur la politique de conservation : même si la durée est dépassée, on garde les données. Sensitivity = dommage si divulgué ou modifié ; criticality = importance pour les opérations. Tokenization garde l'original à part ; masking le cache à l'affichage ; cryptographic erasure détruit la clé."
   }
  ]
 }
