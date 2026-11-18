@@ -63,19 +63,33 @@ MindNode moduleMindMap(Module module) {
   );
 }
 
-/// Carte d'une leçon : son titre et ses intertitres.
-MindNode _lessonNode(Lesson l, {bool headings = true}) => MindNode(
-  label: l.title,
-  children: [
-    if (headings)
-      for (final b in l.blocks)
-        if (b.type == BlockType.heading && (b.text ?? '').isNotEmpty)
-          MindNode(label: b.text!),
-  ],
-);
+/// Section du livre : ses mots-clés essentiels (français et anglais) ; les
+/// leçons qui la traitent sont rappelées dans le détail. Sans mots-clés, les
+/// titres des leçons.
+MindNode _sectionNode(
+  ContentLibrary library,
+  OutlineSection s, {
+  bool keywords = true,
+}) {
+  final lessons = [for (final id in s.lessons) library.lesson(id).title];
+  return MindNode(
+    label: 'Section ${s.number} · ${s.titleFr}',
+    en: s.titleEn,
+    detail: lessons.isEmpty
+        ? null
+        : '${lessons.length > 1 ? 'Leçons' : 'Leçon'} : ${lessons.join(' ; ')}',
+    children: [
+      if (keywords && s.keywords.isNotEmpty)
+        for (final k in s.keywords)
+          MindNode(label: k.fr, en: k.en == k.fr ? null : k.en)
+      else if (keywords)
+        for (final t in lessons) MindNode(label: t),
+    ],
+  );
+}
 
-/// Carte d'un module de la vue choisie. Pour le livre MILE2 : ses sections,
-/// les leçons qui les traitent et leurs intertitres ; pour ORSYS : la carte
+/// Carte d'un module de la vue choisie. Pour le livre MILE2 : ses sections
+/// et leurs mots-clés essentiels ; pour ORSYS : la carte
 /// du module et de ses chapitres.
 MindNode groupMindMap(ContentLibrary library, StudyGroup g) {
   final outline = g.outline;
@@ -90,21 +104,12 @@ MindNode groupMindMap(ContentLibrary library, StudyGroup g) {
     en: g.titleEn,
     emoji: emoji,
     tone: tone.name,
-    children: [
-      for (final s in outline.sections)
-        MindNode(
-          label: 'Section ${s.number} · ${s.titleFr}',
-          en: s.titleEn,
-          children: [
-            for (final id in s.lessons) _lessonNode(library.lesson(id)),
-          ],
-        ),
-    ],
+    children: [for (final s in outline.sections) _sectionNode(library, s)],
   );
 }
 
 /// Carte de toute la formation dans la vue [view] : modules, puis chapitres
-/// et grandes idées (ORSYS) ou sections et leçons (livre MILE2), et les
+/// et grandes idées (ORSYS) ou sections (livre MILE2), et les
 /// domaines officiels de l'examen avec leur poids.
 MindNode courseMindMap(ContentLibrary library, {CourseView? view}) {
   if (view == CourseView.mile2 && library.mile2Outline.modules.isNotEmpty) {
@@ -120,14 +125,7 @@ MindNode courseMindMap(ContentLibrary library, {CourseView? view}) {
             tone: groupStyle(g).$1.name,
             children: [
               for (final s in g.outline!.sections)
-                MindNode(
-                  label: 'Section ${s.number} · ${s.titleFr}',
-                  en: s.titleEn,
-                  children: [
-                    for (final id in s.lessons)
-                      _lessonNode(library.lesson(id), headings: false),
-                  ],
-                ),
+                _sectionNode(library, s, keywords: false),
             ],
           ),
         _domainsNode(library),

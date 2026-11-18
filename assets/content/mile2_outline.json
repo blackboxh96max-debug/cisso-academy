@@ -14,7 +14,33 @@
           "lessons": [
             "m1c1-l1"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Actif",
+              "en": "Asset"
+            },
+            {
+              "fr": "Menace",
+              "en": "Threat"
+            },
+            {
+              "fr": "Vulnérabilité",
+              "en": "Vulnerability"
+            },
+            {
+              "fr": "Impact",
+              "en": "Impact"
+            },
+            {
+              "fr": "Probabilité",
+              "en": "Likelihood"
+            },
+            {
+              "fr": "Risque = probabilité × impact",
+              "en": "Risk = likelihood × impact"
+            }
+          ]
         },
         {
           "number": 2,
@@ -23,7 +49,29 @@
           "lessons": [
             "m1c1-l1"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Appétence au risque",
+              "en": "Risk appetite"
+            },
+            {
+              "fr": "Tolérance au risque",
+              "en": "Risk tolerance"
+            },
+            {
+              "fr": "Propriétaire du risque",
+              "en": "Risk owner"
+            },
+            {
+              "fr": "Registre des risques",
+              "en": "Risk register"
+            },
+            {
+              "fr": "Cycle de gestion des risques",
+              "en": "Risk management lifecycle"
+            }
+          ]
         },
         {
           "number": 3,
@@ -32,7 +80,29 @@
           "lessons": [
             "m1c1-l2"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Analyse qualitative",
+              "en": "Qualitative analysis"
+            },
+            {
+              "fr": "Analyse quantitative",
+              "en": "Quantitative analysis"
+            },
+            {
+              "fr": "SLE = valeur × EF",
+              "en": "SLE = AV × EF"
+            },
+            {
+              "fr": "ALE = SLE × ARO",
+              "en": "ALE = SLE × ARO"
+            },
+            {
+              "fr": "Matrice des risques",
+              "en": "Risk matrix"
+            }
+          ]
         },
         {
           "number": 4,
@@ -41,7 +111,33 @@
           "lessons": [
             "m1c1-l3"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Réduction",
+              "en": "Mitigation"
+            },
+            {
+              "fr": "Transfert (assurance)",
+              "en": "Transfer"
+            },
+            {
+              "fr": "Évitement",
+              "en": "Avoidance"
+            },
+            {
+              "fr": "Acceptation",
+              "en": "Acceptance"
+            },
+            {
+              "fr": "Risque résiduel",
+              "en": "Residual risk"
+            },
+            {
+              "fr": "Analyse coûts-bénéfices",
+              "en": "Cost-benefit analysis"
+            }
+          ]
         }
       ]
     },
@@ -60,7 +156,33 @@
             "m5c3-l2",
             "m5c3-l3"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Common Law et droit civil",
+              "en": "Common law and civil law"
+            },
+            {
+              "fr": "Vie privée (RGPD)",
+              "en": "Privacy (GDPR)"
+            },
+            {
+              "fr": "Propriété intellectuelle",
+              "en": "Intellectual property"
+            },
+            {
+              "fr": "Code d'éthique",
+              "en": "Code of ethics"
+            },
+            {
+              "fr": "Conformité",
+              "en": "Compliance"
+            },
+            {
+              "fr": "Diligence raisonnable",
+              "en": "Due care and due diligence"
+            }
+          ]
         },
         {
           "number": 2,
@@ -69,7 +191,29 @@
           "lessons": [
             "m1c5-l1"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Triade CIA",
+              "en": "CIA triad"
+            },
+            {
+              "fr": "Confidentialité",
+              "en": "Confidentiality"
+            },
+            {
+              "fr": "Intégrité",
+              "en": "Integrity"
+            },
+            {
+              "fr": "Disponibilité",
+              "en": "Availability"
+            },
+            {
+              "fr": "Défense en profondeur",
+              "en": "Defense in depth"
+            }
+          ]
         },
         {
           "number": 3,
@@ -78,7 +222,29 @@
           "lessons": [
             "m1c3-l2"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "SMSI",
+              "en": "ISMS"
+            },
+            {
+              "fr": "ISO/IEC 27001",
+              "en": "ISO/IEC 27001"
+            },
+            {
+              "fr": "Roue PDCA",
+              "en": "PDCA cycle"
+            },
+            {
+              "fr": "Déclaration d'applicabilité",
+              "en": "Statement of Applicability"
+            },
+            {
+              "fr": "Amélioration continue",
+              "en": "Continual improvement"
+            }
+          ]
         },
         {
           "number": 4,
@@ -87,7 +253,33 @@
           "lessons": [
             "m1c2-l1"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Direction générale",
+              "en": "Senior management"
+            },
+            {
+              "fr": "RSSI",
+              "en": "CISO"
+            },
+            {
+              "fr": "Propriétaire des données",
+              "en": "Data owner"
+            },
+            {
+              "fr": "Dépositaire",
+              "en": "Custodian"
+            },
+            {
+              "fr": "Utilisateur",
+              "en": "User"
+            },
+            {
+              "fr": "Séparation des tâches",
+              "en": "Separation of duties"
+            }
+          ]
         },
         {
           "number": 5,
@@ -97,7 +289,33 @@
             "m1c3-l1",
             "m1c3-l3"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Politique, norme, procédure",
+              "en": "Policy, standard, procedure"
+            },
+            {
+              "fr": "Contrôles administratifs, techniques, physiques",
+              "en": "Administrative, technical, physical controls"
+            },
+            {
+              "fr": "Préventif, détectif, correctif",
+              "en": "Preventive, detective, corrective"
+            },
+            {
+              "fr": "NIST CSF",
+              "en": "NIST CSF"
+            },
+            {
+              "fr": "COBIT",
+              "en": "COBIT"
+            },
+            {
+              "fr": "ISO/IEC 27002",
+              "en": "ISO/IEC 27002"
+            }
+          ]
         },
         {
           "number": 6,
@@ -106,7 +324,29 @@
           "lessons": [
             "m1c2-l3"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Sensibilisation",
+              "en": "Awareness"
+            },
+            {
+              "fr": "Formation",
+              "en": "Training"
+            },
+            {
+              "fr": "Éducation",
+              "en": "Education"
+            },
+            {
+              "fr": "Hameçonnage simulé",
+              "en": "Phishing simulation"
+            },
+            {
+              "fr": "Mesure de l'efficacité",
+              "en": "Measuring effectiveness"
+            }
+          ]
         },
         {
           "number": 7,
@@ -116,7 +356,29 @@
             "m3c3-l2",
             "m1c5-l2"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Bell-LaPadula (confidentialité)",
+              "en": "Bell-LaPadula"
+            },
+            {
+              "fr": "Biba (intégrité)",
+              "en": "Biba"
+            },
+            {
+              "fr": "Clark-Wilson",
+              "en": "Clark-Wilson"
+            },
+            {
+              "fr": "Critères communs (EAL)",
+              "en": "Common Criteria (EAL)"
+            },
+            {
+              "fr": "Moniteur de référence",
+              "en": "Reference monitor"
+            }
+          ]
         }
       ]
     },
@@ -133,7 +395,29 @@
           "lessons": [
             "m2c2-l1"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Texte clair, chiffré",
+              "en": "Plaintext, ciphertext"
+            },
+            {
+              "fr": "Clé et algorithme",
+              "en": "Key and algorithm"
+            },
+            {
+              "fr": "Principe de Kerckhoffs",
+              "en": "Kerckhoffs's principle"
+            },
+            {
+              "fr": "Services : C, I, authentification, non-répudiation",
+              "en": "Security services"
+            },
+            {
+              "fr": "Longueur de clé",
+              "en": "Key length"
+            }
+          ]
         },
         {
           "number": 2,
@@ -142,7 +426,29 @@
           "lessons": [
             "m2c2-l1"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Clé partagée",
+              "en": "Shared secret key"
+            },
+            {
+              "fr": "AES",
+              "en": "AES"
+            },
+            {
+              "fr": "Chiffrement par bloc, par flot",
+              "en": "Block and stream ciphers"
+            },
+            {
+              "fr": "Modes ECB, CBC, CTR, GCM",
+              "en": "Modes of operation"
+            },
+            {
+              "fr": "n(n-1)/2 clés",
+              "en": "n(n-1)/2 keys"
+            }
+          ]
         },
         {
           "number": 3,
@@ -151,7 +457,29 @@
           "lessons": [
             "m2c2-l1"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Paire de clés publique/privée",
+              "en": "Public/private key pair"
+            },
+            {
+              "fr": "RSA",
+              "en": "RSA"
+            },
+            {
+              "fr": "Courbes elliptiques (ECC)",
+              "en": "Elliptic curves (ECC)"
+            },
+            {
+              "fr": "Diffie-Hellman",
+              "en": "Diffie-Hellman"
+            },
+            {
+              "fr": "Signer avec la clé privée",
+              "en": "Sign with the private key"
+            }
+          ]
         },
         {
           "number": 4,
@@ -160,7 +488,33 @@
           "lessons": [
             "m2c2-l2"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Empreinte de longueur fixe",
+              "en": "Fixed-length digest"
+            },
+            {
+              "fr": "Sens unique",
+              "en": "One-way"
+            },
+            {
+              "fr": "SHA-256, SHA-3",
+              "en": "SHA-256, SHA-3"
+            },
+            {
+              "fr": "Collision",
+              "en": "Collision"
+            },
+            {
+              "fr": "HMAC",
+              "en": "HMAC"
+            },
+            {
+              "fr": "Sel et Argon2id",
+              "en": "Salt and Argon2id"
+            }
+          ]
         },
         {
           "number": 5,
@@ -169,7 +523,29 @@
           "lessons": [
             "m2c2-l1"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Clé de session",
+              "en": "Session key"
+            },
+            {
+              "fr": "Échange de clés asymétrique",
+              "en": "Asymmetric key exchange"
+            },
+            {
+              "fr": "Chiffrement symétrique des données",
+              "en": "Symmetric bulk encryption"
+            },
+            {
+              "fr": "Enveloppe numérique",
+              "en": "Digital envelope"
+            },
+            {
+              "fr": "TLS 1.3 (ECDHE)",
+              "en": "TLS 1.3 (ECDHE)"
+            }
+          ]
         },
         {
           "number": 6,
@@ -178,7 +554,29 @@
           "lessons": [
             "m2c2-l3"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Certificat X.509",
+              "en": "X.509 certificate"
+            },
+            {
+              "fr": "Autorité de certification",
+              "en": "Certificate authority"
+            },
+            {
+              "fr": "Autorité d'enregistrement",
+              "en": "Registration authority"
+            },
+            {
+              "fr": "Révocation : CRL, OCSP",
+              "en": "Revocation: CRL, OCSP"
+            },
+            {
+              "fr": "Chaîne de confiance",
+              "en": "Chain of trust"
+            }
+          ]
         },
         {
           "number": 7,
@@ -187,7 +585,29 @@
           "lessons": [
             "m2c4-l2"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Distribution quantique de clés (QKD)",
+              "en": "Quantum key distribution"
+            },
+            {
+              "fr": "Algorithme de Shor",
+              "en": "Shor's algorithm"
+            },
+            {
+              "fr": "Algorithme de Grover",
+              "en": "Grover's algorithm"
+            },
+            {
+              "fr": "Cryptographie post-quantique",
+              "en": "Post-quantum cryptography"
+            },
+            {
+              "fr": "ML-KEM, ML-DSA",
+              "en": "ML-KEM, ML-DSA"
+            }
+          ]
         },
         {
           "number": 8,
@@ -196,7 +616,29 @@
           "lessons": [
             "m2c4-l3"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Chiffrement homomorphe",
+              "en": "Homomorphic encryption"
+            },
+            {
+              "fr": "Cryptographie légère",
+              "en": "Lightweight cryptography"
+            },
+            {
+              "fr": "Agilité cryptographique",
+              "en": "Crypto agility"
+            },
+            {
+              "fr": "Chiffrement authentifié",
+              "en": "Authenticated encryption"
+            },
+            {
+              "fr": "Gestion des clés (HSM)",
+              "en": "Key management (HSM)"
+            }
+          ]
         },
         {
           "number": 9,
@@ -205,7 +647,33 @@
           "lessons": [
             "m2c2-l3"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Force brute",
+              "en": "Brute force"
+            },
+            {
+              "fr": "Attaque par collision",
+              "en": "Collision attack"
+            },
+            {
+              "fr": "Homme du milieu",
+              "en": "Man-in-the-middle"
+            },
+            {
+              "fr": "Rejeu",
+              "en": "Replay attack"
+            },
+            {
+              "fr": "Canal auxiliaire",
+              "en": "Side-channel attack"
+            },
+            {
+              "fr": "Tables arc-en-ciel",
+              "en": "Rainbow tables"
+            }
+          ]
         }
       ]
     },
@@ -222,7 +690,29 @@
           "lessons": [
             "m1c4-l3"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Identité numérique",
+              "en": "Digital identity"
+            },
+            {
+              "fr": "Cycle de vie des comptes",
+              "en": "Account lifecycle"
+            },
+            {
+              "fr": "Provisionnement, déprovisionnement",
+              "en": "Provisioning, deprovisioning"
+            },
+            {
+              "fr": "Fédération (SAML, OIDC)",
+              "en": "Federation (SAML, OIDC)"
+            },
+            {
+              "fr": "Revue des accès",
+              "en": "Access review"
+            }
+          ]
         },
         {
           "number": 2,
@@ -231,7 +721,29 @@
           "lessons": [
             "m1c4-l1"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Ce que je sais, possède, suis",
+              "en": "Knowledge, possession, inherence"
+            },
+            {
+              "fr": "MFA",
+              "en": "MFA"
+            },
+            {
+              "fr": "Biométrie : FAR, FRR, CER",
+              "en": "Biometrics: FAR, FRR, CER"
+            },
+            {
+              "fr": "Passkeys (FIDO2)",
+              "en": "Passkeys (FIDO2)"
+            },
+            {
+              "fr": "Kerberos",
+              "en": "Kerberos"
+            }
+          ]
         },
         {
           "number": 3,
@@ -240,7 +752,29 @@
           "lessons": [
             "m1c4-l2"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "DAC, MAC, RBAC, ABAC",
+              "en": "DAC, MAC, RBAC, ABAC"
+            },
+            {
+              "fr": "Moindre privilège",
+              "en": "Least privilege"
+            },
+            {
+              "fr": "Besoin d'en connaître",
+              "en": "Need to know"
+            },
+            {
+              "fr": "Séparation des tâches",
+              "en": "Separation of duties"
+            },
+            {
+              "fr": "Matrice de contrôle d'accès",
+              "en": "Access control matrix"
+            }
+          ]
         },
         {
           "number": 4,
@@ -250,7 +784,29 @@
             "m3c3-l3",
             "m3c4-l1"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "IAM cloud",
+              "en": "Cloud IAM"
+            },
+            {
+              "fr": "Responsabilité partagée",
+              "en": "Shared responsibility"
+            },
+            {
+              "fr": "SSO",
+              "en": "Single sign-on"
+            },
+            {
+              "fr": "Zero Trust",
+              "en": "Zero Trust"
+            },
+            {
+              "fr": "CASB",
+              "en": "CASB"
+            }
+          ]
         },
         {
           "number": 5,
@@ -260,7 +816,29 @@
             "m2c1-l2",
             "m3c4-l1"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Journaux d'accès",
+              "en": "Access logs"
+            },
+            {
+              "fr": "Traçabilité",
+              "en": "Accountability"
+            },
+            {
+              "fr": "SIEM",
+              "en": "SIEM"
+            },
+            {
+              "fr": "UEBA",
+              "en": "UEBA"
+            },
+            {
+              "fr": "Alertes et revues",
+              "en": "Alerts and reviews"
+            }
+          ]
         }
       ]
     },
@@ -277,7 +855,25 @@
           "lessons": [
             "m4c2-l2"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Créer, stocker, utiliser, partager, archiver, détruire",
+              "en": "Create, store, use, share, archive, destroy"
+            },
+            {
+              "fr": "Propriétaire des données",
+              "en": "Data owner"
+            },
+            {
+              "fr": "Données au repos, en transit, en cours d'usage",
+              "en": "Data at rest, in transit, in use"
+            },
+            {
+              "fr": "Traçabilité des données",
+              "en": "Data lineage"
+            }
+          ]
         },
         {
           "number": 2,
@@ -287,7 +883,29 @@
             "m4c2-l2",
             "m1c2-l2"
           ],
-          "coverage": "partial"
+          "coverage": "partial",
+          "keywords": [
+            {
+              "fr": "Inventaire des données",
+              "en": "Data inventory"
+            },
+            {
+              "fr": "Classification",
+              "en": "Classification"
+            },
+            {
+              "fr": "Étiquetage",
+              "en": "Labeling"
+            },
+            {
+              "fr": "Données personnelles",
+              "en": "Personal data"
+            },
+            {
+              "fr": "Niveaux public, interne, confidentiel",
+              "en": "Public, internal, confidential"
+            }
+          ]
         },
         {
           "number": 3,
@@ -296,7 +914,29 @@
           "lessons": [
             "m3c4-l2"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Stockage bloc, fichier, objet",
+              "en": "Block, file, object storage"
+            },
+            {
+              "fr": "SAN, NAS",
+              "en": "SAN, NAS"
+            },
+            {
+              "fr": "RAID",
+              "en": "RAID"
+            },
+            {
+              "fr": "Chiffrement au repos",
+              "en": "Encryption at rest"
+            },
+            {
+              "fr": "Stockage cloud",
+              "en": "Cloud storage"
+            }
+          ]
         },
         {
           "number": 4,
@@ -305,7 +945,29 @@
           "lessons": [
             "m4c2-l3"
           ],
-          "coverage": "partial"
+          "coverage": "partial",
+          "keywords": [
+            {
+              "fr": "DLP",
+              "en": "DLP"
+            },
+            {
+              "fr": "Chiffrement et tokenisation",
+              "en": "Encryption and tokenization"
+            },
+            {
+              "fr": "Masquage",
+              "en": "Masking"
+            },
+            {
+              "fr": "Pseudonymisation",
+              "en": "Pseudonymization"
+            },
+            {
+              "fr": "Contrôle d'accès aux données",
+              "en": "Data access control"
+            }
+          ]
         },
         {
           "number": 5,
@@ -314,7 +976,33 @@
           "lessons": [
             "m4c2-l3"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Durée de conservation",
+              "en": "Retention period"
+            },
+            {
+              "fr": "Archivage",
+              "en": "Archival"
+            },
+            {
+              "fr": "Effacement sécurisé",
+              "en": "Secure erasure"
+            },
+            {
+              "fr": "Destruction physique",
+              "en": "Physical destruction"
+            },
+            {
+              "fr": "Rémanence des données",
+              "en": "Data remanence"
+            },
+            {
+              "fr": "Gel juridique",
+              "en": "Legal hold"
+            }
+          ]
         }
       ]
     },
@@ -331,7 +1019,29 @@
           "lessons": [
             "m2c1-l1"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Responsabilité de la direction",
+              "en": "Management accountability"
+            },
+            {
+              "fr": "Due care",
+              "en": "Due care"
+            },
+            {
+              "fr": "Gestion des changements",
+              "en": "Change management"
+            },
+            {
+              "fr": "Gestion de configuration",
+              "en": "Configuration management"
+            },
+            {
+              "fr": "Indicateurs (KPI, KRI)",
+              "en": "Metrics (KPI, KRI)"
+            }
+          ]
         },
         {
           "number": 2,
@@ -340,7 +1050,29 @@
           "lessons": [
             "m1c2-l3"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Vérification préalable à l'embauche",
+              "en": "Background checks"
+            },
+            {
+              "fr": "Accord de confidentialité",
+              "en": "NDA"
+            },
+            {
+              "fr": "Rotation des postes",
+              "en": "Job rotation"
+            },
+            {
+              "fr": "Congés obligatoires",
+              "en": "Mandatory vacations"
+            },
+            {
+              "fr": "Départ : retrait des accès",
+              "en": "Termination: access removal"
+            }
+          ]
         },
         {
           "number": 3,
@@ -351,7 +1083,29 @@
             "m2c3-l2",
             "m2c3-l3"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Scan de vulnérabilités",
+              "en": "Vulnerability scanning"
+            },
+            {
+              "fr": "Test d'intrusion",
+              "en": "Penetration testing"
+            },
+            {
+              "fr": "CVSS",
+              "en": "CVSS"
+            },
+            {
+              "fr": "Audit",
+              "en": "Audit"
+            },
+            {
+              "fr": "Gestion des correctifs",
+              "en": "Patch management"
+            }
+          ]
         },
         {
           "number": 4,
@@ -360,7 +1114,29 @@
           "lessons": [
             "m2c1-l2"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Journalisation",
+              "en": "Logging"
+            },
+            {
+              "fr": "Horodatage synchronisé (NTP)",
+              "en": "Time synchronization (NTP)"
+            },
+            {
+              "fr": "SIEM et corrélation",
+              "en": "SIEM and correlation"
+            },
+            {
+              "fr": "Faux positifs, faux négatifs",
+              "en": "False positives, false negatives"
+            },
+            {
+              "fr": "Rétention des journaux",
+              "en": "Log retention"
+            }
+          ]
         },
         {
           "number": 5,
@@ -369,7 +1145,29 @@
           "lessons": [
             "m1c5-l3"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "IA générative",
+              "en": "Generative AI"
+            },
+            {
+              "fr": "Injection de prompt",
+              "en": "Prompt injection"
+            },
+            {
+              "fr": "Empoisonnement des données",
+              "en": "Data poisoning"
+            },
+            {
+              "fr": "Biais",
+              "en": "Bias"
+            },
+            {
+              "fr": "AI Act",
+              "en": "AI Act"
+            }
+          ]
         },
         {
           "number": 6,
@@ -379,7 +1177,29 @@
             "m4c3-l1",
             "m2c1-l1"
           ],
-          "coverage": "partial"
+          "coverage": "partial",
+          "keywords": [
+            {
+              "fr": "Logiciels malveillants",
+              "en": "Malware"
+            },
+            {
+              "fr": "Ingénierie sociale",
+              "en": "Social engineering"
+            },
+            {
+              "fr": "Menace interne",
+              "en": "Insider threat"
+            },
+            {
+              "fr": "Déni de service",
+              "en": "Denial of service"
+            },
+            {
+              "fr": "Rançongiciel",
+              "en": "Ransomware"
+            }
+          ]
         }
       ]
     },
@@ -396,7 +1216,29 @@
           "lessons": [
             "m3c1-l2"
           ],
-          "coverage": "partial"
+          "coverage": "partial",
+          "keywords": [
+            {
+              "fr": "SNMP v3",
+              "en": "SNMP v3"
+            },
+            {
+              "fr": "Supervision du réseau",
+              "en": "Network monitoring"
+            },
+            {
+              "fr": "Gestion hors bande",
+              "en": "Out-of-band management"
+            },
+            {
+              "fr": "Inventaire et configuration",
+              "en": "Inventory and configuration"
+            },
+            {
+              "fr": "NetFlow",
+              "en": "NetFlow"
+            }
+          ]
         },
         {
           "number": 2,
@@ -407,7 +1249,29 @@
             "m3c1-l2",
             "m3c1-l3"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Modèle OSI",
+              "en": "OSI model"
+            },
+            {
+              "fr": "TCP/IP",
+              "en": "TCP/IP"
+            },
+            {
+              "fr": "TCP et UDP",
+              "en": "TCP and UDP"
+            },
+            {
+              "fr": "DNS et DNSSEC",
+              "en": "DNS and DNSSEC"
+            },
+            {
+              "fr": "Protocoles sécurisés (TLS, SSH, IPsec)",
+              "en": "Secure protocols (TLS, SSH, IPsec)"
+            }
+          ]
         },
         {
           "number": 3,
@@ -416,7 +1280,29 @@
           "lessons": [
             "m3c2-l3"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Wi-Fi 802.11",
+              "en": "Wi-Fi 802.11"
+            },
+            {
+              "fr": "WPA3",
+              "en": "WPA3"
+            },
+            {
+              "fr": "802.1X et EAP",
+              "en": "802.1X and EAP"
+            },
+            {
+              "fr": "Point d'accès pirate",
+              "en": "Rogue access point"
+            },
+            {
+              "fr": "Bluetooth",
+              "en": "Bluetooth"
+            }
+          ]
         },
         {
           "number": 4,
@@ -425,7 +1311,29 @@
           "lessons": [
             "m3c2-l1"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Segmentation",
+              "en": "Segmentation"
+            },
+            {
+              "fr": "DMZ",
+              "en": "DMZ"
+            },
+            {
+              "fr": "VLAN",
+              "en": "VLAN"
+            },
+            {
+              "fr": "Zero Trust",
+              "en": "Zero Trust"
+            },
+            {
+              "fr": "Défense en profondeur",
+              "en": "Defense in depth"
+            }
+          ]
         },
         {
           "number": 5,
@@ -434,7 +1342,29 @@
           "lessons": [
             "m3c2-l2"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Pare-feu",
+              "en": "Firewall"
+            },
+            {
+              "fr": "IDS et IPS",
+              "en": "IDS and IPS"
+            },
+            {
+              "fr": "Proxy",
+              "en": "Proxy"
+            },
+            {
+              "fr": "VPN",
+              "en": "VPN"
+            },
+            {
+              "fr": "Routeur et commutateur",
+              "en": "Router and switch"
+            }
+          ]
         },
         {
           "number": 6,
@@ -443,7 +1373,29 @@
           "lessons": [
             "m3c1-l2"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Usurpation (spoofing)",
+              "en": "Spoofing"
+            },
+            {
+              "fr": "Homme du milieu",
+              "en": "Man-in-the-middle"
+            },
+            {
+              "fr": "Déni de service distribué",
+              "en": "DDoS"
+            },
+            {
+              "fr": "Empoisonnement ARP et DNS",
+              "en": "ARP and DNS poisoning"
+            },
+            {
+              "fr": "Reconnaissance (scan)",
+              "en": "Reconnaissance (scanning)"
+            }
+          ]
         }
       ]
     },
@@ -460,7 +1412,29 @@
           "lessons": [
             "m1c3-l3"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "ISO/IEC 27001 et 27002",
+              "en": "ISO/IEC 27001 and 27002"
+            },
+            {
+              "fr": "NIST SP 800-53",
+              "en": "NIST SP 800-53"
+            },
+            {
+              "fr": "NIST CSF",
+              "en": "NIST CSF"
+            },
+            {
+              "fr": "COBIT",
+              "en": "COBIT"
+            },
+            {
+              "fr": "CIS Controls",
+              "en": "CIS Controls"
+            }
+          ]
         },
         {
           "number": 2,
@@ -469,7 +1443,29 @@
           "lessons": [
             "m3c3-l1"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Moindre privilège",
+              "en": "Least privilege"
+            },
+            {
+              "fr": "Défense en profondeur",
+              "en": "Defense in depth"
+            },
+            {
+              "fr": "Sécurité par défaut",
+              "en": "Secure by default"
+            },
+            {
+              "fr": "Échec sécurisé",
+              "en": "Fail secure"
+            },
+            {
+              "fr": "Simplicité",
+              "en": "Keep it simple"
+            }
+          ]
         },
         {
           "number": 3,
@@ -478,7 +1474,29 @@
           "lessons": [
             "m3c3-l2"
           ],
-          "coverage": "partial"
+          "coverage": "partial",
+          "keywords": [
+            {
+              "fr": "TPM",
+              "en": "TPM"
+            },
+            {
+              "fr": "Isolation des processus",
+              "en": "Process isolation"
+            },
+            {
+              "fr": "Mémoire protégée",
+              "en": "Protected memory"
+            },
+            {
+              "fr": "Virtualisation",
+              "en": "Virtualization"
+            },
+            {
+              "fr": "Base informatique de confiance (TCB)",
+              "en": "Trusted computing base"
+            }
+          ]
         },
         {
           "number": 4,
@@ -487,7 +1505,29 @@
           "lessons": [
             "m3c3-l3"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Architecture d'entreprise",
+              "en": "Enterprise architecture"
+            },
+            {
+              "fr": "Cloud : IaaS, PaaS, SaaS",
+              "en": "Cloud: IaaS, PaaS, SaaS"
+            },
+            {
+              "fr": "Conteneurs",
+              "en": "Containers"
+            },
+            {
+              "fr": "IoT et systèmes industriels",
+              "en": "IoT and ICS"
+            },
+            {
+              "fr": "Zero Trust",
+              "en": "Zero Trust"
+            }
+          ]
         }
       ]
     },
@@ -504,7 +1544,29 @@
           "lessons": [
             "m4c1-l1"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Sécurité dès la conception",
+              "en": "Security by design"
+            },
+            {
+              "fr": "Exigences de sécurité",
+              "en": "Security requirements"
+            },
+            {
+              "fr": "Surface d'attaque",
+              "en": "Attack surface"
+            },
+            {
+              "fr": "Modélisation des menaces",
+              "en": "Threat modeling"
+            },
+            {
+              "fr": "DevSecOps",
+              "en": "DevSecOps"
+            }
+          ]
         },
         {
           "number": 2,
@@ -513,7 +1575,29 @@
           "lessons": [
             "m4c1-l2"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "OWASP Top 10",
+              "en": "OWASP Top 10"
+            },
+            {
+              "fr": "Injection SQL",
+              "en": "SQL injection"
+            },
+            {
+              "fr": "XSS",
+              "en": "Cross-site scripting"
+            },
+            {
+              "fr": "Dépassement de tampon",
+              "en": "Buffer overflow"
+            },
+            {
+              "fr": "Dépendances vulnérables",
+              "en": "Vulnerable dependencies"
+            }
+          ]
         },
         {
           "number": 3,
@@ -522,7 +1606,29 @@
           "lessons": [
             "m4c1-l1"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Cycle en V et agile",
+              "en": "Waterfall and agile"
+            },
+            {
+              "fr": "Revue de code",
+              "en": "Code review"
+            },
+            {
+              "fr": "Tests SAST et DAST",
+              "en": "SAST and DAST"
+            },
+            {
+              "fr": "Gestion des versions",
+              "en": "Version control"
+            },
+            {
+              "fr": "Mise en production",
+              "en": "Release"
+            }
+          ]
         },
         {
           "number": 4,
@@ -531,7 +1637,29 @@
           "lessons": [
             "m4c1-l3"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Validation des entrées",
+              "en": "Input validation"
+            },
+            {
+              "fr": "Encodage des sorties",
+              "en": "Output encoding"
+            },
+            {
+              "fr": "Gestion des erreurs",
+              "en": "Error handling"
+            },
+            {
+              "fr": "Gestion des secrets",
+              "en": "Secrets management"
+            },
+            {
+              "fr": "Journalisation applicative",
+              "en": "Application logging"
+            }
+          ]
         },
         {
           "number": 5,
@@ -540,7 +1668,29 @@
           "lessons": [
             "m4c1-l2"
           ],
-          "coverage": "partial"
+          "coverage": "partial",
+          "keywords": [
+            {
+              "fr": "OWASP ASVS",
+              "en": "OWASP ASVS"
+            },
+            {
+              "fr": "Guides de codage sécurisé",
+              "en": "Secure coding guidelines"
+            },
+            {
+              "fr": "Analyse de composition (SCA)",
+              "en": "Software composition analysis"
+            },
+            {
+              "fr": "SBOM",
+              "en": "SBOM"
+            },
+            {
+              "fr": "Requêtes paramétrées",
+              "en": "Parameterized queries"
+            }
+          ]
         }
       ]
     },
@@ -557,7 +1707,29 @@
           "lessons": [
             "m2c1-l3"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "SOC",
+              "en": "SOC"
+            },
+            {
+              "fr": "Analystes N1, N2, N3",
+              "en": "Tier 1, 2, 3 analysts"
+            },
+            {
+              "fr": "SIEM et SOAR",
+              "en": "SIEM and SOAR"
+            },
+            {
+              "fr": "Veille sur les menaces",
+              "en": "Threat intelligence"
+            },
+            {
+              "fr": "Playbooks",
+              "en": "Playbooks"
+            }
+          ]
         },
         {
           "number": 2,
@@ -568,7 +1740,33 @@
             "m5c1-l2",
             "m5c1-l3"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "BIA",
+              "en": "Business impact analysis"
+            },
+            {
+              "fr": "RTO",
+              "en": "RTO"
+            },
+            {
+              "fr": "RPO",
+              "en": "RPO"
+            },
+            {
+              "fr": "PCA et PRA",
+              "en": "BCP and DRP"
+            },
+            {
+              "fr": "Sites de secours (chaud, tiède, froid)",
+              "en": "Hot, warm, cold sites"
+            },
+            {
+              "fr": "Tests du plan",
+              "en": "Plan testing"
+            }
+          ]
         },
         {
           "number": 3,
@@ -578,7 +1776,29 @@
             "m5c2-l1",
             "m5c2-l3"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Préparation",
+              "en": "Preparation"
+            },
+            {
+              "fr": "Détection et analyse",
+              "en": "Detection and analysis"
+            },
+            {
+              "fr": "Confinement, éradication, reprise",
+              "en": "Containment, eradication, recovery"
+            },
+            {
+              "fr": "Retour d'expérience",
+              "en": "Lessons learned"
+            },
+            {
+              "fr": "Notification",
+              "en": "Notification"
+            }
+          ]
         },
         {
           "number": 4,
@@ -587,7 +1807,29 @@
           "lessons": [
             "m5c2-l2"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Investigation numérique",
+              "en": "Digital forensics"
+            },
+            {
+              "fr": "Chaîne de possession",
+              "en": "Chain of custody"
+            },
+            {
+              "fr": "Ordre de volatilité",
+              "en": "Order of volatility"
+            },
+            {
+              "fr": "Preuve recevable",
+              "en": "Admissible evidence"
+            },
+            {
+              "fr": "Image disque et empreinte",
+              "en": "Disk image and hash"
+            }
+          ]
         }
       ]
     },
@@ -604,7 +1846,25 @@
           "lessons": [
             "m5c5-l1"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "ENISA",
+              "en": "ENISA"
+            },
+            {
+              "fr": "Stratégie de cybersécurité de l'UE",
+              "en": "EU cybersecurity strategy"
+            },
+            {
+              "fr": "Autorités nationales (ANSSI)",
+              "en": "National authorities (ANSSI)"
+            },
+            {
+              "fr": "Coopération entre États",
+              "en": "Cooperation between Member States"
+            }
+          ]
         },
         {
           "number": 2,
@@ -614,7 +1874,29 @@
             "m5c5-l2",
             "m5c3-l2"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "NIS 2",
+              "en": "NIS 2"
+            },
+            {
+              "fr": "DORA",
+              "en": "DORA"
+            },
+            {
+              "fr": "Cyber Resilience Act",
+              "en": "Cyber Resilience Act"
+            },
+            {
+              "fr": "RGPD",
+              "en": "GDPR"
+            },
+            {
+              "fr": "AI Act",
+              "en": "AI Act"
+            }
+          ]
         },
         {
           "number": 3,
@@ -623,7 +1905,29 @@
           "lessons": [
             "m5c5-l3"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Gestion des risques cyber",
+              "en": "Cyber risk management"
+            },
+            {
+              "fr": "Notification : 24 h, 72 h, 1 mois",
+              "en": "Reporting: 24 h, 72 h, 1 month"
+            },
+            {
+              "fr": "Chaîne d'approvisionnement",
+              "en": "Supply chain security"
+            },
+            {
+              "fr": "Tests de résilience",
+              "en": "Resilience testing"
+            },
+            {
+              "fr": "Prestataires TIC",
+              "en": "ICT third-party providers"
+            }
+          ]
         },
         {
           "number": 4,
@@ -632,7 +1936,25 @@
           "lessons": [
             "m5c5-l4"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Correspondance avec ISO/IEC 27001",
+              "en": "Mapping to ISO/IEC 27001"
+            },
+            {
+              "fr": "NIST CSF",
+              "en": "NIST CSF"
+            },
+            {
+              "fr": "Domaines CISSO",
+              "en": "CISSO domains"
+            },
+            {
+              "fr": "Preuves de conformité",
+              "en": "Compliance evidence"
+            }
+          ]
         },
         {
           "number": 5,
@@ -641,7 +1963,25 @@
           "lessons": [
             "m5c5-l5"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Amendes administratives",
+              "en": "Administrative fines"
+            },
+            {
+              "fr": "Responsabilité des dirigeants",
+              "en": "Management liability"
+            },
+            {
+              "fr": "Formation des dirigeants",
+              "en": "Management training"
+            },
+            {
+              "fr": "Supervision par les autorités",
+              "en": "Supervision by authorities"
+            }
+          ]
         }
       ]
     },
@@ -658,7 +1998,29 @@
           "lessons": [
             "m2c4-l1"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "César",
+              "en": "Caesar cipher"
+            },
+            {
+              "fr": "Substitution et transposition",
+              "en": "Substitution and transposition"
+            },
+            {
+              "fr": "Vigenère",
+              "en": "Vigenère cipher"
+            },
+            {
+              "fr": "Enigma",
+              "en": "Enigma"
+            },
+            {
+              "fr": "Masque jetable",
+              "en": "One-time pad"
+            }
+          ]
         },
         {
           "number": 2,
@@ -667,7 +2029,29 @@
           "lessons": [
             "m1c4-l1"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Identification",
+              "en": "Identification"
+            },
+            {
+              "fr": "Authentification",
+              "en": "Authentication"
+            },
+            {
+              "fr": "Autorisation",
+              "en": "Authorization"
+            },
+            {
+              "fr": "Traçabilité",
+              "en": "Accountability"
+            },
+            {
+              "fr": "Non-répudiation",
+              "en": "Non-repudiation"
+            }
+          ]
         },
         {
           "number": 3,
@@ -678,7 +2062,29 @@
             "m5c4-l2",
             "m5c4-l3"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Périmètre et clôtures",
+              "en": "Perimeter and fencing"
+            },
+            {
+              "fr": "Contrôle d'accès physique",
+              "en": "Physical access control"
+            },
+            {
+              "fr": "Vidéosurveillance",
+              "en": "CCTV"
+            },
+            {
+              "fr": "Incendie : classes et extinction",
+              "en": "Fire classes and suppression"
+            },
+            {
+              "fr": "Alimentation et climatisation",
+              "en": "Power and HVAC"
+            }
+          ]
         },
         {
           "number": 4,
@@ -687,7 +2093,29 @@
           "lessons": [
             "m5c1-l2"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "RAID",
+              "en": "RAID"
+            },
+            {
+              "fr": "Redondance des alimentations",
+              "en": "Redundant power"
+            },
+            {
+              "fr": "Grappe (cluster)",
+              "en": "Clustering"
+            },
+            {
+              "fr": "Répartition de charge",
+              "en": "Load balancing"
+            },
+            {
+              "fr": "Point unique de défaillance",
+              "en": "Single point of failure"
+            }
+          ]
         },
         {
           "number": 5,
@@ -696,7 +2124,29 @@
           "lessons": [
             "m3c1-l1"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Topologies",
+              "en": "Topologies"
+            },
+            {
+              "fr": "Câblage et fibre",
+              "en": "Cabling and fiber"
+            },
+            {
+              "fr": "LAN, WAN",
+              "en": "LAN, WAN"
+            },
+            {
+              "fr": "Commutation de circuits et de paquets",
+              "en": "Circuit and packet switching"
+            },
+            {
+              "fr": "Accès distant",
+              "en": "Remote access"
+            }
+          ]
         },
         {
           "number": 6,
@@ -705,7 +2155,29 @@
           "lessons": [
             "m3c1-l2"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Adressage IP",
+              "en": "IP addressing"
+            },
+            {
+              "fr": "Ports et services",
+              "en": "Ports and services"
+            },
+            {
+              "fr": "Commutateur et routeur",
+              "en": "Switch and router"
+            },
+            {
+              "fr": "NAT",
+              "en": "NAT"
+            },
+            {
+              "fr": "ARP",
+              "en": "ARP"
+            }
+          ]
         },
         {
           "number": 7,
@@ -714,7 +2186,29 @@
           "lessons": [
             "m3c4-l3"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "VoIP et SIP",
+              "en": "VoIP and SIP"
+            },
+            {
+              "fr": "Autocommutateur (PBX)",
+              "en": "PBX"
+            },
+            {
+              "fr": "Fraude téléphonique",
+              "en": "Toll fraud"
+            },
+            {
+              "fr": "Vishing",
+              "en": "Vishing"
+            },
+            {
+              "fr": "Chiffrement SRTP",
+              "en": "SRTP encryption"
+            }
+          ]
         },
         {
           "number": 8,
@@ -723,7 +2217,29 @@
           "lessons": [
             "m4c2-l1"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Inférence et agrégation",
+              "en": "Inference and aggregation"
+            },
+            {
+              "fr": "Injection SQL",
+              "en": "SQL injection"
+            },
+            {
+              "fr": "Vues et contrôle d'accès",
+              "en": "Views and access control"
+            },
+            {
+              "fr": "Chiffrement des bases",
+              "en": "Database encryption"
+            },
+            {
+              "fr": "Propriétés ACID",
+              "en": "ACID properties"
+            }
+          ]
         },
         {
           "number": 9,
@@ -732,7 +2248,29 @@
           "lessons": [
             "m3c3-l2"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Client-serveur",
+              "en": "Client-server"
+            },
+            {
+              "fr": "Architecture n-tiers",
+              "en": "N-tier architecture"
+            },
+            {
+              "fr": "Systèmes distribués",
+              "en": "Distributed systems"
+            },
+            {
+              "fr": "Cloud",
+              "en": "Cloud"
+            },
+            {
+              "fr": "Systèmes embarqués",
+              "en": "Embedded systems"
+            }
+          ]
         },
         {
           "number": 10,
@@ -743,7 +2281,33 @@
             "m4c3-l2",
             "m4c3-l3"
           ],
-          "coverage": "covered"
+          "coverage": "covered",
+          "keywords": [
+            {
+              "fr": "Virus et ver",
+              "en": "Virus and worm"
+            },
+            {
+              "fr": "Cheval de Troie",
+              "en": "Trojan"
+            },
+            {
+              "fr": "Rançongiciel",
+              "en": "Ransomware"
+            },
+            {
+              "fr": "Rootkit",
+              "en": "Rootkit"
+            },
+            {
+              "fr": "Hameçonnage",
+              "en": "Phishing"
+            },
+            {
+              "fr": "APT",
+              "en": "Advanced persistent threat"
+            }
+          ]
         }
       ]
     }
