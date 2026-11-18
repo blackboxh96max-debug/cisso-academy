@@ -29,13 +29,32 @@ class ContentLoader {
         .map((d) => ExamDomain.fromJson(d as Map<String, dynamic>))
         .toList();
 
+    final examPrep = catalog['examPrep'] == null
+        ? ExamPrep.empty
+        : ExamPrep.fromJson(
+            jsonDecode(await read('$root/${catalog['examPrep']}'))
+                as Map<String, dynamic>,
+          );
+
     final modules = <Module>[];
     for (final m in catalog['modules'] as List) {
       final moduleJson = m as Map<String, dynamic>;
       final moduleId = moduleJson['id'] as String;
       final chapters = <Chapter>[];
       for (final c in moduleJson['chapters'] as List) {
-        chapters.add(await _loadChapter(c as Map<String, dynamic>, moduleId));
+        final chapter = await _loadChapter(c as Map<String, dynamic>, moduleId);
+        // Les questions de la formation de l'apprenant complètent le QCM de
+        // leur chapitre.
+        if (chapter.available) {
+          chapter.questions.addAll(
+            examPrep
+                .forChapter(chapter.id)
+                .map(
+                  (q) => trainingQuestion(q, chapter, examPrep.lot(q.lotId)),
+                ),
+          );
+        }
+        chapters.add(chapter);
       }
       modules.add(
         Module(
@@ -61,12 +80,7 @@ class ContentLoader {
       domains: domains,
       glossary: glossary,
       examInfo: ExamInfo.fromJson(catalog['exam'] as Map<String, dynamic>),
-      examPrep: catalog['examPrep'] == null
-          ? ExamPrep.empty
-          : ExamPrep.fromJson(
-              jsonDecode(await read('$root/${catalog['examPrep']}'))
-                  as Map<String, dynamic>,
-            ),
+      examPrep: examPrep,
       mile2Outline: await outline('mile2Outline'),
       orsysOutline: await outline('orsysOutline'),
       orsysPlusOutline: await outline('orsysPlusOutline'),
@@ -183,6 +197,8 @@ class ContentLoader {
           );
         }
         for (var i = 0; i < q.choices.length; i++) {
+          // Une question de la formation a une explication d'ensemble.
+          if (q.fromTraining) break;
           if (!q.correct.contains(i) && !q.whyNot.containsKey(i)) {
             throw FormatException(
               'Question ${q.id} : explication manquante pour le choix $i',
@@ -301,4 +317,30 @@ class ContentLoader {
         break;
     }
   }
+}
+
+/// Une question de la formation de l'apprenant, au format des QCM de
+/// chapitre : le français d'abord, l'anglais de l'examen en dessous.
+Question trainingQuestion(PrepQuestion q, Chapter chapter, PrepLot? lot) {
+  String both(Bi b) => b.en.trim() == b.fr.trim() ? b.fr : '${b.fr}\n${b.en}';
+  return Question(
+    id: q.id,
+    chapterId: chapter.id,
+    domainId: chapter.domainIds.first,
+    level: Level.intermediate,
+    concept: lot == null
+        ? 'Question de ta formation'
+        : 'Question de ta formation · ${lot.title.fr}',
+    prompt: both(q.prompt),
+    choices: [for (final c in q.choices) both(c)],
+    correct: {q.correct},
+    explanation: [
+      q.explanation.fr,
+      if (q.formula != null) q.formula!,
+      if (q.explanation.en.trim() != q.explanation.fr.trim()) q.explanation.en,
+    ].join('\n\n'),
+    whyNot: const {},
+    kind: SourceKind.general,
+    fromTraining: true,
+  );
 }

@@ -287,6 +287,7 @@ class Question {
     required this.explanation,
     required this.whyNot,
     required this.kind,
+    this.fromTraining = false,
   });
 
   final String id;
@@ -306,6 +307,11 @@ class Question {
   /// Pourquoi chaque mauvais choix est faux : index → explication.
   final Map<int, String> whyNot;
   final SourceKind kind;
+
+  /// Question donnée par l'apprenant depuis sa formation (lots de la
+  /// préparation à l'examen), ajoutée au QCM de son chapitre. Elle n'entre
+  /// pas dans les examens blancs.
+  final bool fromTraining;
 
   bool get isMultiple => correct.length > 1;
 
@@ -541,6 +547,11 @@ class ContentLibrary {
   Iterable<Chapter> get availableChapters => chapters.where((c) => c.available);
 
   Iterable<Question> get questions => chapters.expand((c) => c.questions);
+
+  /// Questions des examens blancs : celles de l'application, sans les
+  /// questions de la formation de l'apprenant.
+  Iterable<Question> get examQuestions =>
+      questions.where((q) => !q.fromTraining);
 
   Iterable<Flashcard> get flashcards => chapters.expand((c) => c.flashcards);
 

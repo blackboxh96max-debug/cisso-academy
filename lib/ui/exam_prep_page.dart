@@ -61,9 +61,9 @@ class _ExamPrepPageState extends State<ExamPrepPage> {
           label: 'Questions de ta formation',
           sticky: true,
           child: Text(
-            'Elles sont rangées à part des questions de l\'application : '
-            'elles ne comptent ni dans tes statistiques ni dans les examens '
-            'blancs. ${prep.lots.length} séance(s), ${all.length} question(s).',
+            'Elles sont aussi ajoutées au QCM de leur chapitre. Elles '
+            'n\'entrent pas dans les examens blancs. '
+            '${prep.lots.length} séance(s), ${all.length} question(s).',
             style: Hand.noteText(context),
           ),
         ),

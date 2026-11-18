@@ -82,7 +82,7 @@ void main() {
       findsOneWidget,
     );
     expect(
-      find.text('${library.questions.length} questions de QCM'),
+      find.text('${library.examQuestions.length} questions de QCM'),
       findsOneWidget,
     );
     // La version affichée est celle du pubspec.

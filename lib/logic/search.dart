@@ -271,7 +271,8 @@ class SearchIndex {
             ),
           );
         }
-        for (final q in c.questions) {
+        // Les questions de la formation sont indexées avec leur lot.
+        for (final q in c.questions.where((q) => !q.fromTraining)) {
           _entries.add(
             _Entry(
               SearchResult(
