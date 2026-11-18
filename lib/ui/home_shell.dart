@@ -119,57 +119,49 @@ class _HomeShellState extends State<HomeShell> {
     );
 
     if (wide) {
-      final mode = state.menuMode;
+      // Le menu est affiché (icônes et libellés courts) ou masqué.
+      final hidden = state.menuMode == MenuMode.hidden;
       return Scaffold(
         body: SafeArea(
           child: ShellScope(
             openMenu: null,
             child: Row(
               children: [
-                if (mode == MenuMode.hidden)
+                if (hidden)
                   _ShowMenuTab(onTap: () => state.setMenuMode(MenuMode.compact))
-                else ...[
-                  NavigationRail(
-                    key: const Key('side-rail'),
-                    // Les entrées défilent si la fenêtre est trop basse.
-                    scrollable: true,
-                    selectedIndex: _index,
-                    onDestinationSelected: _select,
-                    extended: mode == MenuMode.expanded,
-                    minExtendedWidth: 210,
-                    labelType: mode == MenuMode.expanded
-                        ? NavigationRailLabelType.none
-                        : NavigationRailLabelType.all,
-                    leading: _RailHeader(mode: mode),
-                    trailing: Column(
-                      crossAxisAlignment: mode == MenuMode.expanded
-                          ? CrossAxisAlignment.start
-                          : CrossAxisAlignment.center,
-                      children: [
-                        const SizedBox(height: 8),
-                        SizedBox(
-                          width: mode == MenuMode.expanded ? 180 : 56,
-                          child: const Divider(),
-                        ),
-                        for (final a in AppAction.values)
-                          _RailAction(
-                            a,
-                            extended: mode == MenuMode.expanded,
-                            onTap: () => _run(a),
+                else
+                  _SideMenu(
+                    onHide: () => state.setMenuMode(MenuMode.hidden),
+                    rail: NavigationRail(
+                      key: const Key('side-rail'),
+                      // Les entrées défilent si la fenêtre est trop basse.
+                      scrollable: true,
+                      selectedIndex: _index,
+                      onDestinationSelected: _select,
+                      labelType: NavigationRailLabelType.all,
+                      leading: const _RailHeader(),
+                      trailing: Column(
+                        children: [
+                          const SizedBox(height: 8),
+                          const SizedBox(width: 56, child: Divider()),
+                          for (final a in AppAction.values)
+                            _RailAction(
+                              a,
+                              extended: false,
+                              onTap: () => _run(a),
+                            ),
+                        ],
+                      ),
+                      destinations: [
+                        for (final d in _destinations)
+                          NavigationRailDestination(
+                            icon: Icon(d.icon),
+                            selectedIcon: Icon(d.selectedIcon),
+                            label: Text(d.label),
                           ),
                       ],
                     ),
-                    destinations: [
-                      for (final d in _destinations)
-                        NavigationRailDestination(
-                          icon: Icon(d.icon),
-                          selectedIcon: Icon(d.selectedIcon),
-                          label: Text(d.label),
-                        ),
-                    ],
                   ),
-                  _MenuHandle(mode: mode, onMode: state.setMenuMode),
-                ],
                 Expanded(child: content),
               ],
             ),
@@ -207,95 +199,68 @@ class _HomeShellState extends State<HomeShell> {
   }
 }
 
-/// En-tête du rail : logo, et nom de l'application quand il est étendu.
+/// En-tête du rail : le logo.
 class _RailHeader extends StatelessWidget {
-  const _RailHeader({required this.mode});
-
-  final MenuMode mode;
+  const _RailHeader();
 
   @override
-  Widget build(BuildContext context) {
-    final logo = Icon(
+  Widget build(BuildContext context) => Padding(
+    padding: const EdgeInsets.only(top: 12, bottom: 8),
+    child: Icon(
       Icons.shield_outlined,
       size: 32,
       color: Theme.of(context).colorScheme.primary,
-    );
-    return Padding(
-      padding: const EdgeInsets.only(top: 12, bottom: 8),
-      child: mode == MenuMode.expanded
-          ? SizedBox(
-              width: 190,
-              child: Row(
-                children: [
-                  const SizedBox(width: 8),
-                  logo,
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      appName,
-                      style: Theme.of(context).textTheme.titleMedium,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
-              ),
-            )
-          : logo,
-    );
-  }
+    ),
+  );
 }
 
-/// Poignée sur le bord droit du menu, en dehors de ses entrées : étendre ou
-/// réduire le menu, et le masquer.
-class _MenuHandle extends StatelessWidget {
-  const _MenuHandle({required this.mode, required this.onMode});
+/// Le menu de gauche, avec tout en bas le bouton qui le masque.
+class _SideMenu extends StatelessWidget {
+  const _SideMenu({required this.rail, required this.onHide});
 
-  final MenuMode mode;
-  final ValueChanged<MenuMode> onMode;
+  final Widget rail;
+  final VoidCallback onHide;
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    final expanded = mode == MenuMode.expanded;
-    Widget button(String tip, IconData icon, VoidCallback onTap, Key key) =>
-        Tooltip(
-          message: tip,
-          child: InkWell(
-            key: key,
-            borderRadius: BorderRadius.circular(8),
-            onTap: onTap,
-            child: SizedBox(
-              width: 24,
-              height: 40,
-              child: Icon(icon, size: 18, color: scheme.onSurfaceVariant),
-            ),
-          ),
-        );
-    return Container(
-      key: const Key('menu-handle'),
-      width: 24,
+    final background =
+        NavigationRailTheme.of(context).backgroundColor ?? scheme.surface;
+    return DecoratedBox(
       decoration: BoxDecoration(
-        color: scheme.surfaceContainerHighest.withValues(alpha: 0.5),
-        border: Border(
-          left: BorderSide(color: scheme.outlineVariant),
-          right: BorderSide(color: scheme.outlineVariant),
-        ),
+        color: background,
+        border: Border(right: BorderSide(color: scheme.outlineVariant)),
       ),
       child: Column(
         children: [
+          Expanded(child: rail),
+          Tooltip(
+            message: 'Masquer le menu',
+            child: InkWell(
+              key: const Key('menu-hide'),
+              borderRadius: BorderRadius.circular(8),
+              onTap: onHide,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
+                child: Column(
+                  children: [
+                    Icon(
+                      Icons.keyboard_double_arrow_left,
+                      color: scheme.onSurfaceVariant,
+                    ),
+                    Text(
+                      'Masquer',
+                      style: Theme.of(context).textTheme.labelSmall,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
           const SizedBox(height: 8),
-          button(
-            expanded ? 'Réduire le menu' : 'Étendre le menu',
-            expanded ? Icons.chevron_left : Icons.chevron_right,
-            () => onMode(expanded ? MenuMode.compact : MenuMode.expanded),
-            const Key('menu-extend'),
-          ),
-          button(
-            'Masquer le menu',
-            Icons.keyboard_double_arrow_left,
-            () => onMode(MenuMode.hidden),
-            const Key('menu-hide'),
-          ),
         ],
       ),
     );
