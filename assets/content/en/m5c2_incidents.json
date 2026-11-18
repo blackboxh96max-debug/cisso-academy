@@ -1,0 +1,665 @@
+{
+ "lessons": [
+  {
+   "id": "m5c2-l1",
+   "title": "The incident response cycle",
+   "minutes": 35,
+   "illustration": "assets/illustrations/m5c2_l1_pompiers.svg",
+   "illustrationAlt": "Drawing of a dashboard with a red alarm lit up, and next to it a small team represented by three firefighter helmets in a row.",
+   "objectives": [
+    "Tell apart a security event, alert and incident.",
+    "Describe the phases of the incident response cycle.",
+    "Organize a response team (CSIRT) and its escalations.",
+    "Rate an incident by severity and decide whom to notify."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-61 Rev. 2, Computer Security Incident Handling Guide (four-phase cycle, widely used in training)",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-61 Rev. 3, Incident Response Recommendations and Considerations for Cybersecurity Risk Management (aligned with NIST CSF 2.0)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Event, alert, incident"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Term",
+       "Definition",
+       "Example"
+      ],
+      [
+       "Event",
+       "Any observable occurrence in a system or network",
+       "A successful sign-in, a file opened"
+      ],
+      [
+       "Alert",
+       "Notification produced by a tool when an event looks suspicious",
+       "The SIEM reports 50 failed sign-ins"
+      ],
+      [
+       "Incident",
+       "Violation, or imminent threat of violation, of security policies or of confidentiality, integrity or availability",
+       "A compromised account used to exfiltrate data"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "Every incident starts with events, but very few events become incidents. Triage sorts them out."
+    },
+    {
+     "type": "heading",
+     "text": "The phases of response"
+    },
+    {
+     "type": "diagram",
+     "title": "The incident response cycle",
+     "alt": "Four-phase cycle: preparation; detection and analysis; containment, eradication and recovery; post-incident activity, which feeds back into preparation.",
+     "diagram": {
+      "type": "cycle",
+      "center": "🔁 Continuous\nimprovement",
+      "nodes": [
+       {
+        "emoji": "🧰",
+        "label": "Preparation",
+        "detail": "team, tools, playbooks",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🔎",
+        "label": "Detection and analysis",
+        "detail": "triage, severity, evidence",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🧯",
+        "label": "Containment, eradication, recovery",
+        "detail": "limit, clean, restore service",
+        "tone": "red"
+       },
+       {
+        "emoji": "📝",
+        "label": "Post-incident",
+        "detail": "lessons learned",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Model",
+       "Steps"
+      ],
+      [
+       "NIST SP 800-61 Rev. 2",
+       "Preparation; detection and analysis; containment, eradication and recovery; post-incident activity"
+      ],
+      [
+       "Six-step variant often taught",
+       "Preparation, identification, containment, eradication, recovery, lessons learned"
+      ],
+      [
+       "NIST SP 800-61 Rev. 3",
+       "Reorganizes the recommendations around the NIST CSF 2.0 functions (govern, identify, protect, detect, respond, recover)"
+      ]
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "Whatever the model, the order stays the same: prepare, detect, contain, eradicate, recover, learn the lessons. In the exam, you do not clean up before containing, and you do not restore service before eradicating the cause."
+    },
+    {
+     "type": "heading",
+     "text": "The team and preparation"
+    },
+    {
+     "type": "definition",
+     "title": "CSIRT",
+     "text": "Computer Security Incident Response Team (équipe de réponse aux incidents de sécurité informatique). It brings together technical skills and relies on senior management, legal, communication, human resources and sometimes external providers.",
+     "kind": "general"
+    },
+    {
+     "type": "practice",
+     "title": "Preparing before the incident",
+     "items": [
+      "An incident response policy approved by senior management, with the roles and the authority to act.",
+      "Playbooks per type of incident: phishing, ransomware, data leak, compromised account.",
+      "Up-to-date contacts: on-call staff, legal, insurer, authorities, providers.",
+      "Centralized logs, timestamped from a common time source (NTP).",
+      "A response kit: tools, copy media, chain of custody forms.",
+      "Regular exercises for practice."
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Triage and escalation"
+    },
+    {
+     "type": "diagram",
+     "title": "Severity and urgency",
+     "alt": "Matrix: business impact on the horizontal axis, urgency on the vertical axis. Ransomware on the servers is top right (critical), a compromised email account in the middle, an isolated port scan bottom left.",
+     "diagram": {
+      "type": "matrix",
+      "xLabel": "Impact",
+      "yLabel": "Urgency",
+      "points": [
+       {
+        "label": "Ransomware on the servers",
+        "emoji": "🔒",
+        "x": 5,
+        "y": 5
+       },
+       {
+        "label": "Compromised email",
+        "emoji": "📧",
+        "x": 3,
+        "y": 4
+       },
+       {
+        "label": "Isolated port scan",
+        "emoji": "📡",
+        "x": 1,
+        "y": 1
+       }
+      ]
+     }
+    },
+    {
+     "type": "important",
+     "title": "Escalate according to written criteria",
+     "text": "Severity depends on impact (sensitive data, number of systems, business stopped) and urgency (spread in progress, active exfiltration). The criteria for escalating to senior management, legal or the authorities are defined in advance, not improvised during the crisis."
+    },
+    {
+     "type": "socCase",
+     "title": "Case: from alert to incident",
+     "kind": "example",
+     "text": "In a fictitious company, the SIEM raises an alert on a successful VPN connection from an unusual country, followed by mass downloads from an HR share. The level 1 analyst confirms that it is not a planned trip, rates the event as a high-severity incident and escalates to the CSIRT, which suspends the account and informs legal, because personal data is at stake."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "Analyst: I document everything from the first minute, with the exact time of each action.",
+      "CSIRT manager: I coordinate, decide on containment and keep senior management informed.",
+      "Lawyer: I assess notification obligations and the preservation of evidence.",
+      "Communication: I prepare internal and external messages, approved by senior management."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Event ≠ incident: there must be a real breach or threat.",
+      "Preparation is a phase in its own right, the first one.",
+      "Order: contain, then eradicate, then recover.",
+      "Lessons learned close the loop and improve preparation."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Event, alert, incident.",
+      "Preparation; detection and analysis; containment, eradication, recovery; post-incident.",
+      "Multidisciplinary CSIRT, playbooks, contacts, timestamped logs.",
+      "Severity = impact × urgency; escalation according to written criteria."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c2-q01",
+      "m5c2-q04"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m5c2-l2",
+   "title": "Digital forensics and evidence",
+   "minutes": 35,
+   "illustration": "assets/illustrations/m5c2_l2_scelle.svg",
+   "illustrationAlt": "Drawing of a hard drive slipped into a sealed evidence bag, with a chain of custody tag and a magnifying glass lying next to it.",
+   "objectives": [
+    "Apply the order of volatility during collection.",
+    "Preserve the integrity of evidence: bit-by-bit copy, write blocker, fingerprints.",
+    "Keep a chain of custody.",
+    "Recognize the types of evidence and the conditions for their admissibility."
+   ],
+   "references": [
+    {
+     "title": "RFC 3227, Guidelines for Evidence Collection and Archiving",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-86, Guide to Integrating Forensic Techniques into Incident Response",
+     "kind": "general"
+    },
+    {
+     "title": "ISO/IEC 27037, Guidelines for identification, collection, acquisition and preservation of digital evidence",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Collecting in the right order"
+    },
+    {
+     "type": "text",
+     "text": "Some traces disappear in a few seconds, others remain for years. So the most volatile is collected first."
+    },
+    {
+     "type": "diagram",
+     "title": "The order of volatility (based on RFC 3227)",
+     "alt": "Diagram from the most volatile trace to the least volatile: processor registers and cache, RAM with processes and network connections, temporary files, disk, remote logs, archive media.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "⚡",
+        "label": "Registers, cache",
+        "detail": "nanoseconds",
+        "tone": "red"
+       },
+       {
+        "emoji": "🧠",
+        "label": "RAM",
+        "detail": "processes, connections, ARP table",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🗂️",
+        "label": "Temporary files",
+        "detail": "swap, /tmp",
+        "tone": "pink"
+       },
+       {
+        "emoji": "💽",
+        "label": "Disk",
+        "detail": "bit-by-bit image",
+        "tone": "violet"
+       },
+       {
+        "emoji": "📜",
+        "label": "Remote logs",
+        "detail": "SIEM, servers",
+        "tone": "blue"
+       },
+       {
+        "emoji": "📦",
+        "label": "Archives",
+        "detail": "backups, tapes",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "important",
+     "title": "Do not shut down too fast",
+     "text": "Shutting down a machine erases RAM: malicious processes, connections, encryption keys in memory. When possible and safe, isolate the machine from the network and capture memory before shutting it down."
+    },
+    {
+     "type": "heading",
+     "text": "Preserving integrity"
+    },
+    {
+     "type": "practice",
+     "title": "Handling rules",
+     "items": [
+      "Use a write blocker so as never to modify the original media.",
+      "Make a bit-by-bit copy (forensic image) and calculate its fingerprint (SHA-256) before and after.",
+      "Work only on a copy; keep the original sealed.",
+      "Photograph and describe the scene: screens, cables, labels.",
+      "Record every action with the time, the tool and the person."
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "Chain of custody (chaîne de possession)",
+     "text": "Record that traces, for each piece of evidence, who collected it, when, where, how, who handled it next and why. A break in the chain makes it possible to challenge the evidence in court.",
+     "kind": "general"
+    },
+    {
+     "type": "memo",
+     "text": "Blocker, image, fingerprint, working copy, record: without these five steps, the evidence is worth little."
+    },
+    {
+     "type": "heading",
+     "text": "Evidence in court"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Type of evidence",
+       "Meaning"
+      ],
+      [
+       "Best evidence",
+       "The original, preferred to a copy when it is available"
+      ],
+      [
+       "Secondary evidence",
+       "Copy or description of the original (a well-documented forensic image is accepted)"
+      ],
+      [
+       "Direct evidence",
+       "Proves a fact without deduction (eyewitness)"
+      ],
+      [
+       "Circumstantial evidence",
+       "Makes it possible to infer a fact from other facts"
+      ],
+      [
+       "Corroborative evidence",
+       "Supports another piece of evidence"
+      ],
+      [
+       "Hearsay",
+       "Secondhand report; often excluded, with exceptions such as logs kept in the normal course of business"
+      ]
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "To be admitted, evidence must be relevant, authentic and reliable (integrity proven by fingerprints and the chain of custody), lawfully obtained, and complete. Logs produced automatically in the normal course of business are stronger than notes written after the fact."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Concept",
+       "To remember"
+      ],
+      [
+       "Locard's exchange principle",
+       "Every contact leaves a trace: the attacker leaves traces and takes some away"
+      ],
+      [
+       "Motive, opportunity, means (MOM)",
+       "Three elements examined to identify a suspect"
+      ],
+      [
+       "Enticement",
+       "Leaving an attractive target, such as a honeypot: legal"
+      ],
+      [
+       "Entrapment",
+       "Pushing someone to commit an offense they would not have committed: generally illegal and makes the evidence inadmissible"
+      ]
+     ]
+    },
+    {
+     "type": "risk",
+     "title": "Investigating without crossing the line",
+     "text": "An internal investigation respects the law, the employment contract and privacy: access to workstations and mailboxes governed by the acceptable use policy and legal, no \"hack back\" against an external system. When criminal prosecution is being considered, legal and, if needed, law enforcement are involved early."
+    },
+    {
+     "type": "socCase",
+     "title": "Case: the departing employee's laptop",
+     "kind": "example",
+     "text": "In a simulated internal investigation, an employee who is leaving is suspected of having copied designs. With legal's agreement, the investigator photographs the laptop, connects the disk behind a write blocker, makes an image, calculates its SHA-256 fingerprint and fills in the chain of custody. Analysis of the copy shows that a USB drive was plugged in and the folder copied the day before the departure. The identical fingerprints before and after analysis prove that nothing was modified."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "Investigator: I work on the copy, never on the original.",
+      "Lawyer: poorly collected evidence can lose the case.",
+      "HR manager: I step in once the facts are established, following procedures.",
+      "Auditor: I check that the chain of custody is continuous and signed."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Order of volatility: memory before disk, disk before archives.",
+      "Always a bit-by-bit copy with a fingerprint, and a write blocker.",
+      "Chain of custody = who, when, where, how, why.",
+      "Enticement is legal, entrapment is not.",
+      "Best evidence = the original."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Collection according to the order of volatility.",
+      "Integrity: blocker, image, fingerprints, working copy.",
+      "Continuous chain of custody.",
+      "Types of evidence and admissibility; Locard, MOM, enticement and entrapment."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c2-q11",
+      "m5c2-q13"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m5c2-l3",
+   "title": "Containing, recovering and learning the lessons",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m5c2_l3_digue.svg",
+   "illustrationAlt": "Drawing of a dike of sandbags holding back a red wave, with a small network of computers safe behind it, and an open notebook titled \"lessons learned\".",
+   "objectives": [
+    "Choose a suitable containment strategy.",
+    "Carry out eradication and recovery without reinfection.",
+    "Run a useful lessons-learned review.",
+    "Meet the deadlines for notifying the authorities."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-61 Rev. 2, Computer Security Incident Handling Guide",
+     "kind": "general"
+    },
+    {
+     "title": "Regulation (EU) 2016/679 (GDPR), Articles 33 and 34",
+     "kind": "general"
+    },
+    {
+     "title": "Directive (EU) 2022/2555 (NIS 2), Article 23",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Containing"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Containment",
+       "Examples",
+       "Caution"
+      ],
+      [
+       "Short term",
+       "Isolate the workstation through the EDR, block an IP address, disable an account",
+       "Fast, but may alert the attacker"
+      ],
+      [
+       "Long term",
+       "Segment, rebuild clean systems in parallel, strengthen monitoring",
+       "Keeps the business running during eradication"
+      ],
+      [
+       "Controlled monitoring",
+       "Let the attacker act under observation to understand the attack",
+       "Senior management and legal decision, high risk"
+      ]
+     ]
+    },
+    {
+     "type": "practice",
+     "title": "Choosing the strategy",
+     "items": [
+      "Risk of spread and further damage.",
+      "Need to preserve evidence.",
+      "Service availability for the business.",
+      "Time and resources needed.",
+      "Effectiveness: partial or full containment."
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Eradicating and recovering"
+    },
+    {
+     "type": "diagram",
+     "title": "From containment back to normal",
+     "alt": "Five-step diagram: contain, identify the root cause and all the affected machines, eradicate (remove the malware, fix the flaw, change the passwords), recover from clean sources, monitor more closely.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🧱",
+        "label": "Contain",
+        "detail": "stop the spread",
+        "tone": "red"
+       },
+       {
+        "emoji": "🔍",
+        "label": "Root cause",
+        "detail": "entry point, scope",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🧹",
+        "label": "Eradicate",
+        "detail": "malware, flaw, accounts",
+        "tone": "orange"
+       },
+       {
+        "emoji": "♻️",
+        "label": "Recover",
+        "detail": "clean sources, tests",
+        "tone": "blue"
+       },
+       {
+        "emoji": "👀",
+        "label": "Monitor",
+        "detail": "stepped up for a few weeks",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "important",
+     "title": "Avoiding reinfection",
+     "text": "Before restoring service: identify the entry point and close it, look for other affected machines and persistence mechanisms, reset compromised credentials, then restore from backups prior to the compromise or reinstall from trusted sources."
+    },
+    {
+     "type": "heading",
+     "text": "After the incident"
+    },
+    {
+     "type": "practice",
+     "title": "Lessons learned",
+     "items": [
+      "Hold it quickly, usually within two weeks.",
+      "Rebuild a factual timeline, without looking for someone to blame.",
+      "What happened? What worked well? What should have been done differently?",
+      "Measure: time to detect (MTTD), time to respond, cost, data affected.",
+      "Decide on corrective actions, with an owner and a deadline.",
+      "Update playbooks, detection rules and training."
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Notifying on time"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Text",
+       "Whom to notify",
+       "Deadline"
+      ],
+      [
+       "GDPR, Art. 33",
+       "Supervisory authority (CNIL in France) in the event of a personal data breach that poses a risk",
+       "72 hours at the latest after becoming aware of it"
+      ],
+      [
+       "GDPR, Art. 34",
+       "Data subjects if the risk is high",
+       "Without undue delay"
+      ],
+      [
+       "NIS 2, Art. 23 (essential and important entities)",
+       "National CSIRT or competent authority for a significant incident",
+       "Early warning within 24 h, notification within 72 h, final report within one month"
+      ]
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "Deadlines run from the moment the organization becomes aware of the incident, not from its resolution. Notification can be done in stages: you do not wait until you have all the answers to inform the authority."
+    },
+    {
+     "type": "socCase",
+     "title": "Case: the lessons-learned review",
+     "kind": "example",
+     "text": "After a simulated compromised mailbox incident, the lessons-learned review establishes the timeline: phishing at 9:02 a.m., attacker sign-in at 9:40 a.m., forwarding rule created, detection at 3 p.m. by a puzzled colleague. Actions decided: SIEM alert on the creation of external forwarding rules, phishing-resistant MFA for finance accounts, and a targeted awareness exercise. MTTD drops from six hours to twenty minutes in the next exercise."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CSIRT manager: lessons learned without tracked actions are useless.",
+      "Data protection officer: I advise the controller, who decides whether to notify within 72 h.",
+      "Senior management: I want to know what cost the most and what would have prevented it.",
+      "Analyst: I turn every incident into a new detection rule."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Contain before eradicating; eradicate before recovering.",
+      "Restore from a backup prior to the compromise.",
+      "Blameless lessons learned, with tracked actions.",
+      "GDPR: 72 h to the authority; NIS 2: 24 h, 72 h, one month."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Short-term containment, long-term containment, controlled monitoring.",
+      "Root cause, eradication, clean recovery, stepped-up monitoring.",
+      "Lessons learned: timeline, metrics, actions, updates.",
+      "Notifications: GDPR and NIS 2."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m5c2-q21",
+      "m5c2-q27"
+     ]
+    }
+   ]
+  }
+ ]
+}

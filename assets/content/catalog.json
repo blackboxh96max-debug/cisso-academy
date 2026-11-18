@@ -63,11 +63,11 @@
     {
       "id": "m5", "number": 5, "title": "Continuité, incidents, droit et sécurité physique", "titleEn": "Continuity, Incidents, Law and Physical Security",
       "chapters": [
-        {"id": "m5c1", "title": "Continuité d'activité et reprise (BCP, DRP, RTO, RPO)", "titleEn": "Business Continuity and Disaster Recovery (BCP, DRP, RTO, RPO)", "domains": ["bcp-dr-ir-law"], "file": "m5c1_continuite.json"},
-        {"id": "m5c2", "title": "Gestion des incidents, investigation et réponse", "titleEn": "Incident Management, Investigation and Response", "domains": ["bcp-dr-ir-law"], "file": "m5c2_incidents.json"},
-        {"id": "m5c3", "title": "Lois, réglementation et éthique", "titleEn": "Law, Regulations and Ethics", "domains": ["bcp-dr-ir-law"], "file": "m5c3_lois.json"},
-        {"id": "m5c4", "title": "Sécurité physique et environnementale", "titleEn": "Physical and Environmental Security", "domains": ["operations-security"], "file": "m5c4_physique.json"},
-        {"id": "m5c5", "title": "Gouvernance et conformité européennes", "titleEn": "European Cybersecurity Governance and Regulatory Compliance", "domains": ["bcp-dr-ir-law", "security-management"], "file": "m5c5_conformite_europeenne.json"}
+        {"id": "m5c1", "title": "Continuité d'activité et reprise (BCP, DRP, RTO, RPO)", "titleEn": "Business Continuity and Disaster Recovery (BCP, DRP, RTO, RPO)", "domains": ["bcp-dr-ir-law"], "file": "m5c1_continuite.json", "fileEn": "en/m5c1_continuite.json"},
+        {"id": "m5c2", "title": "Gestion des incidents, investigation et réponse", "titleEn": "Incident Management, Investigation and Response", "domains": ["bcp-dr-ir-law"], "file": "m5c2_incidents.json", "fileEn": "en/m5c2_incidents.json"},
+        {"id": "m5c3", "title": "Lois, réglementation et éthique", "titleEn": "Law, Regulations and Ethics", "domains": ["bcp-dr-ir-law"], "file": "m5c3_lois.json", "fileEn": "en/m5c3_lois.json"},
+        {"id": "m5c4", "title": "Sécurité physique et environnementale", "titleEn": "Physical and Environmental Security", "domains": ["operations-security"], "file": "m5c4_physique.json", "fileEn": "en/m5c4_physique.json"},
+        {"id": "m5c5", "title": "Gouvernance et conformité européennes", "titleEn": "European Cybersecurity Governance and Regulatory Compliance", "domains": ["bcp-dr-ir-law", "security-management"], "file": "m5c5_conformite_europeenne.json", "fileEn": "en/m5c5_conformite_europeenne.json"}
       ]
     }
   ]

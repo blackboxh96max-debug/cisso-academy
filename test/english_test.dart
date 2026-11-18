@@ -32,10 +32,8 @@ void main() {
     ],
   ];
 
-  test('modules 1 à 4 : chaque leçon a sa version anglaise', () {
-    for (final c in library.chapters.where(
-      (c) => const {'m1', 'm2', 'm3', 'm4'}.contains(c.moduleId),
-    )) {
+  test('toute la formation : chaque leçon a sa version anglaise', () {
+    for (final c in library.chapters) {
       expect(
         c.lessonsEn.keys.toSet(),
         c.lessons.map((l) => l.id).toSet(),
@@ -46,12 +44,13 @@ void main() {
         expect(en.blocks, hasLength(l.blocks.length));
         expect(en.title, isNot(l.title));
         // Les textes sont traduits, pas recopiés : seuls restent identiques
-        // les noms propres, sigles et références (ISO/IEC 27005…).
+        // les noms propres, sigles et références (ISO/IEC 27005, noms
+        // officiels des lois américaines…).
         final fr = textsOf(l);
         final tr = textsOf(en);
         final same = [
           for (final (i, t) in fr.indexed)
-            if (t.length > 40 && t == tr[i]) t,
+            if (t.length > 40 && t == tr[i] && !_officialName.hasMatch(t)) t,
         ];
         expect(same, isEmpty, reason: '${l.id} : textes non traduits');
       }
@@ -188,9 +187,13 @@ void main() {
     final state = AppState(library: library, store: MemoryProgressStore());
     await tester.runAsync(state.refresh);
     await tester.runAsync(() => state.setLessonsInEnglish(true));
-    final lesson = library.lessons.firstWhere(
-      (l) => library.englishLesson(l.id) == null,
-    );
+    // Toutes les leçons sont traduites : on retire le temps du test la
+    // traduction d'une leçon, comme une leçon ajoutée avant sa traduction.
+    final chapter = library.chapters.first;
+    final lesson = chapter.lessons.first;
+    final saved = chapter.lessonsEn.remove(lesson.id)!;
+    addTearDown(() => chapter.lessonsEn[lesson.id] = saved);
+    expect(library.englishLesson(lesson.id), isNull);
     await tester.pumpWidget(
       AppScope(
         state: state,
@@ -210,3 +213,7 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 }
+
+/// Nom officiel anglais d'une loi, identique dans les deux langues :
+/// « Computer Fraud and Abuse Act (CFAA, 1986) ».
+final _officialName = RegExp(r'\bAct\b.*\(.*\d{4}\)$');
