@@ -82,7 +82,7 @@ void startRetry(BuildContext context) {
 void startExam(BuildContext context, int count) {
   final state = AppScope.read(context);
   final questions = buildExam(
-    state.library.questions,
+    state.library.examQuestions,
     state.library.domains,
     count: count,
   );
@@ -121,7 +121,7 @@ class _QuizHubPageState extends State<QuizHubPage> {
     final chapters = library.availableChapters.toList();
     _chapterId ??= chapters.isEmpty ? null : chapters.first.id;
     final info = library.examInfo;
-    final available = library.questions.length;
+    final available = library.examQuestions.length;
     final examSizes = {
       for (final s in [10, 20, 50, info.questionCount])
         if (s <= available) s,

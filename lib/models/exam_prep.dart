@@ -164,6 +164,13 @@ class ExamPrep {
 
   List<PrepQuestion> get questions => lots.expand((l) => l.questions).toList();
 
+  PrepLot? lot(String id) {
+    for (final l in lots) {
+      if (l.id == id) return l;
+    }
+    return null;
+  }
+
   List<PrepQuestion> forChapter(String chapterId) =>
       questions.where((q) => q.chapterId == chapterId).toList();
 

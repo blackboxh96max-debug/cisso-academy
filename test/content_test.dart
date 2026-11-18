@@ -88,7 +88,7 @@ void main() {
   });
 
   test('chaque question a 4 choix, une explication et un « pourquoi pas »', () {
-    for (final q in library.questions) {
+    for (final q in library.examQuestions) {
       expect(q.choices, hasLength(4), reason: q.id);
       expect(q.explanation.trim(), isNotEmpty, reason: q.id);
       for (var i = 0; i < q.choices.length; i++) {
@@ -100,7 +100,7 @@ void main() {
   });
 
   test('la bonne réponse ne se devine ni à sa place ni à sa longueur', () {
-    final single = library.questions.where((q) => !q.isMultiple).toList();
+    final single = library.examQuestions.where((q) => !q.isMultiple).toList();
     // Place : chaque lettre porte la bonne réponse dans au moins 15 % des cas
     // (l'ordre stocké est celui du mini-quiz des leçons, qui ne mélange pas).
     final byPosition = List.filled(4, 0);

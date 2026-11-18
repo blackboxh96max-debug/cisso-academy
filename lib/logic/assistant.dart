@@ -410,7 +410,7 @@ class Assistant {
           ),
         );
       }
-      for (final q in c.questions) {
+      for (final q in c.questions.where((q) => !q.fromTraining)) {
         final right = [for (final i in q.correct) q.choices[i]].join(' ; ');
         passages.add(
           Passage(

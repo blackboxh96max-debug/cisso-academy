@@ -471,7 +471,14 @@ class QuestionCorrection extends StatelessWidget {
                     style: text.titleSmall,
                   ),
                 ),
-                SourceBadge(question.kind),
+                if (question.fromTraining)
+                  const Chip(
+                    visualDensity: VisualDensity.compact,
+                    avatar: Text('🎯'),
+                    label: Text('Ta formation'),
+                  )
+                else
+                  SourceBadge(question.kind),
               ],
             ),
             const SizedBox(height: 8),
@@ -482,9 +489,11 @@ class QuestionCorrection extends StatelessWidget {
             const SizedBox(height: 8),
             Text('Pourquoi', style: text.labelLarge),
             Text(question.explanation),
-            const SizedBox(height: 8),
-            Text('Pourquoi pas les autres', style: text.labelLarge),
-            for (final i in wrongList)
+            if (question.whyNot.isNotEmpty) ...[
+              const SizedBox(height: 8),
+              Text('Pourquoi pas les autres', style: text.labelLarge),
+            ],
+            for (final i in wrongList.where(question.whyNot.containsKey))
               Padding(
                 padding: const EdgeInsets.only(top: 4),
                 child: Text(

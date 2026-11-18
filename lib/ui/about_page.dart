@@ -31,7 +31,7 @@ class AboutPage extends StatelessWidget {
     final stats = <(String, String)>[
       ('📘', '${library.modules.length} modules, ${chapters.length} chapitres'),
       ('📖', '${library.lessons.length} leçons'),
-      ('❓', '${library.questions.length} questions de QCM'),
+      ('❓', '${library.examQuestions.length} questions de QCM'),
       ('🃏', '${library.flashcards.length} flashcards'),
       ('🔤', '${terms.length} termes du glossaire, en français et en anglais'),
       ('📋', '${chapters.length} fiches de révision et cartes mentales'),
