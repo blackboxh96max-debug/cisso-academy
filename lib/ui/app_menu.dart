@@ -4,17 +4,21 @@ import '../app_info.dart';
 import '../app_state.dart';
 import '../models/content.dart';
 import 'about_page.dart';
+import 'assistant_page.dart';
 import 'mascot.dart';
 import 'look_picker.dart';
 import 'mascot_picker.dart';
 import 'notebook/look.dart';
 import 'notebook/palette.dart';
+import 'search_page.dart';
 import 'widgets.dart';
 
 /// Les actions générales de l'application : réglages, examen, à propos,
 /// réinitialisation. Elles sont proposées dans le menu ⋮ de l'accueil, dans
 /// le menu de gauche (tiroir sur téléphone, rail sur grand écran).
 enum AppAction {
+  search('Recherche', Icons.search),
+  assistant('Assistant (chatbot)', Icons.forum_outlined),
   settings('Réglages', Icons.settings_outlined),
   exam('À propos de l\'examen', Icons.info_outline),
   about('À propos de l\'application', Icons.shield_outlined),
@@ -26,13 +30,32 @@ enum AppAction {
 
   /// Libellé court, pour le rail latéral.
   String get short => switch (this) {
+    AppAction.search => 'Recherche',
+    AppAction.assistant => 'Assistant',
     AppAction.settings => 'Réglages',
     AppAction.exam => 'Examen',
     AppAction.about => 'À propos',
     AppAction.reset => 'Réinitialiser',
   };
 
+  /// Vrai pour les actions qui ouvrent une page (et non une fenêtre).
+  bool get opensPage =>
+      this == AppAction.search ||
+      this == AppAction.assistant ||
+      this == AppAction.about;
+
+  /// La page ouverte par l'action, s'il y en a une.
+  Widget? get page => switch (this) {
+    AppAction.search => const SearchPage(),
+    AppAction.assistant => const AssistantPage(),
+    AppAction.about => const AboutPage(),
+    _ => null,
+  };
+
   void run(BuildContext context) => switch (this) {
+    AppAction.search || AppAction.assistant => Navigator.of(
+      context,
+    ).push(MaterialPageRoute<void>(builder: (_) => page!)),
     AppAction.settings => showSettings(context),
     AppAction.exam => showExamInfo(context),
     AppAction.about => openAbout(context),

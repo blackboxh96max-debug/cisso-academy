@@ -16,6 +16,8 @@ import 'package:cisso_academy/ui/dashboard_page.dart';
 import 'package:cisso_academy/ui/mind_map_page.dart';
 import 'package:cisso_academy/ui/quiz_page.dart';
 import 'package:cisso_academy/ui/quiz_result_page.dart';
+import 'package:cisso_academy/ui/search_page.dart';
+import 'package:cisso_academy/ui/assistant_page.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 
@@ -155,6 +157,8 @@ void main() {
     // Réinitialiser depuis le menu : confirmation puis effacement.
     await tester.tap(find.byTooltip('Ouvrir le menu').hitTestable());
     await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('Réinitialiser ma progression'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Réinitialiser ma progression'));
     await tester.pumpAndSettle();
     await tester.tap(find.widgetWithText(FilledButton, 'Effacer'));
@@ -188,6 +192,18 @@ void main() {
     );
     await tester.pumpAndSettle();
     expect(find.text('Créée par $appAuthor'), findsOneWidget);
+    // Recherche et assistant s'ouvrent depuis le menu, à côté de lui.
+    for (final (a, page) in [
+      (AppAction.search, SearchPage),
+      (AppAction.assistant, AssistantPage),
+    ]) {
+      await tester.tap(
+        find.descendant(of: rail, matching: find.byTooltip(a.label)),
+      );
+      await tester.pumpAndSettle();
+      expect(find.byType(page), findsOneWidget);
+      expect(rail, findsOneWidget);
+    }
   });
 
   testWidgets('navigation vers chaque onglet', (tester) async {
@@ -227,6 +243,21 @@ void main() {
     expect(find.byType(LessonPage), findsOneWidget);
     expect(rail, findsOneWidget);
     expect(find.text(appFooterText), findsOneWidget);
+
+    // Les boutons du menu sont sur sa poignée, pas parmi ses entrées.
+    for (final tip in ['Étendre le menu', 'Masquer le menu']) {
+      expect(
+        find.descendant(of: rail, matching: find.byTooltip(tip)),
+        findsNothing,
+      );
+      expect(
+        find.descendant(
+          of: find.byKey(const Key('menu-handle')),
+          matching: find.byTooltip(tip),
+        ),
+        findsOneWidget,
+      );
+    }
 
     // Étendre puis réduire.
     await tester.tap(find.byTooltip('Étendre le menu'));
