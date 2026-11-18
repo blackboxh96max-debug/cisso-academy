@@ -104,6 +104,15 @@ void main() {
       english: true,
     );
     expect(again.where((m) => m.translate), isEmpty);
+    // Le rappel de l'anglais entre parenthèses n'est pas répété.
+    final mantrap = terms.findLinks(
+      'A mantrap stops tailgating.',
+      english: true,
+    );
+    expect(
+      mantrap.firstWhere((m) => m.term.termEn == 'Mantrap').translation,
+      'sas',
+    );
     // Un mot courant au sens large n'est pas traduit par son sens RACI.
     final vague = terms.findLinks(
       "Data remains the customer's responsibility.",

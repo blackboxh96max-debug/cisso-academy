@@ -37,7 +37,7 @@ class TermMatch {
   String get translation {
     if (label != null) return label!;
     if (!french) return term.termEn;
-    final fr = term.termFr;
+    final fr = frenchName(term);
     final common =
         fr.length > 1 &&
         fr[1] == fr[1].toLowerCase() &&
@@ -254,7 +254,7 @@ class TermIndex {
         for (var k = i; k < stop; k++) {
           taken[k] = true;
         }
-        final fr = fold(term.termFr).trim();
+        final fr = fold(frenchName(term)).trim();
         final en = fold(term.termEn).trim();
         out.add(
           TermMatch(
@@ -338,3 +338,15 @@ Map<String, TermHome> termHomes(ContentLibrary library, TermIndex index) =>
       }
       return out;
     }();
+
+/// Le nom français d'un terme, sans le rappel de l'anglais entre
+/// parenthèses : « Sas (mantrap) » → « Sas ». Dans un texte anglais, ce
+/// rappel ferait doublon avec le mot-clé lui-même.
+String frenchName(GlossaryTerm term) {
+  final fr = term.termFr;
+  final m = RegExp(r'\s*\(([^)]*)\)$').firstMatch(fr);
+  if (m == null || m.start == 0) return fr;
+  return m.group(1)!.toLowerCase() == term.termEn.toLowerCase()
+      ? fr.substring(0, m.start)
+      : fr;
+}
