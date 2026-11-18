@@ -1,0 +1,679 @@
+{
+ "lessons": [
+  {
+   "id": "m1c2-l1",
+   "title": "Security governance and roles",
+   "minutes": 25,
+   "objectives": [
+    "Tell apart security governance and security management.",
+    "Place the roles: board of directors, senior management, security committee, CISO, SOC, auditor.",
+    "Tell apart accountability (responsabilité finale) and responsibility (responsabilité d'exécution).",
+    "Explain due diligence and due care."
+   ],
+   "references": [
+    {
+     "title": "ISO/IEC 27014:2020, Information security, cybersecurity and privacy protection — Governance of information security",
+     "kind": "general"
+    },
+    {
+     "title": "COBIT (ISACA), IT governance and management framework",
+     "kind": "general"
+    },
+    {
+     "title": "NIST Cybersecurity Framework 2.0, \"Govern\" function",
+     "url": "https://www.nist.gov/cyberframework",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Governing or managing?"
+    },
+    {
+     "type": "text",
+     "text": "Governance sets the direction: it decides on security objectives, risk appetite and resources, then checks that the organization sticks to them. Management executes: it plans, implements and runs day to day the measures that achieve those objectives. In other words, governance answers \"are we doing the right things?\" and management \"are we doing them right?\"."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "",
+       "Governance",
+       "Management"
+      ],
+      [
+       "Who",
+       "Board of directors, executive management",
+       "CISO, CIO, operational managers"
+      ],
+      [
+       "What",
+       "Direction, risk appetite, budget, oversight",
+       "Plans, projects, measures, indicators"
+      ],
+      [
+       "Horizon",
+       "Strategic (multi-year)",
+       "Tactical and operational"
+      ],
+      [
+       "Example",
+       "Approve the security policy and the SOC budget",
+       "Deploy the SIEM and organize on-call duty"
+      ]
+     ]
+    },
+    {
+     "type": "text",
+     "text": "ISO/IEC 27014 describes information security governance around processes such as evaluate, direct, monitor and communicate. The NIST Cybersecurity Framework 2.0 added a \"Govern\" function to its historical functions (Identify, Protect, Detect, Respond, Recover).",
+     "kind": "general"
+    },
+    {
+     "type": "diagram",
+     "title": "NIST CSF 2.0: \"Govern\" at the center",
+     "alt": "Cycle of the five historical functions of the NIST Cybersecurity Framework, Identify, Protect, Detect, Respond and Recover, around the Govern function added in version 2.0.",
+     "diagram": {
+      "type": "cycle",
+      "center": "🏛️ Govern\n(gouverner)",
+      "nodes": [
+       {
+        "emoji": "🔎",
+        "label": "Identify",
+        "detail": "identifier",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🛡️",
+        "label": "Protect",
+        "detail": "protéger",
+        "tone": "green"
+       },
+       {
+        "emoji": "📡",
+        "label": "Detect",
+        "detail": "détecter",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🚒",
+        "label": "Respond",
+        "detail": "répondre",
+        "tone": "red"
+       },
+       {
+        "emoji": "🔄",
+        "label": "Recover",
+        "detail": "rétablir",
+        "tone": "turquoise"
+       }
+      ]
+     },
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Who does what?"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Role",
+       "Main responsibilities"
+      ],
+      [
+       "Board of directors / executive management",
+       "Ultimate accountability for security; sets the risk appetite; approves policy and budget"
+      ],
+      [
+       "Security steering committee",
+       "Arbitrates priorities between business units, follows the action plan and major risks"
+      ],
+      [
+       "CISO (RSSI)",
+       "Runs the security program, advises management, reports on risks"
+      ],
+      [
+       "Business owners",
+       "Owners of the risks and data of their activity"
+      ],
+      [
+       "IT department and technical teams",
+       "Implement and operate the technical measures"
+      ],
+      [
+       "SOC",
+       "Monitors, detects, qualifies and responds to incidents"
+      ],
+      [
+       "Internal audit",
+       "Independently checks that controls exist and work"
+      ]
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "Accountability (responsabilité finale)",
+     "text": "Obligation to answer for a result. It cannot be delegated: management remains accountable for security even if it entrusts tasks to the CISO or to a service provider.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Responsibility (responsabilité d'exécution)",
+     "text": "Duty to carry out a task. It can be delegated: the administrator is in charge of applying patches, the SOC of handling alerts.",
+     "kind": "general"
+    },
+    {
+     "type": "important",
+     "title": "Key point",
+     "text": "You can delegate execution (responsibility), never ultimate accountability. If a provider applies patches badly, management remains accountable for the result."
+    },
+    {
+     "type": "text",
+     "text": "Ideally, the CISO reports to a level that guarantees the necessary independence (executive management, risk management). If the CISO reports to the CIO whom they sometimes have to contradict, a conflict of interest can arise.",
+     "kind": "practice"
+    },
+    {
+     "type": "heading",
+     "text": "Due diligence and due care"
+    },
+    {
+     "type": "definition",
+     "title": "Due diligence (diligence raisonnable)",
+     "text": "Effort to know and understand the risks: gathering information, assessing, auditing, checking a supplier before signing.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Due care (prudence raisonnable)",
+     "text": "Acting as a prudent and competent person would: putting in place and maintaining reasonable measures against known risks.",
+     "kind": "general"
+    },
+    {
+     "type": "memo",
+     "title": "Due diligence or due care?",
+     "text": "A memory aid often used in exam preparation: due diligence is about \"knowing\", due care is about \"doing\". An organization that has identified a critical flaw (diligence) but does not fix it (lack of care) can be found negligent."
+    },
+    {
+     "type": "trainerNote",
+     "text": "In the exam, look for who \"decides\" and who \"does\". Management decides and answers before the law, the CISO advises and steers, the teams execute, audit checks. Putting each actor in the right box is often enough to find the answer."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: who decides to shut down?",
+     "text": "At 2 a.m., the SOC detects encryption in progress on a factory's production server. Shutting the server down stops production. The procedure, approved by management (governance), authorizes the on-call manager to isolate a server in the event of confirmed ransomware. The SOC applies the procedure (management) and informs the CISO, who alerts the plant manager, the risk owner.",
+     "kind": "example"
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: I translate risks into business stakes so that management decides knowingly.",
+      "SOC manager: I need approved procedures to act fast without waiting for a sign-off in the middle of the night.",
+      "Auditor: I check that roles are written down and assigned, and that management really follows the risks.",
+      "Risk manager: I make sure that the risk appetite set by management is translated into concrete thresholds."
+     ]
+    },
+    {
+     "type": "practice",
+     "title": "Good practices",
+     "kind": "practice",
+     "items": [
+      "Have the security policy approved by executive management, not only by the IT department.",
+      "Attach the CISO to a level that guarantees independence from the teams they oversee.",
+      "Write down in advance who may decide to isolate a critical system during an incident."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Ultimate accountability for security belongs to executive management, not to the CISO.",
+      "Accountability cannot be delegated; responsibility can.",
+      "Governance = direct and oversee; management = plan and execute.",
+      "Due diligence = gather information, assess; due care = act and maintain."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Governance directs and oversees, management executes.",
+      "Management bears ultimate accountability; the CISO steers and advises.",
+      "Due diligence (knowing) and due care (doing) underpin the notion of negligence."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m1c2-q02",
+      "m1c2-q05"
+     ]
+    }
+   ],
+   "illustration": "assets/illustrations/m1c2_l1_gouvernail.svg",
+   "illustrationAlt": "Drawing of a ship's wheel next to a compass: governance sets the course."
+  },
+  {
+   "id": "m1c2-l2",
+   "title": "Information classification and data roles",
+   "minutes": 25,
+   "objectives": [
+    "Explain the purpose of information classification.",
+    "Compare government and commercial classification schemes.",
+    "Tell apart the data owner, the data custodian and the user.",
+    "Apply least privilege and need to know."
+   ],
+   "references": [
+    {
+     "title": "ISO/IEC 27002:2022, controls 5.12 (classification) and 5.13 (labeling of information)",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-60, Guide for Mapping Types of Information and Information Systems to Security Categories",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Why classify?"
+    },
+    {
+     "type": "text",
+     "text": "Not all information deserves the same protection. Classification sorts information into a few levels according to the impact of its disclosure, alteration or loss. Each level comes with rules: who may access it, how to store it, transmit it, label it and destroy it. That way, what matters is strongly protected without weighing down the rest."
+    },
+    {
+     "type": "steps",
+     "title": "Setting up a classification",
+     "items": [
+      "Define the levels and their criteria (management approves them).",
+      "Appoint the information owners.",
+      "The owner classifies their information.",
+      "Attach handling rules to each level (labeling, encryption, sharing, destruction).",
+      "Train users and check that the rules are applied.",
+      "Review periodically: information can be downgraded or reclassified."
+     ]
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Scheme",
+       "Typical levels (from most to least sensitive)"
+      ],
+      [
+       "Government (US model often quoted)",
+       "Top Secret, Secret, Confidential, then Sensitive But Unclassified (replaced since 2010 by CUI, Controlled Unclassified Information) and Unclassified"
+      ],
+      [
+       "Commercial (common example)",
+       "Confidential (or Restricted), Private, Sensitive / Internal, Public"
+      ],
+      [
+       "France, national defense secrecy (since 2021)",
+       "Très Secret, Secret"
+      ]
+     ]
+    },
+    {
+     "type": "text",
+     "text": "The names of commercial levels vary from one organization to another: what matters is that each level is defined and associated with rules. In the exam, remember above all the logic and the order of the levels.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Data roles"
+    },
+    {
+     "type": "definition",
+     "title": "Data owner (propriétaire des données)",
+     "text": "Business manager, usually a senior executive, accountable for protecting a set of information. The owner sets its classification, decides who may access it and approves the measures.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Data custodian (dépositaire)",
+     "text": "Often the IT team: applies the owner's decisions day to day (backups, access rights, encryption, restoration).",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "User (utilisateur)",
+     "text": "Person who uses the data as part of their job, following the handling rules.",
+     "kind": "general"
+    },
+    {
+     "type": "diagram",
+     "title": "Who does what with data?",
+     "alt": "Three-step diagram: the owner classifies the data and sets the rules, the custodian applies the technical protections, the user follows the rules day to day.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "👔",
+        "label": "Owner",
+        "detail": "classifies and decides",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🛠️",
+        "label": "Custodian",
+        "detail": "backs up, encrypts, applies",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🧑‍💻",
+        "label": "User",
+        "detail": "follows the rules",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "memo",
+     "text": "The owner Decides, the custodian Applies, the user Respects: \"D.A.R.\". The owner is almost always a business manager, not IT."
+    },
+    {
+     "type": "text",
+     "text": "Two principles complete these roles. Least privilege: everyone receives only the rights needed for their job. Need to know: even with a sufficient clearance level, you only access information if your job requires it.",
+     "kind": "general"
+    },
+    {
+     "type": "risk",
+     "title": "Two common mistakes",
+     "items": [
+      "Over-classifying: everything becomes \"confidential\", the rules become impossible to follow and are bypassed.",
+      "Under-classifying: sensitive data circulates without encryption or sharing controls."
+     ]
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: bulk export",
+     "text": "The SIEM raises an alert: a salesperson exported 40,000 customer records from the CRM on a Friday evening. The records are classified \"Confidential\". The analyst checks the rights: the salesperson does have access to the CRM, but a full export is not needed for their job. The SOC escalates to the data owner (sales director), who decides to restrict exports; the custodian (CRM team) applies the change.",
+     "kind": "example"
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: without classification, I cannot size the measures or prioritize the alerts.",
+      "SOC manager: the classification level of the affected data sets the severity of the incident.",
+      "Auditor: I check that every data set has an owner and an up-to-date classification.",
+      "Risk manager: classification directly gives me the impact to use in the risk analysis."
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "On the SOC side, classification is used every day: an exfiltration alert on a \"Public\" folder and the same alert on a \"Confidential\" folder do not have the same priority."
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "It is the owner who classifies, not the custodian nor the CISO.",
+      "The custodian applies; the custodian does not decide on access.",
+      "Least privilege is about rights; need to know is about access to a specific piece of information.",
+      "A high clearance does not give access to everything: need to know comes on top."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Classify in order to protect each piece of information according to its impact.",
+      "Owner: decides and classifies; custodian: applies; user: follows the rules.",
+      "Least privilege and need to know limit access."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m1c2-q11",
+      "m1c2-q12"
+     ]
+    }
+   ],
+   "illustration": "assets/illustrations/m1c2_l2_classement.svg",
+   "illustrationAlt": "Drawing of three folders with colored labels, from green (public) to red (confidential), and a stamp."
+  },
+  {
+   "id": "m1c2-l3",
+   "title": "Personnel security, awareness and performance monitoring",
+   "minutes": 25,
+   "objectives": [
+    "List the security measures before, during and after employment.",
+    "Explain separation of duties, job rotation and mandatory vacation.",
+    "Tell apart awareness, training and education.",
+    "Choose steering indicators (KPI, KRI)."
+   ],
+   "references": [
+    {
+     "title": "ISO/IEC 27002:2022, people controls (theme 6)",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-50 Rev. 1, Building a Cybersecurity and Privacy Learning Program",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-55, Measurement Guide for Information Security",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "The employee life cycle"
+    },
+    {
+     "type": "diagram",
+     "title": "The employee life cycle",
+     "alt": "Five-step diagram: before hiring, onboarding, during employment, change of role, departure.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🔍",
+        "label": "Before",
+        "detail": "checks",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🤝",
+        "label": "Onboarding",
+        "detail": "NDA, charter, accounts",
+        "tone": "green"
+       },
+       {
+        "emoji": "📚",
+        "label": "During",
+        "detail": "reviews, training",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🔀",
+        "label": "Mobility",
+        "detail": "remove what is unneeded",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🚪",
+        "label": "Departure",
+        "detail": "disable at once",
+        "tone": "red"
+       }
+      ]
+     }
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Moment",
+       "Typical measures"
+      ],
+      [
+       "Before hiring",
+       "Background checks proportionate to the role and compliant with local law, job description that includes security"
+      ],
+      [
+       "On arrival",
+       "Non-disclosure agreement (NDA), acceptable use charter, accounts created on a need basis, awareness"
+      ],
+      [
+       "During employment",
+       "Periodic review of rights, continuous training, known disciplinary process"
+      ],
+      [
+       "Change of role",
+       "Removal of rights no longer needed (avoid privilege creep)"
+      ],
+      [
+       "Departure",
+       "Immediate deactivation of accounts, return of equipment, reminder of confidentiality obligations"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Limiting fraud and abuse"
+    },
+    {
+     "type": "definition",
+     "title": "Separation of duties (séparation des tâches)",
+     "text": "A sensitive task is split between several people, so that no one can carry it out alone. Fraud then requires collusion.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Job rotation (rotation des postes)",
+     "text": "People periodically change roles. This reduces dependence on a single person and allows a successor to detect irregularities.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Mandatory vacation (congés obligatoires)",
+     "text": "Requiring an absence of several consecutive days: during that time, a replacement does the work and an ongoing fraud is likely to surface. It is first and foremost a detective control.",
+     "kind": "general"
+    },
+    {
+     "type": "trainerNote",
+     "text": "Mandatory vacation and job rotation work the same way: someone else takes over the role and sees what was hidden. They are detection controls as much as deterrents."
+    },
+    {
+     "type": "text",
+     "text": "These measures are combined with least privilege and dual approval (the four-eyes principle). Example: whoever creates a supplier in the ERP cannot approve its payment.",
+     "kind": "practice"
+    },
+    {
+     "type": "heading",
+     "text": "Awareness, training, education"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "",
+       "Awareness (sensibilisation)",
+       "Training (formation)",
+       "Education (éducation)"
+      ],
+      [
+       "Goal",
+       "Change behavior, draw attention",
+       "Give a skill for a role",
+       "Deepen understanding, the \"why\""
+      ],
+      [
+       "Audience",
+       "All staff",
+       "Specific roles (administrators, analysts)",
+       "Specialists, future experts"
+      ],
+      [
+       "Example",
+       "Simulated phishing campaign, posters",
+       "Workshop on using the SIEM",
+       "University degree, certification"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Steering with indicators"
+    },
+    {
+     "type": "definition",
+     "title": "KPI, Key Performance Indicator (indicateur de performance)",
+     "text": "Measures the performance of a process or a control. Example: mean time to handle a critical alert (MTTR).",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "KRI, Key Risk Indicator (indicateur de risque)",
+     "text": "Signals that a risk is increasing, before it materializes. Example: number of exposed servers missing a critical patch for more than 30 days.",
+     "kind": "general"
+    },
+    {
+     "type": "memo",
+     "text": "KPI = Performance: \"are we doing the job well?\" (mean time to handle an alert). KRI = Risk: \"is the danger growing?\" (exposed servers missing a critical patch)."
+    },
+    {
+     "type": "text",
+     "text": "A good indicator is measurable, useful for a decision and presented to the right audience: management wants trends and risks, the SOC team wants times and volumes.",
+     "kind": "practice"
+    },
+    {
+     "type": "risk",
+     "title": "The orphaned account",
+     "text": "An account left active after a departure is an open door: nobody monitors its use, and a malicious login looks like normal activity."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: the orphaned account",
+     "text": "The SOC spots a VPN connection with the account of an employee who left three weeks ago. The account was never disabled: the departure process was not linked to the directory. Measures: immediate deactivation and investigation (SOC), correction of the HR-IT process (management), addition of a KRI \"active accounts of people who have left\" reviewed every month by the security committee (governance).",
+     "kind": "example"
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: people are both the first weakness and the first line of detection.",
+      "SOC manager: an aware employee who reports a suspicious email is worth a detection rule.",
+      "Auditor: I compare the HR list of leavers with the list of active accounts.",
+      "Risk manager: KRIs let me alert management before the incident."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Mandatory vacation: main goal = detect fraud, not well-being.",
+      "Separation of duties: prevents fraud by a single person; it is defeated by collusion.",
+      "Awareness ≠ training: awareness targets everyone and behavior.",
+      "A KPI measures performance; a KRI measures how a risk evolves."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Personnel security before, during and after employment, with rights removed on departure.",
+      "Separation of duties, job rotation and mandatory vacation fight fraud.",
+      "Awareness (everyone), training (roles), education (experts).",
+      "KPI for performance, KRI for risk."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m1c2-q24",
+      "m1c2-q21"
+     ]
+    }
+   ],
+   "illustration": "assets/illustrations/m1c2_l3_badge.svg",
+   "illustrationAlt": "Drawing of an employee badge with a stylized photo, linked to a key and an exit door."
+  }
+ ]
+}

@@ -36,6 +36,13 @@ enum SourceKind {
     SourceKind.practice => 'Bonne pratique',
     SourceKind.example => 'Exemple pédagogique',
   };
+
+  String get labelEn => switch (this) {
+    SourceKind.official => 'Official MILE2',
+    SourceKind.general => 'General knowledge',
+    SourceKind.practice => 'Good practice',
+    SourceKind.example => 'Teaching example',
+  };
 }
 
 enum Level {
@@ -426,6 +433,7 @@ class Chapter {
     this.flashcards = const [],
     this.revisionSheet = const [],
     this.mindMap,
+    this.lessonsEn = const {},
   });
 
   final String id;
@@ -447,6 +455,10 @@ class Chapter {
 
   /// Carte mentale du chapitre (racine = titre du chapitre).
   final MindNode? mindMap;
+
+  /// Version anglaise des leçons, par identifiant de leçon (vide tant que
+  /// le chapitre n'est pas traduit). Mêmes blocs, dans le même ordre.
+  final Map<String, Lesson> lessonsEn;
 }
 
 /// Nœud d'une carte mentale : libellé, terme anglais, détail, sous-nœuds.
@@ -558,6 +570,15 @@ class ContentLibrary {
   Chapter chapter(String id) => chapters.firstWhere((c) => c.id == id);
 
   Iterable<Lesson> get lessons => chapters.expand((c) => c.lessons);
+
+  /// La version anglaise d'une leçon, ou `null` si elle n'est pas traduite.
+  Lesson? englishLesson(String lessonId) {
+    for (final c in chapters) {
+      final l = c.lessonsEn[lessonId];
+      if (l != null) return l;
+    }
+    return null;
+  }
 
   Lesson lesson(String id) => lessons.firstWhere((l) => l.id == id);
 

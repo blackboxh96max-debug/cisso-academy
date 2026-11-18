@@ -27,11 +27,11 @@
     {
       "id": "m1", "number": 1, "title": "Management des risques et sécurité", "titleEn": "Risk and Security Management",
       "chapters": [
-        {"id": "m1c1", "title": "Gestion, analyse et traitement des risques", "titleEn": "Risk Management, Analysis and Treatment", "domains": ["risk-management"], "file": "m1c1_risques.json"},
-        {"id": "m1c2", "title": "Gouvernance et management de la sécurité", "titleEn": "Security Governance and Management", "domains": ["security-management"], "file": "m1c2_gouvernance.json"},
-        {"id": "m1c3", "title": "Politiques, normes, procédures et famille ISO 27000", "titleEn": "Policies, Standards, Procedures and the ISO 27000 Family", "domains": ["security-management"], "file": "m1c3_politiques.json"},
-        {"id": "m1c4", "title": "IAM, authentification et contrôle d'accès", "titleEn": "IAM, Authentication and Access Control", "domains": ["iaaa"], "file": "m1c4_iam.json"},
-        {"id": "m1c5", "title": "Fondamentaux, critères d'évaluation et IA", "titleEn": "Information Security Fundamentals, Evaluation Criteria and AI", "domains": ["security-management", "architecture", "operations-security"], "file": "m1c5_fondamentaux_ia.json"}
+        {"id": "m1c1", "title": "Gestion, analyse et traitement des risques", "titleEn": "Risk Management, Analysis and Treatment", "domains": ["risk-management"], "file": "m1c1_risques.json", "fileEn": "en/m1c1_risques.json"},
+        {"id": "m1c2", "title": "Gouvernance et management de la sécurité", "titleEn": "Security Governance and Management", "domains": ["security-management"], "file": "m1c2_gouvernance.json", "fileEn": "en/m1c2_gouvernance.json"},
+        {"id": "m1c3", "title": "Politiques, normes, procédures et famille ISO 27000", "titleEn": "Policies, Standards, Procedures and the ISO 27000 Family", "domains": ["security-management"], "file": "m1c3_politiques.json", "fileEn": "en/m1c3_politiques.json"},
+        {"id": "m1c4", "title": "IAM, authentification et contrôle d'accès", "titleEn": "IAM, Authentication and Access Control", "domains": ["iaaa"], "file": "m1c4_iam.json", "fileEn": "en/m1c4_iam.json"},
+        {"id": "m1c5", "title": "Fondamentaux, critères d'évaluation et IA", "titleEn": "Information Security Fundamentals, Evaluation Criteria and AI", "domains": ["security-management", "architecture", "operations-security"], "file": "m1c5_fondamentaux_ia.json", "fileEn": "en/m1c5_fondamentaux_ia.json"}
       ]
     },
     {

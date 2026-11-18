@@ -12,9 +12,19 @@ Color englishColor(BuildContext context) =>
 
 /// Petite étiquette « EN » suivie du terme anglais, sous un titre français.
 class EnTag extends StatelessWidget {
-  const EnTag(this.english, {super.key, this.onDark = false, this.size = 13});
+  const EnTag(
+    this.english, {
+    super.key,
+    this.onDark = false,
+    this.size = 13,
+    this.code = 'EN',
+  });
 
+  /// Le terme dans l'autre langue (anglais, ou français si [code] vaut FR).
   final String english;
+
+  /// Langue du terme : « EN » ou « FR ».
+  final String code;
   final bool onDark;
   final double size;
 
@@ -22,7 +32,7 @@ class EnTag extends StatelessWidget {
   Widget build(BuildContext context) {
     final color = onDark ? Colors.white : englishColor(context);
     return Semantics(
-      label: 'En anglais : $english',
+      label: code == 'FR' ? 'In French: $english' : 'En anglais : $english',
       excludeSemantics: true,
       child: Wrap(
         crossAxisAlignment: WrapCrossAlignment.center,
@@ -35,7 +45,7 @@ class EnTag extends StatelessWidget {
               border: Border.all(color: color.withValues(alpha: 0.7)),
             ),
             child: Text(
-              'EN',
+              code,
               style: TextStyle(
                 fontFamily: Hand.sans,
                 fontSize: size - 3,
@@ -108,7 +118,7 @@ TextSpan bilingualSpan(
       spans.add(plain(text.substring(pos, m.end)));
     }
     if (m.translate) {
-      spans.add(TextSpan(text: ' (${m.term.termEn})', style: en));
+      spans.add(TextSpan(text: ' (${m.translation})', style: en));
     }
     pos = m.end;
   }

@@ -68,6 +68,7 @@ flutter:
 
   assets:
     - assets/content/
+    - assets/content/en/
     - assets/illustrations/
 
   # Polices embarquées (licence SIL Open Font License, voir assets/fonts/OFL-*.txt)

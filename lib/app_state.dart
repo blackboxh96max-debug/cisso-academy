@@ -167,6 +167,17 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Langue de lecture des leçons : anglais (mots-clés suivis du français)
+  /// quand la leçon est traduite, français sinon.
+  bool get lessonsInEnglish => _english;
+  bool _english = false;
+
+  Future<void> setLessonsInEnglish(bool english) async {
+    _english = english;
+    await store.setSetting('lessonLanguage', english ? 'en' : 'fr');
+    notifyListeners();
+  }
+
   /// Thème de l'application (polices, couleurs, dessins, tableaux).
   String get lookId => _look;
   String _look = 'cahier';
@@ -211,6 +222,7 @@ class AppState extends ChangeNotifier {
     };
     _mascot = await store.setting('mascot') ?? 'cybi';
     _look = await store.setting('look') ?? 'cahier';
+    _english = await store.setting('lessonLanguage') == 'en';
     final brightness = await store.setting('brightness');
     _brightness = ThemeMode.values.firstWhere(
       (m) => m.name == brightness,

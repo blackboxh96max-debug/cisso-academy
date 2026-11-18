@@ -1,0 +1,704 @@
+{
+ "lessons": [
+  {
+   "id": "m1c3-l1",
+   "title": "Policies, standards, procedures: the documentation pyramid",
+   "minutes": 20,
+   "objectives": [
+    "Tell apart policy, internal standard, baseline, guideline and procedure.",
+    "Know what is mandatory and what is recommended.",
+    "Know the types of policies and how exceptions are managed."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-12 Rev. 1, An Introduction to Information Security (chapter on policies)",
+     "url": "https://csrc.nist.gov/pubs/sp/800/12/r1/final",
+     "kind": "general"
+    },
+    {
+     "title": "ISO/IEC 27002:2022, control 5.1 (policies for information security)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "From \"why\" to \"how\""
+    },
+    {
+     "type": "text",
+     "text": "An organization's security rests on a set of nested documents. At the top, few documents, very stable and approved by management; at the bottom, many detailed documents that change often along with the technology."
+    },
+    {
+     "type": "diagram",
+     "title": "The documentation pyramid",
+     "alt": "Four-step diagram from the most general to the most detailed: policy, internal standard, baseline, procedure. Guidelines, which are optional, sit apart.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🏛️",
+        "label": "Policy",
+        "detail": "the why, signed by management",
+        "tone": "violet"
+       },
+       {
+        "emoji": "📏",
+        "label": "Standard",
+        "detail": "the what, with figures",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🧱",
+        "label": "Baseline",
+        "detail": "the minimum per system",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "📝",
+        "label": "Procedure",
+        "detail": "the how, step by step",
+        "tone": "green"
+       }
+      ]
+     },
+     "text": "Guidelines advise without obliging: they stay beside the pyramid."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Document",
+       "Role",
+       "Mandatory?",
+       "Example"
+      ],
+      [
+       "Policy (politique)",
+       "Management's intentions and principles, the \"why\"",
+       "Yes",
+       "\"Remote access is protected by strong authentication.\""
+      ],
+      [
+       "Internal standard (norme interne)",
+       "Precise and measurable requirement, the \"what\"",
+       "Yes",
+       "\"MFA is mandatory, using an authenticator app or a FIDO2 key.\""
+      ],
+      [
+       "Baseline (référentiel de base)",
+       "Minimum configuration level for a type of system",
+       "Yes",
+       "Hardened Windows Server configuration: services disabled, logging enabled"
+      ],
+      [
+       "Guideline (ligne directrice)",
+       "Recommendation, implementation advice",
+       "No",
+       "\"Using a password manager is recommended.\""
+      ],
+      [
+       "Procedure (procédure)",
+       "Detailed steps to carry out a task, the \"how\"",
+       "Yes",
+       "Step-by-step procedure for creating a VPN account"
+      ]
+     ]
+    },
+    {
+     "type": "text",
+     "text": "The policy is short, written in general terms and signed by management: it gives authority to the documents derived from it. A standard that sets \"14 characters minimum\" changes more often than a policy, so technical details are kept out of the policy.",
+     "kind": "practice"
+    },
+    {
+     "type": "memo",
+     "text": "Policy = WHY · Standard = WHAT (with figures) · Procedure = HOW. Only the guideline says \"I advise you\"."
+    },
+    {
+     "type": "heading",
+     "text": "Types of policies"
+    },
+    {
+     "type": "bullets",
+     "items": [
+      "General (or program) policy: defines the security program, the roles and the CISO's authority.",
+      "Issue-specific policy: deals with one topic, for example remote work, acceptable use, removable media.",
+      "System-specific policy: rules for a given system, for example who may change the SIEM configuration."
+     ]
+    },
+    {
+     "type": "text",
+     "text": "This three-type classification is presented in particular by NIST SP 800-12.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Exceptions"
+    },
+    {
+     "type": "text",
+     "text": "A requirement cannot always be met (legacy application, business constraint). Rather than leaving the gap hidden, an exception is requested: it is justified, limited in time, backed by compensating controls and approved by the risk owner. It is recorded in a register and reviewed when it expires.",
+     "kind": "practice"
+    },
+    {
+     "type": "risk",
+     "title": "The forgotten exception",
+     "text": "An exception without an end date becomes a permanent hole. The exceptions register must be reviewed, otherwise nobody remembers the server that was \"temporarily\" exempted three years ago."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: when the procedure is missing",
+     "text": "One night, an analyst discovers a suspicious login on an executive's account. The policy says that \"incidents are handled according to their severity\", the standard sets the severity levels, but no procedure explains how to reset the account of an executive who is traveling. The analyst loses an hour looking for whom to call. Lesson learned: write a procedure (the \"how\") with the contacts and the steps, and test it.",
+     "kind": "example"
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: I keep the policy short and stable, and I keep the standards and procedures alive.",
+      "SOC manager: I want precise procedures (playbooks) that can be used at 3 a.m.",
+      "Auditor: I check that every document is approved, dated, distributed and applied.",
+      "Risk manager: I follow the exceptions register and its deadlines."
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "To classify a document in the exam, look for figures: \"at least 16 characters\" is a standard, \"protect access\" is a policy, \"click Isolate then call the on-call engineer\" is a procedure."
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "The guideline is the only non-mandatory document.",
+      "The policy says \"why\" and \"what\" at a high level; the procedure says \"how\".",
+      "The baseline is a mandatory minimum, not a recommendation.",
+      "A policy is approved by management, not by the technical team."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Policy → standards → baselines → procedures; guidelines advise.",
+      "Three types of policies: general, issue-specific, system-specific.",
+      "An exception is justified, temporary, compensated, approved and tracked."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m1c3-q02",
+      "m1c3-q05"
+     ]
+    }
+   ],
+   "illustration": "assets/illustrations/m1c3_l1_pyramide.svg",
+   "illustrationAlt": "Drawing of a four-story colored pyramid with a small flag on top."
+  },
+  {
+   "id": "m1c3-l2",
+   "title": "The ISO/IEC 27000 family and the ISMS",
+   "minutes": 30,
+   "objectives": [
+    "Place the main standards of the ISO/IEC 27000 family.",
+    "Describe the structure of ISO/IEC 27001:2022 and its Annex A.",
+    "Explain the statement of applicability and the certification cycle."
+   ],
+   "references": [
+    {
+     "title": "ISO/IEC 27000, overview and vocabulary",
+     "kind": "general"
+    },
+    {
+     "title": "ISO/IEC 27001:2022, information security management system requirements",
+     "kind": "general"
+    },
+    {
+     "title": "ISO/IEC 27002:2022, information security controls",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "A family of standards"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Standard",
+       "Subject"
+      ],
+      [
+       "ISO/IEC 27000",
+       "Overview and vocabulary"
+      ],
+      [
+       "ISO/IEC 27001",
+       "Requirements for an ISMS: an ISMS is certified against it"
+      ],
+      [
+       "ISO/IEC 27002",
+       "Implementation guide for security controls"
+      ],
+      [
+       "ISO/IEC 27005",
+       "Information security risk management"
+      ],
+      [
+       "ISO/IEC 27014",
+       "Governance of information security"
+      ],
+      [
+       "ISO/IEC 27017 and 27018",
+       "Controls for the cloud; protection of personal data in the public cloud"
+      ],
+      [
+       "ISO/IEC 27035",
+       "Security incident management"
+      ],
+      [
+       "ISO/IEC 27037",
+       "Identification, collection and preservation of digital evidence"
+      ],
+      [
+       "ISO/IEC 27701",
+       "Privacy information management (personal data), also certifiable"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "ISO/IEC 27001:2022, the ISMS"
+    },
+    {
+     "type": "definition",
+     "title": "ISMS, Information Security Management System (SMSI)",
+     "text": "Organized set of policies, processes, roles and resources for managing information security systematically and improving it continuously.",
+     "kind": "general"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Clause",
+       "Content"
+      ],
+      [
+       "4 Context",
+       "Internal and external issues, interested parties, ISMS scope"
+      ],
+      [
+       "5 Leadership",
+       "Management commitment, policy, roles and responsibilities"
+      ],
+      [
+       "6 Planning",
+       "Risk assessment and treatment, security objectives"
+      ],
+      [
+       "7 Support",
+       "Resources, competence, awareness, communication, documented information"
+      ],
+      [
+       "8 Operation",
+       "Implementation of the plans and of risk treatment"
+      ],
+      [
+       "9 Performance evaluation",
+       "Monitoring, measurement, internal audit, management review"
+      ],
+      [
+       "10 Improvement",
+       "Nonconformities, corrective actions, continual improvement"
+      ]
+     ]
+    },
+    {
+     "type": "text",
+     "text": "These clauses follow the logic of continual improvement often summed up by the PDCA cycle (Plan, Do, Check, Act): plan (6), do (8), check (9), act (10). Since the 2013 version, the standard no longer imposes PDCA as a model, but the logic remains.",
+     "kind": "general"
+    },
+    {
+     "type": "diagram",
+     "title": "The PDCA logic in ISO/IEC 27001",
+     "alt": "Four-step cycle: Plan (clause 6, planning), Do (clause 8, operation), Check (clause 9, performance evaluation), Act (clause 10, improvement), then start again.",
+     "diagram": {
+      "type": "cycle",
+      "center": "🔁 Continual\nimprovement",
+      "nodes": [
+       {
+        "emoji": "🗺️",
+        "label": "Plan",
+        "detail": "cl. 6 plan",
+        "tone": "blue"
+       },
+       {
+        "emoji": "⚙️",
+        "label": "Do",
+        "detail": "cl. 8 do",
+        "tone": "green"
+       },
+       {
+        "emoji": "🔍",
+        "label": "Check",
+        "detail": "cl. 9 check",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🚀",
+        "label": "Act",
+        "detail": "cl. 10 improve",
+        "tone": "violet"
+       }
+      ]
+     },
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Annex A and the statement of applicability"
+    },
+    {
+     "type": "text",
+     "text": "Annex A of ISO/IEC 27001:2022 lists 93 controls in four themes: organizational (37), people (8), physical (14) and technological (34). ISO/IEC 27002:2022 details each of them. The 2013 version had 114 controls in 14 domains; the transition period to the 2022 version ended on 31 October 2025.",
+     "kind": "general"
+    },
+    {
+     "type": "diagram",
+     "title": "The 93 Annex A controls (2022)",
+     "alt": "Bar chart: 37 organizational controls, 8 people controls, 14 physical, 34 technological, 93 in total.",
+     "diagram": {
+      "type": "bars",
+      "unit": "",
+      "bars": [
+       {
+        "label": "Organizational",
+        "value": 37,
+        "tone": "violet"
+       },
+       {
+        "label": "People",
+        "value": 8,
+        "tone": "pink"
+       },
+       {
+        "label": "Physical",
+        "value": 14,
+        "tone": "orange"
+       },
+       {
+        "label": "Technological",
+        "value": 34,
+        "tone": "blue"
+       }
+      ]
+     },
+     "text": "37 + 8 + 14 + 34 = 93. Former 2013 version: 114 controls in 14 domains.",
+     "kind": "general"
+    },
+    {
+     "type": "memo",
+     "text": "\"27000 Defines, 27001 Requires, 27002 Guides, 27005 Risk\": the vocabulary, the certifiable requirements, the controls guide, risk management."
+    },
+    {
+     "type": "definition",
+     "title": "SoA, Statement of Applicability (déclaration d'applicabilité)",
+     "text": "Mandatory document that lists all Annex A controls, states whether each one is applied or excluded, and justifies that choice in the light of risk treatment.",
+     "kind": "general"
+    },
+    {
+     "type": "steps",
+     "title": "Certification cycle",
+     "items": [
+      "Initial audit in two stages: documentation review (stage 1), then verification of implementation (stage 2).",
+      "Certificate valid for three years.",
+      "Surveillance audits (usually yearly) during those three years.",
+      "Recertification audit before expiry."
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Key point",
+     "text": "You get certified to ISO/IEC 27001, never to ISO/IEC 27002: 27002 is a guide that helps implement the controls, it contains no requirements to audit."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: the SOC within the ISMS",
+     "text": "During her employer's 27001 audit, the SOC manager has to show that the logging and monitoring controls of Annex A are applied. She presents the logging policy, the list of sources connected to the SIEM, handled incident tickets and the monthly indicator report. The auditor also asks for proof that lessons from incidents feed improvement (clause 10).",
+     "kind": "example"
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: certification is not the goal; the ISMS is there to steer risks over time.",
+      "SOC manager: my tickets and indicators are valuable audit evidence.",
+      "Auditor: without a management review or an internal audit, the ISMS is not compliant.",
+      "Risk manager: the SoA must follow from risk treatment, not the other way round."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "You get certified to ISO/IEC 27001, not to 27002 (which is a guide).",
+      "Annex A 2022: 93 controls, 4 themes. Former 2013 version: 114 controls, 14 domains.",
+      "The SoA also justifies exclusions.",
+      "Management has explicit obligations (clause 5 Leadership, management review in clause 9)."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "27000 vocabulary, 27001 requirements (certifiable), 27002 controls, 27005 risks.",
+      "27001:2022: clauses 4 to 10, Annex A with 93 controls in 4 themes.",
+      "Mandatory SoA; 3-year certificate with surveillance audits."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m1c3-q11",
+      "m1c3-q12"
+     ]
+    }
+   ],
+   "illustration": "assets/illustrations/m1c3_l2_certificat.svg",
+   "illustrationAlt": "Drawing of a certificate with a seal and a ribbon, next to a three-year calendar."
+  },
+  {
+   "id": "m1c3-l3",
+   "title": "Other frameworks: NIST, COBIT, PCI DSS, SOC 2, ANSSI",
+   "minutes": 25,
+   "objectives": [
+    "List the six functions of the NIST Cybersecurity Framework 2.0.",
+    "Place NIST SP 800-53, COBIT, ITIL, PCI DSS and SOC 2.",
+    "Know the main ANSSI resources.",
+    "Choose a framework according to the need."
+   ],
+   "references": [
+    {
+     "title": "NIST Cybersecurity Framework 2.0 (2024)",
+     "url": "https://www.nist.gov/cyberframework",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-53 Rev. 5, Security and Privacy Controls for Information Systems and Organizations",
+     "url": "https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final",
+     "kind": "general"
+    },
+    {
+     "title": "ANSSI, IT hygiene guide (42 measures)",
+     "kind": "general"
+    },
+    {
+     "title": "ANSSI, EBIOS Risk Manager method",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "NIST Cybersecurity Framework 2.0"
+    },
+    {
+     "type": "text",
+     "text": "Published in 2024, CSF 2.0 organizes cybersecurity into six functions: Govern, Identify, Protect, Detect, Respond and Recover. It is not certifiable: it is a framework to describe your current level, set a target level and prioritize.",
+     "kind": "general"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Function",
+       "Question asked",
+       "SOC example"
+      ],
+      [
+       "Govern",
+       "Who decides, and following which strategy?",
+       "Approved incident response policy"
+      ],
+      [
+       "Identify",
+       "What must be protected, and against what?",
+       "Inventory of the assets connected to the SIEM"
+      ],
+      [
+       "Protect",
+       "How do we prevent the incident?",
+       "MFA, hardening, awareness"
+      ],
+      [
+       "Detect",
+       "How do we see it?",
+       "Correlation rules, EDR"
+      ],
+      [
+       "Respond",
+       "How do we contain it?",
+       "Playbook for isolating a workstation"
+      ],
+      [
+       "Recover",
+       "How do we get back to normal?",
+       "Restoration and lessons learned"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Other useful frameworks"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Framework",
+       "Nature",
+       "Use"
+      ],
+      [
+       "NIST SP 800-53",
+       "Detailed catalog of security and privacy controls",
+       "Choose and describe controls (US public sector and beyond)"
+      ],
+      [
+       "COBIT (ISACA)",
+       "IT governance and management framework",
+       "Align IT with the business objectives"
+      ],
+      [
+       "ITIL",
+       "IT service management good practices",
+       "Incident, change and problem management"
+      ],
+      [
+       "PCI DSS",
+       "Payment card industry standard",
+       "Mandatory for anyone who stores, processes or transmits card data"
+      ],
+      [
+       "SOC 2 (AICPA)",
+       "Audit report on a service provider's controls",
+       "Reassure the customers of a service provider, especially in the cloud"
+      ],
+      [
+       "ANSSI",
+       "Guides and methods of the French agency",
+       "IT hygiene guide (42 measures), EBIOS Risk Manager method"
+      ]
+     ]
+    },
+    {
+     "type": "text",
+     "text": "A SOC 2 Type I report describes the design of the controls at a given date; a Type II report also assesses how they actually operated over a period (often 6 to 12 months). Be careful not to confuse SOC 2 (audit report) with a SOC (security operations center).",
+     "kind": "general"
+    },
+    {
+     "type": "memo",
+     "text": "SOC 2 Type I = a photo (the controls are well designed on a given date). SOC 2 Type II = a film (they worked for 6 to 12 months)."
+    },
+    {
+     "type": "risk",
+     "title": "Common confusion",
+     "text": "SOC 2 is an audit report on a service provider; a SOC is a security operations center. A question that talks about a \"report\", an \"auditor\" or a \"period\" is about SOC 2."
+    },
+    {
+     "type": "heading",
+     "text": "Choosing and combining"
+    },
+    {
+     "type": "text",
+     "text": "Frameworks complement each other: ISO/IEC 27001 for the management system, ISO/IEC 27002 or NIST SP 800-53 for the controls, NIST CSF to communicate a maturity level, PCI DSS if you handle cards, EBIOS Risk Manager for risk analysis. Mapping tables exist between most of them.",
+     "kind": "practice"
+    },
+    {
+     "type": "diagram",
+     "title": "Combining frameworks",
+     "alt": "Four-step diagram: ISO/IEC 27001 for the management system, ISO/IEC 27002 or NIST SP 800-53 to choose the controls, NIST CSF to communicate maturity, PCI DSS if you handle bank cards.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🏗️",
+        "label": "ISO 27001",
+        "detail": "the management system",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🧰",
+        "label": "27002 / 800-53",
+        "detail": "the controls",
+        "tone": "blue"
+       },
+       {
+        "emoji": "📊",
+        "label": "NIST CSF",
+        "detail": "maturity",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "💳",
+        "label": "PCI DSS",
+        "detail": "if bank cards",
+        "tone": "orange"
+       }
+      ]
+     },
+     "kind": "practice"
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: a customer demands evidence",
+     "text": "An MSSP (outsourced SOC) answers a bank's call for tenders. The bank asks for ISO/IEC 27001 certification and a SOC 2 Type II report covering the last twelve months, and points out that the scope handles card data subject to PCI DSS. The provider's SOC manager must supply evidence that the controls operate: logs, tickets, access reviews.",
+     "kind": "example"
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: I choose one main framework and map the others to it to avoid duplication.",
+      "SOC manager: the NIST CSF helps me show management our Detect and Respond coverage.",
+      "Auditor: a SOC 2 Type II report is worth more than a Type I to judge effectiveness.",
+      "Risk manager: EBIOS Risk Manager structures risk scenarios with the business units."
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "Remember one question to ask about every framework: \"is it certifiable?\". ISO/IEC 27001 yes, the NIST CSF no, PCI DSS leads to a compliance assessment, SOC 2 to an audit report."
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "NIST CSF 2.0: six functions, including Govern added in 2.0.",
+      "The NIST CSF is not certifiable; ISO/IEC 27001 is.",
+      "PCI DSS is an industry standard (payment cards), not a law.",
+      "SOC 2 Type I = design at a date; Type II = effectiveness over a period.",
+      "ITIL manages IT services; COBIT governs IT."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "NIST CSF 2.0: Govern, Identify, Protect, Detect, Respond, Recover.",
+      "SP 800-53: controls catalog; COBIT: IT governance; ITIL: services.",
+      "PCI DSS for cards; SOC 2 to reassure a provider's customers.",
+      "ANSSI: hygiene guide (42 measures), EBIOS Risk Manager."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m1c3-q21",
+      "m1c3-q24"
+     ]
+    }
+   ],
+   "illustration": "assets/illustrations/m1c3_l3_boite.svg",
+   "illustrationAlt": "Drawing of an open toolbox containing colored cards: each framework is a tool."
+  }
+ ]
+}

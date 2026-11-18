@@ -1,0 +1,733 @@
+{
+ "lessons": [
+  {
+   "id": "m1c1-l1",
+   "title": "The building blocks of risk and the management process",
+   "minutes": 25,
+   "objectives": [
+    "Tell apart asset, threat, vulnerability, impact and likelihood.",
+    "Place inherent risk, residual risk, risk appetite and risk tolerance.",
+    "Describe the steps of the risk management process according to ISO/IEC 27005 and NIST.",
+    "Identify who decides what: risk owner, senior management, CISO, SOC."
+   ],
+   "references": [
+    {
+     "title": "ISO/IEC 27005:2022, Information security, cybersecurity and privacy protection — Guidance on managing information security risks",
+     "kind": "general"
+    },
+    {
+     "title": "ISO 31000:2018, Risk management — Guidelines",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-30 Rev. 1, Guide for Conducting Risk Assessments",
+     "url": "https://csrc.nist.gov/pubs/sp/800/30/r1/final",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-39, Managing Information Security Risk",
+     "url": "https://csrc.nist.gov/pubs/sp/800/39/final",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Why talk about risk?"
+    },
+    {
+     "type": "text",
+     "text": "An organization cannot protect everything to the same level: its budget, time and teams are limited. Risk management is how it decides where to invest first. The CISO does not aim for zero risk, which does not exist, but for risk brought down to a level that senior management accepts knowingly."
+    },
+    {
+     "type": "trainerNote",
+     "text": "When an exam question loses you, always come back to the executive's question: \"what can happen to us, how bad would it be, and how much are we willing to pay to prevent it?\". All of risk management answers that sentence."
+    },
+    {
+     "type": "heading",
+     "text": "The five building blocks"
+    },
+    {
+     "type": "definition",
+     "title": "Asset (actif)",
+     "text": "Anything of value to the organization: customer data, mail server, business application, reputation, key staff.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Threat (menace)",
+     "text": "Potential cause of an unwanted incident. It can be human and intentional (a ransomware group), human and accidental (an administrator's mistake) or natural (a flood).",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Vulnerability (vulnérabilité)",
+     "text": "Weakness of an asset or of a control that a threat can exploit: missing patch, weak password, exposed administration port, untrained employee.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Impact (impact)",
+     "text": "Consequence of an incident on the organization's objectives: financial loss, production stoppage, regulatory penalty, damage to reputation. It is often expressed in terms of the confidentiality, integrity and availability affected.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Likelihood (vraisemblance)",
+     "text": "Chance that a risk scenario occurs over a given period. It depends on the motivation and capabilities of the threat, and on how easy the vulnerability is to exploit.",
+     "kind": "general"
+    },
+    {
+     "type": "diagram",
+     "title": "The risk chain",
+     "alt": "Five-step diagram linked by arrows: a threat exploits a vulnerability of an asset, which produces an impact, with a certain likelihood; that is the risk.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🌩️",
+        "label": "Threat",
+        "detail": "ransomware",
+        "tone": "red"
+       },
+       {
+        "emoji": "🕳️",
+        "label": "Vulnerability",
+        "detail": "unpatched VPN",
+        "tone": "orange"
+       },
+       {
+        "emoji": "💾",
+        "label": "Asset",
+        "detail": "file server",
+        "tone": "blue"
+       },
+       {
+        "emoji": "💥",
+        "label": "Impact",
+        "detail": "business stoppage",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🎲",
+        "label": "Likelihood",
+        "detail": "likely this year",
+        "tone": "pink"
+       }
+      ]
+     },
+     "text": "Remove a single link and the risk disappears: that is what controls do."
+    },
+    {
+     "type": "text",
+     "text": "Remember the working formula: risk = likelihood × impact. Some materials also present risk as the combination threat × vulnerability × asset value. Both say the same thing: without a threat, without a vulnerability or without value, there is no risk."
+    },
+    {
+     "type": "memo",
+     "text": "Memory aid: \"The Very Angry Investor Left\" → Threat, Vulnerability, Asset, Impact, Likelihood. Risk = Likelihood × Impact."
+    },
+    {
+     "type": "diagram",
+     "title": "Risk matrix",
+     "alt": "Five-by-five matrix, likelihood on the vertical axis and impact on the horizontal axis. Three risks placed: ransomware (likelihood 4, impact 5) in the red zone, air-conditioning failure (2, 3) in the orange zone, theft of a visitor badge (3, 1) in the green zone.",
+     "diagram": {
+      "type": "matrix",
+      "xLabel": "Impact",
+      "yLabel": "Likelihood",
+      "points": [
+       {
+        "label": "Ransomware",
+        "emoji": "🔒",
+        "x": 5,
+        "y": 4
+       },
+       {
+        "label": "A/C failure",
+        "emoji": "🌡️",
+        "x": 3,
+        "y": 2
+       },
+       {
+        "label": "Visitor badge",
+        "emoji": "🪪",
+        "x": 1,
+        "y": 3
+       }
+      ]
+     },
+     "text": "Teaching example: the positions are fictitious. The further up and to the right, the higher the priority of the risk."
+    },
+    {
+     "type": "heading",
+     "text": "Before and after controls"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Concept",
+       "Definition",
+       "SOC example"
+      ],
+      [
+       "Inherent risk",
+       "Risk before any security measure",
+       "An RDP server exposed to the Internet without protection"
+      ],
+      [
+       "Control",
+       "Measure that modifies risk",
+       "Mandatory VPN, MFA, SIEM rule on failed logins"
+      ],
+      [
+       "Residual risk",
+       "Risk that remains after controls",
+       "Theft of VPN credentials through phishing despite MFA"
+      ],
+      [
+       "Risk appetite",
+       "Level of risk the organization is willing to take to achieve its objectives",
+       "Management accepts a \"medium\" risk on test workstations"
+      ],
+      [
+       "Risk tolerance",
+       "Acceptable deviation around the appetite, for a given objective",
+       "Website availability: up to 4 hours of downtime per year"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "The ISO/IEC 27005 process"
+    },
+    {
+     "type": "text",
+     "text": "ISO/IEC 27005:2022 applies the general framework of ISO 31000 to information security. The process is iterative: it starts again whenever the context changes (new threat, new project, incident).",
+     "kind": "general"
+    },
+    {
+     "type": "diagram",
+     "title": "The ISO/IEC 27005 cycle",
+     "alt": "Five-step cycle around the words \"Communication and monitoring\": establish the context, assess the risks, treat the risks, accept the residual risk, monitor and review, then back to the context.",
+     "diagram": {
+      "type": "cycle",
+      "center": "💬 Communication\nand monitoring",
+      "nodes": [
+       {
+        "emoji": "🧭",
+        "label": "Context",
+        "detail": "scope and criteria",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🔍",
+        "label": "Assessment",
+        "detail": "identify, analyze, evaluate",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🛠️",
+        "label": "Treatment",
+        "detail": "reduce, transfer, avoid, accept",
+        "tone": "green"
+       },
+       {
+        "emoji": "✍️",
+        "label": "Acceptance",
+        "detail": "signed residual risk",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🔁",
+        "label": "Review",
+        "detail": "monitor, start again",
+        "tone": "turquoise"
+       }
+      ]
+     },
+     "kind": "general"
+    },
+    {
+     "type": "text",
+     "text": "NIST SP 800-30 describes a similar approach in four steps: prepare for the assessment, conduct it, communicate the results, maintain it. NIST SP 800-39 places risk management at three tiers: the organization, the mission and business processes, and the information system.",
+     "kind": "general"
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: the alert that reveals a risk",
+     "text": "The SOC detects repeated RDP connections from abroad to a file server. The asset is the server and its data; the threat is an attacker trying passwords; the vulnerability is the RDP port exposed without MFA; the possible impact is encryption by ransomware. The SOC manager reports the finding to the CISO, who adds it to the risk register and proposes a treatment to the risk owner.",
+     "kind": "example"
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: I present risks in business language and propose costed treatments.",
+      "SOC manager: my alerts and incidents feed the identification of real risks.",
+      "Auditor: I check that the process is documented and applied, and that every risk has an owner.",
+      "Risk manager: I guarantee evaluation criteria shared by the whole organization."
+     ]
+    },
+    {
+     "type": "practice",
+     "title": "Good practices",
+     "items": [
+      "Name an owner for every risk, not only for every asset.",
+      "Set the acceptance criteria before the analysis, so they are not adjusted to the result.",
+      "Review the assessment after any major change or significant incident."
+     ],
+     "kind": "practice"
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Threat ≠ vulnerability: the threat comes from outside the asset, the vulnerability is a weakness of the asset or of the control.",
+      "Assessment = identification + analysis + evaluation. Treatment is not part of it.",
+      "The risk owner accepts the risk, not the CISO nor the SOC analyst.",
+      "CISSP and CISSO use these concepts with the same meaning: a word does not change its definition from one certification to another."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Risk = likelihood × impact, arising from a threat that exploits a vulnerability of an asset.",
+      "Controls take you from inherent risk to residual risk.",
+      "ISO/IEC 27005: context, assessment, treatment, acceptance, with continuous communication and monitoring.",
+      "Every risk has an owner who decides on its treatment and its acceptance."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m1c1-q01",
+      "m1c1-q05"
+     ]
+    }
+   ],
+   "illustration": "assets/illustrations/m1c1_l1_balance.svg",
+   "illustrationAlt": "Drawing of a pair of scales: on one pan, a padlock (the controls); on the other, a storm cloud (the threats). The scales are almost balanced."
+  },
+  {
+   "id": "m1c1-l2",
+   "title": "Analyzing risk: qualitative and quantitative",
+   "minutes": 30,
+   "objectives": [
+    "Compare qualitative analysis and quantitative analysis.",
+    "Calculate SLE, ARO and ALE on a concrete case.",
+    "Calculate the annual value of a control to justify a budget."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-30 Rev. 1, Guide for Conducting Risk Assessments",
+     "url": "https://csrc.nist.gov/pubs/sp/800/30/r1/final",
+     "kind": "general"
+    },
+    {
+     "title": "ISO/IEC 27005:2022",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Two ways to measure"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "",
+       "Qualitative",
+       "Quantitative"
+      ],
+      [
+       "Result",
+       "Levels: low, medium, high, critical",
+       "Amounts in euros per year"
+      ],
+      [
+       "Tools",
+       "Likelihood × impact matrix, workshops, expert opinion",
+       "SLE, ARO, ALE formulas, historical data"
+      ],
+      [
+       "Strengths",
+       "Fast, understood by everyone, needs little data",
+       "Cost/benefit comparison of controls, budget trade-offs"
+      ],
+      [
+       "Limits",
+       "Subjective, hard to compare two \"high\" risks",
+       "Needs reliable data, slow to carry out, false sense of precision"
+      ]
+     ]
+    },
+    {
+     "type": "text",
+     "text": "In practice, the two are often combined (semi-quantitative approach): a matrix to sort quickly, then a costing of the most important risks to decide on investments.",
+     "kind": "practice"
+    },
+    {
+     "type": "heading",
+     "text": "The formulas to know"
+    },
+    {
+     "type": "definition",
+     "title": "AV, Asset Value (valeur de l'actif)",
+     "text": "Value of the asset in euros: replacement cost, revenue generated, cost of rebuilding the data.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "EF, Exposure Factor (facteur d'exposition)",
+     "text": "Percentage of the asset's value lost in a given incident, between 0 and 100%.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "SLE, Single Loss Expectancy (perte unitaire)",
+     "text": "SLE = AV × EF. Expected loss for a single occurrence of the incident.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "ARO, Annualized Rate of Occurrence (fréquence annuelle)",
+     "text": "Number of occurrences expected per year. Once every 4 years gives ARO = 0.25; three times a year gives ARO = 3.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "ALE, Annualized Loss Expectancy (perte annuelle)",
+     "text": "ALE = SLE × ARO. Average loss expected per year for this scenario.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Value of a control (valeur d'un contrôle)",
+     "text": "Value = ALE before the control − ALE after the control − annual cost of the control. If the result is positive, the control pays for itself.",
+     "kind": "general"
+    },
+    {
+     "type": "memo",
+     "title": "The formula in one line",
+     "text": "AV × EF = SLE      SLE × ARO = ALE\nFollow the order of the calculation: value of the Asset, Exposure, Single loss, Rate per year, Annual loss."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case with figures",
+     "text": "A law firm's file server is worth €200,000 (AV). Ransomware would destroy 40% of its value (EF), giving an SLE of €80,000. SOC indicators and the sector context point to one successful attack every 4 years (ARO = 0.25), hence an ALE of €20,000. A managed EDR costs €6,000 a year and would bring the ARO down to 0.05, giving an ALE of €4,000. Value of the control: 20,000 − 4,000 − 6,000 = €10,000 a year. The CISO can defend this purchase before management.",
+     "kind": "example"
+    },
+    {
+     "type": "diagram",
+     "title": "The costed case at a glance",
+     "alt": "Bar chart: ALE before the control 20,000 euros, ALE after the control 4,000 euros, annual cost of the control 6,000 euros. The net gain is 10,000 euros a year.",
+     "diagram": {
+      "type": "bars",
+      "unit": "€",
+      "bars": [
+       {
+        "label": "ALE before",
+        "value": 20000,
+        "tone": "red"
+       },
+       {
+        "label": "ALE after",
+        "value": 4000,
+        "tone": "green"
+       },
+       {
+        "label": "Cost of control",
+        "value": 6000,
+        "tone": "orange"
+       }
+      ]
+     },
+     "text": "20,000 − 4,000 − 6,000 = €10,000 a year: the control is justified (example figures)."
+    },
+    {
+     "type": "steps",
+     "title": "Step-by-step calculation method",
+     "items": [
+      "1. Value the asset (AV).",
+      "2. Estimate the share lost per incident (EF) → SLE = AV × EF.",
+      "3. Estimate the annual frequency (ARO) → ALE = SLE × ARO.",
+      "4. Recalculate the ALE with the planned control.",
+      "5. Value = ALE before − ALE after − annual cost of the control."
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Key point",
+     "text": "The ARO is an annual frequency, not a probability: one incident every 4 years gives ARO = 0.25; two incidents a year give ARO = 2. An ARO can therefore be greater than 1."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: the ALE turns a technical topic into a budget decision.",
+      "SOC manager: my incident statistics give more realistic AROs than guesswork.",
+      "Auditor: I ask where the figures come from and whether they are reviewed every year.",
+      "Risk manager: I harmonize the qualitative scales so that \"high\" means the same thing everywhere."
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "In the exam, always write the units on your scratch paper (€, €/year, times/year). Most mistakes come from confusing an SLE with an ALE, not from a bad calculation."
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Do not confuse SLE (one occurrence) and ALE (per year).",
+      "\"Once every 10 years\" gives ARO = 0.1, not 10.",
+      "The value of the control also subtracts its annual cost: a control that costs more than the loss it prevents is not justified.",
+      "Quantitative is not \"more accurate\" by nature: it depends on the quality of the data."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Qualitative: levels and matrix; quantitative: euros per year.",
+      "SLE = AV × EF; ALE = SLE × ARO.",
+      "Value of a control = ALE before − ALE after − annual cost."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m1c1-q12",
+      "m1c1-q11"
+     ]
+    }
+   ],
+   "illustration": "assets/illustrations/m1c1_l2_calcul.svg",
+   "illustrationAlt": "Drawing of a calculator next to a stack of coins and a falling bar chart: putting a figure on risk in order to decide."
+  },
+  {
+   "id": "m1c1-l3",
+   "title": "Treating risk and choosing controls",
+   "minutes": 25,
+   "objectives": [
+    "Choose between reducing, transferring, avoiding and accepting a risk.",
+    "Classify a control by function (preventive, detective, corrective…) and by type (administrative, technical, physical).",
+    "Keep a risk register that is useful for steering."
+   ],
+   "references": [
+    {
+     "title": "ISO/IEC 27005:2022",
+     "kind": "general"
+    },
+    {
+     "title": "ISO/IEC 27002:2022, Information security controls",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-39, Managing Information Security Risk",
+     "url": "https://csrc.nist.gov/pubs/sp/800/39/final",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "The four treatment options"
+    },
+    {
+     "type": "diagram",
+     "title": "Which option for which risk?",
+     "alt": "Two-by-two grid, likelihood on the vertical axis and impact on the horizontal axis. High likelihood and low impact: reduce. High likelihood and high impact: avoid. Low likelihood and low impact: accept. Low likelihood and high impact: transfer.",
+     "diagram": {
+      "type": "quadrant",
+      "xLabel": "Impact",
+      "yLabel": "Likelihood",
+      "cells": [
+       {
+        "emoji": "🛠️",
+        "label": "Reduce",
+        "detail": "frequent but minor incidents",
+        "tone": "green"
+       },
+       {
+        "emoji": "🚫",
+        "label": "Avoid",
+        "detail": "frequent and serious: stop the activity",
+        "tone": "red"
+       },
+       {
+        "emoji": "✍️",
+        "label": "Accept",
+        "detail": "rare and minor, in writing",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🤝",
+        "label": "Transfer",
+        "detail": "rare but serious: insurance, contract",
+        "tone": "violet"
+       }
+      ]
+     },
+     "text": "A good-practice guide, not an absolute rule: the decision also depends on risk appetite.",
+     "kind": "practice"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Option",
+       "Principle",
+       "Example"
+      ],
+      [
+       "Reduce (réduire)",
+       "Put controls in place to lower the likelihood or the impact",
+       "Deploy MFA, an EDR, offline backups"
+      ],
+      [
+       "Transfer / share (transférer, partager)",
+       "Have a third party bear part of the consequences",
+       "Cyber insurance, contractual clause with a service provider"
+      ],
+      [
+       "Avoid (éviter)",
+       "Remove the activity or asset that causes the risk",
+       "Give up an online service that is too exposed"
+      ],
+      [
+       "Accept (accepter)",
+       "Keep the risk, knowingly and in writing",
+       "Low risk on an isolated test workstation"
+      ]
+     ]
+    },
+    {
+     "type": "text",
+     "text": "Transfer never transfers ultimate accountability: if a provider loses your customer data, your organization answers to its customers and to the regulator. Only some financial consequences are shared.",
+     "kind": "general"
+    },
+    {
+     "type": "text",
+     "text": "Ignoring a risk (deciding nothing) is not a treatment option: it is a governance failure. Acceptance must be explicit, documented and reviewed periodically.",
+     "kind": "practice"
+    },
+    {
+     "type": "risk",
+     "title": "Risk to flag",
+     "text": "A risk \"forgotten\" in the register is not accepted: it has neither an owner nor a decision. In an audit it is a nonconformity, and in an incident nobody answers for it."
+    },
+    {
+     "type": "heading",
+     "text": "Classifying controls"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Function",
+       "Role",
+       "SOC example"
+      ],
+      [
+       "Preventive",
+       "Prevent the incident",
+       "Firewall blocking a port, MFA"
+      ],
+      [
+       "Detective",
+       "Spot an ongoing or past incident",
+       "SIEM rule, IDS, log review"
+      ],
+      [
+       "Corrective",
+       "Limit the damage and fix",
+       "Isolating a workstation with the EDR, applying a patch"
+      ],
+      [
+       "Recovery (récupération)",
+       "Restore operations",
+       "Restore from backup"
+      ],
+      [
+       "Deterrent",
+       "Discourage the attacker",
+       "Legal banner, visible cameras"
+      ],
+      [
+       "Compensating",
+       "Replace a control that cannot be put in place",
+       "Isolate a PLC that cannot be patched in a VLAN"
+      ]
+     ]
+    },
+    {
+     "type": "text",
+     "text": "By type, a control is administrative (policy, procedure, awareness), technical or logical (encryption, ACL, EDR) or physical (badge, lock, video surveillance). A control therefore has both a type and a function: MFA is technical and preventive.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "The risk register"
+    },
+    {
+     "type": "bullets",
+     "items": [
+      "Identifier and description of the risk scenario.",
+      "Asset concerned and risk owner.",
+      "Inherent then residual risk level.",
+      "Chosen treatment, controls, person in charge and deadline.",
+      "Date of the last review and monitoring indicators (KRI)."
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "The 4 options: \"RTAA\" → Reduce, Transfer, Avoid, Accept. And never \"Ignore\"."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: a PLC that cannot be patched",
+     "text": "A factory uses an industrial PLC for which the manufacturer no longer publishes patches. The SOC finds that it can be reached from the office network. Chosen treatment: reduce the risk with a compensating control (dedicated VLAN, strict filtering, flow monitoring by the IDS), then the risk owner (the plant manager) accepts the residual risk in writing until the replacement planned in 18 months.",
+     "kind": "example"
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: I propose one treatment option per risk, with its cost and the expected residual risk.",
+      "SOC manager: I put in place and monitor the detective controls; I report when a control no longer works.",
+      "Auditor: I check that every acceptance is signed by an authorized person and reviewed.",
+      "Risk manager: I consolidate the register and report to senior management."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Insurance = transfer (or sharing), not reduction.",
+      "Accountability cannot be transferred.",
+      "Compensating control ≠ corrective control: the first replaces a measure that is impossible, the second repairs after an incident.",
+      "Accepting a risk beyond the appetite requires a decision from senior management, not from the SOC."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Four options: reduce, transfer, avoid, accept.",
+      "A control has a function (preventive, detective, corrective…) and a type (administrative, technical, physical).",
+      "The risk register tracks owners, treatments, residual risks and reviews."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m1c1-q17",
+      "m1c1-q18"
+     ]
+    }
+   ],
+   "illustration": "assets/illustrations/m1c1_l3_carrefour.svg",
+   "illustrationAlt": "Drawing of a signpost with four arrows: reduce, transfer, avoid, accept."
+  }
+ ]
+}
