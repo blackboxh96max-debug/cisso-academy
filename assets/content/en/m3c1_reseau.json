@@ -814,5 +814,482 @@
     }
    ]
   }
+ ],
+ "questions": [
+  {
+   "id": "m3c1-q01",
+   "prompt": "How many layers does the OSI model have?",
+   "choices": [
+    "9",
+    "5",
+    "4",
+    "7"
+   ],
+   "explanation": "Physical, data link, network, transport, session, presentation, application: 7 layers.",
+   "whyNot": {
+    "0": "The OSI model does not have 9 layers.",
+    "1": "Some textbooks use a hybrid 5-layer model, but OSI has 7.",
+    "2": "4 layers is the TCP/IP model."
+   }
+  },
+  {
+   "id": "m3c1-q02",
+   "prompt": "At which OSI layer does a classic switch mainly operate?",
+   "choices": [
+    "Layer 3, network (IP)",
+    "Layer 7, application",
+    "Layer 2, data link",
+    "Layer 1, physical (bits)"
+   ],
+   "explanation": "The switch forwards frames based on MAC addresses: layer 2.",
+   "whyNot": {
+    "0": "Layer 3 is the router's layer (IP addresses).",
+    "1": "Layer 7 is the layer of applications and WAFs.",
+    "3": "Layer 1 is the layer of hubs and cables."
+   }
+  },
+  {
+   "id": "m3c1-q03",
+   "prompt": "What is the data unit of layer 3 called?",
+   "choices": [
+    "The frame",
+    "The segment",
+    "The bit",
+    "The packet"
+   ],
+   "explanation": "Layer 3 = packet; layer 2 = frame; layer 4 = segment; layer 1 = bit.",
+   "whyNot": {
+    "0": "The frame belongs to layer 2.",
+    "1": "The segment belongs to layer 4.",
+    "2": "The bit belongs to layer 1."
+   }
+  },
+  {
+   "id": "m3c1-q04",
+   "prompt": "In the TCP/IP model, which OSI layers does the Application layer combine?",
+   "choices": [
+    "Only layer 7",
+    "Layers 5, 6 and 7",
+    "Layers 1 and 2",
+    "Layers 3 and 4"
+   ],
+   "explanation": "The OSI session, presentation and application layers are merged into the TCP/IP Application layer.",
+   "whyNot": {
+    "0": "Layers 5 and 6 are also included.",
+    "2": "Layers 1 and 2 form the Network Access layer.",
+    "3": "Layers 3 and 4 correspond to Internet and Transport."
+   }
+  },
+  {
+   "id": "m3c1-q05",
+   "prompt": "A packet-filtering firewall allows port 443. An HTTPS request contains a SQL injection. Why doesn't the firewall block it?",
+   "choices": [
+    "Because SQL injection acts on layer 1 and slips under the filtering",
+    "Because it works at layers 3 and 4 and does not analyze application content",
+    "Because port 443 is always safe and encrypted end to end",
+    "Because packet-filtering firewalls only inspect UDP traffic"
+   ],
+   "explanation": "Injection is a layer 7 attack: it takes an application-level control such as a WAF, which inspects the content after decryption.",
+   "whyNot": {
+    "0": "SQL injection is an application attack.",
+    "2": "A port guarantees nothing about the content.",
+    "3": "Firewalls also filter TCP."
+   }
+  },
+  {
+   "id": "m3c1-q06",
+   "prompt": "What is encapsulation?",
+   "choices": [
+    "File compression by the presentation layer",
+    "Removing IP addresses to hide the sender",
+    "Encrypting all the data before it is sent",
+    "Each layer adding its own header around the data"
+   ],
+   "explanation": "When sending, each layer adds its control information; when receiving, it removes it.",
+   "whyNot": {
+    "0": "Compression is a different process.",
+    "1": "On the contrary, layer 3 adds the IP addresses.",
+    "2": "Encapsulation does not involve encryption."
+   }
+  },
+  {
+   "id": "m3c1-q07",
+   "prompt": "Match correctly: which attacks belong to layer 2? (2 answers)",
+   "choices": [
+    "ARP spoofing",
+    "SYN flood",
+    "Flooding a switch's MAC table",
+    "SQL injection"
+   ],
+   "explanation": "ARP and MAC addresses belong to the data link layer.",
+   "whyNot": {
+    "1": "A SYN flood targets layer 4 (TCP).",
+    "3": "SQL injection is a layer 7 attack."
+   }
+  },
+  {
+   "id": "m3c1-q08",
+   "prompt": "Which device makes its forwarding decisions based on IP addresses?",
+   "choices": [
+    "The repeater",
+    "The hub",
+    "The switch",
+    "The router"
+   ],
+   "explanation": "The router connects different networks at layer 3, based on IP addresses.",
+   "whyNot": {
+    "0": "The repeater amplifies the signal (layer 1).",
+    "1": "The hub repeats the bits on all ports (layer 1).",
+    "2": "The switch uses MAC addresses (layer 2)."
+   }
+  },
+  {
+   "id": "m3c1-q09",
+   "prompt": "Which measure primarily protects the physical layer?",
+   "choices": [
+    "A web application firewall (WAF) at the front end",
+    "TLS encryption of all communications",
+    "DNSSEC on the internal resolvers",
+    "Access control to the premises and the network outlets"
+   ],
+   "explanation": "Layer 1 is protected by physical measures: access to the premises, cables, outlets.",
+   "whyNot": {
+    "0": "The WAF acts at layer 7.",
+    "1": "TLS acts above the transport layer.",
+    "2": "DNSSEC acts at layer 7."
+   }
+  },
+  {
+   "id": "m3c1-q10",
+   "prompt": "Which functions are traditionally associated with layer 6 (presentation) of the OSI model? (2 answers)",
+   "choices": [
+    "MAC addressing",
+    "Routing between networks",
+    "Data compression and encryption",
+    "Data format and encoding"
+   ],
+   "explanation": "The presentation layer handles how data is represented: encoding, compression, encryption.",
+   "whyNot": {
+    "0": "MAC addressing belongs to layer 2.",
+    "1": "Routing belongs to layer 3."
+   }
+  },
+  {
+   "id": "m3c1-q11",
+   "prompt": "What is the order of the TCP handshake?",
+   "choices": [
+    "HELLO, KEY, DONE",
+    "ACK, SYN, SYN-ACK",
+    "SYN, ACK, FIN",
+    "SYN, SYN-ACK, ACK"
+   ],
+   "explanation": "The client sends SYN, the server replies SYN-ACK, the client confirms with ACK.",
+   "whyNot": {
+    "0": "These are not TCP flags.",
+    "1": "The order is reversed.",
+    "2": "FIN is used to close a connection."
+   }
+  },
+  {
+   "id": "m3c1-q12",
+   "prompt": "Which protocol mainly uses UDP?",
+   "choices": [
+    "SMTP for sending email",
+    "DNS for ordinary queries",
+    "HTTPS for browsing",
+    "SSH for administration"
+   ],
+   "explanation": "Ordinary DNS queries use UDP 53; TCP 53 is used for large responses and zone transfers.",
+   "whyNot": {
+    "0": "SMTP uses TCP.",
+    "2": "HTTPS uses TCP 443 (and QUIC over UDP for HTTP/3, but the classic case is still TCP).",
+    "3": "SSH uses TCP 22."
+   }
+  },
+  {
+   "id": "m3c1-q13",
+   "prompt": "Which port does SSH use by default?",
+   "choices": [
+    "23",
+    "21",
+    "3389",
+    "22"
+   ],
+   "explanation": "SSH listens on TCP port 22.",
+   "whyNot": {
+    "0": "23 is Telnet, in cleartext.",
+    "1": "21 is the FTP command port.",
+    "2": "3389 is RDP."
+   }
+  },
+  {
+   "id": "m3c1-q14",
+   "prompt": "Which of these protocols sends credentials in cleartext?",
+   "choices": [
+    "HTTPS",
+    "Telnet",
+    "SNMPv3",
+    "SSH"
+   ],
+   "explanation": "Telnet encrypts nothing: a simple traffic analyzer reveals the credentials.",
+   "whyNot": {
+    "0": "HTTPS encrypts with TLS.",
+    "2": "SNMPv3 includes authentication and encryption.",
+    "3": "SSH encrypts the session."
+   }
+  },
+  {
+   "id": "m3c1-q15",
+   "prompt": "Why is ARP spoofing possible?",
+   "choices": [
+    "Because ARP accepts replies without authenticating them",
+    "Because ARP only works on the Internet, outside the local network",
+    "Because ARP encrypts frames poorly with a key that is too short",
+    "Because ARP uses port 443, which is open everywhere"
+   ],
+   "explanation": "ARP trusts the replies it receives; an attacker announces their MAC address for the gateway's IP and intercepts the traffic.",
+   "whyNot": {
+    "1": "ARP works on the local network.",
+    "2": "ARP encrypts nothing at all.",
+    "3": "ARP does not use a TCP or UDP port."
+   }
+  },
+  {
+   "id": "m3c1-q16",
+   "prompt": "What characterizes a SYN flood?",
+   "choices": [
+    "Spoofed DNS requests sent to a resolver",
+    "A fake ARP announcement for the gateway's address",
+    "Thousands of SYNs with no final ACK, which overwhelm the server",
+    "A password guessed by successive attempts"
+   ],
+   "explanation": "The server keeps every pending request in memory; it becomes saturated and can no longer accept real clients.",
+   "whyNot": {
+    "0": "That is DNS poisoning.",
+    "1": "That is ARP spoofing.",
+    "3": "That is a brute-force or dictionary attack."
+   }
+  },
+  {
+   "id": "m3c1-q17",
+   "prompt": "Which measures protect a local network against ARP spoofing and rogue DHCP servers? (2 answers)",
+   "choices": [
+    "Opening port 23",
+    "DHCP snooping",
+    "Disabling the switch logs",
+    "Dynamic ARP inspection on the switches"
+   ],
+   "explanation": "These switch features only accept ARP and DHCP replies from legitimate sources.",
+   "whyNot": {
+    "0": "Opening Telnet weakens security.",
+    "2": "Logs are needed for detection."
+   }
+  },
+  {
+   "id": "m3c1-q18",
+   "prompt": "What is egress filtering used for against IP spoofing?",
+   "choices": [
+    "Blocking outbound packets with a foreign source address",
+    "Automatically encrypting all traffic going out to the Internet",
+    "Blocking all inbound connections from the Internet to the internal network",
+    "Speeding up routing by dropping duplicate packets"
+   ],
+   "explanation": "Refusing foreign source addresses on the way out prevents your network from being used for spoofed attacks.",
+   "whyNot": {
+    "1": "Filtering encrypts nothing.",
+    "2": "That would be ingress filtering, and far too broad.",
+    "3": "That is not its purpose."
+   }
+  },
+  {
+   "id": "m3c1-q19",
+   "prompt": "A workstation sends thousands of DNS queries with long random subdomains to the same unknown domain. What should be suspected?",
+   "choices": [
+    "A speed test of the Internet connection",
+    "A printer fault that resends its requests in a loop",
+    "A DNS tunnel used to exfiltrate data or control the workstation",
+    "A normal operating system update"
+   ],
+   "explanation": "Long, random subdomains can encode data: it is a classic sign of a DNS tunnel.",
+   "whyNot": {
+    "0": "A speed test does not involve thousands of DNS queries.",
+    "1": "A printer does not produce this traffic.",
+    "3": "An update does not have this profile."
+   }
+  },
+  {
+   "id": "m3c1-q20",
+   "prompt": "Which service must never be exposed directly to the Internet?",
+   "choices": [
+    "An inbound mail server",
+    "A public website over HTTPS",
+    "SMB file sharing (port 445)",
+    "An internal DNS resolver reachable only internally"
+   ],
+   "explanation": "Exposed SMB is a classic entry point for worms and ransomware.",
+   "whyNot": {
+    "0": "An inbound mail server must be reachable, with its protections.",
+    "1": "A public site is meant to be exposed, over HTTPS.",
+    "3": "An internal resolver is precisely not exposed."
+   }
+  },
+  {
+   "id": "m3c1-q21",
+   "prompt": "What should replace Telnet for administering a server?",
+   "choices": [
+    "HTTP",
+    "FTP",
+    "SNMPv1",
+    "SSH"
+   ],
+   "explanation": "SSH provides an encrypted, authenticated administration channel.",
+   "whyNot": {
+    "0": "HTTP is in cleartext.",
+    "1": "FTP transfers files in cleartext.",
+    "2": "SNMPv1 is in cleartext."
+   }
+  },
+  {
+   "id": "m3c1-q22",
+   "prompt": "Which component of IPsec provides confidentiality?",
+   "choices": [
+    "IKE alone",
+    "AH",
+    "ESP",
+    "ICMP"
+   ],
+   "explanation": "ESP encrypts the payload (and protects its integrity); AH only provides integrity and authentication.",
+   "whyNot": {
+    "0": "IKE negotiates the keys but does not encrypt the traffic itself.",
+    "1": "AH does not encrypt.",
+    "3": "ICMP is a diagnostic protocol."
+   }
+  },
+  {
+   "id": "m3c1-q23",
+   "prompt": "Which IPsec mode is generally used for a site-to-site VPN between two gateways?",
+   "choices": [
+    "Tunnel mode",
+    "Passive mode",
+    "Broadcast mode",
+    "Transport mode"
+   ],
+   "explanation": "In tunnel mode, the original packet is fully encapsulated in a new packet between the gateways.",
+   "whyNot": {
+    "1": "This mode does not exist in IPsec.",
+    "2": "This mode does not exist in IPsec.",
+    "3": "Transport mode protects the payload from host to host."
+   }
+  },
+  {
+   "id": "m3c1-q24",
+   "prompt": "Why is AH incompatible with network address translation (NAT)?",
+   "choices": [
+    "Because AH encrypts the IP address, which NAT can no longer read",
+    "Because AH protects the integrity of part of the IP header, which NAT modifies",
+    "Because AH only works in IPv6, where NAT does not exist",
+    "Because AH uses port 445, which NAT devices block"
+   ],
+   "explanation": "NAT changes the IP address; AH's integrity check then fails.",
+   "whyNot": {
+    "0": "AH encrypts nothing.",
+    "2": "AH exists in both IPv4 and IPv6.",
+    "3": "AH does not use a port."
+   }
+  },
+  {
+   "id": "m3c1-q25",
+   "prompt": "What does DNSSEC provide?",
+   "choices": [
+    "Compression of domain names in responses",
+    "Integrity and authenticity of DNS responses through signatures",
+    "Removal of intermediate DNS servers",
+    "Confidentiality of DNS queries through encryption"
+   ],
+   "explanation": "DNSSEC signs the responses; it protects against poisoning but does not encrypt.",
+   "whyNot": {
+    "0": "DNSSEC compresses nothing.",
+    "2": "DNS servers are still needed.",
+    "3": "Confidentiality comes from DNS over TLS or HTTPS."
+   }
+  },
+  {
+   "id": "m3c1-q26",
+   "prompt": "Which mechanisms help prevent a company's domain name from being spoofed in emails? (2 answers)",
+   "choices": [
+    "DKIM",
+    "Telnet",
+    "DMARC with a reject policy",
+    "POP3"
+   ],
+   "explanation": "DKIM signs the domain's messages; DMARC enforces alignment and the policy to apply on failure (with SPF).",
+   "whyNot": {
+    "1": "Telnet has nothing to do with secure email.",
+    "3": "POP3 is used to retrieve mail, in cleartext."
+   }
+  },
+  {
+   "id": "m3c1-q27",
+   "prompt": "What does an SPF record publish?",
+   "choices": [
+    "The password of the domain's mailboxes",
+    "The domain's email retention policy",
+    "The list of servers allowed to send for the domain",
+    "The private key of the domain's mail server"
+   ],
+   "explanation": "SPF, published in DNS, lists the authorized sending sources.",
+   "whyNot": {
+    "0": "Passwords are never published.",
+    "1": "Retention falls under an internal policy.",
+    "3": "A private key is never published."
+   }
+  },
+  {
+   "id": "m3c1-q28",
+   "prompt": "Which protocol is SFTP built on?",
+   "choices": [
+    "SSH",
+    "TLS",
+    "SNMP",
+    "Telnet"
+   ],
+   "explanation": "SFTP runs inside an SSH channel; FTPS, on the other hand, adds TLS to FTP.",
+   "whyNot": {
+    "1": "FTPS is built on TLS, not SFTP.",
+    "2": "SNMP is used for monitoring.",
+    "3": "Telnet is in cleartext."
+   }
+  },
+  {
+   "id": "m3c1-q29",
+   "prompt": "Which configurations are recommended today? (2 answers)",
+   "choices": [
+    "TLS 1.2 or 1.3",
+    "SSL 3.0",
+    "SNMPv3",
+    "TLS 1.0"
+   ],
+   "explanation": "TLS 1.2 and 1.3 and SNMPv3 are the secure versions; SSL and TLS 1.0/1.1 are obsolete.",
+   "whyNot": {
+    "1": "SSL 3.0 is broken (POODLE attack).",
+    "3": "TLS 1.0 is obsolete and withdrawn."
+   }
+  },
+  {
+   "id": "m3c1-q30",
+   "prompt": "A message is encrypted with STARTTLS between the servers. Is it protected once stored in the recipient's mailbox?",
+   "choices": [
+    "No, because STARTTLS disables the DKIM signature of the stored message",
+    "Yes, STARTTLS encrypts the message end to end, all the way into the mailbox",
+    "No, STARTTLS only protects the transport, not the stored message",
+    "Yes, but only if the message contains an encrypted attachment"
+   ],
+   "explanation": "STARTTLS encrypts the connection; the message is in cleartext on each server. S/MIME or OpenPGP encrypt the content end to end.",
+   "whyNot": {
+    "0": "STARTTLS and DKIM are independent.",
+    "1": "STARTTLS protects the connection, not the stored content.",
+    "3": "Having an attachment changes nothing."
+   }
+  }
  ]
 }
