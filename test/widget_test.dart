@@ -58,7 +58,7 @@ void main() {
     await pumpApp(tester);
     await tester.tap(find.byTooltip('Menu'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('À propos de l\'application'));
+    await tester.tap(find.text('À propos'));
     await tester.pumpAndSettle();
     expect(find.text('Créée par $appAuthor'), findsOneWidget);
     expect(find.text(appAuthorTitle), findsOneWidget);
@@ -237,17 +237,16 @@ void main() {
     expect(find.byTooltip('Ouvrir le menu'), findsNothing);
     expect(find.text(appFooterText), findsOneWidget);
     await tester.tap(
-      find.descendant(
-        of: rail,
-        matching: find.byTooltip('À propos de l\'application'),
-      ),
+      find.descendant(of: rail, matching: find.byTooltip('À propos')),
     );
     await tester.pumpAndSettle();
     expect(find.text('Créée par $appAuthor'), findsOneWidget);
-    // « À propos de l'examen » ouvre la page À propos sur sa rubrique.
-    await tester.tap(
-      find.descendant(of: rail, matching: find.byTooltip(AppAction.exam.label)),
+    // L'examen est une rubrique d'À propos, pas une entrée du menu.
+    expect(
+      find.descendant(of: rail, matching: find.text('Examen')),
+      findsNothing,
     );
+    await tester.tap(find.text('L\'examen'));
     await tester.pumpAndSettle();
     expect(find.byKey(const Key('about-exam')), findsOneWidget);
     // Recherche et assistant s'ouvrent depuis le menu, à côté de lui.
