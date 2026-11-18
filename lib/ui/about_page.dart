@@ -509,6 +509,8 @@ const appNews = <(String, List<String>)>[
       'Cartes mentales du livre : mots-clés essentiels de chaque section, '
           'sans répétition.',
       'Préparation examen : séance du 18/11 (référentiels et cryptographie).',
+      'QCM cryptographie : 15 questions du quiz crypto de ta formation, '
+          'avec corrigé en anglais et en français.',
       '5 thèmes au choix et mode clair ou sombre.',
       'Menu de gauche toujours visible, réductible ou masquable.',
       'Menu de gauche : l\'entrée Examen est retirée, la rubrique L\'examen '
