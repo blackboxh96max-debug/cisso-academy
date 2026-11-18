@@ -984,5 +984,407 @@
     }
    ]
   }
+ ],
+ "questions": [
+  {
+   "id": "m5c5-q01",
+   "prompt": "What is the role of ENISA?",
+   "choices": [
+    "Voting on European directives",
+    "Advising, certifying and coordinating",
+    "Replacing the national CSIRTs",
+    "Directly sanctioning companies"
+   ],
+   "explanation": "ENISA advises, prepares the certification schemes and supports cooperation; it does not impose sanctions.",
+   "whyNot": {
+    "0": "It is the Parliament and the Council that adopt the texts.",
+    "2": "It supports their network without replacing them.",
+    "3": "National authorities are the ones that impose sanctions."
+   }
+  },
+  {
+   "id": "m5c5-q02",
+   "prompt": "Which network coordinates the management of large-scale cyber crises in the EU?",
+   "choices": [
+    "The European Data Protection Board",
+    "EU-CyCLONe",
+    "The CSIRTs network",
+    "The NIS Cooperation Group"
+   ],
+   "explanation": "EU-CyCLONe connects the member states' cyber crisis management authorities.",
+   "whyNot": {
+    "0": "It oversees the application of the GDPR.",
+    "2": "It handles technical cooperation.",
+    "3": "It provides strategic guidance."
+   }
+  },
+  {
+   "id": "m5c5-q03",
+   "prompt": "What are the assurance levels of European cybersecurity certification?",
+   "choices": [
+    "Basic, substantial, high",
+    "Divisions D, C, B, then A",
+    "Bronze, silver, gold and platinum",
+    "Levels EAL1 to EAL7"
+   ],
+   "explanation": "Regulation 2019/881 provides for three assurance levels.",
+   "whyNot": {
+    "1": "Those are the TCSEC divisions.",
+    "2": "These are not regulatory levels.",
+    "3": "Those are the Common Criteria levels."
+   }
+  },
+  {
+   "id": "m5c5-q04",
+   "prompt": "What does Regulation (EU) 2025/38 on cyber solidarity create?",
+   "choices": [
+    "An alert system and a reserve of service providers",
+    "An obligation to encrypt all data",
+    "A new data protection regime",
+    "Fines for device manufacturers"
+   ],
+   "explanation": "It creates a European alert system, an emergency mechanism with a reserve of trusted providers, and a review of incidents.",
+   "whyNot": {
+    "1": "It does not impose general encryption.",
+    "2": "That is the purpose of the GDPR.",
+    "3": "That is the purpose of the CRA."
+   }
+  },
+  {
+   "id": "m5c5-q05",
+   "prompt": "Who supervises and sanctions the entities subject to NIS 2?",
+   "choices": [
+    "ENISA, directly",
+    "The CSIRTs of other states",
+    "The European Commission alone",
+    "The competent national authorities"
+   ],
+   "explanation": "Each state designates its competent authorities, which supervise and impose sanctions.",
+   "whyNot": {
+    "0": "It advises and coordinates.",
+    "1": "They cooperate but do not supervise foreign entities.",
+    "2": "It does not directly supervise the entities."
+   }
+  },
+  {
+   "id": "m5c5-q06",
+   "prompt": "Which text targets the cybersecurity of entities in critical sectors such as energy and health?",
+   "choices": [
+    "The DORA regulation",
+    "The AI Act",
+    "The NIS 2 directive",
+    "The CRA regulation"
+   ],
+   "explanation": "NIS 2 covers the sectors listed in its Annexes I and II.",
+   "whyNot": {
+    "0": "It targets the financial sector.",
+    "1": "It targets AI systems.",
+    "3": "It targets digital products."
+   }
+  },
+  {
+   "id": "m5c5-q07",
+   "prompt": "What distinguishes an important entity from an essential entity under NIS 2?",
+   "choices": [
+    "An exemption from management liability",
+    "Completely different security obligations",
+    "Lighter supervision and lower fines",
+    "No incident notification at all"
+   ],
+   "explanation": "The measures are the same; supervision (after the fact) and the fine ceiling differ.",
+   "whyNot": {
+    "0": "Article 20 applies to both.",
+    "1": "The same Article 21 measures apply.",
+    "3": "They must also notify significant incidents."
+   }
+  },
+  {
+   "id": "m5c5-q08",
+   "prompt": "Since when has the DORA regulation applied?",
+   "choices": [
+    "Since December 11, 2027",
+    "Since October 18, 2024",
+    "Since May 25, 2018",
+    "Since January 17, 2025"
+   ],
+   "explanation": "DORA has applied since January 17, 2025.",
+   "whyNot": {
+    "0": "That is the main application date of the CRA.",
+    "1": "That is the application date of NIS 2.",
+    "2": "That is the application date of the GDPR."
+   }
+  },
+  {
+   "id": "m5c5-q09",
+   "prompt": "A bank is subject to both NIS 2 and DORA. Which text prevails for ICT risk management?",
+   "choices": [
+    "DORA, the sector-specific text",
+    "The CRA, the text on products",
+    "NIS 2, the most recent text",
+    "The GDPR, the oldest text"
+   ],
+   "explanation": "DORA is the sector-specific act: its requirements prevail for ICT risk and incidents.",
+   "whyNot": {
+    "1": "The CRA targets product manufacturers.",
+    "2": "NIS 2 actually predates the application of DORA; what matters is specificity.",
+    "3": "The GDPR targets personal data."
+   }
+  },
+  {
+   "id": "m5c5-q10",
+   "prompt": "What must a manufacturer guarantee under the Cyber Resilience Act?",
+   "choices": [
+    "Security updates during the support period",
+    "Cyber insurance for each product",
+    "A SOC open day and night",
+    "An ISO/IEC 27001 audit of its customers"
+   ],
+   "explanation": "The CRA requires security by design and security updates during the support period.",
+   "whyNot": {
+    "1": "It does not require insurance.",
+    "2": "It does not require a SOC.",
+    "3": "It does not target customers."
+   }
+  },
+  {
+   "id": "m5c5-q11",
+   "prompt": "Under NIS 2, within what time frame must the early warning of a significant incident be sent?",
+   "choices": [
+    "72 hours",
+    "24 hours",
+    "Seven days",
+    "One month"
+   ],
+   "explanation": "Early warning within 24 h, notification within 72 h, final report one month later.",
+   "whyNot": {
+    "0": "That is the incident notification.",
+    "2": "This deadline does not exist in NIS 2.",
+    "3": "That is the final report."
+   }
+  },
+  {
+   "id": "m5c5-q12",
+   "prompt": "When must the NIS 2 final report be submitted?",
+   "choices": [
+    "One month after the notification",
+    "Only if the authority asks for it",
+    "One week after the early warning",
+    "One year after the incident"
+   ],
+   "explanation": "Article 23 sets a final report no later than one month after the incident notification.",
+   "whyNot": {
+    "1": "It is the intermediate report that is submitted on request.",
+    "2": "This deadline is not provided for.",
+    "3": "Far too late."
+   }
+  },
+  {
+   "id": "m5c5-q13",
+   "prompt": "An intrusion steals personal data at a NIS 2 entity. What should be done?",
+   "choices": [
+    "Wait until the internal investigation is fully complete",
+    "Notify only the national CSIRT, within 24 hours",
+    "Warn only the customers whose data leaked",
+    "Notify the CSIRT and the data protection authority"
+   ],
+   "explanation": "Both texts apply: each has its own channel and deadlines (24/72 h and 72 h).",
+   "whyNot": {
+    "0": "The deadlines run from the moment you become aware of the incident.",
+    "1": "The GDPR also requires its own notification.",
+    "2": "The authority must be notified, and the individuals if the risk is high."
+   }
+  },
+  {
+   "id": "m5c5-q14",
+   "prompt": "Which of these measures appears explicitly in Article 21 of NIS 2?",
+   "choices": [
+    "A mandatory monthly external audit",
+    "Homomorphic encryption of databases",
+    "Supply chain security",
+    "EAL4 certification of all products"
+   ],
+   "explanation": "Point (d) covers supply chain security.",
+   "whyNot": {
+    "0": "No audit frequency is set in this way.",
+    "1": "No specific technique is imposed.",
+    "3": "No certification of this kind is imposed."
+   }
+  },
+  {
+   "id": "m5c5-q15",
+   "prompt": "A manufacturer discovers that a flaw in its product is being actively exploited. What does the CRA require?",
+   "choices": [
+    "An annual declaration to the Commission",
+    "An early warning within 24 hours through ENISA",
+    "Just a fix in the next release",
+    "No reporting if a fix exists"
+   ],
+   "explanation": "The CRA requires actively exploited vulnerabilities to be reported, through ENISA's single reporting platform.",
+   "whyNot": {
+    "0": "The deadline is much shorter.",
+    "2": "Reporting is mandatory and fast.",
+    "3": "Reporting remains mandatory."
+   }
+  },
+  {
+   "id": "m5c5-q16",
+   "prompt": "Which function did NIST CSF 2.0 add?",
+   "choices": [
+    "Protect",
+    "Govern",
+    "Detect",
+    "Recover"
+   ],
+   "explanation": "CSF 2.0 (2024) adds Govern to the five original functions.",
+   "whyNot": {
+    "0": "It already existed.",
+    "2": "It already existed.",
+    "3": "It already existed."
+   }
+  },
+  {
+   "id": "m5c5-q17",
+   "prompt": "Why build a mapping matrix between texts and measures?",
+   "choices": [
+    "To share measures and evidence across requirements",
+    "To replace the risk analysis",
+    "To obtain automatic certification",
+    "To avoid any incident notification"
+   ],
+   "explanation": "The same measure and the same evidence can meet several requirements.",
+   "whyNot": {
+    "1": "It does not replace it.",
+    "2": "No certification is automatic.",
+    "3": "Notifications remain mandatory."
+   }
+  },
+  {
+   "id": "m5c5-q18",
+   "prompt": "Is an ISO/IEC 27001 certified entity automatically compliant with NIS 2?",
+   "choices": [
+    "No, the scope and specific requirements must be checked",
+    "No, ISO/IEC 27001 is incompatible with NIS 2",
+    "Yes, if the certification is less than three years old",
+    "Yes, certification counts as compliance"
+   ],
+   "explanation": "Certification helps a lot, but the scope, notification deadlines and management liability are checked separately.",
+   "whyNot": {
+    "1": "On the contrary, it is a good foundation.",
+    "2": "The date changes nothing.",
+    "3": "No text provides for this."
+   }
+  },
+  {
+   "id": "m5c5-q19",
+   "prompt": "Which CISSO domain does the NIS 2 measure \"business continuity and crisis management\" correspond to?",
+   "choices": [
+    "Physical site security",
+    "Secure software development",
+    "Continuity and recovery (BCP, DRP)",
+    "Cryptography and PKI"
+   ],
+   "explanation": "Point (c) of Article 21 covers backups, disaster recovery and crisis management.",
+   "whyNot": {
+    "0": "It falls under the all-hazards approach, but not under this point.",
+    "1": "It corresponds to point (e).",
+    "3": "It corresponds to point (h)."
+   }
+  },
+  {
+   "id": "m5c5-q20",
+   "prompt": "What must management bodies do under Article 20 of NIS 2?",
+   "choices": [
+    "Approve and oversee the measures",
+    "Carry out the penetration tests themselves",
+    "Sign every incident notification",
+    "Delegate all security to the CISO"
+   ],
+   "explanation": "They approve the measures, oversee their implementation, receive training and can be held liable.",
+   "whyNot": {
+    "1": "That is not their role.",
+    "2": "Article 20 does not require it.",
+    "3": "Accountability cannot be fully delegated."
+   }
+  },
+  {
+   "id": "m5c5-q21",
+   "prompt": "What is the fine ceiling for an essential entity under NIS 2?",
+   "choices": [
+    "€1M or 0.5% of turnover",
+    "€20M or 4% of turnover",
+    "At least €7M or 1.4% of turnover",
+    "At least €10M or 2% of turnover"
+   ],
+   "explanation": "Whichever amount is higher applies; states can provide for more.",
+   "whyNot": {
+    "0": "This amount does not exist in NIS 2.",
+    "1": "That is the highest GDPR ceiling.",
+    "2": "That is the ceiling for important entities."
+   }
+  },
+  {
+   "id": "m5c5-q22",
+   "prompt": "Which obligation does NIS 2 impose on members of management bodies?",
+   "choices": [
+    "Taking a penetration test",
+    "Following a training course",
+    "Being on call for the SOC",
+    "Obtaining a CISSO certification"
+   ],
+   "explanation": "Article 20 requires training to understand and assess risks.",
+   "whyNot": {
+    "0": "That is not their role.",
+    "2": "It is not required.",
+    "3": "No specific certification is required."
+   }
+  },
+  {
+   "id": "m5c5-q23",
+   "prompt": "Which last-resort measure does NIS 2 allow against an essential entity?",
+   "choices": [
+    "Permanently closing the company",
+    "Seizing the entity's servers",
+    "Temporarily banning an executive",
+    "Revoking European citizenship"
+   ],
+   "explanation": "As a last resort, the authority can temporarily ban an executive from exercising management functions.",
+   "whyNot": {
+    "0": "NIS 2 does not provide for it.",
+    "1": "It is not a NIS 2 measure.",
+    "3": "That makes no legal sense here."
+   }
+  },
+  {
+   "id": "m5c5-q24",
+   "prompt": "Which change does NIS 2 bring most to the CISO's role?",
+   "choices": [
+    "Choosing the security budget alone",
+    "No longer managing incidents",
+    "Replacing the data protection officer",
+    "Reporting to an accountable management"
+   ],
+   "explanation": "Management becomes accountable: the CISO advises it, keeps it informed and has decisions approved.",
+   "whyNot": {
+    "0": "Management approves it.",
+    "1": "The CISO continues to run them.",
+    "2": "The two roles remain separate."
+   }
+  },
+  {
+   "id": "m5c5-q25",
+   "prompt": "What is the legal difference between NIS 2 and DORA?",
+   "choices": [
+    "Both must be transposed",
+    "Both apply directly",
+    "DORA is transposed, NIS 2 applies directly",
+    "NIS 2 is transposed, DORA applies directly"
+   ],
+   "explanation": "A directive is transposed into national law; a regulation applies as is.",
+   "whyNot": {
+    "0": "DORA is a regulation.",
+    "1": "NIS 2 is a directive.",
+    "2": "It is the other way around."
+   }
+  }
  ]
 }

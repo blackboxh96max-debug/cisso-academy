@@ -852,5 +852,479 @@
     }
    ]
   }
+ ],
+ "questions": [
+  {
+   "id": "m5c4-q01",
+   "prompt": "What is the absolute priority of physical security?",
+   "choices": [
+    "Cost reduction",
+    "Data confidentiality",
+    "Protecting the servers",
+    "The safety of people"
+   ],
+   "explanation": "When the two conflict, people come before property.",
+   "whyNot": {
+    "0": "That is not a security priority.",
+    "1": "Important, but after people.",
+    "2": "Important, but after people."
+   }
+  },
+  {
+   "id": "m5c4-q02",
+   "prompt": "Where is it best to place a server room in a building?",
+   "choices": [
+    "Against the glass facade, for the light",
+    "In the center of the building, with no windows",
+    "In the basement",
+    "Under the roof"
+   ],
+   "explanation": "Away from exterior walls, water and prying eyes.",
+   "whyNot": {
+    "0": "Exposed and visible.",
+    "2": "Risk of flooding.",
+    "3": "Leaks and heat."
+   }
+  },
+  {
+   "id": "m5c4-q03",
+   "prompt": "Why should the walls of a sensitive room go from the true floor to the true ceiling?",
+   "choices": [
+    "To improve the acoustics and soundproofing",
+    "So that no one can get in through the drop ceiling or the raised floor",
+    "To reduce the air conditioning electricity bill",
+    "To make it easier to run cables between rooms"
+   ],
+   "explanation": "A partition that stops at the drop ceiling leaves a way through above it.",
+   "whyNot": {
+    "0": "That is not the security goal.",
+    "2": "Unrelated.",
+    "3": "Unrelated."
+   }
+  },
+  {
+   "id": "m5c4-q04",
+   "prompt": "What does a fence or a lock do against a determined intruder?",
+   "choices": [
+    "It calls the police directly as soon as they touch it",
+    "It delays them, hence the need to detect and respond",
+    "It detects them automatically and sets off the alarm",
+    "It stops them for certain, whatever their means"
+   ],
+   "explanation": "Every barrier eventually gives way; it must be paired with detection and response.",
+   "whyNot": {
+    "0": "Absurd.",
+    "2": "That is the role of a sensor.",
+    "3": "No barrier is impassable."
+   }
+  },
+  {
+   "id": "m5c4-q05",
+   "prompt": "What are bollards placed in front of an entrance used for?",
+   "choices": [
+    "Preventing a vehicle from ramming the entrance or the facade",
+    "Checking the badges of people coming in",
+    "Lighting the entrance and its surroundings at night",
+    "Detecting intruders on foot walking along the facade"
+   ],
+   "explanation": "They protect against vehicle-ramming attacks and accidents.",
+   "whyNot": {
+    "1": "That is a badge reader.",
+    "2": "That is the lighting.",
+    "3": "They detect nothing."
+   }
+  },
+  {
+   "id": "m5c4-q06",
+   "prompt": "Trimming the hedges and lighting the entrance so that everyone can see who approaches falls under which CPTED strategy?",
+   "choices": [
+    "Territorial reinforcement",
+    "Natural surveillance",
+    "Logical access control",
+    "Active defense"
+   ],
+   "explanation": "Seeing and being seen discourages malicious behavior.",
+   "whyNot": {
+    "0": "It consists of marking out private space.",
+    "2": "Unrelated to site design.",
+    "3": "It is not a CPTED strategy."
+   }
+  },
+  {
+   "id": "m5c4-q07",
+   "prompt": "Which of these are CPTED strategies? (several answers)",
+   "choices": [
+    "Territorial reinforcement",
+    "Natural access control",
+    "Maintenance of the premises",
+    "Disk encryption"
+   ],
+   "explanation": "Together with natural surveillance, these are the main strategies.",
+   "whyNot": {
+    "3": "A logical measure, unrelated to site design."
+   }
+  },
+  {
+   "id": "m5c4-q08",
+   "prompt": "A data center has a fence, a reception desk with badges, a mantrap for the room and locked racks. Which principle is applied?",
+   "choices": [
+    "Logical least privilege",
+    "Security through obscurity",
+    "Separation of duties",
+    "Defense in depth"
+   ],
+   "explanation": "Several independent layers, from the perimeter to the rack.",
+   "whyNot": {
+    "0": "It concerns access rights.",
+    "1": "It relies only on secrecy.",
+    "2": "It concerns how tasks are split."
+   }
+  },
+  {
+   "id": "m5c4-q09",
+   "prompt": "Which criteria matter when choosing a site for a data center? (several answers)",
+   "choices": [
+    "Proximity to emergency services",
+    "Several independent power and telecom feeds",
+    "The natural hazards of the area",
+    "A large sign visible from the road"
+   ],
+   "explanation": "Discretion is also part of good practice.",
+   "whyNot": {
+    "3": "It draws attention to a target."
+   }
+  },
+  {
+   "id": "m5c4-q10",
+   "prompt": "According to the benchmarks often cited in textbooks, which fence targets a determined intruder?",
+   "choices": [
+    "A line painted on the ground with a sign",
+    "About 1 m (3 to 4 ft), with no barbed wire",
+    "About 2.4 m (8 ft) topped with barbed wire",
+    "A simple, well-kept hedge"
+   ],
+   "explanation": "About 1 m deters casual passersby; about 2 m is hard to climb; about 2.4 m with barbed wire targets the determined intruder.",
+   "whyNot": {
+    "0": "It stops no one.",
+    "1": "It only deters casual passersby.",
+    "3": "It marks a territory, without slowing anyone down."
+   }
+  },
+  {
+   "id": "m5c4-q11",
+   "prompt": "Which two-door device, of which only one door opens at a time, prevents someone from following an authorized person?",
+   "choices": [
+    "The magnetic contact",
+    "The dome camera",
+    "The mantrap",
+    "The parking turnstile"
+   ],
+   "explanation": "Each person must identify themselves alone to get through.",
+   "whyNot": {
+    "0": "It detects an opening.",
+    "1": "It watches without blocking.",
+    "3": "It controls vehicles."
+   }
+  },
+  {
+   "id": "m5c4-q12",
+   "prompt": "What is it called when someone enters behind an authorized person without that person noticing?",
+   "choices": [
+    "Privilege escalation",
+    "Tailgating",
+    "Phishing",
+    "Natural surveillance"
+   ],
+   "explanation": "Piggybacking often refers to the same act done with the person's consent.",
+   "whyNot": {
+    "0": "A logical attack.",
+    "2": "An attack by message.",
+    "3": "A CPTED strategy."
+   }
+  },
+  {
+   "id": "m5c4-q13",
+   "prompt": "Which physical security measure is the most flexible in an unforeseen situation?",
+   "choices": [
+    "The key lock",
+    "The magnetic contact",
+    "The security guard",
+    "The fence"
+   ],
+   "explanation": "Human judgment allows them to deter, detect, assess and respond.",
+   "whyNot": {
+    "0": "Fixed.",
+    "1": "It only detects.",
+    "3": "Fixed."
+   }
+  },
+  {
+   "id": "m5c4-q14",
+   "prompt": "What advantage does a badge system have over key locks?",
+   "choices": [
+    "It is free and requires no maintenance",
+    "It can never be lent to a colleague",
+    "A log of entries and immediate revocation",
+    "It works even without electricity"
+   ],
+   "explanation": "You know who went through, and a lost badge can be disabled right away.",
+   "whyNot": {
+    "0": "It has a cost.",
+    "1": "A badge can be lent.",
+    "3": "It needs power."
+   }
+  },
+  {
+   "id": "m5c4-q15",
+   "prompt": "An emergency exit door is fitted with an electric lock. What should it do if the power is cut?",
+   "choices": [
+    "Unlock (fail-safe)",
+    "Lock every door in the building",
+    "Stay locked (fail-secure)",
+    "Set off the sprinkler"
+   ],
+   "explanation": "People must be able to get out: human life comes first.",
+   "whyNot": {
+    "1": "Dangerous.",
+    "2": "Suits a safe, not an exit.",
+    "3": "Unrelated."
+   }
+  },
+  {
+   "id": "m5c4-q16",
+   "prompt": "For which door is a fail-secure mode the most suitable?",
+   "choices": [
+    "The main door of a lobby open to the public",
+    "The emergency exit of an open-plan office",
+    "The door of a server rack",
+    "A stairwell door"
+   ],
+   "explanation": "No one needs to go through it to evacuate; it protects an asset.",
+   "whyNot": {
+    "0": "It must allow evacuation.",
+    "1": "It must be fail-safe.",
+    "3": "An evacuation route."
+   }
+  },
+  {
+   "id": "m5c4-q17",
+   "prompt": "Which practice is expected for a visitor in a sensitive area?",
+   "choices": [
+    "They receive the same badge as the staff",
+    "They are left alone in the server room to save time",
+    "They move around freely if they have signed the register",
+    "They are escorted from the beginning to the end of the visit"
+   ],
+   "explanation": "Register, a distinct visitor badge, escort, and return of the badge.",
+   "whyNot": {
+    "0": "The badge must be distinct.",
+    "1": "Contrary to the escort rule.",
+    "2": "The register is not enough."
+   }
+  },
+  {
+   "id": "m5c4-q18",
+   "prompt": "Which sensor detects the heat of a person moving around a room?",
+   "choices": [
+    "The glass-break detector",
+    "The badge reader",
+    "Passive infrared",
+    "The magnetic contact"
+   ],
+   "explanation": "It reacts to changes in infrared radiation.",
+   "whyNot": {
+    "0": "It detects an impact or a sound.",
+    "1": "It identifies; it does not detect.",
+    "3": "It detects a door opening."
+   }
+  },
+  {
+   "id": "m5c4-q19",
+   "prompt": "Which conditions make video surveillance useful? (several answers)",
+   "choices": [
+    "The cameras are hidden in the restrooms",
+    "The recordings are kept and protected",
+    "The footage is watched or analyzed",
+    "The people being filmed are informed"
+   ],
+   "explanation": "It deters, helps with assessment and provides evidence, while respecting privacy.",
+   "whyNot": {
+    "0": "A serious invasion of privacy."
+   }
+  },
+  {
+   "id": "m5c4-q20",
+   "prompt": "An alarm goes off at night, but no one is assigned to respond to it. Which link is missing?",
+   "choices": [
+    "Response",
+    "Deterrence",
+    "Delay",
+    "Detection"
+   ],
+   "explanation": "Detecting without responding protects nothing.",
+   "whyNot": {
+    "1": "Present or not, it does not make up for it.",
+    "2": "Same problem.",
+    "3": "The alarm did detect."
+   }
+  },
+  {
+   "id": "m5c4-q21",
+   "prompt": "Which device supplies power for a few minutes during an outage?",
+   "choices": [
+    "The line conditioner",
+    "The surge protector",
+    "The uninterruptible power supply (UPS)",
+    "The smoke detector"
+   ],
+   "explanation": "Long enough to shut down cleanly or start the generator.",
+   "whyNot": {
+    "0": "It smooths the voltage.",
+    "1": "It absorbs surges.",
+    "3": "Unrelated."
+   }
+  },
+  {
+   "id": "m5c4-q22",
+   "prompt": "What is a prolonged undervoltage called?",
+   "choices": [
+    "A brownout",
+    "A blackout",
+    "A spike",
+    "An inrush"
+   ],
+   "explanation": "A sag is a brief undervoltage.",
+   "whyNot": {
+    "1": "A prolonged total loss.",
+    "2": "A brief overvoltage.",
+    "3": "A peak at startup."
+   }
+  },
+  {
+   "id": "m5c4-q23",
+   "prompt": "Which anomaly corresponds to a short total loss of power?",
+   "choices": [
+    "The sag",
+    "The fault",
+    "The surge (prolonged overvoltage)",
+    "The blackout"
+   ],
+   "explanation": "A blackout is a prolonged total loss.",
+   "whyNot": {
+    "0": "An undervoltage, not a total loss.",
+    "2": "An overvoltage.",
+    "3": "Prolonged."
+   }
+  },
+  {
+   "id": "m5c4-q24",
+   "prompt": "What risk does humidity that is too low pose in a server room?",
+   "choices": [
+    "Flooding under the raised floor",
+    "Corrosion of components",
+    "Static electricity",
+    "Condensation on the racks"
+   ],
+   "explanation": "Too humid: condensation and corrosion.",
+   "whyNot": {
+    "0": "Unrelated.",
+    "1": "Linked to humidity that is too high.",
+    "3": "Linked to humidity that is too high."
+   }
+  },
+  {
+   "id": "m5c4-q25",
+   "prompt": "Why maintain positive air pressure in a server room?",
+   "choices": [
+    "When the door opens, air flows out and dust or smoke does not get in",
+    "To put out a starting fire by driving the oxygen out of the room",
+    "To reduce fan noise in the neighboring offices",
+    "To cool the processors faster thanks to a stronger airflow"
+   ],
+   "explanation": "Contaminants are pushed outward.",
+   "whyNot": {
+    "1": "It is not a means of extinguishing.",
+    "2": "Unrelated.",
+    "3": "That is not the goal."
+   }
+  },
+  {
+   "id": "m5c4-q26",
+   "prompt": "Which type of sprinkler is generally recommended for a server room?",
+   "choices": [
+    "Pre-action",
+    "Wet pipe with no detection",
+    "None, it is left to burn",
+    "Deluge"
+   ],
+   "explanation": "Water only enters the pipes after detection, which limits accidental discharges.",
+   "whyNot": {
+    "1": "Greater risk of water damage.",
+    "2": "Absurd.",
+    "3": "It releases a lot of water everywhere."
+   }
+  },
+  {
+   "id": "m5c4-q27",
+   "prompt": "In the United States, which agent must never be used on a Class C fire?",
+   "choices": [
+    "Water",
+    "CO2",
+    "A gaseous agent",
+    "A suitable dry chemical"
+   ],
+   "explanation": "In the U.S., Class C refers to energized electrical equipment. In Europe, the letter C refers to gas fires.",
+   "whyNot": {
+    "1": "Suitable.",
+    "2": "Suitable.",
+    "3": "Suitable."
+   }
+  },
+  {
+   "id": "m5c4-q28",
+   "prompt": "Why is halon no longer installed in new rooms?",
+   "choices": [
+    "It is banned only in France, not in the rest of the world",
+    "It is ineffective against fires in electrical equipment",
+    "It conducts electricity and causes short circuits",
+    "It depletes the ozone layer (Montreal Protocol)"
+   ],
+   "explanation": "It is replaced by FM-200 or inert gases such as Inergen.",
+   "whyNot": {
+    "0": "An international agreement.",
+    "1": "It is very effective.",
+    "2": "False."
+   }
+  },
+  {
+   "id": "m5c4-q29",
+   "prompt": "What is the main danger of a CO2 fire suppression system?",
+   "choices": [
+    "It depletes the ozone layer",
+    "It does not work on electrical fires",
+    "It can asphyxiate the people present",
+    "It damages electronics with water"
+   ],
+   "explanation": "Reserved for unoccupied rooms or with prior evacuation.",
+   "whyNot": {
+    "0": "That is halon.",
+    "1": "It is suitable for electrical fires.",
+    "3": "It is not water."
+   }
+  },
+  {
+   "id": "m5c4-q30",
+   "prompt": "Which measures improve the power availability of a data center? (several answers)",
+   "choices": [
+    "A UPS",
+    "A deluge sprinkler",
+    "A generator that is tested regularly",
+    "Two independent power feeds"
+   ],
+   "explanation": "The UPS covers minutes, the generator covers hours, and the dual feed avoids a single point of failure.",
+   "whyNot": {
+    "1": "Fire protection, not power."
+   }
+  }
  ]
 }
