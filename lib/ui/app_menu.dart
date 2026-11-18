@@ -109,7 +109,10 @@ class ShellMenuButton extends StatelessWidget {
     final open = context
         .dependOnInheritedWidgetOfExactType<ShellScope>()
         ?.openMenu;
-    return open == null ? null : ShellMenuButton(onPressed: open);
+    // Dans une page ouverte depuis un écran principal, l'AppBar garde son
+    // bouton retour.
+    final first = ModalRoute.of(context)?.isFirst ?? true;
+    return open == null || !first ? null : ShellMenuButton(onPressed: open);
   }
 
   @override
