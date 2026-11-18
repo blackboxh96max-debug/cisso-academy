@@ -450,6 +450,569 @@
    "advice": "Révise les réponses anglaises en premier, puis utilise les traductions françaises pour vérifier que tu as bien compris. C'est la meilleure façon de te préparer à des questions d'examen formulées différemment."
   },
   {
+   "id": "prep-2026-11-18-crypto",
+   "date": "2026-11-18",
+   "title": {
+    "en": "Cryptography Quiz",
+    "fr": "Quiz cryptographie"
+   },
+   "source": "Questions de la formation de l'apprenant",
+   "parts": [
+    {
+     "title": {
+      "en": "MILE2 Crypto Quiz (questions 1-15)",
+      "fr": "Quiz crypto MILE2 (questions 1 à 15)"
+     },
+     "questions": [
+      {
+       "id": "prep-2026-11-18-crypto-q01",
+       "chapterId": "m2c2",
+       "prompt": {
+        "en": "Which term describes readable data before encryption?",
+        "fr": "Quel terme désigne les données lisibles avant le chiffrement ?"
+       },
+       "choices": [
+        {
+         "en": "Ciphertext",
+         "fr": "Texte chiffré"
+        },
+        {
+         "en": "Plaintext",
+         "fr": "Texte clair"
+        },
+        {
+         "en": "Digest",
+         "fr": "Empreinte (digest)"
+        },
+        {
+         "en": "Certificate",
+         "fr": "Certificat"
+        }
+       ],
+       "correct": 1,
+       "explanation": {
+        "en": "Plaintext is the readable data before encryption; encryption turns it into ciphertext. A digest is the output of a hash function, and a certificate binds a public key to an identity.",
+        "fr": "Le texte clair (plaintext) est la donnée lisible avant chiffrement ; le chiffrement la transforme en texte chiffré (ciphertext). Le digest est le résultat d'un hachage et le certificat lie une clé publique à une identité."
+       }
+      },
+      {
+       "id": "prep-2026-11-18-crypto-q02",
+       "chapterId": "m2c2",
+       "prompt": {
+        "en": "Which type of cryptography uses the same key for encryption and decryption?",
+        "fr": "Quel type de cryptographie utilise la même clé pour le chiffrement et le déchiffrement ?"
+       },
+       "choices": [
+        {
+         "en": "Asymmetric cryptography",
+         "fr": "Cryptographie asymétrique"
+        },
+        {
+         "en": "Symmetric cryptography",
+         "fr": "Cryptographie symétrique"
+        },
+        {
+         "en": "Hashing",
+         "fr": "Hachage"
+        },
+        {
+         "en": "Digital signatures",
+         "fr": "Signatures numériques"
+        }
+       ],
+       "correct": 1,
+       "explanation": {
+        "en": "Symmetric cryptography uses one shared secret key to encrypt and decrypt. Asymmetric cryptography uses a key pair, hashing uses no key, and signatures rely on the private key.",
+        "fr": "La cryptographie symétrique utilise une seule clé secrète partagée pour chiffrer et déchiffrer. L'asymétrique utilise une paire de clés, le hachage n'utilise pas de clé et la signature repose sur la clé privée."
+       }
+      },
+      {
+       "id": "prep-2026-11-18-crypto-q03",
+       "chapterId": "m2c2",
+       "prompt": {
+        "en": "What is the main challenge of symmetric encryption?",
+        "fr": "Quel est le principal défi du chiffrement symétrique ?"
+       },
+       "choices": [
+        {
+         "en": "It cannot encrypt large data",
+         "fr": "Il ne peut pas chiffrer de gros volumes de données"
+        },
+        {
+         "en": "It requires secure key distribution",
+         "fr": "Il nécessite une distribution sécurisée des clés"
+        },
+        {
+         "en": "It is always slower than asymmetric encryption",
+         "fr": "Il est toujours plus lent que le chiffrement asymétrique"
+        },
+        {
+         "en": "It does not use algorithms",
+         "fr": "Il n'utilise pas d'algorithmes"
+        }
+       ],
+       "correct": 1,
+       "explanation": {
+        "en": "Both parties must share the same secret key, so getting it to them securely is the main challenge. Symmetric encryption is in fact fast and well suited to large volumes.",
+        "fr": "Les deux parties doivent partager la même clé secrète : la leur transmettre de façon sûre est le principal défi. Le chiffrement symétrique est au contraire rapide et adapté aux gros volumes."
+       }
+      },
+      {
+       "id": "prep-2026-11-18-crypto-q04",
+       "chapterId": "m2c2",
+       "prompt": {
+        "en": "Which cryptographic method uses a public key and a private key?",
+        "fr": "Quelle méthode cryptographique utilise une clé publique et une clé privée ?"
+       },
+       "choices": [
+        {
+         "en": "Symmetric encryption",
+         "fr": "Chiffrement symétrique"
+        },
+        {
+         "en": "Asymmetric encryption",
+         "fr": "Chiffrement asymétrique"
+        },
+        {
+         "en": "Hashing",
+         "fr": "Hachage"
+        },
+        {
+         "en": "XOR only",
+         "fr": "XOR uniquement"
+        }
+       ],
+       "correct": 1,
+       "explanation": {
+        "en": "Asymmetric (public key) encryption uses a mathematically linked key pair: what one key encrypts, only the other can decrypt.",
+        "fr": "Le chiffrement asymétrique (à clé publique) utilise une paire de clés liées mathématiquement : ce que l'une chiffre, seule l'autre peut le déchiffrer."
+       }
+      },
+      {
+       "id": "prep-2026-11-18-crypto-q05",
+       "chapterId": "m2c2",
+       "prompt": {
+        "en": "Which key must be protected in asymmetric cryptography?",
+        "fr": "Quelle clé doit être protégée en cryptographie asymétrique ?"
+       },
+       "choices": [
+        {
+         "en": "Public key",
+         "fr": "Clé publique"
+        },
+        {
+         "en": "Private key",
+         "fr": "Clé privée"
+        },
+        {
+         "en": "Certificate serial number",
+         "fr": "Numéro de série du certificat"
+        },
+        {
+         "en": "Hash value",
+         "fr": "Valeur de hachage"
+        }
+       ],
+       "correct": 1,
+       "explanation": {
+        "en": "The private key stays secret with its owner; the public key is meant to be shared, for example in a certificate.",
+        "fr": "La clé privée reste secrète chez son propriétaire ; la clé publique est faite pour être diffusée, par exemple dans un certificat."
+       }
+      },
+      {
+       "id": "prep-2026-11-18-crypto-q06",
+       "chapterId": "m2c2",
+       "prompt": {
+        "en": "What is the main purpose of hashing?",
+        "fr": "Quel est le but principal du hachage ?"
+       },
+       "choices": [
+        {
+         "en": "Confidentiality",
+         "fr": "Confidentialité"
+        },
+        {
+         "en": "Integrity",
+         "fr": "Intégrité"
+        },
+        {
+         "en": "Key exchange",
+         "fr": "Échange de clés"
+        },
+        {
+         "en": "Traffic routing",
+         "fr": "Routage du trafic"
+        }
+       ],
+       "correct": 1,
+       "explanation": {
+        "en": "A hash produces a fixed-size fingerprint: any change to the data changes the hash, which reveals the modification. Hashing does not hide the data.",
+        "fr": "Le hachage produit une empreinte de taille fixe : toute modification des données change l'empreinte, ce qui la révèle. Il ne cache pas les données."
+       }
+      },
+      {
+       "id": "prep-2026-11-18-crypto-q07",
+       "chapterId": "m2c2",
+       "prompt": {
+        "en": "Which statement best describes hashing?",
+        "fr": "Quelle affirmation décrit le mieux le hachage ?"
+       },
+       "choices": [
+        {
+         "en": "Hashing is reversible with the right key",
+         "fr": "Le hachage est réversible avec la bonne clé"
+        },
+        {
+         "en": "Hashing uses public and private keys",
+         "fr": "Le hachage utilise des clés publiques et privées"
+        },
+        {
+         "en": "Hashing is a one-way process",
+         "fr": "Le hachage est un processus à sens unique"
+        },
+        {
+         "en": "Hashing is used only for wireless networks",
+         "fr": "Le hachage n'est utilisé que pour les réseaux sans fil"
+        }
+       ],
+       "correct": 2,
+       "explanation": {
+        "en": "Hashing is one-way: the original data cannot be recovered from the hash, and no key is involved. Reversibility with a key describes encryption.",
+        "fr": "Le hachage est à sens unique : on ne retrouve pas les données à partir de l'empreinte, et aucune clé n'intervient. La réversibilité avec une clé, c'est le chiffrement."
+       }
+      },
+      {
+       "id": "prep-2026-11-18-crypto-q08",
+       "chapterId": "m2c2",
+       "prompt": {
+        "en": "Which technology binds a public key to an identity?",
+        "fr": "Quelle technologie lie une clé publique à une identité ?"
+       },
+       "choices": [
+        {
+         "en": "Digital certificate",
+         "fr": "Certificat numérique"
+        },
+        {
+         "en": "Stream cipher",
+         "fr": "Chiffrement par flot"
+        },
+        {
+         "en": "Salt",
+         "fr": "Sel"
+        },
+        {
+         "en": "Initialization vector",
+         "fr": "Vecteur d'initialisation"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "A digital certificate (X.509) contains the public key and its owner's identity, signed by a certificate authority. A salt and an IV add randomness, and a stream cipher encrypts bit by bit.",
+        "fr": "Le certificat numérique (X.509) contient la clé publique et l'identité de son titulaire, signés par une autorité de certification. Le sel et l'IV ajoutent de l'aléa, et le chiffrement par flot chiffre bit à bit."
+       }
+      },
+      {
+       "id": "prep-2026-11-18-crypto-q09",
+       "chapterId": "m2c2",
+       "prompt": {
+        "en": "What is the role of a certificate authority?",
+        "fr": "Quel est le rôle d'une autorité de certification ?"
+       },
+       "choices": [
+        {
+         "en": "Encrypt all network traffic",
+         "fr": "Chiffrer tout le trafic réseau"
+        },
+        {
+         "en": "Issue and sign digital certificates",
+         "fr": "Délivrer et signer des certificats numériques"
+        },
+        {
+         "en": "Store all user passwords",
+         "fr": "Stocker tous les mots de passe des utilisateurs"
+        },
+        {
+         "en": "Replace firewalls",
+         "fr": "Remplacer les pare-feu"
+        }
+       ],
+       "correct": 1,
+       "explanation": {
+        "en": "The CA verifies identities, then issues and signs certificates; it also revokes them (CRL, OCSP). It does not encrypt traffic or store passwords.",
+        "fr": "L'autorité de certification (CA) vérifie l'identité, puis délivre et signe les certificats ; elle les révoque aussi (CRL, OCSP). Elle ne chiffre pas le trafic et ne stocke pas de mots de passe."
+       }
+      },
+      {
+       "id": "prep-2026-11-18-crypto-q10",
+       "chapterId": "m2c2",
+       "prompt": {
+        "en": "Which system combines symmetric and asymmetric cryptography?",
+        "fr": "Quel système combine la cryptographie symétrique et asymétrique ?"
+       },
+       "choices": [
+        {
+         "en": "Hybrid cryptosystem",
+         "fr": "Système cryptographique hybride"
+        },
+        {
+         "en": "Hash-only system",
+         "fr": "Système uniquement à hachage"
+        },
+        {
+         "en": "Plaintext system",
+         "fr": "Système en texte clair"
+        },
+        {
+         "en": "Physical access system",
+         "fr": "Système d'accès physique"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "A hybrid cryptosystem uses asymmetric cryptography to exchange a session key, then symmetric encryption for the data, as in TLS.",
+        "fr": "Un système hybride utilise l'asymétrique pour échanger une clé de session, puis le symétrique pour chiffrer les données, comme TLS."
+       }
+      },
+      {
+       "id": "prep-2026-11-18-crypto-q11",
+       "chapterId": "m2c2",
+       "prompt": {
+        "en": "Which algorithm is a modern symmetric encryption standard?",
+        "fr": "Quel algorithme est un standard moderne de chiffrement symétrique ?"
+       },
+       "choices": [
+        {
+         "en": "AES",
+         "fr": "AES"
+        },
+        {
+         "en": "MD5",
+         "fr": "MD5"
+        },
+        {
+         "en": "RSA",
+         "fr": "RSA"
+        },
+        {
+         "en": "SHA-1",
+         "fr": "SHA-1"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "AES (Advanced Encryption Standard) is the current symmetric standard, with 128-, 192- or 256-bit keys. MD5 and SHA-1 are hash functions, and RSA is asymmetric.",
+        "fr": "AES (Advanced Encryption Standard) est le standard symétrique actuel, avec des clés de 128, 192 ou 256 bits. MD5 et SHA-1 sont des fonctions de hachage, RSA est asymétrique."
+       }
+      },
+      {
+       "id": "prep-2026-11-18-crypto-q12",
+       "chapterId": "m2c2",
+       "prompt": {
+        "en": "Which of the following is an asymmetric algorithm?",
+        "fr": "Lequel des algorithmes suivants est asymétrique ?"
+       },
+       "choices": [
+        {
+         "en": "AES",
+         "fr": "AES"
+        },
+        {
+         "en": "DES",
+         "fr": "DES"
+        },
+        {
+         "en": "RSA",
+         "fr": "RSA"
+        },
+        {
+         "en": "RC4",
+         "fr": "RC4"
+        }
+       ],
+       "correct": 2,
+       "explanation": {
+        "en": "RSA is asymmetric, based on the difficulty of factoring large numbers. AES and DES are symmetric block ciphers, and RC4 is a symmetric stream cipher.",
+        "fr": "RSA est asymétrique, fondé sur la difficulté de factoriser de grands nombres. AES et DES sont des chiffrements symétriques par blocs, RC4 un chiffrement symétrique par flot."
+       }
+      },
+      {
+       "id": "prep-2026-11-18-crypto-q13",
+       "chapterId": "m2c2",
+       "prompt": {
+        "en": "What does a digital signature provide?",
+        "fr": "Que fournit une signature numérique ?"
+       },
+       "choices": [
+        {
+         "en": "Confidentiality only",
+         "fr": "La confidentialité uniquement"
+        },
+        {
+         "en": "Authentication, integrity and non-repudiation",
+         "fr": "L'authentification, l'intégrité et la non-répudiation"
+        },
+        {
+         "en": "Faster routing",
+         "fr": "Un routage plus rapide"
+        },
+        {
+         "en": "Physical access control",
+         "fr": "Le contrôle d'accès physique"
+        }
+       ],
+       "correct": 1,
+       "explanation": {
+        "en": "The sender signs the hash with their private key: the signature proves the origin (authentication), detects any change (integrity) and prevents denial (non-repudiation). It does not provide confidentiality.",
+        "fr": "L'émetteur signe l'empreinte avec sa clé privée : la signature prouve l'origine (authentification), détecte toute modification (intégrité) et empêche de nier (non-répudiation). Elle n'apporte pas la confidentialité."
+       }
+      },
+      {
+       "id": "prep-2026-11-18-crypto-q14",
+       "chapterId": "m2c4",
+       "prompt": {
+        "en": "Which attack captures valid data and sends it again later?",
+        "fr": "Quelle attaque capture des données valides pour les renvoyer plus tard ?"
+       },
+       "choices": [
+        {
+         "en": "Replay attack",
+         "fr": "Attaque par rejeu"
+        },
+        {
+         "en": "Birthday attack",
+         "fr": "Attaque des anniversaires"
+        },
+        {
+         "en": "Brute-force attack",
+         "fr": "Attaque par force brute"
+        },
+        {
+         "en": "Fault tree attack",
+         "fr": "Attaque par arbre de défaillance"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "A replay attack resends captured valid data, such as an authentication exchange. Timestamps, nonces and sequence numbers counter it. The birthday attack looks for hash collisions and brute force tries every key.",
+        "fr": "L'attaque par rejeu (replay) renvoie des données valides capturées, par exemple un échange d'authentification. Horodatage, nonces et numéros de séquence la contrent. L'attaque des anniversaires cherche des collisions de hachage et la force brute essaie toutes les clés."
+       }
+      },
+      {
+       "id": "prep-2026-11-18-crypto-q15",
+       "chapterId": "m2c4",
+       "prompt": {
+        "en": "Which term describes the ability to replace cryptographic algorithms or keys without major disruption?",
+        "fr": "Quel terme désigne la capacité à remplacer des algorithmes ou des clés cryptographiques sans perturbation majeure ?"
+       },
+       "choices": [
+        {
+         "en": "Crypto agility",
+         "fr": "Agilité cryptographique"
+        },
+        {
+         "en": "Key clustering",
+         "fr": "Regroupement de clés (key clustering)"
+        },
+        {
+         "en": "Hash collision",
+         "fr": "Collision de hachage"
+        },
+        {
+         "en": "Non-intervention",
+         "fr": "Non-intervention"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "Crypto agility lets an organization switch algorithms or keys quickly, for example to move to post-quantum cryptography. Key clustering is when two keys produce the same ciphertext, and a collision is two inputs with the same hash.",
+        "fr": "L'agilité cryptographique permet de changer rapidement d'algorithme ou de clé, par exemple pour passer à la cryptographie post-quantique. Le key clustering, c'est deux clés qui donnent le même texte chiffré ; la collision, deux entrées qui ont la même empreinte."
+       }
+      }
+     ]
+    }
+   ],
+   "tables": [
+    {
+     "title": {
+      "en": "Symmetric or asymmetric",
+      "fr": "Symétrique ou asymétrique"
+     },
+     "rows": [
+      [
+       "Symmetric",
+       "Une clé partagée, rapide ; défi : distribuer la clé (AES, DES, RC4)"
+      ],
+      [
+       "Asymmetric",
+       "Paire de clés publique/privée, plus lente (RSA, ECC)"
+      ],
+      [
+       "Hybrid",
+       "Asymétrique pour la clé de session, symétrique pour les données (TLS)"
+      ]
+     ]
+    },
+    {
+     "title": {
+      "en": "Which tool for which goal",
+      "fr": "Quel outil pour quel objectif"
+     },
+     "rows": [
+      [
+       "Encryption",
+       "Confidentialité"
+      ],
+      [
+       "Hashing",
+       "Intégrité (sens unique, sans clé)"
+      ],
+      [
+       "Digital signature",
+       "Authentification, intégrité, non-répudiation"
+      ],
+      [
+       "Certificate + CA",
+       "Lier une clé publique à une identité"
+      ]
+     ]
+    }
+   ],
+   "keywords": [
+    {
+     "term": "Plaintext / Ciphertext",
+     "en": "Readable / encrypted data",
+     "fr": "Texte clair / texte chiffré"
+    },
+    {
+     "term": "Private key",
+     "en": "Must stay secret",
+     "fr": "Clé privée, à protéger"
+    },
+    {
+     "term": "Certificate Authority",
+     "en": "Issues and signs certificates",
+     "fr": "Autorité de certification"
+    },
+    {
+     "term": "AES / RSA",
+     "en": "Symmetric / asymmetric",
+     "fr": "Symétrique / asymétrique"
+    },
+    {
+     "term": "Replay attack",
+     "en": "Resend captured data",
+     "fr": "Attaque par rejeu"
+    },
+    {
+     "term": "Crypto agility",
+     "en": "Swap algorithms easily",
+     "fr": "Agilité cryptographique"
+    }
+   ],
+   "advice": "Repère le mot-clé : « same key » = symétrique (AES), « public/private » = asymétrique (RSA), « one-way » = hachage, « binds a public key to an identity » = certificat. Le secret à protéger est toujours la clé privée."
+  },
+  {
    "id": "prep-2026-11-18",
    "date": "2026-11-18",
    "title": {

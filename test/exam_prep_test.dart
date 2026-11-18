@@ -42,6 +42,23 @@ void main() {
     expect(lot.keywords.map((k) => k.term), contains('CAN-SPAM'));
   });
 
+  test('le quiz crypto du 18/11/2026 est complet', () {
+    final lot = library.examPrep.lots.firstWhere(
+      (l) => l.id == 'prep-2026-11-18-crypto',
+    );
+    expect(lot.questions, hasLength(15));
+    expect(lot.questions.map((q) => q.correctLetter).join(), 'BBBBBBCABAACBAA');
+    expect(lot.questions[11].choices.map((c) => c.en), [
+      'AES',
+      'DES',
+      'RSA',
+      'RC4',
+    ]);
+    // Rejeu et agilité cryptographique : chapitre crypto avancée.
+    expect(lot.questions.map((q) => q.chapterId).toSet(), {'m2c2', 'm2c4'});
+    expect(lot.questions.last.chapterId, 'm2c4');
+  });
+
   test('le lot du 18/11/2026 (questions 11 et 12) est fidèle', () {
     final lot = library.examPrep.lots.firstWhere(
       (l) => l.id == 'prep-2026-11-18',
