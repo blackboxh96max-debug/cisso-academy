@@ -680,5 +680,342 @@
     }
    ]
   }
+ ],
+ "questions": [
+  {
+   "id": "m2c4-q01",
+   "prompt": "The Spartan scytale, a strip wound around a rod, uses which method?",
+   "choices": [
+    "Monoalphabetic substitution",
+    "Steganography",
+    "Polyalphabetic substitution",
+    "Transposition of letters"
+   ],
+   "explanation": "The letters stay the same; only their order changes when the strip is unwound: this is a transposition.",
+   "whyNot": {
+    "0": "A substitution replaces the letters; the scytale keeps them.",
+    "1": "The strip is visible: the message is not hidden, only unreadable.",
+    "2": "Several substitution alphabets: that is Vigenère or Enigma."
+   }
+  },
+  {
+   "id": "m2c4-q02",
+   "prompt": "Which technique broke monoalphabetic ciphers such as Caesar's?",
+   "choices": [
+    "Frequency analysis",
+    "Protocol downgrade",
+    "The birthday attack",
+    "The side-channel attack"
+   ],
+   "explanation": "The same letter always gives the same ciphertext letter: the frequencies of the language remain visible (a method described by Al-Kindi).",
+   "whyNot": {
+    "1": "It forces a protocol to use a weak version.",
+    "2": "It targets collisions in hash functions.",
+    "3": "It measures the timing or power consumption of a device."
+   }
+  },
+  {
+   "id": "m2c4-q03",
+   "prompt": "Why does the Vigenère cipher resist frequency analysis better than Caesar?",
+   "choices": [
+    "It moves the letters without replacing them",
+    "The same letter can give several different letters",
+    "Its key is as long as the message",
+    "It hides the very existence of the message"
+   ],
+   "explanation": "The shift depends on the letter of the key: the same plaintext letter gives different ciphertext letters.",
+   "whyNot": {
+    "0": "It is a substitution, not a transposition.",
+    "2": "Its key repeats; it is the one-time pad that uses a key as long as the message.",
+    "3": "That is the definition of steganography."
+   }
+  },
+  {
+   "id": "m2c4-q04",
+   "prompt": "Which TWO conditions are necessary for the perfect security of the one-time pad?",
+   "choices": [
+    "A truly random key",
+    "A key shorter than the message",
+    "A key used only once",
+    "An algorithm kept secret"
+   ],
+   "explanation": "Shannon: a random key, as long as the message, secret and never reused.",
+   "whyNot": {
+    "1": "On the contrary, the key must be at least as long as the message.",
+    "3": "The algorithm (an exclusive OR) can be public: this is Kerckhoffs's principle."
+   }
+  },
+  {
+   "id": "m2c4-q05",
+   "prompt": "What does Kerckhoffs's principle state?",
+   "choices": [
+    "Security relies on the secrecy of the algorithm",
+    "Security relies on the secrecy of the key",
+    "Each message requires a new algorithm",
+    "The key must be as long as the message"
+   ],
+   "explanation": "A public, thoroughly studied algorithm is safer; only the secrecy of the key should protect the data.",
+   "whyNot": {
+    "0": "That is the opposite of the principle: \"security through obscurity\".",
+    "2": "That is neither realistic nor required.",
+    "3": "That is a condition of the one-time pad."
+   }
+  },
+  {
+   "id": "m2c4-q06",
+   "prompt": "What mainly made it possible to break Enigma during the war?",
+   "choices": [
+    "A simple frequency analysis of the letters",
+    "Procedural errors and predictable messages",
+    "A single fixed substitution alphabet",
+    "A single key valid for the whole war"
+   ],
+   "explanation": "Polish and then British cryptanalysts exploited repeated phrases and mistakes in how keys were used.",
+   "whyNot": {
+    "0": "Enigma is polyalphabetic: letter frequencies are scrambled.",
+    "2": "The rotors turned with every keystroke: the alphabet kept changing.",
+    "3": "The settings changed every day."
+   }
+  },
+  {
+   "id": "m2c4-q07",
+   "prompt": "An image contains a message hidden in its pixels, with no encryption at all. What is this?",
+   "choices": [
+    "A diplomatic code",
+    "A hash function",
+    "Steganography",
+    "A transposition cipher"
+   ],
+   "explanation": "The message is not made unreadable: its existence is concealed.",
+   "whyNot": {
+    "0": "A code replaces words using a codebook.",
+    "1": "A hash produces a digest; it does not hide a message.",
+    "3": "A transposition moves the letters of a visible message."
+   }
+  },
+  {
+   "id": "m2c4-q08",
+   "prompt": "Which quantum algorithm threatens RSA and elliptic curves?",
+   "choices": [
+    "Grover's algorithm",
+    "The BB84 protocol",
+    "Shor's algorithm",
+    "The Rijndael algorithm"
+   ],
+   "explanation": "Shor efficiently solves factoring and the discrete logarithm, on which RSA, ECC and Diffie-Hellman rely.",
+   "whyNot": {
+    "0": "Grover speeds up searching: it weakens symmetric encryption without breaking it.",
+    "1": "BB84 is a quantum key distribution protocol.",
+    "3": "Rijndael is the algorithm that became AES."
+   }
+  },
+  {
+   "id": "m2c4-q09",
+   "prompt": "What is the expected effect of Grover's algorithm on AES-256?",
+   "choices": [
+    "An algorithm broken like RSA",
+    "Security of about 128 bits",
+    "No effect on its security",
+    "Security of about 64 bits"
+   ],
+   "explanation": "Grover roughly halves the security in bits: AES-256 keeps about 128 bits, which remains strong.",
+   "whyNot": {
+    "0": "Shor breaks the asymmetric algorithms.",
+    "2": "Grover does speed up the key search.",
+    "3": "That would be the effect on a 128-bit key."
+   }
+  },
+  {
+   "id": "m2c4-q10",
+   "prompt": "What is post-quantum cryptography?",
+   "choices": [
+    "A key exchange based on photons",
+    "New algorithms for classical computers",
+    "Doubling RSA key sizes",
+    "Encryption run on a quantum computer"
+   ],
+   "explanation": "These are classical algorithms, based on problems believed to be hard even for a quantum computer.",
+   "whyNot": {
+    "0": "That is quantum key distribution (QKD).",
+    "2": "A larger RSA key does not resist Shor.",
+    "3": "They run on today's computers."
+   }
+  },
+  {
+   "id": "m2c4-q11",
+   "prompt": "Which 2024 NIST standard is used to establish a shared key?",
+   "choices": [
+    "FIPS 203 (ML-KEM)",
+    "FIPS 197 (AES)",
+    "FIPS 205 (SLH-DSA)",
+    "FIPS 204 (ML-DSA)"
+   ],
+   "explanation": "ML-KEM is a key encapsulation mechanism derived from CRYSTALS-Kyber.",
+   "whyNot": {
+    "1": "AES encrypts data with a key that is already shared.",
+    "2": "SLH-DSA is a hash-based signature.",
+    "3": "ML-DSA is used for signing."
+   }
+  },
+  {
+   "id": "m2c4-q12",
+   "prompt": "Why is data encrypted with RSA today already at risk?",
+   "choices": [
+    "RSA certificates expire faster",
+    "RSA is already broken by today's computers",
+    "Grover directly recovers the RSA private key",
+    "It can be stored now and decrypted later"
+   ],
+   "explanation": "An attacker can record the exchanges today and wait for a quantum computer able to run Shor.",
+   "whyNot": {
+    "0": "The lifetime of a certificate does not depend on quantum computing.",
+    "1": "No current computer breaks RSA with a proper key size.",
+    "2": "It is Shor, not Grover, that threatens RSA."
+   }
+  },
+  {
+   "id": "m2c4-q13",
+   "prompt": "What is the FIRST step of a post-quantum migration?",
+   "choices": [
+    "Replace all certificates in one go",
+    "Move all RSA keys to 8192 bits",
+    "Inventory the uses of asymmetric cryptography",
+    "Deploy quantum key distribution"
+   ],
+   "explanation": "Without an inventory of where RSA, ECC and Diffie-Hellman are used, you can neither prioritize nor plan.",
+   "whyNot": {
+    "0": "A sudden switch breaks compatibility; hybrid modes are used along the way.",
+    "1": "A longer RSA key does not resist Shor.",
+    "3": "QKD requires dedicated hardware and does not replace signatures."
+   }
+  },
+  {
+   "id": "m2c4-q14",
+   "prompt": "What does quantum key distribution (QKD) make possible?",
+   "choices": [
+    "Encrypting large volumes without any key",
+    "Doing without an already authenticated channel",
+    "Detecting eavesdropping during the key exchange",
+    "Signing documents in a post-quantum way"
+   ],
+   "explanation": "Any measurement of the photons by an eavesdropper disturbs the signal: eavesdropping can be detected (BB84 protocol).",
+   "whyNot": {
+    "0": "It provides a key, which is then used to encrypt.",
+    "1": "On the contrary, it requires an authenticated channel.",
+    "3": "It exchanges keys; it does not sign."
+   }
+  },
+  {
+   "id": "m2c4-q15",
+   "prompt": "Which technique makes it possible to compute on data that stays encrypted?",
+   "choices": [
+    "Slow, salted hashing",
+    "Steganography",
+    "Homomorphic encryption",
+    "Format-preserving encryption"
+   ],
+   "explanation": "The decrypted result is the same as if the computation had been done on the plaintext data.",
+   "whyNot": {
+    "0": "A hash cannot be decrypted and is not used for computing.",
+    "1": "It hides a message; it does not compute.",
+    "3": "It keeps the format of the data but does not allow computing on it."
+   }
+  },
+  {
+   "id": "m2c4-q16",
+   "prompt": "A user proves they are of legal age without revealing their date of birth. Which technique is this?",
+   "choices": [
+    "Format-preserving encryption",
+    "A zero-knowledge proof",
+    "A single-use one-time pad",
+    "A lightweight cryptography algorithm"
+   ],
+   "explanation": "A zero-knowledge proof establishes that a statement is true without revealing the secret.",
+   "whyNot": {
+    "0": "It encrypts the date; the verifier could conclude nothing without the key.",
+    "2": "It encrypts; it proves nothing.",
+    "3": "It targets constrained devices."
+   }
+  },
+  {
+   "id": "m2c4-q17",
+   "prompt": "What does a blockchain mainly provide?",
+   "choices": [
+    "The confidentiality of all the data",
+    "The accuracy of the data entered at the start",
+    "The protection of the members' private keys",
+    "The integrity and traceability of the records"
+   ],
+   "explanation": "Each block contains the hash of the previous one: any modification shows.",
+   "whyNot": {
+    "0": "By default, the records can be read by the participants.",
+    "1": "Data that is wrong at the start stays wrong, but well traced.",
+    "2": "Everyone remains responsible for their own private keys."
+   }
+  },
+  {
+   "id": "m2c4-q18",
+   "prompt": "A bank wants to encrypt card numbers while keeping 16 digits. Which technique?",
+   "choices": [
+    "A zero-knowledge proof",
+    "Fully homomorphic encryption",
+    "Format-preserving encryption",
+    "Ascon lightweight cryptography"
+   ],
+   "explanation": "FPE (NIST SP 800-38G) produces an encrypted result that keeps the original format.",
+   "whyNot": {
+    "0": "It proves a statement; it does not encrypt a number.",
+    "1": "It is used to compute on encrypted data; it does not keep the format.",
+    "3": "It targets constrained devices."
+   }
+  },
+  {
+   "id": "m2c4-q19",
+   "prompt": "Two SOCs want their shared indicators without revealing the rest of their lists. Which technique?",
+   "choices": [
+    "Secure multiparty computation",
+    "Format-preserving encryption",
+    "Steganography in the exchanges",
+    "A public blockchain"
+   ],
+   "explanation": "With private set intersection, each party learns only the common elements.",
+   "whyNot": {
+    "1": "Encrypting while keeping the format does not allow comparing without revealing.",
+    "2": "Hiding the exchanges does not limit what the other party learns.",
+    "3": "Everything there would be readable by the participants."
+   }
+  },
+  {
+   "id": "m2c4-q20",
+   "prompt": "Which technique protects data while it is being processed, thanks to the hardware?",
+   "choices": [
+    "Confidential computing enclaves",
+    "The TLS 1.3 protocol between two servers",
+    "Full-disk encryption",
+    "The digital signature of the code being run"
+   ],
+   "explanation": "An enclave isolates the processing: even the machine's administrator cannot see the data.",
+   "whyNot": {
+    "1": "It protects data in transit.",
+    "2": "It protects data at rest.",
+    "3": "It proves the origin of the code, not the confidentiality of the data processed."
+   }
+  },
+  {
+   "id": "m2c4-q21",
+   "prompt": "Which choice best suits a very low-power industrial sensor?",
+   "choices": [
+    "A lightweight algorithm such as Ascon",
+    "Fully homomorphic encryption",
+    "RSA with a 4096-bit key",
+    "The very simple Vigenère cipher"
+   ],
+   "explanation": "Lightweight cryptography is designed for constrained devices; NIST selected Ascon.",
+   "whyNot": {
+    "1": "It requires an enormous amount of computation.",
+    "2": "Too costly in computation and energy for a small sensor.",
+    "3": "It has been broken since the 19th century."
+   }
+  }
  ]
 }
