@@ -320,7 +320,7 @@ class Assistant {
   void _build() {
     final seenTerms = <String>{};
     for (final t in library.glossary) {
-      for (final name in [t.termFr, t.termEn, ?t.acronym]) {
+      for (final name in [t.termFr, t.termEn, ...acronymsOf(t)]) {
         final key = tokenize(name, keepStop: true).join(' ');
         if (key.isEmpty) continue;
         (_termNames[key] ??= []).add(t);
@@ -510,7 +510,7 @@ class Assistant {
     final covered = <String>{};
     for (final term in terms) {
       final c = <String, double>{};
-      final names = [term.termFr, term.termEn, ?term.acronym];
+      final names = [term.termFr, term.termEn, ...acronymsOf(term)];
       final own = tokenize(question).toSet();
       for (final name in names) {
         for (final t in tokenize(name)) {
