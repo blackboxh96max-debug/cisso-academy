@@ -705,6 +705,125 @@
    ]
   }
  ],
+ "flashcards": [
+  {
+   "id": "m5c1-f01",
+   "front": "BCP / DRP",
+   "back": "Business continuity / IT recovery; the DRP is part of the BCP."
+  },
+  {
+   "id": "m5c1-f02",
+   "front": "Priority no. 1",
+   "back": "The safety of people."
+  },
+  {
+   "id": "m5c1-f03",
+   "front": "BIA",
+   "back": "Critical processes, dependencies, impacts over time; comes before the strategies."
+  },
+  {
+   "id": "m5c1-f04",
+   "front": "MTD",
+   "back": "Maximum tolerable downtime."
+  },
+  {
+   "id": "m5c1-f05",
+   "front": "RTO",
+   "back": "Time to bring the system back into service; drives the choice of site."
+  },
+  {
+   "id": "m5c1-f06",
+   "front": "RPO",
+   "back": "Acceptable data loss; sets the backup frequency."
+  },
+  {
+   "id": "m5c1-f07",
+   "front": "WRT",
+   "back": "Time to verify and resume work; RTO + WRT ≤ MTD."
+  },
+  {
+   "id": "m5c1-f08",
+   "front": "Hot / warm / cold site",
+   "back": "Hours / days / weeks."
+  },
+  {
+   "id": "m5c1-f09",
+   "front": "Reciprocal agreement",
+   "back": "Cheap, unreliable, hard to enforce."
+  },
+  {
+   "id": "m5c1-f10",
+   "front": "Incremental",
+   "back": "Quick to take; restore the full backup + all the incrementals."
+  },
+  {
+   "id": "m5c1-f11",
+   "front": "Differential",
+   "back": "Restore the full backup + the latest differential."
+  },
+  {
+   "id": "m5c1-f12",
+   "front": "RAID 0 / 1",
+   "back": "Striping with no redundancy / mirroring."
+  },
+  {
+   "id": "m5c1-f13",
+   "front": "RAID 5 / 6",
+   "back": "Parity, 1 disk (min. 3) / double parity, 2 disks."
+  },
+  {
+   "id": "m5c1-f14",
+   "front": "RAID ≠ backup",
+   "back": "A deletion or an encryption is copied everywhere."
+  },
+  {
+   "id": "m5c1-f15",
+   "front": "MTBF",
+   "back": "Mean time between failures; availability ≈ MTBF / (MTBF + repair time)."
+  },
+  {
+   "id": "m5c1-f16",
+   "front": "UPS / generator",
+   "back": "Short outage / long outage."
+  },
+  {
+   "id": "m5c1-f17",
+   "front": "Tests (in order)",
+   "back": "Checklist review, tabletop, simulation, parallel, full interruption."
+  },
+  {
+   "id": "m5c1-f18",
+   "front": "Full interruption",
+   "back": "The riskiest; requires management approval."
+  },
+  {
+   "id": "m5c1-f19",
+   "front": "Returning to the primary site",
+   "back": "The least critical functions first."
+  },
+  {
+   "id": "m5c1-f20",
+   "front": "Maintenance",
+   "back": "Annual review, major changes, lessons learned, off-site copies."
+  }
+ ],
+ "revisionSheet": [
+  "# Revision sheet: business continuity and recovery",
+  "BCP: continuity of the whole business; DRP: bringing systems and data back into service (part of the BCP); IRP: response to security incidents.",
+  "Top priority: the safety of people. First success factor: management support.",
+  "BIA first: critical processes, dependencies, impacts over time, priorities, approval by management.",
+  "MTD (tolerable downtime), RTO (back in service), WRT (work resumed), RPO (data lost); RTO + WRT ≤ MTD.",
+  "RPO → frequency of backups or replication; RTO → type of site and solution.",
+  "Sites: mirror (immediate), hot (hours), warm (days), cold (weeks), mobile, reciprocal agreement (unreliable), cloud; keep the backup site at a distance.",
+  "Backups: full; incremental (fast, restore = full + all of them); differential (restore = full + the latest); off-site, protected, tested.",
+  "RAID 0 (no redundancy), 1 (mirroring), 5 (parity, 1 disk, min. 3), 6 (double parity, 2 disks), 10; RAID is not a backup.",
+  "Redundancy: clusters and failover, load balancing, UPS, generator, dual power supplies and links.",
+  "Availability ≈ MTBF / (MTBF + repair time).",
+  "Plan: activation and authority, teams and alternates, priorities, communication (spokesperson), return to the primary site (least critical first).",
+  "Tests: checklist review, tabletop exercise, simulation, parallel, full interruption (management approval).",
+  "Maintenance: annual review and at each major change, lessons learned, training, off-site and offline copies.",
+  "Pairs not to confuse: BCP/DRP; RTO/RPO; incremental/differential; RAID/backup; parallel/full interruption."
+ ],
  "questions": [
   {
    "id": "m5c1-q01",

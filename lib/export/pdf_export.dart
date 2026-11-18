@@ -221,9 +221,10 @@ Future<Uint8List> revisionSheetsPdf({
             ),
           ),
           ...() {
-            final points = c.revisionSheet
-                .where((l) => !l.startsWith('# '))
-                .toList();
+            final points = [
+              for (final (i, l) in c.revisionSheet.indexed)
+                if (!l.startsWith('# ')) (l, c.revisionLineEn(i)),
+            ];
             final seen = <String>{};
             return [
               for (final (i, p) in points.indexed)
@@ -251,15 +252,38 @@ Future<Uint8List> revisionSheetsPdf({
                       ),
                       pw.SizedBox(width: 8),
                       pw.Expanded(
-                        child: _bilingual(
-                          p,
-                          terms.findIn(p, skip: seen),
-                          pw.TextStyle(
-                            font: f.body,
-                            fontSize: 10.5,
-                            lineSpacing: 2,
-                          ),
-                        ),
+                        child: p.$2 == null
+                            ? _bilingual(
+                                p.$1,
+                                terms.findIn(p.$1, skip: seen),
+                                pw.TextStyle(
+                                  font: f.body,
+                                  fontSize: 10.5,
+                                  lineSpacing: 2,
+                                ),
+                              )
+                            : pw.Column(
+                                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                                children: [
+                                  pw.Text(
+                                    stripEmoji(p.$2!),
+                                    style: pw.TextStyle(
+                                      font: f.body,
+                                      fontSize: 10.5,
+                                      lineSpacing: 2,
+                                      color: _blue,
+                                    ),
+                                  ),
+                                  pw.Text(
+                                    'FR  ${stripEmoji(p.$1)}',
+                                    style: pw.TextStyle(
+                                      font: f.body,
+                                      fontSize: 9,
+                                      lineSpacing: 1.5,
+                                    ),
+                                  ),
+                                ],
+                              ),
                       ),
                     ],
                   ),
@@ -343,29 +367,67 @@ Future<Uint8List> flashcardsPdf({
                       child: pw.Column(
                         crossAxisAlignment: pw.CrossAxisAlignment.start,
                         children: [
-                          pw.Text(
-                            stripEmoji(card.front),
-                            style: pw.TextStyle(font: f.handBold, fontSize: 12),
-                          ),
-                          if ((terms.englishFor(card.front) ??
-                                  terms.englishFor(card.concept)) !=
-                              null)
+                          if (card.en case final en?) ...[
                             pw.Text(
-                              'EN  ${terms.englishFor(card.front) ?? terms.englishFor(card.concept)}',
+                              stripEmoji(en.front),
                               style: pw.TextStyle(
-                                font: f.body,
-                                fontSize: 9,
+                                font: f.handBold,
+                                fontSize: 12,
                                 color: _blue,
                               ),
                             ),
+                            pw.Text(
+                              'FR  ${stripEmoji(card.front)}',
+                              style: pw.TextStyle(font: f.body, fontSize: 9),
+                            ),
+                          ] else ...[
+                            pw.Text(
+                              stripEmoji(card.front),
+                              style: pw.TextStyle(
+                                font: f.handBold,
+                                fontSize: 12,
+                              ),
+                            ),
+                            if ((terms.englishFor(card.front) ??
+                                    terms.englishFor(card.concept)) !=
+                                null)
+                              pw.Text(
+                                'EN  ${terms.englishFor(card.front) ?? terms.englishFor(card.concept)}',
+                                style: pw.TextStyle(
+                                  font: f.body,
+                                  fontSize: 9,
+                                  color: _blue,
+                                ),
+                              ),
+                          ],
                         ],
                       ),
                     ),
                     pw.Padding(
                       padding: const pw.EdgeInsets.all(7),
-                      child: pw.Text(
-                        stripEmoji(card.back),
-                        style: pw.TextStyle(font: f.body, fontSize: 10),
+                      child: pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          if (card.en case final en?) ...[
+                            pw.Text(
+                              stripEmoji(en.back),
+                              style: pw.TextStyle(
+                                font: f.body,
+                                fontSize: 10,
+                                color: _blue,
+                              ),
+                            ),
+                            pw.SizedBox(height: 2),
+                            pw.Text(
+                              'FR  ${stripEmoji(card.back)}',
+                              style: pw.TextStyle(font: f.body, fontSize: 9),
+                            ),
+                          ] else
+                            pw.Text(
+                              stripEmoji(card.back),
+                              style: pw.TextStyle(font: f.body, fontSize: 10),
+                            ),
+                        ],
                       ),
                     ),
                   ],

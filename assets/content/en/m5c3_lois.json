@@ -738,6 +738,123 @@
    ]
   }
  ],
+ "flashcards": [
+  {
+   "id": "m5c3-f01",
+   "front": "Common law / civil law",
+   "back": "Judges and precedent / written codes."
+  },
+  {
+   "id": "m5c3-f02",
+   "front": "Criminal / civil / administrative",
+   "back": "Society, prison / compensation / regulators."
+  },
+  {
+   "id": "m5c3-f03",
+   "front": "Standards of proof",
+   "back": "Criminal: beyond a reasonable doubt; civil: preponderance of the evidence."
+  },
+  {
+   "id": "m5c3-f04",
+   "front": "CFAA",
+   "back": "Unauthorized access to protected computers (United States)."
+  },
+  {
+   "id": "m5c3-f05",
+   "front": "ECPA",
+   "back": "Interception in transit; SCA = stored communications."
+  },
+  {
+   "id": "m5c3-f06",
+   "front": "SOX / HIPAA / GLBA / FISMA",
+   "back": "Public company finance / health / financial customers / federal government."
+  },
+  {
+   "id": "m5c3-f07",
+   "front": "CAN-SPAM",
+   "back": "No misleading subject line, postal address, opt-out within 10 business days."
+  },
+  {
+   "id": "m5c3-f08",
+   "front": "Godfrain Act",
+   "back": "France, 1988: fraudulent access or remaining in a system, hindrance, alteration."
+  },
+  {
+   "id": "m5c3-f09",
+   "front": "PCI DSS",
+   "back": "A contractual standard, not a law."
+  },
+  {
+   "id": "m5c3-f10",
+   "front": "Budapest Convention",
+   "back": "Harmonizes offenses, makes cooperation easier."
+  },
+  {
+   "id": "m5c3-f11",
+   "front": "Patent",
+   "back": "Published invention, about 20 years."
+  },
+  {
+   "id": "m5c3-f12",
+   "front": "Copyright",
+   "back": "The expression, not the idea; life + 70 years."
+  },
+  {
+   "id": "m5c3-f13",
+   "front": "Trademark / trade secret",
+   "back": "Renewable indefinitely / as long as the secret holds."
+  },
+  {
+   "id": "m5c3-f14",
+   "front": "GDPR principles",
+   "back": "Lawfulness, purpose limitation, minimization, accuracy, storage limitation, security, accountability."
+  },
+  {
+   "id": "m5c3-f15",
+   "front": "Controller / processor",
+   "back": "Decides / carries out on the controller's behalf."
+  },
+  {
+   "id": "m5c3-f16",
+   "front": "Transfers outside the EU",
+   "back": "Adequacy, standard clauses, BCRs; Data Privacy Framework (2023)."
+  },
+  {
+   "id": "m5c3-f17",
+   "front": "Due care / due diligence",
+   "back": "Doing what is right / checking continuously."
+  },
+  {
+   "id": "m5c3-f18",
+   "front": "Negligence",
+   "back": "Failing to do what a prudent person would have done."
+  },
+  {
+   "id": "m5c3-f19",
+   "front": "Compliance program",
+   "back": "Designated officer, obligations, policies, training, audits, reporting."
+  },
+  {
+   "id": "m5c3-f20",
+   "front": "Ethics",
+   "back": "Society first, lawful, honest, intended channels; no counterattack."
+  }
+ ],
+ "revisionSheet": [
+  "# Revision sheet: laws, regulation and ethics",
+  "Common law (judges, precedent), civil law (codes), customary, religious, mixed.",
+  "Criminal (society, prison, beyond a reasonable doubt), civil (compensation, preponderance of the evidence), administrative (regulators).",
+  "United States: CFAA (unauthorized access), ECPA (interception in transit; SCA for stored data), DMCA (digital copyright), EEA and DTSA (trade secrets), HIPAA (health), GLBA (finance), SOX (financial reporting), FISMA (federal), CAN-SPAM (opt-out within 10 business days).",
+  "France and Europe: Godfrain Act (Penal Code Art. 323-1 et seq.), GDPR, NIS 2, Budapest Convention. PCI DSS = contractual standard.",
+  "Intellectual property: patent (invention, ~20 years), copyright (expression, life + 70 years), trademark (renewable), trade secret (as long as it stays secret; NDA, access, DLP). Licenses must be respected.",
+  "Privacy: OECD principles (collection, quality, purpose, use, security, openness, participation, accountability); GDPR Art. 5 principles (lawfulness, purpose limitation, minimization, accuracy, storage limitation, integrity and confidentiality, accountability).",
+  "Roles: controller (decides), processor (carries out, Art. 28 contract), DPO (advises, monitors, point of contact), data subject (rights).",
+  "Transfers outside the EU: adequacy, standard contractual clauses, BCRs. Safe Harbor invalidated (2015), Privacy Shield invalidated (2020), Data Privacy Framework (2023).",
+  "Due care (acting as a prudent person would); due diligence (finding out, checking continuously); negligence; liability of executives and toward third parties.",
+  "Compliance program: designated officer, inventory of obligations, policies, training, audits, reporting, disciplinary rules, corrections.",
+  "Ethics: codes of ethics (e.g., the (ISC)² canons: society, honesty and legality, competent service, profession); RFC 1087; never counterattack; intended channels.",
+  "Pairs not to confuse: common law/civil law; criminal/civil; ECPA/SCA; patent/trade secret; controller/processor; due care/due diligence."
+ ],
  "questions": [
   {
    "id": "m5c3-q01",

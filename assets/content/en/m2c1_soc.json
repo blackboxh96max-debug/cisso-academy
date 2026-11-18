@@ -653,6 +653,125 @@
    ]
   }
  ],
+ "flashcards": [
+  {
+   "id": "m2c1-f01",
+   "front": "Separation of duties",
+   "back": "Splitting a sensitive task among several people. Preventive. Weakness: collusion."
+  },
+  {
+   "id": "m2c1-f02",
+   "front": "Dual control",
+   "back": "Two people must act together, at the same moment (safe, master key)."
+  },
+  {
+   "id": "m2c1-f03",
+   "front": "Job rotation and mandatory vacations",
+   "back": "Mainly detective controls: a replacement uncovers the fraud."
+  },
+  {
+   "id": "m2c1-f04",
+   "front": "Change management",
+   "back": "Request, analysis, approval, testing and rollback, implementation, review."
+  },
+  {
+   "id": "m2c1-f05",
+   "front": "Emergency change",
+   "back": "Fast-tracked but approved, recorded, then regularized and reviewed."
+  },
+  {
+   "id": "m2c1-f06",
+   "front": "Baseline",
+   "back": "Approved reference configuration; any deviation is drift that must be explained."
+  },
+  {
+   "id": "m2c1-f07",
+   "front": "Asset inventory",
+   "back": "You cannot protect what you do not know about."
+  },
+  {
+   "id": "m2c1-f08",
+   "front": "A useful log",
+   "back": "Synchronized time (NTP), protected integrity, defined retention period."
+  },
+  {
+   "id": "m2c1-f09",
+   "front": "SIEM",
+   "back": "Collection, normalization, enrichment, correlation, alerting."
+  },
+  {
+   "id": "m2c1-f10",
+   "front": "False positive",
+   "back": "An alert with no real attack. A source of alert fatigue."
+  },
+  {
+   "id": "m2c1-f11",
+   "front": "False negative",
+   "back": "A real attack with no alert. The most dangerous case."
+  },
+  {
+   "id": "m2c1-f12",
+   "front": "UEBA",
+   "back": "Detects deviations from the usual behavior of users and machines."
+  },
+  {
+   "id": "m2c1-f13",
+   "front": "SOAR",
+   "back": "Orchestrates the tools and automates response through playbooks."
+  },
+  {
+   "id": "m2c1-f14",
+   "front": "L1 / L2 / L3",
+   "back": "L1 triages; L2 investigates and contains; L3 handles complex cases, hunting, detection engineering."
+  },
+  {
+   "id": "m2c1-f15",
+   "front": "Playbook",
+   "back": "Step-by-step procedure for handling a type of alert."
+  },
+  {
+   "id": "m2c1-f16",
+   "front": "IOC",
+   "back": "A known trace: hash, IP address, domain."
+  },
+  {
+   "id": "m2c1-f17",
+   "front": "IOA",
+   "back": "Attack behavior, independent of the tool."
+  },
+  {
+   "id": "m2c1-f18",
+   "front": "Threat hunting",
+   "back": "Proactive, hypothesis-driven search for undetected attacks."
+  },
+  {
+   "id": "m2c1-f19",
+   "front": "MITRE ATT&CK",
+   "back": "Knowledge base of attack tactics and techniques; used to measure detection coverage."
+  },
+  {
+   "id": "m2c1-f20",
+   "front": "MTTD / MTTR",
+   "back": "Mean time to detect / to respond."
+  }
+ ],
+ "revisionSheet": [
+  "# Revision sheet: security operations, logging, SIEM and SOC",
+  "Controls on people: separation of duties and dual control (preventive), job rotation and mandatory vacations (detective), least privilege.",
+  "Separation of duties: weakness = collusion. Dual control: two people at the same time for the same action.",
+  "Change management: request → impact analysis → approval → testing and rollback → implementation → review. Emergency: recorded and regularized.",
+  "Baseline configuration and drift detection; asset inventory with an owner; watch out for shadow IT.",
+  "Log: authentications, accounts and rights, configuration, security tools being stopped, sensitive data, network boundaries.",
+  "A useful log: synchronized time (NTP), integrity (centralization, immutable storage), defined retention.",
+  "SIEM: collection → normalization → enrichment → correlation → alerting.",
+  "False positive = alert with no attack; false negative = attack with no alert (the worst). Tune the rules without creating false negatives.",
+  "UEBA: behavior; SOAR: response automation; EDR/XDR: detection and response on endpoints and multiple sources.",
+  "SOC: L1 triages, L2 investigates and contains, L3 handles complex cases, hunting and detection engineering. Playbooks for consistency.",
+  "IOC = known trace; IOA = behavior. Hunting = proactive, starts from a hypothesis. MITRE ATT&CK = map of techniques.",
+  "Metrics: MTTD (detection), MTTR (response), false positive rate, ATT&CK coverage, connected sources.",
+  "The SOC is mainly a detective control, with a corrective part (containment).",
+  "Pairs not to confuse: separation of duties/dual control; false positive/false negative; SIEM/SOAR; IOC/IOA; triage/hunting; MTTD/MTTR."
+ ],
  "questions": [
   {
    "id": "m2c1-q01",

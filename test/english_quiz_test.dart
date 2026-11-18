@@ -20,7 +20,7 @@ const _officialNames = {
 const _moduleQuestions = {'m1': 135, 'm2': 111, 'm3': 111, 'm4': 91, 'm5': 145};
 
 /// Modules dont la traduction des QCM est déjà livrée.
-const _minimumTranslated = ['m1', 'm2'];
+const _minimumTranslated = ['m1', 'm2', 'm3', 'm4', 'm5'];
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

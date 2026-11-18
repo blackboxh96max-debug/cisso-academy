@@ -648,6 +648,124 @@
    ]
   }
  ],
+ "flashcards": [
+  {
+   "id": "m3c4-f01",
+   "front": "Shared responsibility",
+   "back": "The customer always keeps identities, rights and data."
+  },
+  {
+   "id": "m3c4-f02",
+   "front": "Federation",
+   "back": "The identity provider sends a signed assertion (SAML, OpenID Connect)."
+  },
+  {
+   "id": "m3c4-f03",
+   "front": "Conditional access",
+   "back": "Granting or tightening access depending on the context."
+  },
+  {
+   "id": "m3c4-f04",
+   "front": "CASB",
+   "back": "Seeing and controlling the use of cloud services."
+  },
+  {
+   "id": "m3c4-f05",
+   "front": "CSPM",
+   "back": "Detecting cloud configuration errors."
+  },
+  {
+   "id": "m3c4-f06",
+   "front": "CIEM",
+   "back": "Spotting excessive cloud permissions."
+  },
+  {
+   "id": "m3c4-f07",
+   "front": "Managed identity",
+   "back": "For applications: no permanent key in the code."
+  },
+  {
+   "id": "m3c4-f08",
+   "front": "NAS",
+   "back": "Files, over SMB or NFS."
+  },
+  {
+   "id": "m3c4-f09",
+   "front": "SAN",
+   "back": "Blocks, over Fibre Channel or iSCSI."
+  },
+  {
+   "id": "m3c4-f10",
+   "front": "Zoning and LUN masking",
+   "back": "Limiting the ports and volumes visible to each server."
+  },
+  {
+   "id": "m3c4-f11",
+   "front": "Object storage",
+   "back": "Buckets accessed through a web API; watch out for public buckets."
+  },
+  {
+   "id": "m3c4-f12",
+   "front": "Snapshot",
+   "back": "Fast, but often on the same device: not a backup."
+  },
+  {
+   "id": "m3c4-f13",
+   "front": "Synchronous or asynchronous",
+   "back": "Synchronous: no loss, limited distance. Asynchronous: small loss possible."
+  },
+  {
+   "id": "m3c4-f14",
+   "front": "Immutable copy",
+   "back": "Neither modifiable nor deletable: the best defense for backups."
+  },
+  {
+   "id": "m3c4-f15",
+   "front": "SIP and RTP",
+   "back": "SIP: signaling (5060, TLS 5061). RTP: voice (SRTP encrypted)."
+  },
+  {
+   "id": "m3c4-f16",
+   "front": "Toll fraud",
+   "back": "Premium-rate calls placed through the PBX."
+  },
+  {
+   "id": "m3c4-f17",
+   "front": "Phreaking",
+   "back": "The 2,600 Hz tone: in-band signaling."
+  },
+  {
+   "id": "m3c4-f18",
+   "front": "Caller ID spoofing",
+   "back": "The displayed number does not prove the caller's identity."
+  },
+  {
+   "id": "m3c4-f19",
+   "front": "SBC",
+   "back": "Session border controller: filters voice at the edge."
+  },
+  {
+   "id": "m3c4-f20",
+   "front": "War dialing",
+   "back": "Calling series of numbers to find modems."
+  }
+ ],
+ "revisionSheet": [
+  "# Revision sheet: cloud access, storage and telephony",
+  "Cloud: identity is the perimeter. IaaS, PaaS, SaaS: the customer keeps identities, rights, data.",
+  "Federation (SAML, OpenID Connect): signed assertion, no password sent. Conditional access depending on the context.",
+  "CASB (usage), CSPM (configuration), CIEM (permissions), just-in-time access, managed identities.",
+  "Monitoring: audit logs sent to the SIEM, impossible travel, logging being disabled, access reviews.",
+  "DAS (direct), NAS (files, SMB/NFS), SAN (blocks, Fibre Channel/iSCSI), object (web API, buckets).",
+  "SAN: zoning (ports) and LUN masking (volumes).",
+  "Synchronous replication (no loss, limited distance) or asynchronous (small loss).",
+  "Snapshot ≠ backup; replication ≠ backup. Immutable or offline copy.",
+  "NIST SP 800-209: isolated administration, encryption, immutability, logging.",
+  "PSTN, PBX, VoIP, voicemail. Phreaking: 2,600 Hz, in-band signaling. SS7: out of band, must be filtered.",
+  "SIP (signaling, 5060; TLS 5061); RTP (voice); SRTP (encrypted voice).",
+  "Attacks: toll fraud, caller ID spoofing, vishing, eavesdropping, TDoS, SPIT, war dialing.",
+  "Measures: voice VLAN, SIP over TLS, SRTP, SBC, hardened PBX, alerts on night-time calls, callback to a known number."
+ ],
  "questions": [
   {
    "id": "m3c4-q01",

@@ -123,6 +123,34 @@ class ContentLoader {
         Question.fromJson(q as Map<String, dynamic>, id),
     ];
     validateEnglishQuestions(id, questions, questionsEn);
+    final revisionSheet = (data['revisionSheet'] as List? ?? const [])
+        .cast<String>();
+    final revisionSheetEn = (dataEn['revisionSheet'] as List? ?? const [])
+        .cast<String>();
+    if (revisionSheetEn.isNotEmpty &&
+        (revisionSheetEn.length != revisionSheet.length ||
+            [
+              for (final (i, l) in revisionSheet.indexed)
+                l.startsWith('# ') != revisionSheetEn[i].startsWith('# '),
+            ].any((d) => d))) {
+      throw FormatException('$id : la fiche anglaise diffère du français');
+    }
+    final flashcardsEn = {
+      for (final f in dataEn['flashcards'] as List? ?? const [])
+        (f as Map<String, dynamic>)['id'] as String: FlashcardEn.fromJson(f),
+    };
+    final flashcards = [
+      for (final f in data['flashcards'] as List)
+        Flashcard.fromJson(f as Map<String, dynamic>, id),
+    ];
+    final unknownCards = flashcardsEn.keys.toSet().difference({
+      for (final f in flashcards) f.id,
+    });
+    if (unknownCards.isNotEmpty) {
+      throw FormatException(
+        '$id : flashcards anglaises inconnues $unknownCards',
+      );
+    }
     return Chapter(
       id: id,
       moduleId: moduleId,
@@ -134,11 +162,11 @@ class ContentLoader {
           .map((l) => Lesson.fromJson(l as Map<String, dynamic>))
           .toList(),
       questions: [for (final q in questions) q.withEnglish(questionsEn[q.id])],
-      flashcards: (data['flashcards'] as List)
-          .map((f) => Flashcard.fromJson(f as Map<String, dynamic>, id))
-          .toList(),
-      revisionSheet: (data['revisionSheet'] as List? ?? const [])
-          .cast<String>(),
+      flashcards: [
+        for (final f in flashcards) f.withEnglish(flashcardsEn[f.id]),
+      ],
+      revisionSheet: revisionSheet,
+      revisionSheetEn: revisionSheetEn,
       mindMap: data['mindMap'] == null
           ? null
           : MindNode.fromJson(data['mindMap'] as Map<String, dynamic>),

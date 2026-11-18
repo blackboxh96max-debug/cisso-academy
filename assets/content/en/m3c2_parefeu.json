@@ -738,6 +738,126 @@
    ]
   }
  ],
+ "flashcards": [
+  {
+   "id": "m3c2-f01",
+   "front": "Default deny",
+   "back": "Last rule: deny all. Whatever is not allowed is forbidden."
+  },
+  {
+   "id": "m3c2-f02",
+   "front": "Rule order",
+   "back": "Read from top to bottom; the first match applies. Specific rules at the top."
+  },
+  {
+   "id": "m3c2-f03",
+   "front": "Stateful firewall",
+   "back": "Tracks connections (layers 3-4); does not read application content."
+  },
+  {
+   "id": "m3c2-f04",
+   "front": "WAF",
+   "back": "Web application firewall (layer 7): SQL injection, XSS."
+  },
+  {
+   "id": "m3c2-f05",
+   "front": "NGFW",
+   "back": "Next-generation firewall: applications, users, IPS, TLS inspection."
+  },
+  {
+   "id": "m3c2-f06",
+   "front": "DMZ",
+   "back": "Zone for exposed servers, between the Internet and the internal network."
+  },
+  {
+   "id": "m3c2-f07",
+   "front": "NAT",
+   "back": "Translates addresses; it is not a security control."
+  },
+  {
+   "id": "m3c2-f08",
+   "front": "Egress filtering",
+   "back": "Limits exfiltration and remote control of malware."
+  },
+  {
+   "id": "m3c2-f09",
+   "front": "IDS / IPS",
+   "back": "IDS: out of band, alerts. IPS: inline, blocks."
+  },
+  {
+   "id": "m3c2-f10",
+   "front": "NIDS / HIDS",
+   "back": "Network: a segment. Host: the machine, including decrypted traffic."
+  },
+  {
+   "id": "m3c2-f11",
+   "front": "Signatures / anomalies",
+   "back": "Known and precise / unknown but more false positives."
+  },
+  {
+   "id": "m3c2-f12",
+   "front": "Honeypot",
+   "back": "An isolated decoy: any connection is suspicious."
+  },
+  {
+   "id": "m3c2-f13",
+   "front": "802.1X",
+   "back": "Supplicant (workstation), authenticator (switch, access point), RADIUS server."
+  },
+  {
+   "id": "m3c2-f14",
+   "front": "NAC",
+   "back": "Checks the device's identity and posture; quarantine if noncompliant."
+  },
+  {
+   "id": "m3c2-f15",
+   "front": "Site-to-site / remote access VPN",
+   "back": "Two offices (IPsec tunnel) / one user (TLS or IPsec)."
+  },
+  {
+   "id": "m3c2-f16",
+   "front": "Split tunneling",
+   "back": "Internet traffic outside the VPN: the workstation bridges the Internet and the internal network."
+  },
+  {
+   "id": "m3c2-f17",
+   "front": "VLAN",
+   "back": "Logical separation at layer 2; filter routing between VLANs."
+  },
+  {
+   "id": "m3c2-f18",
+   "front": "Microsegmentation",
+   "back": "Rules at the level of each server or container."
+  },
+  {
+   "id": "m3c2-f19",
+   "front": "WEP / WPA / WPA2 / WPA3",
+   "back": "Broken / withdrawn (TKIP) / AES-CCMP / SAE."
+  },
+  {
+   "id": "m3c2-f20",
+   "front": "Evil twin",
+   "back": "A rogue access point with the same name. Countermeasure: 802.1X with a verified server certificate."
+  }
+ ],
+ "revisionSheet": [
+  "# Revision sheet: firewalls, IDS/IPS, VPN, segmentation and wireless",
+  "Firewalls: stateless (packets, 3-4), stateful (connections), application proxy (7), NGFW (applications, users, IPS), WAF (web, 7).",
+  "Rules: default deny; read from top to bottom; the first match applies; specific rules at the top; an owner and reviews.",
+  "Filter outbound traffic too; inbound, refuse internal source addresses coming from the Internet; log denials.",
+  "NAT: hides internal addresses, it is not a security control.",
+  "DMZ: exposed servers isolated; a three-legged firewall or two firewalls (two vendors); bastion host; no DMZ-to-internal flows except specific ones.",
+  "IDS: out of band, alerts. IPS: inline, blocks (risk: a blocking false positive, an outage). NIDS: segment; HIDS: host.",
+  "Signatures: precise, blind to zero-days. Anomalies: spot the unknown, more false positives, a learning period is needed.",
+  "False positive: alert with no attack (fatigue). False negative: attack with no alert (the most serious). Tune the IDS.",
+  "Honeypot / honeynet: isolated decoys, any connection is suspicious.",
+  "802.1X: supplicant (workstation), authenticator (switch, access point), authentication server (RADIUS), with EAP. NAC: compliance, quarantine.",
+  "VPN: site to site (IPsec tunnel); remote access (TLS or IPsec) with MFA; avoid split tunneling; patch the VPN gateway first.",
+  "Segmentation: VLANs (filter routing between VLANs, prevent VLAN hopping), filtered subnets, microsegmentation, physical isolation.",
+  "Wi-Fi: WEP broken, WPA (TKIP) withdrawn, WPA2 (AES-CCMP), WPA3 (SAE, protected management frames). Enterprise = 802.1X; Personal = passphrase.",
+  "Wireless attacks: rogue access point, evil twin (countermeasure: verified server certificate), deauthentication, wardriving, bluejacking, bluesnarfing.",
+  "False friends: hiding the SSID, MAC filtering, NAT: no real protection."
+ ],
  "questions": [
   {
    "id": "m3c2-q01",

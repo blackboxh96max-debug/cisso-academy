@@ -1208,5 +1208,124 @@
     "2": "MFA fatigue shows up as bursts of notifications."
    }
   }
+ ],
+ "flashcards": [
+  {
+   "id": "m1c4-f01",
+   "front": "IAAA",
+   "back": "Identification, authentication, authorization, accountability."
+  },
+  {
+   "id": "m1c4-f02",
+   "front": "Identification",
+   "back": "Claiming an identity (username, badge). It proves nothing."
+  },
+  {
+   "id": "m1c4-f03",
+   "front": "Authentication",
+   "back": "Proving the claimed identity with one or more factors."
+  },
+  {
+   "id": "m1c4-f04",
+   "front": "The 3 factors",
+   "back": "Knowledge (something you know), possession (something you have), inherence (something you are)."
+  },
+  {
+   "id": "m1c4-f05",
+   "front": "MFA",
+   "back": "At least two factors from different categories."
+  },
+  {
+   "id": "m1c4-f06",
+   "front": "FRR (Type I)",
+   "back": "False rejection: a legitimate person is refused."
+  },
+  {
+   "id": "m1c4-f07",
+   "front": "FAR (Type II)",
+   "back": "False acceptance: an impostor is accepted. The most serious error."
+  },
+  {
+   "id": "m1c4-f08",
+   "front": "CER / EER",
+   "back": "The point where FAR = FRR. The lower it is, the more accurate the system."
+  },
+  {
+   "id": "m1c4-f09",
+   "front": "Password spraying",
+   "back": "A few common passwords tried against many accounts."
+  },
+  {
+   "id": "m1c4-f10",
+   "front": "Phishing-resistant MFA",
+   "back": "FIDO2 / passkeys (WebAuthn), bound to the real domain name."
+  },
+  {
+   "id": "m1c4-f11",
+   "front": "DAC",
+   "back": "The owner decides (ACL)."
+  },
+  {
+   "id": "m1c4-f12",
+   "front": "MAC",
+   "back": "The system decides based on labels and clearances."
+  },
+  {
+   "id": "m1c4-f13",
+   "front": "RBAC",
+   "back": "Rights assigned to roles, roles assigned to people."
+  },
+  {
+   "id": "m1c4-f14",
+   "front": "ABAC",
+   "back": "Decision based on attributes of the subject, the resource, the action and the context."
+  },
+  {
+   "id": "m1c4-f15",
+   "front": "Bell-LaPadula",
+   "back": "Confidentiality: no read up, no write down."
+  },
+  {
+   "id": "m1c4-f16",
+   "front": "Biba",
+   "back": "Integrity: no read down, no write up."
+  },
+  {
+   "id": "m1c4-f17",
+   "front": "OAuth 2.0 / OIDC",
+   "back": "OAuth authorizes (access token). OIDC authenticates (JWT ID token) on top of OAuth."
+  },
+  {
+   "id": "m1c4-f18",
+   "front": "SAML 2.0",
+   "back": "Signed XML assertions issued by the IdP for the SP."
+  },
+  {
+   "id": "m1c4-f19",
+   "front": "Kerberos",
+   "back": "AS → TGT; TGS → service ticket; synchronized clocks."
+  },
+  {
+   "id": "m1c4-f20",
+   "front": "PAM",
+   "back": "Separate admin accounts, vault, just-in-time access, recorded sessions."
+  }
+ ],
+ "revisionSheet": [
+  "# Revision sheet: IAM, authentication and access control",
+  "IAAA: identification (claim) → authentication (prove) → authorization (rights) → accountability (logs, unique identities).",
+  "Factors: knowledge, possession, inherence. MFA = at least two different categories.",
+  "Biometrics: FRR = Type I (wrongly refused); FAR = Type II (impostor accepted, the most serious); low CER/EER = more accurate.",
+  "Passwords: length, rejecting compromised passwords, no forced rotation without a reason, slow salted hashing.",
+  "Phishing-resistant MFA: FIDO2, passkeys. Against MFA fatigue: number matching, rate limiting and alerting.",
+  "Attacks: brute force, password spraying, credential stuffing, MFA fatigue, real-time phishing.",
+  "Models: DAC (owner), MAC (labels), RBAC (roles), rule-based (firewall, time of day), ABAC (attributes, PDP/PEP).",
+  "Principles: least privilege, need to know, default deny, separation of duties.",
+  "Bell-LaPadula (confidentiality): no read up, no write down. Biba (integrity): no read down, no write up.",
+  "Life cycle: joiner, mover, leaver (JML) + access reviews; disable immediately on departure.",
+  "SSO (one authentication, several applications); federation (IdP ↔ SP); SAML (XML assertions); OAuth 2.0 (authorization); OIDC (identity, JWT).",
+  "Kerberos: KDC = AS + TGS; TGT, then service ticket; synchronized clocks; pass-the-ticket and Kerberoasting risks.",
+  "PAM: separate accounts, vault, rotation, just-in-time, recorded sessions.",
+  "Pairs not to confuse: identification/authentication; FAR/FRR; DAC/MAC; rule-based/role-based; Bell-LaPadula/Biba; OAuth/OIDC; AS/TGS."
  ]
 }

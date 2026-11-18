@@ -663,6 +663,124 @@
    ]
   }
  ],
+ "flashcards": [
+  {
+   "id": "m4c2-f01",
+   "front": "View",
+   "back": "A virtual table that exposes only part of the data: least privilege."
+  },
+  {
+   "id": "m4c2-f02",
+   "front": "Stored procedure",
+   "back": "Only the intended operations are possible."
+  },
+  {
+   "id": "m4c2-f03",
+   "front": "Aggregation",
+   "back": "Gathering harmless data to obtain sensitive information."
+  },
+  {
+   "id": "m4c2-f04",
+   "front": "Inference",
+   "back": "Deducing hidden data from accessible data."
+  },
+  {
+   "id": "m4c2-f05",
+   "front": "Polyinstantiation",
+   "back": "One version per clearance level; a countermeasure against inference."
+  },
+  {
+   "id": "m4c2-f06",
+   "front": "ACID",
+   "back": "Atomicity, consistency, isolation, durability."
+  },
+  {
+   "id": "m4c2-f07",
+   "front": "DAM",
+   "back": "Database activity monitoring: unusual queries."
+  },
+  {
+   "id": "m4c2-f08",
+   "front": "Owner / custodian",
+   "back": "Decides and classifies / implements the protections."
+  },
+  {
+   "id": "m4c2-f09",
+   "front": "Controller / processor",
+   "back": "Sets the purposes / processes on the controller's behalf (GDPR)."
+  },
+  {
+   "id": "m4c2-f10",
+   "front": "Classification",
+   "back": "Level based on the impact of disclosure; decided by the owner."
+  },
+  {
+   "id": "m4c2-f11",
+   "front": "Life cycle",
+   "back": "Create, store, use, share, archive, destroy."
+  },
+  {
+   "id": "m4c2-f12",
+   "front": "Three states",
+   "back": "At rest (disk), in transit (network), in use (memory)."
+  },
+  {
+   "id": "m4c2-f13",
+   "front": "DLP",
+   "back": "Spots and blocks sensitive data leaving: endpoint, network, cloud."
+  },
+  {
+   "id": "m4c2-f14",
+   "front": "Masking / tokenization",
+   "back": "Hiding on display / replacing with a token (vault)."
+  },
+  {
+   "id": "m4c2-f15",
+   "front": "Pseudonymization / anonymization",
+   "back": "Reversible: GDPR applies / irreversible: outside the GDPR."
+  },
+  {
+   "id": "m4c2-f16",
+   "front": "Data remanence",
+   "back": "Data that can be recovered after deletion or formatting."
+  },
+  {
+   "id": "m4c2-f17",
+   "front": "NIST SP 800-88",
+   "back": "Clear, purge, destroy."
+  },
+  {
+   "id": "m4c2-f18",
+   "front": "Cryptographic erasure",
+   "back": "Destroying the key makes the data unreadable."
+  },
+  {
+   "id": "m4c2-f19",
+   "front": "Degaussing",
+   "back": "Effective on magnetic media, ineffective on SSDs and flash."
+  },
+  {
+   "id": "m4c2-f20",
+   "front": "GDPR: 72 hours",
+   "back": "Notification to the authority; minimization, storage limitation."
+  }
+ ],
+ "revisionSheet": [
+  "# Revision sheet: databases and data protection",
+  "Databases: named accounts, least privilege, views, stored procedures, encryption (TDE, columns, backups), hardening, DAM, never exposed on the Internet.",
+  "Aggregation: gathering harmless data → sensitive information. Inference: deducing hidden data. Polyinstantiation: one version per level, a countermeasure against inference.",
+  "ACID: atomicity (all or nothing), consistency, isolation, durability.",
+  "Classification based on the impact of disclosure (public, internal, confidential, secret); decided by the owner; reviewed over time.",
+  "Roles: owner (decides), custodian (implements), user; GDPR: controller (purposes), processor (on the controller's behalf), DPO (advice, monitoring).",
+  "Life cycle: create, store, use, share, archive, destroy; classify at creation.",
+  "Three states: at rest (disk encryption), in transit (TLS, VPN), in use (isolation, enclaves).",
+  "DLP: endpoint, network, cloud; relies on content and labels; blocks or alerts.",
+  "Masking (display), tokenization (token + vault), pseudonymization (reversible, GDPR applies), anonymization (irreversible, outside the GDPR).",
+  "Remanence: deleting or formatting does not erase.",
+  "NIST SP 800-88: clear, purge, destroy. Cryptographic erasure: destroy the key. Degaussing: magnetic media only, not SSDs.",
+  "GDPR: lawfulness, purpose limitation, minimization, accuracy, storage limitation, security; breach notified to the authority within 72 hours.",
+  "Pairs not to confuse: aggregation/inference; owner/custodian; controller/processor; pseudonymization/anonymization; clear/purge/destroy."
+ ],
  "questions": [
   {
    "id": "m4c2-q01",

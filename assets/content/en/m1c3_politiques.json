@@ -1179,5 +1179,122 @@
     "3": "It is not an ISO standard."
    }
   }
+ ],
+ "flashcards": [
+  {
+   "id": "m1c3-f01",
+   "front": "Policy",
+   "back": "Management's principles and intentions; mandatory, stable, approved by management."
+  },
+  {
+   "id": "m1c3-f02",
+   "front": "Internal standard",
+   "back": "A precise, measurable requirement; mandatory."
+  },
+  {
+   "id": "m1c3-f03",
+   "front": "Baseline",
+   "back": "Mandatory minimum configuration for a type of system."
+  },
+  {
+   "id": "m1c3-f04",
+   "front": "Guideline",
+   "back": "A recommendation: the only document that is not mandatory."
+  },
+  {
+   "id": "m1c3-f05",
+   "front": "Procedure",
+   "back": "Detailed steps of a task: the \"how\"."
+  },
+  {
+   "id": "m1c3-f06",
+   "front": "Three types of policies",
+   "back": "General (program), issue-specific, system-specific."
+  },
+  {
+   "id": "m1c3-f07",
+   "front": "A valid exception",
+   "back": "Justified, temporary, compensated, approved by the risk owner, recorded."
+  },
+  {
+   "id": "m1c3-f08",
+   "front": "Certifiable ISO standard for the ISMS",
+   "back": "ISO/IEC 27001."
+  },
+  {
+   "id": "m1c3-f09",
+   "front": "ISO/IEC 27002",
+   "back": "Implementation guide for the controls (not certifiable)."
+  },
+  {
+   "id": "m1c3-f10",
+   "front": "Annex A of 27001:2022",
+   "back": "93 controls, 4 themes: organizational 37, people 8, physical 14, technological 34."
+  },
+  {
+   "id": "m1c3-f11",
+   "front": "SoA",
+   "back": "Statement of Applicability: each Annex A control, applied or excluded, with a justification."
+  },
+  {
+   "id": "m1c3-f12",
+   "front": "ISO 27001 certification cycle",
+   "back": "Initial audit in 2 stages, 3-year certificate, surveillance audits, recertification."
+  },
+  {
+   "id": "m1c3-f13",
+   "front": "ISO/IEC 27035 / 27037",
+   "back": "Incident management / digital evidence."
+  },
+  {
+   "id": "m1c3-f14",
+   "front": "End of the 27001:2013 → 2022 transition",
+   "back": "October 31, 2025."
+  },
+  {
+   "id": "m1c3-f15",
+   "front": "NIST CSF 2.0",
+   "back": "6 functions: Govern, Identify, Protect, Detect, Respond, Recover. Not certifiable."
+  },
+  {
+   "id": "m1c3-f16",
+   "front": "NIST SP 800-53",
+   "back": "Detailed catalog of security and privacy controls."
+  },
+  {
+   "id": "m1c3-f17",
+   "front": "COBIT / ITIL",
+   "back": "COBIT: IT governance (ISACA). ITIL: IT service management."
+  },
+  {
+   "id": "m1c3-f18",
+   "front": "PCI DSS",
+   "back": "Mandatory industry standard for payment card data."
+  },
+  {
+   "id": "m1c3-f19",
+   "front": "SOC 2 Type I / Type II",
+   "back": "Type I: design at a point in time. Type II: operating effectiveness over a period."
+  },
+  {
+   "id": "m1c3-f20",
+   "front": "ANSSI",
+   "back": "IT hygiene guide (42 measures), EBIOS Risk Manager method."
+  }
+ ],
+ "revisionSheet": [
+  "# Revision sheet: policies, standards and frameworks",
+  "Policy (why, management) → internal standard (what, measurable) → baseline (minimum) → procedure (how). Guideline = non-mandatory advice.",
+  "Policies: general, issue-specific, system-specific (NIST SP 800-12).",
+  "Exception: justified, temporary, compensated, approved, recorded, reviewed.",
+  "27000 vocabulary; 27001 ISMS requirements (certifiable); 27002 controls; 27005 risks; 27014 governance; 27017/27018 cloud; 27035 incidents; 27037 evidence; 27701 privacy.",
+  "27001:2022: clauses 4 Context, 5 Leadership, 6 Planning, 7 Support, 8 Operation, 9 Performance evaluation, 10 Improvement.",
+  "Annex A 2022: 93 controls in 4 themes (37 / 8 / 14 / 34). 2013 version: 114 controls, 14 domains. Transition ended on 10/31/2025.",
+  "SoA is mandatory and justifies inclusions and exclusions. 3-year certificate + surveillance audits.",
+  "NIST CSF 2.0: Govern, Identify, Protect, Detect, Respond, Recover; not certifiable.",
+  "SP 800-53: catalog of controls. COBIT: IT governance. ITIL: services.",
+  "PCI DSS: payment cards. SOC 2 (AICPA): Type I design, Type II effectiveness over a period.",
+  "ANSSI: IT hygiene guide (42 measures), EBIOS Risk Manager.",
+  "Pairs not to confuse: 27001/27002; standard/guideline; policy/procedure; SOC 2/SOC; Type I/Type II; COBIT/ITIL."
  ]
 }

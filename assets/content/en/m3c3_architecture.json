@@ -647,6 +647,127 @@
    ]
   }
  ],
+ "flashcards": [
+  {
+   "id": "m3c3-f01",
+   "front": "Defense in depth",
+   "back": "Independent layered controls: administrative, technical, physical."
+  },
+  {
+   "id": "m3c3-f02",
+   "front": "Least privilege",
+   "back": "Just the rights needed, for just the time needed."
+  },
+  {
+   "id": "m3c3-f03",
+   "front": "Secure by default",
+   "back": "The delivered configuration is the most secure one."
+  },
+  {
+   "id": "m3c3-f04",
+   "front": "Fail secure / fail safe",
+   "back": "Block on failure / open to protect people. People first."
+  },
+  {
+   "id": "m3c3-f05",
+   "front": "Open design",
+   "back": "Security does not rely on the secrecy of the design."
+  },
+  {
+   "id": "m3c3-f06",
+   "front": "Complete mediation",
+   "back": "Every access is checked, every time."
+  },
+  {
+   "id": "m3c3-f07",
+   "front": "Attack surface",
+   "back": "Everything that is exposed; reducing it = removing what is unneeded."
+  },
+  {
+   "id": "m3c3-f08",
+   "front": "Single point of failure",
+   "back": "An element whose failure brings everything down. Countermeasure: redundancy."
+  },
+  {
+   "id": "m3c3-f09",
+   "front": "TCB",
+   "back": "Everything security depends on; keep it small."
+  },
+  {
+   "id": "m3c3-f10",
+   "front": "Reference monitor",
+   "back": "Always invoked, tamperproof, verifiable."
+  },
+  {
+   "id": "m3c3-f11",
+   "front": "Bell-LaPadula",
+   "back": "Confidentiality: no read up, no write down."
+  },
+  {
+   "id": "m3c3-f12",
+   "front": "Biba",
+   "back": "Integrity: no read down, no write up."
+  },
+  {
+   "id": "m3c3-f13",
+   "front": "Clark-Wilson",
+   "back": "Well-formed transactions, separation of duties, auditing."
+  },
+  {
+   "id": "m3c3-f14",
+   "front": "Brewer-Nash",
+   "back": "Chinese Wall: conflicts of interest."
+  },
+  {
+   "id": "m3c3-f15",
+   "front": "TPM",
+   "back": "Chip: keys, boot measurement, disk encryption."
+  },
+  {
+   "id": "m3c3-f16",
+   "front": "Zero Trust",
+   "back": "Never trust, always verify; assume breach."
+  },
+  {
+   "id": "m3c3-f17",
+   "front": "PDP / PEP",
+   "back": "Policy decision point / policy enforcement point."
+  },
+  {
+   "id": "m3c3-f18",
+   "front": "CISA pillars",
+   "back": "Identity, devices, networks, applications and workloads, data."
+  },
+  {
+   "id": "m3c3-f19",
+   "front": "Shared responsibility",
+   "back": "IaaS, PaaS, SaaS: data and access always belong to the customer."
+  },
+  {
+   "id": "m3c3-f20",
+   "front": "ZTNA / SASE",
+   "back": "Per-application access / networking and security delivered as a cloud service."
+  }
+ ],
+ "revisionSheet": [
+  "# Revision sheet: secure architecture, defense in depth and Zero Trust",
+  "Defense in depth: independent, different, layered controls; administrative, technical and physical families.",
+  "Principles: least privilege, secure by default, fail secure, economy of mechanism, complete mediation, open design, separation of privilege, reduced attack surface.",
+  "Fail secure (block on failure) for information; fail safe (open) when lives are at stake: people first.",
+  "Avoid single points of failure: redundancy, vendor diversity, several trained people.",
+  "TCB: the hardware, software and firmware that security depends on; keep it small.",
+  "Reference monitor: always invoked, tamperproof, verifiable; implemented by the security kernel.",
+  "Bell-LaPadula (confidentiality): no read up, no write down (* property).",
+  "Biba (integrity): no read down, no write up.",
+  "Clark-Wilson: well-formed transactions, separation of duties, auditing. Brewer-Nash: Chinese Wall, conflicts of interest.",
+  "Trusted hardware: protection rings (0 kernel, 3 applications), TPM, Secure Boot, HSM. VM escape: the hypervisor is part of the TCB.",
+  "Zero Trust: no implicit trust based on the network; verify explicitly, least privilege per session, assume breach.",
+  "NIST SP 800-207: the PDP (policy engine and policy administrator) decides, the PEP enforces.",
+  "CISA: pillars identity, devices, networks, applications and workloads, data; cross-cutting: visibility, automation, governance.",
+  "Cloud: shared responsibility; in IaaS, PaaS or SaaS, the customer remains responsible for its data and access.",
+  "ZTNA: per-application access (the evolution of VPN). SASE: networking and security functions delivered as a cloud service.",
+  "Pairs not to confuse: BLP/Biba; PDP/PEP; fail secure/fail safe; IaaS/PaaS/SaaS; VPN/ZTNA."
+ ],
  "questions": [
   {
    "id": "m3c3-q01",

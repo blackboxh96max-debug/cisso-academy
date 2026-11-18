@@ -1154,5 +1154,124 @@
     "3": "Anyone who accesses sensitive information is concerned, not only the SOC."
    }
   }
+ ],
+ "flashcards": [
+  {
+   "id": "m1c2-f01",
+   "front": "Governance vs. management",
+   "back": "Governance: direct and control (doing the right things). Management: plan and execute (doing things right)."
+  },
+  {
+   "id": "m1c2-f02",
+   "front": "Ultimately accountable for security",
+   "back": "Executive management (and the board of directors)."
+  },
+  {
+   "id": "m1c2-f03",
+   "front": "Accountability",
+   "back": "Final responsibility, the obligation to answer for results: it cannot be delegated."
+  },
+  {
+   "id": "m1c2-f04",
+   "front": "Responsibility",
+   "back": "The duty to carry out a task: it can be delegated."
+  },
+  {
+   "id": "m1c2-f05",
+   "front": "Due diligence",
+   "back": "Finding out, assessing, verifying (knowing)."
+  },
+  {
+   "id": "m1c2-f06",
+   "front": "Due care",
+   "back": "Acting and maintaining reasonable measures (doing)."
+  },
+  {
+   "id": "m1c2-f07",
+   "front": "ISO standard for information security governance",
+   "back": "ISO/IEC 27014."
+  },
+  {
+   "id": "m1c2-f08",
+   "front": "Who classifies information?",
+   "back": "The data owner."
+  },
+  {
+   "id": "m1c2-f09",
+   "front": "Role of the custodian",
+   "back": "Applying the owner's decisions: backups, rights, encryption."
+  },
+  {
+   "id": "m1c2-f10",
+   "front": "Government levels (U.S. model)",
+   "back": "Top Secret > Secret > Confidential > Sensitive But Unclassified > Unclassified."
+  },
+  {
+   "id": "m1c2-f11",
+   "front": "National defense secrecy (France, since 2021)",
+   "back": "Two levels: Très Secret and Secret."
+  },
+  {
+   "id": "m1c2-f12",
+   "front": "Least privilege",
+   "back": "Only the rights needed for the job."
+  },
+  {
+   "id": "m1c2-f13",
+   "front": "Need to know",
+   "back": "Access to information only if the job requires it, even with sufficient clearance."
+  },
+  {
+   "id": "m1c2-f14",
+   "front": "Separation of duties",
+   "back": "Splitting a sensitive operation among several people; defeated by collusion."
+  },
+  {
+   "id": "m1c2-f15",
+   "front": "Mandatory vacations",
+   "back": "Detective control: a replacement may discover a fraud."
+  },
+  {
+   "id": "m1c2-f16",
+   "front": "Job rotation",
+   "back": "Detects irregularities and reduces dependence on one person."
+  },
+  {
+   "id": "m1c2-f17",
+   "front": "Privilege creep",
+   "back": "Rights piling up as people change jobs; prevented by access reviews."
+  },
+  {
+   "id": "m1c2-f18",
+   "front": "Awareness / training / education",
+   "back": "Everyone and behaviors / roles and skills / experts and understanding."
+  },
+  {
+   "id": "m1c2-f19",
+   "front": "KPI",
+   "back": "Key performance indicator of a process (e.g., MTTR)."
+  },
+  {
+   "id": "m1c2-f20",
+   "front": "KRI",
+   "back": "Key risk indicator showing how a risk evolves, before the incident."
+  }
+ ],
+ "revisionSheet": [
+  "# Revision sheet: security governance and management",
+  "Governance: direct and control (executive management, board). Management: plan and execute (CISO, CIO, teams).",
+  "Executive management bears final accountability; the CISO leads, advises and reports.",
+  "Accountability cannot be delegated; responsibility can.",
+  "Due diligence = knowing (finding out, assessing); due care = doing (acting, maintaining). Knowing without acting = negligence.",
+  "ISO/IEC 27014: information security governance. NIST CSF 2.0: Govern function.",
+  "Having the CISO report outside the IT department limits conflicts of interest.",
+  "Classification: protection proportionate to impact; reviewed periodically.",
+  "Owner: classifies and authorizes; custodian: implements; user: complies.",
+  "Least privilege (rights) and need to know (information) apply together.",
+  "Separation of duties (against individual fraud, defeated by collusion), job rotation, mandatory vacations (detective).",
+  "Employee leaving: accounts disabled immediately. Job change: rights no longer needed are removed.",
+  "Awareness (everyone), training (roles), education (experts).",
+  "KPI = performance (MTTD, MTTR); KRI = how a risk evolves.",
+  "Pairs not to confuse: governance/management; accountability/responsibility; due diligence/due care; owner/custodian; least privilege/need to know; KPI/KRI."
  ]
 }

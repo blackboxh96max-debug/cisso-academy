@@ -770,6 +770,126 @@
    ]
   }
  ],
+ "flashcards": [
+  {
+   "id": "m2c3-f01",
+   "front": "Vulnerability",
+   "back": "An exploitable weakness. The threat exploits it; the exploit is the concrete means."
+  },
+  {
+   "id": "m2c3-f02",
+   "front": "CVE",
+   "back": "Unique identifier of a specific flaw: CVE-year-number."
+  },
+  {
+   "id": "m2c3-f03",
+   "front": "CWE",
+   "back": "Catalog of weakness types (SQL injection, buffer overflow…)."
+  },
+  {
+   "id": "m2c3-f04",
+   "front": "CVSS",
+   "back": "Severity score from 0 to 10. 7 to 8.9 high; 9 to 10 critical."
+  },
+  {
+   "id": "m2c3-f05",
+   "front": "Limit of the CVSS",
+   "back": "Technical severity, not risk: it ignores exposure, criticality and actual exploitation."
+  },
+  {
+   "id": "m2c3-f06",
+   "front": "NVD",
+   "back": "NIST database that enriches CVEs (score, products, references)."
+  },
+  {
+   "id": "m2c3-f07",
+   "front": "KEV",
+   "back": "CISA catalog of vulnerabilities whose exploitation is confirmed."
+  },
+  {
+   "id": "m2c3-f08",
+   "front": "EPSS",
+   "back": "Probability that a CVE will be exploited within 30 days (FIRST)."
+  },
+  {
+   "id": "m2c3-f09",
+   "front": "Authenticated scan",
+   "back": "Reads the installed versions: more accurate, fewer false positives."
+  },
+  {
+   "id": "m2c3-f10",
+   "front": "Unauthenticated scan",
+   "back": "The attacker's view from the network."
+  },
+  {
+   "id": "m2c3-f11",
+   "front": "Cycle",
+   "back": "Discover, assess, prioritize, remediate, verify, report."
+  },
+  {
+   "id": "m2c3-f12",
+   "front": "Priority",
+   "back": "Severity + exploitation + exposure + asset criticality."
+  },
+  {
+   "id": "m2c3-f13",
+   "front": "Virtual patch",
+   "back": "A WAF or IPS that blocks exploitation: compensating and temporary."
+  },
+  {
+   "id": "m2c3-f14",
+   "front": "Exception",
+   "back": "Written, approved by the risk owner, compensated, dated."
+  },
+  {
+   "id": "m2c3-f15",
+   "front": "Patch = change",
+   "back": "Goes through change management; emergency = fast-tracked but recorded process."
+  },
+  {
+   "id": "m2c3-f16",
+   "front": "Waves",
+   "back": "Pilot, then successive waves, with rollback."
+  },
+  {
+   "id": "m2c3-f17",
+   "front": "Zero-day",
+   "back": "No patch: work around, filter, isolate, monitor."
+  },
+  {
+   "id": "m2c3-f18",
+   "front": "End of life (EOL)",
+   "back": "No more patches: replace, or isolate with an exception."
+  },
+  {
+   "id": "m2c3-f19",
+   "front": "Scan / pentest / audit / Red Team",
+   "back": "Lists / proves / compares / puts the defense to the test."
+  },
+  {
+   "id": "m2c3-f20",
+   "front": "Box testing",
+   "back": "Black: nothing. Gray: a little (an account). White: everything (code, diagrams)."
+  }
+ ],
+ "revisionSheet": [
+  "# Revision sheet: vulnerability and patch management",
+  "Vulnerability = weakness; threat = what exploits it; exploit = concrete means; risk = likelihood × impact.",
+  "CVE = identifier of a specific flaw; CWE = type of weakness; CVSS = severity from 0 to 10.",
+  "CVSS v3.1: low 0.1-3.9; medium 4.0-6.9; high 7.0-8.9; critical 9.0-10.0. Technical severity, not risk.",
+  "Sources: NVD (NIST), KEV (CISA, confirmed exploitation), EPSS (FIRST, 30-day probability), vendor and CERT advisories.",
+  "Scans: authenticated (accurate), unauthenticated (attacker's view), agent-based (mobile devices), passive (fragile equipment). Written authorization, scope, time window.",
+  "Cycle: discover → assess → prioritize → remediate → verify → report, based on the asset inventory.",
+  "Priority = severity + exploitation (KEV, EPSS) + exposure + asset criticality.",
+  "Treatment: patch, mitigate (virtual patch = compensating, temporary), accept by exception, decommission.",
+  "Exception: written, justified, approved by the risk owner, compensating measures, review date.",
+  "Metrics: overdue critical flaws, time to fix by severity, coverage, expired exceptions, reopened findings.",
+  "Patching: monitoring, assessment, testing, deployment in waves with rollback, installation check, up-to-date inventory.",
+  "A patch is a change; urgent patch = emergency change, recorded and reviewed.",
+  "Zero-day: no patch → work around, filter, isolate, detect. End of life: replace, or isolate with an exception.",
+  "Scan (lists), penetration test (proves), audit (compares), Red Team (tests detection and response). Black, gray, white box.",
+  "Pairs not to confuse: CVE/CWE; CVSS/EPSS; scan/pentest; virtual patch/patch; distributed/installed."
+ ],
  "questions": [
   {
    "id": "m2c3-q01",

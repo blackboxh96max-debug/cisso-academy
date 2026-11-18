@@ -681,6 +681,126 @@
    ]
   }
  ],
+ "flashcards": [
+  {
+   "id": "m2c4-f01",
+   "front": "Substitution",
+   "back": "Replacing each letter with another (Caesar, Atbash)."
+  },
+  {
+   "id": "m2c4-f02",
+   "front": "Transposition",
+   "back": "Keeping the letters but changing their order (scytale)."
+  },
+  {
+   "id": "m2c4-f03",
+   "front": "Frequency analysis",
+   "back": "Counting letters: breaks monoalphabetic ciphers (Al-Kindi, 9th century)."
+  },
+  {
+   "id": "m2c4-f04",
+   "front": "Vigenère",
+   "back": "Polyalphabetic with a keyword; broken thanks to the repeating key (Kasiski, 1863)."
+  },
+  {
+   "id": "m2c4-f05",
+   "front": "Enigma",
+   "back": "Rotor machine; broken thanks to procedural errors (Rejewski, Turing)."
+  },
+  {
+   "id": "m2c4-f06",
+   "front": "One-time pad",
+   "back": "A random key, as long as the message, secret, used once: perfect secrecy (Shannon, 1949)."
+  },
+  {
+   "id": "m2c4-f07",
+   "front": "Kerckhoffs",
+   "back": "Only the secrecy of the key should protect; the algorithm can be public."
+  },
+  {
+   "id": "m2c4-f08",
+   "front": "Steganography",
+   "back": "Hiding the existence of the message, without encrypting it."
+  },
+  {
+   "id": "m2c4-f09",
+   "front": "Shor",
+   "back": "Breaks RSA, ECC and Diffie-Hellman on a quantum computer."
+  },
+  {
+   "id": "m2c4-f10",
+   "front": "Grover",
+   "back": "Roughly halves the bit security of symmetric encryption: AES-256 remains strong."
+  },
+  {
+   "id": "m2c4-f11",
+   "front": "PQC or QKD?",
+   "back": "PQC: new classical algorithms. QKD: key exchange using photons (BB84)."
+  },
+  {
+   "id": "m2c4-f12",
+   "front": "FIPS 203, 204, 205",
+   "back": "ML-KEM (establishing a key), ML-DSA and SLH-DSA (signing); NIST, August 2024."
+  },
+  {
+   "id": "m2c4-f13",
+   "front": "Harvest now, decrypt later",
+   "back": "Exchanges recorded today may be decrypted tomorrow."
+  },
+  {
+   "id": "m2c4-f14",
+   "front": "Post-quantum migration",
+   "back": "Inventory, prioritize, crypto agility, hybrid, test."
+  },
+  {
+   "id": "m2c4-f15",
+   "front": "Homomorphic",
+   "back": "Computing on encrypted data (Gentry, 2009)."
+  },
+  {
+   "id": "m2c4-f16",
+   "front": "MPC",
+   "back": "Computing together without revealing your data."
+  },
+  {
+   "id": "m2c4-f17",
+   "front": "ZKP",
+   "back": "Proving a statement without revealing the secret."
+  },
+  {
+   "id": "m2c4-f18",
+   "front": "Blockchain",
+   "back": "Chained hashes: integrity and traceability, not confidentiality."
+  },
+  {
+   "id": "m2c4-f19",
+   "front": "FPE",
+   "back": "Encrypting while keeping the format (SP 800-38G)."
+  },
+  {
+   "id": "m2c4-f20",
+   "front": "Lightweight cryptography",
+   "back": "For constrained devices: Ascon (NIST)."
+  }
+ ],
+ "revisionSheet": [
+  "# Revision sheet: history of cryptography, quantum and innovations",
+  "Substitution: replace (Caesar, Atbash, Vigenère). Transposition: move (scytale). Code: codebook of words. Steganography: hide the existence of the message.",
+  "Monoalphabetic: broken by frequency analysis (Al-Kindi, 9th century). Polyalphabetic: Vigenère (repeating key, Kasiski 1863), Enigma (rotors, procedural errors).",
+  "One-time pad (Vernam 1917, Shannon 1949): random key, as long as the message, secret, never reused.",
+  "Kerckhoffs (1883): only the secrecy of the key matters. Base64 is not encryption.",
+  "Modern milestones: Diffie-Hellman 1976, DES and RSA 1977, AES 2001.",
+  "Shor: breaks RSA, ECC, Diffie-Hellman. Grover: symmetric security roughly halved (AES-256 remains strong).",
+  "Harvest now, decrypt later: long-lived secrets are already exposed.",
+  "PQC = new classical algorithms; QKD = keys using photons (BB84), an authenticated channel is required.",
+  "NIST 2024: FIPS 203 ML-KEM (keys), FIPS 204 ML-DSA (signatures), FIPS 205 SLH-DSA (hash-based signatures).",
+  "Migration: inventory, priorities based on how long data must stay secret, agility, hybrid modes, testing.",
+  "Data at rest (AES), in transit (TLS), in use (homomorphic, MPC, enclaves).",
+  "Homomorphic: computing on encrypted data. MPC: computing together without revealing yourself. ZKP: proving without revealing.",
+  "Blockchain: integrity, traceability, timestamping; no confidentiality, no guarantee that the data entered is correct.",
+  "Lightweight cryptography (Ascon), FPE (SP 800-38G), AEAD (AES-GCM, ChaCha20-Poly1305), Ed25519.",
+  "Not to confuse: QKD and PQC; Shor and Grover; steganography and encryption; homomorphic and hashing."
+ ],
  "questions": [
   {
    "id": "m2c4-q01",

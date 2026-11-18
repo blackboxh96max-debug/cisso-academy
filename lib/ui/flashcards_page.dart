@@ -371,9 +371,11 @@ class _FlashcardSessionPageState extends State<FlashcardSessionPage> {
                       label: 'Question',
                       difficulty: _difficulty(state.cards[card.id]),
                       text: card.front,
-                      english:
-                          state.terms.englishFor(card.front) ??
-                          state.terms.englishFor(card.concept),
+                      textEn: card.en?.front,
+                      english: card.en != null
+                          ? null
+                          : state.terms.englishFor(card.front) ??
+                                state.terms.englishFor(card.concept),
                       big: true,
                     ),
                     back: _IndexCard(
@@ -382,6 +384,7 @@ class _FlashcardSessionPageState extends State<FlashcardSessionPage> {
                       label: 'Réponse',
                       difficulty: _difficulty(state.cards[card.id]),
                       text: card.back,
+                      textEn: card.en?.back,
                       big: false,
                       back: true,
                     ),
@@ -484,10 +487,14 @@ class _IndexCard extends StatelessWidget {
     required this.big,
     this.back = false,
     this.english,
+    this.textEn,
   });
 
   /// Terme anglais affiché sous le recto.
   final String? english;
+
+  /// Texte anglais de la carte : affiché en premier, le français dessous.
+  final String? textEn;
 
   final Tone tone;
   final String corner;
@@ -503,6 +510,15 @@ class _IndexCard extends StatelessWidget {
     final c = toneColors(tone, brightness);
     final paper = Paper.of(context);
     const levels = ['Nouvelle', 'Facile', 'Moyenne', 'Difficile'];
+    final mainStyle = big
+        ? TextStyle(
+            fontFamily: Hand.title,
+            fontSize: Hand.tsize(34),
+            fontWeight: Hand.titleWeight,
+            color: paper.ink,
+            height: 1.1,
+          )
+        : Hand.noteText(context).copyWith(fontSize: Hand.bsize(19));
     return HandBox(
       fill: back ? c.fill : paper.page,
       stroke: c.ink,
@@ -581,20 +597,30 @@ class _IndexCard extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(height: 10),
-                            Text(
-                              text,
-                              textAlign: TextAlign.center,
-                              style: big
-                                  ? TextStyle(
-                                      fontFamily: Hand.title,
-                                      fontSize: Hand.tsize(34),
-                                      fontWeight: Hand.titleWeight,
-                                      color: paper.ink,
-                                      height: 1.1,
-                                    )
-                                  : Hand.noteText(context)
-                                        .copyWith(fontSize: Hand.bsize(19)),
-                            ),
+                            if (textEn case final en?
+                                when en.trim() != text.trim()) ...[
+                              Text(
+                                '🇬🇧 $en',
+                                textAlign: TextAlign.center,
+                                style: mainStyle.copyWith(
+                                  color: englishColor(context),
+                                ),
+                              ),
+                              const SizedBox(height: 6),
+                              Text(
+                                '🇫🇷 $text',
+                                textAlign: TextAlign.center,
+                                style: Hand.noteText(context).copyWith(
+                                  fontSize: Hand.bsize(big ? 18 : 16),
+                                  color: paper.inkSoft,
+                                ),
+                              ),
+                            ] else
+                              Text(
+                                text,
+                                textAlign: TextAlign.center,
+                                style: mainStyle,
+                              ),
                             if (english != null) ...[
                               const SizedBox(height: 8),
                               EnTag(english!, size: 15),

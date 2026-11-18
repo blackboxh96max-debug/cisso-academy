@@ -16,20 +16,32 @@ class RevisionSheetPage extends StatelessWidget {
 
   final Chapter chapter;
 
-  String get plainText => chapter.revisionSheet
-      .map((l) => l.startsWith('# ') ? l.substring(2).toUpperCase() : '• $l')
-      .join('\n');
+  String get plainText => [
+    for (final (i, l) in chapter.revisionSheet.indexed) ...[
+      if (chapter.revisionLineEn(i) case final en?)
+        en.startsWith('# ') ? en.substring(2).toUpperCase() : '• $en',
+      l.startsWith('# ') ? l.substring(2).toUpperCase() : '• $l',
+    ],
+  ].join('\n');
 
   @override
   Widget build(BuildContext context) {
     final paper = Paper.of(context);
     final brightness = Theme.of(context).brightness;
-    final titles = chapter.revisionSheet
-        .where((l) => l.startsWith('# '))
-        .map((l) => l.substring(2));
-    final points = chapter.revisionSheet
-        .where((l) => !l.startsWith('# '))
-        .toList();
+    final sheet = chapter.revisionSheet;
+    final titles = [
+      for (final (i, l) in sheet.indexed)
+        if (l.startsWith('# '))
+          (l.substring(2), chapter.revisionLineEn(i)?.substring(2)),
+    ];
+    final points = [
+      for (final l in sheet)
+        if (!l.startsWith('# ')) l,
+    ];
+    final pointsEn = [
+      for (final (i, l) in sheet.indexed)
+        if (!l.startsWith('# ')) chapter.revisionLineEn(i),
+    ];
     final terms = AppScope.of(context).terms;
     final seen = <String>{};
     final matches = [for (final p in points) terms.findIn(p, skip: seen)];
@@ -64,7 +76,9 @@ class RevisionSheetPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      titles.isEmpty ? chapter.title : titles.first,
+                      titles.isEmpty
+                          ? chapter.title
+                          : titles.first.$2 ?? titles.first.$1,
                       style: TextStyle(
                         fontFamily: Hand.title,
                         fontSize: Hand.tsize(32),
@@ -73,6 +87,14 @@ class RevisionSheetPage extends StatelessWidget {
                         color: Colors.white,
                       ),
                     ),
+                    if (titles.isNotEmpty && titles.first.$2 != null)
+                      Text(
+                        '🇫🇷 ${titles.first.$1}',
+                        style: Hand.sansText(
+                          context,
+                          size: 14,
+                        ).copyWith(color: Colors.white),
+                      ),
                     Text(
                       '${points.length} points clés à savoir par cœur',
                       style: Hand.sansText(context, size: 14).copyWith(
@@ -119,22 +141,44 @@ class RevisionSheetPage extends StatelessWidget {
                       ),
                       const SizedBox(width: 12),
                       Expanded(
-                        child: SelectableText.rich(
-                          bilingualSpan(
-                            context,
-                            line,
-                            matches[i],
-                            Hand.bodyText(context).copyWith(
-                              fontSize: Hand.bsize(19),
-                              color: i.isEven
-                                  ? paper.ink
-                                  : toneColors(
-                                      rainbowTones[i % rainbowTones.length],
-                                      brightness,
-                                    ).ink,
-                            ),
-                          ),
-                        ),
+                        child: pointsEn[i] != null
+                            ? Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SelectableText(
+                                    '🇬🇧 ${pointsEn[i]}',
+                                    style: Hand.bodyText(context).copyWith(
+                                      fontSize: Hand.bsize(19),
+                                      color: englishColor(context),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 2),
+                                  SelectableText(
+                                    '🇫🇷 $line',
+                                    style: Hand.bodyText(context).copyWith(
+                                      fontSize: Hand.bsize(16),
+                                      color: paper.inkSoft,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : SelectableText.rich(
+                                bilingualSpan(
+                                  context,
+                                  line,
+                                  matches[i],
+                                  Hand.bodyText(context).copyWith(
+                                    fontSize: Hand.bsize(19),
+                                    color: i.isEven
+                                        ? paper.ink
+                                        : toneColors(
+                                            rainbowTones[i %
+                                                rainbowTones.length],
+                                            brightness,
+                                          ).ink,
+                                  ),
+                                ),
+                              ),
                       ),
                     ],
                   ),
