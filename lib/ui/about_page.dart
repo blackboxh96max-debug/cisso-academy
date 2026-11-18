@@ -513,6 +513,8 @@ const appNews = <(String, List<String>)>[
       'Menu de gauche toujours visible, réductible ou masquable.',
       'Menu de gauche : l\'entrée Examen est retirée, la rubrique L\'examen '
           'se trouve dans À propos.',
+      'QCM du module 5 (sécurité des données) : 20 questions de ta formation '
+          'ajoutées, avec corrigé en anglais et en français.',
     ],
   ),
   (
