@@ -662,5 +662,481 @@
     }
    ]
   }
+ ],
+ "questions": [
+  {
+   "id": "m4c2-q01",
+   "prompt": "Customer service must see customers' names but not their bank account numbers (IBAN). Which database feature fits?",
+   "choices": [
+    "A view that exposes only the columns needed",
+    "An index on the customer name column",
+    "A daily backup of the customer table",
+    "Full access to the table, with a confidentiality reminder"
+   ],
+   "explanation": "The view shows only part of the data: this is least privilege applied to the database.",
+   "whyNot": {
+    "1": "An index speeds up searches; it restricts nothing.",
+    "2": "The backup does not limit access.",
+    "3": "The IBAN would be visible."
+   }
+  },
+  {
+   "id": "m4c2-q02",
+   "prompt": "An employee gathers the delivery dates and addresses of many orders, none of them very sensitive, and deduces the movements of a military unit. What is this risk called?",
+   "choices": [
+    "Replication",
+    "Aggregation",
+    "Normalization",
+    "Polyinstantiation"
+   ],
+   "explanation": "Combining a lot of harmless data to obtain sensitive information is aggregation.",
+   "whyNot": {
+    "0": "Replication copies the database.",
+    "2": "Normalization organizes the tables.",
+    "3": "Polyinstantiation is a countermeasure."
+   }
+  },
+  {
+   "id": "m4c2-q03",
+   "prompt": "What does the atomicity of a transaction guarantee?",
+   "choices": [
+    "That it is anonymous and leaves no trace",
+    "That it is encrypted end to end",
+    "That it always runs in less than a second",
+    "That it is either fully completed or fully canceled"
+   ],
+   "explanation": "All or nothing: a transfer cannot debit one account without crediting the other.",
+   "whyNot": {
+    "0": "Unrelated.",
+    "1": "Atomicity does not concern encryption.",
+    "2": "It does not concern speed."
+   }
+  },
+  {
+   "id": "m4c2-q04",
+   "prompt": "A user knows the total payroll of a two-person department and the salary of one of them. They deduce the salary of the other. What is this?",
+   "choices": [
+    "Inference",
+    "Aggregation",
+    "Privilege escalation",
+    "SQL injection"
+   ],
+   "explanation": "They deduce information they do not have access to from accessible data: this is inference.",
+   "whyNot": {
+    "1": "They do not gather a large amount of data; they reason.",
+    "2": "Their rights do not change.",
+    "3": "No booby-trapped query."
+   }
+  },
+  {
+   "id": "m4c2-q05",
+   "prompt": "Which mechanism shows an uncleared user a harmless version of a secret record, so that they cannot guess a secret exists?",
+   "choices": [
+    "Differential backup",
+    "Hashing",
+    "Polyinstantiation",
+    "Aggregation"
+   ],
+   "explanation": "Several versions of a record depending on the clearance level: it is a countermeasure against inference.",
+   "whyNot": {
+    "0": "Unrelated.",
+    "1": "Hashing protects integrity.",
+    "3": "Aggregation is a threat."
+   }
+  },
+  {
+   "id": "m4c2-q06",
+   "prompt": "Why give an application the right to run stored procedures rather than direct access to the tables?",
+   "choices": [
+    "To remove the table access logs",
+    "So that it can only perform the intended operations",
+    "To avoid encrypting sensitive data",
+    "To speed up database backups"
+   ],
+   "explanation": "Procedures limit the possible operations and reduce the impact of an application compromise.",
+   "whyNot": {
+    "0": "The logs are still needed.",
+    "2": "Unrelated.",
+    "3": "Unrelated."
+   }
+  },
+  {
+   "id": "m4c2-q07",
+   "prompt": "Which tool raises an alert when an application account reads the entire customer table at once at 3 a.m.?",
+   "choices": [
+    "The stateful firewall placed in front of the server",
+    "Database activity monitoring (DAM)",
+    "Network address translation (NAT)",
+    "The nightly incremental backup"
+   ],
+   "explanation": "DAM watches the queries and spots unusual behavior on the data.",
+   "whyNot": {
+    "0": "It sees connections, not the content of the queries.",
+    "2": "Unrelated.",
+    "3": "The backup monitors nothing."
+   }
+  },
+  {
+   "id": "m4c2-q08",
+   "prompt": "Which measures harden a production database? (several answers)",
+   "choices": [
+    "Exposing the database port on the Internet for support",
+    "Separating administration accounts from application accounts",
+    "Encrypting the files and backups",
+    "Removing default accounts"
+   ],
+   "explanation": "Removing default accounts, separating accounts and encryption greatly reduce the risk.",
+   "whyNot": {
+    "0": "A database must never be exposed directly on the Internet."
+   }
+  },
+  {
+   "id": "m4c2-q09",
+   "prompt": "Which measure best reduces the risk of inference in a salary statistics database?",
+   "choices": [
+    "Increasing the size of the server's disks",
+    "Adding indexes on the salary columns",
+    "Refusing queries that cover groups that are too small",
+    "Disabling backups of the statistics database"
+   ],
+   "explanation": "For a group of one or two people, a statistic reveals individual data: a minimum group size is set.",
+   "whyNot": {
+    "0": "Unrelated.",
+    "1": "No effect on confidentiality.",
+    "3": "Dangerous and unrelated."
+   }
+  },
+  {
+   "id": "m4c2-q10",
+   "prompt": "The account a website uses to read orders must have:",
+   "choices": [
+    "Database administrator rights",
+    "No password",
+    "Only the rights needed for its operations",
+    "The same password as the administrator"
+   ],
+   "explanation": "If the site is compromised, the attacker will only have these limited rights.",
+   "whyNot": {
+    "0": "A compromise of the site would give away the whole database.",
+    "1": "Unacceptable.",
+    "3": "A shared password: no compartmentalization."
+   }
+  },
+  {
+   "id": "m4c2-q11",
+   "prompt": "Who decides on the classification of data?",
+   "choices": [
+    "The system administrator who manages the server",
+    "The data owner (business manager)",
+    "The cloud provider that hosts the data",
+    "Any user who creates the data"
+   ],
+   "explanation": "The owner knows the value of the data and is accountable for it; the custodian applies the protections.",
+   "whyNot": {
+    "0": "That is the custodian: they implement.",
+    "2": "The provider does not know the business value.",
+    "3": "Users follow the classification."
+   }
+  },
+  {
+   "id": "m4c2-q12",
+   "prompt": "TLS encryption protects data in which state?",
+   "choices": [
+    "In use",
+    "At rest",
+    "In transit",
+    "Archived"
+   ],
+   "explanation": "TLS encrypts data traveling over the network.",
+   "whyNot": {
+    "0": "In memory, other mechanisms apply.",
+    "1": "At rest, disks and databases are encrypted.",
+    "3": "Archived = at rest."
+   }
+  },
+  {
+   "id": "m4c2-q13",
+   "prompt": "Which role implements the backups, rights and encryption decided for the data?",
+   "choices": [
+    "The data owner",
+    "The custodian",
+    "The internal auditor",
+    "The data protection officer (DPO)"
+   ],
+   "explanation": "The custodian applies, day to day, the protections decided by the owner.",
+   "whyNot": {
+    "0": "The owner decides.",
+    "2": "The auditor checks.",
+    "3": "The DPO advises and monitors GDPR compliance."
+   }
+  },
+  {
+   "id": "m4c2-q14",
+   "prompt": "Why classify data?",
+   "choices": [
+    "To automatically delete the oldest data",
+    "To encrypt all data at the same level, without exception",
+    "To speed up the network by reducing the volume of exchanges",
+    "To protect each piece of information according to its sensitivity"
+   ],
+   "explanation": "Classification avoids overprotecting what is harmless and underprotecting what is sensitive.",
+   "whyNot": {
+    "0": "Destruction follows retention, not just age.",
+    "1": "Protecting everything to the maximum is costly and burdensome.",
+    "2": "Unrelated."
+   }
+  },
+  {
+   "id": "m4c2-q15",
+   "prompt": "A company entrusts its payroll to a service provider that processes employee data according to its instructions. What is the provider's role under the GDPR?",
+   "choices": [
+    "Controller",
+    "Processor",
+    "Data protection officer",
+    "Supervisory authority"
+   ],
+   "explanation": "The processor handles personal data on behalf of the controller, which sets the purposes.",
+   "whyNot": {
+    "0": "It is the company that sets the purposes.",
+    "2": "The DPO advises the organization.",
+    "3": "The supervisory authority is a public body (for example the CNIL in France)."
+   }
+  },
+  {
+   "id": "m4c2-q16",
+   "prompt": "When should data be classified?",
+   "choices": [
+    "Only in the event of an incident",
+    "Only when archiving",
+    "As soon as it is created",
+    "Never, it is pointless"
+   ],
+   "explanation": "Classification guides all the following stages: storage, sharing, retention, destruction.",
+   "whyNot": {
+    "0": "Too late.",
+    "1": "Too late: it will have circulated without suitable protection.",
+    "3": "It is essential."
+   }
+  },
+  {
+   "id": "m4c2-q17",
+   "prompt": "Financial results are \"confidential\" until their official publication. What should be done after publication?",
+   "choices": [
+    "Destroy them immediately after publication",
+    "Leave them \"confidential\" forever, to be safe",
+    "Review their classification, for example to \"public\"",
+    "Encrypt them a second time with a new key"
+   ],
+   "explanation": "Classification is reviewed: information loses its sensitivity when it becomes public.",
+   "whyNot": {
+    "0": "They may need to be retained.",
+    "1": "Needless overprotection is costly and burdensome.",
+    "3": "Pointless."
+   }
+  },
+  {
+   "id": "m4c2-q18",
+   "prompt": "Which protection specifically targets data in use, in memory?",
+   "choices": [
+    "Offline backup of the processed data",
+    "Confidential computing enclaves",
+    "TLS 1.3 on every connection to the server",
+    "Full-disk encryption of the server"
+   ],
+   "explanation": "Enclaves protect data while it is being processed, even from the host system.",
+   "whyNot": {
+    "0": "Availability, not use.",
+    "2": "TLS protects data in transit.",
+    "3": "At rest."
+   }
+  },
+  {
+   "id": "m4c2-q19",
+   "prompt": "The owner of a customer database is away and the administrator receives an access request from a new department. What should the administrator do?",
+   "choices": [
+    "Grant access, since they have the technical ability and the rights",
+    "Permanently refuse any request from a new department",
+    "Copy the database into a new space reserved for the new department",
+    "Obtain the approval of the owner (or their designated deputy) before granting access"
+   ],
+   "explanation": "The access decision belongs to the owner; the administrator (custodian) implements it.",
+   "whyNot": {
+    "0": "Technical ability is not authorization.",
+    "1": "The request may be legitimate.",
+    "2": "Copying multiplies the risks."
+   }
+  },
+  {
+   "id": "m4c2-q20",
+   "prompt": "Which pairings between a protection and a data state are correct? (several answers)",
+   "choices": [
+    "Memory isolation: data in use",
+    "VPN: data in transit",
+    "Disk encryption: data at rest",
+    "TLS: data at rest"
+   ],
+   "explanation": "At rest: disk; in transit: network; in use: memory.",
+   "whyNot": {
+    "3": "TLS protects data in transit."
+   }
+  },
+  {
+   "id": "m4c2-q21",
+   "prompt": "Which tool can prevent a file containing credit card numbers from being sent by email?",
+   "choices": [
+    "The company's internal DNS server",
+    "The stateful firewall of the mail gateway",
+    "The TPM module of the sender's workstation",
+    "DLP (data loss prevention)"
+   ],
+   "explanation": "DLP recognizes sensitive data in the content and blocks or reports it leaving.",
+   "whyNot": {
+    "0": "Unrelated.",
+    "1": "It does not read the content of emails.",
+    "2": "The TPM protects keys on the machine."
+   }
+  },
+  {
+   "id": "m4c2-q22",
+   "prompt": "A disk is simply formatted before being given to a charity. What risk remains?",
+   "choices": [
+    "The data can be recovered: data remanence",
+    "The disk can never be used again",
+    "The disk will be automatically encrypted by the system",
+    "None, because formatting permanently erases all the content"
+   ],
+   "explanation": "Formatting erases the indexes, not the data: simple tools can recover it.",
+   "whyNot": {
+    "1": "It works perfectly well.",
+    "2": "Formatting encrypts nothing.",
+    "3": "That is the classic mistake."
+   }
+  },
+  {
+   "id": "m4c2-q23",
+   "prompt": "Which GDPR principle requires collecting only the data that is needed?",
+   "choices": [
+    "Data minimization",
+    "Aggregation",
+    "Polyinstantiation",
+    "Portability"
+   ],
+   "explanation": "Minimizing reduces the impact of a leak: you cannot lose what you do not have.",
+   "whyNot": {
+    "1": "Aggregation is a threat.",
+    "2": "A database concept.",
+    "3": "Portability is a right of individuals."
+   }
+  },
+  {
+   "id": "m4c2-q24",
+   "prompt": "Data in which the name is replaced by an identifier, with a mapping table kept separately: is it still subject to the GDPR?",
+   "choices": [
+    "Only if it is printed or sent by email",
+    "No, it has become anonymous and falls outside the GDPR",
+    "No, provided that the mapping table is encrypted",
+    "Yes, it is pseudonymized data, and therefore still personal"
+   ],
+   "explanation": "Re-identification remains possible with the table: the GDPR still applies.",
+   "whyNot": {
+    "0": "Unrelated.",
+    "1": "Anonymous would mean that nobody can re-identify.",
+    "2": "Encrypting the table does not change the nature of the data."
+   }
+  },
+  {
+   "id": "m4c2-q25",
+   "prompt": "Why is degaussing not suitable for an SSD?",
+   "choices": [
+    "Because the GDPR prohibits it for personal data",
+    "Because an SSD uses flash memory, not magnetic media",
+    "Because it is too slow for high-capacity disks",
+    "Because it encrypts the disk instead of erasing the data"
+   ],
+   "explanation": "For an SSD: the manufacturer's secure erase, cryptographic erasure or physical destruction.",
+   "whyNot": {
+    "0": "The GDPR does not prohibit a method.",
+    "2": "Speed is not the issue.",
+    "3": "It encrypts nothing."
+   }
+  },
+  {
+   "id": "m4c2-q26",
+   "prompt": "How can data stored at a cloud provider, whose disks cannot be destroyed, be made unreadable?",
+   "choices": [
+    "Rename the files so that they are no longer recognized",
+    "Destroy the encryption key of that data (cryptographic erasure)",
+    "Deactivate the cloud account without deleting anything",
+    "Ask the provider to send over the physical disks"
+   ],
+   "explanation": "Without the key, the encrypted data is unusable: this is cryptographic erasure.",
+   "whyNot": {
+    "0": "Renaming does not change the content.",
+    "2": "The data would remain in place.",
+    "3": "Rarely possible in a multi-tenant cloud."
+   }
+  },
+  {
+   "id": "m4c2-q27",
+   "prompt": "What is the tokenization of a credit card number?",
+   "choices": [
+    "Full-disk encryption of the server that stores the numbers",
+    "Permanently deleting the number from all the company's databases",
+    "Replacing the number with a worthless token, with the mapping kept in a secure vault",
+    "Displaying only the last four digits, with the others masked on screen"
+   ],
+   "explanation": "The systems that handle the token no longer need to see the real number, which reduces their exposure.",
+   "whyNot": {
+    "0": "Disk encryption is something else.",
+    "1": "Tokenization is reversible through the vault.",
+    "3": "That is masking."
+   }
+  },
+  {
+   "id": "m4c2-q28",
+   "prompt": "Magnetic hard drives containing \"secret\" data are being retired and will not be reused. Which method is the most appropriate?",
+   "choices": [
+    "Physical destruction (shredding), after purging if possible, with a certificate",
+    "Deleting the files and then emptying the recycle bin",
+    "Renaming the partitions and reinstalling the system",
+    "A simple quick format of each disk"
+   ],
+   "explanation": "For a high classification level and media that will not be reused, destruction offers the best assurance.",
+   "whyNot": {
+    "1": "Data remanence.",
+    "2": "No effect.",
+    "3": "Data remanence."
+   }
+  },
+  {
+   "id": "m4c2-q29",
+   "prompt": "A customer database has been stolen and poses a risk to individuals. Under the GDPR, within what time frame must the supervisory authority be notified?",
+   "choices": [
+    "The GDPR does not require any notification to the authority",
+    "72 hours after becoming aware of it, where feasible",
+    "30 days after discovery, once the investigation is complete",
+    "1 year, in the company's annual report"
+   ],
+   "explanation": "Article 33 sets 72 hours; if the risk is high, the individuals concerned must also be informed (Article 34).",
+   "whyNot": {
+    "0": "Notification is mandatory unless the risk is unlikely.",
+    "2": "Too long.",
+    "3": "Too long."
+   }
+  },
+  {
+   "id": "m4c2-q30",
+   "prompt": "Which statements about DLP are correct? (several answers)",
+   "choices": [
+    "It can act on the endpoint, the network and the cloud",
+    "It replaces data classification",
+    "It relies on the content or the classification label",
+    "It can block or only alert"
+   ],
+   "explanation": "DLP applies rules based on classification and content; it does not replace classification.",
+   "whyNot": {
+    "1": "Good classification makes DLP more accurate; DLP does not replace it."
+   }
+  }
  ]
 }
