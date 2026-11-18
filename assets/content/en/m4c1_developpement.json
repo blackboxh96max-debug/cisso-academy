@@ -674,5 +674,481 @@
     }
    ]
   }
+ ],
+ "questions": [
+  {
+   "id": "m4c1-q01",
+   "prompt": "When should security work on a new piece of software begin?",
+   "choices": [
+    "Just before it goes into production",
+    "As soon as the requirements are defined",
+    "After the first incident",
+    "During maintenance only"
+   ],
+   "explanation": "Security requirements are written along with the functional requirements: that is when fixing costs the least.",
+   "whyNot": {
+    "0": "Too late: design flaws are then expensive.",
+    "2": "Reacting after an incident is not a secure development approach.",
+    "3": "Maintenance comes at the end of the cycle."
+   }
+  },
+  {
+   "id": "m4c1-q02",
+   "prompt": "In STRIDE, what does the letter E stand for?",
+   "choices": [
+    "Exposure (of data)",
+    "Elevation of privilege",
+    "Encryption bypass",
+    "Exfiltration (data theft)"
+   ],
+   "explanation": "STRIDE: Spoofing, Tampering, Repudiation, Information disclosure, Denial of service, Elevation of privilege.",
+   "whyNot": {
+    "0": "It is not a letter of the model.",
+    "2": "Encryption is a control, not a STRIDE threat.",
+    "3": "Exfiltration falls under information disclosure (I)."
+   }
+  },
+  {
+   "id": "m4c1-q03",
+   "prompt": "Which practice is recommended for testing an application?",
+   "choices": [
+    "Giving the testers the customers' passwords",
+    "Using fictitious or anonymized data",
+    "Copying the production database as is",
+    "Testing directly in production"
+   ],
+   "explanation": "Test environments are less protected: real data does not belong there.",
+   "whyNot": {
+    "0": "There is no legitimate reason for this; it is a leak.",
+    "2": "Real data in test creates a risk of leakage.",
+    "3": "Testing in production endangers the service and the data."
+   }
+  },
+  {
+   "id": "m4c1-q04",
+   "prompt": "A user denies having approved a wire transfer and no log can prove otherwise. Which STRIDE threat was not addressed?",
+   "choices": [
+    "Denial of service",
+    "Tampering",
+    "Spoofing",
+    "Repudiation"
+   ],
+   "explanation": "Repudiation is addressed with protected logs and signatures that prove who did what.",
+   "whyNot": {
+    "0": "The service is not interrupted.",
+    "1": "The data is not modified.",
+    "2": "Spoofing concerns the identity of the sender, not the proof of their action."
+   }
+  },
+  {
+   "id": "m4c1-q05",
+   "prompt": "What does \"shift left\" mean in secure development?",
+   "choices": [
+    "Addressing security as early as possible in the development cycle",
+    "Postponing security testing until the end of the project",
+    "Handing all security over to the operations team",
+    "Moving the servers to the left of the architecture diagram"
+   ],
+   "explanation": "Security activities (requirements, design, coding, automated tests) are moved earlier to find defects early.",
+   "whyNot": {
+    "1": "That is the opposite.",
+    "2": "Security becomes everyone's business, from the start.",
+    "3": "A play on words with no connection."
+   }
+  },
+  {
+   "id": "m4c1-q06",
+   "prompt": "A developer can modify the code and deploy it to production alone, without approval. Which principle is violated?",
+   "choices": [
+    "Defense in depth only",
+    "Open design",
+    "Fail safe",
+    "Separation of duties"
+   ],
+   "explanation": "Writing and deploying without another person's review makes it possible to introduce an error or a backdoor without detection.",
+   "whyNot": {
+    "0": "The principle directly violated is separation of duties.",
+    "1": "Open design concerns the secrecy of the design.",
+    "2": "Fail safe concerns failures."
+   }
+  },
+  {
+   "id": "m4c1-q07",
+   "prompt": "When is threat modeling most useful?",
+   "choices": [
+    "At disposal",
+    "During the annual audit",
+    "After going into production",
+    "During design"
+   ],
+   "explanation": "It is used to choose controls before writing the code; it is updated as the application evolves.",
+   "whyNot": {
+    "0": "Too late to influence the design.",
+    "1": "The audit checks; it does not design.",
+    "2": "It can be revised, but its main value is at design time."
+   }
+  },
+  {
+   "id": "m4c1-q08",
+   "prompt": "An urgent fix must go into production that same evening. What is the right approach?",
+   "choices": [
+    "Follow the emergency change procedure, with a rollback planned",
+    "Wait for the next monthly change board meeting, no matter what",
+    "Let each developer decide alone whether to deploy it tonight",
+    "Deploy it directly, with no ticket or record, to go faster"
+   ],
+   "explanation": "Urgency speeds up the process but does not remove it: traceability and rollback remain mandatory.",
+   "whyNot": {
+    "1": "Waiting can leave an exploitable flaw.",
+    "2": "No oversight, no separation of duties.",
+    "3": "An unrecorded change is a major risk."
+   }
+  },
+  {
+   "id": "m4c1-q09",
+   "prompt": "Which checks should be made before putting an application into production? (several answers)",
+   "choices": [
+    "Removing debug pages and accounts",
+    "Checking that secrets are not in the code",
+    "Disabling detailed error messages for users",
+    "Leaving the test credentials for support"
+   ],
+   "explanation": "Debug features, verbose errors and secrets in the code are classic go-live flaws.",
+   "whyNot": {
+    "3": "Test credentials in production are an entry point."
+   }
+  },
+  {
+   "id": "m4c1-q10",
+   "prompt": "What is the main benefit of a code review by another person?",
+   "choices": [
+    "Checking the spelling and layout of the code comments",
+    "Finding flaws the author missed, with a second pair of eyes",
+    "Slowing projects down to give the tests time to finish",
+    "Replacing all automated tests with a human check"
+   ],
+   "explanation": "A second pair of eyes spots defects and makes it harder to deliberately introduce malicious code.",
+   "whyNot": {
+    "0": "That is not the main goal.",
+    "2": "That is not the goal.",
+    "3": "It complements the tests; it does not replace them."
+   }
+  },
+  {
+   "id": "m4c1-q11",
+   "prompt": "What is the best defense against SQL injection?",
+   "choices": [
+    "Disk encryption",
+    "Hiding error messages",
+    "Parameterized (prepared) queries",
+    "A long password for the database"
+   ],
+   "explanation": "With a parameterized query, the input remains data and is never interpreted as SQL.",
+   "whyNot": {
+    "0": "Disk encryption changes nothing about the query.",
+    "1": "Useful, but injection remains possible.",
+    "3": "The injection goes through the application, which is already connected."
+   }
+  },
+  {
+   "id": "m4c1-q12",
+   "prompt": "In an XSS attack, where does the malicious code run?",
+   "choices": [
+    "In the backup system, during a restore",
+    "In the browsers of the users who view the page",
+    "In the application firewall placed in front of the site",
+    "On the database server that stores the page"
+   ],
+   "explanation": "The injected script runs in the victims' browsers, for example to steal their session.",
+   "whyNot": {
+    "0": "Unrelated.",
+    "2": "The firewall does not run the script.",
+    "3": "That is the case of SQL injection."
+   }
+  },
+  {
+   "id": "m4c1-q13",
+   "prompt": "What does OWASP publish with its \"Top 10\"?",
+   "choices": [
+    "A mandatory certification standard for websites",
+    "The most critical categories of web risks",
+    "The ten network ports to close first on a web server",
+    "The ten best antivirus products on the market, tested every year"
+   ],
+   "explanation": "The Top 10 is an awareness document, updated regularly (latest edition: 2025), used as a minimum baseline.",
+   "whyNot": {
+    "0": "It is not a mandatory standard.",
+    "2": "It is not a list of ports.",
+    "3": "It is not a product comparison."
+   }
+  },
+  {
+   "id": "m4c1-q14",
+   "prompt": "By changing \"invoice=1001\" to \"invoice=1002\" in the URL, a customer sees someone else's invoice. Which category is this?",
+   "choices": [
+    "Cryptographic failure",
+    "Denial of service",
+    "SSRF",
+    "Broken access control"
+   ],
+   "explanation": "The application does not check that the requested object belongs to the user: this is an IDOR, a case of broken access control.",
+   "whyNot": {
+    "0": "The problem is not encryption.",
+    "1": "The service works.",
+    "2": "The server does not call another address."
+   }
+  },
+  {
+   "id": "m4c1-q15",
+   "prompt": "A user logged in to their bank visits a booby-trapped site that triggers a transfer without their knowledge. Which countermeasure protects best?",
+   "choices": [
+    "Encrypting the customer accounts database",
+    "A session-specific anti-CSRF token in each sensitive form",
+    "An up-to-date antivirus installed on the bank's server",
+    "A longer password for the user's account"
+   ],
+   "explanation": "The booby-trapped site does not know the token: the forged request is rejected. SameSite cookies add further protection.",
+   "whyNot": {
+    "0": "Encryption does not single out a forged request.",
+    "2": "The request looks legitimate to the server.",
+    "3": "The session is already open."
+   }
+  },
+  {
+   "id": "m4c1-q16",
+   "prompt": "Why is input validation in the browser not enough?",
+   "choices": [
+    "Because modern browsers prohibit it",
+    "Because it is too slow for large forms",
+    "Because an attacker can bypass it and call the server directly",
+    "Because it encrypts the data, which the server can then no longer read"
+   ],
+   "explanation": "The client is under the user's control: security validation is always done on the server side.",
+   "whyNot": {
+    "0": "It is allowed and useful for convenience.",
+    "1": "Speed is not the problem.",
+    "3": "It encrypts nothing."
+   }
+  },
+  {
+   "id": "m4c1-q17",
+   "prompt": "Which main countermeasure prevents stored XSS in a site's comments?",
+   "choices": [
+    "A daily backup of the comments database",
+    "TLS encryption of every page of the site",
+    "Context-aware output encoding of the data at display time",
+    "Network address translation (NAT) in front of the web server"
+   ],
+   "explanation": "Once encoded, the script is displayed as text instead of running. A CSP also limits which scripts are allowed.",
+   "whyNot": {
+    "0": "The backup also keeps the script.",
+    "1": "TLS protects the transport, not the displayed content.",
+    "3": "Unrelated."
+   }
+  },
+  {
+   "id": "m4c1-q18",
+   "prompt": "Which measures reduce the risk of buffer overflow? (several answers)",
+   "choices": [
+    "Using memory-safe languages when possible",
+    "Showing memory addresses in error messages",
+    "Checking the length of the data being copied",
+    "Enabling system protections such as ASLR and DEP"
+   ],
+   "explanation": "Length checks, safe languages and system protections make exploitation much harder.",
+   "whyNot": {
+    "1": "Showing addresses actually helps the attacker."
+   }
+  },
+  {
+   "id": "m4c1-q19",
+   "prompt": "A program checks that a file belongs to the user, then opens it a few milliseconds later; in the meantime, an attacker replaces it with a link to a system file. What type of flaw is this?",
+   "choices": [
+    "Request forgery (CSRF)",
+    "SQL injection (SQLi)",
+    "Race condition (TOCTOU)",
+    "Cross-site scripting (XSS)"
+   ],
+   "explanation": "Time of check to time of use: the state changes between the check and the use. Countermeasure: atomic operations and locks.",
+   "whyNot": {
+    "0": "There is no cross-site request.",
+    "1": "There is no SQL query.",
+    "3": "There is no web page."
+   }
+  },
+  {
+   "id": "m4c1-q20",
+   "prompt": "An \"import an image from a URL\" feature makes it possible to have the server call the address of an internal administration service. Which countermeasure is the most appropriate?",
+   "choices": [
+    "An up-to-date antivirus on the administrators' workstations",
+    "Restricting destinations and blocking internal addresses",
+    "Hiding the SSID of the administration Wi-Fi network",
+    "A longer password for the users' accounts"
+   ],
+   "explanation": "Against SSRF, you restrict the destinations the server can reach and filter internal addresses. In the OWASP Top 10:2025, SSRF is folded into A01 (access control); it was A10 in 2021.",
+   "whyNot": {
+    "0": "The problem is on the server side.",
+    "2": "Unrelated to Wi-Fi.",
+    "3": "No effect on what the server calls."
+   }
+  },
+  {
+   "id": "m4c1-q21",
+   "prompt": "Which method analyzes the source code without running the application?",
+   "choices": [
+    "Load testing",
+    "SAST",
+    "Fuzzing",
+    "DAST"
+   ],
+   "explanation": "Static analysis (SAST) reads the code and flags risky lines.",
+   "whyNot": {
+    "0": "Load testing measures performance.",
+    "2": "Fuzzing runs the program with malformed data.",
+    "3": "DAST tests the running application."
+   }
+  },
+  {
+   "id": "m4c1-q22",
+   "prompt": "What does the digital signature of an update prove?",
+   "choices": [
+    "Its origin and the fact that it has not been modified",
+    "That it is free of charge",
+    "That it contains no flaws",
+    "That it is compatible with every system"
+   ],
+   "explanation": "The signature guarantees authenticity and integrity, not the quality of the code.",
+   "whyNot": {
+    "1": "Unrelated.",
+    "2": "A vendor can sign vulnerable code.",
+    "3": "Unrelated."
+   }
+  },
+  {
+   "id": "m4c1-q23",
+   "prompt": "Where should the database password used by an application be stored?",
+   "choices": [
+    "In a code comment, for the developers",
+    "In cleartext in the source code, in a constant",
+    "In a secrets vault, read at startup",
+    "In the repository name, so it is easy to find"
+   ],
+   "explanation": "The secrets vault protects and logs secrets, and allows them to be rotated without changing the code.",
+   "whyNot": {
+    "0": "Same problem.",
+    "1": "Anyone who reads the repository sees the secret.",
+    "3": "Absurd and visible."
+   }
+  },
+  {
+   "id": "m4c1-q24",
+   "prompt": "A critical vulnerability is published in a very widely used library. Which tool quickly shows which applications use it?",
+   "choices": [
+    "The SBOM (software bill of materials) of each application",
+    "The business continuity plan of each application",
+    "The developers' password policy",
+    "The data center visitor log"
+   ],
+   "explanation": "The SBOM lists the components and their versions: you search for the library and get the list of affected applications.",
+   "whyNot": {
+    "1": "It does not list software components.",
+    "2": "Unrelated.",
+    "3": "Unrelated."
+   }
+  },
+  {
+   "id": "m4c1-q25",
+   "prompt": "What advantage does DAST have over SAST?",
+   "choices": [
+    "It never produces false positives, because it exploits the flaw",
+    "It shows exactly which line of code is at fault",
+    "It observes the real behavior of the deployed application, with its configuration",
+    "It can run even before the code is written"
+   ],
+   "explanation": "DAST tests the running application from the outside: it sees configuration and runtime problems.",
+   "whyNot": {
+    "0": "No tool is free of false positives.",
+    "1": "That is the advantage of SAST.",
+    "3": "It needs a working application."
+   }
+  },
+  {
+   "id": "m4c1-q26",
+   "prompt": "An API key was pushed to a shared repository by mistake. What is the first action?",
+   "choices": [
+    "Delete the commit from the repository and do nothing else",
+    "Wait to see whether anyone uses the key before acting",
+    "Rename the repository so the key is harder to find",
+    "Revoke the key and issue a new one, then check whether it was used"
+   ],
+   "explanation": "The key remains in the history and may have been copied: only revocation makes it unusable.",
+   "whyNot": {
+    "0": "The history and copies keep the key.",
+    "1": "Waiting lets the attacker act.",
+    "2": "The repository name changes nothing."
+   }
+  },
+  {
+   "id": "m4c1-q27",
+   "prompt": "What does software composition analysis (SCA) do?",
+   "choices": [
+    "It measures the application's speed under heavy load",
+    "It replaces code review with an automated check",
+    "It encrypts the source code before publication",
+    "It inventories third-party components and their known flaws"
+   ],
+   "explanation": "SCA relies on known vulnerability databases for the libraries in use.",
+   "whyNot": {
+    "0": "Unrelated.",
+    "1": "It does not look at in-house code.",
+    "2": "It encrypts nothing."
+   }
+  },
+  {
+   "id": "m4c1-q28",
+   "prompt": "An attacker compromises a vendor's build server and inserts malicious code into a signed update. What lesson should be drawn?",
+   "choices": [
+    "The build pipeline must be protected, in addition to the signature",
+    "The problem comes from the users, who should have checked the installed code",
+    "The signature is always enough: a signed update is necessarily safe",
+    "All software updates should be stopped to avoid this type of attack"
+   ],
+   "explanation": "If the compromise happens before signing, the signature authenticates trojanized code: the whole chain must be protected.",
+   "whyNot": {
+    "1": "The users could not have detected it.",
+    "2": "The signature proves the origin, not that the code is clean.",
+    "3": "No longer patching creates other risks."
+   }
+  },
+  {
+   "id": "m4c1-q29",
+   "prompt": "Which testing program best covers a critical web application?",
+   "choices": [
+    "No testing: a well-tuned web application firewall (WAF) is enough to block everything",
+    "DAST alone, run directly on the production environment",
+    "Continuous SAST and SCA, DAST in preproduction, manual penetration test",
+    "SAST alone, run once a year before the compliance audit"
+   ],
+   "explanation": "The methods complement one another: continuous automation and a human eye on business logic.",
+   "whyNot": {
+    "0": "The WAF is one layer, not a substitute for secure code.",
+    "1": "Late and partial.",
+    "3": "Too infrequent and too partial."
+   }
+  },
+  {
+   "id": "m4c1-q30",
+   "prompt": "Which measures protect an API exposed on the Internet? (several answers)",
+   "choices": [
+    "Rate limiting",
+    "An API key written into the public mobile app",
+    "Validation of the data received",
+    "Authentication and authorization for each requested object"
+   ],
+   "explanation": "Authenticating, authorizing object by object, rate limiting and validating input are the basics.",
+   "whyNot": {
+    "1": "A key embedded in a public app can be extracted by anyone."
+   }
+  }
  ]
 }
