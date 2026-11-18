@@ -105,13 +105,21 @@ void main() {
     await tester.drag(list, const Offset(0, 4000));
     await tester.pumpAndSettle();
     // La question (bulle), sa suggestion d'origine et les questions récentes.
-    expect(find.text('What is a SIEM?'), findsNWidgets(3));
-    expect(find.text('🔤 Définition'), findsOneWidget);
+    expect(find.text('What is a SIEM?', skipOffstage: false), findsNWidgets(3));
+    // La page s'ouvre dans l'onglet (menu visible) : moins de hauteur, d'où
+    // des éléments construits mais hors de l'écran.
+    expect(find.text('🔤 Définition', skipOffstage: false), findsOneWidget);
     // Lieu selon la vue choisie (livre MILE2 par défaut).
-    expect(find.textContaining('📍 Livre MILE2 · Module'), findsWidgets);
-    expect(find.textContaining('📍 Chapitre 2.1'), findsWidgets);
+    expect(
+      find.textContaining('📍 Livre MILE2 · Module', skipOffstage: false),
+      findsWidgets,
+    );
+    expect(
+      find.textContaining('📍 Chapitre 2.1', skipOffstage: false),
+      findsWidgets,
+    );
 
-    final open = find.text('Ouvrir la leçon').first;
+    final open = find.text('Ouvrir la leçon', skipOffstage: false).first;
     await tester.scrollUntilVisible(open, 200, scrollable: list);
     await tester.pumpAndSettle();
     await tester.tap(open);

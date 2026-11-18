@@ -9,6 +9,18 @@ import 'models/content.dart';
 import 'logic/search.dart';
 import 'logic/terms.dart';
 
+/// Menu de gauche sur grand écran.
+enum MenuMode {
+  /// Icônes et libellés côte à côte.
+  expanded,
+
+  /// Icônes avec petits libellés dessous.
+  compact,
+
+  /// Caché : une languette permet de le rouvrir.
+  hidden,
+}
+
 /// État partagé de l'application : contenu, stockage et statistiques.
 class AppState extends ChangeNotifier {
   AppState({
@@ -144,6 +156,16 @@ class AppState extends ChangeNotifier {
     }
   }
 
+  /// Menu de gauche sur grand écran : étendu, réduit ou masqué.
+  MenuMode get menuMode => _menuMode;
+  MenuMode _menuMode = MenuMode.compact;
+
+  Future<void> setMenuMode(MenuMode mode) async {
+    _menuMode = mode;
+    await store.setSetting('menuMode', mode.name);
+    notifyListeners();
+  }
+
   /// Mascotte choisie pour l'assistant (identifiant du personnage).
   String get mascotId => _mascot;
   String _mascot = 'cybi';
@@ -167,6 +189,11 @@ class AppState extends ChangeNotifier {
       _ => CourseView.mile2,
     };
     _mascot = await store.setting('mascot') ?? 'cybi';
+    final menu = await store.setting('menuMode');
+    _menuMode = MenuMode.values.firstWhere(
+      (m) => m.name == menu,
+      orElse: () => MenuMode.compact,
+    );
     _searches = await _loadList('history.search');
     _questions = await _loadList('history.assistant');
     final answers = await store.answers();

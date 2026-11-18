@@ -9,6 +9,7 @@ import 'package:cisso_academy/logic/study_groups.dart';
 import 'package:cisso_academy/models/content.dart';
 import 'package:cisso_academy/ui/app_menu.dart';
 import 'package:cisso_academy/ui/flashcards_page.dart';
+import 'package:cisso_academy/ui/lesson_page.dart';
 import 'package:cisso_academy/ui/chapter_page.dart';
 import 'package:cisso_academy/ui/courses_page.dart';
 import 'package:cisso_academy/ui/dashboard_page.dart';
@@ -213,6 +214,63 @@ void main() {
     await pumpApp(tester, size: const Size(1280, 800));
     expect(find.byType(NavigationRail), findsOneWidget);
     expect(find.byType(NavigationBar), findsNothing);
+  });
+
+  testWidgets('rail : reste visible dans une leçon, se réduit et se masque', (
+    tester,
+  ) async {
+    final state = await pumpApp(tester, size: const Size(1280, 800));
+    final rail = find.byKey(const Key('side-rail'));
+    // Une leçon s'ouvre à côté du menu, qui reste affiché.
+    await tester.tap(find.text('Prochaine révision recommandée'));
+    await tester.pumpAndSettle();
+    expect(find.byType(LessonPage), findsOneWidget);
+    expect(rail, findsOneWidget);
+    expect(find.text(appFooterText), findsOneWidget);
+
+    // Étendre puis réduire.
+    await tester.tap(find.byTooltip('Étendre le menu'));
+    await tester.pumpAndSettle();
+    expect(state.menuMode, MenuMode.expanded);
+    expect(tester.widget<NavigationRail>(rail).extended, isTrue);
+    expect(find.byType(LessonPage), findsOneWidget);
+    await tester.tap(find.byTooltip('Réduire le menu'));
+    await tester.pumpAndSettle();
+    expect(tester.widget<NavigationRail>(rail).extended, isFalse);
+
+    // Masquer : une languette permet de le rouvrir.
+    await tester.tap(find.byTooltip('Masquer le menu'));
+    await tester.pumpAndSettle();
+    expect(rail, findsNothing);
+    expect(state.menuMode, MenuMode.hidden);
+    expect(find.byType(LessonPage), findsOneWidget);
+    await tester.tap(find.byKey(const Key('show-menu')));
+    await tester.pumpAndSettle();
+    expect(rail, findsOneWidget);
+
+    // Le retour du système referme la leçon, pas l'application.
+    await tester.binding.handlePopRoute();
+    await tester.pumpAndSettle();
+    expect(find.byType(LessonPage), findsNothing);
+    expect(find.byType(DashboardPage), findsOneWidget);
+
+    // Un appui sur l'onglet en cours ramène à son début.
+    await tester.tap(find.text('Prochaine révision recommandée'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.descendant(of: rail, matching: find.text('Accueil')));
+    await tester.pumpAndSettle();
+    expect(find.byType(LessonPage), findsNothing);
+  });
+
+  test('rail : le mode choisi est gardé au redémarrage', () async {
+    final store = MemoryProgressStore();
+    final first = AppState(library: library, store: store);
+    await first.refresh();
+    expect(first.menuMode, MenuMode.compact);
+    await first.setMenuMode(MenuMode.hidden);
+    final second = AppState(library: library, store: store);
+    await second.refresh();
+    expect(second.menuMode, MenuMode.hidden);
   });
 
   testWidgets('lire une leçon la marque comme lue', (tester) async {

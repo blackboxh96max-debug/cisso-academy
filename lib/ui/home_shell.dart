@@ -1,6 +1,8 @@
 import 'package:material_ui/material_ui.dart';
 
 import '../app_info.dart';
+import '../app_state.dart';
+import 'about_page.dart';
 import 'app_menu.dart';
 import 'courses_page.dart';
 import 'dashboard_page.dart';
@@ -40,11 +42,38 @@ class _HomeShellState extends State<HomeShell> {
   final _courseFocus = ValueNotifier<int?>(null);
   final _scaffold = GlobalKey<ScaffoldState>();
 
+  /// Un navigateur par écran principal : modules, chapitres et leçons
+  /// s'ouvrent à l'intérieur, et le menu de gauche reste visible.
+  final _navigators = List.generate(
+    _destinations.length,
+    (_) => GlobalKey<NavigatorState>(),
+  );
+
   void _go(int index) => setState(() => _index = index);
+
+  /// Choix dans le menu : un second appui sur l'écran en cours ramène à son
+  /// début.
+  void _select(int index) {
+    if (index == _index) {
+      _navigators[index].currentState?.popUntil((r) => r.isFirst);
+    } else {
+      _go(index);
+    }
+  }
 
   void _openModule(int index) {
     _go(1);
     _courseFocus.value = index;
+  }
+
+  /// Les actions qui ouvrent une page le font dans l'écran en cours.
+  void _run(AppAction a) {
+    final nav = _navigators[_index].currentState;
+    if (a == AppAction.about && nav != null) {
+      nav.push(MaterialPageRoute<void>(builder: (_) => const AboutPage()));
+    } else {
+      a.run(context);
+    }
   }
 
   @override
@@ -55,6 +84,7 @@ class _HomeShellState extends State<HomeShell> {
 
   @override
   Widget build(BuildContext context) {
+    final state = AppScope.of(context);
     final pages = [
       DashboardPage(onNavigate: _go, onOpenModule: _openModule),
       CoursesPage(focus: _courseFocus),
@@ -63,7 +93,24 @@ class _HomeShellState extends State<HomeShell> {
       const GlossaryPage(),
     ];
     final wide = MediaQuery.sizeOf(context).width >= 840;
-    final body = IndexedStack(index: _index, children: pages);
+    final body = NavigatorPopHandler(
+      onPopWithResult: (_) => _navigators[_index].currentState?.maybePop(),
+      child: IndexedStack(
+        index: _index,
+        children: [
+          for (final (i, page) in pages.indexed)
+            HeroControllerScope.none(
+              child: Navigator(
+                key: _navigators[i],
+                onGenerateRoute: (settings) => MaterialPageRoute<void>(
+                  settings: settings,
+                  builder: (_) => page,
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
     // Les écrans principaux finissent par la mention de l'auteur.
     final content = Column(
       children: [
@@ -73,43 +120,60 @@ class _HomeShellState extends State<HomeShell> {
     );
 
     if (wide) {
+      final mode = state.menuMode;
       return Scaffold(
         body: SafeArea(
           child: ShellScope(
             openMenu: null,
             child: Row(
               children: [
-                _ScrollableRail(
-                  child: NavigationRail(
-                    selectedIndex: _index,
-                    onDestinationSelected: _go,
-                    labelType: NavigationRailLabelType.all,
-                    leading: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      child: Icon(
-                        Icons.shield_outlined,
-                        size: 32,
-                        color: Theme.of(context).colorScheme.primary,
+                if (mode == MenuMode.hidden)
+                  _ShowMenuTab(onTap: () => state.setMenuMode(MenuMode.compact))
+                else ...[
+                  _ScrollableRail(
+                    child: NavigationRail(
+                      key: const Key('side-rail'),
+                      selectedIndex: _index,
+                      onDestinationSelected: _select,
+                      extended: mode == MenuMode.expanded,
+                      minExtendedWidth: 210,
+                      labelType: mode == MenuMode.expanded
+                          ? NavigationRailLabelType.none
+                          : NavigationRailLabelType.all,
+                      leading: _RailHeader(
+                        mode: mode,
+                        onMode: state.setMenuMode,
                       ),
-                    ),
-                    trailing: Column(
-                      children: [
-                        const SizedBox(height: 8),
-                        const SizedBox(width: 56, child: Divider()),
-                        for (final a in AppAction.values) _RailAction(a),
+                      trailing: Column(
+                        crossAxisAlignment: mode == MenuMode.expanded
+                            ? CrossAxisAlignment.start
+                            : CrossAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 8),
+                          SizedBox(
+                            width: mode == MenuMode.expanded ? 180 : 56,
+                            child: const Divider(),
+                          ),
+                          for (final a in AppAction.values)
+                            _RailAction(
+                              a,
+                              extended: mode == MenuMode.expanded,
+                              onTap: () => _run(a),
+                            ),
+                        ],
+                      ),
+                      destinations: [
+                        for (final d in _destinations)
+                          NavigationRailDestination(
+                            icon: Icon(d.icon),
+                            selectedIcon: Icon(d.selectedIcon),
+                            label: Text(d.label),
+                          ),
                       ],
                     ),
-                    destinations: [
-                      for (final d in _destinations)
-                        NavigationRailDestination(
-                          icon: Icon(d.icon),
-                          selectedIcon: Icon(d.selectedIcon),
-                          label: Text(d.label),
-                        ),
-                    ],
                   ),
-                ),
-                const VerticalDivider(width: 1),
+                  const VerticalDivider(width: 1),
+                ],
                 Expanded(child: content),
               ],
             ),
@@ -121,9 +185,9 @@ class _HomeShellState extends State<HomeShell> {
       key: _scaffold,
       drawer: _AppDrawer(
         selected: _index,
-        onSelect: _go,
+        onSelect: _select,
         // Le contexte de l'écran, qui reste valide après fermeture du tiroir.
-        onAction: (a) => a.run(context),
+        onAction: _run,
       ),
       body: SafeArea(
         child: ShellScope(
@@ -133,7 +197,7 @@ class _HomeShellState extends State<HomeShell> {
       ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _index,
-        onDestinationSelected: _go,
+        onDestinationSelected: _select,
         destinations: [
           for (final d in _destinations)
             NavigationDestination(
@@ -142,6 +206,92 @@ class _HomeShellState extends State<HomeShell> {
               label: d.label,
             ),
         ],
+      ),
+    );
+  }
+}
+
+/// En-tête du rail : logo, puis boutons pour étendre/réduire et masquer.
+class _RailHeader extends StatelessWidget {
+  const _RailHeader({required this.mode, required this.onMode});
+
+  final MenuMode mode;
+  final ValueChanged<MenuMode> onMode;
+
+  @override
+  Widget build(BuildContext context) {
+    final expanded = mode == MenuMode.expanded;
+    final buttons = [
+      IconButton(
+        tooltip: expanded ? 'Réduire le menu' : 'Étendre le menu',
+        icon: Icon(expanded ? Icons.menu_open : Icons.menu),
+        onPressed: () =>
+            onMode(expanded ? MenuMode.compact : MenuMode.expanded),
+      ),
+      IconButton(
+        tooltip: 'Masquer le menu',
+        icon: const Icon(Icons.keyboard_double_arrow_left),
+        onPressed: () => onMode(MenuMode.hidden),
+      ),
+    ];
+    final logo = Icon(
+      Icons.shield_outlined,
+      size: 32,
+      color: Theme.of(context).colorScheme.primary,
+    );
+    return Padding(
+      padding: const EdgeInsets.only(top: 8, bottom: 4),
+      child: expanded
+          ? SizedBox(
+              width: 190,
+              child: Row(
+                children: [
+                  const SizedBox(width: 8),
+                  logo,
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      appName,
+                      style: Theme.of(context).textTheme.titleMedium,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  ...buttons,
+                ],
+              ),
+            )
+          : Column(children: [logo, const SizedBox(height: 4), ...buttons]),
+    );
+  }
+}
+
+/// Languette à gauche quand le menu est masqué : un appui le rouvre.
+class _ShowMenuTab extends StatelessWidget {
+  const _ShowMenuTab({required this.onTap});
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return Tooltip(
+      message: 'Afficher le menu',
+      child: Material(
+        color: scheme.surfaceContainerHighest,
+        child: InkWell(
+          key: const Key('show-menu'),
+          onTap: onTap,
+          child: SizedBox(
+            width: 22,
+            child: Center(
+              child: Icon(
+                Icons.keyboard_double_arrow_right,
+                size: 18,
+                color: scheme.onSurfaceVariant,
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -164,40 +314,67 @@ class _ScrollableRail extends StatelessWidget {
   );
 }
 
-/// Action générale dans le rail : icône et libellé court.
+/// Action générale dans le rail : icône et libellé (court, ou complet quand
+/// le menu est étendu).
 class _RailAction extends StatelessWidget {
-  const _RailAction(this.action);
+  const _RailAction(this.action, {required this.extended, required this.onTap});
 
   final AppAction action;
+  final bool extended;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     final color = action == AppAction.reset
         ? Theme.of(context).colorScheme.error
         : Theme.of(context).colorScheme.onSurfaceVariant;
+    final icon = Icon(action.icon, color: color, size: 22);
     return Tooltip(
       message: action.label,
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
-        onTap: () => action.run(context),
-        child: SizedBox(
-          width: 80,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Column(
-              children: [
-                Icon(action.icon, color: color, size: 22),
-                const SizedBox(height: 2),
-                Text(
-                  action.short,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.labelSmall
-                      ?.copyWith(color: color),
+        onTap: onTap,
+        child: extended
+            ? SizedBox(
+                width: 194,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 10,
+                  ),
+                  child: Row(
+                    children: [
+                      icon,
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          action.label,
+                          style: Theme.of(context).textTheme.labelLarge
+                              ?.copyWith(color: color),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            ),
-          ),
-        ),
+              )
+            : SizedBox(
+                width: 80,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: Column(
+                    children: [
+                      icon,
+                      const SizedBox(height: 2),
+                      Text(
+                        action.short,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.labelSmall
+                            ?.copyWith(color: color),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
       ),
     );
   }
