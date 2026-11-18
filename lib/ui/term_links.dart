@@ -19,9 +19,14 @@ import 'notebook/typography.dart';
 ///
 /// Les reconnaisseurs d'appui sont gardés ici et libérés avec la page.
 class TermLinks extends StatefulWidget {
-  const TermLinks({super.key, required this.child});
+  const TermLinks({super.key, required this.child, this.lesson, this.reveal});
 
   final Widget child;
+
+  /// La leçon affichée : un terme défini plus haut ou plus bas dans cette
+  /// leçon y est montré par [reveal] (défilement), sans rouvrir la leçon.
+  final Lesson? lesson;
+  final void Function(int block)? reveal;
 
   /// L'état le plus proche, ou `null` (pas de liens hors d'une leçon).
   static TermLinksState? maybeOf(BuildContext context) =>
@@ -43,8 +48,22 @@ class TermLinksState extends State<TermLinks> {
       _taps[key] ??= TapGestureRecognizer()
         ..onTap = () {
           _removeHover();
-          showTermCard(context, term);
+          showTermCard(context, term, onOpen: open);
         };
+
+  /// Ouvre la définition complète du terme : dans la leçon affichée si elle
+  /// le définit, sinon dans sa leçon ou le glossaire.
+  void open(GlossaryTerm term) {
+    final state = AppScope.read(context);
+    final home = termHomes(state.library, state.terms)[term.id];
+    if (home != null &&
+        home.lesson.id == widget.lesson?.id &&
+        widget.reveal != null) {
+      widget.reveal!(home.block);
+      return;
+    }
+    openTermDefinition(context, term);
+  }
 
   /// Survol à la souris : la fiche apparaît après un court délai, près du
   /// pointeur.
@@ -79,7 +98,7 @@ class TermLinksState extends State<TermLinks> {
                 compact: true,
                 onOpen: () {
                   _removeHover();
-                  openTermDefinition(context, term);
+                  open(term);
                 },
               ),
             ),
@@ -141,24 +160,27 @@ TextStyle termLinkStyle(BuildContext context, TextStyle base) {
 }
 
 /// Fiche d'un terme en bas de l'écran (après un appui).
-Future<void> showTermCard(BuildContext context, GlossaryTerm term) =>
-    showModalBottomSheet<void>(
-      context: context,
-      showDragHandle: true,
-      isScrollControlled: true,
-      builder: (sheet) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-          child: TermCard(
-            term: term,
-            onOpen: () {
-              Navigator.of(sheet).pop();
-              openTermDefinition(context, term);
-            },
-          ),
-        ),
+Future<void> showTermCard(
+  BuildContext context,
+  GlossaryTerm term, {
+  void Function(GlossaryTerm term)? onOpen,
+}) => showModalBottomSheet<void>(
+  context: context,
+  showDragHandle: true,
+  isScrollControlled: true,
+  builder: (sheet) => SafeArea(
+    child: Padding(
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+      child: TermCard(
+        term: term,
+        onOpen: () {
+          Navigator.of(sheet).pop();
+          (onOpen ?? (t) => openTermDefinition(context, t))(term);
+        },
       ),
-    );
+    ),
+  ),
+);
 
 /// Ouvre la définition complète : la leçon qui définit le terme (au bloc
 /// « Définition »), sinon le glossaire filtré sur ce terme.

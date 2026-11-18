@@ -49,14 +49,38 @@ String fold(String input) {
 
 bool _isWordChar(String ch) => RegExp(r'[a-z0-9]').hasMatch(ch);
 
+/// Les sigles d'un terme, séparés par « / » entre espaces : « CISO / RSSI »
+/// → CISO et RSSI ; « CI/CD » reste un seul sigle.
+List<String> acronymsOf(GlossaryTerm t) => [
+  for (final a in (t.acronym ?? '').split(' / '))
+    if (a.trim().isNotEmpty) a.trim(),
+];
+
 /// Index des termes du glossaire, pour afficher l'anglais à côté du français.
 class TermIndex {
   TermIndex(List<GlossaryTerm> glossary) {
+    // Un sigle partagé par deux termes (MAC : contrôle d'accès obligatoire
+    // ou code d'authentification de message) est ambigu : il n'est ni
+    // cherché seul ni rendu cliquable ; le nom complet, lui, l'est.
+    final owners = <String, Set<String>>{};
+    for (final t in glossary) {
+      for (final a in acronymsOf(t)) {
+        (owners[fold(a)] ??= {}).add(t.id);
+      }
+    }
+    final ambiguous = {
+      for (final MapEntry(:key, :value) in owners.entries)
+        if (value.length > 1) key,
+    };
+    _ambiguous.addAll(ambiguous);
     for (final t in glossary) {
       _byKey.putIfAbsent(fold(t.termFr).trim(), () => t);
       _byKey.putIfAbsent(fold(t.termEn).trim(), () => t);
-      if (t.acronym != null) {
-        _byKey.putIfAbsent(fold(t.acronym!).trim(), () => t);
+      if (t.acronym case final a? when !ambiguous.contains(fold(a).trim())) {
+        _byKey.putIfAbsent(fold(a).trim(), () => t);
+      }
+      for (final a in acronymsOf(t)) {
+        if (!ambiguous.contains(fold(a))) _byKey.putIfAbsent(fold(a), () => t);
       }
       final fr = fold(t.termFr).trim();
       // Un terme identique dans les deux langues n'a pas besoin de traduction.
@@ -64,15 +88,15 @@ class TermIndex {
         _annotable.add((fr, t));
       }
       final en = fold(t.termEn).trim();
-      final acronym = t.acronym?.trim();
-      final keys = <(String, _KeyKind)>[
-        if (fr.length >= 3) (fr, _KeyKind.french),
-        if (en.length >= 4 && en != fr) (en, _KeyKind.english),
-        if (acronym != null && acronym.length >= 2)
-          (fold(acronym), _KeyKind.acronym),
+      final keys = <(String, _KeyKind, String?)>[
+        if (fr.length >= 3) (fr, _KeyKind.french, null),
+        if (en.length >= 4 && en != fr) (en, _KeyKind.english, null),
+        for (final a in acronymsOf(t))
+          if (a.length >= 2 && !ambiguous.contains(fold(a)))
+            (fold(a), _KeyKind.acronym, a),
       ];
-      for (final (key, kind) in keys) {
-        if (_linkKeys.add(key)) _linkable.add((key, t, kind));
+      for (final (key, kind, exact) in keys) {
+        if (_linkKeys.add(key)) _linkable.add((key, t, kind, exact));
       }
     }
     _linkable.sort((a, b) => b.$1.length.compareTo(a.$1.length));
@@ -81,9 +105,13 @@ class TermIndex {
   }
 
   final _byKey = <String, GlossaryTerm>{};
+  final _ambiguous = <String>{};
+
+  /// Vrai si [acronym] désigne plusieurs termes du glossaire.
+  bool isAmbiguous(String acronym) => _ambiguous.contains(fold(acronym));
   final _annotable = <(String, GlossaryTerm)>[];
   final _linkKeys = <String>{};
-  final _linkable = <(String, GlossaryTerm, _KeyKind)>[];
+  final _linkable = <(String, GlossaryTerm, _KeyKind, String?)>[];
 
   /// Le terme dont le nom (français, anglais ou sigle) est exactement [label].
   /// Ce qui est entre parenthèses est ignoré : « SIEM (Security…) » → SIEM.
@@ -156,7 +184,7 @@ class TermIndex {
     final taken = List<bool>.filled(folded.length, false);
     final out = <TermMatch>[];
     final found = <String>{};
-    for (final (key, term, kind) in _linkable) {
+    for (final (key, term, kind, exact) in _linkable) {
       if (found.contains(term.id)) continue;
       var from = 0;
       while (true) {
@@ -165,8 +193,7 @@ class TermIndex {
         from = i + 1;
         final end = i + key.length;
         // Un sigle s'écrit en majuscules : « IAM », pas « iam ».
-        if (kind == _KeyKind.acronym &&
-            text.substring(i, end) != term.acronym!.trim()) {
+        if (kind == _KeyKind.acronym && text.substring(i, end) != exact) {
           continue;
         }
         var stop = end;
