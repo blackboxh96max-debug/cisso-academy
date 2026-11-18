@@ -814,5 +814,107 @@
     }
    ]
   }
+ ],
+ "flashcards": [
+  {
+   "id": "m3c1-f01",
+   "front": "OSI: 7 layers",
+   "back": "Physical, Data link, Network, Transport, Session, Presentation, Application. \"Please Do Not Throw Sausage Pizza Away\"."
+  },
+  {
+   "id": "m3c1-f02",
+   "front": "TCP/IP: 4 layers",
+   "back": "Network Access, Internet, Transport, Application."
+  },
+  {
+   "id": "m3c1-f03",
+   "front": "Data units",
+   "back": "Bits (1), frame (2), packet (3), segment or datagram (4), data (5-7)."
+  },
+  {
+   "id": "m3c1-f04",
+   "front": "Devices",
+   "back": "Hub = 1, switch = 2, router = 3, WAF = 7."
+  },
+  {
+   "id": "m3c1-f05",
+   "front": "Encapsulation",
+   "back": "Each layer adds its header: data → segment → packet → frame → bits."
+  },
+  {
+   "id": "m3c1-f06",
+   "front": "TCP handshake",
+   "back": "SYN, SYN-ACK, ACK."
+  },
+  {
+   "id": "m3c1-f07",
+   "front": "UDP",
+   "back": "Connectionless, fast: DNS, SNMP, syslog, NTP, VoIP."
+  },
+  {
+   "id": "m3c1-f08",
+   "front": "Key ports",
+   "back": "22 SSH, 23 Telnet, 53 DNS, 443 HTTPS, 445 SMB, 636 LDAPS, 3389 RDP."
+  },
+  {
+   "id": "m3c1-f09",
+   "front": "Cleartext → secure",
+   "back": "Telnet→SSH, FTP→SFTP/FTPS, HTTP→HTTPS, LDAP→LDAPS, SNMPv1/2c→SNMPv3."
+  },
+  {
+   "id": "m3c1-f10",
+   "front": "ARP",
+   "back": "IP → MAC on the local network, with no authentication: spoofing is possible."
+  },
+  {
+   "id": "m3c1-f11",
+   "front": "SYN flood",
+   "back": "SYNs with no ACK: half-open connections. Countermeasure: SYN cookies."
+  },
+  {
+   "id": "m3c1-f12",
+   "front": "DNS tunnel",
+   "back": "Long, random subdomains: exfiltration or command and control."
+  },
+  {
+   "id": "m3c1-f13",
+   "front": "Egress filtering",
+   "back": "Refuse source addresses that are not yours."
+  },
+  {
+   "id": "m3c1-f14",
+   "front": "AH",
+   "back": "Integrity + authentication, no encryption; incompatible with NAT."
+  },
+  {
+   "id": "m3c1-f15",
+   "front": "ESP",
+   "back": "Encryption + integrity. The usual choice."
+  },
+  {
+   "id": "m3c1-f16",
+   "front": "Tunnel / transport",
+   "back": "Tunnel: the whole packet (site to site). Transport: the payload (host to host)."
+  },
+  {
+   "id": "m3c1-f17",
+   "front": "DNSSEC",
+   "back": "Signs the responses: integrity, not confidentiality."
+  },
+  {
+   "id": "m3c1-f18",
+   "front": "DoT / DoH",
+   "back": "Encrypted DNS: confidentiality of queries (853 for DoT)."
+  },
+  {
+   "id": "m3c1-f19",
+   "front": "SPF / DKIM / DMARC",
+   "back": "Authorized servers / domain signature / alignment and policy."
+  },
+  {
+   "id": "m3c1-f20",
+   "front": "STARTTLS vs. S/MIME",
+   "back": "Encrypted transport vs. message encrypted and signed end to end."
+  }
  ]
 }

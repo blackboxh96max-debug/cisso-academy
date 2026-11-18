@@ -1112,5 +1112,107 @@
     "3": "\"Corrective\" describes a function, not a nature; and a policy is primarily preventive or directive."
    }
   }
+ ],
+ "flashcards": [
+  {
+   "id": "m1c1-f01",
+   "front": "Threat",
+   "back": "Potential cause of an unwanted incident (attacker, error, natural disaster)."
+  },
+  {
+   "id": "m1c1-f02",
+   "front": "Vulnerability",
+   "back": "Weakness of an asset or a control that a threat can exploit."
+  },
+  {
+   "id": "m1c1-f03",
+   "front": "Risk (working formula)",
+   "back": "Risk = likelihood × impact."
+  },
+  {
+   "id": "m1c1-f04",
+   "front": "Inherent risk",
+   "back": "Risk before any security measure."
+  },
+  {
+   "id": "m1c1-f05",
+   "front": "Residual risk",
+   "back": "Risk that remains after the controls are in place."
+  },
+  {
+   "id": "m1c1-f06",
+   "front": "Risk appetite",
+   "back": "Overall level of risk the organization is willing to take to reach its objectives (a management decision)."
+  },
+  {
+   "id": "m1c1-f07",
+   "front": "Risk assessment (ISO 27005)",
+   "back": "Identification + analysis + evaluation."
+  },
+  {
+   "id": "m1c1-f08",
+   "front": "Who accepts the residual risk?",
+   "back": "The risk owner, through a documented and reviewed decision."
+  },
+  {
+   "id": "m1c1-f09",
+   "front": "The three tiers of NIST SP 800-39",
+   "back": "Organization; mission and business processes; information system."
+  },
+  {
+   "id": "m1c1-f10",
+   "front": "SLE",
+   "back": "Single Loss Expectancy = AV × EF (loss for one occurrence)."
+  },
+  {
+   "id": "m1c1-f11",
+   "front": "ALE",
+   "back": "Annualized Loss Expectancy = SLE × ARO (expected loss per year)."
+  },
+  {
+   "id": "m1c1-f12",
+   "front": "ARO of an incident every 5 years",
+   "back": "0.2"
+  },
+  {
+   "id": "m1c1-f13",
+   "front": "Value of a control",
+   "back": "ALE before − ALE after − annual cost of the control."
+  },
+  {
+   "id": "m1c1-f14",
+   "front": "Cyber insurance",
+   "back": "Treatment option: risk transfer (sharing)."
+  },
+  {
+   "id": "m1c1-f15",
+   "front": "Giving up an activity that is too risky",
+   "back": "Treatment option: avoidance."
+  },
+  {
+   "id": "m1c1-f16",
+   "front": "Can accountability be transferred?",
+   "back": "No. Tasks and financial consequences are transferred, never final accountability."
+  },
+  {
+   "id": "m1c1-f17",
+   "front": "A SIEM rule that raises alerts",
+   "back": "Detective control."
+  },
+  {
+   "id": "m1c1-f18",
+   "front": "Compensating control",
+   "back": "A control that replaces an expected measure that cannot be implemented."
+  },
+  {
+   "id": "m1c1-f19",
+   "front": "Three types of controls",
+   "back": "Administrative, technical (logical), physical."
+  },
+  {
+   "id": "m1c1-f20",
+   "front": "Risk register",
+   "back": "List of risks with owner, inherent and residual level, treatment, due date and review."
+  }
  ]
 }

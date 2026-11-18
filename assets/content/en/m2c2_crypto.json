@@ -823,5 +823,107 @@
     }
    ]
   }
+ ],
+ "flashcards": [
+  {
+   "id": "m2c2-f01",
+   "front": "Four services",
+   "back": "Confidentiality, integrity, authentication, non-repudiation."
+  },
+  {
+   "id": "m2c2-f02",
+   "front": "Kerckhoffs",
+   "back": "Everything can be public except the key."
+  },
+  {
+   "id": "m2c2-f03",
+   "front": "Symmetric",
+   "back": "A single shared key, fast. n(n-1)/2 keys. AES, ChaCha20."
+  },
+  {
+   "id": "m2c2-f04",
+   "front": "Asymmetric",
+   "back": "Public/private key pair, slow. 2n keys. RSA, ECC, DH."
+  },
+  {
+   "id": "m2c2-f05",
+   "front": "Confidentiality for Bob",
+   "back": "Encrypt with Bob's PUBLIC key."
+  },
+  {
+   "id": "m2c2-f06",
+   "front": "Hybrid",
+   "back": "Asymmetric carries the session key, symmetric encrypts the data."
+  },
+  {
+   "id": "m2c2-f07",
+   "front": "ECB",
+   "back": "Identical blocks = identical ciphertext. Avoid it."
+  },
+  {
+   "id": "m2c2-f08",
+   "front": "GCM",
+   "back": "A mode that encrypts AND authenticates."
+  },
+  {
+   "id": "m2c2-f09",
+   "front": "Diffie-Hellman",
+   "back": "Establishes a shared secret; without authentication, man-in-the-middle."
+  },
+  {
+   "id": "m2c2-f10",
+   "front": "Hashing",
+   "back": "Fixed-size digest, one-way, collision-resistant."
+  },
+  {
+   "id": "m2c2-f11",
+   "front": "MD5 / SHA-1",
+   "back": "Collisions demonstrated: ban them for security. Use SHA-2 or SHA-3."
+  },
+  {
+   "id": "m2c2-f12",
+   "front": "Birthday attack",
+   "back": "A collision in about 2 to the power of n/2 attempts."
+  },
+  {
+   "id": "m2c2-f13",
+   "front": "Passwords",
+   "back": "Unique salt + slow function: Argon2, scrypt, bcrypt, PBKDF2."
+  },
+  {
+   "id": "m2c2-f14",
+   "front": "HMAC",
+   "back": "Integrity + authentication with a shared key. No non-repudiation."
+  },
+  {
+   "id": "m2c2-f15",
+   "front": "Signature",
+   "back": "Digest signed with the sender's PRIVATE key, verified with their PUBLIC key."
+  },
+  {
+   "id": "m2c2-f16",
+   "front": "CA / RA",
+   "back": "The RA verifies identity; the CA signs the certificate."
+  },
+  {
+   "id": "m2c2-f17",
+   "front": "CRL / OCSP",
+   "back": "Periodic revocation list / online response for one certificate."
+  },
+  {
+   "id": "m2c2-f18",
+   "front": "HSM",
+   "back": "Hardware module that stores and uses keys without exposing them."
+  },
+  {
+   "id": "m2c2-f19",
+   "front": "Key escrow",
+   "back": "Yes for an encryption key, never for a signing key."
+  },
+  {
+   "id": "m2c2-f20",
+   "front": "Forward secrecy",
+   "back": "Ephemeral keys (ECDHE): future theft of the server key does not decrypt the past."
+  }
  ]
 }

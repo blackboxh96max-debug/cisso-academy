@@ -343,29 +343,67 @@ Future<Uint8List> flashcardsPdf({
                       child: pw.Column(
                         crossAxisAlignment: pw.CrossAxisAlignment.start,
                         children: [
-                          pw.Text(
-                            stripEmoji(card.front),
-                            style: pw.TextStyle(font: f.handBold, fontSize: 12),
-                          ),
-                          if ((terms.englishFor(card.front) ??
-                                  terms.englishFor(card.concept)) !=
-                              null)
+                          if (card.en case final en?) ...[
                             pw.Text(
-                              'EN  ${terms.englishFor(card.front) ?? terms.englishFor(card.concept)}',
+                              stripEmoji(en.front),
                               style: pw.TextStyle(
-                                font: f.body,
-                                fontSize: 9,
+                                font: f.handBold,
+                                fontSize: 12,
                                 color: _blue,
                               ),
                             ),
+                            pw.Text(
+                              'FR  ${stripEmoji(card.front)}',
+                              style: pw.TextStyle(font: f.body, fontSize: 9),
+                            ),
+                          ] else ...[
+                            pw.Text(
+                              stripEmoji(card.front),
+                              style: pw.TextStyle(
+                                font: f.handBold,
+                                fontSize: 12,
+                              ),
+                            ),
+                            if ((terms.englishFor(card.front) ??
+                                    terms.englishFor(card.concept)) !=
+                                null)
+                              pw.Text(
+                                'EN  ${terms.englishFor(card.front) ?? terms.englishFor(card.concept)}',
+                                style: pw.TextStyle(
+                                  font: f.body,
+                                  fontSize: 9,
+                                  color: _blue,
+                                ),
+                              ),
+                          ],
                         ],
                       ),
                     ),
                     pw.Padding(
                       padding: const pw.EdgeInsets.all(7),
-                      child: pw.Text(
-                        stripEmoji(card.back),
-                        style: pw.TextStyle(font: f.body, fontSize: 10),
+                      child: pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          if (card.en case final en?) ...[
+                            pw.Text(
+                              stripEmoji(en.back),
+                              style: pw.TextStyle(
+                                font: f.body,
+                                fontSize: 10,
+                                color: _blue,
+                              ),
+                            ),
+                            pw.SizedBox(height: 2),
+                            pw.Text(
+                              'FR  ${stripEmoji(card.back)}',
+                              style: pw.TextStyle(font: f.body, fontSize: 9),
+                            ),
+                          ] else
+                            pw.Text(
+                              stripEmoji(card.back),
+                              style: pw.TextStyle(font: f.body, fontSize: 10),
+                            ),
+                        ],
                       ),
                     ),
                   ],

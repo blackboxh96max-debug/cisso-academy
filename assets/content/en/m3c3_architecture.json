@@ -646,5 +646,107 @@
     }
    ]
   }
+ ],
+ "flashcards": [
+  {
+   "id": "m3c3-f01",
+   "front": "Defense in depth",
+   "back": "Independent layered controls: administrative, technical, physical."
+  },
+  {
+   "id": "m3c3-f02",
+   "front": "Least privilege",
+   "back": "Just the rights needed, for just the time needed."
+  },
+  {
+   "id": "m3c3-f03",
+   "front": "Secure by default",
+   "back": "The delivered configuration is the most secure one."
+  },
+  {
+   "id": "m3c3-f04",
+   "front": "Fail secure / fail safe",
+   "back": "Block on failure / open to protect people. People first."
+  },
+  {
+   "id": "m3c3-f05",
+   "front": "Open design",
+   "back": "Security does not rely on the secrecy of the design."
+  },
+  {
+   "id": "m3c3-f06",
+   "front": "Complete mediation",
+   "back": "Every access is checked, every time."
+  },
+  {
+   "id": "m3c3-f07",
+   "front": "Attack surface",
+   "back": "Everything that is exposed; reducing it = removing what is unneeded."
+  },
+  {
+   "id": "m3c3-f08",
+   "front": "Single point of failure",
+   "back": "An element whose failure brings everything down. Countermeasure: redundancy."
+  },
+  {
+   "id": "m3c3-f09",
+   "front": "TCB",
+   "back": "Everything security depends on; keep it small."
+  },
+  {
+   "id": "m3c3-f10",
+   "front": "Reference monitor",
+   "back": "Always invoked, tamperproof, verifiable."
+  },
+  {
+   "id": "m3c3-f11",
+   "front": "Bell-LaPadula",
+   "back": "Confidentiality: no read up, no write down."
+  },
+  {
+   "id": "m3c3-f12",
+   "front": "Biba",
+   "back": "Integrity: no read down, no write up."
+  },
+  {
+   "id": "m3c3-f13",
+   "front": "Clark-Wilson",
+   "back": "Well-formed transactions, separation of duties, auditing."
+  },
+  {
+   "id": "m3c3-f14",
+   "front": "Brewer-Nash",
+   "back": "Chinese Wall: conflicts of interest."
+  },
+  {
+   "id": "m3c3-f15",
+   "front": "TPM",
+   "back": "Chip: keys, boot measurement, disk encryption."
+  },
+  {
+   "id": "m3c3-f16",
+   "front": "Zero Trust",
+   "back": "Never trust, always verify; assume breach."
+  },
+  {
+   "id": "m3c3-f17",
+   "front": "PDP / PEP",
+   "back": "Policy decision point / policy enforcement point."
+  },
+  {
+   "id": "m3c3-f18",
+   "front": "CISA pillars",
+   "back": "Identity, devices, networks, applications and workloads, data."
+  },
+  {
+   "id": "m3c3-f19",
+   "front": "Shared responsibility",
+   "back": "IaaS, PaaS, SaaS: data and access always belong to the customer."
+  },
+  {
+   "id": "m3c3-f20",
+   "front": "ZTNA / SASE",
+   "back": "Per-application access / networking and security delivered as a cloud service."
+  }
  ]
 }

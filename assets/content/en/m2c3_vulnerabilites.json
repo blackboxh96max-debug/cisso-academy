@@ -769,5 +769,107 @@
     }
    ]
   }
+ ],
+ "flashcards": [
+  {
+   "id": "m2c3-f01",
+   "front": "Vulnerability",
+   "back": "An exploitable weakness. The threat exploits it; the exploit is the concrete means."
+  },
+  {
+   "id": "m2c3-f02",
+   "front": "CVE",
+   "back": "Unique identifier of a specific flaw: CVE-year-number."
+  },
+  {
+   "id": "m2c3-f03",
+   "front": "CWE",
+   "back": "Catalog of weakness types (SQL injection, buffer overflow…)."
+  },
+  {
+   "id": "m2c3-f04",
+   "front": "CVSS",
+   "back": "Severity score from 0 to 10. 7 to 8.9 high; 9 to 10 critical."
+  },
+  {
+   "id": "m2c3-f05",
+   "front": "Limit of the CVSS",
+   "back": "Technical severity, not risk: it ignores exposure, criticality and actual exploitation."
+  },
+  {
+   "id": "m2c3-f06",
+   "front": "NVD",
+   "back": "NIST database that enriches CVEs (score, products, references)."
+  },
+  {
+   "id": "m2c3-f07",
+   "front": "KEV",
+   "back": "CISA catalog of vulnerabilities whose exploitation is confirmed."
+  },
+  {
+   "id": "m2c3-f08",
+   "front": "EPSS",
+   "back": "Probability that a CVE will be exploited within 30 days (FIRST)."
+  },
+  {
+   "id": "m2c3-f09",
+   "front": "Authenticated scan",
+   "back": "Reads the installed versions: more accurate, fewer false positives."
+  },
+  {
+   "id": "m2c3-f10",
+   "front": "Unauthenticated scan",
+   "back": "The attacker's view from the network."
+  },
+  {
+   "id": "m2c3-f11",
+   "front": "Cycle",
+   "back": "Discover, assess, prioritize, remediate, verify, report."
+  },
+  {
+   "id": "m2c3-f12",
+   "front": "Priority",
+   "back": "Severity + exploitation + exposure + asset criticality."
+  },
+  {
+   "id": "m2c3-f13",
+   "front": "Virtual patch",
+   "back": "A WAF or IPS that blocks exploitation: compensating and temporary."
+  },
+  {
+   "id": "m2c3-f14",
+   "front": "Exception",
+   "back": "Written, approved by the risk owner, compensated, dated."
+  },
+  {
+   "id": "m2c3-f15",
+   "front": "Patch = change",
+   "back": "Goes through change management; emergency = fast-tracked but recorded process."
+  },
+  {
+   "id": "m2c3-f16",
+   "front": "Waves",
+   "back": "Pilot, then successive waves, with rollback."
+  },
+  {
+   "id": "m2c3-f17",
+   "front": "Zero-day",
+   "back": "No patch: work around, filter, isolate, monitor."
+  },
+  {
+   "id": "m2c3-f18",
+   "front": "End of life (EOL)",
+   "back": "No more patches: replace, or isolate with an exception."
+  },
+  {
+   "id": "m2c3-f19",
+   "front": "Scan / pentest / audit / Red Team",
+   "back": "Lists / proves / compares / puts the defense to the test."
+  },
+  {
+   "id": "m2c3-f20",
+   "front": "Box testing",
+   "back": "Black: nothing. Gray: a little (an account). White: everything (code, diagrams)."
+  }
  ]
 }

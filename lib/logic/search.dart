@@ -224,13 +224,16 @@ class SearchIndex {
               SearchResult(
                 kind: SearchKind.flashcard,
                 title: f.front,
-                en: terms.englishFor(f.front) ?? terms.englishFor(f.concept),
+                en:
+                    f.en?.front ??
+                    terms.englishFor(f.front) ??
+                    terms.englishFor(f.concept),
                 subtitle: f.back,
                 chapterId: c.id,
                 flashcardId: f.id,
               ),
-              [f.front, terms.englishFor(f.front)],
-              [f.back, f.concept],
+              [f.front, terms.englishFor(f.front), ?f.en?.front],
+              [f.back, f.concept, ?f.en?.back],
             ),
           );
         }

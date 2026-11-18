@@ -661,5 +661,107 @@
     }
    ]
   }
+ ],
+ "flashcards": [
+  {
+   "id": "m5c2-f01",
+   "front": "Event / incident",
+   "back": "Observable occurrence / actual harm or threat to security."
+  },
+  {
+   "id": "m5c2-f02",
+   "front": "NIST life cycle (Rev. 2)",
+   "back": "Preparation; detection and analysis; containment, eradication, recovery; post-incident activity."
+  },
+  {
+   "id": "m5c2-f03",
+   "front": "Six steps",
+   "back": "Preparation, identification, containment, eradication, recovery, lessons learned."
+  },
+  {
+   "id": "m5c2-f04",
+   "front": "CSIRT",
+   "back": "Multidisciplinary response team, including legal, communications, HR."
+  },
+  {
+   "id": "m5c2-f05",
+   "front": "Preparation",
+   "back": "Policy, playbooks, contacts, timestamped logs (NTP), toolkit, exercises."
+  },
+  {
+   "id": "m5c2-f06",
+   "front": "Severity",
+   "back": "Impact × urgency; escalation based on written criteria."
+  },
+  {
+   "id": "m5c2-f07",
+   "front": "Order of volatility",
+   "back": "Registers, memory, temporary files, disk, remote logs, archives."
+  },
+  {
+   "id": "m5c2-f08",
+   "front": "Do not shut down",
+   "back": "Isolate from the network, capture memory first."
+  },
+  {
+   "id": "m5c2-f09",
+   "front": "Write blocker",
+   "back": "Reading without modifying the original."
+  },
+  {
+   "id": "m5c2-f10",
+   "front": "Forensic image",
+   "back": "Bit-by-bit copy + hash before/after; analyze the copy."
+  },
+  {
+   "id": "m5c2-f11",
+   "front": "Chain of custody",
+   "back": "Who, when, where, how, why, for each piece of evidence."
+  },
+  {
+   "id": "m5c2-f12",
+   "front": "Best evidence",
+   "back": "The original rather than a copy."
+  },
+  {
+   "id": "m5c2-f13",
+   "front": "Hearsay",
+   "back": "Secondhand, often excluded; exception: records kept in the normal course of business."
+  },
+  {
+   "id": "m5c2-f14",
+   "front": "Admissibility",
+   "back": "Relevant, authentic, reliable, lawful, complete."
+  },
+  {
+   "id": "m5c2-f15",
+   "front": "Enticement / entrapment",
+   "back": "Legal honeypot / pushing someone to commit an offense, illegal."
+  },
+  {
+   "id": "m5c2-f16",
+   "front": "Locard",
+   "back": "Every contact leaves a trace."
+  },
+  {
+   "id": "m5c2-f17",
+   "front": "Containment",
+   "back": "Short term (isolate), long term (segment, rebuild), controlled monitoring."
+  },
+  {
+   "id": "m5c2-f18",
+   "front": "Before recovering",
+   "back": "Root cause, door closed, credentials reset, backup from before the compromise."
+  },
+  {
+   "id": "m5c2-f19",
+   "front": "Lessons learned",
+   "back": "Timeline, blameless, tracked actions, updates."
+  },
+  {
+   "id": "m5c2-f20",
+   "front": "Notifications",
+   "back": "GDPR: 72 h; NIS 2: 24 h, 72 h, one month."
+  }
  ]
 }

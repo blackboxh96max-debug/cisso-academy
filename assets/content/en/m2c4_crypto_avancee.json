@@ -680,5 +680,107 @@
     }
    ]
   }
+ ],
+ "flashcards": [
+  {
+   "id": "m2c4-f01",
+   "front": "Substitution",
+   "back": "Replacing each letter with another (Caesar, Atbash)."
+  },
+  {
+   "id": "m2c4-f02",
+   "front": "Transposition",
+   "back": "Keeping the letters but changing their order (scytale)."
+  },
+  {
+   "id": "m2c4-f03",
+   "front": "Frequency analysis",
+   "back": "Counting letters: breaks monoalphabetic ciphers (Al-Kindi, 9th century)."
+  },
+  {
+   "id": "m2c4-f04",
+   "front": "Vigenère",
+   "back": "Polyalphabetic with a keyword; broken thanks to the repeating key (Kasiski, 1863)."
+  },
+  {
+   "id": "m2c4-f05",
+   "front": "Enigma",
+   "back": "Rotor machine; broken thanks to procedural errors (Rejewski, Turing)."
+  },
+  {
+   "id": "m2c4-f06",
+   "front": "One-time pad",
+   "back": "A random key, as long as the message, secret, used once: perfect secrecy (Shannon, 1949)."
+  },
+  {
+   "id": "m2c4-f07",
+   "front": "Kerckhoffs",
+   "back": "Only the secrecy of the key should protect; the algorithm can be public."
+  },
+  {
+   "id": "m2c4-f08",
+   "front": "Steganography",
+   "back": "Hiding the existence of the message, without encrypting it."
+  },
+  {
+   "id": "m2c4-f09",
+   "front": "Shor",
+   "back": "Breaks RSA, ECC and Diffie-Hellman on a quantum computer."
+  },
+  {
+   "id": "m2c4-f10",
+   "front": "Grover",
+   "back": "Roughly halves the bit security of symmetric encryption: AES-256 remains strong."
+  },
+  {
+   "id": "m2c4-f11",
+   "front": "PQC or QKD?",
+   "back": "PQC: new classical algorithms. QKD: key exchange using photons (BB84)."
+  },
+  {
+   "id": "m2c4-f12",
+   "front": "FIPS 203, 204, 205",
+   "back": "ML-KEM (establishing a key), ML-DSA and SLH-DSA (signing); NIST, August 2024."
+  },
+  {
+   "id": "m2c4-f13",
+   "front": "Harvest now, decrypt later",
+   "back": "Exchanges recorded today may be decrypted tomorrow."
+  },
+  {
+   "id": "m2c4-f14",
+   "front": "Post-quantum migration",
+   "back": "Inventory, prioritize, crypto agility, hybrid, test."
+  },
+  {
+   "id": "m2c4-f15",
+   "front": "Homomorphic",
+   "back": "Computing on encrypted data (Gentry, 2009)."
+  },
+  {
+   "id": "m2c4-f16",
+   "front": "MPC",
+   "back": "Computing together without revealing your data."
+  },
+  {
+   "id": "m2c4-f17",
+   "front": "ZKP",
+   "back": "Proving a statement without revealing the secret."
+  },
+  {
+   "id": "m2c4-f18",
+   "front": "Blockchain",
+   "back": "Chained hashes: integrity and traceability, not confidentiality."
+  },
+  {
+   "id": "m2c4-f19",
+   "front": "FPE",
+   "back": "Encrypting while keeping the format (SP 800-38G)."
+  },
+  {
+   "id": "m2c4-f20",
+   "front": "Lightweight cryptography",
+   "back": "For constrained devices: Ascon (NIST)."
+  }
  ]
 }

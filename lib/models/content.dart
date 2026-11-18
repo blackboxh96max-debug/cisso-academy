@@ -394,6 +394,7 @@ class Flashcard {
     required this.front,
     required this.back,
     required this.concept,
+    this.en,
   });
 
   final String id;
@@ -401,6 +402,19 @@ class Flashcard {
   final String front;
   final String back;
   final String concept;
+
+  /// Version anglaise, affichée au-dessus du français comme dans les QCM.
+  final FlashcardEn? en;
+
+  /// La même carte avec sa version anglaise.
+  Flashcard withEnglish(FlashcardEn? english) => Flashcard(
+    id: id,
+    chapterId: chapterId,
+    front: front,
+    back: back,
+    concept: concept,
+    en: english,
+  );
 
   factory Flashcard.fromJson(Map<String, dynamic> json, String chapterId) =>
       Flashcard(
@@ -410,6 +424,17 @@ class Flashcard {
         back: json['back'] as String,
         concept: json['concept'] as String,
       );
+}
+
+/// Recto et verso anglais d'une flashcard.
+class FlashcardEn {
+  const FlashcardEn({required this.front, required this.back});
+
+  final String front;
+  final String back;
+
+  factory FlashcardEn.fromJson(Map<String, dynamic> json) =>
+      FlashcardEn(front: json['front'] as String, back: json['back'] as String);
 }
 
 class GlossaryTerm {

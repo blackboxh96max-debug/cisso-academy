@@ -123,6 +123,22 @@ class ContentLoader {
         Question.fromJson(q as Map<String, dynamic>, id),
     ];
     validateEnglishQuestions(id, questions, questionsEn);
+    final flashcardsEn = {
+      for (final f in dataEn['flashcards'] as List? ?? const [])
+        (f as Map<String, dynamic>)['id'] as String: FlashcardEn.fromJson(f),
+    };
+    final flashcards = [
+      for (final f in data['flashcards'] as List)
+        Flashcard.fromJson(f as Map<String, dynamic>, id),
+    ];
+    final unknownCards = flashcardsEn.keys.toSet().difference({
+      for (final f in flashcards) f.id,
+    });
+    if (unknownCards.isNotEmpty) {
+      throw FormatException(
+        '$id : flashcards anglaises inconnues $unknownCards',
+      );
+    }
     return Chapter(
       id: id,
       moduleId: moduleId,
@@ -134,9 +150,9 @@ class ContentLoader {
           .map((l) => Lesson.fromJson(l as Map<String, dynamic>))
           .toList(),
       questions: [for (final q in questions) q.withEnglish(questionsEn[q.id])],
-      flashcards: (data['flashcards'] as List)
-          .map((f) => Flashcard.fromJson(f as Map<String, dynamic>, id))
-          .toList(),
+      flashcards: [
+        for (final f in flashcards) f.withEnglish(flashcardsEn[f.id]),
+      ],
       revisionSheet: (data['revisionSheet'] as List? ?? const [])
           .cast<String>(),
       mindMap: data['mindMap'] == null

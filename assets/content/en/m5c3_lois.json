@@ -737,5 +737,107 @@
     }
    ]
   }
+ ],
+ "flashcards": [
+  {
+   "id": "m5c3-f01",
+   "front": "Common law / civil law",
+   "back": "Judges and precedent / written codes."
+  },
+  {
+   "id": "m5c3-f02",
+   "front": "Criminal / civil / administrative",
+   "back": "Society, prison / compensation / regulators."
+  },
+  {
+   "id": "m5c3-f03",
+   "front": "Standards of proof",
+   "back": "Criminal: beyond a reasonable doubt; civil: preponderance of the evidence."
+  },
+  {
+   "id": "m5c3-f04",
+   "front": "CFAA",
+   "back": "Unauthorized access to protected computers (United States)."
+  },
+  {
+   "id": "m5c3-f05",
+   "front": "ECPA",
+   "back": "Interception in transit; SCA = stored communications."
+  },
+  {
+   "id": "m5c3-f06",
+   "front": "SOX / HIPAA / GLBA / FISMA",
+   "back": "Public company finance / health / financial customers / federal government."
+  },
+  {
+   "id": "m5c3-f07",
+   "front": "CAN-SPAM",
+   "back": "No misleading subject line, postal address, opt-out within 10 business days."
+  },
+  {
+   "id": "m5c3-f08",
+   "front": "Godfrain Act",
+   "back": "France, 1988: fraudulent access or remaining in a system, hindrance, alteration."
+  },
+  {
+   "id": "m5c3-f09",
+   "front": "PCI DSS",
+   "back": "A contractual standard, not a law."
+  },
+  {
+   "id": "m5c3-f10",
+   "front": "Budapest Convention",
+   "back": "Harmonizes offenses, makes cooperation easier."
+  },
+  {
+   "id": "m5c3-f11",
+   "front": "Patent",
+   "back": "Published invention, about 20 years."
+  },
+  {
+   "id": "m5c3-f12",
+   "front": "Copyright",
+   "back": "The expression, not the idea; life + 70 years."
+  },
+  {
+   "id": "m5c3-f13",
+   "front": "Trademark / trade secret",
+   "back": "Renewable indefinitely / as long as the secret holds."
+  },
+  {
+   "id": "m5c3-f14",
+   "front": "GDPR principles",
+   "back": "Lawfulness, purpose limitation, minimization, accuracy, storage limitation, security, accountability."
+  },
+  {
+   "id": "m5c3-f15",
+   "front": "Controller / processor",
+   "back": "Decides / carries out on the controller's behalf."
+  },
+  {
+   "id": "m5c3-f16",
+   "front": "Transfers outside the EU",
+   "back": "Adequacy, standard clauses, BCRs; Data Privacy Framework (2023)."
+  },
+  {
+   "id": "m5c3-f17",
+   "front": "Due care / due diligence",
+   "back": "Doing what is right / checking continuously."
+  },
+  {
+   "id": "m5c3-f18",
+   "front": "Negligence",
+   "back": "Failing to do what a prudent person would have done."
+  },
+  {
+   "id": "m5c3-f19",
+   "front": "Compliance program",
+   "back": "Designated officer, obligations, policies, training, audits, reporting."
+  },
+  {
+   "id": "m5c3-f20",
+   "front": "Ethics",
+   "back": "Society first, lawful, honest, intended channels; no counterattack."
+  }
  ]
 }

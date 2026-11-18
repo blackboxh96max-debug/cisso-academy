@@ -997,5 +997,107 @@
     "3": "Size is not the classification criterion."
    }
   }
+ ],
+ "flashcards": [
+  {
+   "id": "m1c5-f01",
+   "front": "CIA",
+   "back": "Confidentiality, integrity, availability."
+  },
+  {
+   "id": "m1c5-f02",
+   "front": "DAD",
+   "back": "Disclosure, alteration, destruction: the opposites of C, I, A."
+  },
+  {
+   "id": "m1c5-f03",
+   "front": "Non-repudiation",
+   "back": "The author cannot deny it: digital signature and protected logs."
+  },
+  {
+   "id": "m1c5-f04",
+   "front": "Accountability",
+   "back": "Linking each action to an identified person."
+  },
+  {
+   "id": "m1c5-f05",
+   "front": "Parkerian hexad",
+   "back": "CIA + authenticity, possession, utility."
+  },
+  {
+   "id": "m1c5-f06",
+   "front": "Defense in depth",
+   "back": "Several independent layers."
+  },
+  {
+   "id": "m1c5-f07",
+   "front": "Separation of duties",
+   "back": "A sensitive operation requires two people."
+  },
+  {
+   "id": "m1c5-f08",
+   "front": "Need to know",
+   "back": "You only access the information useful for your job."
+  },
+  {
+   "id": "m1c5-f09",
+   "front": "TCSEC",
+   "back": "Orange Book, U.S. defense: confidentiality; D, C1, C2, B1, B2, B3, A1."
+  },
+  {
+   "id": "m1c5-f10",
+   "front": "ITSEC",
+   "back": "Europe, 1991: separates functionality and assurance; E0 to E6."
+  },
+  {
+   "id": "m1c5-f11",
+   "front": "Common Criteria",
+   "back": "ISO/IEC 15408; EAL1 to EAL7."
+  },
+  {
+   "id": "m1c5-f12",
+   "front": "PP, ST, TOE",
+   "back": "Protection Profile (the need), Security Target (the product), Target of Evaluation (what is evaluated)."
+  },
+  {
+   "id": "m1c5-f13",
+   "front": "EAL",
+   "back": "Rigor of the evaluation, not the number of functions."
+  },
+  {
+   "id": "m1c5-f14",
+   "front": "Certification or accreditation",
+   "back": "Technical evaluation, then the decision to accept the risk."
+  },
+  {
+   "id": "m1c5-f15",
+   "front": "Poisoning",
+   "back": "Booby-trapped training data."
+  },
+  {
+   "id": "m1c5-f16",
+   "front": "Evasion",
+   "back": "Slightly modified input to fool the model."
+  },
+  {
+   "id": "m1c5-f17",
+   "front": "Prompt injection",
+   "back": "Hidden instructions in the text read by a language model."
+  },
+  {
+   "id": "m1c5-f18",
+   "front": "NIST AI RMF",
+   "back": "Govern, Map, Measure, Manage (2023)."
+  },
+  {
+   "id": "m1c5-f19",
+   "front": "ISO/IEC 42001",
+   "back": "AI management system."
+  },
+  {
+   "id": "m1c5-f20",
+   "front": "Regulation (EU) 2024/1689",
+   "back": "Risk-based approach: prohibited, high risk, transparency, minimal."
+  }
  ]
 }

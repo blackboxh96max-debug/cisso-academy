@@ -984,5 +984,107 @@
     }
    ]
   }
+ ],
+ "flashcards": [
+  {
+   "id": "m5c5-f01",
+   "front": "ENISA",
+   "back": "EU agency: advice, certification, cooperation; no sanctions."
+  },
+  {
+   "id": "m5c5-f02",
+   "front": "National authorities",
+   "back": "Supervise and impose sanctions (e.g., ANSSI)."
+  },
+  {
+   "id": "m5c5-f03",
+   "front": "NIS 2 networks",
+   "back": "Cooperation Group (strategy), CSIRTs network (technical), EU-CyCLONe (crises)."
+  },
+  {
+   "id": "m5c5-f04",
+   "front": "Regulation 2019/881",
+   "back": "Permanent mandate for ENISA; certification: basic, substantial, high."
+  },
+  {
+   "id": "m5c5-f05",
+   "front": "Cyber solidarity (2025/38)",
+   "back": "Alert system, emergency mechanism and reserve, incident review."
+  },
+  {
+   "id": "m5c5-f06",
+   "front": "NIS 2",
+   "back": "Directive 2022/2555: critical sectors; applies since October 18, 2024."
+  },
+  {
+   "id": "m5c5-f07",
+   "front": "Essential or important",
+   "back": "Same measures; different supervision and fines."
+  },
+  {
+   "id": "m5c5-f08",
+   "front": "DORA",
+   "back": "Regulation 2022/2554, finance, since January 17, 2025; prevails over NIS 2 for ICT risk."
+  },
+  {
+   "id": "m5c5-f09",
+   "front": "TLPT",
+   "back": "Threat-led penetration testing: at least every 3 years (DORA)."
+  },
+  {
+   "id": "m5c5-f10",
+   "front": "CRA",
+   "back": "Regulation 2024/2847: digital products, CE marking, updates, reporting to ENISA."
+  },
+  {
+   "id": "m5c5-f11",
+   "front": "CRA dates",
+   "back": "Reporting from September 11, 2026; most obligations on December 11, 2027."
+  },
+  {
+   "id": "m5c5-f12",
+   "front": "Article 21",
+   "back": "Ten minimum measures, from risk analysis to multifactor authentication."
+  },
+  {
+   "id": "m5c5-f13",
+   "front": "Article 23",
+   "back": "Early warning 24 h, notification 72 h, final report 1 month."
+  },
+  {
+   "id": "m5c5-f14",
+   "front": "GDPR",
+   "back": "Data breach: 72 h to the authority; fines up to €20M or 4%."
+  },
+  {
+   "id": "m5c5-f15",
+   "front": "Mapping matrix",
+   "back": "Requirements → measures → evidence, shared."
+  },
+  {
+   "id": "m5c5-f16",
+   "front": "CSF 2.0",
+   "back": "Six functions: Govern, Identify, Protect, Detect, Respond, Recover."
+  },
+  {
+   "id": "m5c5-f17",
+   "front": "Article 20",
+   "back": "Management approves, oversees, gets trained and answers for failures."
+  },
+  {
+   "id": "m5c5-f18",
+   "front": "NIS 2 fines",
+   "back": "Essential: €10M or 2%; important: €7M or 1.4% (at least)."
+  },
+  {
+   "id": "m5c5-f19",
+   "front": "Last resort",
+   "back": "Temporary ban of an executive (essential entities)."
+  },
+  {
+   "id": "m5c5-f20",
+   "front": "Directive or regulation",
+   "back": "Directive: transposed. Regulation: applies directly."
+  }
  ]
 }

@@ -674,5 +674,107 @@
     }
    ]
   }
+ ],
+ "flashcards": [
+  {
+   "id": "m4c1-f01",
+   "front": "Secure SDLC",
+   "back": "Requirements, design, development, testing, deployment, maintenance: security at every stage."
+  },
+  {
+   "id": "m4c1-f02",
+   "front": "Shift left",
+   "back": "Addressing security as early as possible; DevSecOps automates it."
+  },
+  {
+   "id": "m4c1-f03",
+   "front": "STRIDE",
+   "back": "Spoofing, tampering, repudiation, information disclosure, denial of service, elevation of privilege."
+  },
+  {
+   "id": "m4c1-f04",
+   "front": "Threat modeling",
+   "back": "At design time: flows, trust boundaries, threats, controls."
+  },
+  {
+   "id": "m4c1-f05",
+   "front": "Environments",
+   "back": "Separate dev, test and prod; fictitious data in test."
+  },
+  {
+   "id": "m4c1-f06",
+   "front": "OWASP Top 10:2025",
+   "back": "A01 access control (with SSRF), A02 misconfiguration, A03 supply chain, A10 exceptional conditions (new)."
+  },
+  {
+   "id": "m4c1-f07",
+   "front": "SQL injection",
+   "back": "Input interpreted as SQL. Countermeasure: parameterized queries."
+  },
+  {
+   "id": "m4c1-f08",
+   "front": "XSS",
+   "back": "Script run in the victims' browser. Countermeasure: output encoding, CSP."
+  },
+  {
+   "id": "m4c1-f09",
+   "front": "CSRF",
+   "back": "A request forged through the victim's session. Countermeasure: anti-CSRF token, SameSite."
+  },
+  {
+   "id": "m4c1-f10",
+   "front": "IDOR",
+   "back": "Changing an identifier returns someone else's object. Countermeasure: server-side authorization."
+  },
+  {
+   "id": "m4c1-f11",
+   "front": "SSRF",
+   "back": "The server calls an address chosen by the attacker. Countermeasure: allowlist."
+  },
+  {
+   "id": "m4c1-f12",
+   "front": "Buffer overflow",
+   "back": "Writing beyond the allocated memory. Countermeasures: length checks, safe languages, ASLR, DEP."
+  },
+  {
+   "id": "m4c1-f13",
+   "front": "TOCTOU",
+   "back": "The state changes between the check and the use. Countermeasure: atomic operations."
+  },
+  {
+   "id": "m4c1-f14",
+   "front": "Validate / encode",
+   "back": "Validate input on the server side (allowlist), encode output."
+  },
+  {
+   "id": "m4c1-f15",
+   "front": "SAST / DAST",
+   "back": "Code at rest (white box) / running application (black box)."
+  },
+  {
+   "id": "m4c1-f16",
+   "front": "IAST / fuzzing",
+   "back": "An agent during testing / malformed data en masse."
+  },
+  {
+   "id": "m4c1-f17",
+   "front": "SCA and SBOM",
+   "back": "Inventory and vulnerabilities of third-party components."
+  },
+  {
+   "id": "m4c1-f18",
+   "front": "Code signing",
+   "back": "Proves origin and integrity, not the absence of flaws."
+  },
+  {
+   "id": "m4c1-f19",
+   "front": "Secrets",
+   "back": "Secrets vault; exposed secret = revoke and replace."
+  },
+  {
+   "id": "m4c1-f20",
+   "front": "CI/CD pipeline",
+   "back": "A critical asset: MFA, minimal rights, integrity, logs."
+  }
  ]
 }
