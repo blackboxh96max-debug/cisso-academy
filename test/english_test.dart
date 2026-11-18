@@ -32,9 +32,9 @@ void main() {
     ],
   ];
 
-  test('modules 1 et 2 : chaque leçon a sa version anglaise', () {
+  test('modules 1 à 3 : chaque leçon a sa version anglaise', () {
     for (final c in library.chapters.where(
-      (c) => c.moduleId == 'm1' || c.moduleId == 'm2',
+      (c) => const {'m1', 'm2', 'm3'}.contains(c.moduleId),
     )) {
       expect(
         c.lessonsEn.keys.toSet(),
@@ -104,6 +104,12 @@ void main() {
       english: true,
     );
     expect(again.where((m) => m.translate), isEmpty);
+    // Un mot courant au sens large n'est pas traduit par son sens RACI.
+    final vague = terms.findLinks(
+      "Data remains the customer's responsibility.",
+      english: true,
+    );
+    expect(vague.where((m) => m.translate), isEmpty);
     // En français, rien ne change : l'anglais suit le terme.
     final fr = terms.findLinks('La menace exploite une vulnérabilité.');
     expect(fr.firstWhere((m) => m.translate).translation, 'Threat');

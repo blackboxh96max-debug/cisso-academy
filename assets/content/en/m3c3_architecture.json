@@ -1,0 +1,650 @@
+{
+ "lessons": [
+  {
+   "id": "m3c3-l1",
+   "title": "Secure architecture principles and defense in depth",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m3c3_l1_chateau.svg",
+   "illustrationAlt": "Drawing of a fortified castle with several walls: a moat, a first wall, a second wall and a keep in the center holding a safe.",
+   "objectives": [
+    "Explain defense in depth and its three families of controls.",
+    "Apply the main secure design principles (least privilege, secure by default, fail secure…).",
+    "Reduce the attack surface of a system.",
+    "Recognize a design that relies on a single point of failure."
+   ],
+   "references": [
+    {
+     "title": "Saltzer and Schroeder, \"The Protection of Information in Computer Systems\", 1975 (design principles)",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-160 Vol. 1, Engineering Trustworthy Secure Systems",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Thinking about security from the design stage"
+    },
+    {
+     "type": "text",
+     "text": "A secure architecture is not a list of products: it is a way of organizing components so that one mistake, one flaw or one attacker is not enough to compromise everything. Building security in from the design stage (security by design) costs much less than adding it after going into production."
+    },
+    {
+     "type": "definition",
+     "title": "Defense in depth (défense en profondeur)",
+     "text": "Stacking of independent controls of different kinds, so that a failure of one is compensated by the others. It is also called layered security.",
+     "kind": "general"
+    },
+    {
+     "type": "diagram",
+     "title": "The layers of defense, from the outside to the data",
+     "alt": "Six-step diagram going from the outside to the center: policies and awareness, physical security, network perimeter, internal network, host, application, and finally the data at the center.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "📜",
+        "label": "Policies",
+        "detail": "rules, awareness",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🏢",
+        "label": "Physical",
+        "detail": "badges, premises",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🧱",
+        "label": "Perimeter",
+        "detail": "firewall, DMZ",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🔀",
+        "label": "Internal network",
+        "detail": "segmentation, IDS",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "💻",
+        "label": "Host and app",
+        "detail": "hardening, EDR, secure code",
+        "tone": "green"
+       },
+       {
+        "emoji": "💎",
+        "label": "Data",
+        "detail": "encryption, backups",
+        "tone": "pink"
+       }
+      ]
+     }
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Control family",
+       "Examples"
+      ],
+      [
+       "Administrative (organizational)",
+       "Policies, awareness, separation of duties, background checks"
+      ],
+      [
+       "Technical (logical)",
+       "Firewall, encryption, multi-factor authentication, EDR"
+      ],
+      [
+       "Physical",
+       "Badges, locks, cameras, guards"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "Defense in depth = fortified castle: moat, ramparts, second wall, keep. The attacker must get through every layer; one is enough to stop them."
+    },
+    {
+     "type": "heading",
+     "text": "The main design principles"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Principle",
+       "Idea",
+       "Example"
+      ],
+      [
+       "Least privilege",
+       "Just the rights needed, just for the time needed",
+       "A web service without administrator rights"
+      ],
+      [
+       "Secure by default",
+       "The shipped configuration is the safest one",
+       "Ports closed, default accounts disabled"
+      ],
+      [
+       "Fail secure",
+       "On failure, the system denies access rather than opening it",
+       "A failed firewall blocks traffic"
+      ],
+      [
+       "Economy of mechanism",
+       "Keep it simple: what is simple can be verified",
+       "Few rules, well documented"
+      ],
+      [
+       "Complete mediation",
+       "Every access is checked, every time",
+       "No right kept in cache indefinitely"
+      ],
+      [
+       "Open design",
+       "Security does not rely on the secrecy of the design",
+       "Kerckhoffs's principle in cryptography"
+      ],
+      [
+       "Separation of privilege",
+       "Several conditions for a critical action",
+       "Two people for a payment"
+      ],
+      [
+       "Attack surface reduction",
+       "Remove what is not used",
+       "Uninstall unneeded services"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Fail secure or fail safe?",
+     "text": "For information, fail secure (fail closed) is preferred: on failure, block. But human life always comes first: an emergency exit door must open in case of fire (fail safe). In the exam, people's safety always wins."
+    },
+    {
+     "type": "risk",
+     "title": "The single point of failure",
+     "text": "A single firewall, a single administrator who knows everything, a single Internet link: if that element fails or is compromised, everything fails. Redundancy and diversity (two manufacturers, two trained people) reduce this risk."
+    },
+    {
+     "type": "practice",
+     "title": "Reducing the attack surface",
+     "items": [
+      "Disable unneeded services, ports and accounts.",
+      "Apply hardening guides (for example the CIS Benchmarks) and track deviations.",
+      "Limit administration interfaces to a dedicated network.",
+      "Remove obsolete software and versions."
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "Architecture questions often ask for \"the best principle\". Spot the keyword: \"just the rights needed\" → least privilege; \"several layers\" → defense in depth; \"on failure\" → fail secure or fail safe; \"does not depend on the secrecy of the algorithm\" → open design."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: only one layer gave way",
+     "kind": "example",
+     "text": "An employee clicks on a malicious attachment: awareness failed. But the workstation has no administrator rights (least privilege), the EDR blocks the execution of a credential-stealing tool, and segmentation prevents the workstation from reaching the payroll servers. The incident stays limited to one workstation, reinstalled in an hour: defense in depth worked."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "Architect: every new application goes through a security design review.",
+      "SOC analyst: several layers give several chances to detect the attacker.",
+      "Auditor: I look for single points of failure and overly powerful accounts.",
+      "CISO: defense in depth is justified by risk, not by piling up products."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Security through obscurity is not a sufficient control (open design).",
+      "Fail secure = block on failure; but people's safety comes first.",
+      "Defense in depth = different and independent controls, not three identical firewalls.",
+      "Least privilege also applies to service accounts and applications."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Defense in depth: administrative, technical and physical layers.",
+      "Principles: least privilege, secure by default, fail secure, simplicity, complete mediation, open design.",
+      "Reduce the attack surface and avoid single points of failure.",
+      "Human life comes before the protection of information."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m3c3-q02",
+      "m3c3-q06"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m3c3-l2",
+   "title": "Security models and trusted components",
+   "minutes": 35,
+   "illustration": "assets/illustrations/m3c3_l2_modeles.svg",
+   "illustrationAlt": "Drawing of a three-story building marked secret, confidential and public, with a crossed-out arrow going up (no read up) and a crossed-out arrow going down (no write down).",
+   "objectives": [
+    "Explain the trusted computing base and the reference monitor.",
+    "Apply the rules of Bell-LaPadula (confidentiality) and Biba (integrity).",
+    "Recognize the Clark-Wilson and Brewer-Nash models.",
+    "Place the trusted hardware components: protection rings, TPM, secure boot."
+   ],
+   "references": [
+    {
+     "title": "Bell and LaPadula, confidentiality model (1973-1976)",
+     "kind": "general"
+    },
+    {
+     "title": "Biba, integrity model (1977)",
+     "kind": "general"
+    },
+    {
+     "title": "ISO/IEC 11889, Trusted Platform Module",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "What we trust"
+    },
+    {
+     "type": "definition",
+     "title": "TCB, trusted computing base (base informatique de confiance)",
+     "text": "All the hardware, software and firmware on which the security of a system depends. If an element of the TCB is compromised, the security policy can no longer be guaranteed. The aim is therefore to keep it small.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Reference monitor (moniteur de référence)",
+     "text": "Abstract concept that controls every access by a subject (user, process) to an object (file, resource). It must be tamperproof, always invoked and small enough to be verified. The security kernel is its implementation.",
+     "kind": "general"
+    },
+    {
+     "type": "memo",
+     "text": "Reference monitor: \"always called, never tampered with, easy to verify\"."
+    },
+    {
+     "type": "heading",
+     "text": "The formal models"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Model",
+       "Protects",
+       "Key rules"
+      ],
+      [
+       "Bell-LaPadula",
+       "Confidentiality",
+       "No read up (simple security), no write down (star property *)"
+      ],
+      [
+       "Biba",
+       "Integrity",
+       "No read down, no write up"
+      ],
+      [
+       "Clark-Wilson",
+       "Integrity (commercial)",
+       "Access to data only through well-formed transactions; separation of duties; audit log"
+      ],
+      [
+       "Brewer-Nash (Chinese wall)",
+       "Conflicts of interest",
+       "After viewing a client's data, you no longer access their competitor's"
+      ]
+     ]
+    },
+    {
+     "type": "diagram",
+     "title": "Bell-LaPadula and Biba: two mirrors",
+     "alt": "Four-cell table: Bell-LaPadula forbids reading up and writing down to protect confidentiality; Biba forbids reading down and writing up to protect integrity.",
+     "diagram": {
+      "type": "quadrant",
+      "xLabel": "Model",
+      "yLabel": "Rule",
+      "cells": [
+       {
+        "emoji": "🙈",
+        "label": "BLP: no read up",
+        "detail": "pas de lecture en haut",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🧪",
+        "label": "Biba: no read down",
+        "detail": "pas de lecture en bas",
+        "tone": "green"
+       },
+       {
+        "emoji": "✍️",
+        "label": "BLP: no write down",
+        "detail": "pas d'écriture en bas",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🛡️",
+        "label": "Biba: no write up",
+        "detail": "pas d'écriture en haut",
+        "tone": "orange"
+       }
+      ]
+     }
+    },
+    {
+     "type": "important",
+     "title": "Remembering the direction of the arrows",
+     "text": "Bell-LaPadula protects secrets: you do not read above your level, and you do not write below it so that information does not leak. Biba protects the purity of data: you do not read a less reliable source, and you do not write into data more reliable than yourself. Biba is the exact opposite of Bell-LaPadula."
+    },
+    {
+     "type": "memo",
+     "text": "BLP = secrets: \"I don't read above, I don't gossip below\". Biba = integrity: \"I don't drink the dirty water from below, I don't pollute the spring above\"."
+    },
+    {
+     "type": "heading",
+     "text": "Trusted hardware components"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Component",
+       "Role"
+      ],
+      [
+       "Protection rings",
+       "Processor privilege levels: ring 0 for the kernel, ring 3 for applications"
+      ],
+      [
+       "TPM, Trusted Platform Module",
+       "Chip that stores keys, measures boot and protects disk encryption"
+      ],
+      [
+       "Secure Boot",
+       "Only signed boot loaders and kernels can run"
+      ],
+      [
+       "HSM",
+       "Dedicated device that generates and protects cryptographic keys"
+      ],
+      [
+       "Process and memory isolation",
+       "A process does not read another one's memory"
+      ]
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "For virtualization, remember VM escape: a hypervisor flaw lets an attacker break out of a VM to reach the host or the other VMs. The hypervisor is therefore part of the TCB: priority patches and isolated administration."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: a consulting firm and its competing clients",
+     "kind": "example",
+     "text": "In a simulated consulting firm, a consultant working for bank A tries to open the file of bank B, its direct competitor. Document management applies a Brewer-Nash type rule: access is denied and an alert is created. The analyst checks that it is a handling error, and the compliance officer confirms that the rule did its job."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "Architect: I keep the TCB as small as possible so that it can be verified.",
+      "SOC analyst: an alert on boot integrity (TPM, Secure Boot) always has priority.",
+      "Auditor: I check that accounting data is modified only through controlled transactions (Clark-Wilson).",
+      "CISO: formal models guide the choice of access controls for sensitive systems."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Bell-LaPadula = confidentiality; Biba = integrity; do not mix them up.",
+      "Star property (*) of BLP = no write down.",
+      "Clark-Wilson = well-formed transactions and separation of duties.",
+      "Brewer-Nash = Chinese wall, conflicts of interest."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "TCB: everything security depends on; reference monitor: always invoked, tamperproof, verifiable.",
+      "BLP (confidentiality): no read up, no write down. Biba (integrity): no read down, no write up.",
+      "Clark-Wilson: well-formed transactions; Brewer-Nash: conflicts of interest.",
+      "Rings, TPM, Secure Boot, HSM: trust starts in the hardware."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m3c3-q12",
+      "m3c3-q13"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m3c3-l3",
+   "title": "Zero Trust and modern architectures",
+   "minutes": 35,
+   "illustration": "assets/illustrations/m3c3_l3_zerotrust.svg",
+   "illustrationAlt": "Drawing of a checkpoint gate in front of each door of a corridor: a person shows a badge and a laptop at each door, even inside the building.",
+   "objectives": [
+    "Explain why the perimeter model is no longer enough.",
+    "Describe the principles and components of Zero Trust (decision point, enforcement point).",
+    "Name the pillars of a Zero Trust approach.",
+    "Apply the cloud shared responsibility model."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-207, Zero Trust Architecture (2020)",
+     "kind": "general"
+    },
+    {
+     "title": "CISA, Zero Trust Maturity Model, version 2.0 (2023)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "The end of the castle?"
+    },
+    {
+     "type": "text",
+     "text": "The perimeter model trusts everything that is \"inside\". Yet users work remotely, applications are in the cloud, and an attacker who has stolen credentials is already inside. Zero Trust starts from the opposite idea: no implicit trust based on network location."
+    },
+    {
+     "type": "definition",
+     "title": "Zero Trust",
+     "text": "Security approach in which no user, device or flow is considered trustworthy by default, even inside the network. Every access to a resource is explicitly verified, at each session, based on identity, device state and context.",
+     "kind": "general"
+    },
+    {
+     "type": "memo",
+     "text": "Zero Trust: \"Never trust, always verify\" and \"assume breach\"."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Principle",
+       "In practice"
+      ],
+      [
+       "Verify explicitly",
+       "Strong identity (MFA), device state, location, time, behavior"
+      ],
+      [
+       "Least privilege",
+       "Access limited to one resource, for one session, just what is needed"
+      ],
+      [
+       "Assume breach",
+       "Microsegment, encrypt, monitor continuously, limit movement"
+      ],
+      [
+       "Per-resource access",
+       "You access an application, not the whole network"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "The components (NIST SP 800-207)"
+    },
+    {
+     "type": "diagram",
+     "title": "Every request goes through a decision",
+     "alt": "Four-step diagram: a subject (user and device) requests access, the policy enforcement point intercepts, the decision point evaluates identity, device and context, then access to the resource is granted for this session only.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🧑‍💻",
+        "label": "Subject",
+        "detail": "user + device",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🚧",
+        "label": "PEP",
+        "detail": "enforcement point",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🧠",
+        "label": "PDP",
+        "detail": "policy engine + administrator",
+        "tone": "violet"
+       },
+       {
+        "emoji": "📂",
+        "label": "Resource",
+        "detail": "access for the session",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "definition",
+     "title": "PDP and PEP",
+     "text": "The policy decision point (PDP), made up of the policy engine and the policy administrator, decides whether to grant access. The policy enforcement point (PEP) sits in front of the resource and opens or closes the connection according to that decision.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "The pillars of a Zero Trust approach"
+    },
+    {
+     "type": "text",
+     "text": "The CISA maturity model organizes the approach into five pillars: identity, devices, networks, applications and workloads, data. Three capabilities cut across all of them: visibility and analytics, automation and orchestration, governance. You progress pillar by pillar; Zero Trust is a journey, not a product."
+    },
+    {
+     "type": "important",
+     "title": "Zero Trust cannot be bought",
+     "text": "No single product \"does\" Zero Trust. It is a strategy that combines identity management, MFA, device management, microsegmentation, encryption and continuous monitoring. Beware of an exam answer that presents a single tool as the solution."
+    },
+    {
+     "type": "heading",
+     "text": "Modern architectures: cloud and access"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Cloud model",
+       "The provider manages",
+       "The customer remains responsible for"
+      ],
+      [
+       "IaaS",
+       "Hardware, physical network, virtualization",
+       "Operating system, patches, applications, data, identities"
+      ],
+      [
+       "PaaS",
+       "The same + operating system and runtime platform",
+       "Applications, data, identities, configuration"
+      ],
+      [
+       "SaaS",
+       "Almost everything, up to the application",
+       "Data, accounts, access rights, sharing configuration"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Shared responsibility (responsabilité partagée)",
+     "text": "Whatever the model, the customer remains responsible for its data and for access management. A leak caused by cloud storage opened to the public by mistake is the customer's fault, not the provider's."
+    },
+    {
+     "type": "text",
+     "text": "ZTNA (Zero Trust network access) often replaces the VPN: the user only reaches authorized applications, never the whole network. SASE brings together network and security functions in a cloud service (ZTNA, web gateway, CASB, firewall as a service)."
+    },
+    {
+     "type": "trainerNote",
+     "text": "Make the link with the previous chapter: microsegmentation is the network translation of Zero Trust, and ZTNA is the evolution of VPN remote access. Questions readily mix the two chapters."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: stolen credentials are no longer enough",
+     "kind": "example",
+     "text": "In a simulated exercise, an attacker uses an accountant's stolen password. The decision point notices an unknown, unmanaged device and a connection from an unusual country: it requires MFA, which the attacker cannot provide, and denies access to the payroll application. The SOC receives the alert, forces a password reset and checks that no other resource was reached."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: I present Zero Trust as a multi-year roadmap, pillar by pillar.",
+      "Architect: I start with identity and the device inventory, without which no decision is reliable.",
+      "SOC analyst: every PDP decision is a valuable log for detecting anomalies.",
+      "Auditor: in the cloud, I first check what remains the customer's responsibility: data, access, configuration."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Zero Trust ≠ \"no trust in users\": it means \"no implicit trust\".",
+      "PDP decides, PEP enforces.",
+      "In every cloud model, data and access remain the customer's responsibility.",
+      "Being inside the network gives no rights in Zero Trust."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Zero Trust: verify explicitly, least privilege, assume breach, per-resource access.",
+      "NIST SP 800-207: PDP (policy engine and administrator) and PEP.",
+      "CISA: identity, devices, networks, applications and workloads, data.",
+      "Cloud: shared responsibility; ZTNA and SASE modernize access."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m3c3-q22",
+      "m3c3-q25"
+     ]
+    }
+   ]
+  }
+ ]
+}

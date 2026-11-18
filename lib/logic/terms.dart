@@ -286,8 +286,10 @@ class TermIndex {
 
 /// Mots anglais trop vagues pour recevoir le français sans contexte :
 /// « standard » désigne une norme interne dans la pyramide documentaire,
-/// mais aussi n'importe quelle norme (« ISO standard »).
-const _vagueInEnglish = {'standard'};
+/// mais aussi n'importe quelle norme (« ISO standard »). De même,
+/// « responsibility » est le R du RACI (responsabilité d'exécution) mais
+/// aussi la responsabilité au sens courant (« the customer's responsibility »).
+const _vagueInEnglish = {'standard', 'responsibility'};
 
 /// Les noms qu'un titre de définition peut donner à un terme :
 /// « SLE, Single Loss Expectancy (perte unitaire) » → « SLE »,

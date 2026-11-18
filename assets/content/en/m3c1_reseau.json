@@ -1,0 +1,818 @@
+{
+ "lessons": [
+  {
+   "id": "m3c1-l1",
+   "title": "The OSI and TCP/IP models",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m3c1_l1_couches.svg",
+   "illustrationAlt": "Drawing of a seven-layer colored cake, each layer bearing the name of an OSI layer, from the physical layer at the bottom to the application at the top.",
+   "objectives": [
+    "Name the 7 layers of the OSI model and the 4 layers of the TCP/IP model.",
+    "Match each layer with its data unit, its devices and its protocols.",
+    "Explain encapsulation.",
+    "Place an attack or a security control at the right layer."
+   ],
+   "references": [
+    {
+     "title": "ISO/IEC 7498-1, Open Systems Interconnection (OSI) basic reference model",
+     "kind": "general"
+    },
+    {
+     "title": "IETF RFC 1122, requirements for Internet hosts (TCP/IP layers)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Why layers?"
+    },
+    {
+     "type": "text",
+     "text": "A network is too complex to be thought of as a single block. Layered models split communication into stages: each layer provides a service to the layer above and relies on the one below. For security, it is a map: you know where attacks and protections sit."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "No.",
+       "OSI layer",
+       "Data unit",
+       "Devices",
+       "Example protocols"
+      ],
+      [
+       "7",
+       "Application",
+       "Data",
+       "Proxy, web application firewall (WAF)",
+       "HTTP, DNS, SMTP, SSH"
+      ],
+      [
+       "6",
+       "Presentation",
+       "Data",
+       "–",
+       "Encoding, compression, data encryption"
+      ],
+      [
+       "5",
+       "Session",
+       "Data",
+       "–",
+       "Opening and resuming sessions (RPC, NetBIOS)"
+      ],
+      [
+       "4",
+       "Transport",
+       "Segment (TCP) / datagram (UDP)",
+       "Stateful firewall",
+       "TCP, UDP"
+      ],
+      [
+       "3",
+       "Network",
+       "Packet",
+       "Router, packet-filtering firewall",
+       "IP, ICMP, IPsec"
+      ],
+      [
+       "2",
+       "Data link",
+       "Frame",
+       "Switch, Wi-Fi access point",
+       "Ethernet, ARP, 802.1X, Wi-Fi"
+      ],
+      [
+       "1",
+       "Physical",
+       "Bits",
+       "Cables, hub, repeater",
+       "Electrical, optical, radio signals"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "From layer 1 to layer 7: \"Please Do Not Throw Sausage Pizza Away\" (Physical, Data link, Network, Transport, Session, Presentation, Application)."
+    },
+    {
+     "type": "heading",
+     "text": "The TCP/IP model"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "TCP/IP layer",
+       "Matching OSI layers",
+       "Protocols"
+      ],
+      [
+       "Application",
+       "7, 6 and 5",
+       "HTTP, DNS, SMTP, SSH, TLS"
+      ],
+      [
+       "Transport",
+       "4",
+       "TCP, UDP"
+      ],
+      [
+       "Internet",
+       "3",
+       "IP, ICMP, IPsec"
+      ],
+      [
+       "Network access (link)",
+       "2 and 1",
+       "Ethernet, Wi-Fi, ARP"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "OSI to reason, TCP/IP to operate",
+     "text": "The OSI model is a reference model, used to explain and locate problems. The TCP/IP model is the one that networks and the Internet actually follow. In the exam, you will often be asked for the OSI layer of a protocol or a device."
+    },
+    {
+     "type": "heading",
+     "text": "Encapsulation"
+    },
+    {
+     "type": "diagram",
+     "title": "Each layer adds its header",
+     "alt": "Five-step diagram: the application data receives a TCP header and becomes a segment, then an IP header and becomes a packet, then an Ethernet header and trailer and becomes a frame, finally the frame is transmitted as bits over the physical medium.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "📝",
+        "label": "Data",
+        "detail": "layers 7 to 5",
+        "tone": "violet"
+       },
+       {
+        "emoji": "📦",
+        "label": "Segment",
+        "detail": "+ TCP header (ports)",
+        "tone": "blue"
+       },
+       {
+        "emoji": "✉️",
+        "label": "Packet",
+        "detail": "+ IP header (addresses)",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "🚚",
+        "label": "Frame",
+        "detail": "+ Ethernet header (MAC)",
+        "tone": "green"
+       },
+       {
+        "emoji": "⚡",
+        "label": "Bits",
+        "detail": "on the cable or the air",
+        "tone": "orange"
+       }
+      ]
+     }
+    },
+    {
+     "type": "definition",
+     "title": "Encapsulation and decapsulation",
+     "text": "When sending, each layer adds its control information (header) around the data received from the layer above. When receiving, each layer removes its header and passes the rest to the layer above.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Attacks and protections by layer"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Layer",
+       "Typical attack",
+       "Typical protection"
+      ],
+      [
+       "7 Application",
+       "Injection, phishing, DNS poisoning",
+       "WAF, content filtering, DNSSEC"
+      ],
+      [
+       "4 Transport",
+       "SYN flood, port scan",
+       "Stateful firewall, SYN cookies"
+      ],
+      [
+       "3 Network",
+       "IP address spoofing, ICMP attacks",
+       "Anti-spoofing filtering, IPsec"
+      ],
+      [
+       "2 Data link",
+       "ARP spoofing, MAC table flooding, VLAN hopping",
+       "Port security, 802.1X, ARP inspection"
+      ],
+      [
+       "1 Physical",
+       "Cable tapping, radio jamming, open network jack",
+       "Physical access control, protected cables"
+      ]
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "A classic firewall filters at layers 3 and 4 (addresses and ports). It does not see that an allowed HTTP request contains an SQL injection: a layer 7 control, such as a WAF, is needed. It is a strong argument for defense in depth."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: three alerts, three layers",
+     "kind": "example",
+     "text": "Within the same hour, the analyst receives three alerts: a floor switch reports that two different MAC addresses answer for the gateway's IP address (layer 2, possible ARP spoofing); the firewall sees thousands of SYN requests with no follow-up toward the portal (layer 4); the WAF blocks requests containing apostrophes and SQL keywords (layer 7). Placing each alert at its layer lets the analyst alert the right team: local network, infrastructure, then development."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "Architect: I place controls at several layers so that a single failure is not enough.",
+      "SOC analyst: knowing which layer an alert sits at tells me which logs to look at.",
+      "Auditor: I check that network jacks in public areas are disabled or protected by 802.1X.",
+      "CISO: the OSI model is a common language between the network, systems and security teams."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Switch = layer 2 (MAC addresses); router = layer 3 (IP addresses); hub = layer 1.",
+      "Units: bits (1), frames (2), packets (3), segments or datagrams (4), data (5 to 7).",
+      "ARP links layer 3 (IP) and layer 2 (MAC); it is placed in layer 2.",
+      "OSI layers 5, 6 and 7 are grouped in the TCP/IP Application layer.",
+      "A packet-filtering firewall (3-4) does not see an application attack (7)."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "OSI: 7 layers (physical, data link, network, transport, session, presentation, application).",
+      "TCP/IP: 4 layers (network access, Internet, transport, application).",
+      "Encapsulation: data → segment → packet → frame → bits.",
+      "Each layer has its attacks and protections: defense in depth."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m3c1-q02",
+      "m3c1-q05"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m3c1-l2",
+   "title": "Protocols, ports and network attacks",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m3c1_l2_poignee.svg",
+   "illustrationAlt": "Drawing of two computers shaking hands, with three speech bubbles \"SYN\", \"SYN-ACK\" and \"ACK\" between them.",
+   "objectives": [
+    "Compare TCP and UDP and describe the three-way handshake.",
+    "Recognize common ports and unencrypted protocols.",
+    "Explain the role of ARP, ICMP, DHCP and DNS.",
+    "Describe the classic network attacks and their countermeasures."
+   ],
+   "references": [
+    {
+     "title": "IETF RFC 9293, Transmission Control Protocol (TCP)",
+     "kind": "general"
+    },
+    {
+     "title": "IETF RFC 768 (UDP) and RFC 791 (IPv4)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "TCP or UDP?"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Criterion",
+       "TCP",
+       "UDP"
+      ],
+      [
+       "Connection",
+       "Connection-oriented (handshake)",
+       "Connectionless"
+      ],
+      [
+       "Reliability",
+       "Acknowledgments, retransmission, guaranteed order",
+       "No guarantee"
+      ],
+      [
+       "Speed",
+       "Slower, more headers",
+       "Fast, lightweight"
+      ],
+      [
+       "Uses",
+       "Web, email, SSH, file transfer",
+       "DNS, VoIP, live video, NTP, SNMP, syslog"
+      ]
+     ]
+    },
+    {
+     "type": "diagram",
+     "title": "The TCP three-way handshake",
+     "alt": "Three-step diagram: the client sends SYN to request a connection, the server answers SYN-ACK to accept, the client confirms with ACK; the connection is then established.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "👋",
+        "label": "SYN",
+        "detail": "the client asks",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🤝",
+        "label": "SYN-ACK",
+        "detail": "the server accepts",
+        "tone": "violet"
+       },
+       {
+        "emoji": "✅",
+        "label": "ACK",
+        "detail": "the client confirms",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "heading",
+     "text": "Ports to know"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Port",
+       "Protocol",
+       "Security note"
+      ],
+      [
+       "20/21",
+       "FTP",
+       "Credentials in clear text → SFTP or FTPS"
+      ],
+      [
+       "22",
+       "SSH / SFTP",
+       "Encrypted administration"
+      ],
+      [
+       "23",
+       "Telnet",
+       "Everything in clear text → replace with SSH"
+      ],
+      [
+       "25",
+       "SMTP",
+       "Email between servers; 587 for authenticated submission"
+      ],
+      [
+       "53",
+       "DNS",
+       "Mostly UDP; TCP for large answers and zone transfers"
+      ],
+      [
+       "80 / 443",
+       "HTTP / HTTPS",
+       "443 = HTTP inside TLS"
+      ],
+      [
+       "110 / 143",
+       "POP3 / IMAP",
+       "Clear text → 995 (POP3S) / 993 (IMAPS)"
+      ],
+      [
+       "161 / 162",
+       "SNMP / SNMP traps",
+       "v1 and v2c in clear text → SNMPv3"
+      ],
+      [
+       "389 / 636",
+       "LDAP / LDAPS",
+       "636 = LDAP inside TLS"
+      ],
+      [
+       "445",
+       "SMB",
+       "Windows file sharing, never to be exposed on the Internet"
+      ],
+      [
+       "3389",
+       "RDP",
+       "Remote desktop, a frequent target: behind a VPN with MFA"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "\"Well-known\" ports: 0 to 1023. A clear-text service almost always has a secure twin: Telnet→SSH, HTTP→HTTPS, LDAP→LDAPS, IMAP→IMAPS."
+    },
+    {
+     "type": "heading",
+     "text": "Service protocols"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Protocol",
+       "Role",
+       "Possible abuse"
+      ],
+      [
+       "ARP",
+       "Find the MAC address that matches an IP address on the local network",
+       "ARP spoofing: pretending to be the gateway"
+      ],
+      [
+       "ICMP",
+       "Control and diagnostic messages (ping, traceroute)",
+       "Reconnaissance, flooding, covert tunnel"
+      ],
+      [
+       "DHCP",
+       "Automatically assign IP address, gateway and DNS",
+       "Rogue DHCP server that redirects traffic"
+      ],
+      [
+       "DNS",
+       "Translate a name into an IP address",
+       "Cache poisoning, exfiltration through DNS queries"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Classic network attacks"
+    },
+    {
+     "type": "diagram",
+     "title": "Four attacks to recognize",
+     "alt": "Two-by-two grid. ARP spoofing, layer 2: the attacker announces their own MAC address for the gateway's IP address and intercepts traffic. SYN flood, layer 4: thousands of SYNs without ACK saturate the server. IP spoofing, layer 3: a fake source address to hide the origin. DNS poisoning, layer 7: a fake answer sends users to a fake site.",
+     "diagram": {
+      "type": "quadrant",
+      "xLabel": "Layer",
+      "yLabel": "Effect",
+      "cells": [
+       {
+        "emoji": "🎭",
+        "label": "ARP spoofing",
+        "detail": "layer 2: man in the middle",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🌊",
+        "label": "SYN flood",
+        "detail": "layer 4: denial of service",
+        "tone": "red"
+       },
+       {
+        "emoji": "🪪",
+        "label": "IP spoofing",
+        "detail": "layer 3: fake source",
+        "tone": "orange"
+       },
+       {
+        "emoji": "☠️",
+        "label": "DNS poisoning",
+        "detail": "layer 7: fake site",
+        "tone": "pink"
+       }
+      ]
+     }
+    },
+    {
+     "type": "practice",
+     "title": "Countermeasures",
+     "kind": "practice",
+     "items": [
+      "ARP spoofing and rogue DHCP: dynamic ARP inspection and DHCP snooping on switches.",
+      "SYN flood: SYN cookies, rate limiting, the provider's anti-DDoS protection.",
+      "IP spoofing: ingress and egress filtering (refuse outbound packets with a source address that is not yours).",
+      "DNS poisoning: DNSSEC, up-to-date resolvers, random source ports."
+     ]
+    },
+    {
+     "type": "risk",
+     "title": "The clear-text protocol",
+     "text": "With Telnet, FTP, HTTP or SNMPv1, anyone listening on the network reads the credentials. A traffic analyzer is enough. These protocols must be disabled or replaced by their encrypted version."
+    },
+    {
+     "type": "trainerNote",
+     "text": "Exam questions do not ask you to know 50 ports by heart, but to recognize a clear-text protocol and its secure replacement. Above all, learn the \"security note\" column."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: the talkative DNS",
+     "kind": "example",
+     "text": "The SIEM reports a workstation sending thousands of DNS queries to the same unknown domain, with long, random subdomains. The analyst recognizes a possible DNS tunnel used to exfiltrate data. The analyst isolates the workstation through the EDR, blocks the domain on the internal resolver and checks that no other workstation queries this domain. Workstations are in any case not allowed to query external DNS servers directly: only the internal resolver is."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "Network administrator: I disable unused switch ports and enable port security.",
+      "SOC analyst: DNS logs are a gold mine for spotting compromised workstations.",
+      "Auditor: I look for Telnet, FTP and SNMPv1 in service inventories.",
+      "CISO: RDP and SMB exposed on the Internet are classic ransomware entry points."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "TCP handshake: SYN, SYN-ACK, ACK. A SYN flood leaves half-open connections.",
+      "UDP is connectionless: DNS, SNMP, syslog, NTP, VoIP.",
+      "DNS = 53 (UDP and TCP); SSH = 22; Telnet = 23; RDP = 3389; LDAPS = 636.",
+      "ARP has no authentication: that is what makes spoofing possible.",
+      "Egress filtering: prevents your machines from sending packets with a spoofed source address."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "TCP reliable and connection-oriented; UDP fast and connectionless.",
+      "Ports: recognize clear-text protocols and their replacements.",
+      "ARP, ICMP, DHCP, DNS: useful and open to abuse.",
+      "Attacks: ARP and IP spoofing, SYN flood, DNS poisoning and tunneling."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m3c1-q11",
+      "m3c1-q16"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m3c1-l3",
+   "title": "Secure protocols",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m3c1_l3_tunnel.svg",
+   "illustrationAlt": "Drawing of a green tunnel through a mountain marked \"Internet\"; an envelope sealed with a padlock travels inside between two buildings.",
+   "objectives": [
+    "Choose the secure protocol that replaces a clear-text protocol.",
+    "Tell apart AH and ESP, transport mode and tunnel mode in IPsec.",
+    "Explain what TLS, SSH, DNSSEC and encrypted DNS provide.",
+    "Protect email: S/MIME, STARTTLS, SPF, DKIM and DMARC."
+   ],
+   "references": [
+    {
+     "title": "IETF RFC 4301 (IPsec architecture) and NIST SP 800-77 Rev. 1, Guide to IPsec VPNs",
+     "kind": "general"
+    },
+    {
+     "title": "IETF RFC 8446 (TLS 1.3), RFC 4033 (DNSSEC), RFC 7858 (DNS over TLS) and RFC 8484 (DNS over HTTPS)",
+     "kind": "general"
+    },
+    {
+     "title": "IETF RFC 7208 (SPF), RFC 6376 (DKIM) and RFC 7489 (DMARC)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Replacing clear-text protocols"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Clear text",
+       "Secure replacement",
+       "What protects"
+      ],
+      [
+       "Telnet",
+       "SSH",
+       "Encrypted and authenticated channel"
+      ],
+      [
+       "FTP",
+       "SFTP (inside SSH) or FTPS (FTP inside TLS)",
+       "SSH or TLS"
+      ],
+      [
+       "HTTP",
+       "HTTPS",
+       "TLS"
+      ],
+      [
+       "LDAP",
+       "LDAPS or LDAP with STARTTLS",
+       "TLS"
+      ],
+      [
+       "SNMPv1 / v2c",
+       "SNMPv3",
+       "Built-in authentication and encryption"
+      ],
+      [
+       "POP3 / IMAP",
+       "POP3S / IMAPS",
+       "TLS"
+      ],
+      [
+       "Classic DNS",
+       "DNSSEC (integrity); DNS over TLS or HTTPS (confidentiality)",
+       "Signatures; TLS"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "TLS and SSH"
+    },
+    {
+     "type": "definition",
+     "title": "TLS, Transport Layer Security",
+     "text": "Protocol that authenticates the server with a certificate (and sometimes the client), negotiates session keys and encrypts the exchanges. Versions to use: TLS 1.2 and 1.3. SSL and TLS 1.0/1.1 are obsolete.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "SSH, Secure Shell",
+     "text": "Encrypted remote administration protocol (port 22). Key-based authentication, rather than passwords, is recommended. SSH is also used for file transfer (SFTP, SCP) and tunnels.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "IPsec: securing at the IP level"
+    },
+    {
+     "type": "diagram",
+     "title": "AH or ESP, transport or tunnel?",
+     "alt": "Two-by-two grid. AH: authenticates and protects integrity, without encrypting. ESP: encrypts and protects integrity, it is the usual choice. Transport mode: protects the payload, host to host. Tunnel mode: encapsulates the whole packet inside a new packet, used between two gateways for a site-to-site VPN.",
+     "diagram": {
+      "type": "quadrant",
+      "xLabel": "Mode",
+      "yLabel": "Protocol",
+      "cells": [
+       {
+        "emoji": "🔏",
+        "label": "AH",
+        "detail": "integrity, no encryption",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🔐",
+        "label": "ESP",
+        "detail": "encryption + integrity",
+        "tone": "green"
+       },
+       {
+        "emoji": "💻",
+        "label": "Transport",
+        "detail": "payload, host to host",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🚇",
+        "label": "Tunnel",
+        "detail": "whole packet, site to site",
+        "tone": "violet"
+       }
+      ]
+     }
+    },
+    {
+     "type": "practice",
+     "title": "To remember about IPsec",
+     "kind": "general",
+     "items": [
+      "IKE negotiates the security associations and the keys (UDP 500, and 4500 for NAT traversal).",
+      "AH also protects the IP header: it does not support network address translation (NAT).",
+      "A site-to-site VPN generally uses ESP in tunnel mode.",
+      "IPsec works at layer 3: it protects all applications without modifying them."
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "\"AH Authenticates, ESP Encapsulates (encrypts). The tunnel hides the whole packet, transport only the content.\""
+    },
+    {
+     "type": "heading",
+     "text": "Securing DNS"
+    },
+    {
+     "type": "important",
+     "title": "DNSSEC does not encrypt",
+     "text": "DNSSEC signs DNS answers: the resolver checks that they really come from the domain and have not been modified. It protects against poisoning, but the queries remain readable. For the confidentiality of queries, DNS over TLS (port 853) or over HTTPS is used."
+    },
+    {
+     "type": "heading",
+     "text": "Securing email"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Mechanism",
+       "What it does",
+       "What it does not do"
+      ],
+      [
+       "STARTTLS",
+       "Encrypts transport between servers or with the client",
+       "Does not protect the stored message"
+      ],
+      [
+       "S/MIME or OpenPGP",
+       "Encrypts and signs the message end to end",
+       "Requires certificate or key management"
+      ],
+      [
+       "SPF",
+       "Publishes in DNS the servers allowed to send for the domain",
+       "Does not check the address displayed to the user"
+      ],
+      [
+       "DKIM",
+       "The sending domain signs the message; the recipient verifies with the key published in DNS",
+       "Does not encrypt"
+      ],
+      [
+       "DMARC",
+       "Requires SPF or DKIM to align with the visible address and sets the policy (none, quarantine, reject) and the reports",
+       "Blocks nothing without SPF or DKIM"
+      ]
+     ]
+    },
+    {
+     "type": "trainerNote",
+     "text": "SPF, DKIM and DMARC work together against domain-name spoofing in emails. A domain without DMARC in a \"reject\" policy can easily be imitated for phishing."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: the supplier's fake invoice",
+     "kind": "example",
+     "text": "An accountant reports an invoice received from a usual supplier, with new bank details. The analyst examines the headers: SPF fails, no valid DKIM signature, and the supplier's domain has no DMARC policy, which is why the message was delivered. The analyst blocks the sender, searches for the same message in the other mailboxes, warns the supplier and reminds staff of the procedure of checking any change of bank details by phone."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "Architect: I prohibit clear-text protocols on the administration network.",
+      "Email administrator: I publish SPF, DKIM and a DMARC policy, then move gradually to reject.",
+      "Auditor: I check the accepted TLS versions and the absence of Telnet or SNMPv1.",
+      "SOC analyst: SPF, DKIM and DMARC results in the headers help me qualify a phishing email."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "AH = integrity and authentication, NO confidentiality; ESP = confidentiality + integrity.",
+      "Tunnel mode = whole packet encapsulated (site-to-site VPN); transport mode = payload only.",
+      "DNSSEC = integrity and authenticity of answers, not confidentiality.",
+      "SFTP runs over SSH; FTPS runs over TLS.",
+      "SNMPv3 is the only version that provides authentication and encryption."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Every clear-text protocol has a secure replacement: SSH, HTTPS, LDAPS, SNMPv3, SFTP.",
+      "TLS 1.2 and 1.3; SSH with key-based authentication.",
+      "IPsec: AH (integrity), ESP (encryption); transport or tunnel; IKE for the keys.",
+      "DNSSEC (integrity), encrypted DNS (confidentiality); email: STARTTLS, S/MIME, SPF, DKIM, DMARC."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m3c1-q22",
+      "m3c1-q25"
+     ]
+    }
+   ]
+  }
+ ]
+}
