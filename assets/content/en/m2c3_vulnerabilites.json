@@ -1,0 +1,773 @@
+{
+ "lessons": [
+  {
+   "id": "m2c3-l1",
+   "title": "Identifying and scoring vulnerabilities",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m2c3_l1_loupe.svg",
+   "illustrationAlt": "Drawing of a magnifying glass on a brick wall; a cracked brick is circled in red with a \"CVE\" label.",
+   "objectives": [
+    "Tell apart vulnerability, threat, exploit and weakness (CVE and CWE).",
+    "Read a CVSS score and know its limits.",
+    "Use public sources: NVD, the KEV catalog, the EPSS score, vendor advisories.",
+    "Choose a suitable type of scan and frame it with an authorization."
+   ],
+   "references": [
+    {
+     "title": "FIRST, Common Vulnerability Scoring System (CVSS) v3.1 and v4.0",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-115, Technical Guide to Information Security Testing and Assessment",
+     "kind": "general"
+    },
+    {
+     "title": "ISO/IEC 27002:2022, control 8.8 (management of technical vulnerabilities)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "What are we talking about?"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Term",
+       "Definition",
+       "Example"
+      ],
+      [
+       "Vulnerability",
+       "Exploitable weakness in a system, software or process",
+       "A VPN version that accepts a malformed request"
+      ],
+      [
+       "Threat",
+       "What can exploit the vulnerability",
+       "A criminal group that targets VPNs"
+      ],
+      [
+       "Exploit",
+       "Code or technique that actually exploits the vulnerability",
+       "A public script that gives access without a password"
+      ],
+      [
+       "Risk",
+       "Likelihood × impact of the exploitation",
+       "Intrusion into the internal network"
+      ]
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "CVE, Common Vulnerabilities and Exposures",
+     "text": "Unique, public identifier of a specific vulnerability, in the form CVE-year-number. It lets everyone (vendors, scanners, SOCs) talk about the same flaw.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "CWE, Common Weakness Enumeration",
+     "text": "Catalog of TYPES of weaknesses (SQL injection, buffer overflow…). A CVE is a concrete case; the CWE is the family it belongs to.",
+     "kind": "general"
+    },
+    {
+     "type": "memo",
+     "text": "\"CVE = the case, CWE = the family, CVSS = the severity.\""
+    },
+    {
+     "type": "heading",
+     "text": "Scoring severity: CVSS"
+    },
+    {
+     "type": "text",
+     "text": "CVSS, published by FIRST, gives a score from 0 to 10 based on technical criteria: attack vector (network, local, physical), complexity, privileges required, user interaction and impact on confidentiality, integrity and availability."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "CVSS score",
+       "Severity"
+      ],
+      [
+       "0.0",
+       "None"
+      ],
+      [
+       "0.1 to 3.9",
+       "Low"
+      ],
+      [
+       "4.0 to 6.9",
+       "Medium"
+      ],
+      [
+       "7.0 to 8.9",
+       "High"
+      ],
+      [
+       "9.0 to 10.0",
+       "Critical"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "CVSS measures severity, not risk",
+     "text": "The base score knows nothing about your asset, its exposure or whether real attacks exist. A 9.8 flaw on an isolated test workstation can be less urgent than a 7.5 flaw on an Internet-facing server that is being actively exploited."
+    },
+    {
+     "type": "heading",
+     "text": "Sources to watch"
+    },
+    {
+     "type": "diagram",
+     "title": "From disclosure to the scanner alert",
+     "alt": "Five-step diagram: a researcher or a vendor discovers the flaw, a CVE identifier is assigned, the NVD enriches it with a CVSS score, the vendor publishes an advisory and a patch, then scanners add a detection test.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🔬",
+        "label": "Discovery",
+        "detail": "researcher, vendor",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🏷️",
+        "label": "CVE",
+        "detail": "identifier assigned",
+        "tone": "violet"
+       },
+       {
+        "emoji": "📊",
+        "label": "NVD",
+        "detail": "CVSS score, references",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "📢",
+        "label": "Vendor advisory",
+        "detail": "patch or workaround",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🛰️",
+        "label": "Scanner",
+        "detail": "new detection test",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Source",
+       "What it provides"
+      ],
+      [
+       "NVD (NIST)",
+       "Public database of enriched CVEs: CVSS score, affected products, references"
+      ],
+      [
+       "KEV catalog (CISA)",
+       "List of vulnerabilities whose real-world exploitation is confirmed"
+      ],
+      [
+       "EPSS (FIRST)",
+       "Estimated probability that a CVE will be exploited in the next 30 days"
+      ],
+      [
+       "Vendor and CERT advisories",
+       "Patches, workarounds, affected versions"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Scanning your systems"
+    },
+    {
+     "type": "diagram",
+     "title": "Four ways to scan",
+     "alt": "Two-by-two grid. Unauthenticated scan: an attacker's view from the network, more false positives. Authenticated scan: logs into the system and sees installed versions, more accurate. Installed agent: ideal for mobile workstations. Passive analysis: listens to traffic without sending anything, useful for fragile devices.",
+     "diagram": {
+      "type": "quadrant",
+      "xLabel": "Accuracy",
+      "yLabel": "Intrusiveness",
+      "cells": [
+       {
+        "emoji": "🕵️",
+        "label": "Unauthenticated",
+        "detail": "attacker's view",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🔑",
+        "label": "Authenticated",
+        "detail": "real versions, accurate",
+        "tone": "green"
+       },
+       {
+        "emoji": "👂",
+        "label": "Passive",
+        "detail": "listens, sends nothing",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🤖",
+        "label": "Agent",
+        "detail": "mobile workstations",
+        "tone": "violet"
+       }
+      ]
+     }
+    },
+    {
+     "type": "risk",
+     "title": "Scanning without authorization",
+     "text": "A scan, even on your employer's network, must be authorized in writing, with a defined scope and schedule. Scanning a system that does not belong to you can be an offense. Some fragile devices (industrial controllers, medical equipment) can fail under an active scan."
+    },
+    {
+     "type": "trainerNote",
+     "text": "A scanner finds KNOWN vulnerabilities. It replaces neither a penetration test, which tries to chain them as an attacker would, nor a configuration review. And it produces false positives: an analyst must validate before alerting the teams."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: the VPN in the KEV catalog",
+     "kind": "example",
+     "text": "On Monday morning, the SOC's watch spots that a CVE affecting the company's VPN model has just entered the KEV catalog. The authorized authenticated scan confirms that two Internet-facing gateways run the vulnerable version. The SOC opens a priority ticket, searches the SIEM for traces of exploitation over the last 30 days (unusual requests, new accounts) and alerts the network team for an emergency patch."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: I want a complete inventory; a vulnerability on an unknown asset will never be fixed.",
+      "SOC manager: watching KEV and vendor advisories feeds my compromise hunts directly.",
+      "Auditor: I check scan coverage, frequency and written authorization.",
+      "Risk manager: I turn a vulnerability into a risk by adding the exposure and criticality of the asset."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "CVE = identifier of a specific flaw; CWE = type of weakness; CVSS = severity score.",
+      "The CVSS base score is not a risk level: it ignores the company's context.",
+      "Authenticated scan = more accurate, fewer false positives; unauthenticated = attacker's view.",
+      "A vulnerability scan is not a penetration test.",
+      "Always a written authorization and a scope before scanning."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Vulnerability, threat, exploit, risk: four distinct concepts.",
+      "CVE, CWE and CVSS (0 to 10; 7 to 8.9 high; 9 to 10 critical).",
+      "Sources: NVD, KEV (confirmed exploitation), EPSS (probability), vendor advisories.",
+      "Authenticated, unauthenticated, agent-based or passive scans, always authorized."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m2c3-q02",
+      "m2c3-q05"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m2c3-l2",
+   "title": "Prioritizing and treating vulnerabilities",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m2c3_l2_tri.svg",
+   "illustrationAlt": "Drawing of three sorting trays marked \"now\", \"soon\" and \"later\", with red, orange and green vulnerability cards.",
+   "objectives": [
+    "Describe the vulnerability management cycle.",
+    "Prioritize by risk: severity, exploitation, exposure and asset criticality.",
+    "Choose between fixing, mitigating and accepting by exception.",
+    "Steer the program with deadlines (SLAs) and indicators."
+   ],
+   "references": [
+    {
+     "title": "ISO/IEC 27002:2022, control 8.8 (management of technical vulnerabilities)",
+     "kind": "general"
+    },
+    {
+     "title": "FIRST, Exploit Prediction Scoring System (EPSS)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "A cycle, not a scan"
+    },
+    {
+     "type": "diagram",
+     "title": "The vulnerability management cycle",
+     "alt": "Six-step cycle around the asset inventory: discover through scanning and watch, assess by validating and ruling out false positives, prioritize by risk, treat with a patch or mitigation, verify with a new scan, report with indicators.",
+     "diagram": {
+      "type": "cycle",
+      "center": "📋 Asset\ninventory",
+      "nodes": [
+       {
+        "emoji": "🔍",
+        "label": "Discover",
+        "detail": "scans and watch",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🧪",
+        "label": "Assess",
+        "detail": "validate, rule out false positives",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🎯",
+        "label": "Prioritize",
+        "detail": "by risk",
+        "tone": "red"
+       },
+       {
+        "emoji": "🛠️",
+        "label": "Treat",
+        "detail": "fix or mitigate",
+        "tone": "green"
+       },
+       {
+        "emoji": "✅",
+        "label": "Verify",
+        "detail": "new scan",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "📈",
+        "label": "Report",
+        "detail": "indicators, trends",
+        "tone": "orange"
+       }
+      ]
+     },
+     "kind": "practice"
+    },
+    {
+     "type": "heading",
+     "text": "Prioritizing by risk"
+    },
+    {
+     "type": "text",
+     "text": "A large company discovers thousands of vulnerabilities every month. Fixing everything at once is impossible. So several criteria are combined to deal first with what really matters."
+    },
+    {
+     "type": "practice",
+     "title": "The four prioritization questions",
+     "kind": "practice",
+     "items": [
+      "Severity: what is the CVSS score?",
+      "Exploitation: is it already exploited (KEV) or likely to be (high EPSS, public exploit)?",
+      "Exposure: is the asset reachable from the Internet or from a poorly protected segment?",
+      "Criticality: does the asset carry sensitive data or a vital process?"
+     ]
+    },
+    {
+     "type": "diagram",
+     "title": "Where to place four vulnerabilities?",
+     "alt": "Matrix with technical severity on the horizontal axis and probability of exploitation on the vertical axis. The exposed VPN listed in KEV is at the top right: to be treated immediately. The internal web server is in the middle. The critical flaw on an isolated test workstation is on the right but at the bottom. The printer with a low flaw is at the bottom left.",
+     "diagram": {
+      "type": "matrix",
+      "xLabel": "Severity (CVSS)",
+      "yLabel": "Probability of exploitation",
+      "points": [
+       {
+        "label": "Exposed VPN (KEV)",
+        "emoji": "🚨",
+        "x": 5,
+        "y": 5
+       },
+       {
+        "label": "Internal web",
+        "emoji": "🌐",
+        "x": 3,
+        "y": 3
+       },
+       {
+        "label": "Isolated test workstation",
+        "emoji": "🧪",
+        "x": 5,
+        "y": 1
+       },
+       {
+        "label": "Printer",
+        "emoji": "🖨️",
+        "x": 1,
+        "y": 2
+       }
+      ]
+     }
+    },
+    {
+     "type": "heading",
+     "text": "Treatment options"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Option",
+       "When",
+       "Example"
+      ],
+      [
+       "Fix (remediate)",
+       "A patch or a new version exists",
+       "Install the VPN update"
+      ],
+      [
+       "Mitigate",
+       "No patch, or time needed",
+       "Disable the vulnerable feature, filter the port, web application firewall rule (virtual patch)"
+      ],
+      [
+       "Accept by exception",
+       "Fix impossible in the short term, risk accepted",
+       "Certified industrial machine, isolated, reviewed every 6 months"
+      ],
+      [
+       "Retire",
+       "Useless or end-of-life system",
+       "Shut down an old forgotten server"
+      ]
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "Virtual patch (patch virtuel)",
+     "text": "Measure placed in front of the vulnerable system (web application firewall, IPS, filter) that blocks exploitation without modifying the system itself. It is a temporary compensating control, not a fix.",
+     "kind": "practice"
+    },
+    {
+     "type": "important",
+     "title": "An exception is managed like a risk",
+     "text": "Every exception is written, justified, approved by the risk owner, backed by compensating controls and limited in time. Without a review date, an exception becomes an oversight."
+    },
+    {
+     "type": "heading",
+     "text": "Steering the program"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Indicator",
+       "What it shows"
+      ],
+      [
+       "Mean time to remediate by severity",
+       "Whether the set deadlines (SLAs) are met"
+      ],
+      [
+       "Share of critical vulnerabilities past due",
+       "The delay that is really dangerous"
+      ],
+      [
+       "Scan coverage",
+       "The assets you cannot see"
+      ],
+      [
+       "Number of active and expired exceptions",
+       "Risk accepted and forgotten"
+      ],
+      [
+       "Reopening rate",
+       "Fixes that were badly done or incomplete"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "\"Severity, Exploitation, Exposure, Stakes\": the 4 criteria that turn a score into a priority."
+    },
+    {
+     "type": "trainerNote",
+     "text": "Remediation deadlines are set by the company's policy, often shorter for critical or exploited flaws. There is no universal deadline imposed by the exam: remember the logic (the higher the risk, the shorter the deadline) rather than a figure."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: the forgotten exception",
+     "kind": "example",
+     "text": "While preparing the monthly report, the L2 analyst notices a critical vulnerability open for 14 months on a monitoring server. An exception had been granted for 3 months, during a migration that never happened. The SOC alerts the CISO; the risk owner has to choose: fix, renew the exception with new compensating controls, or retire the server. Meanwhile, the SOC adds a specific detection rule on this server."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: I do not ask for zero vulnerabilities; I ask that exposed critical ones be treated on time.",
+      "Operations: a poorly tested urgent patch can cause an outage; I want a realistic deadline and a rollback.",
+      "Auditor: I check that every exception has an owner, a justification and an expiry date.",
+      "SOC analyst: an unpatched vulnerability on an exposed asset deserves closer monitoring."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Prioritize by risk, not only by CVSS score.",
+      "A virtual patch is a compensating, temporary measure, not a fix.",
+      "An exception is approved by the risk owner, not by the analyst nor the administrator.",
+      "After fixing, you VERIFY with a new scan.",
+      "The cycle relies on the asset inventory."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Cycle: discover, assess, prioritize, treat, verify, report.",
+      "Priority = severity + exploitation (KEV, EPSS) + exposure + asset criticality.",
+      "Treat: fix, mitigate (virtual patch), accept by limited exception, retire.",
+      "Indicators: deadlines by severity, critical past due, coverage, exceptions."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m2c3-q12",
+      "m2c3-q15"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m2c3-l3",
+   "title": "Patch management and security testing",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m2c3_l3_pansement.svg",
+   "illustrationAlt": "Drawing of a computer screen with a large cross-shaped bandage and a circular update arrow.",
+   "objectives": [
+    "Apply a patch management process, from testing to deployment in waves.",
+    "React to a zero-day vulnerability and manage end-of-life systems.",
+    "Tell apart vulnerability scan, penetration test, audit and Red Team exercise."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-40 Rev. 4, Guide to Enterprise Patch Management Planning",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-115, Technical Guide to Information Security Testing and Assessment",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "The patching process"
+    },
+    {
+     "type": "diagram",
+     "title": "From published patch to verified patch",
+     "alt": "Six-step diagram: watch for published patches, assessment of their relevance and urgency, testing on a representative environment, deployment in waves with a rollback plan, verification of installation, inventory update and closure.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "📡",
+        "label": "Watch",
+        "detail": "vendor advisories",
+        "tone": "blue"
+       },
+       {
+        "emoji": "⚖️",
+        "label": "Assessment",
+        "detail": "relevance, urgency",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🧪",
+        "label": "Test",
+        "detail": "representative environment",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "🌊",
+        "label": "Waves",
+        "detail": "with rollback",
+        "tone": "orange"
+       },
+       {
+        "emoji": "✅",
+        "label": "Verification",
+        "detail": "scan, compliance",
+        "tone": "green"
+       },
+       {
+        "emoji": "📚",
+        "label": "Closure",
+        "detail": "inventory up to date",
+        "tone": "pink"
+       }
+      ]
+     }
+    },
+    {
+     "type": "text",
+     "text": "Patch management is part of change management: a patch is a change, with impact analysis, approval and a rollback plan. Routine patches can be pre-approved (standard change); an urgent patch follows the emergency change procedure."
+    },
+    {
+     "type": "diagram",
+     "title": "Deploying in waves (share of the estate)",
+     "alt": "Bar chart: the pilot wave covers 5% of the estate with volunteer users and IT, the first wave 20%, the general wave 75%. You move to the next wave only if the previous one caused no problem.",
+     "diagram": {
+      "type": "bars",
+      "unit": "%",
+      "bars": [
+       {
+        "label": "Pilot",
+        "value": 5,
+        "tone": "blue"
+       },
+       {
+        "label": "Wave 1",
+        "value": 20,
+        "tone": "orange"
+       },
+       {
+        "label": "General wave",
+        "value": 75,
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "practice",
+     "title": "Good practices",
+     "kind": "practice",
+     "items": [
+      "Keep a complete software inventory, including firmware, libraries and third-party applications.",
+      "Download patches only from official sources and check their signature.",
+      "Plan a rollback and a backup before major updates.",
+      "Verify after deployment: a \"distributed\" patch is not necessarily \"installed\" (missing reboot, silent failure)."
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "The hard cases"
+    },
+    {
+     "type": "definition",
+     "title": "Zero-day vulnerability",
+     "text": "Vulnerability exploited or known before a patch exists. You can only mitigate: disable the feature, filter, isolate, strengthen detection, then apply the patch as soon as it is published.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "End-of-life system, EOL (système en fin de vie)",
+     "text": "System for which the vendor no longer publishes security patches. Every new flaw will stay open: it must be replaced, or isolated with compensating controls and a formal exception in the meantime.",
+     "kind": "general"
+    },
+    {
+     "type": "risk",
+     "title": "The patch that breaks production",
+     "text": "A patch applied everywhere at once, without testing, can stop a critical service. Conversely, waiting too long leaves the door open. Deployment in waves and rollback make it possible to move fast without risking everything."
+    },
+    {
+     "type": "heading",
+     "text": "Testing security: four approaches"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Approach",
+       "Goal",
+       "Characteristics"
+      ],
+      [
+       "Vulnerability scan",
+       "List the known flaws",
+       "Automated, frequent, broad, shallow"
+      ],
+      [
+       "Penetration test",
+       "Prove that flaws can be exploited and pushed further",
+       "Manual, signed scope and rules of engagement, one-off"
+      ],
+      [
+       "Audit",
+       "Check compliance with a framework",
+       "Evidence, samples, gaps"
+      ],
+      [
+       "Red Team exercise",
+       "Test detection and response against a realistic scenario",
+       "Stealthy, over time, with the defense team (Blue Team) put to the test"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Rules of engagement",
+     "text": "A penetration test is only legal and safe if it is authorized in writing by the owner of the systems: scope, dates, allowed and prohibited techniques, emergency contacts, handling of the data discovered. Without this document, it is an attack."
+    },
+    {
+     "type": "memo",
+     "text": "\"The scan lists, the pentest proves, the audit compares, the Red Team tests the defense.\""
+    },
+    {
+     "type": "trainerNote",
+     "text": "Black, gray or white box: what changes is the information given to the tester. In a black box the tester knows nothing (like an external attacker), in a white box they have everything (code, diagrams, accounts), in a gray box part of it, often a user account."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: the Friday-night zero-day",
+     "kind": "example",
+     "text": "A vendor announces an actively exploited flaw in its mail server, with no patch available for several days, but with a workaround. The SOC triggers the \"zero-day\" playbook: the workaround is applied as an emergency change, external access is filtered, the published indicators of compromise are searched for in the logs, monitoring is strengthened. The patch, published on Tuesday, is tested then deployed in two waves; an authenticated scan confirms the installation."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: an end-of-life system is a risk that grows every month; I want a dated replacement plan.",
+      "Operations: I pre-approve routine patches to keep the urgent path for real emergencies.",
+      "Auditor: I compare the publication date of critical patches with their installation date.",
+      "SOC manager: during a zero-day, detection makes up for the missing patch."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "A patch is a change: it goes through change management.",
+      "Zero-day = no patch: you mitigate and monitor.",
+      "Scan ≠ penetration test ≠ audit ≠ Red Team.",
+      "A penetration test requires written authorization and rules of engagement.",
+      "Verify the installation: distributed does not mean installed."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Patches: watch, assessment, test, deployment in waves with rollback, verification.",
+      "Zero-day: mitigate, isolate, detect; EOL: replace or isolate with an exception.",
+      "Scan (list), penetration test (proof), audit (compliance), Red Team (detection and response).",
+      "Always a written authorization and rules of engagement."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m2c3-q22",
+      "m2c3-q25"
+     ]
+    }
+   ]
+  }
+ ]
+}

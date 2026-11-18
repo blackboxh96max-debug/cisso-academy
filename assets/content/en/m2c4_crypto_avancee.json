@@ -1,0 +1,684 @@
+{
+ "lessons": [
+  {
+   "id": "m2c4-l1",
+   "title": "History of cryptography: from the scytale to Enigma",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m2c4_l1_scytale.svg",
+   "illustrationAlt": "Drawing of a stick wrapped in a leather strip covered with letters, next to a cipher disk with two rings of letters.",
+   "objectives": [
+    "Tell apart substitution, transposition, code and steganography.",
+    "Explain why frequency analysis breaks monoalphabetic ciphers.",
+    "Describe the one-time pad and the conditions for its perfect secrecy.",
+    "Place the major milestones up to modern cryptography (DES, Diffie-Hellman, RSA, AES)."
+   ],
+   "references": [
+    {
+     "title": "C. E. Shannon, \"Communication Theory of Secrecy Systems\", Bell System Technical Journal, 1949",
+     "kind": "general"
+    },
+    {
+     "title": "NIST FIPS 197, Advanced Encryption Standard (AES)",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Why history matters in the exam"
+    },
+    {
+     "type": "text",
+     "text": "Ancient ciphers are broken in seconds today, but they show the two basic operations found in modern algorithms: replacing symbols (substitution) and moving them (transposition). AES still combines these two ideas, on a large scale and with a secret key."
+    },
+    {
+     "type": "heading",
+     "text": "The basic operations"
+    },
+    {
+     "type": "definition",
+     "title": "Substitution cipher (chiffre par substitution)",
+     "text": "Each letter is replaced by another letter or a symbol. The Caesar cipher shifts each letter three places in the alphabet: A becomes D, B becomes E.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Transposition cipher (chiffre par transposition)",
+     "text": "The letters stay the same but change place. The Spartan scytale is the typical example: a strip wrapped around a stick can only be read with a stick of the same diameter.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Steganography (stéganographie)",
+     "text": "Hiding the very existence of the message (invisible ink, data slipped into the pixels of an image) instead of making it unreadable. It is often combined with encryption.",
+     "kind": "general"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Method",
+       "What changes",
+       "Historical example"
+      ],
+      [
+       "Monoalphabetic substitution",
+       "A letter always gives the same encrypted letter",
+       "Caesar, Atbash"
+      ],
+      [
+       "Polyalphabetic substitution",
+       "The same letter changes according to its position and the key",
+       "Vigenère, Enigma"
+      ],
+      [
+       "Transposition",
+       "The order of the letters",
+       "Scytale"
+      ],
+      [
+       "Code",
+       "Whole words replaced using a codebook",
+       "Diplomatic codebooks"
+      ],
+      [
+       "Steganography",
+       "Nothing is encrypted: the message is hidden",
+       "Invisible ink"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "The first cryptanalysis: counting letters"
+    },
+    {
+     "type": "text",
+     "text": "In a language, some letters come up more often than others: E in French as in English. With a monoalphabetic cipher, the most frequent letter of the encrypted message therefore probably stands for E. The Arab scholar Al-Kindi described this frequency analysis in the 9th century: it is the first known method of cryptanalysis."
+    },
+    {
+     "type": "diagram",
+     "title": "From the scytale to AES",
+     "alt": "Six-step timeline: the scytale of Antiquity (transposition); the Caesar cipher in the 1st century BC (shift); the Vigenère cipher in the 16th century (several alphabets); the Enigma machine during the Second World War (rotors); the modern era with DES in 1977, Diffie-Hellman in 1976 and RSA in 1977; AES adopted in 2001.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "📜",
+        "label": "Scytale",
+        "detail": "Antiquity: transposition",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🏛️",
+        "label": "Caesar",
+        "detail": "1st c. BC: shift",
+        "tone": "pink"
+       },
+       {
+        "emoji": "🔤",
+        "label": "Vigenère",
+        "detail": "16th c.: several alphabets",
+        "tone": "violet"
+       },
+       {
+        "emoji": "⚙️",
+        "label": "Enigma",
+        "detail": "1939-1945: rotors",
+        "tone": "red"
+       },
+       {
+        "emoji": "💻",
+        "label": "Modern era",
+        "detail": "DES 1977, Diffie-Hellman 1976, RSA 1977",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🛡️",
+        "label": "AES",
+        "detail": "adopted in 2001",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "heading",
+     "text": "Vigenère and Enigma: several alphabets"
+    },
+    {
+     "type": "text",
+     "text": "The Vigenère cipher (16th century) uses a keyword: each letter of the message is shifted by a value that depends on the matching letter of the key. The same plaintext letter therefore gives different encrypted letters, which blurs frequency analysis. Its weakness: the key repeats. In 1863, Friedrich Kasiski published a method to find the key length from the repetitions; each position is then broken like a Caesar cipher."
+    },
+    {
+     "type": "text",
+     "text": "The Enigma machine, used by the German army during the Second World War, automates a polyalphabetic substitution: rotors turn with each keystroke. Polish mathematicians, with Marian Rejewski from 1932, then the Bletchley Park team, including Alan Turing, broke it by relying on procedural errors and predictable messages."
+    },
+    {
+     "type": "important",
+     "title": "The lesson of Enigma",
+     "text": "The machine was solid on paper; it was the procedures (badly chosen keys, phrases repeated every day) that gave it away. Even today, most failures come from implementation and key management, not from the algorithm."
+    },
+    {
+     "type": "heading",
+     "text": "The one-time pad and perfect secrecy"
+    },
+    {
+     "type": "definition",
+     "title": "One-time pad (masque jetable)",
+     "text": "Vernam cipher (1917): the message is combined with a random key of the same length, for example with an exclusive OR. Claude Shannon proved in 1949 that it is unbreakable if the key is truly random, as long as the message, kept secret and used only once.",
+     "kind": "general"
+    },
+    {
+     "type": "risk",
+     "title": "The limits of the one-time pad",
+     "items": [
+      "Reusing the key for a second message makes it possible to combine the two encrypted messages and recover the plaintexts.",
+      "Secretly distributing a key as long as all the messages is very difficult: the one-time pad remains reserved for rare uses."
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "Kerckhoffs's principle (principe de Kerckhoffs)",
+     "text": "Stated in 1883: the security of an encryption system must rest on the secrecy of the key, not on that of the algorithm. A public, well-studied algorithm inspires more confidence than a \"secret\" algorithm.",
+     "kind": "general"
+    },
+    {
+     "type": "trainerNote",
+     "text": "In the exam, remember three pairs: substitution (replace) and transposition (move); monoalphabetic (a single alphabet) and polyalphabetic (several); encryption (make unreadable) and steganography (hide). The one-time pad is the only cipher proven unbreakable, under four conditions."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: a home-made \"encryption\" in the lab",
+     "kind": "example",
+     "text": "Simulated exercise in the training lab: a fictitious internal script \"protects\" passwords by shifting each character three places. The analyst notices that the character frequency looks like that of a plaintext: it is a Caesar cipher, not a protection. The analyst recommends a slow hash function for passwords and a standard algorithm such as AES for data, then opens a ticket for the development team."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: a home-made or \"secret\" algorithm is a warning sign, in line with Kerckhoffs's principle.",
+      "SOC manager: an encoding (Base64) or a simple shift protects nothing; the analyst must be able to recognize them.",
+      "Auditor: asks which standard algorithms are used and how the keys are managed.",
+      "Risk manager: the great historical failures came from procedures; so key management is assessed too."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Caesar and Atbash are monoalphabetic substitutions; the scytale is a transposition.",
+      "Vigenère is polyalphabetic: you must first find the key length before frequency analysis.",
+      "Steganography hides the existence of the message; it does not encrypt it.",
+      "The one-time pad is only perfect if the key is random, as long as the message, secret and never reused.",
+      "An encoding such as Base64 is not encryption: there is no key."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Substitution: replace; transposition: move.",
+      "Monoalphabetic: broken by frequency analysis (Al-Kindi, 9th century).",
+      "Polyalphabetic (Vigenère, Enigma): stronger, broken thanks to key repetition and procedural errors.",
+      "One-time pad: perfect secrecy proven by Shannon, under strict conditions.",
+      "Kerckhoffs: only the secrecy of the key counts.",
+      "Modern era: Diffie-Hellman 1976, DES and RSA 1977, AES 2001."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m2c4-q01",
+      "m2c4-q04"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m2c4-l2",
+   "title": "Quantum and post-quantum cryptography",
+   "minutes": 35,
+   "illustration": "assets/illustrations/m2c4_l2_quantique.svg",
+   "illustrationAlt": "Drawing of a stylized atom next to an open padlock, then a reinforced closed padlock, linked by an arrow.",
+   "objectives": [
+    "Explain what a quantum computer would change (Shor's and Grover's algorithms).",
+    "Tell apart post-quantum cryptography and quantum key distribution.",
+    "Name the NIST FIPS 203, 204 and 205 standards and their use.",
+    "Prepare a migration: inventory, priorities, agility, hybridization."
+   ],
+   "references": [
+    {
+     "title": "NIST FIPS 203, Module-Lattice-Based Key-Encapsulation Mechanism Standard (ML-KEM), 2024",
+     "url": "https://csrc.nist.gov/pubs/fips/203/final",
+     "kind": "general"
+    },
+    {
+     "title": "NIST FIPS 204, Module-Lattice-Based Digital Signature Standard (ML-DSA), 2024",
+     "url": "https://csrc.nist.gov/pubs/fips/204/final",
+     "kind": "general"
+    },
+    {
+     "title": "NIST FIPS 205, Stateless Hash-Based Digital Signature Standard (SLH-DSA), 2024",
+     "url": "https://csrc.nist.gov/pubs/fips/205/final",
+     "kind": "general"
+    },
+    {
+     "title": "NIST IR 8547, Transition to Post-Quantum Cryptography Standards",
+     "url": "https://csrc.nist.gov/pubs/ir/8547/final",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "What changes with the quantum computer"
+    },
+    {
+     "type": "text",
+     "text": "A sufficiently powerful quantum computer would run algorithms that are impossible to carry out at scale today. Such a machine does not yet exist at the necessary size, but two mathematical results already show what it would break and what it would weaken."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Algorithm",
+       "What it attacks",
+       "Effect",
+       "Countermeasure"
+      ],
+      [
+       "Shor (1994)",
+       "RSA, Diffie-Hellman, elliptic curves",
+       "Broken: factoring and discrete logarithm become easy",
+       "Post-quantum algorithms"
+      ],
+      [
+       "Grover (1996)",
+       "Symmetric encryption, hashing",
+       "Accelerated search: security in bits is roughly halved",
+       "Longer keys and hashes (AES-256, SHA-384)"
+      ]
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "Harvest now, decrypt later (récolter maintenant, déchiffrer plus tard)",
+     "text": "An attacker records encrypted exchanges today in order to decrypt them the day a quantum computer becomes available. Data that must stay secret for a long time is therefore already exposed.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Two answers not to confuse"
+    },
+    {
+     "type": "definition",
+     "title": "Post-quantum cryptography, PQC (cryptographie post-quantique)",
+     "text": "New classical algorithms, run on our current computers, based on problems thought to be hard even for a quantum computer: lattices, hash functions…",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Quantum key distribution, QKD (distribution quantique de clés)",
+     "text": "Key exchange that uses photons: any eavesdropping disturbs the signal and is detected. Reference protocol: BB84 (Bennett and Brassard, 1984). It requires dedicated hardware, a limited distance and an already authenticated channel. This is what is called \"quantum cryptography\".",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "The 2024 NIST standards"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Standard",
+       "Name",
+       "Use",
+       "Origin"
+      ],
+      [
+       "FIPS 203",
+       "ML-KEM",
+       "Establish a shared key (encapsulation)",
+       "CRYSTALS-Kyber"
+      ],
+      [
+       "FIPS 204",
+       "ML-DSA",
+       "Digital signature",
+       "CRYSTALS-Dilithium"
+      ],
+      [
+       "FIPS 205",
+       "SLH-DSA",
+       "Hash-based signature",
+       "SPHINCS+"
+      ]
+     ]
+    },
+    {
+     "type": "text",
+     "text": "These three standards were approved by NIST in August 2024. ML-KEM and ML-DSA rely on lattices; SLH-DSA relies only on hash functions, a very well-studied basis, at the cost of larger signatures. Others are following: FN-DSA, derived from Falcon, and HQC, selected in 2025 as a second encapsulation mechanism.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Preparing the migration"
+    },
+    {
+     "type": "diagram",
+     "title": "Migrating to post-quantum",
+     "alt": "Five-step diagram: inventory the uses of RSA, ECC and Diffie-Hellman; prioritize according to the lifetime of the data; make systems agile so the algorithm can be changed by configuration; first deploy hybrid classical and post-quantum modes; test then switch over.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "🗂️",
+        "label": "Inventory",
+        "detail": "RSA, ECC, DH: where?",
+        "tone": "blue"
+       },
+       {
+        "emoji": "⏳",
+        "label": "Prioritize",
+        "detail": "long-lived data",
+        "tone": "orange"
+       },
+       {
+        "emoji": "🔧",
+        "label": "Agility",
+        "detail": "change by configuration",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🤝",
+        "label": "Hybrid",
+        "detail": "classical + post-quantum",
+        "tone": "turquoise"
+       },
+       {
+        "emoji": "✅",
+        "label": "Test, switch over",
+        "detail": "performance, compatibility",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "practice",
+     "title": "The right reflexes",
+     "kind": "practice",
+     "items": [
+      "Inventory where RSA, ECC and Diffie-Hellman are used: certificates, TLS, VPN, code signing.",
+      "Classify data by how long it must stay secret: the longest first.",
+      "Require crypto agility: change the algorithm by configuration, without rewriting the application.",
+      "Use hybrid modes (classical and post-quantum) during the transition, as recommended by ANSSI and BSI.",
+      "Move symmetric encryption to AES-256 and hashes to SHA-384 or more where possible."
+     ]
+    },
+    {
+     "type": "important",
+     "title": "A timetable taking shape",
+     "text": "In the United States, the target set for the federal administration is to have completed the migration by 2035, with earlier deadlines for the most sensitive systems. The NIST IR 8547 report supports this transition. Check the current version before quoting a precise date.",
+     "kind": "general"
+    },
+    {
+     "type": "trainerNote",
+     "text": "The classic trap: \"quantum cryptography\" (QKD, photons) is not \"post-quantum cryptography\" (new algorithms on classical computers). Another reflex: Shor breaks asymmetric, Grover weakens symmetric."
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: the lab's cryptographic inventory",
+     "kind": "example",
+     "text": "Simulated exercise: the training lab SOC helps prepare the migration. From the TLS logs and the certificate inventory of a fictitious environment, it lists the RSA and ECDHE key exchanges, the VPNs and the code signatures. Flows that carry data to be kept secret for ten years (simulated HR files) come first. The SOC also adds a rule that flags downgrades to obsolete suites."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: the post-quantum migration is a multi-year program: inventory, budget, requirements for suppliers.",
+      "SOC manager: TLS logs and the certificate inventory give the map of uses.",
+      "Auditor: checks that an inventory exists and that contracts require crypto agility.",
+      "Risk manager: prioritizes according to the lifetime of the data, not according to a supposed arrival date of the quantum computer."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "QKD (photons) is not PQC (classical algorithms).",
+      "Shor targets asymmetric cryptography (RSA, ECC, Diffie-Hellman); Grover targets symmetric cryptography and hashing, with security in bits roughly halved.",
+      "AES-256 is still considered solid: it is not \"broken\" by quantum computing.",
+      "ML-KEM is used to establish a key; ML-DSA and SLH-DSA are used to sign.",
+      "The risk already exists for long-lived data: harvest now, decrypt later."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Shor breaks RSA, ECC and Diffie-Hellman; Grover roughly halves the security of symmetric cryptography.",
+      "Harvest now, decrypt later: lasting secrets are already exposed.",
+      "PQC: new algorithms on classical computers; QKD: key exchange using photons.",
+      "NIST 2024: FIPS 203 ML-KEM (keys), FIPS 204 ML-DSA and FIPS 205 SLH-DSA (signatures).",
+      "Migration: inventory, priorities, agility, hybrid, tests."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m2c4-q08",
+      "m2c4-q14"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m2c4-l3",
+   "title": "Advances in cryptography",
+   "minutes": 30,
+   "illustration": "assets/illustrations/m2c4_l3_blocs.svg",
+   "illustrationAlt": "Drawing of three cubes linked by chain links, each bearing a small fingerprint, next to a closed box from which a result comes out.",
+   "objectives": [
+    "Explain what homomorphic encryption, multi-party computation and zero-knowledge proofs are for.",
+    "Describe what a blockchain provides and what it does not.",
+    "Name lightweight cryptography, format-preserving encryption and authenticated encryption.",
+    "Choose the technique suited to a given need."
+   ],
+   "references": [
+    {
+     "title": "NIST SP 800-38G, Methods for Format-Preserving Encryption",
+     "url": "https://csrc.nist.gov/pubs/sp/800/38/g/upd1/final",
+     "kind": "general"
+    },
+    {
+     "title": "NIST SP 800-232 (2025), Ascon-Based Lightweight Cryptography Standards for Constrained Devices",
+     "kind": "general"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "heading",
+     "text": "Protecting data in its three states"
+    },
+    {
+     "type": "text",
+     "text": "We have long known how to protect stored data (disk encryption) or transmitted data (TLS, IPsec). The recent challenge is to protect it while it is being used: new techniques make it possible to compute without seeing the data."
+    },
+    {
+     "type": "diagram",
+     "title": "The three states of data",
+     "alt": "Three-step diagram: at rest, protected by disk or database encryption (AES); in transit, protected by TLS or IPsec; in use, protected by homomorphic encryption, multi-party computation or hardware enclaves.",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "💾",
+        "label": "At rest",
+        "detail": "disk encryption, AES",
+        "tone": "blue"
+       },
+       {
+        "emoji": "📡",
+        "label": "In transit",
+        "detail": "TLS, IPsec",
+        "tone": "violet"
+       },
+       {
+        "emoji": "⚙️",
+        "label": "In use",
+        "detail": "homomorphic, MPC, enclaves",
+        "tone": "green"
+       }
+      ]
+     }
+    },
+    {
+     "type": "heading",
+     "text": "Computing without seeing the data"
+    },
+    {
+     "type": "definition",
+     "title": "Homomorphic encryption (chiffrement homomorphe)",
+     "text": "Makes it possible to compute on encrypted data: once decrypted, the result is the same as if the computation had been done on the plaintext. The first fully homomorphic scheme was published in 2009 by Craig Gentry. It remains much slower than a classical computation.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Secure multi-party computation, MPC (calcul multipartite sécurisé)",
+     "text": "Several parties jointly compute a result (an average, a comparison, the elements common to two lists) without revealing their data to the others.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Zero-knowledge proof, ZKP (preuve à divulgation nulle de connaissance)",
+     "text": "Proving that a statement is true, or that you know a secret, without revealing the secret itself. Example: proving you are of age without giving your date of birth.",
+     "kind": "general"
+    },
+    {
+     "type": "definition",
+     "title": "Confidential computing (informatique confidentielle)",
+     "text": "Protecting data during processing thanks to hardware enclaves, called trusted execution environments: even the machine's administrator cannot see the data being processed.",
+     "kind": "general"
+    },
+    {
+     "type": "heading",
+     "text": "Blockchains"
+    },
+    {
+     "type": "definition",
+     "title": "Blockchain (chaîne de blocs)",
+     "text": "Shared ledger in which each block contains the hash of the previous block. Modifying an old block would change all the following hashes: tampering shows. Bitcoin, described in 2008, is its first major use.",
+     "kind": "general"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "What it provides",
+       "What it does not provide"
+      ],
+      [
+       "Integrity and traceability of entries",
+       "Confidentiality: by default, everything is readable"
+      ],
+      [
+       "No mandatory central third party",
+       "The accuracy of the data entered in the first place"
+      ],
+      [
+       "Timestamping that is hard to dispute",
+       "Protection of users' private keys"
+      ]
+     ]
+    },
+    {
+     "type": "heading",
+     "text": "Other techniques to know"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Technique",
+       "What for",
+       "Landmark"
+      ],
+      [
+       "Lightweight cryptography",
+       "Connected objects, sensors, very low-power cards",
+       "Ascon, selected by NIST in 2023"
+      ],
+      [
+       "Format-preserving encryption (FPE)",
+       "Encrypt a number while keeping its format (16 digits)",
+       "NIST SP 800-38G"
+      ],
+      [
+       "Authenticated encryption (AEAD)",
+       "Confidentiality and integrity in a single operation",
+       "AES-GCM, ChaCha20-Poly1305"
+      ],
+      [
+       "Signatures on modern curves",
+       "Fast and compact signatures",
+       "Ed25519"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Sticking to standards",
+     "text": "These techniques are promising, but Kerckhoffs's principle still holds: choose proven libraries and standardized algorithms, never a home-made construction."
+    },
+    {
+     "type": "memo",
+     "text": "\"Rest, transit, use: AES for the disk, TLS for the network, homomorphic encryption and enclaves for computation.\""
+    },
+    {
+     "type": "socCase",
+     "title": "SOC case: sharing indicators without exposing your customers",
+     "kind": "example",
+     "text": "Simulated exercise: two fictitious SOCs want to know whether they have seen the same malicious IP addresses, without revealing the full list of their customers. The trainer presents a multi-party computation approach (private set intersection): each one learns only the common addresses. The exercise uses only made-up data."
+    },
+    {
+     "type": "viewpoints",
+     "title": "Points of view",
+     "items": [
+      "CISO: these techniques open up new uses (cloud, data sharing) but cost performance; they are reserved for the cases that justify them.",
+      "SOC manager: a blockchain does not replace a protected log; write-once storage and hashes are often enough to prove log integrity.",
+      "Auditor: asks which standard the solution relies on and who audited its implementation.",
+      "Risk manager: on a public blockchain, a mistake or a leak is irreversible; the risk of losing private keys is assessed too."
+     ]
+    },
+    {
+     "type": "pitfalls",
+     "title": "Exam pitfalls",
+     "items": [
+      "Homomorphic: computation on encrypted data; it is not hashing.",
+      "ZKP: you prove without revealing the secret.",
+      "Blockchain: integrity and traceability, not confidentiality.",
+      "FPE keeps the format of the data; it changes nothing about the key length.",
+      "Lightweight cryptography: for constrained devices, not to speed up a server."
+     ]
+    },
+    {
+     "type": "summary",
+     "items": [
+      "Data at rest, in transit, in use: each state has its protections.",
+      "Homomorphic: compute on encrypted data; MPC: compute together without revealing; ZKP: prove without revealing.",
+      "Confidential computing: hardware enclaves during processing.",
+      "Blockchain: chained hashes, integrity and traceability, no confidentiality.",
+      "Lightweight cryptography (Ascon), FPE (SP 800-38G), AEAD (AES-GCM)."
+     ]
+    },
+    {
+     "type": "miniQuiz",
+     "questions": [
+      "m2c4-q15",
+      "m2c4-q17"
+     ]
+    }
+   ]
+  }
+ ]
+}
