@@ -26,23 +26,57 @@ String _toneHex(String? tone, String fallback) => switch (tone) {
 
 final _escape = const HtmlEscape();
 
+/// Nombre de grandes branches placées à droite de la racine : les premières,
+/// jusqu'à la moitié des bulles, le reste à gauche (au moins une à droite).
+int _rightCount(List<MindNode> kids) {
+  if (kids.length < 2) return kids.length;
+  final total = kids.fold<int>(0, (s, c) => s + c.size);
+  var sum = 0;
+  for (final (i, c) in kids.indexed) {
+    sum += c.size;
+    if (sum * 2 >= total) {
+      return (i + 1).clamp(1, kids.length - 1);
+    }
+  }
+  return kids.length - 1;
+}
+
 /// Carte mentale en une seule page HTML autonome : aucun fichier, police ni
 /// script extérieur, elle s'ouvre hors ligne dans n'importe quel navigateur.
+/// Arbre centré sur la racine, branches à gauche et à droite.
 /// Chaque branche se replie ou se déplie ; zoom, recherche et impression
 /// sont intégrés.
 String mindMapHtml({required String title, required MindNode root}) {
   final body = StringBuffer();
   var counter = 0;
 
-  void node(MindNode n, int depth, String color) {
+  void node(MindNode n, int depth, String color, {bool left = false}) {
     final id = 'n${counter++}';
     final kids = n.children;
     final hidden = kids.isEmpty ? 0 : n.size - 1;
+    final side = left ? ' l' : '';
     body.write(
-      '<li class="node d${depth > 3 ? 3 : depth}'
+      '<li class="node d${depth > 3 ? 3 : depth}$side'
       '${kids.isNotEmpty && depth >= 2 ? ' closed' : ''}" '
       'style="--c:$color" id="$id">',
     );
+    String colorOf(int i, MindNode c) => depth == 0
+        ? _toneHex(c.tone, _branchColors[i % _branchColors.length])
+        : _toneHex(c.tone, color);
+    void branch(Iterable<(int, MindNode)> list, bool toLeft) {
+      body.write('<ul class="kids${toLeft ? ' l' : ' r'}">');
+      for (final (i, c) in list) {
+        node(c, depth + 1, colorOf(i, c), left: toLeft);
+      }
+      body.write('</ul>');
+    }
+
+    // Racine : les grandes branches se partagent entre la gauche et la
+    // droite, comme dans le PDF et dans l'application.
+    final split = depth == 0 ? _rightCount(kids) : kids.length;
+    if (depth == 0 && split < kids.length) {
+      branch(kids.indexed.skip(split), true);
+    }
     body.write('<div class="row">');
     body.write('<div class="bubble"');
     if (kids.isNotEmpty) {
@@ -70,16 +104,7 @@ String mindMapHtml({required String title, required MindNode root}) {
       );
     }
     body.write('</div>');
-    if (kids.isNotEmpty) {
-      body.write('<ul class="kids">');
-      for (final (i, c) in kids.indexed) {
-        final branch = depth == 0
-            ? _toneHex(c.tone, _branchColors[i % _branchColors.length])
-            : _toneHex(c.tone, color);
-        node(c, depth + 1, branch);
-      }
-      body.write('</ul>');
-    }
+    if (kids.isNotEmpty) branch(kids.indexed.take(split), left);
     body.write('</li>');
   }
 
@@ -106,7 +131,7 @@ header input{min-width:160px;flex:0 1 220px}
 #zoomValue{min-width:48px;text-align:center;color:var(--soft)}
 #count{color:var(--soft);font-size:13px}
 main{flex:1;overflow:auto;padding:24px 16px 48px}
-#map{zoom:1;width:max-content}
+#map{zoom:1;width:max-content;margin:0 auto}
 ul{list-style:none;margin:0;padding:0}
 .node{display:flex;align-items:center}
 .row{display:flex;align-items:center;position:relative;z-index:1}
@@ -133,6 +158,14 @@ ul{list-style:none;margin:0;padding:0}
 .kids>li:first-child::after{top:50%}
 .kids>li:last-child::after{bottom:50%}
 .kids>li:only-child::after{display:none}
+.node.l{flex-direction:row-reverse}
+.l>.row{flex-direction:row-reverse}
+.l>.row>.toggle{margin-left:0;margin-right:-4px}
+.kids.l{padding-left:0;padding-right:26px}
+.kids.l::before{left:auto;right:0}
+.kids.l>li{padding:5px 26px 5px 0}
+.kids.l>li::before,.kids.l>li::after{left:auto;right:0}
+.d0>.kids.l::before{right:0}
 .hit>.row>.bubble{box-shadow:0 0 0 4px var(--mark)}
 mark{background:var(--mark);color:inherit;border-radius:3px}
 footer{color:var(--soft);font-size:12px;padding:8px 16px;border-top:1px solid var(--line);background:var(--paper)}
@@ -187,7 +220,7 @@ document.getElementById('count').textContent=hits?hits+' bulle'+(hits>1?'s':''):
 var first=map.querySelector('.hit');if(first)first.scrollIntoView({block:'center',inline:'center',behavior:'smooth'});
 });
 nodes().forEach(sync);
-var root=map.querySelector('.d0>.row>.bubble');if(root)root.scrollIntoView({block:'center',inline:'start'});
+var root=map.querySelector('.d0>.row>.bubble');if(root)root.scrollIntoView({block:'center',inline:'center'});
 })();
 </script>
 </body>

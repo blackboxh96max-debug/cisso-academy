@@ -137,7 +137,23 @@ void main() {
     );
     await tester.tap(find.text('Nouveautés'));
     await tester.pumpAndSettle();
-    expect(find.text(appNews.first.$1), findsOneWidget);
+    expect(
+      find.text(newsTitle(appNews.first.$1, appNews.first.$2)),
+      findsOneWidget,
+    );
+    // La dernière entrée des Nouveautés porte la version de l'application,
+    // et chaque entrée a une version plus haute que la suivante.
+    expect(appNews.first.$1, appVersion);
+    List<int> parts(String v) => v.split('.').map(int.parse).toList();
+    for (var i = 0; i + 1 < appNews.length; i++) {
+      final a = parts(appNews[i].$1), b = parts(appNews[i + 1].$1);
+      final cmp = a[0] != b[0]
+          ? a[0] - b[0]
+          : a[1] != b[1]
+          ? a[1] - b[1]
+          : a[2] - b[2];
+      expect(cmp, greaterThan(0), reason: appNews[i].$1);
+    }
     expect(tester.takeException(), isNull);
     // La version affichée est celle du pubspec.
     final pubspec = await tester.runAsync(
