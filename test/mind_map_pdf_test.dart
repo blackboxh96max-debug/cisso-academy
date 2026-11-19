@@ -119,5 +119,15 @@ void main() {
     }
 
     check(root);
+    // Arbre : racine au centre, grandes branches à gauche et à droite.
+    if (root.children.length > 1) {
+      expect(html, contains('<ul class="kids l">'));
+      expect(html, contains('<ul class="kids r">'));
+      // La branche gauche précède la bulle de la racine dans la page.
+      final rootAt = html.indexOf('class="node d0');
+      final leftAt = html.indexOf('<ul class="kids l">');
+      expect(leftAt, greaterThan(rootAt));
+      expect(leftAt, lessThan(html.indexOf('class="bubble"')));
+    }
   });
 }

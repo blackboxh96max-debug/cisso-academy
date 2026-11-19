@@ -487,9 +487,23 @@ String frenchDate(String iso) {
   return p.length == 3 ? '${p[2]}/${p[1]}/${p[0]}' : iso;
 }
 
-/// Les changements de l'application, du plus récent au plus ancien.
-const appNews = <(String, List<String>)>[
+/// Les changements de l'application, du plus récent au plus ancien :
+/// (version, date, nouveautés). Chaque lot de nouveautés demandé fait monter
+/// la version ; la première entrée porte toujours [appVersion].
+const appNews = <(String, String, List<String>)>[
   (
+    '1.4.0',
+    '19/11/2026',
+    [
+      'Cartes mentales en HTML : arbre centré sur le thème, branches à '
+          'gauche et à droite comme dans le PDF et dans le cours (replier, '
+          'zoom et recherche conservés).',
+      'Numéro de version devant chaque entrée des Nouveautés ; la dernière '
+          'version s\'affiche partout (À propos, pied de page).',
+    ],
+  ),
+  (
+    '1.3.0',
     '19/11/2026',
     [
       'Cartes mentales du livre MILE2 enrichies avec tes cartes de révision '
@@ -502,6 +516,7 @@ const appNews = <(String, List<String>)>[
     ],
   ),
   (
+    '1.2.0',
     '18/11/2026',
     [
       'Flashcards bilingues : le recto et le verso de chaque carte en '
@@ -536,6 +551,7 @@ const appNews = <(String, List<String>)>[
     ],
   ),
   (
+    '1.1.0',
     '17/11/2026',
     [
       'Page À propos, mention de l\'auteur et pied de page.',
@@ -552,6 +568,7 @@ const appNews = <(String, List<String>)>[
     ],
   ),
   (
+    '1.0.0',
     '16/11/2026',
     [
       'Socle de l\'application et modules 1 à 4, puis début du module 5 : '
@@ -562,11 +579,14 @@ const appNews = <(String, List<String>)>[
   ),
 ];
 
+/// Titre d'une entrée des Nouveautés : « v1.4.0 · 19/11/2026 ».
+String newsTitle(String version, String date) => 'v$version · $date';
+
 List<Widget> _newsSection(BuildContext context) => [
   const SizedBox(height: 8),
-  for (final (i, (date, items)) in appNews.indexed)
+  for (final (i, (version, date, items)) in appNews.indexed)
     NotePanel(
-      title: date,
+      title: newsTitle(version, date),
       emoji: i == 0 ? '🆕' : '🗓️',
       tone: i == 0 ? Tone.pink : Tone.orange,
       seed: 830 + i,
