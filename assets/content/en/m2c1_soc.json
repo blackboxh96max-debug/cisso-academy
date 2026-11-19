@@ -126,6 +126,90 @@
      "kind": "practice"
     },
     {
+     "type": "text",
+     "text": "Seen from the organization's side, the same work splits into five phases, each with its own tasks. This is the classic change management process chart: it shows who does what, and when."
+    },
+    {
+     "type": "diagram",
+     "title": "Change management process: the 5 phases",
+     "alt": "Five-phase diagram: submit the change request, verify the change request, coordinate the change, implement the change, measure the change results.",
+     "kind": "practice",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "📝",
+        "label": "Submit the request",
+        "detail": "scope, write, submit",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🔍",
+        "label": "Verify the request",
+        "detail": "quality, specifications, resources, decision",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🗓️",
+        "label": "Coordinate the change",
+        "detail": "time, finalized schedule",
+        "tone": "green"
+       },
+       {
+        "emoji": "🚀",
+        "label": "Implement",
+        "detail": "carry out, verify, report",
+        "tone": "orange"
+       },
+       {
+        "emoji": "📊",
+        "label": "Measure the results",
+        "detail": "review, audit, metrics, reports",
+        "tone": "pink"
+       }
+      ]
+     }
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Phase",
+       "Tasks",
+       "In the six-step path"
+      ],
+      [
+       "1. Submit the change request",
+       "• Define the scope\n• Write the change request\n• Submit the change request",
+       "Request"
+      ],
+      [
+       "2. Verify the change request",
+       "• Perform a quality assessment\n• Verify the change specifications\n• Assign the required resources\n• Approve or reject the change",
+       "Impact and risk analysis, then approval (change advisory board)"
+      ],
+      [
+       "3. Coordinate the change",
+       "• Allocate the necessary time\n• Review the implementation schedule\n• Assemble the finalized schedule",
+       "Planning the implementation window"
+      ],
+      [
+       "4. Implement the change",
+       "• Implement the change\n• Verify the change succeeded\n• Submit the change\n• Report the completion data",
+       "Testing, implementation and rollback if the attempt fails"
+      ],
+      [
+       "5. Measure the change results",
+       "• Perform a post-implementation review\n• Conduct an audit\n• Generate change metrics\n• Distribute the reports",
+       "Review and documentation update"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "\"Submit, Verify, Coordinate, Implement, Measure.\" The decision (approve or reject) is made in the Verify phase, BEFORE scheduling; the audit and the metrics come AFTER, in the Measure phase."
+    },
+    {
      "type": "definition",
      "title": "Emergency change (changement d'urgence)",
      "text": "Change applied without waiting for the normal process, for example to fix an exploited flaw. It is still tracked, approved by an authorized person, then regularized and reviewed afterward.",
@@ -753,6 +837,11 @@
    "id": "m2c1-f20",
    "front": "MTTD / MTTR",
    "back": "Mean time to detect / to respond."
+  },
+  {
+   "id": "m2c1-f21",
+   "front": "The 5 phases of the change management process",
+   "back": "Submit the request → verify the request (approve or reject) → coordinate (schedule) → implement (verify success) → measure the results (post-implementation review, audit, metrics, reports)."
   }
  ],
  "revisionSheet": [
@@ -760,6 +849,7 @@
   "Controls on people: separation of duties and dual control (preventive), job rotation and mandatory vacations (detective), least privilege.",
   "Separation of duties: weakness = collusion. Dual control: two people at the same time for the same action.",
   "Change management: request → impact analysis → approval → testing and rollback → implementation → review. Emergency: recorded and regularized.",
+  "5-phase process: submit → verify (approve or reject) → coordinate (schedule) → implement → measure (post-implementation review, audit, metrics, reports).",
   "Baseline configuration and drift detection; asset inventory with an owner; watch out for shadow IT.",
   "Log: authentications, accounts and rights, configuration, security tools being stopped, sensitive data, network boundaries.",
   "A useful log: synchronized time (NTP), integrity (centralization, immutable storage), defined retention.",
