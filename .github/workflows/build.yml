@@ -69,6 +69,51 @@ jobs:
           name: cisso-academy-windows
           path: cisso-academy-windows-x64.zip
 
+  windows-portable:
+    name: Windows portable (TEST, un seul .exe)
+    if: ${{ !startsWith(github.ref, 'refs/tags/') }}
+    needs: windows
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: cisso-academy-windows
+          path: dist
+      - name: Décompresser le build Windows
+        shell: pwsh
+        run: Expand-Archive -Path dist/cisso-academy-windows-x64.zip -DestinationPath release
+      - name: Installer Enigma Virtual Box (gratuit)
+        shell: pwsh
+        run: |
+          $ok = $false
+          try { choco install enigmavirtualbox -y --no-progress; $ok = ($LASTEXITCODE -eq 0) } catch {}
+          if (-not $ok) {
+            Invoke-WebRequest -Uri 'https://enigmaprotector.com/assets/files/enigmavb.exe' -OutFile "$env:RUNNER_TEMP\enigmavb_setup.exe"
+            Start-Process -Wait -FilePath "$env:RUNNER_TEMP\enigmavb_setup.exe" -ArgumentList '/VERYSILENT','/SUPPRESSMSGBOXES','/NORESTART','/SP-'
+          }
+          $console = Get-ChildItem -Path 'C:\Program Files','C:\Program Files (x86)','C:\ProgramData\chocolatey' -Recurse -Filter 'enigmavbconsole.exe' -ErrorAction SilentlyContinue | Select-Object -First 1
+          if (-not $console) { throw 'enigmavbconsole.exe introuvable' }
+          "EVB_CONSOLE=$($console.FullName)" | Out-File -FilePath $env:GITHUB_ENV -Append
+      - name: Emballer en un seul .exe
+        shell: pwsh
+        run: ./ci/windows_portable.ps1 -ReleaseDir release -OutputExe cisso-academy-portable-TEST.exe -EvbConsole $env:EVB_CONSOLE
+      - name: Vérifier que l'exe démarre seul (sans fichiers à côté)
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force seul | Out-Null
+          Copy-Item cisso-academy-portable-TEST.exe seul/
+          $p = Start-Process -FilePath seul/cisso-academy-portable-TEST.exe -PassThru
+          Start-Sleep -Seconds 20
+          if ($p.HasExited) { throw "L'exe s'est arrêté (code $($p.ExitCode))" }
+          Write-Host "Toujours lancé après 20 s, mémoire $([math]::Round($p.WorkingSet64/1MB)) Mo"
+          Stop-Process -Id $p.Id -Force
+          Get-ChildItem seul
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cisso-academy-windows-portable-TEST
+          path: cisso-academy-portable-TEST.exe
+
   release:
     name: Publication (tag v*)
     if: startsWith(github.ref, 'refs/tags/v')
