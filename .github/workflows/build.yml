@@ -93,7 +93,7 @@ jobs:
           Write-Host "SHA-256 installeur : $((Get-FileHash $setup).Hash)"
           $p = Start-Process -Wait -PassThru -FilePath $setup -ArgumentList '/VERYSILENT','/SUPPRESSMSGBOXES','/NORESTART','/SP-',"/DIR=$dir"
           Write-Host "Code de sortie installeur : $($p.ExitCode)"
-          $console = Get-ChildItem -Path $dir,'C:\Program Files','C:\Program Files (x86)' -Recurse -Filter 'enigmavbconsole.exe' -ErrorAction SilentlyContinue | Select-Object -First 1
+          $console = Get-ChildItem -Path $dir,'C:\Program Files\Enigma Virtual Box','C:\Program Files (x86)\Enigma Virtual Box' -Recurse -Filter 'enigmavbconsole.exe' -ErrorAction SilentlyContinue | Select-Object -First 1
           if (-not $console) { Get-ChildItem $dir -Recurse -ErrorAction SilentlyContinue | Select-Object -First 40 FullName; throw 'enigmavbconsole.exe introuvable' }
           Write-Host "Console : $($console.FullName)"
           "EVB_CONSOLE=$($console.FullName)" | Out-File -FilePath $env:GITHUB_ENV -Append
