@@ -31,7 +31,8 @@ Le détail de ce qui est fait, testé et prévu se trouve dans [PROJECT_STATUS.m
 Chaque mise à jour de `main` est compilée par GitHub Actions (onglet **Actions**, artefacts en bas de l'exécution) :
 
 - `cisso-academy-android` : APK à installer sur téléphone ou tablette (autoriser les « sources inconnues ») ;
-- `cisso-academy-windows` : archive à décompresser.
+- `cisso-academy-windows` : archive à décompresser ;
+- `cisso-academy-html` (workflow « Fichier HTML autonome ») : toute l'application dans un seul fichier `cisso-academy.html` (≈ 12 Mo). Il s'ouvre par double-clic dans Chrome, Edge ou Firefox, hors ligne et sans installation. La progression est gardée dans le navigateur (`localStorage`) : elle disparaît si l'on efface les données du navigateur, et elle est propre à chaque navigateur. Assemblage : `flutter build web --release --no-web-resources-cdn --pwa-strategy=none` puis `python3 tool/build_single_html.py build/web cisso-academy.html`.
 
 Une étiquette `v*` (par exemple `v0.1.0`) publie automatiquement ces fichiers dans **Releases**.
 

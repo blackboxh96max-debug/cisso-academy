@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cisso_academy/data/json_store.dart';
 import 'package:cisso_academy/data/progress_store.dart';
 import 'package:cisso_academy/data/sqlite_store.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -93,6 +94,33 @@ void main() {
     await fill(store);
     await check(store);
   });
+
+  test(
+    'JsonProgressStore (navigateur) : sauvegarde puis rechargement',
+    () async {
+      String? saved;
+      var store = JsonProgressStore(save: (j) => saved = j);
+      await fill(store);
+      await check(store);
+      await store.setSetting('look', 'moderne');
+      expect(saved, isNotNull);
+
+      // Rechargement de la page : on repart du JSON sauvegardé.
+      store = JsonProgressStore(initial: saved, save: (j) => saved = j);
+      await check(store);
+      expect(await store.setting('look'), 'moderne');
+
+      await store.clear();
+      store = JsonProgressStore(initial: saved, save: (j) => saved = j);
+      expect(await store.answers(), isEmpty);
+      expect(await store.readLessons(), isEmpty);
+      expect(await store.setting('look'), 'moderne', reason: 'réglages gardés');
+
+      // Texte abîmé : progression vide, pas de plantage.
+      store = JsonProgressStore(initial: '{oups', save: (_) {});
+      expect(await store.sessions(), isEmpty);
+    },
+  );
 
   test(
     'SqliteProgressStore : aller-retour, persistance et effacement',
