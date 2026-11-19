@@ -1,0 +1,42 @@
+name: Fichier HTML autonome
+
+# Toute l'application dans un seul fichier .html, qui s'ouvre par double-clic
+# dans le navigateur (hors ligne, sans installation). Indépendant des builds
+# Android et Windows de build.yml.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  FLUTTER_VERSION: '3.50.0'
+
+jobs:
+  html:
+    name: HTML (un seul fichier)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - run: flutter build web --release --no-web-resources-cdn --pwa-strategy=none
+      - run: python3 tool/build_single_html.py build/web cisso-academy.html
+      - name: Vérification en file:// hors ligne (Chromium)
+        run: |
+          npm install --no-save --no-audit --no-fund playwright@1.49.1
+          npx playwright install --with-deps chromium
+          node tool/check_single_html.js cisso-academy.html
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cisso-academy-html
+          path: cisso-academy.html
+          compression-level: 0
