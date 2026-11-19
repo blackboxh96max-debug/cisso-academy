@@ -490,6 +490,18 @@ String frenchDate(String iso) {
 /// Les changements de l'application, du plus récent au plus ancien.
 const appNews = <(String, List<String>)>[
   (
+    '19/11/2026',
+    [
+      'Cartes mentales du livre MILE2 enrichies avec tes cartes de révision '
+          '(modules 1, 2, 3, 4, 5 et 8) : leurs branches sous chaque section, '
+          'en français avec l\'anglais dessous, plus guides de décision et '
+          'glossaires des sigles.',
+      'Gestion des changements : le processus en 5 phases (soumettre, '
+          'vérifier, coordonner, mettre en œuvre, mesurer) et leurs tâches, '
+          'avec schéma, tableau, mémo, flashcard et fiche de révision.',
+    ],
+  ),
+  (
     '18/11/2026',
     [
       'Flashcards bilingues : le recto et le verso de chaque carte en '

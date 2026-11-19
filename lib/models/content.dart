@@ -764,6 +764,7 @@ class OutlineModule {
     required this.titleEn,
     required this.titleFr,
     required this.sections,
+    this.revisionMap = const [],
   });
 
   factory OutlineModule.fromJson(Map<String, dynamic> json) => OutlineModule(
@@ -774,6 +775,10 @@ class OutlineModule {
     sections: (json['sections'] as List)
         .map((s) => OutlineSection.fromJson(s as Map<String, dynamic>))
         .toList(),
+    revisionMap: [
+      for (final b in json['revisionMap'] as List? ?? const [])
+        RevisionBranch.fromJson(b as Map<String, dynamic>),
+    ],
   );
 
   final String id;
@@ -783,6 +788,32 @@ class OutlineModule {
   final String titleEn;
   final String titleFr;
   final List<OutlineSection> sections;
+
+  /// Carte de révision détaillée du module (cartes MILE2 fournies) : ses
+  /// branches se rangent sous les sections du livre, les autres (guide de
+  /// décision, glossaire des sigles…) à la racine de la carte.
+  final List<RevisionBranch> revisionMap;
+}
+
+/// Branche de la carte de révision d'un module du livre.
+class RevisionBranch {
+  const RevisionBranch({required this.node, this.section, this.inline = false});
+
+  factory RevisionBranch.fromJson(Map<String, dynamic> json) => RevisionBranch(
+    node: MindNode.fromJson(json),
+    section: json['section'] as int?,
+    inline: json['inline'] as bool? ?? false,
+  );
+
+  final MindNode node;
+
+  /// Numéro de la section du livre qui reçoit la branche ; sans numéro, la
+  /// branche va à la racine de la carte du module.
+  final int? section;
+
+  /// Vrai quand la branche porte le même sujet que sa section : ses
+  /// sous-branches s'ajoutent alors directement sous la section.
+  final bool inline;
 }
 
 class CourseOutline {

@@ -65,13 +65,69 @@ void main() {
       CourseView.mile2,
     ).firstWhere((g) => g.outline?.label == 'Module 3');
     final map = groupMindMap(library, g);
-    expect(map.children, hasLength(9));
+    // Neuf sections, puis cadre de décision, réflexes d'examen et sigles.
+    expect(map.children, hasLength(12));
     final hashing = map.children[3];
     expect(hashing.label, contains('Hachage'));
     expect(hashing.children.map((c) => c.label), contains('HMAC'));
     expect(
+      hashing.children.map((c) => c.label),
+      containsAll(['Contrôles appliqués', 'Vérifier ses acquis']),
+    );
+    expect(map.children.last.label, 'Glossaire des sigles');
+    expect(
       map.children.first.children.map((c) => c.label),
       isNot(contains('Le chiffrement symétrique')),
     );
+  });
+
+  test('cartes de révision des modules du livre : bien rattachées', () {
+    final modules = {
+      for (final m in library.mile2Outline.modules)
+        if (m.revisionMap.isNotEmpty) m.label: m,
+    };
+    expect(
+      modules.keys,
+      containsAll([
+        'Module 1',
+        'Module 2',
+        'Module 3',
+        'Module 4',
+        'Module 5',
+        'Module 8',
+      ]),
+    );
+    for (final m in modules.values) {
+      final numbers = {for (final s in m.sections) s.number};
+      for (final b in m.revisionMap) {
+        final where = '${m.label} « ${b.node.label} »';
+        if (b.section != null) {
+          expect(numbers, contains(b.section), reason: where);
+        }
+        expect(b.node.children, isNotEmpty, reason: where);
+        expect(b.inline && b.section == null, isFalse, reason: where);
+      }
+    }
+  });
+
+  test('carte du module 4 (livre) : Kerberos sous les authentifications', () {
+    final g = studyGroups(
+      library,
+      CourseView.mile2,
+    ).firstWhere((g) => g.outline?.label == 'Module 4');
+    final map = groupMindMap(library, g);
+    // Cinq sections, puis le glossaire des sigles à la racine.
+    expect(map.children, hasLength(6));
+    expect(map.children.last.label, 'Glossaire des sigles');
+    final auth = map.children[1];
+    expect(auth.label, contains("Techniques d'authentification"));
+    final labels = auth.children.map((c) => c.label).toList();
+    expect(labels, contains('MFA'));
+    expect(labels, contains('Authentification unique, annuaires et Kerberos'));
+    final kerberos = auth.children.firstWhere(
+      (c) => c.label == 'Authentification unique, annuaires et Kerberos',
+    );
+    expect(kerberos.en, 'Single Sign-On, Directories and Kerberos');
+    expect(kerberos.depth, greaterThanOrEqualTo(3));
   });
 }

@@ -63,15 +63,22 @@ MindNode moduleMindMap(Module module) {
   );
 }
 
-/// Section du livre : ses mots-clés essentiels (français et anglais) ; les
-/// leçons qui la traitent sont rappelées dans le détail. Sans mots-clés, les
-/// titres des leçons.
+/// Section du livre : ses mots-clés essentiels (français et anglais), puis
+/// les branches de la carte de révision qui s'y rattachent ; les leçons qui la
+/// traitent sont rappelées dans le détail. Sans mots-clés, les titres des
+/// leçons.
 MindNode _sectionNode(
   ContentLibrary library,
   OutlineSection s, {
   bool keywords = true,
+  List<RevisionBranch> revision = const [],
 }) {
   final lessons = [for (final id in s.lessons) library.lesson(id).title];
+  final branches = [
+    for (final b in revision)
+      if (b.section == s.number) ...(b.inline ? b.node.children : [b.node]),
+  ];
+  final taken = {for (final b in branches) b.label};
   return MindNode(
     label: 'Section ${s.number} · ${s.titleFr}',
     en: s.titleEn,
@@ -79,18 +86,21 @@ MindNode _sectionNode(
         ? null
         : '${lessons.length > 1 ? 'Leçons' : 'Leçon'} : ${lessons.join(' ; ')}',
     children: [
-      if (keywords && s.keywords.isNotEmpty)
-        for (final k in s.keywords)
-          MindNode(label: k.fr, en: k.en == k.fr ? null : k.en)
-      else if (keywords)
-        for (final t in lessons) MindNode(label: t),
+      if (keywords) ...[
+        if (s.keywords.isNotEmpty)
+          for (final k in s.keywords.where((k) => !taken.contains(k.fr)))
+            MindNode(label: k.fr, en: k.en == k.fr ? null : k.en)
+        else
+          for (final t in lessons) MindNode(label: t),
+        ...branches,
+      ],
     ],
   );
 }
 
-/// Carte d'un module de la vue choisie. Pour le livre MILE2 : ses sections
-/// et leurs mots-clés essentiels ; pour ORSYS : la carte
-/// du module et de ses chapitres.
+/// Carte d'un module de la vue choisie. Pour le livre MILE2 : ses sections,
+/// leurs mots-clés essentiels et la carte de révision du module ; pour
+/// ORSYS : la carte du module et de ses chapitres.
 MindNode groupMindMap(ContentLibrary library, StudyGroup g) {
   final outline = g.outline;
   if (outline == null) {
@@ -104,7 +114,12 @@ MindNode groupMindMap(ContentLibrary library, StudyGroup g) {
     en: g.titleEn,
     emoji: emoji,
     tone: tone.name,
-    children: [for (final s in outline.sections) _sectionNode(library, s)],
+    children: [
+      for (final s in outline.sections)
+        _sectionNode(library, s, revision: outline.revisionMap),
+      for (final b in outline.revisionMap)
+        if (b.section == null) b.node,
+    ],
   );
 }
 

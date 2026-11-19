@@ -126,6 +126,90 @@
      "kind": "practice"
     },
     {
+     "type": "text",
+     "text": "Vue côté organisation, le même travail se découpe en cinq phases, chacune avec ses tâches. C'est le schéma classique du processus de gestion du changement : il aide à savoir qui fait quoi et à quel moment."
+    },
+    {
+     "type": "diagram",
+     "title": "Processus de gestion du changement : les 5 phases",
+     "alt": "Schéma en cinq phases : soumettre la demande de changement, vérifier la demande, coordonner le changement, mettre en œuvre le changement, mesurer les résultats du changement.",
+     "kind": "practice",
+     "diagram": {
+      "type": "flow",
+      "nodes": [
+       {
+        "emoji": "📝",
+        "label": "Soumettre la demande",
+        "detail": "périmètre, rédaction, dépôt",
+        "tone": "blue"
+       },
+       {
+        "emoji": "🔍",
+        "label": "Vérifier la demande",
+        "detail": "qualité, spécifications, ressources, décision",
+        "tone": "violet"
+       },
+       {
+        "emoji": "🗓️",
+        "label": "Coordonner le changement",
+        "detail": "temps, calendrier finalisé",
+        "tone": "green"
+       },
+       {
+        "emoji": "🚀",
+        "label": "Mettre en œuvre",
+        "detail": "réaliser, vérifier, déclarer",
+        "tone": "orange"
+       },
+       {
+        "emoji": "📊",
+        "label": "Mesurer les résultats",
+        "detail": "revue, audit, indicateurs, rapports",
+        "tone": "pink"
+       }
+      ]
+     }
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Phase",
+       "Tâches",
+       "Dans le circuit en six étapes"
+      ],
+      [
+       "1. Soumettre la demande de changement",
+       "• Définir le périmètre\n• Rédiger la demande de changement\n• Soumettre la demande de changement",
+       "Demande"
+      ],
+      [
+       "2. Vérifier la demande de changement",
+       "• Effectuer une évaluation de la qualité\n• Vérifier les spécifications du changement\n• Affecter les ressources requises\n• Approuver ou rejeter le changement",
+       "Analyse d'impact et de risque, puis approbation (comité des changements)"
+      ],
+      [
+       "3. Coordonner le changement",
+       "• Allouer le temps nécessaire\n• Revoir le calendrier de mise en œuvre\n• Assembler le calendrier finalisé",
+       "Planification de la fenêtre de mise en œuvre"
+      ],
+      [
+       "4. Mettre en œuvre le changement",
+       "• Mettre en œuvre le changement\n• Vérifier le succès du changement\n• Soumettre le changement\n• Déclarer les données d'achèvement",
+       "Test, mise en œuvre et retour arrière si l'essai échoue"
+      ],
+      [
+       "5. Mesurer les résultats du changement",
+       "• Effectuer un examen post-mise en œuvre\n• Réaliser un audit\n• Générer des indicateurs de changement\n• Distribuer les rapports",
+       "Revue et mise à jour de la documentation"
+      ]
+     ]
+    },
+    {
+     "type": "memo",
+     "text": "« Je Soumets, on Vérifie, on Coordonne, on Met en œuvre, on Mesure. » La décision (approuver ou rejeter) se prend dans la phase Vérifier, AVANT de planifier ; l'audit et les indicateurs arrivent APRÈS, dans la phase Mesurer."
+    },
+    {
      "type": "definition",
      "title": "Changement d'urgence",
      "text": "Changement appliqué sans attendre le circuit normal, par exemple pour corriger une faille exploitée. Il reste tracé, approuvé par une personne habilitée, puis régularisé et revu après coup.",
@@ -1465,6 +1549,12 @@
    "front": "MTTD / MTTR",
    "back": "Temps moyen de détection / de réponse.",
    "concept": "Indicateurs"
+  },
+  {
+   "id": "m2c1-f21",
+   "front": "Les 5 phases du processus de gestion du changement",
+   "back": "Soumettre la demande → vérifier la demande (approuver ou rejeter) → coordonner (calendrier) → mettre en œuvre (vérifier le succès) → mesurer les résultats (revue post-mise en œuvre, audit, indicateurs, rapports).",
+   "concept": "Gestion des changements"
   }
  ],
  "revisionSheet": [
@@ -1472,6 +1562,7 @@
   "Contrôles sur les personnes : séparation des tâches et double contrôle (préventifs), rotation et congés obligatoires (détectifs), moindre privilège.",
   "Séparation des tâches : faiblesse = collusion. Double contrôle : deux personnes en même temps pour une même action.",
   "Gestion des changements : demande → analyse d'impact → approbation → test et retour arrière → mise en œuvre → revue. Urgence : tracée et régularisée.",
+  "Processus en 5 phases : soumettre → vérifier (approuver ou rejeter) → coordonner (calendrier) → mettre en œuvre → mesurer (revue post-mise en œuvre, audit, indicateurs, rapports).",
   "Configuration de référence (baseline) et détection des dérives ; inventaire des actifs avec propriétaire ; attention à l'informatique de l'ombre.",
   "Journaliser : authentifications, comptes et droits, configuration, arrêt des outils de sécurité, données sensibles, frontières réseau.",
   "Journal utile : heure synchronisée (NTP), intégrité (centralisation, stockage non modifiable), conservation définie.",
@@ -1505,6 +1596,10 @@
       "children": [
        {
         "label": "Urgence : tracée et régularisée après coup"
+       },
+       {
+        "label": "5 phases : soumettre, vérifier, coordonner, mettre en œuvre, mesurer",
+        "en": "Submit, verify, coordinate, implement, measure"
        }
       ]
      },
