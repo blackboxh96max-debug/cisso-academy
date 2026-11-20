@@ -89,6 +89,42 @@
      "text": "A defect costs little on paper, more in the code, a lot in production: securing early means saving money."
     },
     {
+     "type": "table",
+     "rows": [
+      [
+       "Method",
+       "Principle",
+       "Where security fits"
+      ],
+      [
+       "Waterfall (cascade)",
+       "Successive phases, each finished before the next",
+       "Requirements and design review up front; late fixes are costly"
+      ],
+      [
+       "Agile",
+       "Short iterations, frequent releases",
+       "Security requirements in user stories and the definition of done"
+      ],
+      [
+       "DevOps",
+       "Development and operations merged, automated deployment",
+       "Risk of shipping fast without checks if nothing is automated"
+      ],
+      [
+       "DevSecOps",
+       "DevOps with security built in and automated",
+       "Security tests in the pipeline, shared responsibility"
+      ]
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "Verification and validation (vérification et validation)",
+     "text": "Verification asks \"are we building the product right?\": does the software meet its specifications (reviews, tests). Validation asks \"are we building the right product?\": does it meet the real user and business need (acceptance). Software can be verified without being validated.",
+     "kind": "general"
+    },
+    {
      "type": "heading",
      "text": "Modeling threats"
     },
@@ -162,6 +198,16 @@
       "Have the code reviewed by another person before merging.",
       "Remove debug accounts, comments and functions before going into production."
      ]
+    },
+    {
+     "type": "important",
+     "title": "Do not forget disposal",
+     "text": "The life cycle ends with disposal: delete or archive data according to the retention policy, revoke the application's accounts, access, keys and certificates, then remove its servers and DNS records. A forgotten application that is still online becomes a way in."
+    },
+    {
+     "type": "risk",
+     "title": "Outsourced development",
+     "text": "Handing the code to a vendor does not transfer accountability. The contract sets security requirements, the right to audit, review of the delivered code and, if needed, source code escrow. The vendor's remote access is named, protected by MFA, time-limited, logged and removed at the end of the contract."
     },
     {
      "type": "trainerNote",
@@ -424,6 +470,42 @@
      "text": "An unexpected error can leave an operation half done, open access (fail open) or reveal details. An error that displays the SQL query, the server version or a stack trace gives the attacker a map of the application. In production, show the user a generic message and keep the details in the logs."
     },
     {
+     "type": "table",
+     "rows": [
+      [
+       "Concept",
+       "Key point",
+       "Example"
+      ],
+      [
+       "Software defect (bug)",
+       "Coding error, not necessarily exploitable",
+       "A badly rounded total"
+      ],
+      [
+       "Vulnerability",
+       "A defect an attacker can exploit",
+       "An injectable search field"
+      ],
+      [
+       "Hardcoded credentials",
+       "Password or key written in the code or configuration",
+       "Admin account found in a public repository"
+      ],
+      [
+       "Business logic flaw",
+       "The code does what it says, but the scenario is abused; scanners rarely see it",
+       "Applying a promo code several times, skipping the payment step"
+      ]
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "CWE (Common Weakness Enumeration)",
+     "text": "Public catalog of software weakness types, run by MITRE: it describes the cause (CWE-89: SQL injection). Not to be confused with a CVE, which identifies a specific vulnerability in a given product and version. The OWASP Top 10 groups CWEs into broad categories.",
+     "kind": "general"
+    },
+    {
      "type": "trainerNote",
      "text": "Exam classic: \"what is the best defense against SQL injection?\". The answer is the parameterized query. The WAF and input validation help, but they are not the main countermeasure."
     },
@@ -619,6 +701,55 @@
       "Protect the pipeline itself: accounts with MFA, minimal rights, logs.",
       "Secure APIs: authentication, per-object authorization, rate limiting, input validation."
      ]
+    },
+    {
+     "type": "practice",
+     "title": "Control the repository and measure",
+     "items": [
+      "Protect the main branches: merge only after review and passing tests.",
+      "Sign commits and published releases to prove where they come from.",
+      "Document configuration and versions (configuration management), with rollback possible.",
+      "Choose controls according to the application's risk, then check that they work (tests, audits).",
+      "Track metrics: open vulnerabilities by severity, mean time to fix, share of code covered by security tests."
+     ]
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Framework",
+       "What it brings to development"
+      ],
+      [
+       "OWASP (Top 10, ASVS, cheat sheets)",
+       "Flaws to know, verifiable requirements, secure coding practices"
+      ],
+      [
+       "ISO/IEC 12207",
+       "Software life cycle processes"
+      ],
+      [
+       "ISO/IEC 27034",
+       "Application security: organization-wide framework and per-application controls"
+      ],
+      [
+       "NIST SP 800-53",
+       "Control catalog, including system acquisition and development"
+      ],
+      [
+       "ISO/IEC 27001 and 27002",
+       "Controls 8.25 to 8.33: secure life cycle, coding, testing, outsourced development, separation of environments"
+      ],
+      [
+       "PCI DSS",
+       "Requirement 6: secure systems and software for payment card data"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Review coding assistant output",
+     "text": "Code proposed by an AI assistant is treated like third-party code: human review, SAST and dependency analysis before merging. Check that suggested libraries really exist (an invented name can be registered by an attacker) and never paste secrets or sensitive data into the prompt."
     },
     {
      "type": "definition",

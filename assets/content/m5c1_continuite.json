@@ -582,6 +582,12 @@
      ]
     },
     {
+     "type": "definition",
+     "title": "Centre des opérations d'urgence (EOC)",
+     "text": "Lieu, physique ou virtuel, d'où la cellule de crise pilote la réponse : décisions, suivi des actions, communication de crise vers le personnel, les clients, les autorités et les médias. Il est prévu à l'avance, équipé et utilisable même si le site principal ou la messagerie sont indisponibles.",
+     "kind": "general"
+    },
+    {
      "type": "important",
      "title": "Revenir au site principal",
      "text": "Le retour se prépare comme une reprise : on revient d'abord avec les fonctions les moins critiques, pour vérifier que le site principal est sûr et stable, puis on bascule les plus critiques. Le sinistre n'est terminé que lorsque l'activité normale a repris au site principal."
@@ -654,6 +660,11 @@
       "Intégrer la mise à jour du plan dans la gestion des changements.",
       "Conserver des copies hors site et accessibles même sans le système d'information."
      ]
+    },
+    {
+     "type": "important",
+     "title": "Un propriétaire et des copies contrôlées",
+     "text": "Le plan a un propriétaire nommé, chargé de le tenir à jour. Chaque version est numérotée et approuvée ; la liste des copies diffusées (copies contrôlées) permet de remplacer les anciennes versions partout. Le jour du sinistre, chacun doit avoir la même version, la bonne."
     },
     {
      "type": "memo",

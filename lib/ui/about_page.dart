@@ -492,6 +492,26 @@ String frenchDate(String iso) {
 /// la version ; la première entrée porte toujours [appVersion].
 const appNews = <(String, String, List<String>)>[
   (
+    '1.8.0',
+    '20/11/2026',
+    [
+      'Modules 9, 10 et 11 enrichis à partir de tes cartes mentales, en '
+          'français et en anglais : méthodes de développement, vérification '
+          'et validation, développement externalisé, retrait, CWE, failles de '
+          'logique métier, référentiels de codage sécurisé, code des '
+          'assistants d\'IA, renseignement sur les menaces, outils du SOC '
+          '(SIEM, IDS/IPS, EDR, NDR, SOAR), centre de crise, copies '
+          'contrôlées, criminalité informatique, CVE et CVSS, encadrement '
+          'des fournisseurs, règlement ou référentiel, maturité des '
+          'contrôles et préparation à l\'audit.',
+      'Cartes mentales des modules 9, 10 et 11 complétées avec tes cartes '
+          'de révision (traduites, anglais en dessous).',
+      'Glossaire : NDR, renseignement sur les menaces, entiercement du '
+          'code source, vérification et validation, centre des opérations '
+          'd\'urgence (EOC).',
+    ],
+  ),
+  (
     '1.7.0',
     '20/11/2026',
     [

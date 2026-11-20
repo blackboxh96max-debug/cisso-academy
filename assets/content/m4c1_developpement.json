@@ -89,6 +89,42 @@
      "text": "Un défaut coûte peu sur le papier, plus cher dans le code, très cher en production : sécuriser tôt, c'est économiser."
     },
     {
+     "type": "table",
+     "rows": [
+      [
+       "Méthode",
+       "Principe",
+       "Place de la sécurité"
+      ],
+      [
+       "Cascade (waterfall)",
+       "Phases successives, chacune terminée avant la suivante",
+       "Exigences et revue de conception en amont ; corriger tard coûte cher"
+      ],
+      [
+       "Agile",
+       "Itérations courtes, livraisons fréquentes",
+       "Exigences de sécurité dans les récits utilisateur et la définition de « terminé »"
+      ],
+      [
+       "DevOps",
+       "Développement et exploitation fusionnés, déploiement automatisé",
+       "Risque de livrer vite sans contrôle si rien n'est automatisé"
+      ],
+      [
+       "DevSecOps",
+       "DevOps avec la sécurité intégrée et automatisée",
+       "Tests de sécurité dans le pipeline, responsabilité partagée"
+      ]
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "Vérification et validation",
+     "text": "La vérification demande « construit-on le produit correctement ? » : le logiciel respecte-t-il ses spécifications (revues, tests). La validation demande « construit-on le bon produit ? » : répond-il au besoin réel de l'utilisateur et du métier (recette). Un logiciel peut être vérifié sans être validé.",
+     "kind": "general"
+    },
+    {
      "type": "heading",
      "text": "Modéliser les menaces"
     },
@@ -162,6 +198,16 @@
       "Faire relire le code par une autre personne avant fusion.",
       "Retirer les comptes, commentaires et fonctions de débogage avant la mise en production."
      ]
+    },
+    {
+     "type": "important",
+     "title": "Ne pas oublier le retrait",
+     "text": "Le cycle de vie se termine par le retrait (disposal) : effacer ou archiver les données selon la politique de conservation, révoquer les comptes, les accès, les clés et les certificats de l'application, puis retirer les serveurs et les entrées DNS. Une application oubliée mais toujours en ligne devient une porte d'entrée."
+    },
+    {
+     "type": "risk",
+     "title": "Le développement externalisé",
+     "text": "Confier le code à un prestataire ne transfère pas la responsabilité. Le contrat fixe les exigences de sécurité, le droit d'audit, la revue du code livré et, si besoin, l'entiercement du code source (escrow). L'accès à distance du prestataire est nominatif, protégé par MFA, limité dans le temps, journalisé et retiré en fin de contrat."
     },
     {
      "type": "trainerNote",
@@ -424,6 +470,42 @@
      "text": "Une erreur non prévue peut laisser une opération à moitié faite, ouvrir un accès (fail open) ou révéler des détails. Une erreur qui affiche la requête SQL, la version du serveur ou une trace d'exécution donne à l'attaquant la carte de l'application. En production, on affiche un message générique à l'utilisateur et on garde le détail dans les journaux."
     },
     {
+     "type": "table",
+     "rows": [
+      [
+       "Notion",
+       "À retenir",
+       "Exemple"
+      ],
+      [
+       "Défaut logiciel (bug)",
+       "Erreur de code, pas forcément exploitable",
+       "Un total mal arrondi"
+      ],
+      [
+       "Vulnérabilité",
+       "Défaut qu'un attaquant peut exploiter",
+       "Champ de recherche injectable"
+      ],
+      [
+       "Identifiants en dur",
+       "Mot de passe ou clé écrit dans le code ou la configuration",
+       "Compte administrateur retrouvé dans un dépôt public"
+      ],
+      [
+       "Faille de logique métier",
+       "Le code fait ce qui est écrit, mais le scénario est détourné ; les scanners la voient mal",
+       "Appliquer plusieurs fois un code promo, sauter l'étape de paiement"
+      ]
+     ]
+    },
+    {
+     "type": "definition",
+     "title": "CWE (Common Weakness Enumeration)",
+     "text": "Catalogue public des types de faiblesses logicielles, géré par MITRE : il décrit la cause (CWE-89 : injection SQL). À ne pas confondre avec une CVE, qui identifie une vulnérabilité précise dans un produit et une version donnés. L'OWASP Top 10 regroupe des CWE en grandes catégories.",
+     "kind": "general"
+    },
+    {
      "type": "trainerNote",
      "text": "Classique d'examen : « quelle est la meilleure défense contre l'injection SQL ? ». La réponse est la requête paramétrée. Le WAF et la validation des entrées aident, mais ne sont pas la parade principale."
     },
@@ -619,6 +701,55 @@
       "Protéger le pipeline lui-même : comptes avec MFA, droits minimaux, journaux.",
       "Sécuriser les API : authentification, autorisation par objet, limitation de débit, validation des entrées."
      ]
+    },
+    {
+     "type": "practice",
+     "title": "Contrôler le dépôt et mesurer",
+     "items": [
+      "Protéger les branches principales : fusion seulement après revue et tests réussis.",
+      "Signer les commits et les versions publiées pour prouver leur origine.",
+      "Documenter la configuration et les versions (gestion de configuration), avec retour arrière possible.",
+      "Choisir les contrôles selon le risque de l'application, puis vérifier qu'ils fonctionnent (tests, audits).",
+      "Suivre des indicateurs : vulnérabilités ouvertes par gravité, délai moyen de correction, part du code couverte par les tests de sécurité."
+     ]
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Référentiel",
+       "Apport pour le développement"
+      ],
+      [
+       "OWASP (Top 10, ASVS, aide-mémoire)",
+       "Failles à connaître, exigences vérifiables, bonnes pratiques de codage"
+      ],
+      [
+       "ISO/IEC 12207",
+       "Processus du cycle de vie du logiciel"
+      ],
+      [
+       "ISO/IEC 27034",
+       "Sécurité des applications : cadre de l'organisation et mesures par application"
+      ],
+      [
+       "NIST SP 800-53",
+       "Catalogue de contrôles, dont acquisition et développement des systèmes"
+      ],
+      [
+       "ISO/IEC 27001 et 27002",
+       "Mesures 8.25 à 8.33 : cycle sécurisé, codage, tests, développement externalisé, séparation des environnements"
+      ],
+      [
+       "PCI DSS",
+       "Exigence 6 : systèmes et logiciels sécurisés pour les données de cartes de paiement"
+      ]
+     ]
+    },
+    {
+     "type": "important",
+     "title": "Relire le code d'un assistant de codage",
+     "text": "Le code proposé par un assistant d'IA se traite comme du code d'un tiers : revue humaine, SAST et analyse des dépendances avant fusion. On vérifie que les bibliothèques suggérées existent vraiment (un nom inventé peut être enregistré par un attaquant) et on ne colle jamais de secret ni de donnée sensible dans la demande."
     },
     {
      "type": "definition",

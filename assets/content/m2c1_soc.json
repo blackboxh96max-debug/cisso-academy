@@ -642,6 +642,47 @@
      "text": "Un IOC (adresse, empreinte) se change facilement : l'attaquant change d'adresse en quelques minutes. Un comportement (IOA, technique ATT&CK) est beaucoup plus difficile à modifier pour lui. Détecter les comportements gêne davantage l'attaquant."
     },
     {
+     "type": "definition",
+     "title": "Renseignement sur les menaces (threat intelligence)",
+     "text": "Information analysée sur les attaquants, leurs objectifs et leurs méthodes, pour décider. Stratégique pour la direction (tendances, acteurs), tactique pour les équipes (techniques ATT&CK), opérationnelle pour le SOC (IOC à intégrer au SIEM). Elle vient de flux techniques, mais aussi de sources humaines : échanges entre CERT, groupes sectoriels (ISAC), analystes.",
+     "kind": "general"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Outil",
+       "Ce qu'il voit",
+       "Ce qu'il apporte"
+      ],
+      [
+       "SIEM",
+       "Journaux de toutes les sources",
+       "Collecte, normalisation, corrélation, alertes"
+      ],
+      [
+       "IDS / IPS",
+       "Trafic réseau ou hôte",
+       "Détecte (IDS) ou bloque (IPS) une activité suspecte"
+      ],
+      [
+       "EDR",
+       "Processus, fichiers et connexions des postes",
+       "Visibilité et réponse sur les terminaux"
+      ],
+      [
+       "NDR",
+       "Flux réseau, y compris entre machines internes",
+       "Repère les déplacements latéraux et les exfiltrations"
+      ],
+      [
+       "SOAR",
+       "Alertes des autres outils",
+       "Automatise et orchestre la réponse avec des playbooks"
+      ]
+     ]
+    },
+    {
      "type": "trainerNote",
      "text": "La chasse commence par une hypothèse, pas par une alerte. Si la chasse trouve quelque chose, on en tire une nouvelle règle de détection : c'est ainsi que le SOC progresse."
     },

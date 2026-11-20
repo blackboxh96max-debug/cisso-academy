@@ -642,6 +642,47 @@
      "text": "An IOC (address, hash) is easy to change: the attacker changes address in a few minutes. A behavior (IOA, ATT&CK technique) is much harder for them to change. Detecting behaviors hinders the attacker more."
     },
     {
+     "type": "definition",
+     "title": "Threat intelligence (renseignement sur les menaces)",
+     "text": "Analyzed information about attackers, their goals and methods, used to make decisions. Strategic for management (trends, actors), tactical for teams (ATT&CK techniques), operational for the SOC (IOCs to load into the SIEM). It comes from technical feeds, but also from human sources: exchanges between CERTs, sector groups (ISACs), analysts.",
+     "kind": "general"
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Tool",
+       "What it sees",
+       "What it brings"
+      ],
+      [
+       "SIEM",
+       "Logs from every source",
+       "Collection, normalization, correlation, alerts"
+      ],
+      [
+       "IDS / IPS",
+       "Network or host traffic",
+       "Detects (IDS) or blocks (IPS) suspicious activity"
+      ],
+      [
+       "EDR",
+       "Endpoint processes, files and connections",
+       "Visibility and response on endpoints"
+      ],
+      [
+       "NDR",
+       "Network flows, including between internal machines",
+       "Spots lateral movement and exfiltration"
+      ],
+      [
+       "SOAR",
+       "Alerts from the other tools",
+       "Automates and orchestrates the response with playbooks"
+      ]
+     ]
+    },
+    {
      "type": "trainerNote",
      "text": "Hunting starts with a hypothesis, not with an alert. If the hunt finds something, a new detection rule is derived from it: that is how the SOC improves."
     },

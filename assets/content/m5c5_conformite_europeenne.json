@@ -580,6 +580,17 @@
      ]
     },
     {
+     "type": "practice",
+     "title": "Encadrer les fournisseurs et le développement",
+     "items": [
+      "Classer les fournisseurs selon leur criticité et adapter la diligence raisonnable (questionnaire, certification, audit).",
+      "Surveiller leurs accès et exiger la notification rapide de leurs incidents.",
+      "Prévoir dès le contrat un plan de sortie : restitution des données, réversibilité, retrait des accès.",
+      "Imposer le développement sécurisé et la gestion des changements aux équipes internes comme aux prestataires.",
+      "Tenir une discipline de correctifs : délais fixés selon la gravité, exceptions approuvées et suivies."
+     ]
+    },
+    {
      "type": "definition",
      "title": "Preuve de conformité",
      "text": "L'autorité attend des éléments vérifiables : politiques approuvées, analyses de risque, comptes rendus de tests, registres d'incidents, preuves de formation, contrats fournisseurs. Une mesure sans trace écrite est difficile à démontrer.",
@@ -666,6 +677,11 @@
     {
      "type": "text",
      "text": "Une organisation n'a pas intérêt à créer un programme différent pour chaque texte. Elle s'appuie sur un système de management (souvent l'ISO/IEC 27001) et relie chaque exigence réglementaire aux mesures qui y répondent déjà. Les connaissances CISSO couvrent l'essentiel de ces mesures."
+    },
+    {
+     "type": "important",
+     "title": "Règlement ou référentiel ?",
+     "text": "Un texte réglementaire (NIS 2, DORA, RGPD) fixe des obligations et des résultats attendus, sous peine de sanction : il dit quoi. Un référentiel (ISO/IEC 27001, NIST CSF) organise la mise en œuvre et les preuves : il aide à dire comment. On relie chaque obligation à des contrôles, des responsables et des processus."
     },
     {
      "type": "table",
@@ -765,6 +781,11 @@
      "type": "important",
      "title": "Certification n'est pas conformité",
      "text": "Être certifié ISO/IEC 27001 aide beaucoup, mais ne prouve pas à lui seul la conformité à NIS 2 : le périmètre certifié, les délais de notification et la responsabilité des dirigeants doivent être vérifiés à part."
+    },
+    {
+     "type": "important",
+     "title": "ENISA et NIST complètent, ils ne remplacent pas",
+     "text": "Les guides de l'ENISA (mesures, maturité, bonnes pratiques européennes) et du NIST (risque, contrôles, réponse aux incidents) aident à mettre en œuvre. Ils ne remplacent jamais l'obligation légale : en cas de contrôle, c'est le texte européen et sa transposition nationale qui font foi. Bien faite, la correspondance évite les contrôles et les rapports en double, et révèle les manques de responsables, de preuves ou de tests."
     },
     {
      "type": "memo",
@@ -932,9 +953,53 @@
      ]
     },
     {
+     "type": "table",
+     "rows": [
+      [
+       "Critère de maturité",
+       "Ce que l'on montre"
+      ],
+      [
+       "Responsable",
+       "Un nom, pas un service"
+      ],
+      [
+       "Politique et procédure",
+       "Documents approuvés, à jour"
+      ],
+      [
+       "Mise en œuvre",
+       "Preuves : captures, rapports, journaux"
+      ],
+      [
+       "Surveillance",
+       "Indicateurs suivis, exceptions enregistrées, actions correctives"
+      ],
+      [
+       "Revue",
+       "Calendrier de revue et compte rendu à la direction"
+      ]
+     ]
+    },
+    {
+     "type": "practice",
+     "title": "Prêt pour l'audit ou l'autorité",
+     "items": [
+      "Des preuves exactes, protégées et faciles à retrouver.",
+      "Registre des risques, résultats d'audit et dossiers fournisseurs à jour.",
+      "Journaux d'incidents, comptes rendus des tests de reprise et rapports au conseil d'administration.",
+      "Acceptations de risque approuvées par la direction et revues régulières du risque résiduel.",
+      "Lors d'un incident : gravité, responsables et circuits de notification définis, juridique et protection des données associés, décisions consignées."
+     ]
+    },
+    {
      "type": "important",
      "title": "Pas seulement la peur de l'amende",
      "text": "Les sanctions donnent du poids au RSSI, mais l'objectif reste la résilience : une direction qui comprend les risques décide mieux et plus vite pendant une crise."
+    },
+    {
+     "type": "memo",
+     "text": "Un RSSI défendable traduit le technique en impact métier, présente les options et les exceptions, fait décider, et prouve qu'il s'améliore."
     },
     {
      "type": "trainerNote",
