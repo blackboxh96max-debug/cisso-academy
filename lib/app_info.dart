@@ -4,7 +4,7 @@ library;
 const appName = 'CISSO Academy';
 
 /// Version affichée ; la même que dans pubspec.yaml (sans le numéro de build).
-const appVersion = '1.4.0';
+const appVersion = '1.6.0';
 
 const appAuthor = 'Samir ACHAHOD';
 const appAuthorTitle = 'Ingénieur Cybersécurité';

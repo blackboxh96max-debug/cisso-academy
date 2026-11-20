@@ -1,0 +1,1079 @@
+{
+ "verifiedOn": "2026-11-20",
+ "intro": {
+  "fr": "Des fiches courtes sur les normes et règlements à connaître : une définition, l'essentiel à savoir et des liens officiels pour aller plus loin. Ce ne sont pas des cours complets : quand une leçon de la formation traite le sujet, la fiche y renvoie.",
+  "en": "Short sheets on the standards and regulations to know: a definition, the key points and official links to learn more. They are not full lessons: when a lesson of the course covers the topic, the sheet links to it."
+ },
+ "notice": {
+  "fr": "Informations vérifiées le 20 novembre 2026 sur les sites officiels. Les textes évoluent : vérifiez la version en vigueur avant de citer une date ou un montant.",
+  "en": "Information checked on 20 November 2026 on official websites. Texts change: check the current version before quoting a date or an amount."
+ },
+ "groups": [
+  {
+   "id": "normes",
+   "emoji": "📐",
+   "title": {
+    "fr": "Normes internationales",
+    "en": "International standards"
+   },
+   "items": [
+    {
+     "id": "iso27017",
+     "name": "ISO/IEC 27017",
+     "title": {
+      "fr": "Sécurité de l'information dans le cloud",
+      "en": "Information security for cloud services"
+     },
+     "nature": {
+      "fr": "Norme internationale (guide de mesures)",
+      "en": "International standard (code of practice)"
+     },
+     "reference": {
+      "fr": "ISO/IEC 27017:2026",
+      "en": "ISO/IEC 27017:2026"
+     },
+     "status": {
+      "fr": "Édition 2 publiée en juillet 2026 ; elle succède à l'édition de 2015.",
+      "en": "Edition 2 published in July 2026; it follows the 2015 edition."
+     },
+     "definition": {
+      "fr": "Guide de mesures de sécurité pour les services cloud. Il reprend les mesures d'ISO/IEC 27002 et ajoute, pour chacune, des conseils propres au cloud, plus quelques mesures spécifiques. Il s'adresse à la fois au client du service cloud et au fournisseur.",
+      "en": "Guidance on security controls for cloud services. It builds on the ISO/IEC 27002 controls, adds cloud-specific advice for each of them, plus a few extra cloud-only controls. It addresses both the cloud service customer and the cloud service provider."
+     },
+     "essentials": [
+      {
+       "fr": "Deux publics : le client (CSC, cloud service customer) et le fournisseur (CSP, cloud service provider). Pour chaque mesure, la norme dit ce que fait chacun.",
+       "en": "Two audiences: the cloud service customer (CSC) and the cloud service provider (CSP). For each control, the standard says what each party does."
+      },
+      {
+       "fr": "Responsabilité partagée : le partage des rôles de sécurité entre client et fournisseur doit être défini et documenté (contrat, SLA).",
+       "en": "Shared responsibility: the split of security roles between customer and provider must be defined and documented (contract, SLA)."
+      },
+      {
+       "fr": "Mesures propres au cloud, déjà présentes dans l'édition 2015 : séparation des environnements virtuels des clients, durcissement des machines virtuelles, restitution et suppression des données du client en fin de contrat, sécurité des opérations des administrateurs, surveillance du service cloud par le client.",
+       "en": "Cloud-only controls, already in the 2015 edition: segregation of customers' virtual environments, virtual machine hardening, return and removal of customer assets at contract end, administrators' operational security, monitoring of the cloud service by the customer."
+      },
+      {
+       "fr": "Ce n'est pas une norme d'exigences : on ne se certifie pas « 27017 » seul. Elle est en général vérifiée dans le périmètre d'une certification ISO/IEC 27001.",
+       "en": "It is not a requirements standard: you do not get certified against 27017 alone. It is usually checked within the scope of an ISO/IEC 27001 certification."
+      }
+     ],
+     "remember": {
+      "fr": "27017 = sécurité du cloud (client ET fournisseur) ; 27018 = données personnelles chez le fournisseur cloud public.",
+      "en": "27017 = cloud security (customer AND provider); 27018 = personal data at a public cloud provider."
+     },
+     "lessons": [
+      "m1c3-l2",
+      "m3c4-l1"
+     ],
+     "links": [
+      {
+       "label": {
+        "fr": "Fiche de la norme sur iso.org",
+        "en": "Standard page on iso.org"
+       },
+       "url": "https://www.iso.org/fr/standard/27017"
+      }
+     ],
+     "kind": "general"
+    },
+    {
+     "id": "iso27018",
+     "name": "ISO/IEC 27018",
+     "title": {
+      "fr": "Protection des données personnelles (PII) dans le cloud public",
+      "en": "Protection of personal data (PII) in public clouds"
+     },
+     "nature": {
+      "fr": "Norme internationale (guide de mesures)",
+      "en": "International standard (code of practice)"
+     },
+     "reference": {
+      "fr": "ISO/IEC 27018:2025",
+      "en": "ISO/IEC 27018:2025"
+     },
+     "status": {
+      "fr": "Édition 3 publiée en août 2025, alignée sur ISO/IEC 27002:2022.",
+      "en": "Edition 3 published in August 2025, aligned with ISO/IEC 27002:2022."
+     },
+     "definition": {
+      "fr": "Guide pour protéger les informations personnelles identifiables (PII, Personally Identifiable Information) quand un fournisseur de cloud public les traite pour le compte de ses clients, c'est-à-dire en tant que sous-traitant (PII processor).",
+      "en": "Guidance for protecting personally identifiable information (PII) when a public cloud provider processes it on behalf of its customers, that is as a PII processor."
+     },
+     "essentials": [
+      {
+       "fr": "Vise le fournisseur de cloud public agissant comme sous-traitant, au sens du RGPD (article 28). Le client reste le responsable du traitement.",
+       "en": "It targets the public cloud provider acting as a processor, in the GDPR sense (Article 28). The customer remains the controller."
+      },
+      {
+       "fr": "Engagements typiques : traiter les données uniquement selon les instructions du client, ne pas les utiliser à des fins de marketing sans accord, être transparent sur les sous-traitants ultérieurs et les lieux de traitement.",
+       "en": "Typical commitments: process data only on the customer's instructions, do not use it for marketing without consent, be transparent about sub-processors and processing locations."
+      },
+      {
+       "fr": "Le fournisseur informe le client d'une violation de données, l'aide à répondre aux demandes des personnes et restitue ou efface les données en fin de contrat.",
+       "en": "The provider notifies the customer of a data breach, helps it answer data subject requests, and returns or deletes the data at contract end."
+      },
+      {
+       "fr": "Couvre tout le cycle de vie : collecte, stockage, traitement, transmission et suppression.",
+       "en": "It covers the whole life cycle: collection, storage, processing, transmission and deletion."
+      }
+     ],
+     "remember": {
+      "fr": "27018 = le fournisseur cloud public en tant que sous-traitant de données personnelles.",
+      "en": "27018 = the public cloud provider as a processor of personal data."
+     },
+     "lessons": [
+      "m1c3-l2",
+      "m5c3-l2"
+     ],
+     "links": [
+      {
+       "label": {
+        "fr": "Fiche de la norme sur iso.org",
+        "en": "Standard page on iso.org"
+       },
+       "url": "https://www.iso.org/fr/standard/27018"
+      }
+     ],
+     "kind": "general"
+    },
+    {
+     "id": "iso27701",
+     "name": "ISO/IEC 27701",
+     "title": {
+      "fr": "Système de management de la protection de la vie privée (PIMS)",
+      "en": "Privacy information management system (PIMS)"
+     },
+     "nature": {
+      "fr": "Norme internationale certifiable (système de management)",
+      "en": "Certifiable international standard (management system)"
+     },
+     "reference": {
+      "fr": "ISO/IEC 27701:2025",
+      "en": "ISO/IEC 27701:2025"
+     },
+     "status": {
+      "fr": "Édition 2 publiée en octobre 2025 ; elle remplace l'édition 2019.",
+      "en": "Edition 2 published in October 2025; it replaces the 2019 edition."
+     },
+     "definition": {
+      "fr": "Norme d'exigences pour mettre en place, faire fonctionner et améliorer un système de management de la protection de la vie privée (PIMS, Privacy Information Management System). Elle aide à démontrer la maîtrise des traitements de données personnelles.",
+      "en": "Requirements standard to establish, operate and improve a privacy information management system (PIMS). It helps demonstrate control over the processing of personal data."
+     },
+     "essentials": [
+      {
+       "fr": "Grand changement en 2025 : la norme devient autonome. L'édition 2019 était une extension d'ISO/IEC 27001 et 27002 ; on peut désormais être certifié 27701 sans être certifié 27001.",
+       "en": "Big change in 2025: the standard is now standalone. The 2019 edition was an extension of ISO/IEC 27001 and 27002; you can now be certified to 27701 without a 27001 certificate."
+      },
+      {
+       "fr": "Elle distingue les mesures pour le responsable de traitement (PII controller) et pour le sous-traitant (PII processor).",
+       "en": "It separates the controls for the PII controller and for the PII processor."
+      },
+      {
+       "fr": "Elle suit la structure commune des systèmes de management ISO : contexte, leadership, planification, support, fonctionnement, évaluation, amélioration.",
+       "en": "It follows the common ISO management system structure: context, leadership, planning, support, operation, evaluation, improvement."
+      },
+      {
+       "fr": "Une certification 27701 aide à prouver sa conformité au RGPD, mais ne la garantit pas : seule l'autorité (la CNIL en France) juge la conformité.",
+       "en": "A 27701 certificate helps show GDPR compliance but does not guarantee it: only the supervisory authority (the CNIL in France) rules on compliance."
+      },
+      {
+       "fr": "Les organismes certifiés selon la version 2019 doivent migrer : vérifiez la période de transition auprès de votre organisme de certification.",
+       "en": "Organizations certified to the 2019 version must migrate: check the transition period with your certification body."
+      }
+     ],
+     "remember": {
+      "fr": "27001 = SMSI (sécurité) ; 27701 = PIMS (vie privée), autonome depuis 2025.",
+      "en": "27001 = ISMS (security); 27701 = PIMS (privacy), standalone since 2025."
+     },
+     "lessons": [
+      "m1c3-l2",
+      "m5c3-l2"
+     ],
+     "links": [
+      {
+       "label": {
+        "fr": "Fiche de la norme sur iso.org",
+        "en": "Standard page on iso.org"
+       },
+       "url": "https://www.iso.org/fr/standard/27701"
+      }
+     ],
+     "kind": "general"
+    },
+    {
+     "id": "iec62443",
+     "name": "IEC 62443",
+     "title": {
+      "fr": "Cybersécurité des systèmes industriels (ICS, SCADA)",
+      "en": "Cybersecurity of industrial systems (ICS, SCADA)"
+     },
+     "nature": {
+      "fr": "Série de normes internationales (IEC et ISA)",
+      "en": "Series of international standards (IEC and ISA)"
+     },
+     "reference": {
+      "fr": "IEC 62443 (ISA/IEC 62443)",
+      "en": "IEC 62443 (ISA/IEC 62443)"
+     },
+     "status": {
+      "fr": "Série en plusieurs parties, développée par l'IEC avec le comité ISA99 ; reconnue par l'IEC comme norme « horizontale » en 2021.",
+      "en": "Multi-part series developed by the IEC with the ISA99 committee; recognized by the IEC as a horizontal standard in 2021."
+     },
+     "definition": {
+      "fr": "Série de normes sur la sécurité des systèmes d'automatisation et de contrôle industriels (IACS, Industrial Automation and Control Systems) : automates, SCADA, systèmes de contrôle-commande des usines, de l'énergie ou de l'eau. On l'appelle souvent à tort « ISO 62443 » : c'est une norme IEC.",
+      "en": "Series of standards on the security of industrial automation and control systems (IACS): PLCs, SCADA, control systems in factories, energy or water. It is often wrongly called \"ISO 62443\": it is an IEC standard."
+     },
+     "essentials": [
+      {
+       "fr": "Quatre familles de parties : 1 = généralités (vocabulaire, concepts) ; 2 = politiques et procédures (2-1 programme de l'exploitant, 2-4 prestataires) ; 3 = système (3-2 analyse de risque, 3-3 exigences système) ; 4 = composants (4-1 cycle de développement sécurisé, 4-2 exigences des composants).",
+       "en": "Four groups of parts: 1 = general (terms, concepts); 2 = policies and procedures (2-1 asset owner program, 2-4 service providers); 3 = system (3-2 risk assessment, 3-3 system requirements); 4 = components (4-1 secure development lifecycle, 4-2 component requirements)."
+      },
+      {
+       "fr": "Trois acteurs principaux : l'exploitant (asset owner), l'intégrateur ou prestataire de services, le fournisseur de produits.",
+       "en": "Three main roles: the asset owner, the integrator or service provider, the product supplier."
+      },
+      {
+       "fr": "Zones et conduits : on regroupe les équipements de même niveau de risque en zones, reliées par des conduits contrôlés. C'est la segmentation appliquée à l'industriel.",
+       "en": "Zones and conduits: assets with the same risk are grouped into zones, linked by controlled conduits. This is segmentation applied to industrial systems."
+      },
+      {
+       "fr": "Quatre niveaux de sécurité, SL 1 à SL 4, du simple incident accidentel (SL 1) à l'attaquant expert et doté de grands moyens (SL 4).",
+       "en": "Four security levels, SL 1 to SL 4, from casual or accidental violation (SL 1) to a skilled attacker with extensive resources (SL 4)."
+      },
+      {
+       "fr": "Sept exigences fondamentales (FR 1 à FR 7) : identification et authentification, contrôle d'usage, intégrité, confidentialité, flux de données restreints, réponse aux événements, disponibilité.",
+       "en": "Seven foundational requirements (FR 1 to FR 7): identification and authentication, use control, integrity, confidentiality, restricted data flow, timely response to events, resource availability."
+      },
+      {
+       "fr": "Des certifications existent : programme IECEE de l'IEC, schémas ISASecure de l'ISA.",
+       "en": "Certifications exist: the IEC's IECEE program and the ISA's ISASecure schemes."
+      }
+     ],
+     "remember": {
+      "fr": "En industriel, la disponibilité et la sûreté passent avant la confidentialité : on ne redémarre pas un automate comme un poste de bureau.",
+      "en": "In industrial systems, availability and safety come before confidentiality: you do not reboot a PLC like an office PC."
+     },
+     "lessons": [
+      "m3c3-l1"
+     ],
+     "links": [
+      {
+       "label": {
+        "fr": "Présentation de la série par l'IEC (en anglais)",
+        "en": "Overview of the series by the IEC"
+       },
+       "url": "https://syc-se.iec.ch/deliveries/cybersecurity-guidelines/security-standards-and-best-practices/iec-62443/"
+      },
+      {
+       "label": {
+        "fr": "Liste des parties ISA/IEC 62443 (ISA, en anglais)",
+        "en": "List of ISA/IEC 62443 parts (ISA)"
+       },
+       "url": "https://www.isa.org/standards-and-publications/isa-standards/isa-iec-62443-series-of-standards"
+      }
+     ],
+     "kind": "general"
+    }
+   ]
+  },
+  {
+   "id": "numerique",
+   "emoji": "🌐",
+   "title": {
+    "fr": "Règlements européens du numérique et des données",
+    "en": "EU digital and data regulations"
+   },
+   "items": [
+    {
+     "id": "dma",
+     "name": "DMA",
+     "title": {
+      "fr": "Règlement sur les marchés numériques",
+      "en": "Digital Markets Act"
+     },
+     "nature": {
+      "fr": "Règlement de l'UE",
+      "en": "EU regulation"
+     },
+     "reference": {
+      "fr": "Règlement (UE) 2022/1925",
+      "en": "Regulation (EU) 2022/1925"
+     },
+     "status": {
+      "fr": "Applicable depuis le 2 mai 2023 ; contrôleurs d'accès désignés le 6 septembre 2023 ; obligations à respecter depuis le 7 mars 2024.",
+      "en": "Applicable since 2 May 2023; gatekeepers designated on 6 September 2023; obligations apply since 7 March 2024."
+     },
+     "definition": {
+      "fr": "Règlement de concurrence qui impose des obligations aux très grandes plateformes, appelées « contrôleurs d'accès » (gatekeepers), pour garder les marchés numériques ouverts et équitables.",
+      "en": "Competition regulation that places obligations on very large platforms, called gatekeepers, to keep digital markets open and fair."
+     },
+     "essentials": [
+      {
+       "fr": "Seuils de présomption : chiffre d'affaires dans l'UE d'au moins 7,5 milliards d'euros sur les trois dernières années ou capitalisation d'au moins 75 milliards d'euros, au moins 45 millions d'utilisateurs finaux par mois et 10 000 entreprises utilisatrices dans l'UE.",
+       "en": "Presumption thresholds: EU turnover of at least EUR 7.5 billion over the last three years or market value of at least EUR 75 billion, at least 45 million monthly end users and 10,000 business users in the EU."
+      },
+      {
+       "fr": "Contrôleurs d'accès désignés : Alphabet, Amazon, Apple, Booking, ByteDance, Meta et Microsoft, pour une vingtaine de « services de plateforme essentiels ».",
+       "en": "Designated gatekeepers: Alphabet, Amazon, Apple, Booking, ByteDance, Meta and Microsoft, for about twenty core platform services."
+      },
+      {
+       "fr": "Exemples d'obligations : interopérabilité des messageries, possibilité d'installer d'autres boutiques d'applications, pas d'autopréférence dans les résultats.",
+       "en": "Example obligations: messaging interoperability, allowing alternative app stores, no self-preferencing in rankings."
+      },
+      {
+       "fr": "Lien avec la sécurité : ces ouvertures créent de nouvelles surfaces d'attaque ; le contrôleur d'accès peut prendre des mesures strictement nécessaires et proportionnées pour protéger l'intégrité de ses systèmes.",
+       "en": "Security angle: these openings create new attack surfaces; the gatekeeper may take strictly necessary and proportionate measures to protect the integrity of its systems."
+      },
+      {
+       "fr": "La Commission européenne contrôle seule. Amendes jusqu'à 10 % du chiffre d'affaires mondial, 20 % en cas de récidive. Premières amendes le 23 avril 2025 : 500 millions d'euros pour Apple, 200 millions pour Meta.",
+       "en": "The European Commission alone enforces it. Fines up to 10% of worldwide turnover, 20% for repeat infringements. First fines on 23 April 2025: EUR 500 million for Apple, EUR 200 million for Meta."
+      }
+     ],
+     "remember": {
+      "fr": "DMA = concurrence (les géants entre eux) ; DSA = contenus et protection des utilisateurs.",
+      "en": "DMA = competition (rules for the giants); DSA = content and user protection."
+     },
+     "lessons": [],
+     "links": [
+      {
+       "label": {
+        "fr": "Présentation par le Conseil de l'UE",
+        "en": "Overview by the Council of the EU"
+       },
+       "url": "https://www.consilium.europa.eu/fr/policies/digital-markets-act/"
+      },
+      {
+       "label": {
+        "fr": "Liste des contrôleurs d'accès (Commission, en anglais)",
+        "en": "List of gatekeepers (European Commission)"
+       },
+       "url": "https://digital-markets-act.ec.europa.eu/gatekeepers_en"
+      },
+      {
+       "label": {
+        "fr": "Texte officiel sur EUR-Lex",
+        "en": "Official text on EUR-Lex"
+       },
+       "url": "https://eur-lex.europa.eu/eli/reg/2022/1925/oj"
+      }
+     ],
+     "kind": "general"
+    },
+    {
+     "id": "dsa",
+     "name": "DSA",
+     "title": {
+      "fr": "Règlement sur les services numériques",
+      "en": "Digital Services Act"
+     },
+     "nature": {
+      "fr": "Règlement de l'UE",
+      "en": "EU regulation"
+     },
+     "reference": {
+      "fr": "Règlement (UE) 2022/2065",
+      "en": "Regulation (EU) 2022/2065"
+     },
+     "status": {
+      "fr": "Applicable à tous les services intermédiaires depuis le 17 février 2024 ; les très grandes plateformes y sont soumises depuis 2023, quatre mois après leur désignation.",
+      "en": "Applicable to all intermediary services since 17 February 2024; very large platforms have been covered since 2023, four months after their designation."
+     },
+     "definition": {
+      "fr": "Règlement qui fixe les responsabilités des services en ligne (hébergeurs, plateformes, moteurs de recherche) face aux contenus et produits illicites, à la désinformation et aux risques pour les utilisateurs.",
+      "en": "Regulation that sets the responsibilities of online services (hosts, platforms, search engines) regarding illegal content and products, disinformation and risks to users."
+     },
+     "essentials": [
+      {
+       "fr": "Obligations graduées selon la taille : simple intermédiaire, hébergeur, plateforme en ligne, puis très grande plateforme ou très grand moteur de recherche (VLOP / VLOSE, plus de 45 millions d'utilisateurs par mois dans l'UE).",
+       "en": "Obligations scale with size: intermediary, hosting service, online platform, then very large online platform or search engine (VLOP / VLOSE, over 45 million monthly users in the EU)."
+      },
+      {
+       "fr": "Mécanisme de signalement des contenus illicites (notice and action), signaleurs de confiance, transparence sur la modération et la publicité.",
+       "en": "Notice-and-action mechanism for illegal content, trusted flaggers, transparency on moderation and advertising."
+      },
+      {
+       "fr": "Les VLOP et VLOSE évaluent chaque année leurs risques systémiques et passent un audit indépendant.",
+       "en": "VLOPs and VLOSEs assess their systemic risks every year and undergo an independent audit."
+      },
+      {
+       "fr": "Contrôle : la Commission pour les très grandes plateformes ; ailleurs, un coordinateur national des services numériques (l'Arcom en France).",
+       "en": "Enforcement: the Commission for very large platforms; otherwise a national Digital Services Coordinator (Arcom in France)."
+      },
+      {
+       "fr": "Amendes jusqu'à 6 % du chiffre d'affaires annuel mondial.",
+       "en": "Fines up to 6% of worldwide annual turnover."
+      }
+     ],
+     "remember": {
+      "fr": "DSA = ce qui circule sur la plateforme (contenus) ; DMA = le comportement du géant sur le marché.",
+      "en": "DSA = what flows on the platform (content); DMA = the giant's behavior on the market."
+     },
+     "lessons": [],
+     "links": [
+      {
+       "label": {
+        "fr": "Présentation par la Commission européenne",
+        "en": "Overview by the European Commission"
+       },
+       "url": "https://digital-strategy.ec.europa.eu/fr/policies/digital-services-act"
+      },
+      {
+       "label": {
+        "fr": "Texte officiel sur EUR-Lex",
+        "en": "Official text on EUR-Lex"
+       },
+       "url": "https://eur-lex.europa.eu/eli/reg/2022/2065/oj"
+      }
+     ],
+     "kind": "general"
+    },
+    {
+     "id": "dga",
+     "name": "DGA",
+     "title": {
+      "fr": "Règlement sur la gouvernance des données",
+      "en": "Data Governance Act"
+     },
+     "nature": {
+      "fr": "Règlement de l'UE",
+      "en": "EU regulation"
+     },
+     "reference": {
+      "fr": "Règlement (UE) 2022/868",
+      "en": "Regulation (EU) 2022/868"
+     },
+     "status": {
+      "fr": "Applicable depuis le 24 septembre 2023.",
+      "en": "Applicable since 24 September 2023."
+     },
+     "definition": {
+      "fr": "Règlement qui organise le partage de données en confiance dans l'UE : réutilisation de données publiques protégées, intermédiaires de données neutres et altruisme en matière de données.",
+      "en": "Regulation that sets up trusted data sharing in the EU: re-use of protected public sector data, neutral data intermediaries and data altruism."
+     },
+     "essentials": [
+      {
+       "fr": "Données publiques protégées (secret d'affaires, données personnelles) : réutilisation possible sous conditions, par exemple dans un environnement de traitement sécurisé.",
+       "en": "Protected public sector data (trade secrets, personal data): re-use is possible under conditions, for example in a secure processing environment."
+      },
+      {
+       "fr": "Services d'intermédiation de données : ils doivent se déclarer à l'autorité compétente et rester neutres (ne pas utiliser pour eux-mêmes les données qu'ils font circuler).",
+       "en": "Data intermediation services: they must notify the competent authority and stay neutral (not use for themselves the data they broker)."
+      },
+      {
+       "fr": "Altruisme : des organismes peuvent s'enregistrer pour collecter des données données volontairement dans l'intérêt général (recherche, santé).",
+       "en": "Data altruism: organizations can register to collect data given voluntarily for the general interest (research, health)."
+      },
+      {
+       "fr": "Crée le comité européen de l'innovation dans le domaine des données (EDIB), qui prépare les espaces européens communs de données.",
+       "en": "It creates the European Data Innovation Board (EDIB), which prepares the common European data spaces."
+      },
+      {
+       "fr": "Le RGPD continue de s'appliquer à toute donnée personnelle partagée.",
+       "en": "The GDPR still applies to any personal data that is shared."
+      }
+     ],
+     "remember": {
+      "fr": "Ne pas confondre le DGA (2022/868, le cadre de confiance du partage) et le Data Act (2023/2854, qui donne accès aux données des objets connectés).",
+      "en": "Do not confuse the DGA (2022/868, trust framework for sharing) with the Data Act (2023/2854, access to data from connected products)."
+     },
+     "lessons": [
+      "m4c2-l2"
+     ],
+     "links": [
+      {
+       "label": {
+        "fr": "Le DGA expliqué (Commission, en anglais)",
+        "en": "Data Governance Act explained (European Commission)"
+       },
+       "url": "https://digital-strategy.ec.europa.eu/en/policies/data-governance-act-explained"
+      },
+      {
+       "label": {
+        "fr": "Texte officiel sur EUR-Lex",
+        "en": "Official text on EUR-Lex"
+       },
+       "url": "https://eur-lex.europa.eu/eli/reg/2022/868/oj"
+      }
+     ],
+     "kind": "general"
+    },
+    {
+     "id": "rgpd",
+     "name": "RGPD",
+     "title": {
+      "fr": "Règlement général sur la protection des données",
+      "en": "General Data Protection Regulation (GDPR)"
+     },
+     "nature": {
+      "fr": "Règlement de l'UE",
+      "en": "EU regulation"
+     },
+     "reference": {
+      "fr": "Règlement (UE) 2016/679",
+      "en": "Regulation (EU) 2016/679"
+     },
+     "status": {
+      "fr": "Applicable depuis le 25 mai 2018.",
+      "en": "Applicable since 25 May 2018."
+     },
+     "definition": {
+      "fr": "Règlement qui protège les personnes physiques à l'égard du traitement de leurs données personnelles, dans toute l'UE et pour toute organisation qui cible des personnes situées dans l'UE.",
+      "en": "Regulation that protects individuals with regard to the processing of their personal data, across the EU and for any organization that targets people located in the EU."
+     },
+     "essentials": [
+      {
+       "fr": "Principes (article 5) : licéité, finalité déterminée, minimisation, exactitude, durée de conservation limitée, intégrité et confidentialité, responsabilité (accountability).",
+       "en": "Principles (Article 5): lawfulness, purpose limitation, data minimization, accuracy, storage limitation, integrity and confidentiality, accountability."
+      },
+      {
+       "fr": "Sécurité : protection des données dès la conception et par défaut (article 25) ; mesures techniques et organisationnelles adaptées au risque (article 32).",
+       "en": "Security: data protection by design and by default (Article 25); technical and organizational measures suited to the risk (Article 32)."
+      },
+      {
+       "fr": "Violation de données : notification à l'autorité dans les 72 heures (article 33), information des personnes si le risque est élevé (article 34).",
+       "en": "Personal data breach: notify the authority within 72 hours (Article 33), inform the individuals when the risk is high (Article 34)."
+      },
+      {
+       "fr": "Analyse d'impact (AIPD, DPIA) pour les traitements à risque élevé ; délégué à la protection des données (DPO) obligatoire dans certains cas.",
+       "en": "Impact assessment (DPIA) for high-risk processing; a data protection officer (DPO) is mandatory in some cases."
+      },
+      {
+       "fr": "Amendes jusqu'à 20 millions d'euros ou 4 % du chiffre d'affaires mondial. En France, l'autorité est la CNIL.",
+       "en": "Fines up to EUR 20 million or 4% of worldwide turnover. In France, the authority is the CNIL."
+      }
+     ],
+     "remember": {
+      "fr": "72 h à l'autorité pour une violation de données ; responsable de traitement = décide, sous-traitant = exécute.",
+      "en": "72 hours to the authority for a breach; controller = decides, processor = executes."
+     },
+     "lessons": [
+      "m5c3-l2",
+      "m5c5-l3",
+      "m5c5-l5"
+     ],
+     "links": [
+      {
+       "label": {
+        "fr": "Le RGPD sur le site de la CNIL",
+        "en": "The GDPR on the CNIL website"
+       },
+       "url": "https://www.cnil.fr/fr/reglement-europeen-protection-donnees"
+      },
+      {
+       "label": {
+        "fr": "Notifier une violation (CNIL)",
+        "en": "Notifying a breach (CNIL)"
+       },
+       "url": "https://www.cnil.fr/fr/notifier-une-violation-de-donnees-personnelles"
+      },
+      {
+       "label": {
+        "fr": "Texte officiel sur EUR-Lex",
+        "en": "Official text on EUR-Lex"
+       },
+       "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj"
+      }
+     ],
+     "kind": "general"
+    }
+   ]
+  },
+  {
+   "id": "cyber-ue",
+   "emoji": "🛡️",
+   "title": {
+    "fr": "Cybersécurité européenne",
+    "en": "EU cybersecurity"
+   },
+   "items": [
+    {
+     "id": "nis2",
+     "name": "NIS 2",
+     "title": {
+      "fr": "Directive sur la sécurité des réseaux et des systèmes d'information",
+      "en": "Network and Information Security Directive"
+     },
+     "nature": {
+      "fr": "Directive de l'UE (à transposer)",
+      "en": "EU directive (to be transposed)"
+     },
+     "reference": {
+      "fr": "Directive (UE) 2022/2555",
+      "en": "Directive (EU) 2022/2555"
+     },
+     "status": {
+      "fr": "Transposition attendue au 17 octobre 2024. En France, le projet de loi « résilience » (qui transpose aussi DORA et la directive CER) a été adopté en première lecture par l'Assemblée nationale le 17 novembre 2026 ; il doit encore passer en commission mixte paritaire. Situation au 20 novembre 2026.",
+      "en": "Transposition was due by 17 October 2024. In France, the \"resilience\" bill (which also transposes DORA and the CER directive) was adopted at first reading by the National Assembly on 17 November 2026; it still has to go through a joint committee. Status as of 20 November 2026."
+     },
+     "definition": {
+      "fr": "Directive qui impose un niveau élevé de cybersécurité aux entités de secteurs critiques (énergie, santé, transports, banque, numérique, administrations…) : gestion des risques, notification des incidents, responsabilité des dirigeants.",
+      "en": "Directive that requires a high level of cybersecurity from entities in critical sectors (energy, health, transport, banking, digital, public administration…): risk management, incident reporting, management accountability."
+     },
+     "essentials": [
+      {
+       "fr": "Deux catégories : entités essentielles (contrôle a priori et a posteriori) et entités importantes (contrôle a posteriori).",
+       "en": "Two categories: essential entities (ex ante and ex post supervision) and important entities (ex post supervision)."
+      },
+      {
+       "fr": "Dix mesures minimales (article 21) : analyse des risques, gestion des incidents, continuité, chaîne d'approvisionnement, développement sécurisé, cyberhygiène, cryptographie, contrôle d'accès, MFA…",
+       "en": "Ten minimum measures (Article 21): risk analysis, incident handling, continuity, supply chain, secure development, cyber hygiene, cryptography, access control, MFA…"
+      },
+      {
+       "fr": "Notification d'un incident important : alerte précoce en 24 h, notification en 72 h, rapport final en 1 mois.",
+       "en": "Significant incident reporting: early warning within 24 hours, notification within 72 hours, final report within 1 month."
+      },
+      {
+       "fr": "La direction approuve les mesures, suit une formation et peut être tenue responsable (article 20).",
+       "en": "Management bodies approve the measures, take training and can be held liable (Article 20)."
+      },
+      {
+       "fr": "Amendes : au moins 10 M€ ou 2 % du CA mondial (essentielles), 7 M€ ou 1,4 % (importantes). Autorité en France : l'ANSSI.",
+       "en": "Fines: at least EUR 10 M or 2% of worldwide turnover (essential), EUR 7 M or 1.4% (important). Authority in France: ANSSI."
+      }
+     ],
+     "remember": {
+      "fr": "NIS 2 = 24 h / 72 h / 1 mois ; une directive doit être transposée, un règlement s'applique directement.",
+      "en": "NIS 2 = 24 h / 72 h / 1 month; a directive must be transposed, a regulation applies directly."
+     },
+     "lessons": [
+      "m5c5-l2",
+      "m5c5-l3",
+      "m5c5-l5"
+     ],
+     "links": [
+      {
+       "label": {
+        "fr": "La directive NIS 2 (ANSSI)",
+        "en": "The NIS 2 directive (ANSSI, in French)"
+       },
+       "url": "https://cyber.gouv.fr/reglementation/cybersecurite-systemes-dinformation/directives-nis-nis2-et-dispositif-saiv/directive-nis-2/"
+      },
+      {
+       "label": {
+        "fr": "Texte officiel sur EUR-Lex",
+        "en": "Official text on EUR-Lex"
+       },
+       "url": "https://eur-lex.europa.eu/eli/dir/2022/2555/oj"
+      }
+     ],
+     "kind": "general"
+    },
+    {
+     "id": "dora",
+     "name": "DORA",
+     "title": {
+      "fr": "Règlement sur la résilience opérationnelle numérique du secteur financier",
+      "en": "Digital Operational Resilience Act"
+     },
+     "nature": {
+      "fr": "Règlement de l'UE",
+      "en": "EU regulation"
+     },
+     "reference": {
+      "fr": "Règlement (UE) 2022/2554",
+      "en": "Regulation (EU) 2022/2554"
+     },
+     "status": {
+      "fr": "Applicable depuis le 17 janvier 2025.",
+      "en": "Applicable since 17 January 2025."
+     },
+     "definition": {
+      "fr": "Règlement qui exige des entités financières (banques, assurances, sociétés d'investissement, prestataires de paiement…) qu'elles résistent aux incidents informatiques, y répondent et s'en remettent, y compris quand ils viennent de leurs prestataires TIC.",
+      "en": "Regulation that requires financial entities (banks, insurers, investment firms, payment providers…) to withstand, respond to and recover from ICT incidents, including those coming from their ICT providers."
+     },
+     "essentials": [
+      {
+       "fr": "Cinq piliers : gestion du risque TIC, notification des incidents majeurs, tests de résilience (dont les tests d'intrusion fondés sur la menace, TLPT), risque lié aux prestataires TIC, partage d'informations sur les menaces.",
+       "en": "Five pillars: ICT risk management, major incident reporting, resilience testing (including threat-led penetration testing, TLPT), ICT third-party risk, threat information sharing."
+      },
+      {
+       "fr": "Prestataires : registre de tous les contrats TIC, clauses contractuelles obligatoires, stratégie de sortie.",
+       "en": "Third parties: register of all ICT contracts, mandatory contract clauses, exit strategy."
+      },
+      {
+       "fr": "Les prestataires TIC critiques (grands clouds, par exemple) sont supervisés au niveau européen par les autorités européennes de surveillance (ABE, AEAPP, AEMF).",
+       "en": "Critical ICT third-party providers (large clouds, for example) are overseen at EU level by the European Supervisory Authorities (EBA, EIOPA, ESMA)."
+      },
+      {
+       "fr": "Incident majeur : notification initiale rapide (selon les normes techniques, quelques heures après la classification et au plus tard 24 h après sa détection), puis rapports intermédiaire et final.",
+       "en": "Major incident: quick initial notification (under the technical standards, a few hours after classification and no later than 24 hours after detection), then intermediate and final reports."
+      },
+      {
+       "fr": "Pour le secteur financier, DORA est le texte spécifique (lex specialis) par rapport à NIS 2. En France : ACPR et AMF.",
+       "en": "For the financial sector, DORA is the specific law (lex specialis) compared with NIS 2. In France: ACPR and AMF."
+      }
+     ],
+     "remember": {
+      "fr": "DORA = finance + prestataires TIC ; l'organe de direction porte la responsabilité finale du risque TIC.",
+      "en": "DORA = finance + ICT providers; the management body bears final responsibility for ICT risk."
+     },
+     "lessons": [
+      "m5c5-l2",
+      "m5c5-l5"
+     ],
+     "links": [
+      {
+       "label": {
+        "fr": "Présentation de DORA par l'EIOPA (en anglais)",
+        "en": "DORA overview by EIOPA"
+       },
+       "url": "https://www.eiopa.europa.eu/digital-operational-resilience-act-dora_en"
+      },
+      {
+       "label": {
+        "fr": "Texte officiel sur EUR-Lex",
+        "en": "Official text on EUR-Lex"
+       },
+       "url": "https://eur-lex.europa.eu/eli/reg/2022/2554/oj"
+      }
+     ],
+     "kind": "general"
+    },
+    {
+     "id": "csa",
+     "name": "Cybersecurity Act",
+     "title": {
+      "fr": "Règlement sur la cybersécurité de l'UE",
+      "en": "EU Cybersecurity Act"
+     },
+     "nature": {
+      "fr": "Règlement de l'UE",
+      "en": "EU regulation"
+     },
+     "reference": {
+      "fr": "Règlement (UE) 2019/881",
+      "en": "Regulation (EU) 2019/881"
+     },
+     "status": {
+      "fr": "En vigueur depuis 2019. La Commission a proposé sa révision le 20 janvier 2026 ; la proposition est en discussion au Parlement européen et au Conseil.",
+      "en": "In force since 2019. The Commission proposed a revision on 20 January 2026; the proposal is being discussed by the European Parliament and the Council."
+     },
+     "definition": {
+      "fr": "Règlement qui donne à l'ENISA (Agence de l'UE pour la cybersécurité) un mandat permanent et crée un cadre européen de certification de cybersécurité pour les produits, services et processus TIC.",
+      "en": "Regulation that gives ENISA (the EU Agency for Cybersecurity) a permanent mandate and creates an EU cybersecurity certification framework for ICT products, services and processes."
+     },
+     "essentials": [
+      {
+       "fr": "Un certificat délivré selon un schéma européen est reconnu dans toute l'UE.",
+       "en": "A certificate issued under an EU scheme is recognized across the EU."
+      },
+      {
+       "fr": "Trois niveaux d'assurance : élémentaire, substantiel, élevé.",
+       "en": "Three assurance levels: basic, substantial, high."
+      },
+      {
+       "fr": "Premier schéma adopté : EUCC, fondé sur les Critères communs (règlement d'exécution 2024/482), applicable depuis le 27 février 2025. Schémas en préparation : cloud (EUCS), 5G, services de sécurité gérés.",
+       "en": "First adopted scheme: EUCC, based on the Common Criteria (Implementing Regulation 2024/482), applicable since 27 February 2025. Schemes in preparation: cloud (EUCS), 5G, managed security services."
+      },
+      {
+       "fr": "La certification reste volontaire, sauf si un autre texte l'impose.",
+       "en": "Certification remains voluntary unless another law makes it mandatory."
+      },
+      {
+       "fr": "La révision proposée en 2026 vise la chaîne d'approvisionnement TIC (fournisseurs à risque), des procédures de certification plus simples et un rôle renforcé de l'ENISA.",
+       "en": "The revision proposed in 2026 targets the ICT supply chain (high-risk suppliers), simpler certification procedures and a stronger role for ENISA."
+      }
+     ],
+     "remember": {
+      "fr": "Cybersecurity Act (2019/881) = ENISA + certification ; à ne pas confondre avec le CRA (2024/2847) = produits.",
+      "en": "Cybersecurity Act (2019/881) = ENISA + certification; not to be confused with the CRA (2024/2847) = products."
+     },
+     "lessons": [
+      "m5c5-l1"
+     ],
+     "links": [
+      {
+       "label": {
+        "fr": "Présentation par la Commission européenne",
+        "en": "Overview by the European Commission"
+       },
+       "url": "https://digital-strategy.ec.europa.eu/fr/policies/cybersecurity-act"
+      },
+      {
+       "label": {
+        "fr": "Portail de certification de l'ENISA (en anglais)",
+        "en": "ENISA certification portal"
+       },
+       "url": "https://certification.enisa.europa.eu/"
+      },
+      {
+       "label": {
+        "fr": "Texte officiel sur EUR-Lex",
+        "en": "Official text on EUR-Lex"
+       },
+       "url": "https://eur-lex.europa.eu/eli/reg/2019/881/oj"
+      }
+     ],
+     "kind": "general"
+    },
+    {
+     "id": "cra",
+     "name": "CRA",
+     "title": {
+      "fr": "Règlement sur la cyberrésilience",
+      "en": "Cyber Resilience Act"
+     },
+     "nature": {
+      "fr": "Règlement de l'UE",
+      "en": "EU regulation"
+     },
+     "reference": {
+      "fr": "Règlement (UE) 2024/2847",
+      "en": "Regulation (EU) 2024/2847"
+     },
+     "status": {
+      "fr": "En vigueur depuis le 10 décembre 2024. Obligations de signalement depuis le 11 septembre 2026 ; l'essentiel des exigences au 11 décembre 2027.",
+      "en": "In force since 10 December 2024. Reporting obligations since 11 September 2026; most requirements from 11 December 2027."
+     },
+     "definition": {
+      "fr": "Règlement qui impose des exigences de cybersécurité aux produits comportant des éléments numériques (logiciels, objets connectés, équipements réseau) mis sur le marché de l'UE, pendant toute leur durée de vie.",
+      "en": "Regulation that sets cybersecurity requirements for products with digital elements (software, connected devices, network equipment) placed on the EU market, for their whole life."
+     },
+     "essentials": [
+      {
+       "fr": "Sécurité dès la conception et par défaut, aucune vulnérabilité exploitable connue à la mise sur le marché.",
+       "en": "Security by design and by default, no known exploitable vulnerability when placed on the market."
+      },
+      {
+       "fr": "Mises à jour de sécurité pendant la période de support, en principe d'au moins cinq ans.",
+       "en": "Security updates during the support period, in principle at least five years."
+      },
+      {
+       "fr": "Signalement des vulnérabilités activement exploitées et des incidents graves via la plateforme unique de l'ENISA : alerte en 24 h, notification en 72 h, puis rapport final.",
+       "en": "Reporting of actively exploited vulnerabilities and severe incidents through ENISA's single platform: early warning within 24 hours, notification within 72 hours, then a final report."
+      },
+      {
+       "fr": "Classes de produits : par défaut (autoévaluation), importants (classes I et II) et critiques (évaluation plus stricte). Les produits conformes portent le marquage CE.",
+       "en": "Product classes: default (self-assessment), important (classes I and II) and critical (stricter assessment). Compliant products carry the CE marking."
+      },
+      {
+       "fr": "Amendes jusqu'à 15 millions d'euros ou 2,5 % du chiffre d'affaires mondial.",
+       "en": "Fines up to EUR 15 million or 2.5% of worldwide turnover."
+      }
+     ],
+     "remember": {
+      "fr": "CRA = le produit ; NIS 2 = l'organisation qui l'utilise.",
+      "en": "CRA = the product; NIS 2 = the organization that uses it."
+     },
+     "lessons": [
+      "m5c5-l2",
+      "m5c5-l3"
+     ],
+     "links": [
+      {
+       "label": {
+        "fr": "Présentation par la Commission européenne",
+        "en": "Overview by the European Commission"
+       },
+       "url": "https://digital-strategy.ec.europa.eu/fr/policies/cyber-resilience-act"
+      },
+      {
+       "label": {
+        "fr": "Texte officiel sur EUR-Lex",
+        "en": "Official text on EUR-Lex"
+       },
+       "url": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj"
+      }
+     ],
+     "kind": "general"
+    }
+   ]
+  },
+  {
+   "id": "france",
+   "emoji": "🇫🇷",
+   "title": {
+    "fr": "Textes français : informations sensibles et classifiées",
+    "en": "French texts: sensitive and classified information"
+   },
+   "items": [
+    {
+     "id": "ii901",
+     "name": "II 901",
+     "title": {
+      "fr": "Protection des systèmes d'information sensibles",
+      "en": "Protection of sensitive information systems"
+     },
+     "nature": {
+      "fr": "Instruction interministérielle française (SGDSN / ANSSI)",
+      "en": "French interministerial instruction (SGDSN / ANSSI)"
+     },
+     "reference": {
+      "fr": "II n° 901/SGDSN/ANSSI",
+      "en": "II n° 901/SGDSN/ANSSI"
+     },
+     "status": {
+      "fr": "Instruction du 28 janvier 2015.",
+      "en": "Instruction of 28 January 2015."
+     },
+     "definition": {
+      "fr": "Instruction qui fixe les exigences organisationnelles et techniques pour les systèmes d'information qui traitent des informations sensibles, notamment celles portant la mention « Diffusion Restreinte » (DR).",
+      "en": "Instruction that sets organizational and technical requirements for information systems processing sensitive information, in particular information marked \"Diffusion Restreinte\" (DR, restricted distribution)."
+     },
+     "essentials": [
+      {
+       "fr": "S'applique aux administrations de l'État qui exploitent des SI sensibles, à toute personne morale qui exploite un SI « Diffusion Restreinte » et aux entités soumises à la protection du potentiel scientifique et technique (PPST).",
+       "en": "It applies to State administrations running sensitive systems, to any legal entity running a DR system and to entities under the scientific and technical potential protection scheme (PPST)."
+      },
+      {
+       "fr": "Couvre aussi les informations « Restreint UE » et « Restreint OTAN ».",
+       "en": "It also covers \"EU Restricted\" and \"NATO Restricted\" information."
+      },
+      {
+       "fr": "Démarche : analyse de risque, politique de sécurité (PSSI), homologation du SI avant sa mise en service, puis amélioration continue.",
+       "en": "Approach: risk analysis, security policy, accreditation (homologation) of the system before use, then continuous improvement."
+      },
+      {
+       "fr": "Les informations DR qui sortent du SI doivent être chiffrées avec des produits agréés par l'ANSSI.",
+       "en": "DR information leaving the system must be encrypted with products approved (agréés) by ANSSI."
+      },
+      {
+       "fr": "Ne concerne pas le secret de la défense nationale, qui relève de l'IGI 1300.",
+       "en": "It does not cover national defense secrets, which fall under IGI 1300."
+      }
+     ],
+     "remember": {
+      "fr": "« Diffusion Restreinte » n'est pas un niveau de classification : c'est une mention de protection (II 901). Le classifié relève de l'IGI 1300.",
+      "en": "\"Diffusion Restreinte\" is not a classification level: it is a protection marking (II 901). Classified information falls under IGI 1300."
+     },
+     "lessons": [
+      "m4c2-l2"
+     ],
+     "links": [
+      {
+       "label": {
+        "fr": "L'II 901 sur le site de l'ANSSI",
+        "en": "II 901 on the ANSSI website (in French)"
+       },
+       "url": "https://cyber.gouv.fr/reglementation/cybersecurite-systemes-dinformation/protection-information-sensible-diffusion-restreinte/instruction-interministerielle-n901/"
+      }
+     ],
+     "kind": "general"
+    },
+    {
+     "id": "igi1300",
+     "name": "IGI 1300",
+     "title": {
+      "fr": "Protection du secret de la défense nationale",
+      "en": "Protection of national defense secrets"
+     },
+     "nature": {
+      "fr": "Instruction générale interministérielle française (SGDSN)",
+      "en": "French general interministerial instruction (SGDSN)"
+     },
+     "reference": {
+      "fr": "IGI n° 1300/SGDSN/PSE/PSD",
+      "en": "IGI n° 1300/SGDSN/PSE/PSD"
+     },
+     "status": {
+      "fr": "Version du 9 août 2021, approuvée par arrêté du même jour, issue du décret n° 2019-1271 du 2 décembre 2019. Nouveaux niveaux depuis le 1er juillet 2021.",
+      "en": "Version of 9 August 2021, approved by an order of the same day, based on Decree No. 2019-1271 of 2 December 2019. New levels since 1 July 2021."
+     },
+     "definition": {
+      "fr": "Instruction qui organise la protection des informations et supports classifiés au titre du secret de la défense nationale : classification, habilitation des personnes, protection physique et protection des systèmes d'information.",
+      "en": "Instruction that organizes the protection of information and media classified as national defense secrets: classification, personnel clearance, physical protection and protection of information systems."
+     },
+     "essentials": [
+      {
+       "fr": "Depuis le 1er juillet 2021, deux niveaux au lieu de trois : « Secret » et « Très Secret » (avec un Très Secret à classification spéciale). Confidentiel Défense devient Secret ; Secret Défense devient Très Secret.",
+       "en": "Since 1 July 2021, two levels instead of three: \"Secret\" and \"Très Secret\" (top secret, with a special-classification top secret). Confidentiel Défense became Secret; Secret Défense became Très Secret."
+      },
+      {
+       "fr": "Pour accéder à une information classifiée, il faut à la fois une habilitation au bon niveau et le besoin d'en connaître.",
+       "en": "Access to classified information requires both a clearance at the right level and a need to know."
+      },
+      {
+       "fr": "Concerne toutes les administrations de l'État, mais aussi des organismes privés (opérateurs d'importance vitale, titulaires de contrats avec l'État).",
+       "en": "It covers all State administrations, and also private organizations (operators of vital importance, holders of State contracts)."
+      },
+      {
+       "fr": "Tout SI qui traite du classifié doit être homologué avant son emploi ; ses dispositifs de sécurité doivent être agréés.",
+       "en": "Any system processing classified information must be accredited before use; its security devices must be approved."
+      }
+     ],
+     "remember": {
+      "fr": "Classifié (IGI 1300) = Secret / Très Secret ; Diffusion Restreinte (II 901) = information sensible non classifiée.",
+      "en": "Classified (IGI 1300) = Secret / Très Secret; Diffusion Restreinte (II 901) = sensitive but unclassified."
+     },
+     "lessons": [
+      "m4c2-l2"
+     ],
+     "links": [
+      {
+       "label": {
+        "fr": "L'IGI 1300 sur le site de l'ANSSI",
+        "en": "IGI 1300 on the ANSSI website (in French)"
+       },
+       "url": "https://cyber.gouv.fr/reglementation/cybersecurite-systemes-dinformation/protection-du-secret/instruction-generale-interministerielle-n1300/"
+      }
+     ],
+     "kind": "general"
+    },
+    {
+     "id": "igi2102",
+     "name": "IGI 2102",
+     "title": {
+      "fr": "Protection en France des informations classifiées de l'Union européenne",
+      "en": "Protection in France of EU classified information"
+     },
+     "nature": {
+      "fr": "Instruction générale interministérielle française (SGDSN)",
+      "en": "French general interministerial instruction (SGDSN)"
+     },
+     "reference": {
+      "fr": "IGI n° 2102/SGDSN/PSE/PSD",
+      "en": "IGI n° 2102/SGDSN/PSE/PSD"
+     },
+     "status": {
+      "fr": "Instruction du 12 juillet 2013.",
+      "en": "Instruction of 12 July 2013."
+     },
+     "definition": {
+      "fr": "Instruction qui fixe comment les administrations et organismes français protègent les informations classifiées de l'Union européenne (ICUE, EUCI) qu'ils reçoivent ou produisent.",
+      "en": "Instruction that sets how French administrations and organizations protect EU classified information (EUCI) they receive or produce."
+     },
+     "essentials": [
+      {
+       "fr": "Elle applique en France les règles de sécurité du Conseil de l'UE (décision 2013/488/UE).",
+       "en": "It applies in France the security rules of the Council of the EU (Decision 2013/488/EU)."
+      },
+      {
+       "fr": "Niveaux de l'UE : TRÈS SECRET UE / EU TOP SECRET, SECRET UE / EU SECRET, CONFIDENTIEL UE / EU CONFIDENTIAL, RESTREINT UE / EU RESTRICTED.",
+       "en": "EU levels: TRÈS SECRET UE / EU TOP SECRET, SECRET UE / EU SECRET, CONFIDENTIEL UE / EU CONFIDENTIAL, RESTREINT UE / EU RESTRICTED."
+      },
+      {
+       "fr": "L'ANSSI homologue les systèmes qui traitent des informations « Restreint UE » ou de niveau supérieur.",
+       "en": "ANSSI accredits the systems that process \"EU Restricted\" information or higher."
+      },
+      {
+       "fr": "Concerne les administrations de l'État et les organismes privés concernés (contrats, opérateurs d'importance vitale).",
+       "en": "It covers State administrations and the private organizations involved (contracts, operators of vital importance)."
+      },
+      {
+       "fr": "Pour les informations de l'OTAN, le texte de référence est l'II 2100.",
+       "en": "For NATO information, the reference text is II 2100."
+      }
+     ],
+     "remember": {
+      "fr": "IGI 1300 = secret national ; IGI 2102 = classifié UE ; II 2100 = classifié OTAN.",
+      "en": "IGI 1300 = national secrets; IGI 2102 = EU classified; II 2100 = NATO classified."
+     },
+     "lessons": [
+      "m4c2-l2"
+     ],
+     "links": [
+      {
+       "label": {
+        "fr": "L'IGI 2102 sur le site de l'ANSSI",
+        "en": "IGI 2102 on the ANSSI website (in French)"
+       },
+       "url": "https://cyber.gouv.fr/reglementation/cybersecurite-systemes-dinformation/protection-du-secret/instruction-generale-interministerielle-n2102/"
+      }
+     ],
+     "kind": "general"
+    }
+   ]
+  }
+ ]
+}

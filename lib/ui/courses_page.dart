@@ -6,6 +6,7 @@ import '../models/content.dart';
 import 'chapter_page.dart';
 import 'outline_view.dart';
 import 'mind_map_page.dart';
+import 'regulations_page.dart';
 import 'notebook/hand_drawn.dart';
 import 'notebook/page_kit.dart';
 import 'notebook/palette.dart';
@@ -159,6 +160,21 @@ class _CoursesPageState extends State<CoursesPage> {
                 ),
               ),
             ),
+          ),
+        ),
+        const SizedBox(height: 10),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: GradientButton(
+            key: const Key('open-regulations'),
+            emoji: '📜',
+            label:
+                'Textes et normes : ${library.regulations.sheets.length} fiches',
+            from: Tone.orange,
+            to: Tone.pink,
+            onPressed: library.regulations.sheets.isEmpty
+                ? null
+                : () => openRegulations(context),
           ),
         ),
         const SizedBox(height: 8),

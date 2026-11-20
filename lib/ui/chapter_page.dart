@@ -11,8 +11,13 @@ import 'notebook/page_kit.dart';
 import 'notebook/palette.dart';
 import 'notebook/typography.dart';
 import 'quiz_hub_page.dart';
+import 'regulations_page.dart';
 import 'revision_sheet_page.dart';
 import 'bilingual.dart';
+
+/// Chapitres de droit et de conformité qui proposent les fiches
+/// « Textes et normes ».
+const _regulationChapters = {'m5c3', 'm5c5'};
 
 class ChapterPage extends StatelessWidget {
   const ChapterPage({super.key, required this.chapterId});
@@ -145,6 +150,16 @@ class ChapterPage extends StatelessWidget {
                   ),
                 ),
               ),
+              if (_regulationChapters.contains(chapterId) &&
+                  state.library.regulations.sheets.isNotEmpty)
+                GradientButton(
+                  key: const Key('chapter-regulations'),
+                  emoji: '📜',
+                  label: 'Fiches textes et normes',
+                  from: Tone.orange,
+                  to: Tone.pink,
+                  onPressed: () => openRegulations(context),
+                ),
               GradientButton(
                 emoji: '🧠',
                 label: 'Carte mentale',

@@ -492,6 +492,18 @@ String frenchDate(String iso) {
 /// la version ; la première entrée porte toujours [appVersion].
 const appNews = <(String, String, List<String>)>[
   (
+    '1.6.0',
+    '20/11/2026',
+    [
+      'Textes et normes : 15 fiches courtes (ISO/IEC 27017, 27018, 27701, '
+          'IEC 62443, DMA, DSA, DGA, RGPD, NIS 2, DORA, Cybersecurity Act, '
+          'CRA, II 901, IGI 1300, IGI 2102) avec définition, essentiel, '
+          'à retenir, liens officiels et renvoi vers les leçons ; en '
+          'français et en anglais. Accès depuis Cours et les chapitres '
+          'Lois et Conformité européenne.',
+    ],
+  ),
+  (
     '1.4.0',
     '19/11/2026',
     [

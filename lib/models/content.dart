@@ -5,8 +5,10 @@
 library;
 
 import 'exam_prep.dart';
+import 'regulations.dart';
 
 export 'exam_prep.dart';
+export 'regulations.dart';
 
 /// Nature d'une information, à afficher systématiquement (cahier des charges §8).
 enum SourceKind {
@@ -605,6 +607,7 @@ class ContentLibrary {
     required this.glossary,
     required this.examInfo,
     this.examPrep = ExamPrep.empty,
+    this.regulations = Regulations.empty,
     this.mile2Outline = CourseOutline.empty,
     this.orsysOutline = CourseOutline.empty,
     this.orsysPlusOutline = CourseOutline.empty,
@@ -633,6 +636,9 @@ class ContentLibrary {
 
   /// Questions de préparation fournies par l'apprenant (hors statistiques).
   final ExamPrep examPrep;
+
+  /// Fiches courtes « Textes et normes » (normes, règlements, instructions).
+  final Regulations regulations;
 
   Iterable<Chapter> get chapters => modules.expand((m) => m.chapters);
 
