@@ -2093,6 +2093,1138 @@
     }
    ],
    "advice": "Un legal hold l'emporte sur la politique de conservation : même si la durée est dépassée, on garde les données. Sensitivity = dommage si divulgué ou modifié ; criticality = importance pour les opérations. Tokenization garde l'original à part ; masking le cache à l'affichage ; cryptographic erasure détruit la clé."
+  },
+  {
+   "id": "prep-2026-11-20",
+   "date": "2026-11-20",
+   "title": {
+    "en": "Secure Software Development and Business Continuity",
+    "fr": "Développement sécurisé et continuité des activités"
+   },
+   "source": "Questions de la formation de l'apprenant",
+   "parts": [
+    {
+     "title": {
+      "en": "Module 9: Secure Software Development (questions 1-15)",
+      "fr": "Module 9 : sécurité du développement logiciel (questions 1 à 15)"
+     },
+     "questions": [
+      {
+       "chapterId": "m4c1",
+       "prompt": {
+        "en": "What is application security?",
+        "fr": "Qu'est-ce que la sécurité des applications ?"
+       },
+       "choices": [
+        {
+         "en": "Installing antivirus only on developer workstations",
+         "fr": "Installation d'antivirus uniquement sur les postes de travail développeurs"
+        },
+        {
+         "en": "Designing, coding, testing, deploying and maintaining software with security in mind",
+         "fr": "Concevoir, coder, tester, déployer et maintenir un logiciel en gardant la sécurité à l'esprit"
+        },
+        {
+         "en": "Encrypting all network cables",
+         "fr": "Chiffrer tous les câbles réseau"
+        },
+        {
+         "en": "Removing all user access to applications",
+         "fr": "Suppression de tout accès utilisateur aux applications"
+        }
+       ],
+       "correct": 1,
+       "explanation": {
+        "en": "Application security covers the whole software lifecycle: design, coding, testing, deployment and maintenance. Antivirus on workstations is endpoint security, cable encryption is network security, and removing all access would make the application useless.",
+        "fr": "La sécurité des applications couvre tout le cycle de vie du logiciel : conception, codage, tests, déploiement et maintenance. L'antivirus sur les postes relève de la sécurité des terminaux, le chiffrement des câbles de la sécurité réseau, et supprimer tout accès rendrait l'application inutile."
+       },
+       "id": "prep-2026-11-20-q01"
+      },
+      {
+       "chapterId": "m4c1",
+       "prompt": {
+        "en": "Which activity examines source code to identify security vulnerabilities?",
+        "fr": "Quelle activité examine le code source pour identifier les vulnérabilités de sécurité ?"
+       },
+       "choices": [
+        {
+         "en": "Secure code review",
+         "fr": "Revue de code sécurisée"
+        },
+        {
+         "en": "Wireless scanning",
+         "fr": "Analyse sans fil"
+        },
+        {
+         "en": "Tape rotation",
+         "fr": "Rotation des bandes"
+        },
+        {
+         "en": "Physical lock testing",
+         "fr": "Essais de verrouillage physique"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "A secure code review reads the source code (manually or with tools) to find flaws such as injection or weak access checks. Wireless scanning looks at radio networks, tape rotation is a backup practice, and lock testing is physical security.",
+        "fr": "La revue de code sécurisée lit le code source (à la main ou avec des outils) pour trouver des failles comme l'injection ou des contrôles d'accès faibles. L'analyse sans fil porte sur les réseaux radio, la rotation des bandes est une pratique de sauvegarde et les essais de serrures relèvent de la sécurité physique."
+       },
+       "id": "prep-2026-11-20-q02"
+      },
+      {
+       "chapterId": "m4c1",
+       "prompt": {
+        "en": "Which activity examines the application design for weaknesses before deployment?",
+        "fr": "Quelle activité examine la conception de l'application pour détecter les faiblesses avant le déploiement ?"
+       },
+       "choices": [
+        {
+         "en": "Architectural risk assessment",
+         "fr": "Évaluation des risques architecturaux"
+        },
+        {
+         "en": "Password expiration",
+         "fr": "Expiration du mot de passe"
+        },
+        {
+         "en": "File shredding",
+         "fr": "Déchiquetage de fichiers"
+        },
+        {
+         "en": "Wireless jamming",
+         "fr": "Brouillage sans fil"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "An architectural risk assessment reviews the design (components, data flows, trust boundaries) to find weaknesses before any code is deployed. Password expiration, file shredding and wireless jamming have nothing to do with design review.",
+        "fr": "L'évaluation des risques architecturaux examine la conception (composants, flux de données, limites de confiance) pour trouver les faiblesses avant tout déploiement. L'expiration des mots de passe, le déchiquetage de fichiers et le brouillage sans fil n'ont rien à voir avec la revue de conception."
+       },
+       "id": "prep-2026-11-20-q03"
+      },
+      {
+       "chapterId": "m4c1",
+       "prompt": {
+        "en": "Which type of control includes secure coding policies and testing procedures?",
+        "fr": "Quel type de contrôle inclut des politiques de codage sécurisé et des procédures de test ?"
+       },
+       "choices": [
+        {
+         "en": "Administrative control",
+         "fr": "Contrôle administratif"
+        },
+        {
+         "en": "Physical control only",
+         "fr": "Contrôle physique uniquement"
+        },
+        {
+         "en": "Biometric control",
+         "fr": "Contrôle biométrique"
+        },
+        {
+         "en": "Environmental control",
+         "fr": "Contrôle environnemental"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "Policies, standards and procedures are administrative (managerial) controls: they tell people how to work. Physical and environmental controls protect premises, and biometrics is a technical authentication method.",
+        "fr": "Les politiques, normes et procédures sont des contrôles administratifs : elles disent aux personnes comment travailler. Les contrôles physiques et environnementaux protègent les locaux, et la biométrie est une méthode technique d'authentification."
+       },
+       "id": "prep-2026-11-20-q04"
+      },
+      {
+       "chapterId": "m4c1",
+       "prompt": {
+        "en": "Which type of control includes web application firewalls and scanning tools?",
+        "fr": "Quel type de contrôle inclut les pare-feux d'applications web et les outils d'analyse ?"
+       },
+       "choices": [
+        {
+         "en": "Technical control",
+         "fr": "Contrôle technique"
+        },
+        {
+         "en": "Legal hold",
+         "fr": "Conservation légale (legal hold)"
+        },
+        {
+         "en": "Human resources control only",
+         "fr": "Contrôle des ressources humaines uniquement"
+        },
+        {
+         "en": "Data retention control",
+         "fr": "Contrôle de la conservation des données"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "A WAF and vulnerability scanners are technical (logical) controls: technology enforces or checks security. A legal hold preserves data for litigation, HR controls are administrative, and retention control decides how long data is kept.",
+        "fr": "Un WAF et les scanners de vulnérabilités sont des contrôles techniques (logiques) : c'est la technologie qui applique ou vérifie la sécurité. Le legal hold préserve des données pour un litige, les contrôles RH sont administratifs, et la conservation fixe la durée de garde des données."
+       },
+       "id": "prep-2026-11-20-q05"
+      },
+      {
+       "chapterId": "m4c1",
+       "prompt": {
+        "en": "Which vulnerability occurs when untrusted input is interpreted as a command or query?",
+        "fr": "Quelle vulnérabilité survient lorsqu'une saisie non fiable est interprétée comme une commande ou une requête ?"
+       },
+       "choices": [
+        {
+         "en": "Injection",
+         "fr": "Injection"
+        },
+        {
+         "en": "Archiving",
+         "fr": "Archivage"
+        },
+        {
+         "en": "Failover",
+         "fr": "Basculement"
+        },
+        {
+         "en": "Data retention",
+         "fr": "Conservation des données"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "Injection (SQL, OS command, LDAP...) happens when user input is mixed with a command or query and executed. Defense: parameterized queries and input validation. Archiving, failover and retention are not vulnerabilities.",
+        "fr": "L'injection (SQL, commande système, LDAP...) se produit quand une saisie utilisateur est mêlée à une commande ou une requête puis exécutée. Parade : requêtes paramétrées et validation des entrées. Archivage, basculement et conservation ne sont pas des vulnérabilités."
+       },
+       "id": "prep-2026-11-20-q06"
+      },
+      {
+       "chapterId": "m4c1",
+       "prompt": {
+        "en": "Which vulnerability allows users to access resources or actions they should not be authorized to use?",
+        "fr": "Quelle vulnérabilité permet aux utilisateurs d'accéder à des ressources ou à des actions qu'ils ne devraient pas être autorisés à utiliser ?"
+       },
+       "choices": [
+        {
+         "en": "Broken access control",
+         "fr": "Contrôle d'accès défaillant"
+        },
+        {
+         "en": "High availability",
+         "fr": "Haute disponibilité"
+        },
+        {
+         "en": "Tokenization",
+         "fr": "Tokenisation"
+        },
+        {
+         "en": "Backup failure only",
+         "fr": "Échec de sauvegarde uniquement"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "Broken access control (OWASP A01) lets a user act outside their permissions, for example by changing an ID in the URL. High availability and tokenization are protections, and a backup failure is an availability problem.",
+        "fr": "Le contrôle d'accès défaillant (OWASP A01) permet à un utilisateur d'agir hors de ses droits, par exemple en changeant un identifiant dans l'URL. La haute disponibilité et la tokenisation sont des protections, et un échec de sauvegarde est un problème de disponibilité."
+       },
+       "id": "prep-2026-11-20-q07"
+      },
+      {
+       "chapterId": "m4c1",
+       "prompt": {
+        "en": "What is the purpose of threat modeling?",
+        "fr": "Quel est le but de la modélisation des menaces ?"
+       },
+       "choices": [
+        {
+         "en": "To identify threats, attack paths, trust boundaries and controls during design",
+         "fr": "Identifier les menaces, les chemins d'attaque, les limites de confiance et les contrôles lors de la conception"
+        },
+        {
+         "en": "To replace all testing",
+         "fr": "Remplacer tous les tests"
+        },
+        {
+         "en": "To remove developers from the project",
+         "fr": "Retirer les développeurs du projet"
+        },
+        {
+         "en": "To encrypt only the source code",
+         "fr": "Chiffrer uniquement le code source"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "Threat modeling (for example with STRIDE) is done early, at design time, to find threats, attack paths and trust boundaries and choose controls. It complements testing, it does not replace it.",
+        "fr": "La modélisation des menaces (par exemple avec STRIDE) se fait tôt, à la conception, pour trouver les menaces, les chemins d'attaque et les limites de confiance, et choisir les contrôles. Elle complète les tests, elle ne les remplace pas."
+       },
+       "id": "prep-2026-11-20-q08"
+      },
+      {
+       "chapterId": "m4c1",
+       "prompt": {
+        "en": "Which development model is sequential and usually completes one phase before the next begins?",
+        "fr": "Quel modèle de développement est séquentiel et termine généralement une phase avant que la suivante ne commence ?"
+       },
+       "choices": [
+        {
+         "en": "Waterfall",
+         "fr": "Cascade (Waterfall)"
+        },
+        {
+         "en": "Agile",
+         "fr": "Agile"
+        },
+        {
+         "en": "DevSecOps",
+         "fr": "DevSecOps"
+        },
+        {
+         "en": "Random coding",
+         "fr": "Codage aléatoire"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "Waterfall runs phases in order (requirements, design, coding, testing, deployment), each finished before the next. Agile works in short iterations, and DevSecOps automates security in continuous delivery.",
+        "fr": "Le modèle en cascade (Waterfall) enchaîne les phases dans l'ordre (exigences, conception, codage, tests, déploiement), chacune terminée avant la suivante. Agile travaille par itérations courtes, et DevSecOps automatise la sécurité dans la livraison continue."
+       },
+       "id": "prep-2026-11-20-q09"
+      },
+      {
+       "chapterId": "m4c1",
+       "prompt": {
+        "en": "Which development approach integrates security into DevOps and CI/CD pipelines?",
+        "fr": "Quelle approche de développement intègre la sécurité dans les pipelines DevOps et CI/CD ?"
+       },
+       "choices": [
+        {
+         "en": "DevSecOps",
+         "fr": "DevSecOps"
+        },
+        {
+         "en": "Waterfall only",
+         "fr": "Cascade uniquement"
+        },
+        {
+         "en": "Manual deployment only",
+         "fr": "Déploiement manuel uniquement"
+        },
+        {
+         "en": "End-user licensing",
+         "fr": "Licence pour l'utilisateur final"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "DevSecOps puts security checks (SAST, SCA, secret scanning, DAST) directly into the CI/CD pipeline: \"shift left\" and shared responsibility. Waterfall and manual deployment are not pipeline approaches, and licensing is a legal matter.",
+        "fr": "DevSecOps place les contrôles de sécurité (SAST, SCA, recherche de secrets, DAST) directement dans le pipeline CI/CD : « shift left » et responsabilité partagée. La cascade et le déploiement manuel ne sont pas des approches de pipeline, et la licence est une question juridique."
+       },
+       "id": "prep-2026-11-20-q10"
+      },
+      {
+       "chapterId": "m4c1",
+       "prompt": {
+        "en": "What does verification ask?",
+        "fr": "Quelle question pose la vérification ?"
+       },
+       "choices": [
+        {
+         "en": "Did we build the product right?",
+         "fr": "Avons-nous construit le produit correctement ?"
+        },
+        {
+         "en": "Did the vendor sign the invoice?",
+         "fr": "Le fournisseur a-t-il signé la facture ?"
+        },
+        {
+         "en": "Did the user complete training?",
+         "fr": "L'utilisateur a-t-il suivi une formation ?"
+        },
+        {
+         "en": "Does the cable meet length requirements?",
+         "fr": "Le câble satisfait-il aux exigences de longueur ?"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "Verification checks that the product matches its specifications: \"did we build the product right?\". Validation (next question) checks that it meets the real need. The other choices are unrelated to software quality.",
+        "fr": "La vérification contrôle que le produit est conforme à ses spécifications : « avons-nous construit le produit correctement ? ». La validation (question suivante) contrôle qu'il répond au vrai besoin. Les autres choix n'ont rien à voir avec la qualité logicielle."
+       },
+       "id": "prep-2026-11-20-q11"
+      },
+      {
+       "chapterId": "m4c1",
+       "prompt": {
+        "en": "What does validation ask?",
+        "fr": "Quelle question pose la validation ?"
+       },
+       "choices": [
+        {
+         "en": "Did we build the right product?",
+         "fr": "Avons-nous construit le bon produit ?"
+        },
+        {
+         "en": "Was the file encrypted with DES?",
+         "fr": "Le fichier a-t-il été chiffré avec DES ?"
+        },
+        {
+         "en": "Did the switch use VLANs?",
+         "fr": "Le commutateur utilisait-il des VLAN ?"
+        },
+        {
+         "en": "Was the software archived forever?",
+         "fr": "Le logiciel a-t-il été archivé à jamais ?"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "Validation checks that the product meets the users' real needs: \"did we build the right product?\". Mnemonic: verification = right (correctly built), validation = right product (the right thing).",
+        "fr": "La validation contrôle que le produit répond aux vrais besoins des utilisateurs : « avons-nous construit le bon produit ? ». Moyen mnémotechnique : vérification = bien construit, validation = la bonne chose."
+       },
+       "id": "prep-2026-11-20-q12"
+      },
+      {
+       "chapterId": "m4c1",
+       "prompt": {
+        "en": "Which testing method analyzes code without running the application?",
+        "fr": "Quelle méthode de test analyse le code sans exécuter l'application ?"
+       },
+       "choices": [
+        {
+         "en": "SAST",
+         "fr": "SAST"
+        },
+        {
+         "en": "DAST",
+         "fr": "DAST"
+        },
+        {
+         "en": "Packet sniffing",
+         "fr": "Reniflage de paquets"
+        },
+        {
+         "en": "Physical audit only",
+         "fr": "Audit physique uniquement"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "SAST (Static Application Security Testing) analyzes source code or binaries without running them (white box). DAST tests the running application, and packet sniffing captures network traffic.",
+        "fr": "Le SAST (test statique de sécurité applicative) analyse le code source ou le binaire sans l'exécuter (boîte blanche). Le DAST teste l'application en fonctionnement, et le reniflage de paquets capture le trafic réseau."
+       },
+       "id": "prep-2026-11-20-q13"
+      },
+      {
+       "chapterId": "m4c1",
+       "prompt": {
+        "en": "Which testing method evaluates the running application from the outside?",
+        "fr": "Quelle méthode de test évalue l'application en cours d'exécution depuis l'extérieur ?"
+       },
+       "choices": [
+        {
+         "en": "DAST",
+         "fr": "DAST"
+        },
+        {
+         "en": "SAST",
+         "fr": "SAST"
+        },
+        {
+         "en": "Legal hold",
+         "fr": "Conservation légale (legal hold)"
+        },
+        {
+         "en": "Data masking",
+         "fr": "Masquage des données"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "DAST (Dynamic Application Security Testing) attacks the running application from the outside, like an attacker, without seeing the code (black box). SAST reads the code, legal hold preserves evidence, and masking hides data.",
+        "fr": "Le DAST (test dynamique de sécurité applicative) attaque l'application en fonctionnement depuis l'extérieur, comme un attaquant, sans voir le code (boîte noire). Le SAST lit le code, le legal hold préserve des preuves et le masquage cache des données."
+       },
+       "id": "prep-2026-11-20-q14"
+      },
+      {
+       "chapterId": "m4c1",
+       "prompt": {
+        "en": "Which method identifies third-party libraries, dependencies, licenses and known vulnerabilities?",
+        "fr": "Quelle méthode identifie les bibliothèques tierces, les dépendances, les licences et les vulnérabilités connues ?"
+       },
+       "choices": [
+        {
+         "en": "Software composition analysis",
+         "fr": "Analyse de la composition logicielle (SCA)"
+        },
+        {
+         "en": "Shoulder surfing",
+         "fr": "Regard par-dessus l'épaule (shoulder surfing)"
+        },
+        {
+         "en": "VLAN hopping",
+         "fr": "Saut de VLAN (VLAN hopping)"
+        },
+        {
+         "en": "Debugging",
+         "fr": "Débogage"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "SCA (Software Composition Analysis) inventories open-source and third-party components, their licenses and known CVEs, and can produce an SBOM. Shoulder surfing and VLAN hopping are attacks, and debugging fixes functional bugs.",
+        "fr": "La SCA (analyse de la composition logicielle) recense les composants open source et tiers, leurs licences et leurs CVE connues, et peut produire une SBOM. Le shoulder surfing et le VLAN hopping sont des attaques, et le débogage corrige des bogues fonctionnels."
+       },
+       "id": "prep-2026-11-20-q15"
+      }
+     ]
+    },
+    {
+     "title": {
+      "en": "Module 10: Business Continuity, Disaster Recovery and Incident Management (questions 1-15)",
+      "fr": "Module 10 : continuité des activités, reprise après sinistre et gestion des incidents (questions 1 à 15)"
+     },
+     "questions": [
+      {
+       "chapterId": "m2c1",
+       "prompt": {
+        "en": "What is the main purpose of a Security Operations Center?",
+        "fr": "Quel est le principal objectif d'un centre des opérations de sécurité (SOC) ?"
+       },
+       "choices": [
+        {
+         "en": "To replace all business continuity planning",
+         "fr": "Remplacer toute la planification de la continuité des activités"
+        },
+        {
+         "en": "To continuously monitor, analyze, detect and support response to security events",
+         "fr": "Surveiller, analyser, détecter en continu les événements de sécurité et appuyer la réponse"
+        },
+        {
+         "en": "To store only paper documents",
+         "fr": "Stocker uniquement des documents papier"
+        },
+        {
+         "en": "To eliminate the need for incident response",
+         "fr": "Éliminer le besoin de réponse aux incidents"
+        }
+       ],
+       "correct": 1,
+       "explanation": {
+        "en": "A SOC watches the environment 24/7: it monitors, analyzes and detects security events and supports the incident response. It does not replace continuity planning and does not remove the need for incident response.",
+        "fr": "Un SOC surveille l'environnement 24 h/24 : il surveille, analyse et détecte les événements de sécurité et appuie la réponse aux incidents. Il ne remplace pas le plan de continuité et ne supprime pas le besoin de réponse aux incidents."
+       },
+       "id": "prep-2026-11-20-q16"
+      },
+      {
+       "chapterId": "m2c1",
+       "prompt": {
+        "en": "Which SOC tool collects, correlates and analyzes logs from multiple sources?",
+        "fr": "Quel outil du SOC collecte, corrèle et analyse les journaux provenant de multiples sources ?"
+       },
+       "choices": [
+        {
+         "en": "SIEM",
+         "fr": "SIEM"
+        },
+        {
+         "en": "Hot site",
+         "fr": "Site chaud"
+        },
+        {
+         "en": "RPO",
+         "fr": "RPO"
+        },
+        {
+         "en": "Data custodian",
+         "fr": "Dépositaire des données"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "The SIEM (Security Information and Event Management) centralizes logs, correlates them and raises alerts. A hot site is a recovery site, RPO is a continuity metric, and the data custodian is a role.",
+        "fr": "Le SIEM (gestion des informations et des événements de sécurité) centralise les journaux, les corrèle et lève des alertes. Un site chaud est un site de secours, le RPO un indicateur de continuité, et le dépositaire des données un rôle."
+       },
+       "id": "prep-2026-11-20-q17"
+      },
+      {
+       "chapterId": "m2c1",
+       "prompt": {
+        "en": "Which SOC function determines whether an alert is real and how severe it is?",
+        "fr": "Quelle fonction du SOC détermine si une alerte est réelle et à quel point elle est grave ?"
+       },
+       "choices": [
+        {
+         "en": "Triage",
+         "fr": "Triage"
+        },
+        {
+         "en": "Archiving",
+         "fr": "Archivage"
+        },
+        {
+         "en": "Data masking",
+         "fr": "Masquage des données"
+        },
+        {
+         "en": "Disk wiping",
+         "fr": "Effacement du disque"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "Triage sorts alerts: true or false positive, then severity and priority, before escalation. Archiving, masking and wiping are data handling tasks.",
+        "fr": "Le triage trie les alertes : vrai ou faux positif, puis gravité et priorité, avant l'escalade. L'archivage, le masquage et l'effacement sont des opérations sur les données."
+       },
+       "id": "prep-2026-11-20-q18"
+      },
+      {
+       "chapterId": "m2c1",
+       "prompt": {
+        "en": "What is the purpose of threat intelligence in a SOC?",
+        "fr": "Quel est le but du renseignement sur les menaces dans un SOC ?"
+       },
+       "choices": [
+        {
+         "en": "To replace analysts",
+         "fr": "Remplacer les analystes"
+        },
+        {
+         "en": "To provide information about known threats, indicators and attacker behavior",
+         "fr": "Fournir des informations sur les menaces connues, les indicateurs et le comportement des attaquants"
+        },
+        {
+         "en": "To eliminate all vulnerabilities",
+         "fr": "Éliminer toutes les vulnérabilités"
+        },
+        {
+         "en": "To guarantee compliance",
+         "fr": "Garantir la conformité"
+        }
+       ],
+       "correct": 1,
+       "explanation": {
+        "en": "Threat intelligence feeds the SOC with known threats, indicators of compromise (IOC) and attacker tactics (TTP) to improve detection. It helps analysts, it does not replace them, and it neither removes vulnerabilities nor guarantees compliance.",
+        "fr": "Le renseignement sur les menaces (threat intelligence) alimente le SOC en menaces connues, indicateurs de compromission (IOC) et tactiques des attaquants (TTP) pour mieux détecter. Il aide les analystes sans les remplacer, et ne supprime pas les vulnérabilités ni ne garantit la conformité."
+       },
+       "id": "prep-2026-11-20-q19"
+      },
+      {
+       "chapterId": "m5c1",
+       "prompt": {
+        "en": "Which plan aims to keep critical business functions running during and after disruptions?",
+        "fr": "Quel plan vise à maintenir les fonctions métier critiques en fonctionnement pendant et après les perturbations ?"
+       },
+       "choices": [
+        {
+         "en": "Business continuity plan",
+         "fr": "Plan de continuité des activités (PCA)"
+        },
+        {
+         "en": "Password policy",
+         "fr": "Politique des mots de passe"
+        },
+        {
+         "en": "Source code repository",
+         "fr": "Référentiel de code source"
+        },
+        {
+         "en": "Wireless site survey",
+         "fr": "Étude de site sans fil"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "The BCP keeps the business running (people, processes, sites, suppliers) during and after a disruption. The DRP, a part of it, restores IT. The other choices are not continuity plans.",
+        "fr": "Le PCA (BCP) maintient l'activité (personnes, processus, sites, fournisseurs) pendant et après une perturbation. Le PRA (DRP), qui en fait partie, restaure l'informatique. Les autres choix ne sont pas des plans de continuité."
+       },
+       "id": "prep-2026-11-20-q20"
+      },
+      {
+       "chapterId": "m5c1",
+       "prompt": {
+        "en": "Which plan focuses mainly on restoring technology, systems, data and infrastructure?",
+        "fr": "Quel plan se concentre principalement sur la restauration de la technologie, des systèmes, des données et des infrastructures ?"
+       },
+       "choices": [
+        {
+         "en": "Disaster recovery plan",
+         "fr": "Plan de reprise après sinistre (PRA)"
+        },
+        {
+         "en": "Acceptable use policy",
+         "fr": "Politique d'utilisation acceptable"
+        },
+        {
+         "en": "Marketing plan",
+         "fr": "Plan marketing"
+        },
+        {
+         "en": "Data labeling plan",
+         "fr": "Plan d'étiquetage des données"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "The DRP is technical: it restores systems, data and infrastructure after a disaster. The BCP is broader (the whole business). An acceptable use policy governs user behavior.",
+        "fr": "Le PRA (DRP) est technique : il restaure les systèmes, les données et l'infrastructure après un sinistre. Le PCA est plus large (toute l'activité). La politique d'utilisation acceptable encadre le comportement des utilisateurs."
+       },
+       "id": "prep-2026-11-20-q21"
+      },
+      {
+       "chapterId": "m5c1",
+       "prompt": {
+        "en": "What is the goal of a business impact analysis?",
+        "fr": "Quel est l'objectif d'une analyse d'impact sur l'activité (BIA) ?"
+       },
+       "choices": [
+        {
+         "en": "To identify critical business functions, impacts, dependencies and recovery priorities",
+         "fr": "Identifier les fonctions métier critiques, les impacts, les dépendances et les priorités de reprise"
+        },
+        {
+         "en": "To encrypt all data automatically",
+         "fr": "Chiffrer automatiquement toutes les données"
+        },
+        {
+         "en": "To assign IP addresses",
+         "fr": "Attribuer des adresses IP"
+        },
+        {
+         "en": "To replace incident response",
+         "fr": "Remplacer la réponse aux incidents"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "The BIA identifies critical functions, the impact of their loss over time, their dependencies and the recovery priorities. It sets the MTD, RTO and RPO used by the BCP and DRP.",
+        "fr": "Le BIA identifie les fonctions critiques, l'impact de leur perte dans le temps, leurs dépendances et les priorités de reprise. Il fixe le MTD, le RTO et le RPO utilisés par le PCA et le PRA."
+       },
+       "id": "prep-2026-11-20-q22"
+      },
+      {
+       "chapterId": "m5c1",
+       "prompt": {
+        "en": "Which term describes the maximum time a business process can be unavailable before the impact becomes unacceptable?",
+        "fr": "Quel terme décrit la durée maximale pendant laquelle un processus métier peut être indisponible avant que l'impact ne devienne inacceptable ?"
+       },
+       "choices": [
+        {
+         "en": "MTD",
+         "fr": "MTD"
+        },
+        {
+         "en": "RPO",
+         "fr": "RPO"
+        },
+        {
+         "en": "MAC",
+         "fr": "MAC"
+        },
+        {
+         "en": "HMAC",
+         "fr": "HMAC"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "MTD (Maximum Tolerable Downtime) is the longest outage the business can survive. RPO measures acceptable data loss, MAC is an access control model (or a hardware address), and HMAC is a keyed hash.",
+        "fr": "Le MTD (durée maximale d'interruption tolérable) est la plus longue interruption que l'activité peut supporter. Le RPO mesure la perte de données acceptable, MAC est un modèle de contrôle d'accès (ou une adresse matérielle) et HMAC un hachage avec clé."
+       },
+       "id": "prep-2026-11-20-q23"
+      },
+      {
+       "chapterId": "m5c1",
+       "prompt": {
+        "en": "Which term describes the target time to restore a system or service?",
+        "fr": "Quel terme décrit le temps cible pour restaurer un système ou un service ?"
+       },
+       "choices": [
+        {
+         "en": "RTO",
+         "fr": "RTO"
+        },
+        {
+         "en": "RPO",
+         "fr": "RPO"
+        },
+        {
+         "en": "CVE",
+         "fr": "CVE"
+        },
+        {
+         "en": "EAL",
+         "fr": "EAL"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "RTO (Recovery Time Objective) is the target time to bring a system back. It must be shorter than the MTD. RPO is about data, CVE identifies a vulnerability, and EAL is a Common Criteria assurance level.",
+        "fr": "Le RTO (objectif de délai de reprise) est le temps cible pour remettre un système en service. Il doit être inférieur au MTD. Le RPO concerne les données, CVE identifie une vulnérabilité et EAL est un niveau d'assurance des Critères communs."
+       },
+       "id": "prep-2026-11-20-q24"
+      },
+      {
+       "chapterId": "m5c1",
+       "prompt": {
+        "en": "Which term describes the maximum acceptable data loss measured in time?",
+        "fr": "Quel terme décrit la perte maximale acceptable de données, mesurée en temps ?"
+       },
+       "choices": [
+        {
+         "en": "RPO",
+         "fr": "RPO"
+        },
+        {
+         "en": "RTO",
+         "fr": "RTO"
+        },
+        {
+         "en": "WRT",
+         "fr": "WRT"
+        },
+        {
+         "en": "SLA only",
+         "fr": "SLA uniquement"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "RPO (Recovery Point Objective) is how far back in time you may lose data, so it drives backup frequency (RPO of 4 h = backup at least every 4 h). RTO and WRT are about time to recover, and an SLA is a contract.",
+        "fr": "Le RPO (objectif de point de reprise) indique jusqu'où dans le passé on accepte de perdre des données ; il fixe la fréquence des sauvegardes (RPO de 4 h = sauvegarde au moins toutes les 4 h). Le RTO et le WRT concernent le temps de reprise, et le SLA est un contrat."
+       },
+       "id": "prep-2026-11-20-q25"
+      },
+      {
+       "chapterId": "m5c1",
+       "prompt": {
+        "en": "What does work recovery time describe?",
+        "fr": "Que décrit le temps de reprise du travail (WRT) ?"
+       },
+       "choices": [
+        {
+         "en": "The catch-up work needed after technical recovery",
+         "fr": "Le travail de rattrapage nécessaire après la reprise technique"
+        },
+        {
+         "en": "The time needed to encrypt a drive",
+         "fr": "Le temps nécessaire pour chiffrer un disque"
+        },
+        {
+         "en": "The time to install a firewall",
+         "fr": "Le moment d'installer un pare-feu"
+        },
+        {
+         "en": "The legal log retention period",
+         "fr": "La période légale de conservation des journaux"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "WRT (Work Recovery Time) is the time after the systems are back (RTO) to check data, re-enter lost transactions and resume normal work. Rule: RTO + WRT must not exceed the MTD.",
+        "fr": "Le WRT (temps de reprise du travail) est le temps, une fois les systèmes rétablis (RTO), pour vérifier les données, ressaisir les transactions perdues et reprendre le travail normal. Règle : RTO + WRT ne doit pas dépasser le MTD."
+       },
+       "id": "prep-2026-11-20-q26"
+      },
+      {
+       "chapterId": "m5c1",
+       "prompt": {
+        "en": "What is the first priority in a disaster recovery plan?",
+        "fr": "Quelle est la première priorité dans un plan de reprise après sinistre ?"
+       },
+       "choices": [
+        {
+         "en": "Protecting people",
+         "fr": "Protection des personnes"
+        },
+        {
+         "en": "Recovering printers",
+         "fr": "Récupération des imprimantes"
+        },
+        {
+         "en": "Paying vendors",
+         "fr": "Paiement des fournisseurs"
+        },
+        {
+         "en": "Restoring social media accounts",
+         "fr": "Restauration des comptes sur les réseaux sociaux"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "Human life and safety always come first, before any system or asset. The other choices may be part of recovery, but never before the safety of people.",
+        "fr": "La vie et la sécurité des personnes passent toujours en premier, avant tout système ou bien. Les autres choix peuvent faire partie de la reprise, mais jamais avant la sécurité des personnes."
+       },
+       "id": "prep-2026-11-20-q27"
+      },
+      {
+       "chapterId": "m5c1",
+       "prompt": {
+        "en": "Which alternate site is fully equipped and provides the fastest recovery?",
+        "fr": "Quel site de secours est entièrement équipé et offre la reprise la plus rapide ?"
+       },
+       "choices": [
+        {
+         "en": "Hot site",
+         "fr": "Site chaud"
+        },
+        {
+         "en": "Cold site",
+         "fr": "Site froid"
+        },
+        {
+         "en": "Reciprocal agreement",
+         "fr": "Accord réciproque"
+        },
+        {
+         "en": "Empty warehouse",
+         "fr": "Entrepôt vide"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "A hot site has hardware, network and recent data ready: recovery in hours. A cold site has only space and utilities, and a reciprocal agreement relies on another company's spare capacity, which is uncertain.",
+        "fr": "Un site chaud dispose du matériel, du réseau et de données récentes prêts : reprise en quelques heures. Un site froid n'offre que l'espace et les services de base, et un accord réciproque repose sur la capacité libre d'une autre entreprise, ce qui est incertain."
+       },
+       "id": "prep-2026-11-20-q28"
+      },
+      {
+       "chapterId": "m5c1",
+       "prompt": {
+        "en": "Which alternate site provides space and basic utilities but little or no equipment?",
+        "fr": "Quel site de secours offre l'espace et les services de base, mais peu ou pas d'équipement ?"
+       },
+       "choices": [
+        {
+         "en": "Cold site",
+         "fr": "Site froid"
+        },
+        {
+         "en": "Hot site",
+         "fr": "Site chaud"
+        },
+        {
+         "en": "Redundant site",
+         "fr": "Site redondant"
+        },
+        {
+         "en": "Production site",
+         "fr": "Site de production"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "A cold site is an empty room with power, cooling and connectivity: cheapest, but recovery takes days or weeks. A hot site is fully equipped, a redundant (mirror) site runs in parallel, and the production site is the one that failed.",
+        "fr": "Un site froid est une salle vide avec électricité, climatisation et connectivité : le moins cher, mais la reprise prend des jours ou des semaines. Un site chaud est entièrement équipé, un site redondant (miroir) fonctionne en parallèle, et le site de production est celui qui est tombé."
+       },
+       "id": "prep-2026-11-20-q29"
+      },
+      {
+       "chapterId": "m5c2",
+       "prompt": {
+        "en": "Which incident response phase limits the damage and prevents the spread?",
+        "fr": "Quelle phase de la réponse aux incidents limite les dégâts et empêche la propagation ?"
+       },
+       "choices": [
+        {
+         "en": "Containment",
+         "fr": "Confinement"
+        },
+        {
+         "en": "Lessons learned",
+         "fr": "Retour d'expérience"
+        },
+        {
+         "en": "Provisioning",
+         "fr": "Approvisionnement"
+        },
+        {
+         "en": "Classification",
+         "fr": "Classification"
+        }
+       ],
+       "correct": 0,
+       "explanation": {
+        "en": "Containment isolates the affected systems (network isolation, account lockout) to stop the spread, before eradication and recovery. Lessons learned comes at the end, and provisioning and classification are not response phases.",
+        "fr": "Le confinement isole les systèmes touchés (isolement réseau, blocage de comptes) pour arrêter la propagation, avant l'éradication et la reprise. Le retour d'expérience vient à la fin, et l'approvisionnement et la classification ne sont pas des phases de réponse."
+       },
+       "id": "prep-2026-11-20-q30"
+      }
+     ]
+    }
+   ],
+   "tables": [
+    {
+     "title": {
+      "en": "Application security testing",
+      "fr": "Tests de sécurité applicative"
+     },
+     "rows": [
+      [
+       "SAST",
+       "Code statique, sans exécution (boîte blanche)"
+      ],
+      [
+       "DAST",
+       "Application en fonctionnement, depuis l'extérieur (boîte noire)"
+      ],
+      [
+       "SCA",
+       "Bibliothèques tierces, licences, CVE connues"
+      ],
+      [
+       "Secure code review",
+       "Revue du code source"
+      ],
+      [
+       "Architectural risk assessment",
+       "Revue de la conception avant déploiement"
+      ]
+     ]
+    },
+    {
+     "title": {
+      "en": "Continuity metrics",
+      "fr": "Indicateurs de continuité"
+     },
+     "rows": [
+      [
+       "MTD",
+       "Interruption maximale tolérable pour le métier"
+      ],
+      [
+       "RTO",
+       "Temps cible pour restaurer le système"
+      ],
+      [
+       "WRT",
+       "Rattrapage après la reprise technique"
+      ],
+      [
+       "RPO",
+       "Perte de données maximale (en temps)"
+      ],
+      [
+       "Rule",
+       "RTO + WRT ≤ MTD"
+      ]
+     ]
+    },
+    {
+     "title": {
+      "en": "Alternate sites",
+      "fr": "Sites de secours"
+     },
+     "rows": [
+      [
+       "Redundant / mirror",
+       "Fonctionne en parallèle, bascule quasi immédiate"
+      ],
+      [
+       "Hot site",
+       "Tout équipé, reprise en heures"
+      ],
+      [
+       "Warm site",
+       "Partiellement équipé, reprise en jours"
+      ],
+      [
+       "Cold site",
+       "Espace et services de base, reprise en semaines"
+      ]
+     ]
+    }
+   ],
+   "keywords": [
+    {
+     "term": "Secure Code Review",
+     "en": "Reading source code to find flaws",
+     "fr": "Revue de code sécurisée"
+    },
+    {
+     "term": "Threat Modeling",
+     "en": "Threats, attack paths, trust boundaries at design",
+     "fr": "Modélisation des menaces"
+    },
+    {
+     "term": "Injection",
+     "en": "Untrusted input run as a command or query",
+     "fr": "Injection"
+    },
+    {
+     "term": "Broken Access Control",
+     "en": "Acting outside one's permissions",
+     "fr": "Contrôle d'accès défaillant"
+    },
+    {
+     "term": "Waterfall",
+     "en": "Sequential phases",
+     "fr": "Modèle en cascade"
+    },
+    {
+     "term": "DevSecOps",
+     "en": "Security in the CI/CD pipeline",
+     "fr": "Sécurité intégrée au DevOps"
+    },
+    {
+     "term": "Verification",
+     "en": "Did we build the product right?",
+     "fr": "Vérification"
+    },
+    {
+     "term": "Validation",
+     "en": "Did we build the right product?",
+     "fr": "Validation"
+    },
+    {
+     "term": "SAST / DAST",
+     "en": "Static code vs running application",
+     "fr": "Test statique / dynamique"
+    },
+    {
+     "term": "SCA",
+     "en": "Software Composition Analysis",
+     "fr": "Analyse de la composition logicielle"
+    },
+    {
+     "term": "SIEM",
+     "en": "Collects and correlates logs",
+     "fr": "Gestion des informations et événements de sécurité"
+    },
+    {
+     "term": "Triage",
+     "en": "Is the alert real, how severe?",
+     "fr": "Triage des alertes"
+    },
+    {
+     "term": "Threat Intelligence",
+     "en": "Known threats, IOC, attacker behavior",
+     "fr": "Renseignement sur les menaces"
+    },
+    {
+     "term": "BCP / DRP",
+     "en": "Keep the business running / restore IT",
+     "fr": "PCA / PRA"
+    },
+    {
+     "term": "BIA",
+     "en": "Critical functions, impacts, priorities",
+     "fr": "Analyse d'impact sur l'activité"
+    },
+    {
+     "term": "MTD / RTO / RPO / WRT",
+     "en": "Downtime, restore time, data loss, catch-up",
+     "fr": "Indicateurs de continuité"
+    },
+    {
+     "term": "Hot / Cold Site",
+     "en": "Fully equipped / empty space",
+     "fr": "Site chaud / froid"
+    },
+    {
+     "term": "Containment",
+     "en": "Limit damage and stop the spread",
+     "fr": "Confinement"
+    }
+   ],
+   "advice": "Vérification = « bien construit » (conforme aux spécifications), validation = « le bon produit » (le vrai besoin). SAST lit le code sans l'exécuter, DAST attaque l'application qui tourne, SCA inventorie les dépendances. En continuité : la sécurité des personnes d'abord, et RTO + WRT ≤ MTD ; le RPO fixe la fréquence des sauvegardes."
   }
  ]
 }
