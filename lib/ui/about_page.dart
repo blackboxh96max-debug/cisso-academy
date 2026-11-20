@@ -492,7 +492,7 @@ String frenchDate(String iso) {
 /// la version ; la première entrée porte toujours [appVersion].
 const appNews = <(String, String, List<String>)>[
   (
-    '1.5.0',
+    '1.6.0',
     '20/11/2026',
     [
       'Textes et normes : 15 fiches courtes (ISO/IEC 27017, 27018, 27701, '
