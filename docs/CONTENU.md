@@ -49,3 +49,20 @@ Plusieurs bonnes réponses dans `correct` font une question à réponses multipl
 [{ "id": "ale", "en": "Annualized Loss Expectancy", "fr": "Espérance de perte annuelle",
    "acronym": "ALE", "definition": "...", "example": "...", "kind": "general" }]
 ```
+
+## `regulations.json` (Textes et normes)
+
+Fiches courtes, bilingues, sur les normes et règlements (déclarées par `"regulations"` dans `catalog.json`). Ce ne sont pas des leçons : pas de QCM ni de flashcards.
+
+```json
+{ "verifiedOn": "2026-11-20", "intro": {"fr": "...", "en": "..."}, "notice": {"fr": "...", "en": "..."},
+  "groups": [{ "id": "...", "emoji": "📐", "title": {"fr": "...", "en": "..."},
+    "items": [{ "id": "nis2", "name": "NIS 2", "title": {...}, "nature": {...}, "reference": {...},
+                "status": {...}, "definition": {...}, "essentials": [{...}], "remember": {...},
+                "lessons": ["m5c5-l3"], "links": [{ "label": {...}, "url": "https://..." }],
+                "kind": "general" }] }] }
+```
+
+- Chaque texte existe en français et en anglais ; 3 à 6 points essentiels.
+- `lessons` renvoie vers les leçons qui approfondissent le sujet (identifiants vérifiés au chargement).
+- Les liens ne viennent que de sites officiels (liste `regulationHosts` dans `content_loader.dart`) et sont vérifiés avant d'être ajoutés.
