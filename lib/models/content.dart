@@ -6,9 +6,11 @@ library;
 
 import 'exam_prep.dart';
 import 'regulations.dart';
+import 'risk_workshop.dart';
 
 export 'exam_prep.dart';
 export 'regulations.dart';
+export 'risk_workshop.dart';
 
 /// Nature d'une information, à afficher systématiquement (cahier des charges §8).
 enum SourceKind {
@@ -608,6 +610,7 @@ class ContentLibrary {
     required this.examInfo,
     this.examPrep = ExamPrep.empty,
     this.regulations = Regulations.empty,
+    this.riskWorkshop = RiskWorkshop.empty,
     this.mile2Outline = CourseOutline.empty,
     this.orsysOutline = CourseOutline.empty,
     this.orsysPlusOutline = CourseOutline.empty,
@@ -639,6 +642,9 @@ class ContentLibrary {
 
   /// Fiches courtes « Textes et normes » (normes, règlements, instructions).
   final Regulations regulations;
+
+  /// Atelier risques : scénarios de la matrice ISO/IEC 27005 de l'apprenant.
+  final RiskWorkshop riskWorkshop;
 
   Iterable<Chapter> get chapters => modules.expand((m) => m.chapters);
 

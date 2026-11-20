@@ -8,6 +8,7 @@
   },
   "examPrep": "exam_prep.json",
   "regulations": "regulations.json",
+  "riskWorkshop": "risk_workshop.json",
   "mile2Outline": "mile2_outline.json",
   "orsysOutline": "orsys_outline.json",
   "orsysPlusOutline": "orsys_plus_outline.json",

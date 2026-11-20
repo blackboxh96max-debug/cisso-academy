@@ -495,6 +495,12 @@ const appNews = <(String, String, List<String>)>[
     '1.8.0',
     '20/11/2026',
     [
+      'Atelier risques (Cours et chapitre Gestion des risques) : les 30 '
+          'scénarios de ta matrice ISO 27005, corrigés, sur une matrice '
+          '4 × 4 avant et après traitement, avec l\'ALE initiale, '
+          'résiduelle et le gain ; et des études de cas corrigées '
+          '(vraisemblance, gravité, mesure de l\'annexe A, calcul de '
+          'l\'ALE), en français et en anglais.',
       'Modules 9, 10 et 11 enrichis à partir de tes cartes mentales, en '
           'français et en anglais : méthodes de développement, vérification '
           'et validation, développement externalisé, retrait, CWE, failles de '

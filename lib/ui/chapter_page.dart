@@ -12,6 +12,7 @@ import 'notebook/palette.dart';
 import 'notebook/typography.dart';
 import 'quiz_hub_page.dart';
 import 'regulations_page.dart';
+import 'risk_workshop_page.dart';
 import 'revision_sheet_page.dart';
 import 'bilingual.dart';
 
@@ -159,6 +160,16 @@ class ChapterPage extends StatelessWidget {
                   from: Tone.orange,
                   to: Tone.pink,
                   onPressed: () => openRegulations(context),
+                ),
+              if (chapterId == 'm1c1' &&
+                  state.library.riskWorkshop.scenarios.isNotEmpty)
+                GradientButton(
+                  key: const Key('chapter-risk-workshop'),
+                  emoji: '🎯',
+                  label: 'Atelier risques',
+                  from: Tone.red,
+                  to: Tone.orange,
+                  onPressed: () => openRiskWorkshop(context),
                 ),
               GradientButton(
                 emoji: '🧠',
