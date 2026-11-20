@@ -7,6 +7,7 @@
     "verifiedOn": "2026-11-16"
   },
   "examPrep": "exam_prep.json",
+  "regulations": "regulations.json",
   "mile2Outline": "mile2_outline.json",
   "orsysOutline": "orsys_outline.json",
   "orsysPlusOutline": "orsys_plus_outline.json",

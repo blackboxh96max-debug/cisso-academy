@@ -36,6 +36,13 @@ class ContentLoader {
                 as Map<String, dynamic>,
           );
 
+    final regulations = catalog['regulations'] == null
+        ? Regulations.empty
+        : Regulations.fromJson(
+            jsonDecode(await read('$root/${catalog['regulations']}'))
+                as Map<String, dynamic>,
+          );
+
     final modules = <Module>[];
     for (final m in catalog['modules'] as List) {
       final moduleJson = m as Map<String, dynamic>;
@@ -81,6 +88,7 @@ class ContentLoader {
       glossary: glossary,
       examInfo: ExamInfo.fromJson(catalog['exam'] as Map<String, dynamic>),
       examPrep: examPrep,
+      regulations: regulations,
       mile2Outline: await outline('mile2Outline'),
       orsysOutline: await outline('orsysOutline'),
       orsysPlusOutline: await outline('orsysPlusOutline'),
@@ -203,6 +211,7 @@ class ContentLoader {
         }
       }
     }
+    validateRegulations(library.regulations, lessonIds);
     final seen = <String>{};
 
     void unique(String id) {
@@ -472,4 +481,59 @@ Question trainingQuestion(PrepQuestion q, Chapter chapter, PrepLot? lot) {
     ),
     fromTraining: true,
   );
+}
+
+/// Hôtes des liens officiels autorisés dans les fiches « Textes et normes ».
+const regulationHosts = {
+  'www.iso.org',
+  'syc-se.iec.ch',
+  'www.isa.org',
+  'eur-lex.europa.eu',
+  'digital-strategy.ec.europa.eu',
+  'digital-markets-act.ec.europa.eu',
+  'www.consilium.europa.eu',
+  'certification.enisa.europa.eu',
+  'www.eiopa.europa.eu',
+  'www.cnil.fr',
+  'cyber.gouv.fr',
+};
+
+/// Fiches : identifiants uniques, au moins un lien officiel, leçons connues,
+/// textes présents dans les deux langues.
+void validateRegulations(Regulations regs, Set<String> lessonIds) {
+  final ids = <String>{};
+  for (final s in regs.sheets) {
+    final where = 'Fiche ${s.id}';
+    if (!ids.add(s.id)) throw FormatException('$where : identifiant en double');
+    final texts = [
+      s.title,
+      s.nature,
+      s.reference,
+      s.status,
+      s.definition,
+      s.remember,
+      ...s.essentials,
+      for (final l in s.links) l.label,
+    ];
+    if (texts.any((t) => t.fr.trim().isEmpty || t.en.trim().isEmpty)) {
+      throw FormatException('$where : texte manquant en français ou anglais');
+    }
+    if (s.essentials.length < 3) {
+      throw FormatException('$where : au moins 3 points essentiels');
+    }
+    if (s.links.isEmpty) throw FormatException('$where : aucun lien officiel');
+    for (final l in s.links) {
+      final uri = Uri.tryParse(l.url);
+      if (uri == null ||
+          uri.scheme != 'https' ||
+          !regulationHosts.contains(uri.host)) {
+        throw FormatException('$where : lien non autorisé ${l.url}');
+      }
+    }
+    for (final id in s.lessons) {
+      if (!lessonIds.contains(id)) {
+        throw FormatException('$where : leçon inconnue $id');
+      }
+    }
+  }
 }
