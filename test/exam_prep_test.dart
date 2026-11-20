@@ -99,6 +99,35 @@ void main() {
     });
   });
 
+  test('le lot des modules 9 et 10 (développement, continuité) est fidèle', () {
+    final lot = library.examPrep.lots.firstWhere(
+      (l) => l.id == 'prep-2026-11-20',
+    );
+    expect(lot.questions, hasLength(30));
+    // Module 9 puis module 10.
+    expect(
+      lot.questions.map((q) => q.correctLetter).join(),
+      'BAAAAAAAAAAAAAA'
+      'BAABAAAAAAAAAAA',
+    );
+    expect(lot.parts.map((p) => p.questions.length), [15, 15]);
+    expect(lot.questions[12].choices.first.en, 'SAST');
+    expect(lot.questions[24].choices.map((c) => c.en), [
+      'RPO',
+      'RTO',
+      'WRT',
+      'SLA only',
+    ]);
+    expect(lot.keywords.map((k) => k.term), contains('DevSecOps'));
+    // Développement, SOC, continuité et incidents.
+    expect(lot.questions.map((q) => q.chapterId).toSet(), {
+      'm4c1',
+      'm2c1',
+      'm5c1',
+      'm5c2',
+    });
+  });
+
   test('les questions de la formation complètent le QCM de leur chapitre, '
       'hors examen blanc', () {
     for (final p in library.examPrep.questions) {

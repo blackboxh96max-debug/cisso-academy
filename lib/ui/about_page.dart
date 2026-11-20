@@ -492,6 +492,19 @@ String frenchDate(String iso) {
 /// la version ; la première entrée porte toujours [appVersion].
 const appNews = <(String, String, List<String>)>[
   (
+    '1.5.0',
+    '20/11/2026',
+    [
+      'Préparation examen : 30 nouvelles questions de ta formation, '
+          'module 9 (sécurité du développement logiciel : SAST, DAST, SCA, '
+          'DevSecOps, vérification et validation) et module 10 (SOC, PCA, '
+          'PRA, BIA, MTD, RTO, RPO, WRT, sites de secours, confinement), '
+          'avec corrigés expliqués en anglais et en français.',
+      'Ces questions complètent aussi le QCM de leur chapitre '
+          '(développement, SOC, continuité, incidents).',
+    ],
+  ),
+  (
     '1.4.0',
     '19/11/2026',
     [
