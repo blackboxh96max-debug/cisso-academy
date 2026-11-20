@@ -7275,9 +7275,10 @@
           "titleEn": "Secure Coding Guidelines and Standards",
           "titleFr": "Guides et standards de codage sécurisé",
           "lessons": [
-            "m4c1-l2"
+            "m4c1-l2",
+            "m4c1-l3"
           ],
-          "coverage": "partial",
+          "coverage": "covered",
           "keywords": [
             {
               "fr": "OWASP ASVS",
@@ -7298,6 +7299,350 @@
             {
               "fr": "Requêtes paramétrées",
               "en": "Parameterized queries"
+            }
+          ]
+        }
+      ],
+      "revisionMap": [
+        {
+          "section": 1,
+          "inline": true,
+          "label": "Bases de la sécurité logicielle",
+          "en": "1. Software Security Basics",
+          "children": [
+            {
+              "label": "Sécurité applicative sur tout le cycle de vie",
+              "en": "Application security throughout the lifecycle"
+            },
+            {
+              "label": "CIA : confidentialité, intégrité, disponibilité",
+              "en": "CIA: Confidentiality, Integrity, Availability"
+            },
+            {
+              "label": "Ingénierie de la sécurité et tests d'intrusion applicatifs",
+              "en": "Security engineering and application penetration testing"
+            },
+            {
+              "label": "Revue de code sécurisée et analyse de risque de l'architecture",
+              "en": "Secure code review and architectural risk assessment"
+            },
+            {
+              "label": "Contrôles de sécurité",
+              "en": "Security controls",
+              "children": [
+                {
+                  "label": "Administratifs : politiques, standards, formation",
+                  "en": "Administrative: policies, standards, training"
+                },
+                {
+                  "label": "Techniques : WAF, passerelle API, chiffrement, authentification",
+                  "en": "Technical: WAF, API gateway, encryption, authentication"
+                },
+                {
+                  "label": "Défense en profondeur et réduction de la surface d'attaque",
+                  "en": "Defense in depth and attack surface reduction"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section": 2,
+          "inline": true,
+          "label": "Vulnérabilités, menaces et risques",
+          "en": "2. Vulnerabilities, Threats & Risks",
+          "children": [
+            {
+              "label": "Défauts logiciels ou vulnérabilités exploitables",
+              "en": "Software defects versus exploitable vulnerabilities"
+            },
+            {
+              "label": "Acteurs de menace internes et externes",
+              "en": "Internal and external threat actors"
+            },
+            {
+              "label": "Risques de la chaîne d'approvisionnement et des dépendances open source",
+              "en": "Supply chain and open-source dependency risks"
+            },
+            {
+              "label": "Développement externalisé et accès distant des prestataires",
+              "en": "Outsourced development and vendor remote access"
+            },
+            {
+              "label": "Identifiants en dur et failles de logique métier",
+              "en": "Hardcoded credentials and business logic flaws"
+            },
+            {
+              "label": "Vulnérabilités courantes",
+              "en": "Common vulnerabilities",
+              "children": [
+                {
+                  "label": "Injections, dont l'injection SQL",
+                  "en": "Injection and SQL injection"
+                },
+                {
+                  "label": "Cross-site scripting (XSS)",
+                  "en": "Cross-site scripting (XSS)"
+                },
+                {
+                  "label": "Contrôle d'accès défaillant",
+                  "en": "Broken access control"
+                },
+                {
+                  "label": "Mauvaise configuration de sécurité",
+                  "en": "Security misconfiguration"
+                },
+                {
+                  "label": "Composants vulnérables et obsolètes",
+                  "en": "Vulnerable and outdated components"
+                },
+                {
+                  "label": "Défaillances d'identification et d'authentification",
+                  "en": "Authentication and identification failures"
+                }
+              ]
+            },
+            {
+              "label": "Modélisation des menaces : actifs, frontières de confiance, chemins d'attaque, contrôles",
+              "en": "Threat modeling: assets, trust boundaries, attack paths, controls"
+            },
+            {
+              "label": "OWASP Top 10 et CWE",
+              "en": "OWASP Top 10 and CWE"
+            }
+          ]
+        },
+        {
+          "section": 3,
+          "inline": true,
+          "label": "Cycle de développement logiciel",
+          "en": "3. Software Development Lifecycle",
+          "children": [
+            {
+              "label": "Cascade, agile, DevOps et DevSecOps",
+              "en": "Waterfall, Agile, DevOps and DevSecOps"
+            },
+            {
+              "label": "SDLC sécurisé : la sécurité à chaque phase",
+              "en": "Secure SDLC: integrate security into every phase"
+            },
+            {
+              "label": "Les phases du cycle",
+              "en": "Lifecycle phases",
+              "children": [
+                {
+                  "label": "Exigences : sécurité, vie privée, journalisation, conformité",
+                  "en": "Requirements: security, privacy, logging, compliance"
+                },
+                {
+                  "label": "Conception : modélisation des menaces, frontières de confiance, architecture",
+                  "en": "Design: threat modeling, trust boundaries, architecture"
+                },
+                {
+                  "label": "Développement : codage sécurisé, revue par les pairs, recherche de secrets",
+                  "en": "Development: secure coding, peer review, secrets scanning"
+                },
+                {
+                  "label": "Tests : SAST, DAST, IAST, SCA, tests d'intrusion",
+                  "en": "Testing: SAST, DAST, IAST, SCA, penetration tests"
+                },
+                {
+                  "label": "Déploiement : approbations, gestion des versions, retour arrière",
+                  "en": "Deployment: approvals, versioning, rollback"
+                },
+                {
+                  "label": "Exploitation : surveillance, correctifs, réponse aux incidents",
+                  "en": "Operations: monitoring, patching, incident response"
+                },
+                {
+                  "label": "Retrait : effacement des données, révocation des accès et des certificats",
+                  "en": "Disposal: data deletion, access and certificate revocation"
+                }
+              ]
+            },
+            {
+              "label": "Environnements de développement, de test et de production séparés",
+              "en": "Separate development, testing and production environments"
+            },
+            {
+              "label": "Vérification : construire le produit correctement",
+              "en": "Verification: build the product correctly"
+            },
+            {
+              "label": "Validation : construire le bon produit",
+              "en": "Validation: build the right product"
+            }
+          ]
+        },
+        {
+          "section": 4,
+          "inline": true,
+          "label": "Contrôles de sécurité logicielle",
+          "en": "4. Software Security Controls",
+          "children": [
+            {
+              "label": "Socle de contrôles fondé sur le risque",
+              "en": "Risk-based control baseline"
+            },
+            {
+              "label": "Mesurer l'efficacité des contrôles par des tests et des indicateurs",
+              "en": "Evaluate control effectiveness with tests and metrics"
+            },
+            {
+              "label": "SAST, DAST, IAST et analyse de composition logicielle",
+              "en": "SAST, DAST, IAST and software composition analysis"
+            },
+            {
+              "label": "Revue de code et tests d'intrusion autorisés",
+              "en": "Code review and authorized penetration testing"
+            },
+            {
+              "label": "Gestion des changements et approbation des mises en production",
+              "en": "Change management and release approvals"
+            },
+            {
+              "label": "Gestion des versions, protection des branches et commits signés",
+              "en": "Version control, branch protection and signed commits"
+            },
+            {
+              "label": "Contrôles du pipeline CI/CD et gestion des secrets",
+              "en": "CI/CD pipeline controls and secrets management"
+            },
+            {
+              "label": "Gestion de configuration et documentation",
+              "en": "Configuration management and documentation"
+            },
+            {
+              "label": "Indicateurs : vulnérabilités, délai de correction, couverture de sécurité",
+              "en": "Metrics: vulnerabilities, patch time, security coverage"
+            }
+          ]
+        },
+        {
+          "section": 5,
+          "inline": true,
+          "label": "Guides et standards de codage sécurisé",
+          "en": "5. Secure Coding Guidelines & Standards",
+          "children": [
+            {
+              "label": "Valider les entrées et encoder les sorties",
+              "en": "Validate input and encode output"
+            },
+            {
+              "label": "Authentification forte et autorisation côté serveur",
+              "en": "Strong authentication and server-side authorization"
+            },
+            {
+              "label": "Gestion sécurisée des sessions",
+              "en": "Secure session management"
+            },
+            {
+              "label": "Gestion sécurisée des erreurs et journalisation",
+              "en": "Secure error handling and logging"
+            },
+            {
+              "label": "Cryptographie approuvée, gestion des clés et hachage",
+              "en": "Approved cryptography, key management and hashing"
+            },
+            {
+              "label": "API sécurisées : validation, limitation de débit, TLS",
+              "en": "Secure APIs: validation, rate limits, TLS"
+            },
+            {
+              "label": "Téléversement de fichiers sûr et gestion des dépendances",
+              "en": "Safe file upload and dependency management"
+            },
+            {
+              "label": "Configuration sécurisée et formation des développeurs",
+              "en": "Secure configuration and developer training"
+            },
+            {
+              "label": "Relecture du code produit par un assistant de codage",
+              "en": "Review of coding assistant output"
+            },
+            {
+              "label": "Référentiels et standards",
+              "en": "Frameworks and standards",
+              "children": [
+                {
+                  "label": "OWASP",
+                  "en": "OWASP"
+                },
+                {
+                  "label": "ISO/IEC 12207",
+                  "en": "ISO/IEC 12207"
+                },
+                {
+                  "label": "ISO/IEC 27034",
+                  "en": "ISO/IEC 27034"
+                },
+                {
+                  "label": "NIST SP 800-53",
+                  "en": "NIST SP 800-53"
+                },
+                {
+                  "label": "ISO/IEC 27001 et 27002",
+                  "en": "ISO/IEC 27001 and 27002"
+                },
+                {
+                  "label": "PCI DSS",
+                  "en": "PCI DSS"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Glossaire des sigles",
+          "en": "Acronym Glossary",
+          "children": [
+            {
+              "label": "CIA : Confidentiality, Integrity, Availability"
+            },
+            {
+              "label": "API : Application Programming Interface"
+            },
+            {
+              "label": "WAF : Web Application Firewall"
+            },
+            {
+              "label": "SDLC : Software Development Life Cycle"
+            },
+            {
+              "label": "SAST : Static Application Security Testing"
+            },
+            {
+              "label": "DAST : Dynamic Application Security Testing"
+            },
+            {
+              "label": "IAST : Interactive Application Security Testing"
+            },
+            {
+              "label": "SCA : Software Composition Analysis"
+            },
+            {
+              "label": "CI/CD : Continuous Integration / Continuous Delivery or Deployment"
+            },
+            {
+              "label": "OWASP : Open Worldwide Application Security Project"
+            },
+            {
+              "label": "CWE : Common Weakness Enumeration"
+            },
+            {
+              "label": "XSS : Cross-Site Scripting"
+            },
+            {
+              "label": "SQL : Structured Query Language"
+            },
+            {
+              "label": "TLS : Transport Layer Security"
+            },
+            {
+              "label": "PCI DSS : Payment Card Industry Data Security Standard"
+            },
+            {
+              "label": "NIST : National Institute of Standards and Technology"
             }
           ]
         }
@@ -7437,6 +7782,315 @@
             {
               "fr": "Image disque et empreinte",
               "en": "Disk image and hash"
+            }
+          ]
+        }
+      ],
+      "revisionMap": [
+        {
+          "section": 1,
+          "inline": true,
+          "label": "Centre des opérations de sécurité (SOC)",
+          "en": "1. Security Operations Center (SOC)",
+          "children": [
+            {
+              "label": "Personnes, processus et technologies",
+              "en": "People, processes and technology"
+            },
+            {
+              "label": "Surveillance continue, détection et escalade",
+              "en": "Continuous monitoring, detection and escalation"
+            },
+            {
+              "label": "Renseignement humain et renseignement sur les menaces",
+              "en": "Human intelligence and threat intelligence"
+            },
+            {
+              "label": "SIEM : collecter, normaliser et corréler les journaux",
+              "en": "SIEM: collect, normalize and correlate logs"
+            },
+            {
+              "label": "IDS / IPS : détecter ou bloquer une activité suspecte",
+              "en": "IDS/IPS: detect or prevent suspicious activity"
+            },
+            {
+              "label": "EDR : visibilité et réponse sur les terminaux",
+              "en": "EDR: endpoint visibility and response"
+            },
+            {
+              "label": "NDR : détection et réponse sur le réseau",
+              "en": "NDR: network detection and response"
+            },
+            {
+              "label": "Triage : réalité, gravité et actifs touchés",
+              "en": "Triage: validity, severity and affected assets"
+            },
+            {
+              "label": "Investigation numérique et préservation des preuves",
+              "en": "Digital forensics and evidence preservation"
+            },
+            {
+              "label": "SOAR : automatisation et orchestration de la réponse",
+              "en": "SOAR: workflow automation and orchestration"
+            },
+            {
+              "label": "Rapports du SOC : alertes, incidents, temps de détection et de réponse",
+              "en": "SOC reporting: alerts, incidents, detection and response times"
+            }
+          ]
+        },
+        {
+          "section": 2,
+          "inline": true,
+          "label": "Continuité d'activité",
+          "en": "2. Business Continuity",
+          "children": [
+            {
+              "label": "BCM : gouvernance, stratégie et amélioration continue",
+              "en": "BCM: governance, strategy and continuous improvement"
+            },
+            {
+              "label": "PCA (BCP) : maintenir ou reprendre les fonctions critiques",
+              "en": "BCP: sustain or resume critical business functions"
+            },
+            {
+              "label": "BIA : fonctions critiques, dépendances, impacts et priorités",
+              "en": "BIA: critical functions, dependencies, impact and priorities"
+            },
+            {
+              "label": "Objectifs de reprise",
+              "en": "Recovery objectives",
+              "children": [
+                {
+                  "label": "MTD : durée maximale d'interruption tolérable",
+                  "en": "MTD: maximum tolerable downtime"
+                },
+                {
+                  "label": "RTO : délai visé de remise en service technique",
+                  "en": "RTO: target technical recovery time"
+                },
+                {
+                  "label": "RPO : perte de données maximale acceptable, en temps",
+                  "en": "RPO: maximum acceptable data loss in time"
+                },
+                {
+                  "label": "WRT : rattrapage du travail après la remise en service",
+                  "en": "WRT: catch-up work after technical restoration"
+                },
+                {
+                  "label": "RTO + WRT doit tenir dans la MTD",
+                  "en": "RTO plus WRT should fit within MTD"
+                }
+              ]
+            },
+            {
+              "label": "Stratégie de reprise",
+              "en": "Recovery strategy",
+              "children": [
+                {
+                  "label": "Les personnes et leur sécurité d'abord",
+                  "en": "People and life safety first"
+                },
+                {
+                  "label": "Locaux, technologie, fournisseurs et communications",
+                  "en": "Facilities, technology, suppliers and communications"
+                },
+                {
+                  "label": "Sites chauds, tièdes, froids et redondants",
+                  "en": "Hot, warm, cold and redundant sites"
+                },
+                {
+                  "label": "Accords réciproques et DRaaS",
+                  "en": "Reciprocal agreements and DRaaS"
+                },
+                {
+                  "label": "Sauvegardes et fonctionnement en mode dégradé",
+                  "en": "Backups and alternate operations"
+                }
+              ]
+            },
+            {
+              "label": "PRA (DRP) : rétablir systèmes, données et infrastructure",
+              "en": "DRP: restore systems, data and infrastructure"
+            },
+            {
+              "label": "Centre des opérations d'urgence et communication de crise",
+              "en": "Emergency Operations Center and crisis communication"
+            },
+            {
+              "label": "Rôles, propriétaire du plan, copies contrôlées et mises à jour",
+              "en": "Roles, plan ownership, controlled copies and updates"
+            },
+            {
+              "label": "Exercices : revue documentaire, sur table, simulation, parallèle, interruption complète",
+              "en": "Exercises: checklist, tabletop, simulation, parallel and full interruption"
+            }
+          ]
+        },
+        {
+          "section": 3,
+          "inline": true,
+          "label": "Traitement des incidents",
+          "en": "3. Incident Handling",
+          "children": [
+            {
+              "label": "Plan de réponse aux incidents, rôles et critères d'escalade",
+              "en": "Incident response plan, roles and escalation criteria"
+            },
+            {
+              "label": "Cycle de vie d'un incident",
+              "en": "Incident lifecycle",
+              "children": [
+                {
+                  "label": "Préparation",
+                  "en": "Preparation"
+                },
+                {
+                  "label": "Détection et analyse",
+                  "en": "Detection and analysis"
+                },
+                {
+                  "label": "Confinement",
+                  "en": "Containment"
+                },
+                {
+                  "label": "Éradication",
+                  "en": "Eradication"
+                },
+                {
+                  "label": "Rétablissement",
+                  "en": "Recovery"
+                },
+                {
+                  "label": "Après l'incident : retour d'expérience",
+                  "en": "Post-incident activity and lessons learned"
+                }
+              ]
+            },
+            {
+              "label": "Préserver les preuves tout en contenant la menace",
+              "en": "Preserve evidence while containing threats"
+            },
+            {
+              "label": "Chaîne de possession et documentation de l'incident",
+              "en": "Chain of custody and incident documentation"
+            },
+            {
+              "label": "Communication avec le juridique, la direction et les parties prenantes",
+              "en": "Communication with legal, leadership and stakeholders"
+            },
+            {
+              "label": "Priorisation selon la gravité et l'impact",
+              "en": "Severity and impact-based prioritization"
+            },
+            {
+              "label": "Gestion des vulnérabilités : identifier, évaluer, prioriser, corriger, vérifier",
+              "en": "Vulnerability management: identify, assess, prioritize, remediate and verify"
+            },
+            {
+              "label": "Identifiants CVE et score CVSS",
+              "en": "CVE identifiers and CVSS scoring"
+            }
+          ]
+        },
+        {
+          "section": 4,
+          "inline": true,
+          "label": "Criminalité informatique",
+          "en": "4. Computer Crime",
+          "children": [
+            {
+              "label": "L'ordinateur comme cible, outil ou preuve",
+              "en": "Computer as target, tool or evidence"
+            },
+            {
+              "label": "Accès non autorisé, fraude, rançongiciel, hameçonnage, usurpation d'identité",
+              "en": "Unauthorized access, fraud, ransomware, phishing and identity theft"
+            },
+            {
+              "label": "Motivations : gain financier, perturbation, espionnage",
+              "en": "Cybercrime motives: financial gain, disruption, espionage"
+            },
+            {
+              "label": "Autorisation de l'enquête et cadre juridique",
+              "en": "Investigation authorization and legal considerations"
+            },
+            {
+              "label": "Preuves numériques : journaux, fichiers, messages, métadonnées, artefacts",
+              "en": "Digital evidence: logs, files, messages, metadata and artifacts"
+            },
+            {
+              "label": "Préserver les originaux, consigner chaque action, limiter les accès",
+              "en": "Preserve originals, record actions and limit access"
+            },
+            {
+              "label": "Chaîne de possession : collecte, transfert, stockage et analyse",
+              "en": "Chain of custody: collection, transfer, storage and analysis"
+            },
+            {
+              "label": "Vie privée, fautes d'un salarié et déclarations réglementaires",
+              "en": "Privacy, employee misconduct and regulatory reporting"
+            },
+            {
+              "label": "Ne pas mener d'investigation non autorisée",
+              "en": "Avoid unauthorized investigative activity"
+            }
+          ]
+        },
+        {
+          "label": "Glossaire des sigles",
+          "en": "Acronym Glossary",
+          "children": [
+            {
+              "label": "SOC : Security Operations Center"
+            },
+            {
+              "label": "SIEM : Security Information and Event Management"
+            },
+            {
+              "label": "IDS / IPS : Intrusion Detection System / Intrusion Prevention System"
+            },
+            {
+              "label": "EDR : Endpoint Detection and Response"
+            },
+            {
+              "label": "NDR : Network Detection and Response"
+            },
+            {
+              "label": "SOAR : Security Orchestration, Automation and Response"
+            },
+            {
+              "label": "BCM : Business Continuity Management"
+            },
+            {
+              "label": "BCP : Business Continuity Plan"
+            },
+            {
+              "label": "BIA : Business Impact Analysis"
+            },
+            {
+              "label": "MTD : Maximum Tolerable Downtime"
+            },
+            {
+              "label": "RTO : Recovery Time Objective"
+            },
+            {
+              "label": "RPO : Recovery Point Objective"
+            },
+            {
+              "label": "WRT : Work Recovery Time"
+            },
+            {
+              "label": "DRP : Disaster Recovery Plan"
+            },
+            {
+              "label": "DRaaS : Disaster Recovery as a Service"
+            },
+            {
+              "label": "CVE : Common Vulnerabilities and Exposures"
+            },
+            {
+              "label": "CVSS : Common Vulnerability Scoring System"
             }
           ]
         }
@@ -7589,6 +8243,575 @@
             {
               "fr": "Supervision par les autorités",
               "en": "Supervision by authorities"
+            }
+          ]
+        }
+      ],
+      "revisionMap": [
+        {
+          "section": 1,
+          "inline": true,
+          "label": "L'environnement européen de la cybersécurité",
+          "en": "European Cybersecurity Environment",
+          "children": [
+            {
+              "label": "Direction et gouvernance",
+              "en": "Leadership & Governance",
+              "children": [
+                {
+                  "label": "La cybersécurité, une responsabilité de la direction",
+                  "en": "Cybersecurity as a leadership responsibility"
+                },
+                {
+                  "label": "Supervision des risques et responsabilité du management",
+                  "en": "Risk oversight and management accountability"
+                },
+                {
+                  "label": "Coordination juridique, vie privée, achats, informatique et exploitation",
+                  "en": "Coordination across legal, privacy, procurement, IT and operations"
+                },
+                {
+                  "label": "Programme de sécurité structuré, documenté et prêt pour l'audit",
+                  "en": "Structured, documented, audit-ready security program"
+                }
+              ]
+            },
+            {
+              "label": "Un paysage à plusieurs niveaux",
+              "en": "Multi-Layered Landscape",
+              "children": [
+                {
+                  "label": "Directives et règlements de l'UE",
+                  "en": "EU directives and regulations"
+                },
+                {
+                  "label": "Transposition et supervision nationales",
+                  "en": "National implementation and supervision"
+                },
+                {
+                  "label": "Exigences sectorielles",
+                  "en": "Sector-specific requirements"
+                },
+                {
+                  "label": "Obligations contractuelles et exigences des clients",
+                  "en": "Contractual and customer obligations"
+                }
+              ]
+            },
+            {
+              "label": "Résilience opérationnelle",
+              "en": "Operational Resilience",
+              "children": [
+                {
+                  "label": "Services critiques et dépendances",
+                  "en": "Critical services and dependencies"
+                },
+                {
+                  "label": "Capacités de continuité et de reprise",
+                  "en": "Continuity and recovery capabilities"
+                },
+                {
+                  "label": "Communication de crise et préparation aux incidents",
+                  "en": "Crisis communication and incident readiness"
+                },
+                {
+                  "label": "Dépendances aux fournisseurs et aux tiers",
+                  "en": "Supplier and third-party dependencies"
+                }
+              ]
+            },
+            {
+              "label": "Responsabilités du responsable sécurité",
+              "en": "Security Officer Responsibilities",
+              "children": [
+                {
+                  "label": "Gouvernance des risques et des contrôles",
+                  "en": "Risk and control governance"
+                },
+                {
+                  "label": "Coordination des incidents et de la résilience",
+                  "en": "Incident and resilience coordination"
+                },
+                {
+                  "label": "Rapports et communication vers la direction",
+                  "en": "Executive reporting and communication"
+                },
+                {
+                  "label": "Preuves, préparation aux audits et décisions défendables",
+                  "en": "Evidence, audit readiness and defensible decisions"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section": 2,
+          "inline": true,
+          "label": "Les grands textes européens",
+          "en": "Core European Cybersecurity Regulations",
+          "children": [
+            {
+              "label": "NIS 2",
+              "en": "NIS2",
+              "children": [
+                {
+                  "label": "Mesures de gestion des risques de cybersécurité",
+                  "en": "Cybersecurity risk management measures"
+                },
+                {
+                  "label": "Détection, réponse et notification des incidents",
+                  "en": "Incident detection, response and reporting"
+                },
+                {
+                  "label": "Sécurité de la chaîne d'approvisionnement et continuité",
+                  "en": "Supply-chain security and business continuity"
+                },
+                {
+                  "label": "Supervision et responsabilité de la direction",
+                  "en": "Management oversight and accountability"
+                }
+              ]
+            },
+            {
+              "label": "DORA",
+              "en": "DORA",
+              "children": [
+                {
+                  "label": "Résilience opérationnelle numérique du secteur financier",
+                  "en": "Financial-sector digital operational resilience"
+                },
+                {
+                  "label": "Gestion du risque TIC et notification des incidents",
+                  "en": "ICT risk management and incident reporting"
+                },
+                {
+                  "label": "Tests de résilience et reprise",
+                  "en": "Resilience testing and recovery"
+                },
+                {
+                  "label": "Surveillance du risque lié aux prestataires TIC",
+                  "en": "ICT third-party risk oversight"
+                }
+              ]
+            },
+            {
+              "label": "Règlement sur la cyberrésilience (CRA)",
+              "en": "Cyber Resilience Act (CRA)",
+              "children": [
+                {
+                  "label": "Produits comportant des éléments numériques",
+                  "en": "Products with digital elements"
+                },
+                {
+                  "label": "Sécurité dès la conception et par défaut",
+                  "en": "Security by design and by default"
+                },
+                {
+                  "label": "Traitement des vulnérabilités et divulgation coordonnée",
+                  "en": "Vulnerability handling and coordinated disclosure"
+                },
+                {
+                  "label": "Mises à jour de sécurité et responsabilités sur le cycle de vie",
+                  "en": "Security updates and product lifecycle responsibilities"
+                }
+              ]
+            },
+            {
+              "label": "RGPD",
+              "en": "GDPR",
+              "children": [
+                {
+                  "label": "Protection des données personnelles",
+                  "en": "Protection of personal data"
+                },
+                {
+                  "label": "Mesures techniques et organisationnelles appropriées",
+                  "en": "Appropriate technical and organisational measures"
+                },
+                {
+                  "label": "Réponse et notification des violations de données",
+                  "en": "Personal data breach response and notification"
+                },
+                {
+                  "label": "Coordination vie privée, juridique et sécurité",
+                  "en": "Privacy, legal and security coordination"
+                }
+              ]
+            },
+            {
+              "label": "Obligations qui se superposent",
+              "en": "Overlapping Obligations",
+              "children": [
+                {
+                  "label": "Un incident peut déclencher plusieurs obligations réglementaires",
+                  "en": "One incident may activate multiple regulatory duties"
+                },
+                {
+                  "label": "Aligner la réponse technique sur les rapports juridiques, vie privée et direction",
+                  "en": "Align technical response with legal, privacy and management reporting"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section": 3,
+          "inline": true,
+          "label": "Exigences opérationnelles en pratique",
+          "en": "Operational Security Requirements in Practice",
+          "children": [
+            {
+              "label": "Gestion du risque opérationnel",
+              "en": "Operational Risk Management",
+              "children": [
+                {
+                  "label": "Identifier systèmes critiques, menaces et dépendances",
+                  "en": "Identify critical systems, threats and dependencies"
+                },
+                {
+                  "label": "Évaluer l'impact sur l'activité et les services",
+                  "en": "Assess business and service impact"
+                },
+                {
+                  "label": "Désigner des propriétaires et faire approuver le traitement",
+                  "en": "Assign owners and approve treatment decisions"
+                },
+                {
+                  "label": "Suivre le risque résiduel et le revoir régulièrement",
+                  "en": "Track residual risk and review regularly"
+                }
+              ]
+            },
+            {
+              "label": "Politiques, normes et procédures",
+              "en": "Policies, Standards & Procedures",
+              "children": [
+                {
+                  "label": "Les politiques expriment l'intention de la direction",
+                  "en": "Policies define management intent"
+                },
+                {
+                  "label": "Les normes fixent les exigences minimales",
+                  "en": "Standards establish minimum requirements"
+                },
+                {
+                  "label": "Les procédures décrivent des actions répétables",
+                  "en": "Procedures define repeatable actions"
+                },
+                {
+                  "label": "Documenter propriétaires, exceptions et approbations",
+                  "en": "Document ownership, exceptions and approvals"
+                }
+              ]
+            },
+            {
+              "label": "Préparation aux incidents et résilience",
+              "en": "Incident & Resilience Readiness",
+              "children": [
+                {
+                  "label": "Réponse aux incidents et escalade",
+                  "en": "Incident response and escalation"
+                },
+                {
+                  "label": "Préservation des preuves et notification réglementaire",
+                  "en": "Evidence preservation and regulatory reporting"
+                },
+                {
+                  "label": "BIA et priorités de reprise",
+                  "en": "Business impact analysis and recovery priorities"
+                },
+                {
+                  "label": "Restauration des sauvegardes, exercices de crise, retour d'expérience",
+                  "en": "Backup restoration, crisis exercises and lessons learned"
+                }
+              ]
+            },
+            {
+              "label": "Supervision des fournisseurs et du développement",
+              "en": "Supplier & Development Oversight",
+              "children": [
+                {
+                  "label": "Classement des fournisseurs, diligence raisonnable, exigences contractuelles",
+                  "en": "Vendor classification, due diligence and contractual requirements"
+                },
+                {
+                  "label": "Accès, surveillance, notification d'incident et plan de sortie",
+                  "en": "Access, monitoring, incident notification and exit planning"
+                },
+                {
+                  "label": "Développement sécurisé et maîtrise des changements",
+                  "en": "Secure development and change control"
+                },
+                {
+                  "label": "Correction des vulnérabilités et discipline de correctifs",
+                  "en": "Vulnerability remediation and patch discipline"
+                }
+              ]
+            },
+            {
+              "label": "Opérations de sécurité et preuves",
+              "en": "Security Operations & Evidence",
+              "children": [
+                {
+                  "label": "Revues des identités et des accès",
+                  "en": "Identity and access reviews"
+                },
+                {
+                  "label": "Sensibilisation et préparation du personnel",
+                  "en": "Security awareness and human readiness"
+                },
+                {
+                  "label": "Journalisation, surveillance, indicateurs et pistes d'audit",
+                  "en": "Logging, monitoring, metrics and audit trails"
+                },
+                {
+                  "label": "Tests des contrôles et amélioration continue",
+                  "en": "Control testing and continuous improvement"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section": 4,
+          "inline": true,
+          "label": "Correspondance avec CISSO et les référentiels",
+          "en": "Mapping to CISSO and Common Frameworks",
+          "children": [
+            {
+              "label": "Règlement ou référentiel",
+              "en": "Regulation vs Framework",
+              "children": [
+                {
+                  "label": "Les règlements fixent obligations et résultats",
+                  "en": "Regulations define obligations and outcomes"
+                },
+                {
+                  "label": "Les référentiels organisent la mise en œuvre et les preuves",
+                  "en": "Frameworks organize implementation and evidence"
+                },
+                {
+                  "label": "Relier les obligations aux contrôles, propriétaires et processus",
+                  "en": "Map obligations to controls, owners and processes"
+                }
+              ]
+            },
+            {
+              "label": "Domaines de sécurité CISSO",
+              "en": "CISSO Security Domains",
+              "children": [
+                {
+                  "label": "Gestion des risques et management de la sécurité",
+                  "en": "Risk and security management"
+                },
+                {
+                  "label": "Sécurité des opérations, des réseaux et du logiciel",
+                  "en": "Operations, network and software security"
+                },
+                {
+                  "label": "Protection des données, incidents et continuité d'activité",
+                  "en": "Data protection, incident handling and business continuity"
+                },
+                {
+                  "label": "Gouvernance des fournisseurs et responsabilité des dirigeants",
+                  "en": "Supplier governance and executive accountability"
+                }
+              ]
+            },
+            {
+              "label": "ISO/IEC 27001 et 27002",
+              "en": "ISO/IEC 27001 & 27002",
+              "children": [
+                {
+                  "label": "Structure du système de management de la sécurité de l'information",
+                  "en": "Information security management system structure"
+                },
+                {
+                  "label": "Traitement des risques, gouvernance et évaluation de la performance",
+                  "en": "Risk treatment, governance and performance evaluation"
+                },
+                {
+                  "label": "Guide pratique des mesures de sécurité",
+                  "en": "Practical security control guidance"
+                }
+              ]
+            },
+            {
+              "label": "ENISA et NIST",
+              "en": "ENISA & NIST",
+              "children": [
+                {
+                  "label": "ENISA : guides européens et ressources de maturité",
+                  "en": "ENISA: European guidance and maturity resources"
+                },
+                {
+                  "label": "NIST : références sur les risques, les contrôles et les incidents",
+                  "en": "NIST: supporting risk, controls and incident references"
+                },
+                {
+                  "label": "Ils complètent les obligations de l'UE sans les remplacer",
+                  "en": "Complement EU obligations rather than replace them"
+                }
+              ]
+            },
+            {
+              "label": "Bénéfices de la correspondance",
+              "en": "Mapping Outcomes",
+              "children": [
+                {
+                  "label": "Moins de contrôles et de rapports en double",
+                  "en": "Reduce duplicated controls and reporting"
+                },
+                {
+                  "label": "Repérer les manques de responsables, de preuves et de tests",
+                  "en": "Identify gaps in ownership, evidence and testing"
+                },
+                {
+                  "label": "Bâtir un programme de sécurité cohérent et défendable",
+                  "en": "Create a coherent, defensible security program"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section": 5,
+          "inline": true,
+          "label": "Sanctions et rôle des dirigeants",
+          "en": "Enforcement Changes Security Leadership",
+          "children": [
+            {
+              "label": "Responsabilité de la direction",
+              "en": "Management Accountability",
+              "children": [
+                {
+                  "label": "Supervision par la direction et décisions documentées",
+                  "en": "Executive oversight and documented decisions"
+                },
+                {
+                  "label": "Acceptation du risque approuvée et revues du risque résiduel",
+                  "en": "Approved risk acceptance and residual-risk reviews"
+                },
+                {
+                  "label": "Ressources, politiques et priorités de remédiation",
+                  "en": "Resources, policies and remediation priorities"
+                }
+              ]
+            },
+            {
+              "label": "Maturité des contrôles",
+              "en": "Control Maturity",
+              "children": [
+                {
+                  "label": "Propriétaire nommé, politique, procédure et preuves de mise en œuvre",
+                  "en": "Named owner, policy, procedure and implementation evidence"
+                },
+                {
+                  "label": "Surveillance, indicateurs, exceptions et actions correctives",
+                  "en": "Monitoring, metrics, exceptions and corrective actions"
+                },
+                {
+                  "label": "Calendrier de revue et rapports à la direction",
+                  "en": "Review schedules and management reporting"
+                }
+              ]
+            },
+            {
+              "label": "Prêt pour l'audit et le régulateur",
+              "en": "Audit & Regulatory Readiness",
+              "children": [
+                {
+                  "label": "Preuves exactes, protégées et faciles à retrouver",
+                  "en": "Accurate, protected and retrievable evidence"
+                },
+                {
+                  "label": "Registres des risques, résultats d'audit et dossiers fournisseurs",
+                  "en": "Risk registers, audit results and supplier records"
+                },
+                {
+                  "label": "Journaux d'incidents, tests de reprise et rapports au conseil",
+                  "en": "Incident logs, recovery tests and board reporting"
+                }
+              ]
+            },
+            {
+              "label": "Escalade et notification des incidents",
+              "en": "Incident Escalation & Reporting",
+              "children": [
+                {
+                  "label": "Gravité, responsabilités et circuits de notification",
+                  "en": "Severity, responsibilities and notification routes"
+                },
+                {
+                  "label": "Coordination juridique, vie privée et réglementaire",
+                  "en": "Legal, privacy and regulatory coordination"
+                },
+                {
+                  "label": "Préserver les preuves et consigner les décisions",
+                  "en": "Preserve evidence and document decisions"
+                },
+                {
+                  "label": "Retour d'expérience et actions de suivi",
+                  "en": "Lessons learned and follow-up actions"
+                }
+              ]
+            },
+            {
+              "label": "Un leadership sécurité défendable",
+              "en": "Defensible Security Leadership",
+              "children": [
+                {
+                  "label": "Traduire les constats techniques en impact métier",
+                  "en": "Translate technical findings into business impact"
+                },
+                {
+                  "label": "Présenter options, exceptions et décisions de risque",
+                  "en": "Communicate options, exceptions and risk decisions"
+                },
+                {
+                  "label": "Démontrer amélioration continue et responsabilité",
+                  "en": "Demonstrate continuous improvement and accountability"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Glossaire des sigles",
+          "en": "Acronym Glossary",
+          "children": [
+            {
+              "label": "EU : European Union"
+            },
+            {
+              "label": "NIS2 : Network and Information Security Directive 2"
+            },
+            {
+              "label": "DORA : Digital Operational Resilience Act"
+            },
+            {
+              "label": "CRA : Cyber Resilience Act"
+            },
+            {
+              "label": "GDPR : General Data Protection Regulation"
+            },
+            {
+              "label": "ICT : Information and Communication Technology"
+            },
+            {
+              "label": "CISSO : Certified Information Systems Security Officer"
+            },
+            {
+              "label": "ISO : International Organization for Standardization"
+            },
+            {
+              "label": "IEC : International Electrotechnical Commission"
+            },
+            {
+              "label": "ENISA : European Union Agency for Cybersecurity"
+            },
+            {
+              "label": "NIST : National Institute of Standards and Technology"
             }
           ]
         }

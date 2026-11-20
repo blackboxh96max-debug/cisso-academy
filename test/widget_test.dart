@@ -474,7 +474,9 @@ void main() {
   testWidgets('cours : vues « Livre MILE2 », « ORSYS » et « ORSYS enrichi »', (
     tester,
   ) async {
-    final state = await pumpApp(tester);
+    // Écran un peu plus haut : les boutons Textes et normes et Atelier
+    // risques précèdent le sommaire.
+    final state = await pumpApp(tester, size: const Size(400, 960));
     await tester.tap(
       find.descendant(
         of: find.byType(NavigationBar),

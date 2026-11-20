@@ -4309,5 +4309,47 @@
   "definition": "Valeur calculée sur un message avec une clé secrète partagée : le destinataire, qui a la même clé, vérifie que le message n'a pas changé et qu'il vient d'un détenteur de la clé. Il n'apporte pas la non-répudiation.",
   "example": "HMAC-SHA-256 protège l'intégrité des messages échangés entre deux serveurs.",
   "kind": "general"
+ },
+ {
+  "id": "ndr",
+  "en": "Network Detection and Response",
+  "fr": "Détection et réponse sur le réseau",
+  "acronym": "NDR",
+  "definition": "Outil qui analyse les flux réseau, y compris entre machines internes, pour détecter les comportements malveillants et y répondre.",
+  "example": "Le NDR repère un poste qui se connecte en SMB à des dizaines de serveurs.",
+  "kind": "general"
+ },
+ {
+  "id": "threat-intelligence",
+  "en": "Threat intelligence",
+  "fr": "Renseignement sur les menaces",
+  "definition": "Information analysée sur les attaquants, leurs objectifs et leurs méthodes, utilisée pour décider et pour détecter (niveaux stratégique, tactique et opérationnel).",
+  "example": "Un flux d'IOC partagé par le CERT du secteur est chargé dans le SIEM.",
+  "kind": "general"
+ },
+ {
+  "id": "source-code-escrow",
+  "en": "Source code escrow",
+  "fr": "Entiercement du code source",
+  "definition": "Dépôt du code source d'un logiciel chez un tiers de confiance, remis au client si l'éditeur disparaît ou ne respecte plus le contrat.",
+  "example": "Le code de l'application métier est déposé chez un tiers séquestre.",
+  "kind": "general"
+ },
+ {
+  "id": "verification-validation",
+  "en": "Verification and validation",
+  "fr": "Vérification et validation",
+  "definition": "Vérification : le logiciel respecte-t-il ses spécifications (construire le produit correctement) ? Validation : répond-il au besoin réel (construire le bon produit) ?",
+  "example": "Les tests unitaires vérifient ; la recette par le métier valide.",
+  "kind": "general"
+ },
+ {
+  "id": "eoc",
+  "en": "Emergency Operations Center",
+  "fr": "Centre des opérations d'urgence",
+  "acronym": "EOC",
+  "definition": "Lieu physique ou virtuel d'où la cellule de crise pilote la réponse et la communication pendant un sinistre.",
+  "example": "La cellule de crise se réunit dans la salle de repli équipée de téléphones satellites.",
+  "kind": "general"
  }
 ]

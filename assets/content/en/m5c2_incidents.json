@@ -408,6 +408,31 @@
      "text": "An internal investigation respects the law, the employment contract and privacy: access to workstations and mailboxes governed by the acceptable use policy and legal, no \"hack back\" against an external system. When criminal prosecution is being considered, legal and, if needed, law enforcement are involved early."
     },
     {
+     "type": "text",
+     "text": "Computer crime is classified by the role the computer plays. The most common motives are financial gain, disruption and espionage."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Role of the computer",
+       "Examples"
+      ],
+      [
+       "Target",
+       "Intrusion, ransomware, denial of service"
+      ],
+      [
+       "Tool",
+       "Fraud, phishing, identity theft"
+      ],
+      [
+       "Evidence (incidental)",
+       "Messages, files or metadata linked to a conventional crime"
+      ]
+     ]
+    },
+    {
      "type": "socCase",
      "title": "Case: the departing employee's laptop",
      "kind": "example",
@@ -567,6 +592,11 @@
      "type": "important",
      "title": "Avoiding reinfection",
      "text": "Before restoring service: identify the entry point and close it, look for other affected machines and persistence mechanisms, reset compromised credentials, then restore from backups prior to the compromise or reinstall from trusted sources."
+    },
+    {
+     "type": "important",
+     "title": "Fix the cause: vulnerability management",
+     "text": "Eradicating also means closing the door that was used. The vulnerability management cycle applies: identify, assess, prioritize, remediate, then verify. A CVE identifies the vulnerability; the CVSS score measures its technical severity, to be completed by exposure and asset criticality."
     },
     {
      "type": "heading",

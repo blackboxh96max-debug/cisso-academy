@@ -580,6 +580,17 @@
      ]
     },
     {
+     "type": "practice",
+     "title": "Oversee suppliers and development",
+     "items": [
+      "Classify suppliers by criticality and scale due diligence (questionnaire, certification, audit).",
+      "Monitor their access and require prompt notification of their incidents.",
+      "Plan the exit from the contract onward: data return, reversibility, access removal.",
+      "Require secure development and change control from internal teams and vendors alike.",
+      "Keep patch discipline: deadlines set by severity, exceptions approved and tracked."
+     ]
+    },
+    {
      "type": "definition",
      "title": "Proof of compliance",
      "text": "The authority expects verifiable elements: approved policies, risk analyzes, test reports, incident registers, proof of training, supplier contracts. A measure without a written record is hard to demonstrate.",
@@ -666,6 +677,11 @@
     {
      "type": "text",
      "text": "An organization has no interest in creating a different program for each text. It relies on a management system (often ISO/IEC 27001) and links each regulatory requirement to the measures that already address it. CISSO knowledge covers most of these measures."
+    },
+    {
+     "type": "important",
+     "title": "Regulation or framework?",
+     "text": "A regulatory text (NIS 2, DORA, GDPR) sets obligations and expected outcomes, backed by penalties: it says what. A framework (ISO/IEC 27001, NIST CSF) organizes implementation and evidence: it helps say how. Each obligation is mapped to controls, owners and processes."
     },
     {
      "type": "table",
@@ -765,6 +781,11 @@
      "type": "important",
      "title": "Certification is not compliance",
      "text": "Being ISO/IEC 27001 certified helps a lot, but does not on its own prove compliance with NIS 2: the certified scope, the notification deadlines and management accountability must be checked separately."
+    },
+    {
+     "type": "important",
+     "title": "ENISA and NIST complement, they do not replace",
+     "text": "ENISA guidance (measures, maturity, European good practice) and NIST publications (risk, controls, incident response) help with implementation. They never replace the legal obligation: in an inspection, the European text and its national transposition prevail. Done well, mapping avoids duplicated controls and reports, and reveals gaps in owners, evidence or testing."
     },
     {
      "type": "memo",
@@ -932,9 +953,53 @@
      ]
     },
     {
+     "type": "table",
+     "rows": [
+      [
+       "Maturity criterion",
+       "What you show"
+      ],
+      [
+       "Owner",
+       "A name, not a department"
+      ],
+      [
+       "Policy and procedure",
+       "Approved, current documents"
+      ],
+      [
+       "Implementation",
+       "Evidence: screenshots, reports, logs"
+      ],
+      [
+       "Monitoring",
+       "Tracked metrics, recorded exceptions, corrective actions"
+      ],
+      [
+       "Review",
+       "Review schedule and reporting to management"
+      ]
+     ]
+    },
+    {
+     "type": "practice",
+     "title": "Ready for the auditor or the authority",
+     "items": [
+      "Accurate, protected and easily retrievable evidence.",
+      "Risk register, audit results and supplier records kept up to date.",
+      "Incident logs, recovery test reports and board reporting.",
+      "Risk acceptances approved by management and regular reviews of residual risk.",
+      "During an incident: severity, owners and notification routes defined, legal and privacy involved, decisions recorded."
+     ]
+    },
+    {
      "type": "important",
      "title": "Not just fear of the fine",
      "text": "Penalties give the CISO weight, but the goal remains resilience: senior management that understands the risks decides better and faster during a crisis."
+    },
+    {
+     "type": "memo",
+     "text": "A defensible security officer translates technical findings into business impact, presents options and exceptions, gets decisions made, and proves continuous improvement."
     },
     {
      "type": "trainerNote",

@@ -408,6 +408,31 @@
      "text": "Une enquête interne respecte la loi, le contrat de travail et la vie privée : accès aux postes et aux messageries encadré par la charte et le juridique, pas de « contre-attaque » contre un système externe. Quand une poursuite pénale est envisagée, on associe tôt le juridique et, si besoin, les forces de l'ordre."
     },
     {
+     "type": "text",
+     "text": "La criminalité informatique se classe selon le rôle de l'ordinateur. Les motivations les plus fréquentes sont le gain financier, la perturbation et l'espionnage."
+    },
+    {
+     "type": "table",
+     "rows": [
+      [
+       "Rôle de l'ordinateur",
+       "Exemples"
+      ],
+      [
+       "Cible",
+       "Intrusion, rançongiciel, déni de service"
+      ],
+      [
+       "Outil",
+       "Fraude, hameçonnage, usurpation d'identité"
+      ],
+      [
+       "Preuve (élément accessoire)",
+       "Messages, fichiers ou métadonnées liés à un délit classique"
+      ]
+     ]
+    },
+    {
      "type": "socCase",
      "title": "Cas : le portable du départ",
      "kind": "example",
@@ -567,6 +592,11 @@
      "type": "important",
      "title": "Éviter la réinfection",
      "text": "Avant de remettre en service : identifier la porte d'entrée et la fermer, chercher les autres machines touchées et les mécanismes de persistance, réinitialiser les identifiants compromis, puis restaurer depuis des sauvegardes antérieures à la compromission ou réinstaller depuis des sources sûres."
+    },
+    {
+     "type": "important",
+     "title": "Corriger la cause : la gestion des vulnérabilités",
+     "text": "Éradiquer, c'est aussi fermer la porte utilisée. Le cycle de gestion des vulnérabilités s'applique : identifier, évaluer, prioriser, corriger, puis vérifier. Une CVE identifie la vulnérabilité ; le score CVSS mesure sa gravité technique, à compléter par l'exposition et la criticité de l'actif."
     },
     {
      "type": "heading",

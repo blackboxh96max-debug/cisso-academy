@@ -1,0 +1,1449 @@
+{
+ "intro": {
+  "fr": "Les 30 scénarios de ta matrice ISO 27005, corrigés : place-les sur la matrice 4 × 4, avant et après traitement, puis entraîne-toi sur chaque cas.",
+  "en": "The 30 scenarios from your ISO 27005 matrix, corrected: see them on the 4 × 4 matrix, before and after treatment, then practice on each case."
+ },
+ "notice": {
+  "fr": "Exercice pédagogique : échelles, probabilités et montants sont des exemples, pas des données observées. La norme ISO/IEC 27005 n'impose pas de matrice 4 × 4.",
+  "en": "Training exercise: scales, probabilities and amounts are examples, not observed data. ISO/IEC 27005 does not mandate a 4 × 4 matrix."
+ },
+ "source": {
+  "fr": "Matrice de l'apprenant (registre de risques), d'après ISO/IEC 27005:2022, ISO/IEC 27001:2022 annexe A et ISO/IEC 27002:2022. Les 120 lignes ne comptaient que 30 scénarios distincts : vulnérabilités, critères et notes ont été revus pour être cohérents.",
+  "en": "Learner's matrix (risk register), based on ISO/IEC 27005:2022, ISO/IEC 27001:2022 Annex A and ISO/IEC 27002:2022. The 120 rows held only 30 distinct scenarios: vulnerabilities, criteria and ratings were revised for consistency."
+ },
+ "likelihood": [
+  {
+   "level": 1,
+   "label": {
+    "fr": "Rare",
+    "en": "Rare"
+   },
+   "probability": 0.02
+  },
+  {
+   "level": 2,
+   "label": {
+    "fr": "Peu vraisemblable",
+    "en": "Unlikely"
+   },
+   "probability": 0.1
+  },
+  {
+   "level": 3,
+   "label": {
+    "fr": "Vraisemblable",
+    "en": "Likely"
+   },
+   "probability": 0.3
+  },
+  {
+   "level": 4,
+   "label": {
+    "fr": "Très vraisemblable",
+    "en": "Very likely"
+   },
+   "probability": 0.65
+  }
+ ],
+ "impact": [
+  {
+   "level": 1,
+   "label": {
+    "fr": "Mineure",
+    "en": "Minor"
+   },
+   "loss": 3000
+  },
+  {
+   "level": 2,
+   "label": {
+    "fr": "Significative",
+    "en": "Significant"
+   },
+   "loss": 12000
+  },
+  {
+   "level": 3,
+   "label": {
+    "fr": "Grave",
+    "en": "Serious"
+   },
+   "loss": 60000
+  },
+  {
+   "level": 4,
+   "label": {
+    "fr": "Critique",
+    "en": "Critical"
+   },
+   "loss": 240000
+  }
+ ],
+ "scenarios": [
+  {
+   "id": "R001",
+   "asset": {
+    "fr": "Serveurs de production",
+    "en": "Production servers"
+   },
+   "threat": {
+    "fr": "Rançongiciel",
+    "en": "Ransomware"
+   },
+   "vulnerability": {
+    "fr": "Correctifs en retard et sauvegardes joignables depuis le réseau",
+    "en": "Late patches and backups reachable from the network"
+   },
+   "consequence": {
+    "fr": "Chiffrement des serveurs et arrêt des services clients",
+    "en": "Servers encrypted and customer services stopped"
+   },
+   "criteria": [
+    "I",
+    "D"
+   ],
+   "likelihood": 3,
+   "impact": 4,
+   "control": {
+    "ref": "A.8.7",
+    "title": {
+     "fr": "Protection contre les programmes malveillants (malware)",
+     "en": "Protection against malware"
+    }
+   },
+   "action": {
+    "fr": "Déployer un EDR, filtrer la messagerie et tester la réponse aux logiciels malveillants",
+    "en": "Deploy EDR, filter email and test the malware response"
+   },
+   "residualLikelihood": 2,
+   "residualImpact": 3,
+   "owner": {
+    "fr": "RSSI",
+    "en": "CISO"
+   },
+   "explanation": {
+    "fr": "Les rançongiciels visent toutes les organisations et les correctifs en retard leur ouvrent la porte : vraisemblable (3). L'arrêt de la production et la reconstruction coûtent très cher : critique (4). L'EDR rend l'attaque moins probable et limite sa propagation.",
+    "en": "Ransomware targets every organization and late patches open the door: likely (3). A production outage and rebuild are very costly: critical (4). EDR makes the attack less likely and limits its spread."
+   }
+  },
+  {
+   "id": "R002",
+   "asset": {
+    "fr": "Applications web",
+    "en": "Web applications"
+   },
+   "threat": {
+    "fr": "Exploitation d'une faille",
+    "en": "Vulnerability exploitation"
+   },
+   "vulnerability": {
+    "fr": "Composants non corrigés exposés sur Internet",
+    "en": "Unpatched components exposed to the internet"
+   },
+   "consequence": {
+    "fr": "Compromission du portail client",
+    "en": "Customer portal compromised"
+   },
+   "criteria": [
+    "C",
+    "I"
+   ],
+   "likelihood": 3,
+   "impact": 3,
+   "control": {
+    "ref": "A.8.8",
+    "title": {
+     "fr": "Gestion des vulnérabilités techniques",
+     "en": "Management of technical vulnerabilities"
+    }
+   },
+   "action": {
+    "fr": "Scanner, prioriser et corriger les vulnérabilités",
+    "en": "Scan, prioritize and remediate vulnerabilities"
+   },
+   "residualLikelihood": 2,
+   "residualImpact": 3,
+   "owner": {
+    "fr": "DSI",
+    "en": "CIO"
+   },
+   "explanation": {
+    "fr": "Une application exposée est scannée en permanence : vraisemblable (3). Le portail compromis touche des clients sans arrêter toute l'entreprise : grave (3). Corriger plus vite réduit la vraisemblance ; l'impact reste le même si l'attaque réussit.",
+    "en": "An exposed application is scanned constantly: likely (3). A compromised portal hurts customers without stopping the whole company: serious (3). Faster patching lowers the likelihood; the impact stays the same if the attack succeeds."
+   }
+  },
+  {
+   "id": "R003",
+   "asset": {
+    "fr": "Annuaire et authentification unique (IAM / SSO)",
+    "en": "Directory and single sign-on (IAM / SSO)"
+   },
+   "threat": {
+    "fr": "Vol de compte",
+    "en": "Account takeover"
+   },
+   "vulnerability": {
+    "fr": "Authentification par mot de passe seul",
+    "en": "Password-only authentication"
+   },
+   "consequence": {
+    "fr": "Usurpation de comptes à privilèges",
+    "en": "Privileged accounts impersonated"
+   },
+   "criteria": [
+    "C",
+    "I"
+   ],
+   "likelihood": 3,
+   "impact": 4,
+   "control": {
+    "ref": "A.8.5",
+    "title": {
+     "fr": "Authentification sécurisée",
+     "en": "Secure authentication"
+    }
+   },
+   "action": {
+    "fr": "Activer une MFA résistante au hameçonnage et des règles de session",
+    "en": "Enable phishing-resistant MFA and session policies"
+   },
+   "residualLikelihood": 1,
+   "residualImpact": 4,
+   "owner": {
+    "fr": "Responsable IAM",
+    "en": "IAM manager"
+   },
+   "explanation": {
+    "fr": "Les mots de passe volés circulent en masse : vraisemblable (3). Un compte à privilèges ouvre tout le système d'information : critique (4). La MFA fait chuter la vraisemblance, mais un compte compromis resterait critique.",
+    "en": "Stolen passwords circulate in bulk: likely (3). A privileged account opens the whole information system: critical (4). MFA cuts the likelihood, but a compromised account would still be critical."
+   }
+  },
+  {
+   "id": "R004",
+   "asset": {
+    "fr": "Messagerie",
+    "en": "Email"
+   },
+   "threat": {
+    "fr": "Hameçonnage",
+    "en": "Phishing"
+   },
+   "vulnerability": {
+    "fr": "Personnel peu sensibilisé",
+    "en": "Staff with little awareness"
+   },
+   "consequence": {
+    "fr": "Divulgation des identifiants",
+    "en": "Credentials disclosed"
+   },
+   "criteria": [
+    "C"
+   ],
+   "likelihood": 4,
+   "impact": 2,
+   "control": {
+    "ref": "A.6.3",
+    "title": {
+     "fr": "Sensibilisation, enseignement et formation en sécurité de l'information",
+     "en": "Information security awareness, education and training"
+    }
+   },
+   "action": {
+    "fr": "Former les utilisateurs et organiser des campagnes de simulation",
+    "en": "Train users and run simulation campaigns"
+   },
+   "residualLikelihood": 3,
+   "residualImpact": 2,
+   "owner": {
+    "fr": "RSSI",
+    "en": "CISO"
+   },
+   "explanation": {
+    "fr": "Des courriels d'hameçonnage arrivent chaque semaine : très vraisemblable (4). Un seul compte divulgué, sans privilège, reste un impact significatif (2). La formation réduit les clics sans les supprimer : le risque baisse d'un cran.",
+    "en": "Phishing emails arrive every week: very likely (4). One disclosed account without privileges is a significant impact (2). Training reduces clicks without eliminating them: the risk drops one notch."
+   }
+  },
+  {
+   "id": "R005",
+   "asset": {
+    "fr": "Base clients",
+    "en": "Customer database"
+   },
+   "threat": {
+    "fr": "Exfiltration de données",
+    "en": "Data exfiltration"
+   },
+   "vulnerability": {
+    "fr": "Aucun contrôle des flux sortants",
+    "en": "No control of outbound flows"
+   },
+   "consequence": {
+    "fr": "Fuite de données personnelles",
+    "en": "Personal data leak"
+   },
+   "criteria": [
+    "C"
+   ],
+   "likelihood": 2,
+   "impact": 4,
+   "control": {
+    "ref": "A.8.12",
+    "title": {
+     "fr": "Prévention de la fuite de données",
+     "en": "Data leakage prevention"
+    }
+   },
+   "action": {
+    "fr": "Mettre en place une DLP et des règles de sortie",
+    "en": "Implement DLP and egress rules"
+   },
+   "residualLikelihood": 1,
+   "residualImpact": 4,
+   "owner": {
+    "fr": "Responsable des données",
+    "en": "Data owner"
+   },
+   "explanation": {
+    "fr": "Il faut d'abord un accès à la base : peu vraisemblable (2). Une fuite de données clients entraîne notification, sanctions et perte de confiance : critique (4). La DLP rend la sortie plus difficile ; l'impact d'une fuite réussie ne change pas.",
+    "en": "Access to the database is needed first: unlikely (2). A customer data leak brings notification, penalties and loss of trust: critical (4). DLP makes exfiltration harder; the impact of a successful leak does not change."
+   }
+  },
+  {
+   "id": "R006",
+   "asset": {
+    "fr": "Stockage dans le cloud public",
+    "en": "Public cloud storage"
+   },
+   "threat": {
+    "fr": "Erreur de configuration",
+    "en": "Misconfiguration"
+   },
+   "vulnerability": {
+    "fr": "Stockage public par défaut, configuration jamais contrôlée",
+    "en": "Public storage by default, configuration never checked"
+   },
+   "consequence": {
+    "fr": "Exposition de fichiers sur Internet",
+    "en": "Files exposed on the internet"
+   },
+   "criteria": [
+    "C"
+   ],
+   "likelihood": 3,
+   "impact": 3,
+   "control": {
+    "ref": "A.8.9",
+    "title": {
+     "fr": "Gestion des configurations",
+     "en": "Configuration management"
+    }
+   },
+   "action": {
+    "fr": "Contrôler les configurations par un référentiel et un outil CSPM",
+    "en": "Check configurations against a baseline with a CSPM tool"
+   },
+   "residualLikelihood": 1,
+   "residualImpact": 3,
+   "owner": {
+    "fr": "Responsable cloud",
+    "en": "Cloud manager"
+   },
+   "explanation": {
+    "fr": "Les erreurs de configuration sont la première cause de fuite dans le cloud : vraisemblable (3). Les fichiers exposés sont sensibles mais limités : grave (3). Un contrôle automatique des configurations rend l'erreur rare.",
+    "en": "Misconfigurations are the leading cause of cloud leaks: likely (3). The exposed files are sensitive but limited: serious (3). Automated configuration checks make the error rare."
+   }
+  },
+  {
+   "id": "R007",
+   "asset": {
+    "fr": "Site de vente en ligne",
+    "en": "E-commerce site"
+   },
+   "threat": {
+    "fr": "Déni de service distribué (DDoS)",
+    "en": "Distributed denial of service (DDoS)"
+   },
+   "vulnerability": {
+    "fr": "Aucune protection anti-DDoS en amont",
+    "en": "No upstream DDoS protection"
+   },
+   "consequence": {
+    "fr": "Site indisponible, ventes perdues",
+    "en": "Site unavailable, lost sales"
+   },
+   "criteria": [
+    "D"
+   ],
+   "likelihood": 3,
+   "impact": 3,
+   "control": {
+    "ref": "A.8.20",
+    "title": {
+     "fr": "Sécurité des réseaux",
+     "en": "Networks security"
+    }
+   },
+   "action": {
+    "fr": "Filtrer le trafic et souscrire une protection anti-DDoS",
+    "en": "Filter traffic and subscribe to DDoS protection"
+   },
+   "residualLikelihood": 2,
+   "residualImpact": 2,
+   "owner": {
+    "fr": "Responsable réseau",
+    "en": "Network manager"
+   },
+   "explanation": {
+    "fr": "Les sites marchands sont des cibles fréquentes de DDoS : vraisemblable (3). Quelques heures sans ventes coûtent cher : grave (3). La protection en amont réduit à la fois la vraisemblance d'une coupure et sa durée.",
+    "en": "Online shops are frequent DDoS targets: likely (3). A few hours without sales are costly: serious (3). Upstream protection reduces both the likelihood of an outage and its duration."
+   }
+  },
+  {
+   "id": "R008",
+   "asset": {
+    "fr": "Infrastructure de sauvegarde",
+    "en": "Backup infrastructure"
+   },
+   "threat": {
+    "fr": "Défaillance des sauvegardes",
+    "en": "Backup failure"
+   },
+   "vulnerability": {
+    "fr": "Restaurations jamais testées",
+    "en": "Restores never tested"
+   },
+   "consequence": {
+    "fr": "Perte définitive de données",
+    "en": "Permanent data loss"
+   },
+   "criteria": [
+    "I",
+    "D"
+   ],
+   "likelihood": 2,
+   "impact": 4,
+   "control": {
+    "ref": "A.8.13",
+    "title": {
+     "fr": "Sauvegarde des informations",
+     "en": "Information backup"
+    }
+   },
+   "action": {
+    "fr": "Isoler des copies hors ligne et tester les restaurations",
+    "en": "Keep offline copies and test restores"
+   },
+   "residualLikelihood": 1,
+   "residualImpact": 3,
+   "owner": {
+    "fr": "DSI",
+    "en": "CIO"
+   },
+   "explanation": {
+    "fr": "Une sauvegarde non testée échoue un jour, mais pas chaque année : peu vraisemblable (2). Perdre définitivement des données métier est critique (4). Les tests de restauration et une copie isolée réduisent les deux.",
+    "en": "An untested backup fails one day, but not every year: unlikely (2). Permanently losing business data is critical (4). Restore tests and an isolated copy reduce both."
+   }
+  },
+  {
+   "id": "R009",
+   "asset": {
+    "fr": "Salle informatique",
+    "en": "Computer room"
+   },
+   "threat": {
+    "fr": "Incendie",
+    "en": "Fire"
+   },
+   "vulnerability": {
+    "fr": "Détection incendie absente ou non entretenue",
+    "en": "Fire detection missing or not maintained"
+   },
+   "consequence": {
+    "fr": "Perte des serveurs et arrêt du service",
+    "en": "Servers lost and service stopped"
+   },
+   "criteria": [
+    "D"
+   ],
+   "likelihood": 1,
+   "impact": 4,
+   "control": {
+    "ref": "A.7.5",
+    "title": {
+     "fr": "Protection contre les menaces physiques et environnementales",
+     "en": "Protecting against physical and environmental threats"
+    }
+   },
+   "action": {
+    "fr": "Installer une détection et une extinction adaptées, et prévoir un repli",
+    "en": "Install suitable detection and suppression, and plan a fallback"
+   },
+   "residualLikelihood": 1,
+   "residualImpact": 3,
+   "owner": {
+    "fr": "Responsable des services généraux",
+    "en": "Facilities manager"
+   },
+   "explanation": {
+    "fr": "Un incendie de salle est rare (1) mais détruit tout : critique (4). C'est le cas typique d'un risque peu probable à fort impact : la détection limite les dégâts, l'assurance peut en transférer la part financière.",
+    "en": "A computer room fire is rare (1) but destroys everything: critical (4). It is the typical low-likelihood, high-impact risk: detection limits the damage, insurance can transfer the financial part."
+   }
+  },
+  {
+   "id": "R010",
+   "asset": {
+    "fr": "Centre de données",
+    "en": "Data center"
+   },
+   "threat": {
+    "fr": "Inondation",
+    "en": "Flood"
+   },
+   "vulnerability": {
+    "fr": "Salle en sous-sol, en zone inondable",
+    "en": "Basement room in a flood zone"
+   },
+   "consequence": {
+    "fr": "Arrêt des applications critiques",
+    "en": "Critical applications stopped"
+   },
+   "criteria": [
+    "D"
+   ],
+   "likelihood": 1,
+   "impact": 4,
+   "control": {
+    "ref": "A.7.5",
+    "title": {
+     "fr": "Protection contre les menaces physiques et environnementales",
+     "en": "Protecting against physical and environmental threats"
+    }
+   },
+   "action": {
+    "fr": "Protéger les locaux, surélever les équipements et préparer un site de repli",
+    "en": "Protect the premises, raise equipment and prepare a fallback site"
+   },
+   "residualLikelihood": 1,
+   "residualImpact": 2,
+   "owner": {
+    "fr": "DSI",
+    "en": "CIO"
+   },
+   "explanation": {
+    "fr": "Une inondation reste rare (1) mais arrêterait toutes les applications critiques : critique (4). Un site de repli ne change pas la vraisemblance ; il réduit l'impact en permettant de redémarrer ailleurs.",
+    "en": "A flood remains rare (1) but would stop every critical application: critical (4). A fallback site does not change the likelihood; it reduces the impact by allowing a restart elsewhere."
+   }
+  },
+  {
+   "id": "R011",
+   "asset": {
+    "fr": "Dépôts de code source",
+    "en": "Source code repositories"
+   },
+   "threat": {
+    "fr": "Erreur humaine",
+    "en": "Human error"
+   },
+   "vulnerability": {
+    "fr": "Droits de suppression trop larges, dépôts non sauvegardés",
+    "en": "Deletion rights too broad, repositories not backed up"
+   },
+   "consequence": {
+    "fr": "Suppression accidentelle du code",
+    "en": "Code accidentally deleted"
+   },
+   "criteria": [
+    "I",
+    "D"
+   ],
+   "likelihood": 2,
+   "impact": 3,
+   "control": {
+    "ref": "A.8.13",
+    "title": {
+     "fr": "Sauvegarde des informations",
+     "en": "Information backup"
+    }
+   },
+   "action": {
+    "fr": "Versionner et sauvegarder les dépôts, restreindre la suppression",
+    "en": "Version and back up repositories, restrict deletion"
+   },
+   "residualLikelihood": 1,
+   "residualImpact": 2,
+   "owner": {
+    "fr": "Responsable du développement",
+    "en": "Development manager"
+   },
+   "explanation": {
+    "fr": "Une mauvaise manipulation arrive parfois : peu vraisemblable (2). Reconstruire le code coûte des semaines : grave (3). Avec des sauvegardes, l'erreur se répare en quelques heures.",
+    "en": "A wrong move happens now and then: unlikely (2). Rebuilding the code costs weeks: serious (3). With backups, the error is fixed in a few hours."
+   }
+  },
+  {
+   "id": "R012",
+   "asset": {
+    "fr": "Dépendances logicielles",
+    "en": "Software dependencies"
+   },
+   "threat": {
+    "fr": "Attaque de la chaîne d'approvisionnement",
+    "en": "Supply chain attack"
+   },
+   "vulnerability": {
+    "fr": "Bibliothèques intégrées sans vérification ni inventaire (SBOM)",
+    "en": "Libraries added without checks or inventory (SBOM)"
+   },
+   "consequence": {
+    "fr": "Code malveillant livré aux clients",
+    "en": "Malicious code shipped to customers"
+   },
+   "criteria": [
+    "C",
+    "I"
+   ],
+   "likelihood": 2,
+   "impact": 4,
+   "control": {
+    "ref": "A.5.21",
+    "title": {
+     "fr": "Gestion de la sécurité de l'information dans la chaîne d'approvisionnement TIC",
+     "en": "Managing information security in the ICT supply chain"
+    }
+   },
+   "action": {
+    "fr": "Évaluer les fournisseurs et les composants, tenir un SBOM",
+    "en": "Assess suppliers and components, keep an SBOM"
+   },
+   "residualLikelihood": 1,
+   "residualImpact": 4,
+   "owner": {
+    "fr": "Responsable applicatif",
+    "en": "Application owner"
+   },
+   "explanation": {
+    "fr": "Ces attaques sont en hausse mais demandent un composant piégé : peu vraisemblable (2). Livrer du code malveillant à ses clients est critique (4). L'analyse des composants rend la compromission rare ; l'impact resterait critique.",
+    "en": "These attacks are rising but need a trapped component: unlikely (2). Shipping malicious code to customers is critical (4). Component analysis makes compromise rare; the impact would stay critical."
+   }
+  },
+  {
+   "id": "R013",
+   "asset": {
+    "fr": "Dépôt Git",
+    "en": "Git repository"
+   },
+   "threat": {
+    "fr": "Fuite d'un secret",
+    "en": "Secret leak"
+   },
+   "vulnerability": {
+    "fr": "Clés d'API écrites dans le code",
+    "en": "API keys written in the code"
+   },
+   "consequence": {
+    "fr": "Compromission des clés d'API",
+    "en": "API keys compromised"
+   },
+   "criteria": [
+    "C"
+   ],
+   "likelihood": 3,
+   "impact": 3,
+   "control": {
+    "ref": "A.8.4",
+    "title": {
+     "fr": "Accès aux codes source",
+     "en": "Access to source code"
+    }
+   },
+   "action": {
+    "fr": "Restreindre l'accès au code et rechercher les secrets à chaque commit",
+    "en": "Restrict code access and scan every commit for secrets"
+   },
+   "residualLikelihood": 1,
+   "residualImpact": 3,
+   "owner": {
+    "fr": "Responsable du développement",
+    "en": "Development manager"
+   },
+   "explanation": {
+    "fr": "Les robots cherchent les clés dans les dépôts en permanence : vraisemblable (3). Une clé volée donne accès aux services : grave (3). Un coffre-fort de secrets et l'analyse des commits rendent la fuite rare.",
+    "en": "Bots search repositories for keys constantly: likely (3). A stolen key grants access to services: serious (3). A secrets vault and commit scanning make the leak rare."
+   }
+  },
+  {
+   "id": "R014",
+   "asset": {
+    "fr": "Données RH",
+    "en": "HR data"
+   },
+   "threat": {
+    "fr": "Menace interne",
+    "en": "Insider threat"
+   },
+   "vulnerability": {
+    "fr": "Habilitations jamais revues",
+    "en": "Access rights never reviewed"
+   },
+   "consequence": {
+    "fr": "Accès illégitime à des données sensibles",
+    "en": "Illegitimate access to sensitive data"
+   },
+   "criteria": [
+    "C"
+   ],
+   "likelihood": 2,
+   "impact": 3,
+   "control": {
+    "ref": "A.5.18",
+    "title": {
+     "fr": "Droits d'accès",
+     "en": "Access rights"
+    }
+   },
+   "action": {
+    "fr": "Revoir périodiquement les habilitations",
+    "en": "Review access rights periodically"
+   },
+   "residualLikelihood": 1,
+   "residualImpact": 3,
+   "owner": {
+    "fr": "Responsable RH",
+    "en": "HR manager"
+   },
+   "explanation": {
+    "fr": "Les droits accumulés au fil des postes permettent l'abus, sans qu'il soit fréquent : peu vraisemblable (2). Des données RH consultées à tort : grave (3). La revue des droits ferme les accès inutiles.",
+    "en": "Rights piled up over job changes allow abuse, though rarely: unlikely (2). HR data viewed without reason: serious (3). Access reviews close needless access."
+   }
+  },
+  {
+   "id": "R015",
+   "asset": {
+    "fr": "Infrastructure réseau",
+    "en": "Network infrastructure"
+   },
+   "threat": {
+    "fr": "Coupure électrique",
+    "en": "Power failure"
+   },
+   "vulnerability": {
+    "fr": "Ni onduleur ni groupe électrogène",
+    "en": "No UPS or generator"
+   },
+   "consequence": {
+    "fr": "Arrêt des équipements réseau",
+    "en": "Network equipment down"
+   },
+   "criteria": [
+    "D"
+   ],
+   "likelihood": 2,
+   "impact": 3,
+   "control": {
+    "ref": "A.7.11",
+    "title": {
+     "fr": "Services supports",
+     "en": "Supporting utilities"
+    }
+   },
+   "action": {
+    "fr": "Installer une alimentation secourue et la tester",
+    "en": "Install backup power and test it"
+   },
+   "residualLikelihood": 1,
+   "residualImpact": 2,
+   "owner": {
+    "fr": "Responsable des services généraux",
+    "en": "Facilities manager"
+   },
+   "explanation": {
+    "fr": "Une coupure de courant arrive de temps en temps : peu vraisemblable (2). Sans réseau, tout le monde s'arrête : grave (3). L'onduleur absorbe les micro-coupures et le groupe tient les longues.",
+    "en": "Power cuts happen from time to time: unlikely (2). Without the network, everyone stops: serious (3). The UPS absorbs short cuts and the generator covers long ones."
+   }
+  },
+  {
+   "id": "R016",
+   "asset": {
+    "fr": "Ordinateurs portables",
+    "en": "Laptops"
+   },
+   "threat": {
+    "fr": "Perte ou vol d'un terminal",
+    "en": "Device loss or theft"
+   },
+   "vulnerability": {
+    "fr": "Disques non chiffrés",
+    "en": "Unencrypted disks"
+   },
+   "consequence": {
+    "fr": "Divulgation de données clients",
+    "en": "Customer data disclosed"
+   },
+   "criteria": [
+    "C"
+   ],
+   "likelihood": 4,
+   "impact": 2,
+   "control": {
+    "ref": "A.8.1",
+    "title": {
+     "fr": "Terminaux finaux des utilisateurs",
+     "en": "User endpoint devices"
+    }
+   },
+   "action": {
+    "fr": "Chiffrer les disques et administrer les terminaux à distance",
+    "en": "Encrypt disks and manage devices remotely"
+   },
+   "residualLikelihood": 4,
+   "residualImpact": 1,
+   "owner": {
+    "fr": "DSI",
+    "en": "CIO"
+   },
+   "explanation": {
+    "fr": "Avec une flotte de portables, une perte par an est presque sûre : très vraisemblable (4). Les données d'un seul poste : significatif (2). Le chiffrement ne réduit pas les pertes, il réduit l'impact : la vraisemblance reste à 4.",
+    "en": "With a fleet of laptops, one loss a year is almost certain: very likely (4). Data from a single device: significant (2). Encryption does not reduce losses, it reduces the impact: likelihood stays at 4."
+   }
+  },
+  {
+   "id": "R017",
+   "asset": {
+    "fr": "Production SaaS",
+    "en": "SaaS production"
+   },
+   "threat": {
+    "fr": "Erreur de changement",
+    "en": "Change error"
+   },
+   "vulnerability": {
+    "fr": "Déploiements sans validation ni retour arrière",
+    "en": "Deployments without approval or rollback"
+   },
+   "consequence": {
+    "fr": "Interruption après une mise en production",
+    "en": "Outage after a release"
+   },
+   "criteria": [
+    "I",
+    "D"
+   ],
+   "likelihood": 3,
+   "impact": 3,
+   "control": {
+    "ref": "A.8.32",
+    "title": {
+     "fr": "Gestion des changements",
+     "en": "Change management"
+    }
+   },
+   "action": {
+    "fr": "Faire approuver les changements et prévoir le retour arrière",
+    "en": "Approve changes and plan the rollback"
+   },
+   "residualLikelihood": 2,
+   "residualImpact": 2,
+   "owner": {
+    "fr": "Responsable de production",
+    "en": "Production manager"
+   },
+   "explanation": {
+    "fr": "Sans processus, les déploiements ratés sont fréquents : vraisemblable (3). Une interruption du service vendu : grave (3). L'approbation réduit les erreurs ; le retour arrière raccourcit l'interruption.",
+    "en": "Without a process, failed deployments are frequent: likely (3). An outage of the service you sell: serious (3). Approval reduces errors; rollback shortens the outage."
+   }
+  },
+  {
+   "id": "R018",
+   "asset": {
+    "fr": "Locaux techniques",
+    "en": "Technical rooms"
+   },
+   "threat": {
+    "fr": "Intrusion physique",
+    "en": "Physical intrusion"
+   },
+   "vulnerability": {
+    "fr": "Accès par badge non tracé, portes laissées ouvertes",
+    "en": "Untracked badge access, doors left open"
+   },
+   "consequence": {
+    "fr": "Sabotage des équipements",
+    "en": "Equipment sabotage"
+   },
+   "criteria": [
+    "I",
+    "D"
+   ],
+   "likelihood": 2,
+   "impact": 3,
+   "control": {
+    "ref": "A.7.2",
+    "title": {
+     "fr": "Les entrées physiques",
+     "en": "Physical entry"
+    }
+   },
+   "action": {
+    "fr": "Contrôler et tracer les accès physiques",
+    "en": "Control and log physical access"
+   },
+   "residualLikelihood": 1,
+   "residualImpact": 3,
+   "owner": {
+    "fr": "Responsable des services généraux",
+    "en": "Facilities manager"
+   },
+   "explanation": {
+    "fr": "Une intrusion demande d'entrer sur le site : peu vraisemblable (2). Le sabotage d'équipements arrête des services : grave (3). Le contrôle d'accès tracé rend l'intrusion rare et identifiable.",
+    "en": "An intrusion requires getting onto the site: unlikely (2). Equipment sabotage stops services: serious (3). Logged access control makes intrusion rare and traceable."
+   }
+  },
+  {
+   "id": "R019",
+   "asset": {
+    "fr": "SIEM",
+    "en": "SIEM"
+   },
+   "threat": {
+    "fr": "Journalisation insuffisante",
+    "en": "Insufficient logging"
+   },
+   "vulnerability": {
+    "fr": "Sources critiques non raccordées au SIEM",
+    "en": "Critical sources not connected to the SIEM"
+   },
+   "consequence": {
+    "fr": "Intrusion non détectée",
+    "en": "Intrusion not detected"
+   },
+   "criteria": [
+    "C",
+    "I"
+   ],
+   "likelihood": 2,
+   "impact": 3,
+   "control": {
+    "ref": "A.8.15",
+    "title": {
+     "fr": "Journalisation",
+     "en": "Logging"
+    }
+   },
+   "action": {
+    "fr": "Centraliser et protéger les journaux, couvrir les sources critiques",
+    "en": "Centralize and protect logs, cover critical sources"
+   },
+   "residualLikelihood": 1,
+   "residualImpact": 3,
+   "owner": {
+    "fr": "Responsable SOC",
+    "en": "SOC manager"
+   },
+   "explanation": {
+    "fr": "Il faut une intrusion et une source manquante au mauvais endroit : peu vraisemblable (2). Une intrusion vue tard coûte cher : grave (3). Raccorder les sources critiques rend la non-détection rare.",
+    "en": "It takes an intrusion and a missing source in the wrong place: unlikely (2). An intrusion seen late is costly: serious (3). Connecting critical sources makes non-detection rare."
+   }
+  },
+  {
+   "id": "R020",
+   "asset": {
+    "fr": "Service cloud externalisé",
+    "en": "Outsourced cloud service"
+   },
+   "threat": {
+    "fr": "Panne du fournisseur",
+    "en": "Supplier outage"
+   },
+   "vulnerability": {
+    "fr": "Contrat sans niveau de service ni solution de repli",
+    "en": "Contract without service levels or fallback"
+   },
+   "consequence": {
+    "fr": "Service externalisé indisponible",
+    "en": "Outsourced service unavailable"
+   },
+   "criteria": [
+    "D"
+   ],
+   "likelihood": 2,
+   "impact": 3,
+   "control": {
+    "ref": "A.5.22",
+    "title": {
+     "fr": "Surveillance, révision et gestion des changements des services fournisseurs",
+     "en": "Monitoring, review and change management of supplier services"
+    }
+   },
+   "action": {
+    "fr": "Surveiller les niveaux de service et préparer un mode dégradé",
+    "en": "Monitor service levels and prepare a degraded mode"
+   },
+   "residualLikelihood": 2,
+   "residualImpact": 2,
+   "owner": {
+    "fr": "Responsable des achats",
+    "en": "Procurement manager"
+   },
+   "explanation": {
+    "fr": "Les grandes pannes de fournisseurs arrivent, sans être annuelles : peu vraisemblable (2). Le service est arrêté le temps de la panne : grave (3). On ne contrôle pas la panne du fournisseur ; le mode dégradé réduit l'impact.",
+    "en": "Major supplier outages happen, though not every year: unlikely (2). The service stops for the outage: serious (3). You do not control the supplier's outage; a degraded mode reduces the impact."
+   }
+  },
+  {
+   "id": "R021",
+   "asset": {
+    "fr": "API métier",
+    "en": "Business API"
+   },
+   "threat": {
+    "fr": "Attaque d'API",
+    "en": "API attack"
+   },
+   "vulnerability": {
+    "fr": "Autorisation non vérifiée objet par objet",
+    "en": "Authorization not checked per object"
+   },
+   "consequence": {
+    "fr": "Accès non autorisé aux données",
+    "en": "Unauthorized data access"
+   },
+   "criteria": [
+    "C",
+    "I"
+   ],
+   "likelihood": 3,
+   "impact": 3,
+   "control": {
+    "ref": "A.8.26",
+    "title": {
+     "fr": "Exigences de sécurité des applications",
+     "en": "Application security requirements"
+    }
+   },
+   "action": {
+    "fr": "Écrire les exigences de sécurité des API et les tester",
+    "en": "Write API security requirements and test them"
+   },
+   "residualLikelihood": 1,
+   "residualImpact": 3,
+   "owner": {
+    "fr": "Responsable applicatif",
+    "en": "Application owner"
+   },
+   "explanation": {
+    "fr": "Les API exposées sont très sondées et ce défaut est le premier du Top 10 API : vraisemblable (3). Des données d'autres clients lisibles : grave (3). Une exigence testée avant chaque version ferme la faille.",
+    "en": "Exposed APIs are heavily probed and this flaw tops the API Top 10: likely (3). Other customers' data readable: serious (3). A requirement tested before every release closes the flaw."
+   }
+  },
+  {
+   "id": "R022",
+   "asset": {
+    "fr": "Application métier",
+    "en": "Business application"
+   },
+   "threat": {
+    "fr": "Développement non sécurisé",
+    "en": "Insecure development"
+   },
+   "vulnerability": {
+    "fr": "Entrées non validées, aucune revue de code",
+    "en": "Unvalidated input, no code review"
+   },
+   "consequence": {
+    "fr": "Injection SQL ou XSS",
+    "en": "SQL injection or XSS"
+   },
+   "criteria": [
+    "C",
+    "I"
+   ],
+   "likelihood": 3,
+   "impact": 3,
+   "control": {
+    "ref": "A.8.28",
+    "title": {
+     "fr": "Codage sécurisé",
+     "en": "Secure coding"
+    }
+   },
+   "action": {
+    "fr": "Revues de code et analyses SAST et DAST",
+    "en": "Code reviews and SAST and DAST scans"
+   },
+   "residualLikelihood": 1,
+   "residualImpact": 3,
+   "owner": {
+    "fr": "Responsable du développement",
+    "en": "Development manager"
+   },
+   "explanation": {
+    "fr": "Sans validation des entrées, une injection finit par passer : vraisemblable (3). Lecture ou modification des données de l'application : grave (3). Les revues et les tests automatiques rendent la faille rare.",
+    "en": "Without input validation, an injection eventually gets through: likely (3). Application data read or changed: serious (3). Reviews and automated tests make the flaw rare."
+   }
+  },
+  {
+   "id": "R023",
+   "asset": {
+    "fr": "Réseau interne",
+    "en": "Internal network"
+   },
+   "threat": {
+    "fr": "Propagation latérale",
+    "en": "Lateral movement"
+   },
+   "vulnerability": {
+    "fr": "Réseau à plat, sans filtrage entre zones",
+    "en": "Flat network, no filtering between zones"
+   },
+   "consequence": {
+    "fr": "Un poste infecté atteint tous les serveurs",
+    "en": "One infected workstation reaches every server"
+   },
+   "criteria": [
+    "C",
+    "I",
+    "D"
+   ],
+   "likelihood": 2,
+   "impact": 4,
+   "control": {
+    "ref": "A.8.22",
+    "title": {
+     "fr": "Cloisonnement des réseaux",
+     "en": "Segregation of networks"
+    }
+   },
+   "action": {
+    "fr": "Segmenter les zones et filtrer les flux",
+    "en": "Segment zones and filter flows"
+   },
+   "residualLikelihood": 2,
+   "residualImpact": 2,
+   "owner": {
+    "fr": "Responsable réseau",
+    "en": "Network manager"
+   },
+   "explanation": {
+    "fr": "Il faut d'abord un poste compromis : peu vraisemblable (2). Sur un réseau à plat, l'attaquant atteint tout : critique (4). La segmentation ne bloque pas l'infection du poste ; elle contient la propagation et réduit l'impact.",
+    "en": "A compromised workstation is needed first: unlikely (2). On a flat network, the attacker reaches everything: critical (4). Segmentation does not stop the workstation infection; it contains the spread and reduces the impact."
+   }
+  },
+  {
+   "id": "R024",
+   "asset": {
+    "fr": "Messagerie clients",
+    "en": "Customer email"
+   },
+   "threat": {
+    "fr": "Erreur d'envoi",
+    "en": "Misdirected email"
+   },
+   "vulnerability": {
+    "fr": "Saisie automatique des destinataires, aucun contrôle avant envoi",
+    "en": "Recipient autocomplete, no check before sending"
+   },
+   "consequence": {
+    "fr": "Données transmises au mauvais destinataire",
+    "en": "Data sent to the wrong recipient"
+   },
+   "criteria": [
+    "C"
+   ],
+   "likelihood": 3,
+   "impact": 2,
+   "control": {
+    "ref": "A.5.14",
+    "title": {
+     "fr": "Transfert des informations",
+     "en": "Information transfer"
+    }
+   },
+   "action": {
+    "fr": "Sécuriser les transferts et faire vérifier les destinataires",
+    "en": "Secure transfers and have recipients checked"
+   },
+   "residualLikelihood": 2,
+   "residualImpact": 2,
+   "owner": {
+    "fr": "Responsable de la relation client",
+    "en": "Customer relations manager"
+   },
+   "explanation": {
+    "fr": "Une erreur de destinataire arrive plusieurs fois par an : vraisemblable (3). Un dossier client mal envoyé reste limité : significatif (2). Le contrôle avant envoi réduit la fréquence, pas la gravité.",
+    "en": "A wrong recipient happens several times a year: likely (3). One misdirected customer file stays limited: significant (2). A pre-send check lowers the frequency, not the severity."
+   }
+  },
+  {
+   "id": "R025",
+   "asset": {
+    "fr": "Base de données",
+    "en": "Database"
+   },
+   "threat": {
+    "fr": "Altération de données",
+    "en": "Data tampering"
+   },
+   "vulnerability": {
+    "fr": "Comptes applicatifs avec trop de droits d'écriture, aucune traçabilité",
+    "en": "Application accounts with too much write access, no traceability"
+   },
+   "consequence": {
+    "fr": "Décisions prises sur des données fausses",
+    "en": "Decisions made on false data"
+   },
+   "criteria": [
+    "I"
+   ],
+   "likelihood": 2,
+   "impact": 3,
+   "control": {
+    "ref": "A.8.3",
+    "title": {
+     "fr": "Restrictions d'accès aux informations",
+     "en": "Information access restriction"
+    }
+   },
+   "action": {
+    "fr": "Limiter les droits d'écriture et tracer les modifications",
+    "en": "Limit write access and log changes"
+   },
+   "residualLikelihood": 1,
+   "residualImpact": 3,
+   "owner": {
+    "fr": "Responsable des données",
+    "en": "Data owner"
+   },
+   "explanation": {
+    "fr": "Une modification illégitime est possible mais pas courante : peu vraisemblable (2). Des décisions sur de fausses données : grave (3). Moins de droits et des traces rendent l'altération rare et détectable.",
+    "en": "An illegitimate change is possible but uncommon: unlikely (2). Decisions on false data: serious (3). Fewer rights and logs make tampering rare and detectable."
+   }
+  },
+  {
+   "id": "R026",
+   "asset": {
+    "fr": "Salle serveur",
+    "en": "Server room"
+   },
+   "threat": {
+    "fr": "Panne de climatisation",
+    "en": "Cooling failure"
+   },
+   "vulnerability": {
+    "fr": "Climatisation unique, non supervisée",
+    "en": "Single, unmonitored air conditioning"
+   },
+   "consequence": {
+    "fr": "Surchauffe et arrêt du matériel",
+    "en": "Overheating and hardware shutdown"
+   },
+   "criteria": [
+    "D"
+   ],
+   "likelihood": 2,
+   "impact": 3,
+   "control": {
+    "ref": "A.7.11",
+    "title": {
+     "fr": "Services supports",
+     "en": "Supporting utilities"
+    }
+   },
+   "action": {
+    "fr": "Superviser la température et doubler la climatisation",
+    "en": "Monitor temperature and duplicate cooling"
+   },
+   "residualLikelihood": 1,
+   "residualImpact": 2,
+   "owner": {
+    "fr": "Responsable des services généraux",
+    "en": "Facilities manager"
+   },
+   "explanation": {
+    "fr": "Une climatisation unique tombe en panne tôt ou tard : peu vraisemblable (2) sur une année. L'arrêt des serveurs : grave (3). La redondance évite la panne et l'alarme permet d'agir avant l'arrêt.",
+    "en": "A single cooling unit fails sooner or later: unlikely (2) in a given year. Servers shutting down: serious (3). Redundancy avoids the failure and an alarm allows action before shutdown."
+   }
+  },
+  {
+   "id": "R027",
+   "asset": {
+    "fr": "Archives sur supports",
+    "en": "Archived media"
+   },
+   "threat": {
+    "fr": "Vol de support",
+    "en": "Media theft"
+   },
+   "vulnerability": {
+    "fr": "Supports ni inventoriés ni chiffrés",
+    "en": "Media neither inventoried nor encrypted"
+   },
+   "consequence": {
+    "fr": "Divulgation d'archives sensibles",
+    "en": "Sensitive archives disclosed"
+   },
+   "criteria": [
+    "C"
+   ],
+   "likelihood": 2,
+   "impact": 3,
+   "control": {
+    "ref": "A.7.10",
+    "title": {
+     "fr": "Supports de stockage",
+     "en": "Storage media"
+    }
+   },
+   "action": {
+    "fr": "Inventorier, chiffrer et ranger les supports sous clé",
+    "en": "Inventory, encrypt and lock away media"
+   },
+   "residualLikelihood": 1,
+   "residualImpact": 3,
+   "owner": {
+    "fr": "Responsable des archives",
+    "en": "Records manager"
+   },
+   "explanation": {
+    "fr": "Un vol de support suppose un accès aux archives : peu vraisemblable (2). Des archives sensibles divulguées : grave (3). L'inventaire et le rangement sous clé rendent le vol rare.",
+    "en": "Media theft requires access to the archives: unlikely (2). Sensitive archives disclosed: serious (3). Inventory and locked storage make theft rare."
+   }
+  },
+  {
+   "id": "R028",
+   "asset": {
+    "fr": "Service critique",
+    "en": "Critical service"
+   },
+   "threat": {
+    "fr": "Échec du plan de reprise (PRA)",
+    "en": "Disaster recovery plan failure"
+   },
+   "vulnerability": {
+    "fr": "PRA jamais testé, dépendances inconnues",
+    "en": "DRP never tested, dependencies unknown"
+   },
+   "consequence": {
+    "fr": "RTO et RPO non tenus",
+    "en": "RTO and RPO missed"
+   },
+   "criteria": [
+    "D"
+   ],
+   "likelihood": 2,
+   "impact": 4,
+   "control": {
+    "ref": "A.5.30",
+    "title": {
+     "fr": "Préparation des TIC pour la continuité d'activité",
+     "en": "ICT readiness for business continuity"
+    }
+   },
+   "action": {
+    "fr": "Tester les plans de reprise et cartographier les dépendances",
+    "en": "Test recovery plans and map dependencies"
+   },
+   "residualLikelihood": 1,
+   "residualImpact": 3,
+   "owner": {
+    "fr": "Responsable de la continuité",
+    "en": "Business continuity manager"
+   },
+   "explanation": {
+    "fr": "Il faut un sinistre pour que l'échec apparaisse : peu vraisemblable (2). Ne pas redémarrer un service critique dans les délais : critique (4). Les tests révèlent les manques avant le jour J.",
+    "en": "A disaster is needed for the failure to show: unlikely (2). Failing to restart a critical service in time: critical (4). Tests reveal the gaps before the real day."
+   }
+  },
+  {
+   "id": "R029",
+   "asset": {
+    "fr": "Accès à distance des prestataires",
+    "en": "Vendor remote access"
+   },
+   "threat": {
+    "fr": "Compromission d'un prestataire",
+    "en": "Vendor compromise"
+   },
+   "vulnerability": {
+    "fr": "Accès permanents, sans MFA ni journalisation",
+    "en": "Permanent access, no MFA or logging"
+   },
+   "consequence": {
+    "fr": "Accès malveillant via le fournisseur",
+    "en": "Malicious access through the supplier"
+   },
+   "criteria": [
+    "C",
+    "I",
+    "D"
+   ],
+   "likelihood": 2,
+   "impact": 4,
+   "control": {
+    "ref": "A.5.19",
+    "title": {
+     "fr": "Sécurité de l'information dans les relations avec les fournisseurs",
+     "en": "Information security in supplier relationships"
+    }
+   },
+   "action": {
+    "fr": "Encadrer les accès des tiers par contrat et les revoir",
+    "en": "Govern third-party access by contract and review it"
+   },
+   "residualLikelihood": 1,
+   "residualImpact": 4,
+   "owner": {
+    "fr": "RSSI",
+    "en": "CISO"
+   },
+   "explanation": {
+    "fr": "L'attaquant doit d'abord compromettre le prestataire : peu vraisemblable (2). Il entre ensuite avec des droits larges : critique (4). Des accès nominatifs, limités dans le temps et avec MFA rendent ce chemin rare.",
+    "en": "The attacker must first compromise the vendor: unlikely (2). They then come in with broad rights: critical (4). Named, time-limited access with MFA makes this path rare."
+   }
+  },
+  {
+   "id": "R030",
+   "asset": {
+    "fr": "Données personnelles",
+    "en": "Personal data"
+   },
+   "threat": {
+    "fr": "Violation de confidentialité",
+    "en": "Confidentiality breach"
+   },
+   "vulnerability": {
+    "fr": "Accès et durées de conservation non maîtrisés",
+    "en": "Access and retention periods not controlled"
+   },
+   "consequence": {
+    "fr": "Sanctions et préjudice pour les personnes",
+    "en": "Penalties and harm to individuals"
+   },
+   "criteria": [
+    "C"
+   ],
+   "likelihood": 2,
+   "impact": 4,
+   "control": {
+    "ref": "A.5.34",
+    "title": {
+     "fr": "Protection de la vie privée et des DCP",
+     "en": "Privacy and protection of PII"
+    }
+   },
+   "action": {
+    "fr": "Encadrer finalités, accès, conservation et gestion des violations",
+    "en": "Govern purposes, access, retention and breach handling"
+   },
+   "residualLikelihood": 1,
+   "residualImpact": 3,
+   "owner": {
+    "fr": "Délégué à la protection des données (DPO)",
+    "en": "Data protection officer (DPO)"
+   },
+   "explanation": {
+    "fr": "Une violation suppose une erreur ou une attaque : peu vraisemblable (2). Sanctions RGPD et préjudice aux personnes : critique (4). Moins de données gardées moins longtemps réduit aussi l'impact.",
+    "en": "A breach requires an error or an attack: unlikely (2). GDPR penalties and harm to individuals: critical (4). Keeping less data for less time also reduces the impact."
+   }
+  }
+ ]
+}

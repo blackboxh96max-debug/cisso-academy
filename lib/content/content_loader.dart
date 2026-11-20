@@ -43,6 +43,13 @@ class ContentLoader {
                 as Map<String, dynamic>,
           );
 
+    final riskWorkshop = catalog['riskWorkshop'] == null
+        ? RiskWorkshop.empty
+        : RiskWorkshop.fromJson(
+            jsonDecode(await read('$root/${catalog['riskWorkshop']}'))
+                as Map<String, dynamic>,
+          );
+
     final modules = <Module>[];
     for (final m in catalog['modules'] as List) {
       final moduleJson = m as Map<String, dynamic>;
@@ -89,6 +96,7 @@ class ContentLoader {
       examInfo: ExamInfo.fromJson(catalog['exam'] as Map<String, dynamic>),
       examPrep: examPrep,
       regulations: regulations,
+      riskWorkshop: riskWorkshop,
       mile2Outline: await outline('mile2Outline'),
       orsysOutline: await outline('orsysOutline'),
       orsysPlusOutline: await outline('orsysPlusOutline'),
@@ -212,6 +220,7 @@ class ContentLoader {
       }
     }
     validateRegulations(library.regulations, lessonIds);
+    validateRiskWorkshop(library.riskWorkshop);
     final seen = <String>{};
 
     void unique(String id) {
@@ -534,6 +543,55 @@ void validateRegulations(Regulations regs, Set<String> lessonIds) {
       if (!lessonIds.contains(id)) {
         throw FormatException('$where : leçon inconnue $id');
       }
+    }
+  }
+}
+
+/// Atelier risques : échelles complètes de 1 à 4, identifiants uniques,
+/// notes dans les échelles, mesure de l'annexe A au bon format, risque
+/// résiduel plus faible que le risque initial, textes dans les deux langues.
+void validateRiskWorkshop(RiskWorkshop w) {
+  if (w.scenarios.isEmpty) return;
+  for (final scale in [w.likelihoodScale, w.impactScale]) {
+    if (scale.map((s) => s.level).toList().join() != '1234') {
+      throw const FormatException('Atelier risques : échelle 1 à 4 attendue');
+    }
+  }
+  final ids = <String>{};
+  final ref = RegExp(r'^A\.[5-8]\.\d{1,2}$');
+  for (final s in w.scenarios) {
+    final where = 'Scénario ${s.id}';
+    if (!ids.add(s.id)) throw FormatException('$where : identifiant en double');
+    for (final n in [
+      s.likelihood,
+      s.impact,
+      s.residualLikelihood,
+      s.residualImpact,
+    ]) {
+      if (n < 1 || n > 4) throw FormatException('$where : note hors échelle');
+    }
+    if (s.residualScore >= s.score) {
+      throw FormatException('$where : le risque résiduel doit baisser');
+    }
+    if (!ref.hasMatch(s.control.ref)) {
+      throw FormatException('$where : mesure ${s.control.ref} invalide');
+    }
+    if (s.criteria.isEmpty ||
+        s.criteria.any((c) => !const {'C', 'I', 'D'}.contains(c))) {
+      throw FormatException('$where : critères C, I, D attendus');
+    }
+    final texts = [
+      s.asset,
+      s.threat,
+      s.vulnerability,
+      s.consequence,
+      s.control.title,
+      s.action,
+      s.owner,
+      s.explanation,
+    ];
+    if (texts.any((t) => t.fr.trim().isEmpty || t.en.trim().isEmpty)) {
+      throw FormatException('$where : texte manquant en français ou anglais');
     }
   }
 }

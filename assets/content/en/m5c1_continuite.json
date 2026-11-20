@@ -582,6 +582,12 @@
      ]
     },
     {
+     "type": "definition",
+     "title": "Emergency Operations Center (centre des opérations d'urgence)",
+     "text": "Physical or virtual place from which the crisis team runs the response: decisions, action tracking, crisis communication to staff, customers, authorities and the media. It is planned in advance, equipped and usable even if the main site or email is unavailable.",
+     "kind": "general"
+    },
+    {
      "type": "important",
      "title": "Returning to the primary site",
      "text": "The return is prepared like a recovery: the least critical functions go back first, to check that the primary site is safe and stable, then the most critical ones are switched over. The disaster is only over when normal activity has resumed at the primary site."
@@ -654,6 +660,11 @@
       "Include plan updates in change management.",
       "Keep copies off site and accessible even without the information system."
      ]
+    },
+    {
+     "type": "important",
+     "title": "One owner and controlled copies",
+     "text": "The plan has a named owner responsible for keeping it up to date. Each version is numbered and approved; the list of distributed copies (controlled copies) makes it possible to replace old versions everywhere. On the day of the disaster, everyone must have the same, correct version."
     },
     {
      "type": "memo",

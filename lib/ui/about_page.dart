@@ -492,6 +492,32 @@ String frenchDate(String iso) {
 /// la version ; la première entrée porte toujours [appVersion].
 const appNews = <(String, String, List<String>)>[
   (
+    '1.8.0',
+    '20/11/2026',
+    [
+      'Atelier risques (Cours et chapitre Gestion des risques) : les 30 '
+          'scénarios de ta matrice ISO 27005, corrigés, sur une matrice '
+          '4 × 4 avant et après traitement, avec l\'ALE initiale, '
+          'résiduelle et le gain ; et des études de cas corrigées '
+          '(vraisemblance, gravité, mesure de l\'annexe A, calcul de '
+          'l\'ALE), en français et en anglais.',
+      'Modules 9, 10 et 11 enrichis à partir de tes cartes mentales, en '
+          'français et en anglais : méthodes de développement, vérification '
+          'et validation, développement externalisé, retrait, CWE, failles de '
+          'logique métier, référentiels de codage sécurisé, code des '
+          'assistants d\'IA, renseignement sur les menaces, outils du SOC '
+          '(SIEM, IDS/IPS, EDR, NDR, SOAR), centre de crise, copies '
+          'contrôlées, criminalité informatique, CVE et CVSS, encadrement '
+          'des fournisseurs, règlement ou référentiel, maturité des '
+          'contrôles et préparation à l\'audit.',
+      'Cartes mentales des modules 9, 10 et 11 complétées avec tes cartes '
+          'de révision (traduites, anglais en dessous).',
+      'Glossaire : NDR, renseignement sur les menaces, entiercement du '
+          'code source, vérification et validation, centre des opérations '
+          'd\'urgence (EOC).',
+    ],
+  ),
+  (
     '1.7.0',
     '20/11/2026',
     [
