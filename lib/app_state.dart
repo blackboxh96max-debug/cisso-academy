@@ -180,7 +180,7 @@ class AppState extends ChangeNotifier {
 
   /// Thème de l'application (polices, couleurs, dessins, tableaux).
   String get lookId => _look;
-  String _look = 'cahier';
+  String _look = 'moderne';
 
   Future<void> setLook(String id) async {
     _look = id;
@@ -221,7 +221,7 @@ class AppState extends ChangeNotifier {
       _ => CourseView.mile2,
     };
     _mascot = await store.setting('mascot') ?? 'cybi';
-    _look = await store.setting('look') ?? 'cahier';
+    _look = await store.setting('look') ?? 'moderne';
     _english = await store.setting('lessonLanguage') == 'en';
     final brightness = await store.setting('brightness');
     _brightness = ThemeMode.values.firstWhere(

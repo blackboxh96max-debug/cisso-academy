@@ -107,13 +107,13 @@ class AppLook {
   final bool darkOnly;
 
   /// Thème en cours d'affichage.
-  static AppLook active = cahier;
+  static AppLook active = moderne;
 
   /// Les thèmes proposés, dans l'ordre du choix.
   static const all = [cahier, classique, moderne, terminal, lecture];
 
   static AppLook byId(String? id) =>
-      all.firstWhere((l) => l.id == id, orElse: () => cahier);
+      all.firstWhere((l) => l.id == id, orElse: () => moderne);
 
   Paper paper(Brightness b) =>
       darkOnly || b == Brightness.dark ? paperDark : paperLight;
