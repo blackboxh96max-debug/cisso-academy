@@ -1,6 +1,8 @@
-# TEST : emballe le build Windows Flutter (exe + DLL + data\) dans un seul .exe
+# Emballe le build Windows Flutter (exe + DLL + data\) dans un seul .exe
 # avec Enigma Virtual Box. Les fichiers restent dans l'exe et sont lus en
 # mémoire (virtualisation des API fichiers), rien n'est extrait sur le disque.
+# Les fichiers virtualisés sont compressés (CompressFiles) : exe plus petit et
+# contenu (JSON du cours, polices) non lisible tel quel dans l'exe.
 param(
   [Parameter(Mandatory = $true)] [string] $ReleaseDir,
   [Parameter(Mandatory = $true)] [string] $OutputExe,
@@ -55,7 +57,7 @@ $project = @"
   <Files>
     <Enabled>True</Enabled>
     <DeleteExtractedOnExit>False</DeleteExtractedOnExit>
-    <CompressFiles>False</CompressFiles>
+    <CompressFiles>True</CompressFiles>
     <Files>
       <File>
         <Type>3</Type>
