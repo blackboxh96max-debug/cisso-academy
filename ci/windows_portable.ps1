@@ -1,8 +1,8 @@
 # Emballe le build Windows Flutter (exe + DLL + data\) dans un seul .exe
 # avec Enigma Virtual Box. Les fichiers restent dans l'exe et sont lus en
 # mémoire (virtualisation des API fichiers), rien n'est extrait sur le disque.
-# Les fichiers virtualisés sont compressés (CompressFiles) : exe plus petit et
-# contenu (JSON du cours, polices) non lisible tel quel dans l'exe.
+# CompressFiles=False : fichiers non compressés. La compression, combinée à
+# l'empaquetage, faisait ressembler l'exe à un malware pour l'EDR (TEHTRIS).
 param(
   [Parameter(Mandatory = $true)] [string] $ReleaseDir,
   [Parameter(Mandatory = $true)] [string] $OutputExe,
@@ -57,7 +57,7 @@ $project = @"
   <Files>
     <Enabled>True</Enabled>
     <DeleteExtractedOnExit>False</DeleteExtractedOnExit>
-    <CompressFiles>True</CompressFiles>
+    <CompressFiles>False</CompressFiles>
     <Files>
       <File>
         <Type>3</Type>
