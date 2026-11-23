@@ -492,6 +492,16 @@ String frenchDate(String iso) {
 /// la version ; la première entrée porte toujours [appVersion].
 const appNews = <(String, String, List<String>)>[
   (
+    '1.9.0',
+    '23/11/2026',
+    [
+      'Le thème Moderne devient le thème par défaut (police arrondie, '
+          'couleurs vives, cartes arrondies). Si tu avais déjà choisi un '
+          'thème dans le menu, ton choix est conservé ; les autres thèmes '
+          '(Cahier, Classique, Terminal, Lecture) restent disponibles.',
+    ],
+  ),
+  (
     '1.8.0',
     '20/11/2026',
     [

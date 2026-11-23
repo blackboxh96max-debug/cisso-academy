@@ -11,8 +11,8 @@ final _themes = <(String, Brightness), ThemeData>{};
 ThemeData cachedTheme(AppLook look, Brightness brightness) =>
     _themes[(look.id, brightness)] ??= buildTheme(brightness, look);
 
-/// Thème Material du thème de lecture [look] (le cahier par défaut).
-ThemeData buildTheme(Brightness brightness, [AppLook look = AppLook.cahier]) {
+/// Thème Material du thème de lecture [look] (le moderne par défaut).
+ThemeData buildTheme(Brightness brightness, [AppLook look = AppLook.moderne]) {
   if (look.darkOnly) brightness = Brightness.dark;
   final paper = look.paper(brightness);
   final base = ColorScheme.fromSeed(

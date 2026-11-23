@@ -94,6 +94,9 @@ void main() {
       -300,
       scrollable: find.byType(Scrollable).last,
     );
+    // Éloigne le menu du bord haut (sous la barre de titre selon le thème).
+    await tester.drag(find.byType(Scrollable).last, const Offset(0, 200));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('L\'examen'));
     await tester.pumpAndSettle();
     final info = library.examInfo;

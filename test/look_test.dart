@@ -15,7 +15,7 @@ void main() {
   late ContentLibrary library;
 
   setUpAll(() async => library = await loadRealContent());
-  tearDown(() => AppLook.active = AppLook.cahier);
+  tearDown(() => AppLook.active = AppLook.moderne);
 
   Future<AppState> pumpApp(
     WidgetTester tester, {
@@ -50,7 +50,7 @@ void main() {
       AppLook.all.map((l) => l.toneEmojis[Tone.red]).toSet().length,
       greaterThanOrEqualTo(4),
     );
-    expect(AppLook.byId('inconnu'), AppLook.cahier);
+    expect(AppLook.byId('inconnu'), AppLook.moderne);
   });
 
   test('le thème actif change polices, couleurs, émojis et tracé', () {
