@@ -6,6 +6,7 @@ import 'package:cisso_academy/models/content.dart';
 import 'package:cisso_academy/ui/assistant_page.dart';
 import 'package:cisso_academy/ui/mascot.dart';
 import 'package:cisso_academy/ui/mascot_characters.dart';
+import 'package:cisso_academy/ui/notebook/look.dart';
 import 'package:cisso_academy/ui/theme.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
@@ -23,13 +24,16 @@ void main() {
     tester.view.physicalSize = const Size(800, 1720);
     tester.view.devicePixelRatio = 2;
     addTearDown(tester.view.reset);
+    // Mise en page de référence du test : le thème Cahier.
+    AppLook.active = AppLook.cahier;
+    addTearDown(() => AppLook.active = AppLook.moderne);
     final state = AppState(library: library, store: MemoryProgressStore());
     await tester.runAsync(state.refresh);
     await tester.pumpWidget(
       AppScope(
         state: state,
         child: MaterialApp(
-          theme: buildTheme(Brightness.light),
+          theme: buildTheme(Brightness.light, AppLook.cahier),
           builder: (context, child) => MediaQuery(
             data: MediaQuery.of(context).copyWith(disableAnimations: reduced),
             child: child!,
